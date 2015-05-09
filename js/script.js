@@ -1,5 +1,8 @@
 (function($){
-  var toTop = $('#toTop').offset().top - $(window).height() + 20;
+  // Nav bar toggle
+  $('#main-nav-toggle').on('click', function(){
+    $('.nav-container-inner').slideToggle();
+  });
 
   // Share
   $('body').on('click', function(){
@@ -25,10 +28,10 @@
         '<div id="' + id + '" class="article-share-box">',
           '<input class="article-share-input" value="' + url + '">',
           '<div class="article-share-links">',
-            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
           '</div>',
         '</div>'
       ].join('');
@@ -76,31 +79,8 @@
     $('.fancybox').fancybox();
   }
 
-  // Profile card
-  $(document).on('click', function () {
-    $('#profile').removeClass('card');
-  }).on('click', '#profile-anchor', function (e) {
-    e.stopPropagation();
-    $('#profile').toggleClass('card');
-  }).on('click', '.profile-inner', function (e) {
-    e.stopPropagation();
-  });
-
-  // To Top
-  $(document).on('scroll', function () {
-    if ($(document).width() >= 800) {
-      if($(this).scrollTop() > toTop) {
-        $('#toTop').addClass('fix');
-        $('#toTop').css('left', $('#sidebar').offset().left);
-      } else {
-        $('#toTop').removeClass('fix');
-      }
-    } else {
-      $('#toTop').addClass('fix');
-      $('#toTop').css('right', 20);
-    }
-  }).on('click', '#toTop', function () {
-    $(document).scrollTop(0);
-  });
-
+  //Back to top
+  $("#back-to-top").on('click', function(){  
+    $('body,html').animate({scrollTop:0}, 600);
+  }); 
 })(jQuery);
