@@ -143,7 +143,7 @@ other
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#连续随机变量（continuous_random_variable）"><span class="toc-number">1.</span> <span class="toc-text">连续随机变量（continuous random variable）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目录"><span class="toc-number">1.1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">1.2.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#均匀分布（uniform_distribution）"><span class="toc-number">1.3.</span> <span class="toc-text">均匀分布（uniform distribution）</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#连续随机变量（continuous_random_variable）"><span class="toc-number">1.</span> <span class="toc-text">连续随机变量（continuous random variable）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目录"><span class="toc-number">1.1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">1.2.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#均匀分布（uniform_distribution）"><span class="toc-number">1.3.</span> <span class="toc-text">均匀分布（uniform distribution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高斯分布（Gaussian_Distribution）"><span class="toc-number">1.4.</span> <span class="toc-text">高斯分布（Gaussian Distribution）</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -191,13 +191,32 @@ other
 <p>这里的连续随机变量主要包括：均匀概率分布、高斯分布、Gamma分布等</p>
 </blockquote>
 <p>—</p>
-<h3 id="均匀分布（uniform_distribution）">均匀分布（uniform distribution）</h3><p>—<br>假设有一个随机数生成器，产生[a, b]之间的实数X（a&lt;b），每个实数值出现的概率相等，这样的分布被称为均匀分布。那么，随机变量$$X$$服从区间\([a,b]\)上的均匀分布，记作\(X \sim U(a,b)\)。该类型的随机变量称作<strong>均匀随机变量</strong>。</p>
+<h3 id="均匀分布（uniform_distribution）">均匀分布（uniform distribution）</h3><p>—<br>假设有一个随机数生成器，产生\([a, b]\)之间的实数\(X)\)（\(a&lt;b\)），每个实数值出现的概率相等，这样的分布被称为均匀分布。那么，随机变量\(X\)服从区间\([a,b]\)上的均匀分布，记作\(X \sim U(a,b)\)。该类型的随机变量称作<strong>均匀随机变量</strong>。</p>
 <blockquote>
 <p>随机变量\(X\)的密度函数用图可表示为一个长方形，长方形的高是\(1\,/\,(b-a)\)，以保证长方形的面积等于1.</p>
 </blockquote>
 <ul>
 <li>均匀随机变量X的<strong>概率密度函数（PDF）</strong>为：</li>
 </ul>
+<p>$$<br>f(x)=\left{<br>\begin{gather}<br>\frac {1}{b-a}, \quad a \leq x \leq b \<br>0, \qquad\; others<br>\end{gather}<br>\right.<br>$$</p>
+<ul>
+<li>均匀随机变量X的<strong>累积分布函数（CDF）</strong>本身就表示随机变量在\([-\infty, x]\)区间上的概率，是概率密度函数在\([-\infty, x]\)区间上的积分，公式如下：</li>
+</ul>
+<p>$$<br>F(x)=P(X \leq x)=\int_{-\infty}^{x}f(t)dt=\left{<br>\begin{aligned}<br>0, \qquad -\infty &lt; x &lt; a \<br>\frac {x-a}{b-a}, \qquad a \leq x \leq b \<br>1, \qquad\;\; b &lt; x &lt; \infty<br>\end{aligned}<br>\right.<br>$$</p>
+<ul>
+<li>均匀随机变量X的<strong>期望</strong>：</li>
+</ul>
+<p>$$<br>E(X)=\frac {a+b}{2}<br>$$</p>
+<ul>
+<li>均匀随机变量X的<strong>方差</strong>：</li>
+</ul>
+<p>$$<br>D(X)=E(X^2)-E^2(X)=\frac {(b-a)^2}{12}<br>$$</p>
+<hr>
+<h3 id="高斯分布（Gaussian_Distribution）">高斯分布（Gaussian Distribution）</h3><hr>
+<ul>
+<li>概率密度函数</li>
+</ul>
+<p>$$<br>f(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x-\mu)^2}{2 \sigma^2} \right)<br>$$</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -247,7 +266,7 @@ other
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#连续随机变量（continuous_random_variable）"><span class="toc-number">1.</span> <span class="toc-text">连续随机变量（continuous random variable）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目录"><span class="toc-number">1.1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">1.2.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#均匀分布（uniform_distribution）"><span class="toc-number">1.3.</span> <span class="toc-text">均匀分布（uniform distribution）</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#连续随机变量（continuous_random_variable）"><span class="toc-number">1.</span> <span class="toc-text">连续随机变量（continuous random variable）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目录"><span class="toc-number">1.1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">1.2.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#均匀分布（uniform_distribution）"><span class="toc-number">1.3.</span> <span class="toc-text">均匀分布（uniform distribution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高斯分布（Gaussian_Distribution）"><span class="toc-number">1.4.</span> <span class="toc-text">高斯分布（Gaussian Distribution）</span></a></li></ol></li></ol>
  
   </div>
 
