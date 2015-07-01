@@ -94,11 +94,11 @@
 </header>
     <div class="article-content">
         
-        <h2 id="大括号分段函数{">大括号分段函数<code>{</code></h2><p>$$<br>f(x)=<br>\begin{cases}<br>0, &amp; x &lt; 0 \\<br>\frac {1}{b-a}, &amp; x \geq 0<br>\end{cases}<br>$$</p>
+        <h2 id="大括号分段函数\quad{">大括号分段函数\quad<strong><code>{</code></strong></h2><p>$$<br>f(x)=<br>\begin{cases}<br>0, &amp; x &lt; 0 \\<br>\frac {1}{b-a}, &amp; x \geq 0<br>\end{cases}<br>$$</p>
 <p>字体大小不一致,使用<code>\displaystyle</code>调整</p>
 <p>$$<br>f(x)=<br>\begin{cases}<br>0, &amp; x &lt; 0 \\<br>\displaystyle\frac {1}{b-a}, &amp; x \geq 0<br>\end{cases}<br>$$</p>
 <p>间距调整,使用<code>\,</code>或<code>\;</code>或<code>\quad</code>或<code>\qquad</code>符号</p>
-<p>$$<br>f(x)=<br>\begin{cases}<br>\quad0, &amp; x &lt; 0 \\<br>\displaystyle\frac {1}{b-a}, &amp; x \geq 0<br>\end{cases}<br>$$</p>
+<p>$$<br>f(x)=<br>\begin{cases}<br>\;\; 0, &amp; x &lt; 0 \\<br>\displaystyle\frac {1}{b-a}, &amp; x \geq 0<br>\end{cases}<br>$$</p>
 <blockquote>
 <p>注：公式间换行时，应使用<code>\\\</code>,非<code>\\</code>, 第一个<code>\</code>是转义字符。</p>
 </blockquote>
@@ -204,11 +204,11 @@
 <ul>
 <li>均匀随机变量X的<strong>概率密度函数（PDF）</strong>为：</li>
 </ul>
-<p>$$<br>f(x)=<br>\begin{cases}<br>\frac {1}{b-a}, &amp; a \leq x \leq b \\<br>0, &amp; others<br>\end{cases}<br>$$</p>
+<p>$$<br>f(x)=<br>\begin{cases}<br>\displaystyle\frac {1}{b-a}, &amp; a \leq x \leq b \\<br>\quad0, &amp; others<br>\end{cases}<br>$$</p>
 <ul>
 <li>均匀随机变量X的<strong>累积分布函数（CDF）</strong>本身就表示随机变量在\([-\infty, x]\)区间上的概率，是概率密度函数在\([-\infty, x]\)区间上的积分，公式如下：</li>
 </ul>
-<p>$$<br>F(x)=P(X \leq x)=\int_{-\infty}^{x}f(t)dt=<br>\begin{cases}<br>0, &amp; -\infty &lt; x &lt; a \\<br>\displaystyle\frac {x-a}{b-a}, &amp; a \leq x \leq b \\<br>1, &amp; b &lt; x &lt; \infty<br>\end{cases}<br>$$</p>
+<p>$$<br>F(x)=P(X \leq x)=\int_{-\infty}^{x}f(t)dt=<br>\begin{cases}<br>\quad0, &amp; -\infty &lt; x &lt; a \\<br>\displaystyle\frac {x-a}{b-a}, &amp; a \leq x \leq b \\<br>\quad1, &amp; b &lt; x &lt; \infty<br>\end{cases}<br>$$</p>
 <ul>
 <li>均匀随机变量X的<strong>期望</strong>：</li>
 </ul>
@@ -275,7 +275,7 @@
 </li>
 </ul>
 <h4 id="Gamma分布">Gamma分布</h4><ul>
-<li><p>概率密度函数:<br>$$<br>f(x)=<br>\begin{cases}<br>\displaystyle\frac {x^{\alpha-1} e^{x/\beta}} {\beta^\alpha \Gamma(\alpha)}, &amp; 0 \leq x \leq \infty; \alpha &gt; 0, \beta &gt; 0 \\<br>\qquad0, &amp; others<br>\end{cases}<br>$$</p>
+<li><p>概率密度函数:<br>$$<br>f(x)=<br>\begin{cases}<br>\displaystyle\frac {x^{\alpha-1} e^{x/\beta}} {\beta^\alpha \Gamma(\alpha)}, &amp; 0 \leq x \leq \infty; \alpha &gt; 0; \beta &gt; 0 \\<br>\;\;\quad 0, &amp; others<br>\end{cases}<br>$$</p>
 </li>
 <li><p>概率密度函数</p>
 </li>
