@@ -167,13 +167,13 @@
 </ul>
 <p>$$<br>f(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x-\mu)^2}{2 \sigma^2} \right)<br>$$</p>
 <hr>
-<h3 id="Gamma分布（伽马分布，又称$$\Gamma$$型概率分布）">Gamma分布（伽马分布，又称$$\Gamma$$型概率分布）</h3><hr>
+<h3 id="Gamma分布（伽马分布，又称\(\Gamma\)型概率分布）">Gamma分布（伽马分布，又称\(\Gamma\)型概率分布）</h3><hr>
 <p>在认识Gamma分布之前，我们先熟悉一下Gamma函数，在@52nlp的<a href="http://www.52nlp.cn/lda-math-%E7%A5%9E%E5%A5%87%E7%9A%84gamma%E5%87%BD%E6%95%B01" target="_blank" rel="external">神奇的Gamma函数</a>一文和<a href="http://baike.baidu.com/link?url=l_mNJgJzx9XbJKf4QBI2zBr3SrEzd6pqx1X-smju8t5vFmzB8xx8ynWew0-2dIrOf9iSuIl5wdaJnTlKFGZbs_" target="_blank" rel="external">百度百科－Gamma函数</a>中，讲的非常清楚。这里仅列出背景、核心公式和说明。</p>
 <h4 id="Gamma函数">Gamma函数</h4><ul>
 <li>历史由来</li>
 </ul>
-<p>1728年，<a href="http://baike.baidu.com/view/7386144.htm?fromtitle=%E5%93%A5%E5%BE%B7%E5%B7%B4%E8%B5%AB&amp;fromid=1632207&amp;type=syn" target="_blank" rel="external">哥德巴赫</a>（Goldbach C. 德国数学家，1690-1764）在考虑<strong>数列插值</strong>的问题，通俗的说就是把数列的通项公式定义<strong>从整数集合延伸至实数集合</strong>，例如数列1,4,9,16…..可以用通项公式$$n^2$$自然的表达，即便$$n$$为实数的时候，这个通项公式也可以良好定义。</p>
-<p>直观地说，就是可以找到一条平滑的曲线$$f(x)=x^2$$通过所有的整数点$$[x, x^2]$$，从而可以把定义在整数集上的公式延伸至实数集合。一天哥德巴赫开始处理<strong>阶乘序列</strong>$$1,2,6,24,120,720,\cdots$$，我们可以计算$$$2!,3!$$,是否可以计算$$2.5!$$呢？</p>
+<p>1728年，<a href="http://baike.baidu.com/view/7386144.htm?fromtitle=%E5%93%A5%E5%BE%B7%E5%B7%B4%E8%B5%AB&amp;fromid=1632207&amp;type=syn" target="_blank" rel="external">哥德巴赫</a>（Goldbach C. 德国数学家，1690-1764）在考虑<strong>数列插值</strong>的问题，通俗的说就是把数列的通项公式定义<strong>从整数集合延伸至实数集合</strong>，例如数列1,4,9,16…..可以用通项公式\(n^2\)自然的表达，即便\(n\)为实数的时候，这个通项公式也可以良好定义。</p>
+<p>直观地说，就是可以找到一条平滑的曲线\(f(x)=x^2\)通过所有的整数点\([x, x^2]\)，从而可以把定义在整数集上的公式延伸至实数集合。一天哥德巴赫开始处理<strong>阶乘序列</strong>\(1,2,6,24,120,720,\cdots\)，我们可以计算\(2!,3!\),是否可以计算\(2.5!\)呢？</p>
 <p>遗憾的是，哥德巴赫当时无法解决<strong>阶乘的计算从整数集合延伸至实数集合上</strong>的问题，于是写信请教尼古拉斯.伯努利和其弟丹尼尔.伯努利，由于欧拉当时与丹尼尔.伯努利在一起，因此也得知了该问题。而欧拉与1729年完美的解决了这个问题，由此导致Gamma函数的诞生，当时的欧拉只有22岁。</p>
 <ul>
 <li>核心公式</li>
