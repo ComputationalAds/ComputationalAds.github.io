@@ -146,7 +146,7 @@ other
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#连续随机变量（continuous_random_variable）"><span class="toc-number">1.</span> <span class="toc-text">连续随机变量（continuous random variable）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目录"><span class="toc-number">1.1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">1.2.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#均匀分布（uniform_distribution）"><span class="toc-number">1.3.</span> <span class="toc-text">均匀分布（uniform distribution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高斯分布（Gaussian_Distribution）"><span class="toc-number">1.4.</span> <span class="toc-text">高斯分布（Gaussian Distribution）</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#连续随机变量（continuous_random_variable）"><span class="toc-number">1.</span> <span class="toc-text">连续随机变量（continuous random variable）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目录"><span class="toc-number">1.1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">1.2.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#均匀分布（uniform_distribution）"><span class="toc-number">1.3.</span> <span class="toc-text">均匀分布（uniform distribution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高斯分布（Gaussian_Distribution）"><span class="toc-number">1.4.</span> <span class="toc-text">高斯分布（Gaussian Distribution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gamma分布（伽马分布，又称$$\Gamma$$型概率分布）"><span class="toc-number">1.5.</span> <span class="toc-text">Gamma分布（伽马分布，又称$$\Gamma$$型概率分布）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Gamma函数"><span class="toc-number">1.5.1.</span> <span class="toc-text">Gamma函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Gamma分布"><span class="toc-number">1.5.2.</span> <span class="toc-text">Gamma分布</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
@@ -222,6 +222,60 @@ other
 <li>概率密度函数</li>
 </ul>
 <p>$$<br>f(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x-\mu)^2}{2 \sigma^2} \right)<br>$$</p>
+<hr>
+<h3 id="Gamma分布（伽马分布，又称$$\Gamma$$型概率分布）">Gamma分布（伽马分布，又称$$\Gamma$$型概率分布）</h3><hr>
+<p>在认识Gamma分布之前，我们先熟悉一下Gamma函数，在@52nlp的<a href="http://www.52nlp.cn/lda-math-%E7%A5%9E%E5%A5%87%E7%9A%84gamma%E5%87%BD%E6%95%B01" target="_blank" rel="external">神奇的Gamma函数</a>一文和<a href="http://baike.baidu.com/link?url=l_mNJgJzx9XbJKf4QBI2zBr3SrEzd6pqx1X-smju8t5vFmzB8xx8ynWew0-2dIrOf9iSuIl5wdaJnTlKFGZbs_" target="_blank" rel="external">百度百科－Gamma函数</a>中，讲的非常清楚。这里仅列出背景、核心公式和说明。</p>
+<h4 id="Gamma函数">Gamma函数</h4><ul>
+<li>历史由来</li>
+</ul>
+<p>1728年，<a href="http://baike.baidu.com/view/7386144.htm?fromtitle=%E5%93%A5%E5%BE%B7%E5%B7%B4%E8%B5%AB&amp;fromid=1632207&amp;type=syn" target="_blank" rel="external">哥德巴赫</a>（Goldbach C. 德国数学家，1690-1764）在考虑<strong>数列插值</strong>的问题，通俗的说就是把数列的通项公式定义<strong>从整数集合延伸至实数集合</strong>，例如数列1,4,9,16…..可以用通项公式$$n^2$$自然的表达，即便$$n$$为实数的时候，这个通项公式也可以良好定义。</p>
+<p>直观地说，就是可以找到一条平滑的曲线$$f(x)=x^2$$通过所有的整数点$$[x, x^2]$$，从而可以把定义在整数集上的公式延伸至实数集合。一天哥德巴赫开始处理<strong>阶乘序列</strong>$$1,2,6,24,120,720,\cdots$$，我们可以计算$$$2!,3!$$,是否可以计算$$2.5!$$呢？</p>
+<p>遗憾的是，哥德巴赫当时无法解决<strong>阶乘的计算从整数集合延伸至实数集合上</strong>的问题，于是写信请教尼古拉斯.伯努利和其弟丹尼尔.伯努利，由于欧拉当时与丹尼尔.伯努利在一起，因此也得知了该问题。而欧拉与1729年完美的解决了这个问题，由此导致Gamma函数的诞生，当时的欧拉只有22岁。</p>
+<ul>
+<li>核心公式</li>
+</ul>
+<p>（未完继续…）</p>
+<ul>
+<li><p>数学家的成就</p>
+<ul>
+<li><p>哥德巴赫</p>
+<blockquote>
+<p>哥德巴赫 于1690年3月18日出生于德国（当时是普鲁士）哥尼斯堡的一个富裕家庭。早年在英国牛津大学学习法学。由于喜欢到处旅游，在欧洲各国访问期间结交了伯努利家族，由此对数学产生兴趣。后来又结交了像欧拉等很多著名数学家，并与他们通信交流问题。他在数学上的研究以<strong>数论</strong>为主。</p>
+<ol>
+<li><p>1728年，提出了实数集上的数列差值问题，该问题在1929年由欧拉解决，并诞生了著名的Gamma函数。</p>
+</li>
+<li><p>1742年6月7日，在与好友欧拉的一封信中陈述了著名的<strong>哥德巴赫猜想</strong>：任一大于2的偶数都可以写成两个质数之和。</p>
+</li>
+</ol>
+</blockquote>
+</li>
+<li><p>伯努利</p>
+</li>
+<li><p>欧拉</p>
+<blockquote>
+<p>莱昂哈德·欧拉（Leonhard Euler ，1707年4月15日～1783年9月18日），瑞士数学家、自然科学家。1707年出生于瑞士－巴塞尔的牧师家庭，15岁从巴塞尔大学毕业，翌年获得硕士学位。</p>
+<p>欧拉是18世纪数学界最杰出的人物之一，不仅在数学界做出伟大贡献，而且把数学应用到了几乎整个物理领域。简述其成就：</p>
+<ol>
+<li><p><strong><em>微分方程</em></strong>: 18世纪中叶，欧拉与其它数学家在解决物理问题过程中，创立了<strong>微分方程</strong>学科。偏微分方程的纯数学研究的第一篇论文是欧拉写的《方程的积分法研究》。此外，还提出了<strong>函数用三角级数表示</strong>的方法和<strong>解微分方程的级数法</strong>等。</p>
+</li>
+<li><p><strong><em>微分几何学</em></strong>：引入了空间曲线的参数方程，给出了空间曲线曲率半径的解析表达式；1766年出版了《关于曲面上曲线的研究》，建立了<strong>曲面理论</strong>，是微分几何发展史上的里程碑。</p>
+</li>
+<li><p><strong><em>分析学</em></strong>：1729年引入了<strong>Gamma函数和Beta函数</strong>，证明了椭圆积分的加法定理，最早引入了<strong>二重积分</strong>。</p>
+</li>
+<li><p><strong><em>数论</em></strong>：欧拉的一系列成果奠定了该数学分支。</p>
+</li>
+</ol>
+<p>后人这样评价欧拉：</p>
+<p>著名数学家拉普拉斯（Laplace）说：“读读欧拉，他是所有人的老师”。</p>
+<p>数学史上公认的4名最伟大的数学家分别是：<strong>阿基米德、牛顿、欧拉和高斯</strong>。阿基米德有“翘起地球”的豪言壮语，牛顿因为苹果闻名世界，高斯少年时就显露出计算天赋，唯独欧拉没有戏剧性的故事让人印象深刻。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Gamma分布">Gamma分布</h4><ul>
+<li>概率密度函数</li>
+</ul>
 <p>表格(改日修改语法)</p>
 <p>$$<br>\begin{array}{c|lcr}<br>n &amp; \text{Left} &amp; \text{Center} &amp; \text{Right} \<br>\hline<br>1 &amp; 0.24 &amp; 1 &amp; 125 \<br>2 &amp; -1 &amp; 189 &amp; -8 \<br>3 &amp; -20 &amp; 2000 &amp; 1+10i \<br>\end{array}<br>$$</p>
 <p>$$<br>f(x)=<br>\begin{cases}<br>n/2, &amp; \text{if \(n\) is even} \<br>3n+1, &amp; \text{if \(n\) is odd}<br>\end{cases}<br>$$</p>
@@ -275,7 +329,7 @@ other
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#连续随机变量（continuous_random_variable）"><span class="toc-number">1.</span> <span class="toc-text">连续随机变量（continuous random variable）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目录"><span class="toc-number">1.1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">1.2.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#均匀分布（uniform_distribution）"><span class="toc-number">1.3.</span> <span class="toc-text">均匀分布（uniform distribution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高斯分布（Gaussian_Distribution）"><span class="toc-number">1.4.</span> <span class="toc-text">高斯分布（Gaussian Distribution）</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#连续随机变量（continuous_random_variable）"><span class="toc-number">1.</span> <span class="toc-text">连续随机变量（continuous random variable）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目录"><span class="toc-number">1.1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">1.2.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#均匀分布（uniform_distribution）"><span class="toc-number">1.3.</span> <span class="toc-text">均匀分布（uniform distribution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高斯分布（Gaussian_Distribution）"><span class="toc-number">1.4.</span> <span class="toc-text">高斯分布（Gaussian Distribution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gamma分布（伽马分布，又称$$\Gamma$$型概率分布）"><span class="toc-number">1.5.</span> <span class="toc-text">Gamma分布（伽马分布，又称$$\Gamma$$型概率分布）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Gamma函数"><span class="toc-number">1.5.1.</span> <span class="toc-text">Gamma函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Gamma分布"><span class="toc-number">1.5.2.</span> <span class="toc-text">Gamma分布</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
