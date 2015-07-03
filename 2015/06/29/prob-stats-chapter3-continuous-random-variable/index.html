@@ -226,13 +226,13 @@ other
 <h3 id="Gamma分布（伽马分布，又称\(\Gamma\)型概率分布）">Gamma分布（伽马分布，又称\(\Gamma\)型概率分布）</h3><hr>
 <p>在认识Gamma分布之前，我们先熟悉一下Gamma函数，在@52nlp的<a href="http://www.52nlp.cn/lda-math-%E7%A5%9E%E5%A5%87%E7%9A%84gamma%E5%87%BD%E6%95%B01" target="_blank" rel="external">神奇的Gamma函数</a>一文和<a href="http://baike.baidu.com/link?url=l_mNJgJzx9XbJKf4QBI2zBr3SrEzd6pqx1X-smju8t5vFmzB8xx8ynWew0-2dIrOf9iSuIl5wdaJnTlKFGZbs_" target="_blank" rel="external">百度百科－Gamma函数</a>中，讲的非常清楚。这里仅列出背景、核心公式和说明。</p>
 <h4 id="Gamma函数">Gamma函数</h4><ul>
-<li>历史由来</li>
+<li><strong>历史由来</strong></li>
 </ul>
 <p>1728年，<a href="http://baike.baidu.com/view/7386144.htm?fromtitle=%E5%93%A5%E5%BE%B7%E5%B7%B4%E8%B5%AB&amp;fromid=1632207&amp;type=syn" target="_blank" rel="external">哥德巴赫</a>（Goldbach C. 德国数学家，1690-1764）在考虑<strong>数列插值</strong>的问题，通俗的说就是把数列的通项公式定义<strong>从整数集合延伸至实数集合</strong>，例如数列1,4,9,16…..可以用通项公式\(n^2\)自然的表达，即便\(n\)为实数的时候，这个通项公式也可以良好定义。</p>
 <p>直观地说，就是可以找到一条平滑的曲线\(f(x)=x^2\)通过所有的整数点\([x, x^2]\)，从而可以把定义在整数集上的公式延伸至实数集合。一天哥德巴赫开始处理<strong>阶乘序列</strong>\(1,2,6,24,120,720,\cdots\)，我们可以计算\(2!,3!\),是否可以计算\(2.5!\)呢？</p>
 <p>遗憾的是，哥德巴赫当时无法解决<strong>阶乘的计算从整数集合延伸至实数集合上</strong>的问题，于是写信请教尼古拉斯.伯努利和其弟丹尼尔.伯努利，由于欧拉当时与丹尼尔.伯努利在一起，因此也得知了该问题。而欧拉与1729年完美的解决了这个问题，由此导致Gamma函数的诞生，当时的欧拉只有22岁。</p>
 <ul>
-<li>核心公式</li>
+<li><strong>Gamma函数发现之旅</strong></li>
 </ul>
 <p>最早发现\(n!\)差值计算的是丹尼尔.伯努利。他发现：如果\(m,n\)都是正整数，且\(m\to\infty\)，有下述公式成立：</p>
 <p>$$<br>\frac {1 \cdot 2 \cdot 3 \cdots m} {(1+n)(2+n) \cdots (m-1+n)} \left(m+ \frac{n}{2}\right)^{n-1} \to n!<br>$$</p>
@@ -241,11 +241,31 @@ other
 <p>$$<br>\left[\left(\frac{2}{1}\right)^n \frac{1}{n+1}\right] \left[\left(\frac{3}{2}\right)^n \frac{2}{n+2}\right]<br>\left[\left(\frac{4}{3}\right)^n \frac{3}{n+3}\right]<br>\cdots = n!<br>$$</p>
 <p>于是他用一些简单的例子做一些计算，寻找其规律。当\(n=1/2\)时，整理上式可得：</p>
 <p>$$<br>\left(\frac{1}{2}\right)!=\sqrt{\frac{2\cdot4}{3\cdot3} \cdot \frac{4\cdot6}{5\cdot5} \cdot \frac{6\cdot8}{7\cdot7} \cdot \frac{8\cdot10}{9\cdot9} \cdots}<br>$$</p>
-<p>此式恰好与著名的<a href="http://baike.baidu.com/link?url=FWbPfOA5BqiQxrCJ4KJnedzJRf6blsxbh2qn1XyGlPvUbGXufoVXf4xie6UMnWNUUAH2ewNaziQug2YzHQ9jpK" target="_blank" rel="external">Wallis公式</a>有关。Wallis公式是关于圆周率的无穷乘积的公式，Wallis在1665年使用<strong>插值方法</strong>计算半圆曲线\(y=\sqrt{x(1-x)}\)下的面积（即直径为1的半圆面积）时，发现\(\pi/4\)等于下式：</p>
+<p>此式恰好与著名的<a href="http://baike.baidu.com/link?url=FWbPfOA5BqiQxrCJ4KJnedzJRf6blsxbh2qn1XyGlPvUbGXufoVXf4xie6UMnWNUUAH2ewNaziQug2YzHQ9jpK" target="_blank" rel="external">Wallis公式</a>有关。</p>
+<p>注：\( \lim\limits_{k\to\infty} \left(\frac{2^{2k}(k!)^2}{2k!}\right)^2 \frac{1}{2k+1} = \frac{\pi}{2} \qquad（Wallis公式）\) </p>
+<p>Wallis公式是关于圆周率的无穷乘积的公式，Wallis在1665年使用<strong>插值方法</strong>计算半圆曲线\(y=\sqrt{x(1-x)}\)下的面积（即直径为1的半圆面积）时，发现\(\pi/4\)等于下式：</p>
 <p>$$<br>\frac{2\cdot4}{3\cdot3} \cdot \frac{4\cdot6}{5\cdot5} \cdot \frac{6\cdot8}{7\cdot7} \cdot \frac{8\cdot10}{9\cdot9} \cdots = \frac{\pi}{4}<br>$$</p>
 <p>于是欧拉根据Wallis公式得到如下的结果：</p>
 <p>$$<br>\left(\frac{1}{2}\right)! = \frac{\sqrt{\pi}}{2}<br>$$</p>
-<p>注：\( \lim\limits_{k\to\infty} \left(\frac{2^{2k}(k!)^2}{2k!}\right)^2 \frac{1}{2k+1} = \frac{\pi}{2} \qquad（Wallis公式）\)  </p>
+<p>欧拉发现\((\frac{1}{2})!\)中含有\(\pi\)，而\(\pi\)与圆相关的积分有关系。欧拉猜测\(n!\)一定可以用积分形式表示。</p>
+<p>Wallis时代微积分还没问世，当时是使用插值方式做推导计算的，但Wallis公式的推导过程基本上是在处理积分\(\int_{0}^{1} x^\frac{1}{2} (1-x)^\frac{1}{2} dx\)。受Wallis启发，欧拉开始考虑如下一般形式的积分：</p>
+<p>$$<br>J(e,n)=\int_{0}^{1} x^e(1-x)^n dx<br>$$</p>
+<p>这里，\(n\)为正整数，\(e\)为正实数。利用<strong>分部积分</strong>法，可得：</p>
+<p>$$<br>J(e,n)=\frac{n}{e+1}J(e+1, n-1)<br>$$</p>
+<p>重复迭代上式，可得：</p>
+<p>$$<br>J(e,n) = \frac {1\cdot2\cdot3\cdots n}{(e+1)(e+2)\cdots (e+n+1)}<br>$$</p>
+<p>于是欧拉得到如下重要的式子：</p>
+<p>$$<br>n!=(e+1)(e+2)\cdots (e+n+1) \int_{0}^{1} x^e(1-x)^n dx<br>$$</p>
+<p>接下来，欧拉使用一些计算技巧，即取\(e=f/g\) 且 \(f\to1, g\to0\)，然后对上式右边计算极限，得到如下简洁的结果：</p>
+<p>$$<br>n! = \int_{0}^{1}(-\log{t})^n dt<br>$$</p>
+<p>到此，欧拉成功地把\(n!\)表达为了积分形式！令\(t=e^{-u}\)，可得常见的Gamma函数形式：</p>
+<p>$$<br>n! = \int_{0}^{\infty} u^n e^{-u} du<br>$$</p>
+<p>注意，此时的\(n\)仍然为正整数，利用上式把<strong>阶乘延伸至实数集</strong>上，就得到Gamma函数的一般形式：</p>
+<p>$$<br>\Gamma(x)=\int<em>{0}^{1} (-\log t)^{x-1}dt = \int</em>{0}^{\infty} t^{x-1} e^{-t} dt<br>$$</p>
+<p>.</p>
+<ul>
+<li><strong>为什么</strong>\(\Gamma(n)=(n-1)!\)<strong>，而不是</strong>\(\Gamma(n)=n!\)</li>
+</ul>
 <p>（未完继续…）</p>
 <ul>
 <li><p>数学家的成就</p>
