@@ -163,10 +163,10 @@ Beta函数与Gamma函数的关系
 <li>第一型欧拉积分：又称为Beta函数（简称B函数）</li>
 <li>第二型欧拉积分：又称为Gamma函数</li>
 </ul>
-<h3 id="Gamma函数－第二型欧拉积分">Gamma函数－第二型欧拉积分</h3><p>之所以先介绍Gamma函数，主要原因是因为后面的函数可以表示用Gamma函数表示。</p>
+<h3 id="Gamma函数－第二型欧拉积分">Gamma函数－第二型欧拉积分</h3><p>之所以先介绍Gamma函数，主要原因是因为后面的函数可以表示用Gamma函数表示。<br><br></p>
 <h4 id="历史由来"><strong>历史由来</strong></h4><p>1728年，<a href="http://baike.baidu.com/view/7386144.htm?fromtitle=%E5%93%A5%E5%BE%B7%E5%B7%B4%E8%B5%AB&amp;fromid=1632207&amp;type=syn" target="_blank" rel="external">哥德巴赫</a>（Goldbach C. 德国数学家，1690-1764）在考虑<strong>数列插值</strong>的问题，通俗的说就是把数列的通项公式定义<strong>从整数集合延伸至实数集合</strong>，例如数列1,4,9,16…..可以用通项公式\(n^2\)自然的表达，即便\(n\)为实数的时候，这个通项公式也可以良好定义。</p>
 <p>直观地说，就是可以找到一条平滑的曲线\(f(x)=x^2\)通过所有的整数点\([x, x^2]\)，从而可以把定义在整数集上的公式延伸至实数集合。一天哥德巴赫开始处理<strong>阶乘序列</strong>\(1,2,6,24,120,720,\cdots\)，我们可以计算\(2!,3!\),是否可以计算\(2.5!\)呢？</p>
-<p>遗憾的是，哥德巴赫当时无法解决<strong>阶乘的计算从整数集合延伸至实数集合上</strong>的问题，于是写信请教尼古拉斯.伯努利和其弟丹尼尔.伯努利，由于欧拉当时与丹尼尔.伯努利在一起，因此也得知了该问题。而欧拉与1729年完美的解决了这个问题，由此导致Gamma函数的诞生，当时的欧拉只有22岁。</p>
+<p>遗憾的是，哥德巴赫当时无法解决<strong>阶乘的计算从整数集合延伸至实数集合上</strong>的问题，于是写信请教尼古拉斯.伯努利和其弟丹尼尔.伯努利，由于欧拉当时与丹尼尔.伯努利在一起，因此也得知了该问题。而欧拉与1729年完美的解决了这个问题，由此导致Gamma函数的诞生，当时的欧拉只有22岁。<br><br><br></p>
 <h4 id="Gamma函数发现之旅"><strong>Gamma函数发现之旅</strong></h4><p>最早发现\(n!\)差值计算的是丹尼尔.伯努利。他发现：如果\(m,n\)都是正整数，且\(m\to\infty\)，有下述公式成立：</p>
 <p>$$<br>\frac {1 \cdot 2 \cdot 3 \cdots m} {(1+n)(2+n) \cdots (m-1+n)} \left(m+ \frac{n}{2}\right)^{n-1} \to n!<br>$$</p>
 <p>用此<strong>无穷乘积</strong>的方式可以把\(n!\)定义延伸至实数集合。如\(n=2.5,m\)足够大时，上式基本可近似计算出\(2.5!\)的值。</p>
@@ -201,11 +201,10 @@ Beta函数与Gamma函数的关系
 <p>到此，欧拉成功地把\(n!\)表达为了积分形式！令\(t=e^{-u}\)，可得常见的Gamma函数形式：</p>
 <p>$$<br>n! = \int_{0}^{\infty} u^n e^{-u} du<br>$$</p>
 <p>注意，此时的\(n\)仍然为正整数，利用上式把<strong>阶乘延伸至实数集</strong>上，就得到Gamma函数的一般形式：</p>
-<p>$$<br>\Gamma(x) = \int<em>{0}^{1} (-\log t)^{x-1}dt = \int</em>{0}^{\infty} t^{x-1} e^{-t} dt<br>$$</p>
+<p>$$<br>\Gamma(x) = \int_{0}^{1} (-\log t)^{x-1}dt = \int_{0}^{\infty} t^{x-1} e^{-t} dt<br>$$</p>
 <blockquote>
-<p>注：使用MathJax引擎在浏览器上解析时，需要对<code>_</code>做转义，应写成下面形式：<br><br><br>\( \qquad<br>\Gamma(x) = \int_{0}^{1} (-\log t)^{x-1}dt = \int_{0}^{\infty} t^{x-1} e^{-t} dt<br>\)</p>
+<p>注：使用MathJax引擎在浏览器上解析时，需要对<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;\Gamma(x) = \int\_&#123;0&#125;^&#123;1&#125; (-\log t)^&#123;x-1&#125;dt = \int_&#123;0&#125;^&#123;\infty&#125; t^&#123;x-1&#125; e^&#123;-t&#125; dt</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<hr>
 <h4 id="为什么\(\Gamma(n)=(n-1)!\)，而不是\(\Gamma(n)=n!\)"><strong>为什么</strong>\(\Gamma(n)=(n-1)!\)<strong>，而不是</strong>\(\Gamma(n)=n!\)</h4><p>如果对上述的Gamma函数式做一个调整，将\(t^{x-1}\)替换为\(t^x\)，可得如下函数：</p>
 <p>$$<br>\Gamma(x) = \int_{0}^{\infty} t^x e^{-t}dx<br>$$</p>
 <p>此时\(\Gamma(n)=n!\)，这才是欧拉最早的Gamma函数定义。但后来欧拉修改了原有Gamma函数的定义，使得\(\Gamma(n)=(n-1)!\)。后来的数学家们在对Gamma函数的进一步研究中，认可了这个定义，沿用至今。</p>
@@ -242,9 +241,9 @@ Beta函数与Gamma函数的关系
  
 
 <div class="next">
-<a href="/2015/06/29/prob-stats-chapter3-continuous-random-variable/"  title="概率与统计-chapter3-连续随机变量">
+<a href="/2015/07/01/latex-sample/"  title="Latex示例">
  <strong>下一篇：</strong><br/> 
- <span>概率与统计-chapter3-连续随机变量
+ <span>Latex示例
 </span>
 </a>
 </div>
