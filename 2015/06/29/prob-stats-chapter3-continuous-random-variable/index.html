@@ -333,7 +333,8 @@ other
 <p>注： 在Mathjax下，<code>$$E = \{x, y\}$$</code>无法正常输出<code>{}</code>, 因为Latex要想输出<code>{}</code>，需要使用<code>\{, \}</code>。而<code>\</code>在markdown中要想正常表法其自身意义也需要转义。</p>
 <p>$$E = \{ x,y\}$$</p>
 </blockquote>
-<p>$$<br>\begin{align<em>}<br>E = {<br>&amp; X_1 \in [x, x+\Delta x], \\<br>&amp; X_i \in [0,x)\quad (i=2,\cdots,k), \\<br>&amp; X_j \in (x+\Delta x,1] \quad (j=k+1,\cdots,n)<br>}<br>\end{align</em>}<br>$$</p>
+<p>$$<br>\begin{align*}<br>E = \{<br>&amp; X_1 \in [x, x+\Delta x], \\<br>&amp; X_i \in [0,x)\quad (i=2,\cdots,k), \\<br>&amp; X_j \in (x+\Delta x,1] \quad (j=k+1,\cdots,n)<br>\}<br>\end{align*}<br>$$</p>
+<p>\begin{align<em>}<br>E = {<br>&amp; X_1 \in [x, x+\Delta x], \\<br>&amp; X_i \in [0,x)\quad (i=2,\cdots,k), \\<br>&amp; X_j \in (x+\Delta x,1] \quad (j=k+1,\cdots,n)<br>}<br>\end{align</em>}<br>$$</p>
 <p>$$<br>E = \left{ X_1 \in [x,x+\Delta x], \\<br> X_i \in [0,x) (i=2,3, \cdots, k), \\<br> X_j \in (x+\Delta x,1] (j = k+1, \cdots, n)\right}<br>$$</p>
 <p>表格(改日修改语法)</p>
 <p>$$<br>\begin{array}{c|lcr}<br>n &amp; \text{Left} &amp; \text{Center} &amp; \text{Right} \<br>\hline<br>1 &amp; 0.24 &amp; 1 &amp; 125 \<br>2 &amp; -1 &amp; 189 &amp; -8 \<br>3 &amp; -20 &amp; 2000 &amp; 1+10i \<br>\end{array}<br>$$</p>
