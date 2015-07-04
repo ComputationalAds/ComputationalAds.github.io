@@ -329,11 +329,9 @@ $$
 <li>方差（Variance）</li>
 </ul>
 <blockquote>
-<p>这里的连续随机变量主要包括：均匀概率分布、高斯分布、Gamma分布等</p>
+<p>这里的连续随机变量主要包括：均匀概率分布、高斯分布、Gamma分布等.</p>
 </blockquote>
-<hr>
-<h3 id="均匀分布（uniform_distribution）">均匀分布（uniform distribution）</h3><hr>
-<p>假设有一个随机数生成器，产生\([a, b]\)之间的实数\(X)\)（\(a&lt;b\)），每个实数值出现的概率相等，这样的分布被称为均匀分布。那么，随机变量\(X\)服从区间\([a,b]\)上的均匀分布，记作\(X \sim U(a,b)\)。该类型的随机变量称作<strong>均匀随机变量</strong>。</p>
+<h3 id="均匀分布（uniform_distribution）"><br>均匀分布（uniform distribution）</h3><p>假设有一个随机数生成器，产生\([a, b]\)之间的实数\(X)\)（\(a&lt;b\)），每个实数值出现的概率相等，这样的分布被称为均匀分布。那么，随机变量\(X\)服从区间\([a,b]\)上的均匀分布，记作\(X \sim U(a,b)\)。该类型的随机变量称作<strong>均匀随机变量</strong>。</p>
 <blockquote>
 <p>随机变量\(X\)的密度函数用图可表示为一个长方形，长方形的高是\(1\,/\,(b-a)\)，以保证长方形的面积等于1.</p>
 </blockquote>
@@ -353,15 +351,13 @@ $$
 <li>均匀随机变量X的<strong>方差</strong>：</li>
 </ul>
 <p>$$<br>D(X)=E(X^2)-E^2(X)=\frac {(b-a)^2}{12}<br>$$</p>
-<hr>
-<h3 id="高斯分布（Gaussian_Distribution）">高斯分布（Gaussian Distribution）</h3><hr>
-<ul>
+<p><br></p>
+<h3 id="高斯分布（Gaussian_Distribution）">高斯分布（Gaussian Distribution）</h3><ul>
 <li>概率密度函数</li>
 </ul>
 <p>$$<br>f(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x-\mu)^2}{2 \sigma^2} \right)<br>$$</p>
-<hr>
-<h3 id="Gamma分布（伽马分布，又称\(\Gamma\)型概率分布）">Gamma分布（伽马分布，又称\(\Gamma\)型概率分布）</h3><hr>
-<p>在认识Gamma分布之前，我们先熟悉一下Gamma函数，在@52nlp的<a href="http://www.52nlp.cn/lda-math-%E7%A5%9E%E5%A5%87%E7%9A%84gamma%E5%87%BD%E6%95%B01" target="_blank" rel="external">神奇的Gamma函数</a>一文和<a href="http://baike.baidu.com/link?url=l_mNJgJzx9XbJKf4QBI2zBr3SrEzd6pqx1X-smju8t5vFmzB8xx8ynWew0-2dIrOf9iSuIl5wdaJnTlKFGZbs_" target="_blank" rel="external">百度百科－Gamma函数</a>中，讲的非常清楚。这里仅列出背景、核心公式和说明。</p>
+<p><br></p>
+<h3 id="Gamma分布（伽马分布，又称\(\Gamma\)型概率分布）">Gamma分布（伽马分布，又称\(\Gamma\)型概率分布）</h3><p>在认识Gamma分布之前，我们先熟悉一下Gamma函数，在@52nlp的<a href="http://www.52nlp.cn/lda-math-%E7%A5%9E%E5%A5%87%E7%9A%84gamma%E5%87%BD%E6%95%B01" target="_blank" rel="external">神奇的Gamma函数</a>一文和<a href="http://baike.baidu.com/link?url=l_mNJgJzx9XbJKf4QBI2zBr3SrEzd6pqx1X-smju8t5vFmzB8xx8ynWew0-2dIrOf9iSuIl5wdaJnTlKFGZbs_" target="_blank" rel="external">百度百科－Gamma函数</a>中，讲的非常清楚。这里仅列出背景、核心公式和说明。</p>
 <h4 id="Gamma函数">Gamma函数</h4><ul>
 <li><strong>历史由来</strong></li>
 </ul>
@@ -448,6 +444,15 @@ $$
 <li><p>概率密度函数</p>
 </li>
 </ul>
+<h3 id="Beta分布（贝塔分布）">Beta分布（贝塔分布）</h3><p>在@rickjin的《LDA-math》系列中详细地解释了Beta和Dirichlet分布的由来和推导过程，堪称经典。拜读后，受益颇深。原文见下面链接：</p>
+<p><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%831" target="_blank" rel="external">LDA-math-认识Beta/Dirichlet分布(1)</a> <br><br><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%832" target="_blank" rel="external">LDA-math-认识Beta/Dirichlet分布(2)</a> <br><br><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%833" target="_blank" rel="external">LDA-math-认识Beta/Dirichlet分布(3)</a> <br></p>
+<p>@rickjin在文中从一个<strong>魔鬼的游戏</strong>开始引入。魔鬼撒旦抓走一人，撒旦说：“你们人类很聪明，而我是很仁慈的，和你玩一个游戏，赢了就可以走，否则把灵魂出卖给我。”</p>
+<blockquote>
+<p>游戏规则：<br><br><br>我有一个魔盒，上面有一个按钮，你每按一下按钮，就均匀的输出一个[0,1]之间的随机数，我现在按10下，我手上有10个数，你猜第7大的数是什么，偏离不超过0.01就算对。</p>
+</blockquote>
+<p>数学抽象</p>
+<p>上述游戏实际在说随机变量\(X<em>1, X_2, \cdots, X</em>{10} \sim U(0,1)\), </p>
+<p>把这\(n\)个随机变量排序后得到顺序统计量\(X_{(1)}, X_{(2)}, \cdots, X_{(10)}\)</p>
 <p>表格(改日修改语法)</p>
 <p>$$<br>\begin{array}{c|lcr}<br>n &amp; \text{Left} &amp; \text{Center} &amp; \text{Right} \<br>\hline<br>1 &amp; 0.24 &amp; 1 &amp; 125 \<br>2 &amp; -1 &amp; 189 &amp; -8 \<br>3 &amp; -20 &amp; 2000 &amp; 1+10i \<br>\end{array}<br>$$</p>
 <p>$$<br>f(x)=<br>\begin{cases}<br>n/2, &amp; \text{if \(n\) is even} \<br>3n+1, &amp; \text{if \(n\) is odd}<br>\end{cases}<br>$$</p>
