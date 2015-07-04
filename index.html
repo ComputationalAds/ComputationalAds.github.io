@@ -465,7 +465,7 @@ $$
 <p>对于上述游戏而言，\(n=10,k=7\)，\(X_{(k)}\)的分布如何计算？@rickjin在文中列举了通过尝试计算\(X_{(k)}\)落在区间\([x,x+\Delta x]\)的概率，也就是求如下概率值</p>
 <p>$$<br>P(x \leq X_{(k)} \leq x + \Delta x) = \;?<br>$$</p>
 <p>如果把[0,1]区间分为三个子区间，即\([0,x)、[x,x+\Delta x]和(x+\Delta x,1]\)。考虑简单的情形，假设\(n\)个数中只有一个落在了区间\([x,x+\Delta x]\)内，这个区间内的数\(X_{(k)}\)是第\(k\)大的，则区间\([0,x)\)中应该有\(k-1\)个数，区间\((x+\Delta x,1]\)中应该有\(n-k\)个数。那么，符合上述要求的事件\(E\)可表示为：</p>
-<p>\begin{align<em>}<br>E = { &amp; X_1 \in [x, x+\Delta x], \<br>&amp; X_i \in [0,x)\quad (i=2,\cdots,k), \<br>&amp; X_j \in (x+\Delta x,1] \quad (j=k+1,\cdots,n)}<br>\end{align</em>}</p>
+<p>$$<br>\begin{align<em>}<br>E = { &amp; X_1 \in [x, x+\Delta x], \<br>&amp; X_i \in [0,x)\quad (i=2,\cdots,k), \<br>&amp; X_j \in (x+\Delta x,1] \quad (j=k+1,\cdots,n)}<br>\end{align</em>}<br>$$</p>
 <p>$$<br>E = \left{ X_1 \in [x,x+\Delta x], \\<br> X_i \in [0,x) (i=2,3, \cdots, k), \\<br> X_j \in (x+\Delta x,1] (j = k+1, \cdots, n)\right}<br>$$</p>
 <p>表格(改日修改语法)</p>
 <p>$$<br>\begin{array}{c|lcr}<br>n &amp; \text{Left} &amp; \text{Center} &amp; \text{Right} \<br>\hline<br>1 &amp; 0.24 &amp; 1 &amp; 125 \<br>2 &amp; -1 &amp; 189 &amp; -8 \<br>3 &amp; -20 &amp; 2000 &amp; 1+10i \<br>\end{array}<br>$$</p>
