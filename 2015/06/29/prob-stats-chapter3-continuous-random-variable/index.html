@@ -332,7 +332,7 @@ other
 <blockquote>
 <p>注：</p>
 <ol>
-<li>符号<code>*</code>在markdown中有特殊含义，若要当作latex环境中的语法用，需要转义，即<code>\\*</code>.</li>
+<li>符号<code>*</code>在markdown中有特殊含义，若要当作latex环境中的语法用，需要转义，即<code>\\(\text{\*}\\)</code>.</li>
 <li>在Mathjax下，<code>$$E = \{x, y\}$$</code>无法正常输出<code>{}</code>, 因为Latex要想输出<code>{}</code>，需要使用<code>\{, \}</code>。而<code>\</code>在markdown中要想正常表法其自身意义也需要再次转义，代码为: <code>$$E = \\{x,y\\}$$</code>。</li>
 </ol>
 <p>$$E = \{ x,y\}$$</p>
@@ -345,7 +345,7 @@ other
 <p>此时，事件\(E^{‘}\)发生的概率为：</p>
 <p>$$<br>P(E^{‘}) = x^{k-2}(1-x-\Delta x)^{n-k}(\Delta x)^2 = o(\Delta x)<br>$$</p>
 <p>很容易看出，只要落在\([x, x+ \Delta x]\)内的数字<strong>大于1个</strong>，则对应事件的概率就是\(\Delta x\)。于是随机变量\(X_{(k)}\)落在\([x, x+ \Delta x]\)区间的概率：</p>
-<p>$$<br>\begin{align*}<br>&amp; P( x \le X_{(k)} \le x+\Delta x) \<br>&amp; = n\binom{n-1}{k-1}P(E) + o(\Delta x) \<br>&amp; = n\binom{n-1}{k-1}x^{k-1}(1-x)^{n-k}\Delta x + o(\Delta x)<br>\end{align*}<br>$$</p>
+<p>$$<br>\begin{align*}<br>&amp; P( x \le X_{(k)} \le x+\Delta x) \\<br>&amp; = n\binom{n-1}{k-1}P(E) + o(\Delta x) \\<br>&amp; = n\binom{n-1}{k-1}x^{k-1}(1-x)^{n-k}\Delta x + o(\Delta x)<br>\end{align*}<br>$$</p>
 <p>进一步可得\(X_{(k)}\)的概率密度函数为</p>
 <p>$$<br>\begin{align*}<br>f(x) &amp; = \lim_{\Delta x \to 0} \frac {P(x \leq X_{(x)} \leq x + \Delta x)}{\Delta x} \\<br>&amp; = n \binom{n-1}{k-1}x^{k-1}(1-x)^{n-k}\\<br>&amp; = \frac {n!}{(k-1)! (n-k)!}x^{k-1} (1-x)^{n-k} \quad x \in [0,1]<br>\end{align*}<br>$$</p>
 <p>根据[神奇的Gamma函数、Beta函数系列]可知，利用Gamma函数，可以把上述\(f(x)\)表示为</p>
