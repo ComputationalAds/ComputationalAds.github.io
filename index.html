@@ -395,7 +395,7 @@
 <blockquote>
 <p>游戏规则：<br><br><br>我有一个魔盒，上面有一个按钮，你每按一下按钮，就均匀的输出一个[0,1]之间的随机数，我现在按10下，我手上有10个数，你猜第7大的数是什么，偏离不超过0.01就算对。</p>
 </blockquote>
-<p>数学抽象</p>
+<p><strong>数学抽象与推导</strong></p>
 <p>上述游戏实际在说随机变量\(X_1, X_2, \cdots, X_{10} \sim U(0,1)\), 把这\(n\)个随机变量排序后得到顺序统计量\(X_{(1)}, X_{(2)}, \cdots, X_{(10)}\)，然后问\(X_{(k)}\)的分布是什么？</p>
 <blockquote>
 <p>因为如果知道随机变量\(X_{(k)}\)分布的概率密度，用概率密度的极值点作为猜测值是最好的策略。</p>
@@ -423,10 +423,24 @@
 <p>$$<br>\begin{align*}<br>&amp; P( x \le X_{(k)} \le x+\Delta x) \\<br>&amp; = n\binom{n-1}{k-1}P(E) + o(\Delta x) \\<br>&amp; = n\binom{n-1}{k-1}x^{k-1}(1-x)^{n-k}\Delta x + o(\Delta x)<br>\end{align*}<br>$$</p>
 <p>进一步可得\(X_{(k)}\)的概率密度函数为</p>
 <p>$$<br>\begin{align*}<br>f(x) &amp; = \lim_{\Delta x \to 0} \frac {P(x \leq X_{(x)} \leq x + \Delta x)}{\Delta x} \\<br>&amp; = n \binom{n-1}{k-1}x^{k-1}(1-x)^{n-k}\\<br>&amp; = \frac {n!}{(k-1)! (n-k)!}x^{k-1} (1-x)^{n-k} \quad x \in [0,1]<br>\end{align*}<br>$$</p>
-<p>根据[神奇的Gamma函数、Beta函数系列]可知，利用Gamma函数，可以把上述\(f(x)\)表示为</p>
+<p>根据<a href="">神奇的Gamma函数、Beta函数系列</a>可知，利用Gamma函数，可以把上述\(f(x)\)表示为</p>
 <p>$$<br>f(x) = \frac {\Gamma(n+1)}{\Gamma(k) \Gamma(n-k+1)} x^{k-1} (1-x)^{n-k}<br>$$</p>
-<p>\(\Gamma\)函数起源于人们希望把数学计算从整数集合拓展至实数集合。这里另\(\alpha=k, \beta=n-k+1\)，于是可以得到</p>
+<p><strong>\(\Gamma\)函数起源于人们希望把数学计算从整数集合拓展至实数集合</strong>。这里另\(\alpha=k, \beta=n-k+1\)，于是可以得到</p>
 <p>$$<br>f(x)=\frac {\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1}(1-x)^{\beta-1}<br>$$</p>
+<p>上式即为一般意义上的Beta分布！回到<strong>魔鬼的游戏</strong>中，\(n=10, k=7\)时，按照密度分布的峰值去猜测是最好的策略。</p>
+<p>$$<br>f(x)=\frac{10!}{(6)!(3)!} x^6 (1-x)^3 \quad x \in [0,1]<br>$$</p>
+<p>即便按照密度函数分布的峰值作为猜测结果，第一次猜中的概率也不高。</p>
+<p><strong>游戏继续\(\cdots\)</strong></p>
+<p>很遗憾，根据上述最好的策略算出来的值竟然有偏差，没猜中，魔鬼微笑着说：“我再仁慈一点，再给你一个机会，你按5下这个机器，你就得到了5个\([0,1]\)之间的随机数，然后我可以告诉你这5个数中的每一个，和我的第7个数相比，谁大谁小，然后你继续猜我手头上的第7大的数是多少。” 这时候该如何猜测呢？</p>
+<h3 id="Beta-Binomial共轭">Beta-Binomial共轭</h3><p>魔鬼的二个问题，数学抽象一下，就是：</p>
+<ol>
+<li>\(X_1,X_2, \cdots, X_n \in Uniform(0,1)\)，对应的顺序统计量为\(X_(1),X_(2), \cdots, X_(n)\)，我们要猜测\(p=X_(k)\)；（第1个问题）</li>
+<li>\(Y_1,Y_2, \cdots, Y_m \in Uniform(0,1)\)，\(Y_i\)中有\(m_1\)个比\(p\)小，\(m_2\)个比\(p\)大；</li>
+</ol>
+<p>最后的问题：<strong>\(P(p|Y_1,Y_2, \cdots, Y_m)\)的分布是什么？</strong></p>
+<p>问题分析</p>
+<p>由于\(p=X_(k)\)在\(X_1,X_2, \cdots, X_n\)中是第\(k\)大的，利用\(Y_i\)</p>
+<p>上式即为一般意义上的Beta分布！回到$n=10,k=7$<strong>魔鬼的游戏</strong>中，\(n=10\) </p>
 <p>表格(改日修改语法)</p>
 <p>$$<br>\begin{array}{c|lcr}<br>n &amp; \text{Left} &amp; \text{Center} &amp; \text{Right} \<br>\hline<br>1 &amp; 0.24 &amp; 1 &amp; 125 \<br>2 &amp; -1 &amp; 189 &amp; -8 \<br>3 &amp; -20 &amp; 2000 &amp; 1+10i \<br>\end{array}<br>$$</p>
 <p>$$<br>f(x)=<br>\begin{cases}<br>n/2, &amp; \text{if \(n\) is even} \<br>3n+1, &amp; \text{if \(n\) is odd}<br>\end{cases}<br>$$</p>
