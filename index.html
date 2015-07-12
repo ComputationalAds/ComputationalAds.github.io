@@ -228,6 +228,7 @@
         <h2 id="连续随机变量（continuous_random_variable）">连续随机变量（continuous random variable）</h2><ul>
 <li>author: zhouyongsdzh@foxmail.com</li>
 <li>date: 2015-06-20</li>
+<li>sina weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
 </ul>
 <hr>
 <h3 id="目录">目录</h3><ul>
@@ -395,8 +396,7 @@
 <blockquote>
 <p>游戏规则：<br><br>我有一个魔盒，上面有一个按钮，你每按一下按钮，就均匀的输出一个[0,1]之间的随机数，我现在按10下，我手上有10个数，你猜第7大的数是什么，偏离不超过0.01就算对。</p>
 </blockquote>
-<p><strong>数学抽象与推导</strong></p>
-<p>上述游戏实际在说随机变量\(X_1, X_2, \cdots, X_{10} \sim U(0,1)\), 把这\(n\)个随机变量排序后得到顺序统计量\(X_{(1)}, X_{(2)}, \cdots, X_{(10)}\)，然后问\(X_{(k)}\)的分布是什么？</p>
+<h4 id="数学抽象与推导">数学抽象与推导</h4><p>上述游戏实际在说随机变量\(X_1, X_2, \cdots, X_{10} \sim U(0,1)\), 把这\(n\)个随机变量排序后得到顺序统计量\(X_{(1)}, X_{(2)}, \cdots, X_{(10)}\)，然后问\(X_{(k)}\)的分布是什么？</p>
 <blockquote>
 <p>因为如果知道随机变量\(X_{(k)}\)分布的概率密度，用概率密度的极值点作为猜测值是最好的策略。</p>
 </blockquote>
@@ -427,7 +427,32 @@
 <p>$$<br>f(x) = \frac {\Gamma(n+1)}{\Gamma(k) \Gamma(n-k+1)} x^{k-1} (1-x)^{n-k}<br>$$</p>
 <p><strong>\(\Gamma\)函数起源于人们希望把数学计算从整数集合拓展至实数集合</strong>。这里另\(\alpha=k, \beta=n-k+1\)，于是可以得到</p>
 <p>$$<br>Beta(x|\alpha,\beta)=f(x)=\frac {\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1}(1-x)^{\beta-1}<br>$$</p>
-<p>上式即为一般意义上的Beta分布！回到<strong>魔鬼的游戏</strong>中，\(n=10, k=7\)时，按照密度分布的峰值去猜测是最好的策略。</p>
+<p>上式即为一般意义上的Beta分布！</p>
+<h4 id="\(\beta\)型概率分布">\(\beta\)型概率分布</h4><ul>
+<li>\(\beta\)型随机变量\(X\)的概率密度函数：</li>
+</ul>
+<p>$$<br>f(x)=<br>\begin{cases}<br>\displaystyle\frac {\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1}(1-x)^{\beta-1}, &amp; 0 \leq x \leq 1;\;\alpha &gt; 0, \beta &gt; 0 \\<br>0, &amp; others<br>\end{cases}<br>\quad (**)<br>$$</p>
+<blockquote>
+<p>关于<strong>Beta函数详细推导</strong><br></p>
+<p>$$<br>\begin{align*}<br>f(x;\alpha,\beta) &amp; = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{\int_{0}^{1}t^{\alpha-1}(1-t)^{\beta-1}dt} \\<br>&amp; = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{Beta(\alpha,\beta)}<br>\end{align*}<br>$$</p>
+<p>其中，</p>
+<p>$$<br>Beta(\alpha,\beta)= \int_{0}^{1}t^{\alpha-1}(1-t)^{\beta-1}dt= \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}<br>$$</p>
+</blockquote>
+<ul>
+<li>\(\beta\)型随机变量的期望与方差分别是：</li>
+</ul>
+<p>$$\mu=\frac{\alpha}{\alpha+\beta} \;\qquad\qquad\qquad (期望)$$</p>
+<p>$$\sigma^2=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)} \quad (方差)$$</p>
+<blockquote>
+<p>关于<strong>Gamma函数</strong></p>
+<p>$$<br>\Gamma(\alpha)=\int_{0}^{\infty}t^{\alpha-1}e^{-t}dt<br>$$</p>
+<p>且当\(\alpha\)是正整数时，\(\Gamma(\alpha)=(\alpha-1)!\)</p>
+</blockquote>
+<ul>
+<li>\(\beta\)型概率分布曲线</li>
+</ul>
+<p><strong><em>(此处暂略~)</em></strong></p>
+<p>回到<strong>魔鬼的游戏</strong>中，\(n=10, k=7\)时，按照密度分布的峰值去猜测是最好的策略。</p>
 <p>$$<br>f(x)=\frac{10!}{(6)!(3)!} x^6 (1-x)^3 \quad x \in [0,1]<br>$$</p>
 <p>即便按照密度函数分布的峰值作为猜测结果，第一次猜中的概率也不高。</p>
 <p><strong>游戏继续\(\cdots\)</strong></p>
@@ -471,7 +496,8 @@
 <li>假设有一个不均匀的硬币抛出正面的概率为\(p\)，抛\(m\)次后出现正面和反面的次数分别是\(m_1,m_2\)，那么按照传统的<strong>频率学派</strong>观点，\(p\)的估计值应该是\(\hat p = \frac{m_1}{m}\)。<br></li>
 <li>而从<strong>贝叶斯学派</strong>的观点来看，开始对硬币不均匀性一无所知，所以应该假设\(p\ \in Uniform(0,1)\)，于是二项分布的计数\(m_1,m_2\)之后，按照贝叶斯公式计算\(p\)的后验分布：</li>
 </ul>
-<p>$$<br>\begin{align*}<br>P(p|\,m_1,m_2) = &amp; \frac {P(p) \cdot P(m_1,m_2\,|p)}{P(m_1,m_2)} \\<br>= &amp;<br>\end{align*}<br>$$</p>
+<p>$$<br>\begin{align*}<br>P(p|\,m_1,m_2) = &amp; \frac {P(p) \cdot P(m_1,m_2\,|p)}{P(m_1,m_2)} \\<br>= &amp; \frac {1 \cdot P(m_1,m_2 |p)}{\int<em>{0}^{1} P(m_1,m_2|t)dt} \\<br>= &amp; \frac {\binom{m}{m_1}p^{m_1}(1-p)^{m_2}}{\int</em>{0}^{1} \binom{m}{m_1}t^{m_1}(1-t)^{m_2}dt} \\<br>= &amp; \frac {p^{m_1}(1-p)^{m_2}}{\int_{0}^{1}t^{m_1}(1-t)^{m_2}dt}<br>\end{align*}<br>$$</p>
+<p>得到的后验分布正好是\(Beta(p|\;m_1 + 1, m_2 + 1)\)。<strong><em>这里真心没看太懂 …</em></strong></p>
 <p>上式即为一般意义上的Beta分布！回到$n=10,k=7$<strong>魔鬼的游戏</strong>中，\(n=10\) </p>
 <p>表格(改日修改语法)</p>
 <p>$$<br>\begin{array}{c|lcr}<br>n &amp; \text{Left} &amp; \text{Center} &amp; \text{Right} \<br>\hline<br>1 &amp; 0.24 &amp; 1 &amp; 125 \<br>2 &amp; -1 &amp; 189 &amp; -8 \<br>3 &amp; -20 &amp; 2000 &amp; 1+10i \<br>\end{array}<br>$$</p>
