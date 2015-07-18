@@ -231,7 +231,8 @@
 <li>sina weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
 </ul>
 <hr>
-<h3 id="目录">目录</h3><ul>
+<p><strong>目录</strong></p>
+<ul>
 <li>均匀分布</li>
 <li>高斯分布</li>
 <li>Gamma分布</li>
@@ -239,11 +240,9 @@
 <li>指数分布</li>
 <li>Beta分布</li>
 <li>Dirichlet分布</li>
-<li>other</li>
+<li>other<br><br></li>
 </ul>
-<hr>
-<h3 id="说明">说明</h3><hr>
-<p>可以取连续值的随机变量称为<strong>连续随机变量</strong>（continuous random variable）。</p>
+<h3 id="说明">说明</h3><p>可以取连续值的随机变量称为<strong>连续随机变量</strong>（continuous random variable）。</p>
 <p>由于是取连续值，那么在任意区间都可以有无穷多个结果。比如高度，可以有1米、2米，也可以在两者之间：1.1米、1.11米，1.688米等无穷多个结果。如此，每个结果取值的可能性都是无穷小。</p>
 <p>因此，连续随机变量区别于离散随机变量重要一点：在连续随机变量中，讨论的是时间在<strong><em>某个区间</em></strong>内发生的概率，即\(P(a &lt; X &lt; b)\)，而不是具体某一取值的概率\(P(X)\)。因为在这种情况下，分到各个结果的概率都无限趋于0。显然，无法用离散随机变量中的<strong>概率质量函数</strong>来描述随机变量的分布。</p>
 <p>针对连续随机变量的分布，我们可用以下指标来描述具体的分布：</p>
@@ -525,15 +524,36 @@
 <p>于是得到\(X_{(k<em>1)},X\</em>{(k_1+k_2)}\)的联合分布是：</p>
 <p>$$<br>\begin{align*}<br>f(x_1,x_2,x_3) &amp; =\frac{n!}{(k_1-)!(k_2-1)!(n-k_1-k_2)!}x_1^{k_1-1}x_2^{k_2-1}x_3^{n-k_1-k_2} \\<br>&amp; = \frac{\Gamma(n+1)}{\Gamma(k_1)\Gamma(k_2)\Gamma(n-k_1-k_2+1)}x_1^{k_1-1}x_2^{k_2-1}x_3^{n-k_1-k_2}<br>\end{align*} \quad (**)<br>$$</p>
 <p>而公式\((**)\)则是3维形式的Dirichlet分布，即\(Dir(x_1,x_2,x_3\;|\;k_1,k_2,n-k_1-k_2+1)\)。这里令\(\alpha_1=k_1,\alpha_2=k_2,\alpha_3=n-k_1-k_2+1\)，于是分布密度函数可以写为：</p>
-<p>$$<br>f(x_1, x_2, x_3) = \frac{\Gamma(\alpha_1+\alpha_2+\alpha_3)}{\Gamma(\alpha_1)\Gamma(\alpha_2)\Gamma(\alpha_3)}x_1^{\alpha_1-1}x_2^{\alpha_2-1}x_3^{\alpha_3-1} \quad (1)<br>$$</p>
+<p>$$<br>f(x_1, x_2, x_3) = \frac{\Gamma(\alpha_1+\alpha_2+\alpha_3)}{\Gamma(\alpha_1)\Gamma(\alpha_2)\Gamma(\alpha_3)}x_1^{\alpha_1-1}x_2^{\alpha_2-1}x_3^{\alpha_3-1} \qquad (1)<br>$$</p>
 <p>公式\((1)\)即为一般形式的3维Dirichlet分布。即使\(\vec{\alpha}=(\alpha_1,\alpha_2,\alpha_3)\)<strong>延伸至非负实数集合</strong>，上述概率分布也是成立的。</p>
 <blockquote>
 <p>关于<strong>Dirichlet分布与Beta分布</strong>：<br><br>Dirichlet分布是Beta分布在高维度上的推广。当Dirichlet分布维度趋向无限时，便成为Dirichlet过程。<br><br></p>
 </blockquote>
 <h3 id="Dirichlet-Multinomial共轭"><strong>Dirichlet-Multinomial共轭</strong></h3><p>类似于魔鬼的游戏2，调整一下游戏3，可得游戏4的规则如下：</p>
 <blockquote>
-<p>游戏4: <br><br>从魔盒中生成m个随机数\(Y_1,Y_2, \cdots, Y_m \sim Uniform(0,1)\)，魔鬼告诉我们\(Y_i\)和\(X_{(k_1)},X_{(k_1+k_2)}\)相比谁大谁小，然后再次猜测第7大和第13大的数是多少？\(X<em>{(k_1)},X</em>{(k_1+k_2)}\)</p>
+<p>游戏4: <br><br>从魔盒中生成m个随机数\(Y_1,Y_2, \cdots, Y_m \sim Uniform(0,1)\)，魔鬼告诉我们\(Y_i\)和\(X_{(k_1)},X_{(k_1+k_2)}\)相比谁大谁小，然后再次猜测第7大和第13大的数是多少？</p>
 </blockquote>
+<p>同样，对游戏4进行数学抽象，表示如下：</p>
+<ul>
+<li>\(X_1,X_2, \cdots, X_n \sim Uniform(0,1)\)，排序后对应的顺序统计量为\(X_{(1)},X_{(2)},\cdots,X_{(n)}\)；</li>
+<li>令\(p_1=X_{(k_1)},p_2=X_{(k_2)},p_3=1-p_1-p_2(p_3是为了简洁的数学表达)\)，我们要猜测\(\vec{p}=(p_1,p_2,p_3)\)；</li>
+<li>\(Y_1,Y_2, \cdots, Y_m \sim Uniform(0,1)\),\(Y_i\)中落到\([0,p_1), [p_1,p_2),[p_2,1]\)三个区间的个数分别是\(m_1,m_2,m_3\),其中\(m=m_1+m_2+m_3\)；</li>
+<li>问后验分布\(P(\vec{p}|Y_1,Y_2, \cdots, Y_m)\)的分布是什么？</li>
+</ul>
+<p>为了计算方便，记：</p>
+<p>$$<br>\vec{m}=(m_1, m_2, m_3), \quad \vec{k}=(k_1,k_2,n-k_1-k_2+1)<br>$$</p>
+<p>从游戏中的信息可以得知：\(p_1,p_2\)在\(X_1,X_2, \cdots, X_n,Y_1,Y_2, \cdots, Y_m \sim Uniform(0,1)\)这\(m+n\)个数中分别成为了第\(k_1+m_1, k_2+m_2\)大的数，于是后验分布\(P(\vec{p}|Y_1,Y_2,\cdots, Y_m)\)应该是\(Dir(\vec{p}|k_1+m_1,k_2+m_2, n-k_1-k_2+1+m_3)\)，即\(Dir(\vec{p}|\vec{k}+\vec{m})\)。按照贝叶斯推理的逻辑，同样可以把上述过程整理如下：</p>
+<ul>
+<li>首先，根据游戏3需要猜测参数\(\vec{p}=(p_1,p_2,p_3)\)，其先验分布为\(Dir(\vec{p}|\vec{k})\)；</li>
+<li>其次，数据\(Y_i\)落到\([0,p_1),[p_1,p_2),[p_2,1]\)三个区间的个数分别为\(m_1,m_2,m_3\)，所以\(\vec{m}=(m_1, m_2, m_3)\)服从多项式分布\(Multi(\vec{m}|\vec{p})\)<strong>（理解这一点很重要）</strong>；</li>
+<li>在给定了来自数据提供的知识\(\vec{m}\)后，\(\vec{p}\)的后验分布变为\(Dir(\vec{p}|\vec{k}+\vec{m})\)。</li>
+</ul>
+<p>以上贝叶斯分析过程的最简单直接的表述：</p>
+<p>$$<br>Dir(\vec{p}|\vec{k})+Multi(\vec{m})=Dir(\vec{p}|\vec{k}+\vec{m})<br>$$</p>
+<p>令\(\vec{\alpha}=\vec{k}\)，把\(\vec{\alpha}\从整数集合延拓至实数集合，可以证明如下关系仍然成立：</p>
+<p>$$<br>Dir(\vec{p}|\vec{\alpha})+Multi(\vec{m})=Dir(\vec{p}|\vec{\alpha}+\vec{m}) \quad (11)<br>$$</p>
+<p>公式\((11)\)描述就是<strong>Dirichlet-Multinomial共轭</strong>。同时，我们可以把Dirichlet分布中的\(\alpha\)都可以理解为物理计数。那么，类似于Beta分布，\(Dir(\vec{p}|\vec{\alpha})\)可做如下分解：</p>
+<p>$$<br>Dir(\vec{p}|\vec{1})+Multi(\vec{m}-\vec{1}) = Dir(\vec{p}|\vec{\alpha})<br>$$</p>
 <p>数学</p>
 <hr>
 <p>表格(改日修改语法)</p>
