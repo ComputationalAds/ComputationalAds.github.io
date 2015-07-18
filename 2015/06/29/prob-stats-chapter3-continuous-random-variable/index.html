@@ -449,8 +449,13 @@ other
 <p>于是得到\(X_{(k<em>1)},X\</em>{(k_1+k_2)}\)的联合分布是：</p>
 <p>$$<br>\begin{align*}<br>f(x_1,x_2,x_3) &amp; =\frac{n!}{(k_1-)!(k_2-1)!(n-k_1-k_2)!}x_1^{k_1-1}x_2^{k_2-1}x_3^{n-k_1-k_2} \\<br>&amp; = \frac{\Gamma(n+1)}{\Gamma(k_1)\Gamma(k_2)\Gamma(n-k_1-k_2+1)}x_1^{k_1-1}x_2^{k_2-1}x_3^{n-k_1-k_2}<br>\end{align*} \quad (**)<br>$$</p>
 <p>而公式\((**)\)则是3维形式的Dirichlet分布，即\(Dir(x_1,x_2,x_3\;|\;k_1,k_2,n-k_1-k_2+1)\)。这里令\(\alpha_1=k_1,\alpha_2=k_2,\alpha_3=n-k_1-k_2+1\)，于是分布密度函数可以写为：</p>
-<p>$$<br>f(x_1, x_2, x_3) = \frac{\Gamma(\alpha_1+\alpha_2+\alpha_3)}{\Gamma(\alpha_1)\Gamma(\alpha_2)\Gamma(\alpha_3)}x_1^{\alpha_1-1}x_2^{\alpha_2-1}x_3^{\alpha_3-1} \qquad (1)<br>$$</p>
-<p>公式\((1)\)即为一般形式的3维Dirichlet分布。即使\(\vec{\alpha}=(\alpha_1,\alpha_2,\alpha_3)\)<strong>延伸至非负实数集合</strong>，上述概率分布也是成立的。</p>
+<p>$$<br>f(x_1, x_2, x_3) = \frac{\Gamma(\alpha_1+\alpha_2+\alpha_3)}{\Gamma(\alpha_1)\Gamma(\alpha_2)\Gamma(\alpha_3)}x_1^{\alpha_1-1}x_2^{\alpha_2-1}x_3^{\alpha_3-1} \qquad (0)<br>$$</p>
+<p>公式\((0)\)即为一般形式的3维Dirichlet分布。即使\(\vec{\alpha}=(\alpha_1,\alpha_2,\alpha_3)\)<strong>延伸至非负实数集合</strong>，上述概率分布也是成立的。</p>
+<p>在游戏3的基础上还可以往更高的维度上推，譬如\(X_{(1)},X_{(2)},\cdots,X_{(n)}\)中的4、5、…等更多个数，可以得到更高维度的Dirichlet分布和Dirichlet-Multinomial共轭。一般形式的Dirichlet分布定义如下：</p>
+<p>$$<br>\begin{equation}<br>\displaystyle Dir(\overrightarrow{p}|\overrightarrow{\alpha}) =<br>\displaystyle \frac{\Gamma(\sum_{k=1}^{K} \alpha_k)}<br>{\prod_{k=1}^K \Gamma(\alpha_k)} \prod_{k=1}^{K} p_k^{\alpha_k -1}<br>\end{equation}    \qquad (1)<br>$$</p>
+<p>对于给定的\(\overrightarrow{p}\)和\(N\)，多项式分布定义为：</p>
+<p>$$<br>Multi(\overrightarrow{n}|\overrightarrow{p},N)=<br>\binom{N}{\overrightarrow{n}} \prod_{k=1}^K p_k^{n_k} \qquad (2)<br>$$</p>
+<p>而\(Multi(\overrightarrow{n}|\overrightarrow{p},N)\)和\(Dir((\overrightarrow{p}|\overrightarrow{\alpha})\)这两个分布是共轭关系。</p>
 <blockquote>
 <p>关于<strong>Dirichlet分布与Beta分布</strong>：<br><br>Dirichlet分布是Beta分布在高维度上的推广。当Dirichlet分布维度趋向无限时，便成为Dirichlet过程。<br><br></p>
 </blockquote>
@@ -474,11 +479,12 @@ other
 <li>在给定了来自数据提供的知识\(\vec{m}\)后，\(\vec{p}\)的后验分布变为\(Dir(\vec{p}|\vec{k}+\vec{m})\)。</li>
 </ul>
 <p>以上贝叶斯分析过程的最简单直接的表述：</p>
-<p>$$<br>Dir(\vec{p}|\vec{k})+Multi(\vec{m})=Dir(\vec{p}|\vec{k}+\vec{m})<br>$$</p>
-<p>令\(\vec{\alpha}=\vec{k}\)，把\(\vec{\alpha}\从整数集合延拓至实数集合，可以证明如下关系仍然成立：</p>
+<p>$$<br>Dir(\overrightarrow{p}|\overrightarrow{k})+Multi(\vec{m})=Dir(\vec{p}|\vec{k}+\vec{m})<br>$$</p>
+<p>令\(\overrightarrow{\alpha}=\vec{k}\)，把\(\vec{\alpha}\从整数集合延拓至实数集合，可以证明如下关系仍然成立：</p>
 <p>$$<br>Dir(\vec{p}|\vec{\alpha})+Multi(\vec{m})=Dir(\vec{p}|\vec{\alpha}+\vec{m}) \quad (11)<br>$$</p>
 <p>公式\((11)\)描述就是<strong>Dirichlet-Multinomial共轭</strong>。同时，我们可以把Dirichlet分布中的\(\alpha\)都可以理解为物理计数。那么，类似于Beta分布，\(Dir(\vec{p}|\vec{\alpha})\)可做如下分解：</p>
 <p>$$<br>Dir(\vec{p}|\vec{1})+Multi(\vec{m}-\vec{1}) = Dir(\vec{p}|\vec{\alpha})<br>$$</p>
+<p>这里\(\vec{1}=(1,1,\cdots,1)\),上式同样可以类似的用纯粹贝叶斯的观点推导和解释。</p>
 <p>数学</p>
 <hr>
 <p>表格(改日修改语法)</p>
