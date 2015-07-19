@@ -360,7 +360,7 @@ other
 <p>关于<strong>Beta函数详细推导</strong><br></p>
 <p>$$<br>\begin{align*}<br>f(x;\alpha,\beta) &amp; = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{\int_{0}^{1}t^{\alpha-1}(1-t)^{\beta-1}dt} \\<br>&amp; = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{Beta(\alpha,\beta)}<br>\end{align*}<br>$$</p>
 <p>其中，</p>
-<p>$$<br>Beta(\alpha,\beta)= \int_{0}^{1}t^{\alpha-1}(1-t)^{\beta-1}dt= \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}<br>$$</p>
+<p>$$<br>Beta(\alpha,\beta)= \int_{0}^{1}t^{\alpha-1}(1-t)^{\beta-1}dt= \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}<br>$$</p>
 </blockquote>
 <ul>
 <li>\(\beta\)型随机变量的期望与方差分别是：</li>
@@ -372,6 +372,16 @@ other
 <p>$$<br>\Gamma(\alpha)=\int_{0}^{\infty}t^{\alpha-1}e^{-t}dt<br>$$</p>
 <p>且当\(\alpha\)是正整数时，\(\Gamma(\alpha)=(\alpha-1)!\)</p>
 </blockquote>
+<ul>
+<li>\(\beta\)型分布的期望公式详细推导</li>
+</ul>
+<p>如果\(p \sim Beta(t|\alpha,\beta)\)，那么\(p\)的期望表示如下：</p>
+<p>$$<br>\begin{align*}<br>E(p)<br>&amp; =\int_{0}^{1} t \ast Beta(t|\alpha,\beta)\;dt \\<br>&amp; = \int_{0}^{1} t \ast \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}t^{\alpha-1}(1-t)^{\beta-1}\;dt \\<br>&amp; =\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\int_{0}^{1}t^{\alpha}(1-t)^{\beta-1}\;dt<br>\end{align*}<br>$$</p>
+<p>上式右边的积分\(\int_{0}^{1}t^{\alpha}(1-t)^{\beta-1}\;dt\)恰好对应到概率分布\(Beta(t|\alpha+1,\beta)\)。对于此分布，根据Beta函数在\([0,1]\)之间的累积分布函数等于1，可得:</p>
+<p>$$<br>\begin{align*}<br>\int_{0}^{1} \frac{\Gamma(\alpha+\beta+1)}{\Gamma(\alpha+1)\Gamma(\beta)} t^\alpha (1-t)^{\beta-1}\;dt=1 \\<br>\int_{0}^{1}t^\alpha (1-t)^{\beta-1}\;dt=\frac{\Gamma(\alpha+1)\Gamma(\beta)}{\Gamma(\alpha+\beta+1)}<br>\end{align*}<br>$$</p>
+<p>把上式带入\(E(p)\)计算式，得到 </p>
+<p>$$<br>\begin{align*}<br>E(p) &amp; = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} \cdot<br>\frac{\Gamma(\alpha+1)\Gamma(\beta)}{\Gamma(\alpha+\beta+1)} \\<br>&amp; = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha+\beta+1)}\frac{\Gamma(\alpha+1)}{\Gamma(\alpha)} \notag \\<br>&amp; = \frac{\alpha}{\alpha+\beta}<br>\end{align*}<br>$$</p>
+<p>这说明，<strong>对于Beta分布的随机变量，其均值可以用\(\frac{\alpha}{\alpha+\beta}\)来估计</strong>。</p>
 <ul>
 <li>\(\beta\)型概率分布曲线</li>
 </ul>
@@ -442,11 +452,14 @@ other
 <li>n: 总的样本数<br></li>
 <li>\(X_{(k_1)}\)和\(X_{(k_1 + k_2)}\)将n分割为3段，长度分别为\(k_1, k_2和k_3\)，即<br></li>
 </ol>
-<p>$$<br>分段结果：<br>\begin{cases}<br>[X_{(1)}, X_{(k-1)}], &amp; 有(k_1-1)个取值，统称为x_1 \\<br>[X_{(k_1+1)}, X_{(k_1+k_2)}], &amp; 有(k_2-1)个取值，统称为x_2 \\<br>[X_{(k_1+k_2+1)}, X_{(n)}] &amp; 有(n-k_1-k_2)个取值，统称为x_3<br>\end{cases}<br>$$</p>
+<p>$$<br>分段结果：<br>\begin{cases}<br>[X_{(1)}, X_{(k-1)}], &amp; 有(k_1-1)个取值，统一记为x_1 \\<br>[X_{(k_1+1)}, X_{(k_1+k_2)}], &amp; 有(k_2-1)个取值，统一记为x_2 \\<br>[X_{(k_1+k_2+1)}, X_{(n)}] &amp; 有(n-k_1-k_2)个取值，统一记为x_3<br>\end{cases}<br>$$</p>
 </blockquote>
-<p>完全类似于游戏1的推导过程，\(X_{(k_1)},X_{(k_1+k_2)}\)的联合概率计算如下：</p>
+<p>完全类似于游戏1的推导过程，\(X_{(k_1)},X_{(k_1+k_2)}\)的<strong>联合概率</strong>计算如下：</p>
 <p>$$<br>\begin{align*}<br>&amp; P\Bigl(X_{(k_1)} \in (x_1, x_1+\Delta x), X_{(k_1+k_2)} \in (x_2, x_2+\Delta x)\Bigr) \\<br>&amp; \quad = n(n-1)\binom{n-2}{k_1-1,k_2-1}x_1^{k_1-1}x_2^{k_2-1}x_3^{n-k_1-k_2}(\Delta x)^2 \\<br>&amp; \quad = \frac{n!}{(k_1-1)!(k_2-1)!(n-k_1-k_2)!}x_1^{k_1-1}x_2^{k_2-1}x_3^{n-k_1-k_2}(\Delta x)^2<br>\end{align*}<br>$$</p>
-<p>于是得到\(X_{(k<em>1)},X\</em>{(k_1+k_2)}\)的联合分布是：</p>
+<blockquote>
+<p>式中的\(n(n-1)\binom{n-2}{k_1-1,k_2-1}\)是一个排列组合问题，比较容易理解。</p>
+</blockquote>
+<p>于是得到\(X_{(k_1)},X_{(k_1+k_2)}\)的联合分布是：</p>
 <p>$$<br>\begin{align*}<br>f(x_1,x_2,x_3) &amp; =\frac{n!}{(k_1-)!(k_2-1)!(n-k_1-k_2)!}x_1^{k_1-1}x_2^{k_2-1}x_3^{n-k_1-k_2} \\<br>&amp; = \frac{\Gamma(n+1)}{\Gamma(k_1)\Gamma(k_2)\Gamma(n-k_1-k_2+1)}x_1^{k_1-1}x_2^{k_2-1}x_3^{n-k_1-k_2}<br>\end{align*} \quad (**)<br>$$</p>
 <p>而公式\((**)\)则是3维形式的Dirichlet分布，即\(Dir(x_1,x_2,x_3\;|\;k_1,k_2,n-k_1-k_2+1)\)。这里令\(\alpha_1=k_1,\alpha_2=k_2,\alpha_3=n-k_1-k_2+1\)，于是分布密度函数可以写为：</p>
 <p>$$<br>f(x_1, x_2, x_3) = \frac{\Gamma(\alpha_1+\alpha_2+\alpha_3)}{\Gamma(\alpha_1)\Gamma(\alpha_2)\Gamma(\alpha_3)}x_1^{\alpha_1-1}x_2^{\alpha_2-1}x_3^{\alpha_3-1} \qquad (0)<br>$$</p>
@@ -466,7 +479,7 @@ other
 <p>同样，对游戏4进行数学抽象，表示如下：</p>
 <ul>
 <li>\(X_1,X_2, \cdots, X_n \sim Uniform(0,1)\)，排序后对应的顺序统计量为\(X_{(1)},X_{(2)},\cdots,X_{(n)}\)；</li>
-<li>令\(p_1=X_{(k_1)},p_2=X_{(k_2)},p_3=1-p_1-p_2(p_3是为了简洁的数学表达)\)，我们要猜测\(\vec{p}=(p_1,p_2,p_3)\)；</li>
+<li>令\(p_1=X_{(k_1)},p_2=X_{(k_1+k_2)},p_3=1-p_1-p_2(p_3是为了简洁的数学表达)\)，我们要猜测\(\vec{p}=(p_1,p_2,p_3)\)；</li>
 <li>\(Y_1,Y_2, \cdots, Y_m \sim Uniform(0,1)\),\(Y_i\)中落到\([0,p_1), [p_1,p_2),[p_2,1]\)三个区间的个数分别是\(m_1,m_2,m_3\),其中\(m=m_1+m_2+m_3\)；</li>
 <li>问后验分布\(P(\vec{p}|Y_1,Y_2, \cdots, Y_m)\)的分布是什么？</li>
 </ul>
@@ -480,7 +493,7 @@ other
 </ul>
 <p>以上贝叶斯分析过程的最简单直接的表述：</p>
 <p>$$<br>Dir(\overrightarrow{p}|\overrightarrow{k})+Multi(\vec{m})=Dir(\vec{p}|\vec{k}+\vec{m})<br>$$</p>
-<p>令\(\overrightarrow{\alpha}=\vec{k}\)，把\(\vec{\alpha}\从整数集合延拓至实数集合，可以证明如下关系仍然成立：</p>
+<p>令\(\overrightarrow{\alpha}=\vec{k}\)，把\(\vec{\alpha}\)从整数集合延拓至实数集合，可以证明如下关系仍然成立：</p>
 <p>$$<br>Dir(\vec{p}|\vec{\alpha})+Multi(\vec{m})=Dir(\vec{p}|\vec{\alpha}+\vec{m}) \quad (11)<br>$$</p>
 <p>公式\((11)\)描述就是<strong>Dirichlet-Multinomial共轭</strong>。同时，我们可以把Dirichlet分布中的\(\alpha\)都可以理解为物理计数。那么，类似于Beta分布，\(Dir(\vec{p}|\vec{\alpha})\)可做如下分解：</p>
 <p>$$<br>Dir(\vec{p}|\vec{1})+Multi(\vec{m}-\vec{1}) = Dir(\vec{p}|\vec{\alpha})<br>$$</p>
