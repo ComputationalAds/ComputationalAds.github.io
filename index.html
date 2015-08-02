@@ -81,7 +81,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/07/04/beta-gamma-dirichlet-function/" title="Gamma-Beta-Dirichlet-Function" itemprop="url">Gamma-Beta-Dirichlet-Function</a>
+      <a href="/2015/07/04/beta-gamma-dirichlet-function/" title="概率与统计-chapter0-三个重要函数" itemprop="url">概率与统计-chapter0-三个重要函数</a>
   </h1>
   <p class="article-author">By
        
@@ -97,12 +97,12 @@
         <ul>
 <li>Author: zhouyongsdzh@foxmail.com</li>
 <li>Date: 2015-07-04</li>
-<li>Sina Weibo: @周永_52ML</li>
+<li>Sina Weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
 </ul>
 <h3 id="多产的数学家－欧拉"><strong>多产的数学家－欧拉</strong></h3><p>他是公认的数学史上4位最伟大的数学家之一，他的一生没有戏剧性的故事，但给后人留下宝贵的科学财富。</p>
 <p>18世纪，数学家辈出的年代，他仍属于佼佼者，被认为是18世纪数学界最杰出的人物之一。</p>
 <p>同时，他在数学领域最多产的一位，不仅在数学界做出伟大贡献，而且把数学应用到了几乎整个物理领域。他就是<strong>18世纪数学界之星-欧拉</strong>。</p>
-<p><a href="(http://baike.baidu.com/link?url=OFDCUSh42Bfc_tOI70iV9Zh3hRkxZww91RL_2zlyGNUccKlXAGZRZzLA47ZtTx_XwROYpptHjgsbIJmlAnGPCoRcRi_UIhtRWMQcoqb8zTP-5rLDaLwqvGxU_s2J7Qu596UmWqAJ-43oM5-70om12q">莱昂哈德·欧拉</a>)（Leonhard Euler ，1707年4月15日～1783年9月18日），瑞士数学家、自然科学家。1707年出生于瑞士－巴塞尔的牧师家庭，15岁从巴塞尔大学毕业，翌年获得硕士学位。</p>
+<p><a href="http://baike.baidu.com/link?url=OFDCUSh42Bfc_tOI70iV9Zh3hRkxZww91RL_2zlyGNUccKlXAGZRZzLA47ZtTx_XwROYpptHjgsbIJmlAnGPCoRcRi_UIhtRWMQcoqb8zTP-5rLDaLwqvGxU_s2J7Qu596UmWqAJ-43oM5-70om12q" target="_blank" rel="external">莱昂哈德·欧拉</a>)（Leonhard Euler ，1707年4月15日～1783年9月18日），瑞士数学家、自然科学家。1707年出生于瑞士－巴塞尔的牧师家庭，15岁从巴塞尔大学毕业，翌年获得硕士学位。</p>
 <p>简述其成就：</p>
 <ol>
 <li><strong><em>微分方程</em></strong>: 18世纪中叶，欧拉与其它数学家在解决物理问题过程中，创立了<strong>微分方程</strong>学科。偏微分方程的纯数学研究的第一篇论文是欧拉写的《方程的积分法研究》。此外，还提出了<strong>函数用三角级数表示</strong>的方法和<strong>解微分方程的级数法</strong>等。<br><br></li>
@@ -119,11 +119,13 @@
 <li>第一类欧拉积分：又称为Beta函数（简称B函数）</li>
 <li>第二类欧拉积分：又称为Gamma函数</li>
 </ul>
-<h3 id="Gamma函数－第二类欧拉积分">Gamma函数－第二类欧拉积分</h3><p>因为Beta函数和Dirichlet函数可以表示用Gamma函数表示，所以先介绍Gamma函数。<br><br></p>
-<h4 id="历史由来"><strong>历史由来</strong></h4><p>1728年，<a href="http://baike.baidu.com/view/7386144.htm?fromtitle=%E5%93%A5%E5%BE%B7%E5%B7%B4%E8%B5%AB&amp;fromid=1632207&amp;type=syn" target="_blank" rel="external">哥德巴赫</a>（Goldbach C. 德国数学家，1690-1764）在考虑<strong>数列插值</strong>的问题，通俗的说就是把数列的通项公式定义<strong>从整数集合延伸至实数集合</strong>，例如数列1,4,9,16…..可以用通项公式\(n^2\)自然地表达，即便\(n\)为实数时，此通项公式也具有良好的定义。另一个自然的解释就是可以找到一条平滑的曲线\(f(x)=x^2\)通过所有的整数点\([x, x^2]\)，从而可以把定义在整数集上的公式延伸至实数集合。</p>
+<h3 id="Gamma函数－第二类欧拉积分">Gamma函数－第二类欧拉积分</h3><blockquote>
+<p>因为Beta函数和Dirichlet函数可以表示用Gamma函数表示，所以先介绍Gamma函数。</p>
+</blockquote>
+<h4 id="历史由来"><br><strong>历史由来</strong></h4><p>1728年，<a href="http://baike.baidu.com/view/7386144.htm?fromtitle=%E5%93%A5%E5%BE%B7%E5%B7%B4%E8%B5%AB&amp;fromid=1632207&amp;type=syn" target="_blank" rel="external">哥德巴赫</a>（Goldbach C. 德国数学家，1690-1764）在考虑<strong>数列插值</strong>的问题，通俗的说就是把数列的通项公式定义<strong>从整数集合延伸至实数集合</strong>，例如数列1,4,9,16…..可以用通项公式\(n^2\)自然地表达，即便\(n\)为实数时，此通项公式也具有良好的定义。另一个自然的解释就是可以找到一条平滑的曲线\(f(x)=x^2\)通过所有的整数点\([x, x^2]\)，从而可以把定义在整数集上的公式延伸至实数集合。</p>
 <p>有一天，哥德巴赫开始处理<strong>阶乘序列</strong>\(1,2,6,24,120,720,\cdots\)，我们可以计算整数的阶乘（如\(2!,3!\)），那么是否可以计算实数的阶乘（如\(2.5!\)）呢？</p>
 <p>遗憾的是，哥德巴赫当时无法解决<strong>阶乘的计算从整数集合延伸至实数集合上</strong>的问题，于是写信请教<a href="https://en.wikipedia.org/wiki/Nicolaus_II_Bernoulli" target="_blank" rel="external">尼古拉斯.伯努利</a>和其弟<a href="https://en.wikipedia.org/wiki/Daniel_Bernoulli" target="_blank" rel="external">丹尼尔.伯努利</a>，由于当时欧拉与丹尼尔.伯努利在一起，因此也得知了该问题。而欧拉与1729年完美的解决了这个问题，由此导致Gamma函数的诞生，当时的欧拉只有22岁。</p>
-<h4 id="Gamma函数发现之旅"><br><strong>Gamma函数发现之旅</strong></h4><p>最早发现\(n!\)差值计算的是丹尼尔.伯努利。他发现：如果\(m,n\)都是正整数，且\(m\to\infty\)时，有下面公式成立：</p>
+<h4 id="Gamma发现之旅"><br><strong>Gamma发现之旅</strong></h4><p>其实最早发现\(n!\)差值计算的是丹尼尔.伯努利。他发现：如果\(m,n\)都是正整数，且\(m\to\infty\)时，有下面公式成立：</p>
 <p>$$<br>\frac {1 \cdot 2 \cdot 3 \cdots m} {(1+n)(2+n) \cdots (m-1+n)} \left(m+ \frac{n}{2}\right)^{n-1} \to n!<br>$$</p>
 <p>用此<strong>无穷乘积</strong>的方式可以把\(n!\)定义延伸至实数集合。如\(n=2.5,m\)足够大时，上式基本可近似计算出\(2.5!\)的值。</p>
 <p>欧拉偶然地发现\(n!\)可用如下无穷乘积表达：</p>
@@ -140,9 +142,9 @@
 <p>于是欧拉根据Wallis公式得到如下的结果：</p>
 <p>$$<br>\left(\frac{1}{2}\right)! = \frac{\sqrt{\pi}}{2}<br>$$</p>
 <p>欧拉发现\((\frac{1}{2})!\)中含有\(\pi\)，而\(\pi\)与圆相关的积分有关系。欧拉猜测\(n!\)一定可以用积分形式表示。</p>
-<p>Wallis时代微积分还没问世，当时是使用插值方式做推导计算的，但Wallis公式的推导过程基本上是在处理积分\(\int_{0}^{1} x^\frac{1}{2} (1-x)^\frac{1}{2} dx\)。</p>
+<p>Wallis时代微积分还没问世，当时是使用插值方法做推导计算的，但Wallis公式的推导过程基本上都是在处理积分\(\int_{0}^{1} x^\frac{1}{2} (1-x)^\frac{1}{2} dx\)的问题。</p>
 <blockquote>
-<p>关于微积分诞生：<br><br><br>牛顿与莱布尼茨谁先发明的微积分在数学界有很大的争论。不过本人更认可是莱布尼茨，因为微积分的主要思想是他提出的，定义了微分相关概念和符号，并沿用至今。<br><br><br>1684年<a href="http://baike.baidu.com/link?url=TsKq7RAFzLHNnXSqoXKfEosO1ogw_FQnRME1vlTwvwKiJs0hudGCkvWkUJW1MHwpiGPGB7SHD49O2Nmea5m_i63qc9eJSMlDzZ7VAPo7D2p4d6oj9Bb0MVkLfDUaSbqvNCc5Opspb0YHMMGf8PJXaH5kmhwbnefwifkVxETybompTpK4IDEAoP9ZR83kyP4L" target="_blank" rel="external">莱布尼茨</a>发表了关于微积分的重要文献，标志着微积分作为独立学科正式诞生。莱布尼茨是微积分主要思想的独立发明人。当然，不可否认的是牛顿在此前同样做了很多微积分相关工作。</p>
+<p>关于微积分诞生：<br><br>牛顿与莱布尼茨谁先发明的微积分在数学界有很大的争论。不过本人更认可是莱布尼茨，因为微积分的主要思想是他提出的，微分相关概念和符号是他定义的，并沿用至今。<br><br>1684年<a href="http://baike.baidu.com/link?url=TsKq7RAFzLHNnXSqoXKfEosO1ogw_FQnRME1vlTwvwKiJs0hudGCkvWkUJW1MHwpiGPGB7SHD49O2Nmea5m_i63qc9eJSMlDzZ7VAPo7D2p4d6oj9Bb0MVkLfDUaSbqvNCc5Opspb0YHMMGf8PJXaH5kmhwbnefwifkVxETybompTpK4IDEAoP9ZR83kyP4L" target="_blank" rel="external">莱布尼茨</a>发表了关于微积分的重要文献，标志着微积分作为独立学科正式诞生。莱布尼茨是微积分主要思想的独立发明人。当然，不可否认的是牛顿在此前同样做了很多微积分相关工作。</p>
 </blockquote>
 <p>受Wallis启发，欧拉开始考虑如下一般形式的积分：</p>
 <p>$$<br>J(e,n)=\int_{0}^{1} x^e(1-x)^n dx<br>$$</p>
@@ -166,9 +168,14 @@
 <p>注：使用MathJax引擎在浏览器上解析时，需要对”_”做转义，应写成下面形式：<br></p>
 <figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\<span class="keyword">Gamma</span>(x) = \int\_<span class="list">&#123;0&#125;</span>^<span class="list">&#123;1&#125;</span> (-\log t)^<span class="list">&#123;x-1&#125;</span>dt = \int_<span class="list">&#123;0&#125;</span>^<span class="list">&#123;\infty&#125;</span> t^<span class="list">&#123;x-1&#125;</span> e^<span class="list">&#123;-t&#125;</span>dt</span><br></pre></td></tr></table></figure>
 </blockquote>
-<h4 id="为什么\(\Gamma(n)=(n-1)!\)，而不是\(\Gamma(n)=n!\)"><strong>为什么</strong>\(\Gamma(n)=(n-1)!\)<strong>，而不是</strong>\(\Gamma(n)=n!\)</h4><p>如果对上述的Gamma函数式做一个调整，将\(t^{x-1}\)替换为\(t^x\)，可得如下函数：</p>
+<p><strong>为什么</strong>\(\Gamma(n)=(n-1)!\)<strong>，而不是</strong>\(\Gamma(n)=n!\)</p>
+<p>如果对上述的Gamma函数式做一个调整，将\(t^{x-1}\)替换为\(t^x\)，可得如下函数：</p>
 <p>$$<br>\Gamma(x) = \int_{0}^{\infty} t^x e^{-t}dx<br>$$</p>
 <p>此时\(\Gamma(n)=n!\)，这才是欧拉最早的Gamma函数定义。但后来欧拉修改了原有Gamma函数的定义，使得\(\Gamma(n)=(n-1)!\)。后来的数学家们在对Gamma函数的进一步研究中，认可了这个定义，沿用至今。</p>
+<h4 id="Gamma分布">Gamma分布</h4><ul>
+<li>概率密度函数</li>
+</ul>
+<p>$$<br>f(x)=<br>\begin{cases}<br>\displaystyle\frac {x^{\alpha-1} e^{x/\beta}} {\beta^\alpha \Gamma(\alpha)}, &amp; 0 \leq x \leq \infty; \alpha &gt; 0; \beta &gt; 0 \\<br>\;\;\quad 0, &amp; others<br>\end{cases}<br>$$</p>
 <h3 id="Beta函数－第一类欧拉积分">Beta函数－第一类欧拉积分</h3><p>在@rickjin的《LDA-math》系列中详细地解释了Beta和Dirichlet分布的由来和推导过程，堪称经典。原文见下面链接：</p>
 <ul>
 <li><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%831" target="_blank" rel="external">LDA-math-认识Beta/Dirichlet分布(1)</a> <br></li>
@@ -206,7 +213,7 @@
 <p>$$<br>\begin{align*}<br>&amp; P( x \le X_{(k)} \le x+\Delta x) \\<br>&amp; = n\binom{n-1}{k-1}P(E) + o(\Delta x) \\<br>&amp; = n\binom{n-1}{k-1}x^{k-1}(1-x)^{n-k}\Delta x + o(\Delta x)<br>\end{align*}<br>$$</p>
 <p>进一步可得\(X_{(k)}\)的概率密度函数为</p>
 <p>$$<br>\begin{align*}<br>f(x) &amp; = \lim_{\Delta x \to 0} \frac {P(x \leq X_{(x)} \leq x + \Delta x)}{\Delta x} \\<br>&amp; = n \binom{n-1}{k-1}x^{k-1}(1-x)^{n-k}\\<br>&amp; = \frac {n!}{(k-1)! (n-k)!}x^{k-1} (1-x)^{n-k} \quad x \in [0,1]<br>\end{align*}<br>$$</p>
-<p>根据<a href="">神奇的Gamma函数、Beta函数系列</a>可知，利用Gamma函数，可以把上述\(f(x)\)表示为</p>
+<p>利用上述介绍的Gamma函数，可以把\(f(x)\)表示为</p>
 <p>$$<br>f(x) = \frac {\Gamma(n+1)}{\Gamma(k) \Gamma(n-k+1)} x^{k-1} (1-x)^{n-k}<br>$$</p>
 <p><strong>\(\Gamma\)函数起源于人们希望把数学计算从整数集合拓展至实数集合</strong>。这里另\(\alpha=k, \beta=n-k+1\)，于是可以得到</p>
 <p>$$<br>Beta(x|\alpha,\beta)=f(x)=\frac {\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1}(1-x)^{\beta-1}<br>$$</p>
@@ -220,23 +227,19 @@
 <p>$$<br>\begin{align*}<br>f(x;\alpha,\beta) &amp; = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{\int_{0}^{1}t^{\alpha-1}(1-t)^{\beta-1}dt} \\<br>&amp; = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{Beta(\alpha,\beta)}<br>\end{align*}<br>$$</p>
 <p>其中，</p>
 <p>$$<br>Beta(\alpha,\beta)= \int_{0}^{1}t^{\alpha-1}(1-t)^{\beta-1}dt= \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}<br>$$</p>
+<p>$$<br>\Gamma(\alpha)=\int_{0}^{\infty}t^{\alpha-1}e^{-t}dt<br>$$<br>且当\(\alpha\)是正整数时，\(\Gamma(\alpha)=(\alpha-1)!\)</p>
 </blockquote>
 <ul>
 <li>\(\beta\)型随机变量的期望与方差分别是：</li>
 </ul>
 <p>$$\mu=\frac{\alpha}{\alpha+\beta} \;\qquad\qquad\qquad (期望)$$</p>
 <p>$$\sigma^2=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)} \quad (方差)$$</p>
-<blockquote>
-<p>关于<strong>Gamma函数</strong></p>
-<p>$$<br>\Gamma(\alpha)=\int_{0}^{\infty}t^{\alpha-1}e^{-t}dt<br>$$</p>
-<p>且当\(\alpha\)是正整数时，\(\Gamma(\alpha)=(\alpha-1)!\)</p>
-</blockquote>
 <ul>
 <li>\(\beta\)型分布的期望公式详细推导</li>
 </ul>
 <p>如果\(p \sim Beta(t|\alpha,\beta)\)，那么\(p\)的期望表示如下：</p>
 <p>$$<br>\begin{align*}<br>E(p)<br>&amp; =\int_{0}^{1} t \ast Beta(t|\alpha,\beta)\;dt \\<br>&amp; = \int_{0}^{1} t \ast \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}t^{\alpha-1}(1-t)^{\beta-1}\;dt \\<br>&amp; =\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\int_{0}^{1}t^{\alpha}(1-t)^{\beta-1}\;dt<br>\end{align*}<br>$$</p>
-<p>上式右边的积分\(\int_{0}^{1}t^{\alpha}(1-t)^{\beta-1}\;dt\)恰好对应到概率分布\(Beta(t|\alpha+1,\beta)\)。对于此分布，根据Beta函数在\([0,1]\)之间的累积分布函数等于1，可得:</p>
+<p>上式右边的积分\(\int_{0}^{1}t^{\alpha}(1-t)^{\beta-1}\;dt\)恰好对应到概率分布\(Beta(t|\alpha+1,\beta)\)。对于此分布，根据Beta型随机变量的密度函数在\([0,1]\)之间的累积分布等于1，可得:</p>
 <p>$$<br>\int_{0}^{1} \frac{\Gamma(\alpha+\beta+1)}{\Gamma(\alpha+1)\Gamma(\beta)} t^\alpha (1-t)^{\beta-1}\;dt=1<br>$$</p>
 <p>把上式带入\(E(p)\)计算式，得到 </p>
 <p>$$<br>\begin{align*}<br>E(p) &amp; = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} \cdot<br>\frac{\Gamma(\alpha+1)\Gamma(\beta)}{\Gamma(\alpha+\beta+1)} \\<br>&amp; = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha+\beta+1)}\frac{\Gamma(\alpha+1)}{\Gamma(\alpha)} \notag \\<br>&amp; = \frac{\alpha}{\alpha+\beta}<br>\end{align*}<br>$$</p>
@@ -290,7 +293,7 @@
 <li>而从<strong>贝叶斯学派</strong>的观点来看，开始对硬币不均匀性一无所知，所以应该假设\(p\ \in Uniform(0,1)\)，于是二项分布的计数\(m_1,m_2\)之后，按照贝叶斯公式计算\(p\)的后验分布：</li>
 </ul>
 <p>$$<br>\begin{align*}<br>P(p|\,m_1,m_2) = &amp; \frac {P(p) \cdot P(m_1,m_2\,|p)}{P(m_1,m_2)} \\<br>= &amp; \frac {1 \cdot P(m_1,m_2 |p)}{\int_{0}^{1} P(m_1,m_2|t)dt} \\<br>= &amp; \frac {\binom{m}{m_1}p^{m_1}(1-p)^{m_2}}{\int_{0}^{1} \binom{m}{m_1}t^{m_1}(1-t)^{m_2}dt} \\<br>= &amp; \frac {p^{m_1}(1-p)^{m_2}}{\int_{0}^{1}t^{m_1}(1-t)^{m_2}dt}<br>\end{align*}<br>$$</p>
-<p>得到的后验分布正好是\(Beta(p|\;m_1 + 1, m_2 + 1)\)。<strong><em>这里真心没看太懂 …</em></strong></p>
+<p>得到的后验分布正好是\(Beta(p|\;m_1 + 1, m_2 + 1)\)。</p>
 <p>回到<strong>魔鬼的游戏</strong>，如果按出的5个随机数字中，魔鬼告诉你有2个（即\(m_1=2\)）小于他手中第7大的数，那么应该按照如下概率分布的<strong>峰值</strong>做猜测是最好的(\(\alpha+2=9,\beta+3=7\))：</p>
 <p>$$<br>Beta(x|9,7)=\frac{15!}{(8)!(6)!}x^8(1-x)^6  \quad x \in [0,1]<br>$$</p>
 <p>很幸运，这次猜中了，但是魔鬼开始耍赖，游戏不得不继续 \(\cdots\)</p>
