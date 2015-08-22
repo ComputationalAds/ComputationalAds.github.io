@@ -81,6 +81,278 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/08/08/ml-chapter1-regression/" title="深入理解ML之Regression Family" itemprop="url">深入理解ML之Regression Family</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Zhou Yong" target="_blank" itemprop="author">Zhou Yong</a>
+		
+  <p class="article-time">
+    <time datetime="2015-08-08T14:34:13.000Z" itemprop="datePublished"> 发表于 2015-08-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="第一章:_深入理解ML之Regression_Family">第一章: 深入理解ML之Regression Family</h2><ul>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 2015-08-15</li>
+<li>sina weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
+</ul>
+<h3 id="内容列表">内容列表</h3><table>
+<thead>
+<tr>
+<th>索引</th>
+<th>名称</th>
+<th>英文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>说明</td>
+</tr>
+<tr>
+<td>1</td>
+<td>回归分析介绍</td>
+</tr>
+<tr>
+<td>2</td>
+<td>线性回归</td>
+<td><em>Linear Regression</em></td>
+</tr>
+<tr>
+<td>3</td>
+<td>多项式回归</td>
+<td><em>Polynomial Regression</em></td>
+</tr>
+<tr>
+<td>4</td>
+<td>逐步回归</td>
+<td><em>(Forword) Stepwise Regression</em></td>
+</tr>
+<tr>
+<td>5</td>
+<td>岭回归</td>
+<td><em>Ridge Regression</em></td>
+</tr>
+<tr>
+<td>6</td>
+<td>Lasso回归</td>
+<td><em>Lasso Regression</em></td>
+</tr>
+<tr>
+<td>7</td>
+<td>ElasticNet回归</td>
+<td><em>ElasticNet Regression</em></td>
+</tr>
+<tr>
+<td>8</td>
+<td>逻辑斯蒂回归</td>
+<td><em>Logistic Regression</em></td>
+</tr>
+<tr>
+<td>9</td>
+<td>SoftMax回归</td>
+<td><em>Softmax Regression</em></td>
+</tr>
+</tbody>
+</table>
+<h3 id="符号定义">符号定义</h3><p>这里定义了《深入理解ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\(x_j\)</td>
+<td>表示第\(j\)维特征</td>
+</tr>
+<tr>
+<td>\(x\)</td>
+<td>表示一条样本中的特征向量，\(x=(1, x_1, x_2, \cdots, x_n)\)</td>
+</tr>
+<tr>
+<td>\(x^{(i)}\)</td>
+<td>表示第\(i\)条样本</td>
+</tr>
+<tr>
+<td>\(x_{j}^{(i)}\)</td>
+<td>表示第\(i\)条样本的第\(j\)维特征</td>
+</tr>
+<tr>
+<td>\(y^{(i)}\)</td>
+<td>表示第\(i\)条样本的结果（label）</td>
+</tr>
+<tr>
+<td>\(X\)</td>
+<td>表示所有样本的特征全集，即\(X=(x^{(1)},x^{(2)}, \cdots, x^{(m)})^T\)</td>
+</tr>
+<tr>
+<td>\(Y\)</td>
+<td>表示所有样本的label全集，即\(Y=(y^{(1)},y^{(2)}, \cdots, y^{(m)})^T\)</td>
+</tr>
+<tr>
+<td>\(\theta\)</td>
+<td>表示参数向量，即\(\theta=(\theta_0, \theta_1, \cdots, \theta_n)\)</td>
+</tr>
+<tr>
+<td>\(\theta_j\)</td>
+<td>表示第\(j维\)参数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="0-_说明">0. 说明</h3><p>回归技术是在整个数据科学技术体系中应该占有非常重要的一席之地。回归分析是统计学中的相关分析体系中重要组成部分。在机器学习中，回归与分类共同构成了监督学习技术。</p>
+<blockquote>
+<p>可以说，监督学习（supervised learning）是机器学习在工业界应用最广的一个领域分支。在学术界中也是研究最多的技术之一。在数据挖掘十大经典算法中，监督学习技术占据6个席位。</p>
+</blockquote>
+<p>线性回归和逻辑斯蒂回归（Logistic Regression）通常是作为学习一个预测模型的首选算法。</p>
+<h3 id="1-_回归分析介绍">1. 回归分析介绍</h3><p>在介绍具体的回归技术之前，有必要探讨下以下几个问题。回归分析是什么？为什么要使用回归分析呢？</p>
+<ul>
+<li><p>什么是回归分析？</p>
+<p>  回归分析是预测建模技术的一种方法，用于研究自变量与因变量之间的关系。该技术主要用于预测、时间序列建模遗迹寻找变量之间的the causal effect relationship。 举例，rash driving和number of road accidents by a driver通过回归技术可以进行更好的研究。</p>
+<p>  回归分析是用于建模和数据分析的一个重要工具。在这里，我们用曲线/直线去拟合数据点，希望所有数据点到曲线/直线的距离差异之和最小。在后面的章节中会详细解释这部分。</p>
+<p>  （曲线图）</p>
+<p>  <img src="http://www.analyticsvidhya.com/wp-content/uploads/2015/08/Regression_Line.png" alt="回归分析"></p>
+</li>
+<li><p>为什么要使用回归分析？</p>
+<p>  正如上面描述，回归分析用于估计两个或多个变量之间的关系。让我们通过一个简单的例子理解这个问题：</p>
+<blockquote>
+<p>假如，你想根据当前的经济环境，估计企业的营收增长情况。公司最近的数据表明其营收增长大约是经济增长的2.5倍。根据这个观察，我们可以根据当前和过去的信息，预测公司未来的营收增长情况。</p>
+</blockquote>
+<p>  使用回归分析会带来诸多好处，比如：</p>
+<ol>
+<li>它可以表明因变量（特征）与自变量（结果）之间的显著关系；</li>
+<li><p>还可以表明多个因变量（特征）对自变量（结果）的影响程度（根据feature对应权重大小）.</p>
+<p>同时，回归分析也可以去比较两个变量之间的影响，比如促销活动的次数与价格波动的影响。这些有助于帮助市场研究人员/数据分析师/数据科学家去消除或评估最佳的一组变量用于建立预测模型。</p>
+</li>
+</ol>
+</li>
+<li><p>回归技术分类</p>
+<p>  有很多种不同的回归技术可做预测。可以根据目标变量的个数、因变量的类型以及回归函数的形状这三个维度对回归技术做一个归类。下面分别介绍具体的回归技术。</p>
+</li>
+</ul>
+<h3 id="2-_线性回归（Linear_Regression）">2. 线性回归（Linear Regression）</h3><p>线性回归是最被广泛应用的建模技术之一。线性回归旨在用一条<strong>最佳的直线（被称为回归线）</strong>来构建自变量（\(Y\)）和一个或多个因变量（\(X\)）之间的关系。线性回归相关性质：</p>
+<ul>
+<li><p>变量特点</p>
+<p>  |因变量（特征）|自变量（标签）|关系|<br>  | —- | —- | —- |<br>  | 连续或离散 | 连续 | 线性 |</p>
+</li>
+<li><p>线性回归模型表达</p>
+</li>
+</ul>
+<p>$$y = \theta_0 + \theta_1 x_1 + \cdots + \theta_n x_n \quad (n \ge 1) \qquad (ml.1.1)$$ </p>
+<p>其中，\(x_1,x_2,\cdots,x_n\)表示因变量，\(y\)是自变量，\(\theta_1,\theta_2,\cdots,\theta_n\)是表示参数，\(\theta_i\)表示对应因变量（特征）的权重，\(\theta_0\)表示常量。</p>
+<blockquote>
+<p> 关于参数\(\theta\)： <br></p>
+<ol>
+<li>在物理上可以这样解释：<strong>在因变量（特征）之间相互独立的前提下</strong>，\(\theta_i\)反映因变量\(x_i\)对自变量影响程度，\(\theta_i\)越大，说明\(x_i\)对结果\(y\)的影响越大。<br></li>
+<li>通过每个因变量（特征）前面的参数，可以很直观的看出哪些特征分量对结果的影响比较大。<br></li>
+<li>在统计中，\(\theta_1,\theta_2,\cdots,\theta_n\)称为偏回归系数，\(\theta_0\)称为截距。</li>
+</ol>
+</blockquote>
+<p>如果令\(x<em>0=1, y=h</em>{\theta}(x)\), 可以将公式\((ml.1.1.)\)写成向量形式，即：</p>
+<p>$$h<em>{\theta}(x) = \sum</em>{n=0}^{n} \theta_i x_i = \theta^T x \qquad(ml.1.2)$$</p>
+<p>其中，\(\theta=(\theta_0, \theta_1, \cdots, \theta_n)\)，\(x=(1, x_1, x_2, \cdots, x_n)\) 均为向量，\(\theta^T\)为\(\theta\)的转置。</p>
+<h3 id="3-_多项式回归（Polynomial_Regression）">3. 多项式回归（Polynomial Regression）</h3><h3 id="4-_岭回归（Ridge_Regression）">4. 岭回归（Ridge Regression）</h3><p>$$L2范数$$</p>
+<h3 id="5-_Lasso回归（Lasso_Regression）">5. Lasso回归（Lasso Regression）</h3><p>$$L1范数$$</p>
+<ul>
+<li><a href="http://bbs.pinggu.org/thread-1415582-1-1.html" target="_blank" rel="external">Lasso算法简介</a></li>
+<li><a href="http://blog.163.com/lipse_huang/blog/static/191657545201322531236138/" target="_blank" rel="external">Lasso思想与算法</a></li>
+</ul>
+<h3 id="6-_ElasticNet_Regression">6. ElasticNet Regression</h3><h3 id="7-_逻辑斯蒂回归（Logistic_Regression）">7. 逻辑斯蒂回归（Logistic Regression）</h3><ul>
+<li><p>逻辑斯蒂回归</p>
+<p>  回归模型一般不用在分类问题上，主要原因是回归是连续型模型，而且受噪声影响比较大。但如果要用回归解决分类问题，可使用逻辑斯蒂回归（简称LR，或LogReg模型）。</p>
+<p>  逻辑斯蒂回归本质上还是线性回归，只是特征到结果的映射过程中加了一层函数映射（即sigmoid函数），即先把特征/变量线性求和，然后使用sigmoid函数将线性和约束至\((0,1)\)之间，结果值用于预测。</p>
+</li>
+<li><p>LogReg模型表达</p>
+<p>  如同公式\((ml.1.2)\)，首先是线性求和:</p>
+<p>  $$z = \sum_{n=0}^{n} \theta_i x_i = \theta^T x \qquad(ml.1.3)$$</p>
+<p>  $$h_{\theta}(x) = g(\theta^T x) = \frac{1}{1+e^{-\theta^T x}} \qquad(ml.1.4)$$</p>
+</li>
+<li><p>概率假设</p>
+<p>  LogReg模型多用于解决0/1二分类问题，如广告是否被点击（是/否）、商品是否被购买（是/否）等互联网领域中常见的应用场景。这里从事件、变量以及结果的角度给予解释。</p>
+<p>  我们所能拿到的训练数据都可成为观测样本。样本是如何生成的呢？一个样本可以理解为发生的一次事件，样本生成的过程即事件发生的过程。这里，对于0/1分类问题，产生的结果有两种可能，符合伯努利试验的概率假设。因此，我们可以说样本的生成过程即为伯努利试验过程，产生的结果（0/1）服从伯努利分布。这里我们假设结果为1的概率为\(h<em>{\theta}(x)\)，结果为0的概率为\(1-h</em>{\theta}(x)\)。那么，对于第\(i\)个样本，概率公式表示如下：</p>
+<p>  $$P(y^{(i)}=1|x^{(i)}; \theta) = h_{\theta}(x^{(i)}) \qquad (ml.1.5)$$ </p>
+<p>  $$P(y^{(i)}=0|x^{(i)}; \theta) = 1 - h_{\theta}(x^{(i)}) \qquad (ml.1.6)$$</p>
+<p>  将公式\((ml.1.5)\)和\((ml.1.6)\)合并在一起，可得第\(i\)个样本正确预测的概率：</p>
+<p> $$P(y^{(i)}|x^{(i)}; \theta) = (h<em>{\theta}(x^{(i)}))^{y^{(i)}} \cdot (1 - h</em>{\theta}(x^{(i)}))^{1-y^{(i)}} \qquad (ml.1.7)$$</p>
+<p> 上式是对一条样本进行建模的数据表达。对于多条样本，假设每条样本生成过程独立，在整个样本空间中（\(m\)个样本）的概率分布为：</p>
+<p> $$P(Y|X; \theta) = \prod<em>{i=1}^{m} \left( (h</em>{\theta}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{\theta}(x^{(i)}))^{1-y^{(i)}} \right) \qquad(ml.1.8)$$</p>
+<p> 通过极大似然估计（Maximum Likelihood Evaluation，简称MLE）方法求概率参数。具体地，下面给出了通过随机梯度下降法（Stochastic Gradient Descent，简称SGD）求参数。</p>
+<blockquote>
+<p>注意：这里假设\(y^{(i)}={0,1}\)，非\(y^{(i)}={-1,1}\)，否则公式\((ml.1.7)\)需要改写。</p>
+</blockquote>
+</li>
+<li><p>参数学习算法</p>
+<p>  公式\((ml.1.8)\)不仅可以理解为在已观测的样本空间中的概率分布表达式。如果从统计学的角度可以理解为参数\(\Theta\)似然性的函数表达式（即似然函数表达式）。参数在整个样本空间中的似然函数可表示为：</p>
+<p>  $$<br>  \begin{align<em>}<br>  L(\theta) &amp; = P(Y|X; \theta) \<br>  &amp; = \prod<em>{i=1}^{m} P(y^{(i)}|x^{(i)}; \theta) \<br>  &amp; = \prod</em>{i=1}^{m} \left( (h<em>{\theta}(x^{(i)}))^{y^{(i)}} \cdot (1 - h</em>{\theta}(x^{(i)}))^{1-y^{(i)}} \right)<br>  \end{align</em>} \quad\qquad (ml.1.9)<br>  $$</p>
+<p>  为了方便参数求解，对公式\((ml.1.9)\)取对数，可得：</p>
+<p> $$<br>  \begin{align<em>}<br>  l(\theta) &amp; = logL(\theta) \<br>  &amp; = \sum<em>{i=1}^{m} \left( y^{(i)} \cdot log h</em>{\theta}(x^{(i)}) + (1-y^{(i)}) \cdot log(1- h_{\theta}(x^{(i)})) \right)<br>  \end{align</em>} \qquad (ml.1.10)<br>  $$</p>
+<p> 先不考虑累加和\(\sum_{i=1}^{m}\)，针对每个参数求偏导：</p>
+<p> $$<br>\begin{align<em>}<br>\frac{\vartheta}{\vartheta \theta<em>j} l(\theta) &amp; = \left( y \frac{1}{h</em>{\theta}(x)} - (1-y) \frac{1}{1-h<em>{\theta}(x)}\right) \frac{\vartheta}{\vartheta \theta_j} h</em>{\theta}(x) \<br>&amp; = \left( \frac{y-h<em>{\theta}(x)}{h</em>{\theta}(x) \cdot (1 - h<em>{\theta}(x))}\right) \cdot h</em>{\theta}(x) (1 - h<em>{\theta}(x)) \cdot \frac{\vartheta}{\vartheta \theta_j} \theta^T x \<br>&amp; = \left( y-h</em>{\theta}(x) \right) \cdot \frac{\vartheta}{\vartheta \theta<em>j} \theta^T x \<br>&amp; = \left( y-h</em>{\theta}(x) \right) \cdot x_{j}<br>\end{align</em>}  \qquad (ml.1.11)<br>  $$</p>
+<p> 最后，通过扫描样本，迭代下述公式可求得参数：</p>
+<p> $$<br> \theta<em>{j+1} = \theta_j + \alpha \cdot (y^{(i)} - h</em>{\theta}(x^{(i)})) \cdot x_{j}^{(i)} \qquad (ml.1.12)<br> $$</p>
+<p> 公式\((ml.1.12)\)中的\(\alpha\)表示学习率（learning rete，又称学习步长），还有Batch Gradient法等，这些会在《深入理解优化算法》系列中的梯度法章节中纤细阐述。</p>
+<blockquote>
+<p>关于sigmoid函数导数性质：<br><br>公式：<br></p>
+<p>  \(<br>  \begin{align<em>}<br>  h^{‘}(x) &amp; = (\frac {1}{1+e^{-x}})^{‘} = - \frac {1}{(1+e^{-x})^2} \cdot     (e^{-x})^{‘} \<br>  &amp; = \frac {e^{-x}} {(1+e^{-x})^2} = \frac {e^{-x}} {1+e^{-x}} \cdot \frac{1}    {1+e^{-x}} \<br>  &amp; = (1-h(x)) \cdot h(x)<br>  \end{align</em>}<br>  \)</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="7-1-_LogReg_+_L2范数">7.1. LogReg + L2范数</h4><p>解决过拟合</p>
+<h4 id="7-2-_LogReg_+_L1范数">7.2. LogReg + L1范数</h4><p>解决稀疏性</p>
+<p>给出CTR预估问题中特征稀疏编码后的（LogReg + L1范数）应用场景</p>
+<h4 id="7-3-_LogReg_+_L1范数_+_L2范数">7.3. LogReg + L1范数 + L2范数</h4><p>工业界CTR预估使用方法</p>
+<h3 id="8-_SoftMax_Regression">8. SoftMax Regression</h3><p>解决多分类问题</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/回归，Regression，Logistic/">回归，Regression，Logistic</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/07/04/beta-gamma-dirichlet-function/" title="概率与统计-chapter0-三个重要函数" itemprop="url">概率与统计-chapter0-三个重要函数</a>
   </h1>
   <p class="article-author">By
@@ -1082,6 +1354,10 @@
 		<ul>
 		
 		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/概率与统计/" title="概率与统计">概率与统计<sup>1</sup></a></li>
 		  
 		
@@ -1104,6 +1380,10 @@
 		
 			
 				<li><a href="/tags/Gamma-Beta-Dirichlet/" title="Gamma,Beta,Dirichlet">Gamma,Beta,Dirichlet<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/回归，Regression，Logistic/" title="回归，Regression，Logistic">回归，Regression，Logistic<sup>1</sup></a></li>
 			
 		
 		</ul>
