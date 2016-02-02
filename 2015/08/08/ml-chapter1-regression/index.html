@@ -1,17 +1,11 @@
-
- <!DOCTYPE HTML>
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   
-    <title>深入浅出ML之Regression家族 | 计算广告学</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-    
-    <meta name="author" content="Zhou Yong">
-    
-
-    
-    <meta name="description" content="第一章: 深入浅出ML之Regression家族
+  <title>深入浅出ML之Regression家族 | 计算广告学</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="第一章: 深入浅出ML之Regression家族
 author: zhouyongsdzh@foxmail.com
 date: 2015-08-15
 sina weibo: @周永_52ML
@@ -123,86 +117,82 @@ Polynomial Regression
 
 4
 逐步回归">
-
-    
-    <link rel="alternative" href="/atom.xml" title="计算广告学" type="application/atom+xml">
-    
-    
-    <link rel="icon" href="/img/favicon.ico">
-    
-    
-    <link rel="apple-touch-icon" href="/img/jacman.jpg">
-    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
-    
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
-</head>
-
-  <body>
-    <header>
-      
-<div>
-		
-			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="计算广告学" title="计算广告学"/></a>
-			</div>
-			
-			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="计算广告学">计算广告学</a></h1>
-				<h2 class="blog-motto">数据驱动，计算导向!</h2>
-			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
-			</a></div>
-			<nav class="animated">
-				<ul>
-					<ul>
-					 
-						<li><a href="/">Home</a></li>
-					
-						<li><a href="/archives">Archives</a></li>
-					
-						<li><a href="/about">About</a></li>
-					
-					<li>
- 					
-					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
-						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
-						<input type="hidden" name="q" value="site:yoursite.com">
-					</form>
-					
-					</li>
-				</ul>
-			</nav>			
-</div>
-    </header>
-    <div id="container">
-      <div id="main" class="post" itemscope itemprop="blogPost">
   
-	<article itemprop="articleBody"> 
-		<header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/08/08/ml-chapter1-regression/" title="深入浅出ML之Regression家族" itemprop="url">深入浅出ML之Regression家族</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Zhou Yong" target="_blank" itemprop="author">Zhou Yong</a>
-		
-  <p class="article-time">
-    <time datetime="2015-08-08T14:34:13.000Z" itemprop="datePublished"> 发表于 2015-08-08</time>
-    
-  </p>
+    <link rel="alternative" href="/atom.xml" title="计算广告学" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">计算广告学</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">数据驱动，计算导向!</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
 </header>
-	<div class="article-content">
-		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章:_深入浅出ML之Regression家族"><span class="toc-number">1.</span> <span class="toc-text">第一章: 深入浅出ML之Regression家族</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#内容列表"><span class="toc-number">1.1.</span> <span class="toc-text">内容列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#符号定义"><span class="toc-number">1.2.</span> <span class="toc-text">符号定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0-_说明"><span class="toc-number">1.3.</span> <span class="toc-text">0. 说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_回归分析介绍"><span class="toc-number">1.4.</span> <span class="toc-text">1. 回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_线性回归（Linear_Regression）"><span class="toc-number">1.5.</span> <span class="toc-text">2. 线性回归（Linear Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_多项式回归（Polynomial_Regression）"><span class="toc-number">1.6.</span> <span class="toc-text">3. 多项式回归（Polynomial Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_岭回归（Ridge_Regression）"><span class="toc-number">1.7.</span> <span class="toc-text">4. 岭回归（Ridge Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-_Lasso回归（Lasso_Regression）"><span class="toc-number">1.8.</span> <span class="toc-text">5. Lasso回归（Lasso Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-_ElasticNet_Regression"><span class="toc-number">1.9.</span> <span class="toc-text">6. ElasticNet Regression</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-_逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">1.10.</span> <span class="toc-text">7. 逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1-_LogReg_+_L2范数"><span class="toc-number">1.10.1.</span> <span class="toc-text">7.1. LogReg + L2范数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-2-_LogReg_+_L1范数"><span class="toc-number">1.10.2.</span> <span class="toc-text">7.2. LogReg + L1范数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-_LogReg_+_L1范数_+_L2范数"><span class="toc-number">1.10.3.</span> <span class="toc-text">7.3. LogReg + L1范数 + L2范数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-_SoftMax_Regression"><span class="toc-number">1.11.</span> <span class="toc-text">8. SoftMax Regression</span></a></li></ol></li></ol>
-		
-		</div>
-		
-		<h2 id="第一章:_深入浅出ML之Regression家族">第一章: 深入浅出ML之Regression家族</h2><ul>
+      <div class="outer">
+        <section id="main"><article id="post-ml-chapter1-regression" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/08/ml-chapter1-regression/" class="article-date">
+  <time datetime="2015-08-08T14:34:13.000Z" itemprop="datePublished">2015-08-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      深入浅出ML之Regression家族
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="第一章:_深入浅出ML之Regression家族">第一章: 深入浅出ML之Regression家族</h2><ul>
 <li>author: zhouyongsdzh@foxmail.com</li>
 <li>date: 2015-08-15</li>
 <li>sina weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
@@ -415,367 +405,135 @@ Polynomial Regression
 <p>给出CTR预估问题中特征稀疏编码后的（LogReg + L1范数）应用场景</p>
 <h4 id="7-3-_LogReg_+_L1范数_+_L2范数">7.3. LogReg + L1范数 + L2范数</h4><p>工业界CTR预估使用方法</p>
 <h3 id="8-_SoftMax_Regression">8. SoftMax Regression</h3><p>解决多分类问题</p>
-  
-	</div>
-		<footer class="article-footer clearfix">
-<div class="article-catetags">
 
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
-</div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/08/08/ml-chapter1-regression/" data-id="cik5klq110008vo4eq7dj3snh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linear-Regression-LogisticRegression-LR-Lasso-Ridge/">Linear Regression, LogisticRegression, LR, Lasso, Ridge</a></li></ul>
 
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Linear-Regression-LogisticRegression-LR-Lasso-Ridge/">Linear Regression, LogisticRegression, LR, Lasso, Ridge</a>
+    </footer>
   </div>
-
-</div>
-
-
-
-	<div class="article-share" id="share">
-	
-	  <div data-url="http://yoursite.com/2015/08/08/ml-chapter1-regression/" data-title="深入浅出ML之Regression家族 | 计算广告学" data-tsina="null" class="share clearfix">
-	  </div>
-	
-	</div>
-
-
-</footer>
-
-   	       
-	</article>
-	
-<nav class="article-nav clearfix">
- 
-
-<div class="next">
-<a href="/2015/07/04/beta-gamma-dirichlet-function/"  title="概率与统计-chapter0-三个重要函数">
- <strong>下一篇：</strong><br/> 
- <span>概率与统计-chapter0-三个重要函数
-</span>
-</a>
-</div>
-
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/07/04/beta-gamma-dirichlet-function/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">概率与统计-chapter0-三个重要函数</div>
+    </a>
+  
 </nav>
 
-	
+  
+</article>
 
-</div>  
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
- 
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章:_深入浅出ML之Regression家族"><span class="toc-number">1.</span> <span class="toc-text">第一章: 深入浅出ML之Regression家族</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#内容列表"><span class="toc-number">1.1.</span> <span class="toc-text">内容列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#符号定义"><span class="toc-number">1.2.</span> <span class="toc-text">符号定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0-_说明"><span class="toc-number">1.3.</span> <span class="toc-text">0. 说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_回归分析介绍"><span class="toc-number">1.4.</span> <span class="toc-text">1. 回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_线性回归（Linear_Regression）"><span class="toc-number">1.5.</span> <span class="toc-text">2. 线性回归（Linear Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_多项式回归（Polynomial_Regression）"><span class="toc-number">1.6.</span> <span class="toc-text">3. 多项式回归（Polynomial Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_岭回归（Ridge_Regression）"><span class="toc-number">1.7.</span> <span class="toc-text">4. 岭回归（Ridge Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-_Lasso回归（Lasso_Regression）"><span class="toc-number">1.8.</span> <span class="toc-text">5. Lasso回归（Lasso Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-_ElasticNet_Regression"><span class="toc-number">1.9.</span> <span class="toc-text">6. ElasticNet Regression</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-_逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">1.10.</span> <span class="toc-text">7. 逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1-_LogReg_+_L2范数"><span class="toc-number">1.10.1.</span> <span class="toc-text">7.1. LogReg + L2范数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-2-_LogReg_+_L1范数"><span class="toc-number">1.10.2.</span> <span class="toc-text">7.2. LogReg + L1范数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-_LogReg_+_L1范数_+_L2范数"><span class="toc-number">1.10.3.</span> <span class="toc-text">7.3. LogReg + L1范数 + L2范数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-_SoftMax_Regression"><span class="toc-number">1.11.</span> <span class="toc-text">8. SoftMax Regression</span></a></li></ol></li></ol>
- 
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/概率与统计/">概率与统计</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算广告学/">计算广告学</a><span class="category-list-count">3</span></li></ul>
+    </div>
   </div>
 
-<div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
-<aside class="clearfix">
-
   
-<div class="categorieslist">
-	<p class="asidetitle">分类</p>
-		<ul>
-		
-		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/概率与统计/" title="概率与统计">概率与统计<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/计算广告学/" title="计算广告学">计算广告学<sup>3</sup></a></li>
-		  
-		
-		</ul>
-</div>
-
-
-  
-<div class="tagslist">
-	<p class="asidetitle">标签</p>
-		<ul class="clearfix">
-		
-			
-				<li><a href="/tags/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Gamma-Beta-Dirichlet/" title="Gamma,Beta,Dirichlet">Gamma,Beta,Dirichlet<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Linear-Regression-LogisticRegression-LR-Lasso-Ridge/" title="Linear Regression, LogisticRegression, LR, Lasso, Ridge">Linear Regression, LogisticRegression, LR, Lasso, Ridge<sup>1</sup></a></li>
-			
-		
-		</ul>
-</div>
-
-
-  <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
-    <ul>
-        
-          <li>
-            
-            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
-            
-          </li>
-        
-    </ul>
-</div>
-
-  
-
-
-  <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
-</div>
-
-</aside>
-</div>
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gamma-Beta-Dirichlet/">Gamma,Beta,Dirichlet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-Regression-LogisticRegression-LR-Lasso-Ridge/">Linear Regression, LogisticRegression, LR, Lasso, Ridge</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算广告学/">计算广告学</a><span class="tag-list-count">2</span></li></ul>
     </div>
-    <footer><div id="footer" >
-	
-	<div class="line">
-		<span></span>
-		<div class="author"></div>
-	</div>
-	
-	
-	<section class="info">
-		<p> Hello ,I&#39;m Larry Page in Google. <br/>
-			This is my blog,believe it or not.</p>
-	</section>
-	 
-	<div class="social-font" class="clearfix">
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	</div>
-			
-		
+  </div>
 
-		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
-		
-		<a href="/about" target="_blank" title="Zhou Yong">Zhou Yong</a>
-		
-		
-		</p>
-</div>
-</footer>
-    <script src="/js/jquery-2.0.3.min.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-
-<script type="text/javascript">
-$(document).ready(function(){ 
-  $('.navbar').click(function(){
-    $('header nav').toggleClass('shownav');
-  });
-  var myWidth = 0;
-  function getSize(){
-    if( typeof( window.innerWidth ) == 'number' ) {
-      myWidth = window.innerWidth;
-    } else if( document.documentElement && document.documentElement.clientWidth) {
-      myWidth = document.documentElement.clientWidth;
-    };
-  };
-  var m = $('#main'),
-      a = $('#asidepart'),
-      c = $('.closeaside'),
-      o = $('.openaside');
-  c.click(function(){
-    a.addClass('fadeOut').css('display', 'none');
-    o.css('display', 'block').addClass('fadeIn');
-    m.addClass('moveMain');
-  });
-  o.click(function(){
-    o.css('display', 'none').removeClass('beforeFadeIn');
-    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
-    m.removeClass('moveMain');
-  });
-  $(window).scroll(function(){
-    o.css("top",Math.max(80,260-$(this).scrollTop()));
-  });
   
-  $(window).resize(function(){
-    getSize(); 
-    if (myWidth >= 1024) {
-      $('header nav').removeClass('shownav');
-    }else{
-      m.removeClass('moveMain');
-      a.css('display', 'block').removeClass('fadeOut');
-      o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Gamma-Beta-Dirichlet/" style="font-size: 10px;">Gamma,Beta,Dirichlet</a><a href="/tags/Linear-Regression-LogisticRegression-LR-Lasso-Ridge/" style="font-size: 10px;">Linear Regression, LogisticRegression, LR, Lasso, Ridge</a><a href="/tags/计算广告学/" style="font-size: 20px;">计算广告学</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
         
-    }
-  });
-});
-</script>
+          <li>
+            <a href="/2015/08/08/ml-chapter1-regression/">深入浅出ML之Regression家族</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/04/beta-gamma-dirichlet-function/">概率与统计-chapter0-三个重要函数</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/29/prob-stats-chapter3-continuous-random-variable/">概率与统计-chapter3-连续随机变量</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/29/hello-world/">测试Hexo功能</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/09/ca_roadmap/">计算广告学-RoadMap</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  c.click(function(){
-    ta.css('display', 'block').addClass('fadeIn');
-  });
-  o.click(function(){
-    ta.css('display', 'none');
-  });
-  $(window).scroll(function(){
-    ta.css("top",Math.max(140,320-$(this).scrollTop()));
-  });
-});
-</script>
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Zhou Yong<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
 
-
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var $this = $('.share'),
-      url = $this.attr('data-url'),
-      encodedUrl = encodeURIComponent(url),
-      title = $this.attr('data-title'),
-      tsina = $this.attr('data-tsina'),
-      description = $this.attr('description');
-  var html = [
-  '<a href="#" class="overlay" id="qrcode"></a>',
-  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
-  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
-  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
-  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
-  '<span title="Share to"></span>'
-  ].join('');
-  $this.append(html);
-  $('.article-share-qrcode').click(function(){
-    var imgSrc = $('#qrcode-pic').attr('data-src');
-    $('#qrcode-pic').attr('src', imgSrc);
-    $('#qrcode-pic').load(function(){
-        $('.qrcode strong').text(' ');
-    });
-  });
-});     
-</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
 
 
+<script src="/js/script.js" type="text/javascript"></script>
 
-
-
-
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){ 
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-}); 
-</script>
-
-
-
-<!-- Analytics Begin -->
-
-
-
-
-
-<!-- Analytics End -->
-
-<!-- Totop Begin -->
-
-	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
-	</div>
-	<script src="/js/totop.js"></script>
-
-<!-- Totop End -->
-
-<!-- MathJax Begin -->
-<!-- mathjax config similar to math.stackexchange -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<!-- MathJax End -->
-
-<!-- Tiny_search Begin -->
-
-<!-- Tiny_search End -->
-
-  </body>
+  </div>
+</body>
 </html>
