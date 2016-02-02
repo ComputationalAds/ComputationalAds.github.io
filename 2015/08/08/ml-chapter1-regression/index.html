@@ -4,14 +4,14 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>深入理解ML之Regression Family | 计算广告学</title>
+    <title>深入浅出ML之Regression家族 | 计算广告学</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Zhou Yong">
     
 
     
-    <meta name="description" content="第一章: 深入理解ML之Regression Family
+    <meta name="description" content="第一章: 深入浅出ML之Regression家族
 author: zhouyongsdzh@foxmail.com
 date: 2015-08-15
 sina weibo: @周永_52ML
@@ -44,12 +44,13 @@ Linear Regression
 Polynomial Regression
 
 
-4">
+4
+逐步回归">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入理解ML之Regression Family">
+<meta property="og:title" content="深入浅出ML之Regression家族">
 <meta property="og:url" content="http://yoursite.com/2015/08/08/ml-chapter1-regression/index.html">
 <meta property="og:site_name" content="计算广告学">
-<meta property="og:description" content="第一章: 深入理解ML之Regression Family
+<meta property="og:description" content="第一章: 深入浅出ML之Regression家族
 author: zhouyongsdzh@foxmail.com
 date: 2015-08-15
 sina weibo: @周永_52ML
@@ -82,11 +83,12 @@ Linear Regression
 Polynomial Regression
 
 
-4">
+4
+逐步回归">
 <meta property="og:image" content="http://www.analyticsvidhya.com/wp-content/uploads/2015/08/Regression_Line.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入理解ML之Regression Family">
-<meta name="twitter:description" content="第一章: 深入理解ML之Regression Family
+<meta name="twitter:title" content="深入浅出ML之Regression家族">
+<meta name="twitter:description" content="第一章: 深入浅出ML之Regression家族
 author: zhouyongsdzh@foxmail.com
 date: 2015-08-15
 sina weibo: @周永_52ML
@@ -119,7 +121,8 @@ Linear Regression
 Polynomial Regression
 
 
-4">
+4
+逐步回归">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告学" type="application/atom+xml">
@@ -179,7 +182,7 @@ Polynomial Regression
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/08/ml-chapter1-regression/" title="深入理解ML之Regression Family" itemprop="url">深入理解ML之Regression Family</a>
+      <a href="/2015/08/08/ml-chapter1-regression/" title="深入浅出ML之Regression家族" itemprop="url">深入浅出ML之Regression家族</a>
   </h1>
   <p class="article-author">By
        
@@ -195,11 +198,11 @@ Polynomial Regression
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章:_深入理解ML之Regression_Family"><span class="toc-number">1.</span> <span class="toc-text">第一章: 深入理解ML之Regression Family</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#内容列表"><span class="toc-number">1.1.</span> <span class="toc-text">内容列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#符号定义"><span class="toc-number">1.2.</span> <span class="toc-text">符号定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0-_说明"><span class="toc-number">1.3.</span> <span class="toc-text">0. 说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_回归分析介绍"><span class="toc-number">1.4.</span> <span class="toc-text">1. 回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_线性回归（Linear_Regression）"><span class="toc-number">1.5.</span> <span class="toc-text">2. 线性回归（Linear Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_多项式回归（Polynomial_Regression）"><span class="toc-number">1.6.</span> <span class="toc-text">3. 多项式回归（Polynomial Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_岭回归（Ridge_Regression）"><span class="toc-number">1.7.</span> <span class="toc-text">4. 岭回归（Ridge Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-_Lasso回归（Lasso_Regression）"><span class="toc-number">1.8.</span> <span class="toc-text">5. Lasso回归（Lasso Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-_ElasticNet_Regression"><span class="toc-number">1.9.</span> <span class="toc-text">6. ElasticNet Regression</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-_逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">1.10.</span> <span class="toc-text">7. 逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1-_LogReg_+_L2范数"><span class="toc-number">1.10.1.</span> <span class="toc-text">7.1. LogReg + L2范数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-2-_LogReg_+_L1范数"><span class="toc-number">1.10.2.</span> <span class="toc-text">7.2. LogReg + L1范数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-_LogReg_+_L1范数_+_L2范数"><span class="toc-number">1.10.3.</span> <span class="toc-text">7.3. LogReg + L1范数 + L2范数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-_SoftMax_Regression"><span class="toc-number">1.11.</span> <span class="toc-text">8. SoftMax Regression</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章:_深入浅出ML之Regression家族"><span class="toc-number">1.</span> <span class="toc-text">第一章: 深入浅出ML之Regression家族</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#内容列表"><span class="toc-number">1.1.</span> <span class="toc-text">内容列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#符号定义"><span class="toc-number">1.2.</span> <span class="toc-text">符号定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0-_说明"><span class="toc-number">1.3.</span> <span class="toc-text">0. 说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_回归分析介绍"><span class="toc-number">1.4.</span> <span class="toc-text">1. 回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_线性回归（Linear_Regression）"><span class="toc-number">1.5.</span> <span class="toc-text">2. 线性回归（Linear Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_多项式回归（Polynomial_Regression）"><span class="toc-number">1.6.</span> <span class="toc-text">3. 多项式回归（Polynomial Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_岭回归（Ridge_Regression）"><span class="toc-number">1.7.</span> <span class="toc-text">4. 岭回归（Ridge Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-_Lasso回归（Lasso_Regression）"><span class="toc-number">1.8.</span> <span class="toc-text">5. Lasso回归（Lasso Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-_ElasticNet_Regression"><span class="toc-number">1.9.</span> <span class="toc-text">6. ElasticNet Regression</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-_逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">1.10.</span> <span class="toc-text">7. 逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1-_LogReg_+_L2范数"><span class="toc-number">1.10.1.</span> <span class="toc-text">7.1. LogReg + L2范数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-2-_LogReg_+_L1范数"><span class="toc-number">1.10.2.</span> <span class="toc-text">7.2. LogReg + L1范数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-_LogReg_+_L1范数_+_L2范数"><span class="toc-number">1.10.3.</span> <span class="toc-text">7.3. LogReg + L1范数 + L2范数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-_SoftMax_Regression"><span class="toc-number">1.11.</span> <span class="toc-text">8. SoftMax Regression</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="第一章:_深入理解ML之Regression_Family">第一章: 深入理解ML之Regression Family</h2><ul>
+		<h2 id="第一章:_深入浅出ML之Regression家族">第一章: 深入浅出ML之Regression家族</h2><ul>
 <li>author: zhouyongsdzh@foxmail.com</li>
 <li>date: 2015-08-15</li>
 <li>sina weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
@@ -263,7 +266,7 @@ Polynomial Regression
 </tr>
 </tbody>
 </table>
-<h3 id="符号定义">符号定义</h3><p>这里定义了《深入理解ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：</p>
+<h3 id="符号定义">符号定义</h3><p>这里定义了《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：</p>
 <table>
 <thead>
 <tr>
@@ -425,7 +428,7 @@ Polynomial Regression
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/回归，Regression，Logistic/">回归，Regression，Logistic</a>
+  <span></span> <a href="/tags/Linear-Regression-LogisticRegression-LR-Lasso-Ridge/">Linear Regression, LogisticRegression, LR, Lasso, Ridge</a>
   </div>
 
 </div>
@@ -434,7 +437,7 @@ Polynomial Regression
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/08/08/ml-chapter1-regression/" data-title="深入理解ML之Regression Family | 计算广告学" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/08/08/ml-chapter1-regression/" data-title="深入浅出ML之Regression家族 | 计算广告学" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -466,7 +469,7 @@ Polynomial Regression
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章:_深入理解ML之Regression_Family"><span class="toc-number">1.</span> <span class="toc-text">第一章: 深入理解ML之Regression Family</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#内容列表"><span class="toc-number">1.1.</span> <span class="toc-text">内容列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#符号定义"><span class="toc-number">1.2.</span> <span class="toc-text">符号定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0-_说明"><span class="toc-number">1.3.</span> <span class="toc-text">0. 说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_回归分析介绍"><span class="toc-number">1.4.</span> <span class="toc-text">1. 回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_线性回归（Linear_Regression）"><span class="toc-number">1.5.</span> <span class="toc-text">2. 线性回归（Linear Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_多项式回归（Polynomial_Regression）"><span class="toc-number">1.6.</span> <span class="toc-text">3. 多项式回归（Polynomial Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_岭回归（Ridge_Regression）"><span class="toc-number">1.7.</span> <span class="toc-text">4. 岭回归（Ridge Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-_Lasso回归（Lasso_Regression）"><span class="toc-number">1.8.</span> <span class="toc-text">5. Lasso回归（Lasso Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-_ElasticNet_Regression"><span class="toc-number">1.9.</span> <span class="toc-text">6. ElasticNet Regression</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-_逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">1.10.</span> <span class="toc-text">7. 逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1-_LogReg_+_L2范数"><span class="toc-number">1.10.1.</span> <span class="toc-text">7.1. LogReg + L2范数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-2-_LogReg_+_L1范数"><span class="toc-number">1.10.2.</span> <span class="toc-text">7.2. LogReg + L1范数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-_LogReg_+_L1范数_+_L2范数"><span class="toc-number">1.10.3.</span> <span class="toc-text">7.3. LogReg + L1范数 + L2范数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-_SoftMax_Regression"><span class="toc-number">1.11.</span> <span class="toc-text">8. SoftMax Regression</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章:_深入浅出ML之Regression家族"><span class="toc-number">1.</span> <span class="toc-text">第一章: 深入浅出ML之Regression家族</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#内容列表"><span class="toc-number">1.1.</span> <span class="toc-text">内容列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#符号定义"><span class="toc-number">1.2.</span> <span class="toc-text">符号定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0-_说明"><span class="toc-number">1.3.</span> <span class="toc-text">0. 说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_回归分析介绍"><span class="toc-number">1.4.</span> <span class="toc-text">1. 回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_线性回归（Linear_Regression）"><span class="toc-number">1.5.</span> <span class="toc-text">2. 线性回归（Linear Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_多项式回归（Polynomial_Regression）"><span class="toc-number">1.6.</span> <span class="toc-text">3. 多项式回归（Polynomial Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_岭回归（Ridge_Regression）"><span class="toc-number">1.7.</span> <span class="toc-text">4. 岭回归（Ridge Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-_Lasso回归（Lasso_Regression）"><span class="toc-number">1.8.</span> <span class="toc-text">5. Lasso回归（Lasso Regression）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-_ElasticNet_Regression"><span class="toc-number">1.9.</span> <span class="toc-text">6. ElasticNet Regression</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-_逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">1.10.</span> <span class="toc-text">7. 逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1-_LogReg_+_L2范数"><span class="toc-number">1.10.1.</span> <span class="toc-text">7.1. LogReg + L2范数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-2-_LogReg_+_L1范数"><span class="toc-number">1.10.2.</span> <span class="toc-text">7.2. LogReg + L1范数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-_LogReg_+_L1范数_+_L2范数"><span class="toc-number">1.10.3.</span> <span class="toc-text">7.3. LogReg + L1范数 + L2范数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-_SoftMax_Regression"><span class="toc-number">1.11.</span> <span class="toc-text">8. SoftMax Regression</span></a></li></ol></li></ol>
  
   </div>
 
@@ -509,7 +512,7 @@ Polynomial Regression
 			
 		
 			
-				<li><a href="/tags/回归，Regression，Logistic/" title="回归，Regression，Logistic">回归，Regression，Logistic<sup>1</sup></a></li>
+				<li><a href="/tags/Linear-Regression-LogisticRegression-LR-Lasso-Ridge/" title="Linear Regression, LogisticRegression, LR, Lasso, Ridge">Linear Regression, LogisticRegression, LR, Lasso, Ridge<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -574,7 +577,7 @@ Polynomial Regression
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
 		
 		<a href="/about" target="_blank" title="Zhou Yong">Zhou Yong</a>
 		
