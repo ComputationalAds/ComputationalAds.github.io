@@ -1,25 +1,35 @@
 
- <!DOCTYPE HTML>
+  
+    <!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   
-    <title>计算广告与机器学习</title>
+    <title>计算广告与机器学习 | 计算广告与机器学习</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="ZhouYong">
     
 
     
-    <meta name="description" content="总结整理互联网广告的产品演进与形态，核心技术、算法和框架；重点探讨机器学习、最优化算法、概率统计、博弈论等学科在实际广告业务场景中的应用。热烈欢迎对此方向和话题感兴趣的朋友，共同建设《计算广告与机器学习》知识与技术共享平台！">
+    <meta name="description" content="欢迎大家来到《计算广告与机器学习》知识与技术共享平台！欢迎志同道合的朋友加入！
+我叫周永（微博：@周永_ML），目前在新浪广告算法组从事广告算法和数据相关工作。
+
+新浪广告算法组时刻欢迎有数据挖掘、机器学习、最优化、系统架构等方面有兴趣和经验的朋友加入！">
 <meta property="og:type" content="website">
 <meta property="og:title" content="计算广告与机器学习">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/home/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
-<meta property="og:description" content="总结整理互联网广告的产品演进与形态，核心技术、算法和框架；重点探讨机器学习、最优化算法、概率统计、博弈论等学科在实际广告业务场景中的应用。热烈欢迎对此方向和话题感兴趣的朋友，共同建设《计算广告与机器学习》知识与技术共享平台！">
+<meta property="og:description" content="欢迎大家来到《计算广告与机器学习》知识与技术共享平台！欢迎志同道合的朋友加入！
+我叫周永（微博：@周永_ML），目前在新浪广告算法组从事广告算法和数据相关工作。
+
+新浪广告算法组时刻欢迎有数据挖掘、机器学习、最优化、系统架构等方面有兴趣和经验的朋友加入！">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算广告与机器学习">
-<meta name="twitter:description" content="总结整理互联网广告的产品演进与形态，核心技术、算法和框架；重点探讨机器学习、最优化算法、概率统计、博弈论等学科在实际广告业务场景中的应用。热烈欢迎对此方向和话题感兴趣的朋友，共同建设《计算广告与机器学习》知识与技术共享平台！">
+<meta name="twitter:description" content="欢迎大家来到《计算广告与机器学习》知识与技术共享平台！欢迎志同道合的朋友加入！
+我叫周永（微博：@周永_ML），目前在新浪广告算法组从事广告算法和数据相关工作。
+
+新浪广告算法组时刻欢迎有数据挖掘、机器学习、最优化、系统架构等方面有兴趣和经验的朋友加入！">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -34,9 +44,9 @@
     <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
 
-  <body>
-    <header>
-      
+      <body>
+        <header>
+          
 <div>
 		
 			<div id="imglogo">
@@ -71,652 +81,35 @@
 				</ul>
 			</nav>			
 </div>
-    </header>
-    <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/08/08/ml-chapter1-regression/" title="深入浅出ML之Regression家族" itemprop="url">深入浅出ML之Regression家族</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
-		
-  <p class="article-time">
-    <time datetime="2015-08-08T14:34:13.000Z" itemprop="datePublished"> 发表于 2015-08-08</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="第一章:_深入浅出ML之Regression家族">第一章: 深入浅出ML之Regression家族</h2><ul>
-<li>author: zhouyongsdzh@foxmail.com</li>
-<li>date: 2015-08-15</li>
-<li>sina weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
-</ul>
-<h3 id="内容列表">内容列表</h3><table>
-<thead>
-<tr>
-<th>索引</th>
-<th>名称</th>
-<th>英文</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>说明</td>
-</tr>
-<tr>
-<td>1</td>
-<td>回归分析介绍</td>
-</tr>
-<tr>
-<td>2</td>
-<td>线性回归</td>
-<td><em>Linear Regression</em></td>
-</tr>
-<tr>
-<td>3</td>
-<td>多项式回归</td>
-<td><em>Polynomial Regression</em></td>
-</tr>
-<tr>
-<td>4</td>
-<td>逐步回归</td>
-<td><em>(Forword) Stepwise Regression</em></td>
-</tr>
-<tr>
-<td>5</td>
-<td>岭回归</td>
-<td><em>Ridge Regression</em></td>
-</tr>
-<tr>
-<td>6</td>
-<td>Lasso回归</td>
-<td><em>Lasso Regression</em></td>
-</tr>
-<tr>
-<td>7</td>
-<td>ElasticNet回归</td>
-<td><em>ElasticNet Regression</em></td>
-</tr>
-<tr>
-<td>8</td>
-<td>逻辑斯蒂回归</td>
-<td><em>Logistic Regression</em></td>
-</tr>
-<tr>
-<td>9</td>
-<td>SoftMax回归</td>
-<td><em>Softmax Regression</em></td>
-</tr>
-</tbody>
-</table>
-<h3 id="符号定义">符号定义</h3><p>这里定义了《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：</p>
-<table>
-<thead>
-<tr>
-<th>符号</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>\(x_j\)</td>
-<td>表示第\(j\)维特征</td>
-</tr>
-<tr>
-<td>\(x\)</td>
-<td>表示一条样本中的特征向量，\(x=(1, x_1, x_2, \cdots, x_n)\)</td>
-</tr>
-<tr>
-<td>\(x^{(i)}\)</td>
-<td>表示第\(i\)条样本</td>
-</tr>
-<tr>
-<td>\(x_{j}^{(i)}\)</td>
-<td>表示第\(i\)条样本的第\(j\)维特征</td>
-</tr>
-<tr>
-<td>\(y^{(i)}\)</td>
-<td>表示第\(i\)条样本的结果（label）</td>
-</tr>
-<tr>
-<td>\(X\)</td>
-<td>表示所有样本的特征全集，即\(X=(x^{(1)},x^{(2)}, \cdots, x^{(m)})^T\)</td>
-</tr>
-<tr>
-<td>\(Y\)</td>
-<td>表示所有样本的label全集，即\(Y=(y^{(1)},y^{(2)}, \cdots, y^{(m)})^T\)</td>
-</tr>
-<tr>
-<td>\(\theta\)</td>
-<td>表示参数向量，即\(\theta=(\theta_0, \theta_1, \cdots, \theta_n)\)</td>
-</tr>
-<tr>
-<td>\(\theta_j\)</td>
-<td>表示第\(j维\)参数</td>
-</tr>
-</tbody>
-</table>
-<h3 id="0-_说明">0. 说明</h3><p>回归技术是在整个数据科学技术体系中应该占有非常重要的一席之地。回归分析是统计学中的相关分析体系中重要组成部分。在机器学习中，回归与分类共同构成了监督学习技术。</p>
-<blockquote>
-<p>可以说，监督学习（supervised learning）是机器学习在工业界应用最广的一个领域分支。在学术界中也是研究最多的技术之一。在数据挖掘十大经典算法中，监督学习技术占据6个席位。</p>
-</blockquote>
-<p>线性回归和逻辑斯蒂回归（Logistic Regression）通常是作为学习一个预测模型的首选算法。</p>
-<h3 id="1-_回归分析介绍">1. 回归分析介绍</h3><p>在介绍具体的回归技术之前，有必要探讨下以下几个问题。回归分析是什么？为什么要使用回归分析呢？</p>
-<ul>
-<li><p>什么是回归分析？</p>
-<p>  回归分析是预测建模技术的一种方法，用于研究自变量与因变量之间的关系。该技术主要用于预测、时间序列建模遗迹寻找变量之间的the causal effect relationship。 举例，rash driving和number of road accidents by a driver通过回归技术可以进行更好的研究。</p>
-<p>  回归分析是用于建模和数据分析的一个重要工具。在这里，我们用曲线/直线去拟合数据点，希望所有数据点到曲线/直线的距离差异之和最小。在后面的章节中会详细解释这部分。</p>
-<p>  （曲线图）</p>
-<p>  <img src="http://www.analyticsvidhya.com/wp-content/uploads/2015/08/Regression_Line.png" alt="回归分析"></p>
-</li>
-<li><p>为什么要使用回归分析？</p>
-<p>  正如上面描述，回归分析用于估计两个或多个变量之间的关系。让我们通过一个简单的例子理解这个问题：</p>
-<blockquote>
-<p>假如，你想根据当前的经济环境，估计企业的营收增长情况。公司最近的数据表明其营收增长大约是经济增长的2.5倍。根据这个观察，我们可以根据当前和过去的信息，预测公司未来的营收增长情况。</p>
-</blockquote>
-<p>  使用回归分析会带来诸多好处，比如：</p>
-<ol>
-<li>它可以表明因变量（特征）与自变量（结果）之间的显著关系；</li>
-<li><p>还可以表明多个因变量（特征）对自变量（结果）的影响程度（根据feature对应权重大小）.</p>
-<p>同时，回归分析也可以去比较两个变量之间的影响，比如促销活动的次数与价格波动的影响。这些有助于帮助市场研究人员/数据分析师/数据科学家去消除或评估最佳的一组变量用于建立预测模型。</p>
-</li>
-</ol>
-</li>
-<li><p>回归技术分类</p>
-<p>  有很多种不同的回归技术可做预测。可以根据目标变量的个数、因变量的类型以及回归函数的形状这三个维度对回归技术做一个归类。下面分别介绍具体的回归技术。</p>
-</li>
-</ul>
-<h3 id="2-_线性回归（Linear_Regression）">2. 线性回归（Linear Regression）</h3><p>线性回归是最被广泛应用的建模技术之一。线性回归旨在用一条<strong>最佳的直线（被称为回归线）</strong>来构建自变量（\(Y\)）和一个或多个因变量（\(X\)）之间的关系。线性回归相关性质：</p>
-<ul>
-<li><p>变量特点</p>
-<p>  |因变量（特征）|自变量（标签）|关系|<br>  | —- | —- | —- |<br>  | 连续或离散 | 连续 | 线性 |</p>
-</li>
-<li><p>线性回归模型表达</p>
-</li>
-</ul>
-<p>$$y = \theta_0 + \theta_1 x_1 + \cdots + \theta_n x_n \quad (n \ge 1) \qquad (ml.1.1)$$ </p>
-<p>其中，\(x_1,x_2,\cdots,x_n\)表示因变量，\(y\)是自变量，\(\theta_1,\theta_2,\cdots,\theta_n\)是表示参数，\(\theta_i\)表示对应因变量（特征）的权重，\(\theta_0\)表示常量。</p>
-<blockquote>
-<p> 关于参数\(\theta\)： <br></p>
-<ol>
-<li>在物理上可以这样解释：<strong>在因变量（特征）之间相互独立的前提下</strong>，\(\theta_i\)反映因变量\(x_i\)对自变量影响程度，\(\theta_i\)越大，说明\(x_i\)对结果\(y\)的影响越大。<br></li>
-<li>通过每个因变量（特征）前面的参数，可以很直观的看出哪些特征分量对结果的影响比较大。<br></li>
-<li>在统计中，\(\theta_1,\theta_2,\cdots,\theta_n\)称为偏回归系数，\(\theta_0\)称为截距。</li>
-</ol>
-</blockquote>
-<p>如果令\(x<em>0=1, y=h</em>{\theta}(x)\), 可以将公式\((ml.1.1.)\)写成向量形式，即：</p>
-<p>$$h<em>{\theta}(x) = \sum</em>{n=0}^{n} \theta_i x_i = \theta^T x \qquad(ml.1.2)$$</p>
-<p>其中，\(\theta=(\theta_0, \theta_1, \cdots, \theta_n)\)，\(x=(1, x_1, x_2, \cdots, x_n)\) 均为向量，\(\theta^T\)为\(\theta\)的转置。</p>
-<h3 id="3-_多项式回归（Polynomial_Regression）">3. 多项式回归（Polynomial Regression）</h3><h3 id="4-_岭回归（Ridge_Regression）">4. 岭回归（Ridge Regression）</h3><p>$$L2范数$$</p>
-<h3 id="5-_Lasso回归（Lasso_Regression）">5. Lasso回归（Lasso Regression）</h3><p>$$L1范数$$</p>
-<ul>
-<li><a href="http://bbs.pinggu.org/thread-1415582-1-1.html" target="_blank" rel="external">Lasso算法简介</a></li>
-<li><a href="http://blog.163.com/lipse_huang/blog/static/191657545201322531236138/" target="_blank" rel="external">Lasso思想与算法</a></li>
-</ul>
-<h3 id="6-_ElasticNet_Regression">6. ElasticNet Regression</h3><h3 id="7-_逻辑斯蒂回归（Logistic_Regression）">7. 逻辑斯蒂回归（Logistic Regression）</h3><ul>
-<li><p>逻辑斯蒂回归</p>
-<p>  回归模型一般不用在分类问题上，主要原因是回归是连续型模型，而且受噪声影响比较大。但如果要用回归解决分类问题，可使用逻辑斯蒂回归（简称LR，或LogReg模型）。</p>
-<p>  逻辑斯蒂回归本质上还是线性回归，只是特征到结果的映射过程中加了一层函数映射（即sigmoid函数），即先把特征/变量线性求和，然后使用sigmoid函数将线性和约束至\((0,1)\)之间，结果值用于预测。</p>
-</li>
-<li><p>LogReg模型表达</p>
-<p>  如同公式\((ml.1.2)\)，首先是线性求和:</p>
-<p>  $$z = \sum_{n=0}^{n} \theta_i x_i = \theta^T x \qquad(ml.1.3)$$</p>
-<p>  $$h_{\theta}(x) = g(\theta^T x) = \frac{1}{1+e^{-\theta^T x}} \qquad(ml.1.4)$$</p>
-</li>
-<li><p>概率假设</p>
-<p>  LogReg模型多用于解决0/1二分类问题，如广告是否被点击（是/否）、商品是否被购买（是/否）等互联网领域中常见的应用场景。这里从事件、变量以及结果的角度给予解释。</p>
-<p>  我们所能拿到的训练数据都可成为观测样本。样本是如何生成的呢？一个样本可以理解为发生的一次事件，样本生成的过程即事件发生的过程。这里，对于0/1分类问题，产生的结果有两种可能，符合伯努利试验的概率假设。因此，我们可以说样本的生成过程即为伯努利试验过程，产生的结果（0/1）服从伯努利分布。这里我们假设结果为1的概率为\(h<em>{\theta}(x)\)，结果为0的概率为\(1-h</em>{\theta}(x)\)。那么，对于第\(i\)个样本，概率公式表示如下：</p>
-<p>  $$P(y^{(i)}=1|x^{(i)}; \theta) = h_{\theta}(x^{(i)}) \qquad (ml.1.5)$$ </p>
-<p>  $$P(y^{(i)}=0|x^{(i)}; \theta) = 1 - h_{\theta}(x^{(i)}) \qquad (ml.1.6)$$</p>
-<p>  将公式\((ml.1.5)\)和\((ml.1.6)\)合并在一起，可得第\(i\)个样本正确预测的概率：</p>
-<p> $$P(y^{(i)}|x^{(i)}; \theta) = (h<em>{\theta}(x^{(i)}))^{y^{(i)}} \cdot (1 - h</em>{\theta}(x^{(i)}))^{1-y^{(i)}} \qquad (ml.1.7)$$</p>
-<p> 上式是对一条样本进行建模的数据表达。对于多条样本，假设每条样本生成过程独立，在整个样本空间中（\(m\)个样本）的概率分布为：</p>
-<p> $$P(Y|X; \theta) = \prod<em>{i=1}^{m} \left( (h</em>{\theta}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{\theta}(x^{(i)}))^{1-y^{(i)}} \right) \qquad(ml.1.8)$$</p>
-<p> 通过极大似然估计（Maximum Likelihood Evaluation，简称MLE）方法求概率参数。具体地，下面给出了通过随机梯度下降法（Stochastic Gradient Descent，简称SGD）求参数。</p>
-<blockquote>
-<p>注意：这里假设\(y^{(i)}={0,1}\)，非\(y^{(i)}={-1,1}\)，否则公式\((ml.1.7)\)需要改写。</p>
-</blockquote>
-</li>
-<li><p>参数学习算法</p>
-<p>  公式\((ml.1.8)\)不仅可以理解为在已观测的样本空间中的概率分布表达式。如果从统计学的角度可以理解为参数\(\Theta\)似然性的函数表达式（即似然函数表达式）。参数在整个样本空间中的似然函数可表示为：</p>
-<p>  $$<br>  \begin{align<em>}<br>  L(\theta) &amp; = P(Y|X; \theta) \<br>  &amp; = \prod<em>{i=1}^{m} P(y^{(i)}|x^{(i)}; \theta) \<br>  &amp; = \prod</em>{i=1}^{m} \left( (h<em>{\theta}(x^{(i)}))^{y^{(i)}} \cdot (1 - h</em>{\theta}(x^{(i)}))^{1-y^{(i)}} \right)<br>  \end{align</em>} \quad\qquad (ml.1.9)<br>  $$</p>
-<p>  为了方便参数求解，对公式\((ml.1.9)\)取对数，可得：</p>
-<p> $$<br>  \begin{align<em>}<br>  l(\theta) &amp; = logL(\theta) \<br>  &amp; = \sum<em>{i=1}^{m} \left( y^{(i)} \cdot log h</em>{\theta}(x^{(i)}) + (1-y^{(i)}) \cdot log(1- h_{\theta}(x^{(i)})) \right)<br>  \end{align</em>} \qquad (ml.1.10)<br>  $$</p>
-<p> 先不考虑累加和\(\sum_{i=1}^{m}\)，针对每个参数求偏导：</p>
-<p> $$<br>\begin{align<em>}<br>\frac{\vartheta}{\vartheta \theta<em>j} l(\theta) &amp; = \left( y \frac{1}{h</em>{\theta}(x)} - (1-y) \frac{1}{1-h<em>{\theta}(x)}\right) \frac{\vartheta}{\vartheta \theta_j} h</em>{\theta}(x) \<br>&amp; = \left( \frac{y-h<em>{\theta}(x)}{h</em>{\theta}(x) \cdot (1 - h<em>{\theta}(x))}\right) \cdot h</em>{\theta}(x) (1 - h<em>{\theta}(x)) \cdot \frac{\vartheta}{\vartheta \theta_j} \theta^T x \<br>&amp; = \left( y-h</em>{\theta}(x) \right) \cdot \frac{\vartheta}{\vartheta \theta<em>j} \theta^T x \<br>&amp; = \left( y-h</em>{\theta}(x) \right) \cdot x_{j}<br>\end{align</em>}  \qquad (ml.1.11)<br>  $$</p>
-<p> 最后，通过扫描样本，迭代下述公式可求得参数：</p>
-<p> $$<br> \theta<em>{j+1} = \theta_j + \alpha \cdot (y^{(i)} - h</em>{\theta}(x^{(i)})) \cdot x_{j}^{(i)} \qquad (ml.1.12)<br> $$</p>
-<p> 公式\((ml.1.12)\)中的\(\alpha\)表示学习率（learning rete，又称学习步长），还有Batch Gradient法等，这些会在《深入理解优化算法》系列中的梯度法章节中纤细阐述。</p>
-<blockquote>
-<p>关于sigmoid函数导数性质：<br><br>公式：<br></p>
-<p>  \(<br>  \begin{align<em>}<br>  h^{‘}(x) &amp; = (\frac {1}{1+e^{-x}})^{‘} = - \frac {1}{(1+e^{-x})^2} \cdot     (e^{-x})^{‘} \<br>  &amp; = \frac {e^{-x}} {(1+e^{-x})^2} = \frac {e^{-x}} {1+e^{-x}} \cdot \frac{1}    {1+e^{-x}} \<br>  &amp; = (1-h(x)) \cdot h(x)<br>  \end{align</em>}<br>  \)</p>
-</blockquote>
-</li>
-</ul>
-<h4 id="7-1-_LogReg_+_L2范数">7.1. LogReg + L2范数</h4><p>解决过拟合</p>
-<h4 id="7-2-_LogReg_+_L1范数">7.2. LogReg + L1范数</h4><p>解决稀疏性</p>
-<p>给出CTR预估问题中特征稀疏编码后的（LogReg + L1范数）应用场景</p>
-<h4 id="7-3-_LogReg_+_L1范数_+_L2范数">7.3. LogReg + L1范数 + L2范数</h4><p>工业界CTR预估使用方法</p>
-<h3 id="8-_SoftMax_Regression">8. SoftMax Regression</h3><p>解决多分类问题</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
-</div>
-
-
-  <div class="article-tags">
+        </header>
+        <div id="container">
+          <div id="main" class="page" itemscope itemprop="blogPost">
   
-  <span></span> <a href="/tags/Linear-Regression-LogisticRegression-LR-Lasso-Ridge/">Linear Regression, LogisticRegression, LR, Lasso, Ridge</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/07/04/beta-gamma-dirichlet-function/" title="概率与统计-chapter0-三个重要函数" itemprop="url">概率与统计-chapter0-三个重要函数</a>
+      <a href="/home/index.html" title="计算广告与机器学习" itemprop="url">计算广告与机器学习</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2015-07-04T04:21:53.000Z" itemprop="datePublished"> 发表于 2015-07-04</time>
+    <time datetime="2016-02-03T00:08:52.000Z" itemprop="datePublished"> 发表于 2016-02-03</time>
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <ul>
-<li>Author: zhouyongsdzh@foxmail.com</li>
-<li>Date: 2015-07-04</li>
-<li>Sina Weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
-</ul>
-<h3 id="多产的数学家－欧拉"><strong>多产的数学家－欧拉</strong></h3><p>他是公认的数学史上4位最伟大的数学家之一，他的一生没有戏剧性的故事，但给后人留下宝贵的科学财富。</p>
-<p>18世纪，数学家辈出的年代，他仍属于佼佼者，被认为是18世纪数学界最杰出的人物之一。</p>
-<p>同时，他在数学领域最多产的一位，不仅在数学界做出伟大贡献，而且把数学应用到了几乎整个物理领域。他就是<strong>18世纪数学界之星-欧拉</strong>。</p>
-<p><a href="http://baike.baidu.com/link?url=OFDCUSh42Bfc_tOI70iV9Zh3hRkxZww91RL_2zlyGNUccKlXAGZRZzLA47ZtTx_XwROYpptHjgsbIJmlAnGPCoRcRi_UIhtRWMQcoqb8zTP-5rLDaLwqvGxU_s2J7Qu596UmWqAJ-43oM5-70om12q" target="_blank" rel="external">莱昂哈德·欧拉</a>)（Leonhard Euler ，1707年4月15日～1783年9月18日），瑞士数学家、自然科学家。1707年出生于瑞士－巴塞尔的牧师家庭，15岁从巴塞尔大学毕业，翌年获得硕士学位。</p>
-<p>简述其成就：</p>
-<ol>
-<li><strong><em>微分方程</em></strong>: 18世纪中叶，欧拉与其它数学家在解决物理问题过程中，创立了<strong>微分方程</strong>学科。偏微分方程的纯数学研究的第一篇论文是欧拉写的《方程的积分法研究》。此外，还提出了<strong>函数用三角级数表示</strong>的方法和<strong>解微分方程的级数法</strong>等。<br><br></li>
-<li><strong><em>微分几何学</em></strong>：引入了空间曲线的参数方程，给出了空间曲线曲率半径的解析表达式；1766年出版了《关于曲面上曲线的研究》，建立了<strong>曲面理论</strong>，是微分几何发展史上的里程碑。<br><br></li>
-<li><strong><em>分析学</em></strong>：1729年引入了<strong>Gamma函数和Beta函数</strong>，证明了椭圆积分的加法定理，最早引入了<strong>二重积分</strong>。<br><br></li>
-<li><strong><em>数论</em></strong>：欧拉的一系列成果奠定了该数学分支。<br><br></li>
-</ol>
+	<div class="article-content">
+		
+		<p>欢迎大家来到《计算广告与机器学习》知识与技术共享平台！欢迎志同道合的朋友加入！</p>
+<p>我叫周永（微博：<a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_ML</a>），目前在新浪广告算法组从事广告算法和数据相关工作。</p>
 <blockquote>
-<p>注：数学史上公认的4名最伟大的数学家分别是：<strong>阿基米德、牛顿、欧拉和高斯</strong>。<br></p>
-<p>阿基米德有“翘起地球”的豪言壮语，牛顿因为苹果闻名世界，高斯少年时就显露出计算天赋，唯独欧拉没有戏剧性的故事让人印象深刻。</p>
+<p>新浪广告算法组时刻欢迎有数据挖掘、机器学习、最优化、系统架构等方面有兴趣和经验的朋友加入！</p>
 </blockquote>
-<p>这里仅总结欧拉在分析学领域中的一个成就－<strong>欧拉积分</strong>及其对应的分布。欧拉积分是一种含参变量的积分，主要包括</p>
-<ul>
-<li>第一类欧拉积分：又称为Beta函数（简称B函数）</li>
-<li>第二类欧拉积分：又称为Gamma函数</li>
-</ul>
-<h3 id="Gamma函数－第二类欧拉积分">Gamma函数－第二类欧拉积分</h3><blockquote>
-<p>因为Beta函数和Dirichlet函数可以表示用Gamma函数表示，所以先介绍Gamma函数。</p>
-</blockquote>
-<h4 id="历史由来"><br><strong>历史由来</strong></h4><p>1728年，<a href="http://baike.baidu.com/view/7386144.htm?fromtitle=%E5%93%A5%E5%BE%B7%E5%B7%B4%E8%B5%AB&amp;fromid=1632207&amp;type=syn" target="_blank" rel="external">哥德巴赫</a>（Goldbach C. 德国数学家，1690-1764）在考虑<strong>数列插值</strong>的问题，通俗的说就是把数列的通项公式定义<strong>从整数集合延伸至实数集合</strong>，例如数列1,4,9,16…..可以用通项公式\(n^2\)自然地表达，即便\(n\)为实数时，此通项公式也具有良好的定义。另一个自然的解释就是可以找到一条平滑的曲线\(f(x)=x^2\)通过所有的整数点\([x, x^2]\)，从而可以把定义在整数集上的公式延伸至实数集合。</p>
-<p>有一天，哥德巴赫开始处理<strong>阶乘序列</strong>\(1,2,6,24,120,720,\cdots\)，我们可以计算整数的阶乘（如\(2!,3!\)），那么是否可以计算实数的阶乘（如\(2.5!\)）呢？</p>
-<p>遗憾的是，哥德巴赫当时无法解决<strong>阶乘的计算从整数集合延伸至实数集合上</strong>的问题，于是写信请教<a href="https://en.wikipedia.org/wiki/Nicolaus_II_Bernoulli" target="_blank" rel="external">尼古拉斯.伯努利</a>和其弟<a href="https://en.wikipedia.org/wiki/Daniel_Bernoulli" target="_blank" rel="external">丹尼尔.伯努利</a>，由于当时欧拉与丹尼尔.伯努利在一起，因此也得知了该问题。而欧拉与1729年完美的解决了这个问题，由此导致Gamma函数的诞生，当时的欧拉只有22岁。</p>
-<h4 id="Gamma发现之旅"><br><strong>Gamma发现之旅</strong></h4><p>其实最早发现\(n!\)差值计算的是丹尼尔.伯努利。他发现：如果\(m,n\)都是正整数，且\(m\to\infty\)时，有下面公式成立：</p>
-<p>$$<br>\frac {1 \cdot 2 \cdot 3 \cdots m} {(1+n)(2+n) \cdots (m-1+n)} \left(m+ \frac{n}{2}\right)^{n-1} \to n!<br>$$</p>
-<p>用此<strong>无穷乘积</strong>的方式可以把\(n!\)定义延伸至实数集合。如\(n=2.5,m\)足够大时，上式基本可近似计算出\(2.5!\)的值。</p>
-<p>欧拉偶然地发现\(n!\)可用如下无穷乘积表达：</p>
-<p>$$<br>\left[\left(\frac{2}{1}\right)^n \frac{1}{n+1}\right] \left[\left(\frac{3}{2}\right)^n \frac{2}{n+2}\right]<br>\left[\left(\frac{4}{3}\right)^n \frac{3}{n+3}\right]<br>\cdots = n!<br>$$</p>
-<p>于是他用一些简单的例子做一些计算，寻找其规律。当\(n=1/2\)时，整理上式可得：</p>
-<p>$$<br>\left(\frac{1}{2}\right)!=\sqrt{\frac{2\cdot4}{3\cdot3} \cdot \frac{4\cdot6}{5\cdot5} \cdot \frac{6\cdot8}{7\cdot7} \cdot \frac{8\cdot10}{9\cdot9} \cdots}<br>$$</p>
-<p>此式恰好与著名的<a href="http://baike.baidu.com/link?url=FWbPfOA5BqiQxrCJ4KJnedzJRf6blsxbh2qn1XyGlPvUbGXufoVXf4xie6UMnWNUUAH2ewNaziQug2YzHQ9jpK" target="_blank" rel="external">Wallis公式</a>有关。</p>
-<blockquote>
-<p>关于Wallis公式：</p>
-<p>\( \qquad \lim\limits_{k\to\infty} \left(\frac{2^{2k}(k!)^2}{2k!}\right)^2 \frac{1}{2k+1} = \frac{\pi}{2} \)</p>
-<p>Wallis公式是关于圆周率的无穷乘积的公式，Wallis本人在1665年使用<strong>插值方法</strong>计算<strong>半圆曲线</strong>\(y=\sqrt{x(1-x)}\)下的面积（即直径为1的半圆面积）时，发现\(\pi/4\)等于下式：</p>
-<p>\(<br>\qquad\frac{2\cdot4}{3\cdot3} \cdot \frac{4\cdot6}{5\cdot5} \cdot \frac{6\cdot8}{7\cdot7} \cdot \frac{8\cdot10}{9\cdot9} \cdots = \frac{\pi}{4}<br>\)</p>
-</blockquote>
-<p>于是欧拉根据Wallis公式得到如下的结果：</p>
-<p>$$<br>\left(\frac{1}{2}\right)! = \frac{\sqrt{\pi}}{2}<br>$$</p>
-<p>欧拉发现\((\frac{1}{2})!\)中含有\(\pi\)，而\(\pi\)与圆相关的积分有关系。欧拉猜测\(n!\)一定可以用积分形式表示。</p>
-<p>Wallis时代微积分还没问世，当时是使用插值方法做推导计算的，但Wallis公式的推导过程基本上都是在处理积分\(\int_{0}^{1} x^\frac{1}{2} (1-x)^\frac{1}{2} dx\)的问题。</p>
-<blockquote>
-<p>关于微积分诞生：<br><br>牛顿与莱布尼茨谁先发明的微积分在数学界有很大的争论。不过本人更认可是莱布尼茨，因为微积分的主要思想是他提出的，微分相关概念和符号是他定义的，并沿用至今。<br><br>1684年<a href="http://baike.baidu.com/link?url=TsKq7RAFzLHNnXSqoXKfEosO1ogw_FQnRME1vlTwvwKiJs0hudGCkvWkUJW1MHwpiGPGB7SHD49O2Nmea5m_i63qc9eJSMlDzZ7VAPo7D2p4d6oj9Bb0MVkLfDUaSbqvNCc5Opspb0YHMMGf8PJXaH5kmhwbnefwifkVxETybompTpK4IDEAoP9ZR83kyP4L" target="_blank" rel="external">莱布尼茨</a>发表了关于微积分的重要文献，标志着微积分作为独立学科正式诞生。莱布尼茨是微积分主要思想的独立发明人。当然，不可否认的是牛顿在此前同样做了很多微积分相关工作。</p>
-</blockquote>
-<p>受Wallis启发，欧拉开始考虑如下一般形式的积分：</p>
-<p>$$<br>J(e,n)=\int_{0}^{1} x^e(1-x)^n dx<br>$$</p>
-<p>这里，\(n\)为正整数，\(e\)为正实数。利用<strong>分部积分</strong>法，可得：</p>
-<p>$$<br>J(e,n)=\frac{n}{e+1}J(e+1, n-1)<br>$$</p>
-<blockquote>
-<p><strong>关于<a href="http://baike.baidu.com/link?url=2UfHeRl5l_jvgTbPSA4APPlKvrivw6i7iTmXB6-phTsDM-VqyQtxfJyb8EpIFR5r_5vwkjedDtN5japSjucvqq" target="_blank" rel="external">分部积分</a></strong>：<br><br>设\(u=u(x)\)和\(v=v(x)\)均为可导函数，分部积分形式如下：<br></p>
-<p>\( \qquad \int u \mathop{v’}dx = \int u dv = [uv] - \int v du \)</p>
-</blockquote>
-<p>重复迭代上式，可得：</p>
-<p>$$<br>J(e,n) = \frac {1\cdot2\cdot3\cdots n}{(e+1)(e+2)\cdots (e+n+1)}<br>$$</p>
-<p>于是欧拉得到如下重要的式子：</p>
-<p>$$<br>n!=(e+1)(e+2)\cdots (e+n+1) \int_{0}^{1} x^e(1-x)^n dx<br>$$</p>
-<p>接下来，欧拉使用一些计算技巧，即取\(e=f/g\) 且 \(f\to1, g\to0\)，然后对上式右边计算极限，得到如下简洁的结果：</p>
-<p>$$<br>n! = \int_{0}^{1}(-\log{t})^n dt<br>$$</p>
-<p>到此，欧拉成功地把\(n!\)表达为了积分形式！令\(t=e^{-u}\)，可得常见的Gamma函数形式：</p>
-<p>$$<br>n! = \int_{0}^{\infty} u^n e^{-u} du<br>$$</p>
-<p>注意，此时的\(n\)仍然为正整数，利用上式把<strong>阶乘延伸至实数集</strong>上，就得到Gamma函数的一般形式：</p>
-<p>$$<br>\Gamma(x) = \int_{0}^{1} (-\log t)^{x-1}dt = \int_{0}^{\infty} t^{x-1} e^{-t} dt<br>$$</p>
-<blockquote>
-<p>注：使用MathJax引擎在浏览器上解析时，需要对”_”做转义，应写成下面形式：<br></p>
-<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\<span class="keyword">Gamma</span>(x) = \int\_<span class="list">&#123;0&#125;</span>^<span class="list">&#123;1&#125;</span> (-\log t)^<span class="list">&#123;x-1&#125;</span>dt = \int_<span class="list">&#123;0&#125;</span>^<span class="list">&#123;\infty&#125;</span> t^<span class="list">&#123;x-1&#125;</span> e^<span class="list">&#123;-t&#125;</span>dt</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p><strong>为什么</strong>\(\Gamma(n)=(n-1)!\)<strong>，而不是</strong>\(\Gamma(n)=n!\)</p>
-<p>如果对上述的Gamma函数式做一个调整，将\(t^{x-1}\)替换为\(t^x\)，可得如下函数：</p>
-<p>$$<br>\Gamma(x) = \int_{0}^{\infty} t^x e^{-t}dx<br>$$</p>
-<p>此时\(\Gamma(n)=n!\)，这才是欧拉最早的Gamma函数定义。但后来欧拉修改了原有Gamma函数的定义，使得\(\Gamma(n)=(n-1)!\)。后来的数学家们在对Gamma函数的进一步研究中，认可了这个定义，沿用至今。</p>
-<h4 id="Gamma分布">Gamma分布</h4><ul>
-<li>概率密度函数</li>
-</ul>
-<p>$$<br>f(x)=<br>\begin{cases}<br>\displaystyle\frac {x^{\alpha-1} e^{x/\beta}} {\beta^\alpha \Gamma(\alpha)}, &amp; 0 \leq x \leq \infty; \alpha &gt; 0; \beta &gt; 0 \\<br>\;\;\quad 0, &amp; others<br>\end{cases}<br>$$</p>
-<h3 id="Beta函数－第一类欧拉积分">Beta函数－第一类欧拉积分</h3><p>在@rickjin的《LDA-math》系列中详细地解释了Beta和Dirichlet分布的由来和推导过程，堪称经典。原文见下面链接：</p>
-<ul>
-<li><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%831" target="_blank" rel="external">LDA-math-认识Beta/Dirichlet分布(1)</a> <br></li>
-<li><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%832" target="_blank" rel="external">LDA-math-认识Beta/Dirichlet分布(2)</a> <br></li>
-<li><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%833" target="_blank" rel="external">LDA-math-认识Beta/Dirichlet分布(3)</a> <br></li>
-</ul>
-<p>@rickjin在文中从一个<strong>魔鬼的游戏</strong>开始引入。魔鬼撒旦抓走一人，撒旦说：“你们人类很聪明，而我是很仁慈的，和你玩一个游戏，赢了就可以走，否则把灵魂出卖给我。”</p>
-<blockquote>
-<p>游戏规则：<br><br>我有一个魔盒，上面有一个按钮，你每按一下按钮，就均匀的输出一个[0,1]之间的随机数，我现在按10下，我手上有10个数，你猜第7大的数是什么，偏离不超过0.01就算对。</p>
-</blockquote>
-<h4 id="数学抽象与推导">数学抽象与推导</h4><p>上述游戏实际在说随机变量\(X_1, X_2, \cdots, X_{10} \sim U(0,1)\), 把这\(n\)个随机变量排序后得到顺序统计量\(X_{(1)}, X_{(2)}, \cdots, X_{(10)}\)，然后问\(X_{(k)}\)的分布是什么？</p>
-<blockquote>
-<p>因为如果知道随机变量\(X_{(k)}\)分布的概率密度，用概率密度的极值点作为猜测值是最好的策略。</p>
-</blockquote>
-<p>对于上述游戏而言，\(n=10,k=7\)，\(X_{(k)}\)的分布如何计算？@rickjin在文中列举了通过尝试计算\(X_{(k)}\)落在区间\([x,x+\Delta x]\)的概率，也就是求如下概率值</p>
-<p>$$<br>P(x \leq X_{(k)} \leq x + \Delta x) = \;?<br>$$</p>
-<p>如果把[0,1]区间分为三个子区间，即\([0,x)、[x,x+\Delta x]和(x+\Delta x,1]\)。考虑简单的情形，假设\(n\)个数中只有一个落在了区间\([x,x+\Delta x]\)内，这个区间内的数\(X_{(k)}\)是第\(k\)大的，则区间\([0,x)\)中应该有\(k-1\)个数，区间\((x+\Delta x,1]\)中应该有\(n-k\)个数。那么，符合上述要求的事件\(E\)可表示为：</p>
-<p>$$<br>\begin{align*}<br>E = \{<br>&amp; X_1 \in [x, x+\Delta x], \\<br>&amp; X_i \in [0,x)\quad (i=2,\cdots,k), \\<br>&amp; X_j \in (x+\Delta x,1] \quad (j=k+1,\cdots,n)<br>\}<br>\end{align*}<br>$$</p>
-<blockquote>
-<p>注：</p>
-<ol>
-<li>符号<code>*</code>在markdown中有特殊含义，若要当作latex环境中的语法用，需要转义，即<code>\ *</code>.</li>
-<li>在Mathjax下，<code>$$E = \{x, y\}$$</code>无法正常输出<code>{}</code>, 因为Latex要想输出<code>{}</code>，需要使用<code>\{, \}</code>。而<code>\</code>在markdown中要想正常表法其自身意义也需要再次转义，代码为: <code>$$E = \\{x,y\\}$$</code>。</li>
-</ol>
-<p>$$E = \{ x,y\}$$</p>
-</blockquote>
-<p>那么事件\(E\)发生的概率，有：</p>
-<p>$$<br>\begin{align*}<br>P(E) &amp; = \prod_{i=1}^nP(X_i) \\<br>&amp; = x^{k-1}(1-x-\Delta x)^{n-k}\Delta x \\<br>&amp; = x^{k-1}(1-x)^{n-k}\Delta x + o(\Delta x)<br>\end{align*}<br>$$</p>
-<p>\(o(\Delta x)\)表示\(\Delta x\)的高阶无穷小。显然，由于<strong>不同的排列组合</strong>，即\(n\)个数中有一个落在\([x, x+ \Delta x]\)区间的有\(n\)中取法，余下\(n-1\)个数中有\(k-1\)个落在\([0, x)\)区间有\(\binom{n-1}{k-1}\)种组合，所以<strong>与事件E等概率的事件一共有\(n \binom{n-1}{k-1}\)个（当只有1个数落在\([x, x+ \Delta x]\)时）</strong>。</p>
-<p>继续考虑复杂一些的情形，假设\(n\)个数中<strong>两个数</strong>落在了区间\([x, x+ \Delta x]\)，此时事件\(E^{‘}\)可表示为：</p>
-<p>$$<br>\begin{align*}<br>E’ = \{<br>&amp; X_1,X_2\in [x, x+\Delta x], \\<br>&amp; X_i \in [0,x) \quad (i=3,\cdots,k), \\<br>&amp; X_j \in (x+\Delta x,1] \quad (j=k+1,\cdots,n)<br>\}<br>\end{align*}<br>$$</p>
-<p>此时，事件\(E^{‘}\)发生的概率为：</p>
-<p>$$<br>P(E^{‘}) = x^{k-2}(1-x-\Delta x)^{n-k}(\Delta x)^2 = o(\Delta x)<br>$$</p>
-<p>很容易看出，只要落在\([x, x+ \Delta x]\)内的数字<strong>大于1个</strong>，则对应事件的概率就是\(\Delta x\)。于是随机变量\(X_{(k)}\)落在\([x, x+ \Delta x]\)区间的概率：</p>
-<p>$$<br>\begin{align*}<br>&amp; P( x \le X_{(k)} \le x+\Delta x) \\<br>&amp; = n\binom{n-1}{k-1}P(E) + o(\Delta x) \\<br>&amp; = n\binom{n-1}{k-1}x^{k-1}(1-x)^{n-k}\Delta x + o(\Delta x)<br>\end{align*}<br>$$</p>
-<p>进一步可得\(X_{(k)}\)的概率密度函数为</p>
-<p>$$<br>\begin{align*}<br>f(x) &amp; = \lim_{\Delta x \to 0} \frac {P(x \leq X_{(x)} \leq x + \Delta x)}{\Delta x} \\<br>&amp; = n \binom{n-1}{k-1}x^{k-1}(1-x)^{n-k}\\<br>&amp; = \frac {n!}{(k-1)! (n-k)!}x^{k-1} (1-x)^{n-k} \quad x \in [0,1]<br>\end{align*}<br>$$</p>
-<p>利用上述介绍的Gamma函数，可以把\(f(x)\)表示为</p>
-<p>$$<br>f(x) = \frac {\Gamma(n+1)}{\Gamma(k) \Gamma(n-k+1)} x^{k-1} (1-x)^{n-k}<br>$$</p>
-<p><strong>\(\Gamma\)函数起源于人们希望把数学计算从整数集合拓展至实数集合</strong>。这里另\(\alpha=k, \beta=n-k+1\)，于是可以得到</p>
-<p>$$<br>Beta(x|\alpha,\beta)=f(x)=\frac {\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1}(1-x)^{\beta-1}<br>$$</p>
-<p>上式即为一般意义上的Beta分布！</p>
-<h4 id="\(\beta\)型概率分布"><br><strong>\(\beta\)型概率分布</strong></h4><ul>
-<li>\(\beta\)型随机变量\(X\)的概率密度函数：</li>
-</ul>
-<p>$$<br>f(x)=<br>\begin{cases}<br>\displaystyle\frac {\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1}(1-x)^{\beta-1}, &amp; 0 \leq x \leq 1;\;\alpha &gt; 0, \beta &gt; 0 \\<br>0, &amp; others<br>\end{cases}<br>\quad (**)<br>$$</p>
-<blockquote>
-<p>关于<strong>Beta函数详细推导</strong><br></p>
-<p>$$<br>\begin{align*}<br>f(x;\alpha,\beta) &amp; = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{\int_{0}^{1}t^{\alpha-1}(1-t)^{\beta-1}dt} \\<br>&amp; = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{Beta(\alpha,\beta)}<br>\end{align*}<br>$$</p>
-<p>其中，</p>
-<p>$$<br>Beta(\alpha,\beta)= \int_{0}^{1}t^{\alpha-1}(1-t)^{\beta-1}dt= \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}<br>$$</p>
-<p>$$<br>\Gamma(\alpha)=\int_{0}^{\infty}t^{\alpha-1}e^{-t}dt<br>$$<br>且当\(\alpha\)是正整数时，\(\Gamma(\alpha)=(\alpha-1)!\)</p>
-</blockquote>
-<ul>
-<li>\(\beta\)型随机变量的期望与方差分别是：</li>
-</ul>
-<p>$$\mu=\frac{\alpha}{\alpha+\beta} \;\qquad\qquad\qquad (期望)$$</p>
-<p>$$\sigma^2=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)} \quad (方差)$$</p>
-<ul>
-<li>\(\beta\)型分布的期望公式详细推导</li>
-</ul>
-<p>如果\(p \sim Beta(t|\alpha,\beta)\)，那么\(p\)的期望表示如下：</p>
-<p>$$<br>\begin{align*}<br>E(p)<br>&amp; =\int_{0}^{1} t \ast Beta(t|\alpha,\beta)\;dt \\<br>&amp; = \int_{0}^{1} t \ast \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}t^{\alpha-1}(1-t)^{\beta-1}\;dt \\<br>&amp; =\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\int_{0}^{1}t^{\alpha}(1-t)^{\beta-1}\;dt<br>\end{align*}<br>$$</p>
-<p>上式右边的积分\(\int_{0}^{1}t^{\alpha}(1-t)^{\beta-1}\;dt\)恰好对应到概率分布\(Beta(t|\alpha+1,\beta)\)。对于此分布，根据Beta型随机变量的密度函数在\([0,1]\)之间的累积分布等于1，可得:</p>
-<p>$$<br>\int_{0}^{1} \frac{\Gamma(\alpha+\beta+1)}{\Gamma(\alpha+1)\Gamma(\beta)} t^\alpha (1-t)^{\beta-1}\;dt=1<br>$$</p>
-<p>把上式带入\(E(p)\)计算式，得到 </p>
-<p>$$<br>\begin{align*}<br>E(p) &amp; = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} \cdot<br>\frac{\Gamma(\alpha+1)\Gamma(\beta)}{\Gamma(\alpha+\beta+1)} \\<br>&amp; = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha+\beta+1)}\frac{\Gamma(\alpha+1)}{\Gamma(\alpha)} \notag \\<br>&amp; = \frac{\alpha}{\alpha+\beta}<br>\end{align*}<br>$$</p>
-<p>这说明，<strong>对于Beta分布的随机变量，其均值可以用\(\frac{\alpha}{\alpha+\beta}\)来估计</strong>。</p>
-<ul>
-<li>\(\beta\)型概率分布曲线</li>
-</ul>
-<p><strong><em>(此处暂略~)</em></strong></p>
-<p>回到<strong>魔鬼的游戏</strong>中，\(n=10, k=7\)时，按照密度分布的峰值去猜测是最好的策略。</p>
-<p>$$<br>f(x)=\frac{10!}{(6)!(3)!} x^6 (1-x)^3 \quad x \in [0,1]<br>$$</p>
-<p>即便按照密度函数分布的峰值作为猜测结果，第一次猜中的概率也不高。<br><br></p>
-<p><strong>游戏继续\(\cdots\)</strong></p>
-<p>很遗憾，根据上述最好的策略算出来的值竟然有偏差，没猜中，魔鬼微笑着说：“我再仁慈一点，再给你一个机会，你按5下这个机器，你就得到了5个\([0,1]\)之间的随机数，然后我可以告诉你这5个数中的每一个，和我的第7个数相比，谁大谁小，然后你继续猜我手头上的第7大的数是多少。” 这时候该如何猜测呢？</p>
-<h3 id="Beta-Binomial共轭"><br><strong>Beta-Binomial共轭</strong></h3><p>魔鬼的两个问题，数学抽象一下，就是：</p>
-<ul>
-<li>\(X_1,X_2, \cdots, X_n \in Uniform(0,1)\)，对应的顺序统计量为\(X_{(1)},X_{(2)}, \cdots, X_{(n)}\)，我们要猜测\(p=X_{(k)}\)；（第1个问题）</li>
-<li>\(Y_1,Y_2, \cdots, Y_m \in Uniform(0,1)\)，\(Y_i\)中有\(m_1\)个比\(p\)小，\(m_2\)个比\(p\)大；（第2个问题）</li>
-</ul>
-<p>最后的问题：<strong>\(P(p|Y_1,Y_2, \cdots, Y_m)\)的分布是什么？</strong></p>
-<p><strong>问题分析</strong></p>
-<p>由于\(p=X_(k)\)在\(X_1,X_2, \cdots, X_n\)中是第\(k\)大的，利用\(Y_i\)的信息，可以很容易的推理得到\(p=X_{(k)}\)在\(X_1,X_2, \cdots, X_n,\) \(Y_1, Y_2, \cdots, Y_m \in Uniform(0,1)\)这\((m+n)\)个独立随机变量中是第\(k+m_1\)大的。那么按照<strong>Beta分布（贝塔分布）</strong>小节的推理，此时\(p=X_{(k)}\)的概率密度函数是\(Beta(p|\,k+m_1, n-k+1+m_2)\)。</p>
-<p>根据<strong>贝叶斯推理</strong>的逻辑，整理上述过程如下：</p>
-<ul>
-<li>\(p=X_{(k)}\)是我们需要猜测的参数，并且推导出\(p\)的分布为\(f(p)=Beta(p|k,n-k+1)\)，称为\(p\)的<strong>先验分布</strong>；</li>
-<li>数据\(Y_i\)中有\(m_1\)个比\(p\)小，\(m_2\)个比\(p\)大，\(Y_i\)相当于做了\(m\)次<strong>贝努利试验</strong>，所以\(m_1\)服从二项分布\(B(m,p)\)；</li>
-<li>在给定了来自数据提供的\((m_1, m_2)\)的知识后，\(p\)的<strong>后验分布</strong>变为:</li>
-</ul>
-<p>$$f(p|\,m_1,m_2)=Beta(p|\,k+m_1, n-k+1+m_2)$$</p>
-<blockquote>
-<p>关于<strong>贝叶斯参数估计</strong>的基本过程：</p>
-<p>$$先验分布 ＋ 数据知识 ＝ 后验分布$$</p>
-</blockquote>
-<p>在这里，贝叶斯分析过程的简单直观的表述就是：</p>
-<p>$$Beta(p|\,k, n-k+1) + Count(m_1, m_2) = Beta(p|\,k+m_1,n-k+1+m_2)$$</p>
-<p>其中\(m_1,m_2\)对应的是二项分布\(B(m_1+m_2, p)\)的计数。更为一般地数学表述：对于非负实数\(\alpha,\beta\)，存在如下关系</p>
-<p>$$<br>Beta(p|\,\alpha, \beta) + Count(m_1, m_2) = Beta(p|\,\alpha+m_1, \beta+m_2) \quad (**)<br>$$</p>
-<p>该式描述的就是<strong>Beta-Binomial共轭</strong>。</p>
-<blockquote>
-<p>关于<strong>Beta-Binomial共轭</strong> <br><br>数据符合<strong>二项分布</strong>的时候，参数的先验分布和后验分布都能保持<strong>Beta分布</strong>的形式，这种形式不变的好处是：我们能够在先验分布中赋予参数很明确的物理意义，这个物理意义可以延续至后验分布中进行解释，同时从先验变换到后验的过程中从数据中补充的知识也容易给出物理上的解释。</p>
-</blockquote>
-<p>推导过程中可以看到，\(Beta\)分布中的参数\(\alpha,\beta\)都可以理解为物理计数，这两个参数经常被称为<strong>伪计数（pseudo-count）</strong>。\(Beta(p|\,\alpha, \beta)\)可以写成如下表达式：</p>
-<p>$$Beta(p|\,1,1) + Count(\alpha-1, \beta-1) = Beta(p|\,\alpha,\beta)$$</p>
-<p>其中的<strong>\(Beta(p|\,1,1)\)恰好就是均匀分布\(Uniform(0,1)\)</strong>。</p>
-<blockquote>
-<p>关于<strong>Beta分布与均匀分布</strong>的关系：</p>
-<p>$$Beta(p|\,\alpha=1,\beta=1)= Uniform(a=0,b=1)$$</p>
-</blockquote>
-<p>对于\((**)\)共轭公式，其实可纯粹从贝叶斯的角度来进行推导。理解过程：</p>
-<ul>
-<li>假设有一个不均匀的硬币抛出正面的概率为\(p\)，抛\(m\)次后出现正面和反面的次数分别是\(m_1,m_2\)，那么按照传统的<strong>频率学派</strong>观点，\(p\)的估计值应该是\(\hat p = \frac{m_1}{m}\)。<br></li>
-<li>而从<strong>贝叶斯学派</strong>的观点来看，开始对硬币不均匀性一无所知，所以应该假设\(p\ \in Uniform(0,1)\)，于是二项分布的计数\(m_1,m_2\)之后，按照贝叶斯公式计算\(p\)的后验分布：</li>
-</ul>
-<p>$$<br>\begin{align*}<br>P(p|\,m_1,m_2) = &amp; \frac {P(p) \cdot P(m_1,m_2\,|p)}{P(m_1,m_2)} \\<br>= &amp; \frac {1 \cdot P(m_1,m_2 |p)}{\int_{0}^{1} P(m_1,m_2|t)dt} \\<br>= &amp; \frac {\binom{m}{m_1}p^{m_1}(1-p)^{m_2}}{\int_{0}^{1} \binom{m}{m_1}t^{m_1}(1-t)^{m_2}dt} \\<br>= &amp; \frac {p^{m_1}(1-p)^{m_2}}{\int_{0}^{1}t^{m_1}(1-t)^{m_2}dt}<br>\end{align*}<br>$$</p>
-<p>得到的后验分布正好是\(Beta(p|\;m_1 + 1, m_2 + 1)\)。</p>
-<p>回到<strong>魔鬼的游戏</strong>，如果按出的5个随机数字中，魔鬼告诉你有2个（即\(m_1=2\)）小于他手中第7大的数，那么应该按照如下概率分布的<strong>峰值</strong>做猜测是最好的(\(\alpha+2=9,\beta+3=7\))：</p>
-<p>$$<br>Beta(x|9,7)=\frac{15!}{(8)!(6)!}x^8(1-x)^6  \quad x \in [0,1]<br>$$</p>
-<p>很幸运，这次猜中了，但是魔鬼开始耍赖，游戏不得不继续 \(\cdots\)</p>
-<blockquote>
-<p>游戏3新规则：<br><br>魔说道：“这个游戏对你来说太简单了，我要加大点难度，我们重新来一次，<strong>我按20下生成20个随机数，你要同时给我猜第7大和第13大的数是什么？</strong>”</p>
-</blockquote>
-<p>此时又该如何猜测呢？<br></p>
-<h3 id="Dirichlet分布"><strong>Dirichlet分布</strong></h3><p>对于魔鬼变本加厉的新的游戏规则，数学抽象如下：</p>
-<ul>
-<li>\(X_1,X_2, \cdots, X_n \sim Uniform(0,1)\),</li>
-<li>排序后对应的顺序统计量为\(X_{(1)},X_{(2)}, \cdots, X_{(n)}\),</li>
-<li><strong>问: \((X_{(k_1)},X_{(k_1 + k_2)})\)的联合分布是什么？</strong></li>
-</ul>
-<p>游戏3完全类似游戏1的推导过程，可进行如下的概率计算：</p>
-<blockquote>
-<p>注：为了公式的简洁性，这里取\(x_3=1-x_1-x_2\),但只有\(x_1,x_2\)是变量。说明符号：<br></p>
-<ol>
-<li>n: 总的样本数<br></li>
-<li>\(X_{(k_1)}\)和\(X_{(k_1 + k_2)}\)将n分割为3段，长度分别为\(k_1, k_2和k_3\)，即<br></li>
-</ol>
-<p>$$<br>分段结果：<br>\begin{cases}<br>[X_{(1)}, X_{(k-1)}], &amp; 有(k_1-1)个取值，统一记为x_1 \\<br>[X_{(k_1+1)}, X_{(k_1+k_2)}], &amp; 有(k_2-1)个取值，统一记为x_2 \\<br>[X_{(k_1+k_2+1)}, X_{(n)}] &amp; 有(n-k_1-k_2)个取值，统一记为x_3<br>\end{cases}<br>$$</p>
-</blockquote>
-<p>完全类似于游戏1的推导过程，\(X_{(k_1)},X_{(k_1+k_2)}\)的<strong>联合概率</strong>计算如下：</p>
-<p>$$<br>\begin{align*}<br>&amp; P\Bigl(X_{(k_1)} \in (x_1, x_1+\Delta x), X_{(k_1+k_2)} \in (x_2, x_2+\Delta x)\Bigr) \\<br>&amp; \quad = n(n-1)\binom{n-2}{k_1-1,k_2-1}x_1^{k_1-1}x_2^{k_2-1}x_3^{n-k_1-k_2}(\Delta x)^2 \\<br>&amp; \quad = \frac{n!}{(k_1-1)!(k_2-1)!(n-k_1-k_2)!}x_1^{k_1-1}x_2^{k_2-1}x_3^{n-k_1-k_2}(\Delta x)^2<br>\end{align*}<br>$$</p>
-<blockquote>
-<p>式中的\(n(n-1)\binom{n-2}{k_1-1,k_2-1}\)是一个排列组合问题，比较容易理解。</p>
-</blockquote>
-<p>于是得到\(X_{(k_1)},X_{(k_1+k_2)}\)的联合分布是：</p>
-<p>$$<br>\begin{align*}<br>f(x_1,x_2,x_3) &amp; =\frac{n!}{(k_1-)!(k_2-1)!(n-k_1-k_2)!}x_1^{k_1-1}x_2^{k_2-1}x_3^{n-k_1-k_2} \\<br>&amp; = \frac{\Gamma(n+1)}{\Gamma(k_1)\Gamma(k_2)\Gamma(n-k_1-k_2+1)}x_1^{k_1-1}x_2^{k_2-1}x_3^{n-k_1-k_2}<br>\end{align*} \quad (**)<br>$$</p>
-<p>而公式\((**)\)则是3维形式的Dirichlet分布，即\(Dir(x_1,x_2,x_3\;|\;k_1,k_2,n-k_1-k_2+1)\)。这里令\(\alpha_1=k_1,\alpha_2=k_2,\alpha_3=n-k_1-k_2+1\)，于是分布密度函数可以写为：</p>
-<p>$$<br>f(x_1, x_2, x_3) = \frac{\Gamma(\alpha_1+\alpha_2+\alpha_3)}{\Gamma(\alpha_1)\Gamma(\alpha_2)\Gamma(\alpha_3)}x_1^{\alpha_1-1}x_2^{\alpha_2-1}x_3^{\alpha_3-1} \qquad (0)<br>$$</p>
-<p>公式\((0)\)即为一般形式的3维Dirichlet分布。即使\(\vec{\alpha}=(\alpha_1,\alpha_2,\alpha_3)\)<strong>延伸至非负实数集合</strong>，上述概率分布也是成立的。</p>
-<p>在游戏3的基础上还可以往更高的维度上推，譬如\(X_{(1)},X_{(2)},\cdots,X_{(n)}\)中的4、5、…等更多个数，可以得到更高维度的Dirichlet分布和Dirichlet-Multinomial共轭。</p>
-<ul>
-<li>Dirichlet分布</li>
-</ul>
-<p>如果\(\vec{p} \sim Dir(\vec{t}|\vec{\alpha})\),那么随机变量\(\vec{p}\)的概率密度函数为</p>
-<p>$$<br>\begin{equation}<br>\displaystyle Dir(\overrightarrow{p}|\overrightarrow{\alpha}) =<br>\displaystyle \frac{\Gamma(\sum_{k=1}^{K} \alpha_k)}<br>{\prod_{k=1}^K \Gamma(\alpha_k)} \prod_{k=1}^{K} p_k^{\alpha_k -1}<br>\end{equation}    \qquad (1)<br>$$</p>
-<p>对于给定的\(\overrightarrow{p}\)和\(N\)，多项式分布定义为：</p>
-<p>$$<br>Multi(\overrightarrow{n}|\overrightarrow{p},N)=<br>\binom{N}{\overrightarrow{n}} \prod_{k=1}^K p_k^{n_k} \qquad (2)<br>$$</p>
-<p>而\(Multi(\overrightarrow{n}|\overrightarrow{p},N)\)和\(Dir((\overrightarrow{p}|\overrightarrow{\alpha})\)这两个分布是共轭关系。</p>
-<ul>
-<li>Dirichlet分布均值</li>
-</ul>
-<p>$$<br>E(\vec{p}) = \Bigl(\frac{\alpha_1}{\sum_{i=1}^{K}\alpha_i},\frac{\alpha_2}{\sum_{i=1}^{K}\alpha_i}, \cdots, \frac{\alpha_K}{\sum_{i=1}^{K}\alpha_i}\Bigr)<br>$$</p>
-<blockquote>
-<p>关于<strong>Dirichlet分布与Beta分布</strong>：<br><br>Dirichlet分布是Beta分布在高维度上的推广。当Dirichlet分布维度趋向无限时，便成为Dirichlet过程。<br><br></p>
-</blockquote>
-<h3 id="Dirichlet-Multinomial共轭"><strong>Dirichlet-Multinomial共轭</strong></h3><p>类似于魔鬼的游戏2，调整一下游戏3，可得游戏4的规则如下：</p>
-<blockquote>
-<p>游戏4: <br><br>从魔盒中生成m个随机数\(Y_1,Y_2, \cdots, Y_m \sim Uniform(0,1)\)，魔鬼告诉我们\(Y_i\)和\(X_{(k_1)},X_{(k_1+k_2)}\)相比谁大谁小，然后再次猜测第7大和第13大的数是多少？</p>
-</blockquote>
-<p>同样，对游戏4进行数学抽象，表示如下：</p>
-<ul>
-<li>\(X_1,X_2, \cdots, X_n \sim Uniform(0,1)\)，排序后对应的顺序统计量为\(X_{(1)},X_{(2)},\cdots,X_{(n)}\)；</li>
-<li>令\(p_1=X_{(k_1)},p_2=X_{(k_1+k_2)},p_3=1-p_1-p_2(p_3是为了简洁的数学表达)\)，我们要猜测\(\vec{p}=(p_1,p_2,p_3)\)；</li>
-<li>\(Y_1,Y_2, \cdots, Y_m \sim Uniform(0,1)\),\(Y_i\)中落到\([0,p_1), [p_1,p_2),[p_2,1]\)三个区间的个数分别是\(m_1,m_2,m_3\),其中\(m=m_1+m_2+m_3\)；</li>
-<li>问后验分布\(P(\vec{p}|Y_1,Y_2, \cdots, Y_m)\)的分布是什么？</li>
-</ul>
-<p>为了计算方便，记：</p>
-<p>$$<br>\vec{m}=(m_1, m_2, m_3), \quad \vec{k}=(k_1,k_2,n-k_1-k_2+1)<br>$$</p>
-<p>从游戏中的信息可以得知：\(p_1,p_2\)在\(X_1,X_2, \cdots, X_n,Y_1,Y_2, \cdots, Y_m \sim Uniform(0,1)\)这\(m+n\)个数中分别成为了第\(k_1+m_1, k_2+m_2\)大的数，于是后验分布\(P(\vec{p}|Y_1,Y_2,\cdots, Y_m)\)应该是\(Dir(\vec{p}|k_1+m_1,k_2+m_2, n-k_1-k_2+1+m_3)\)，即\(Dir(\vec{p}|\vec{k}+\vec{m})\)。按照贝叶斯推理的逻辑，同样可以把上述过程整理如下：</p>
-<ul>
-<li>首先，根据游戏3需要猜测参数\(\vec{p}=(p_1,p_2,p_3)\)，其先验分布为\(Dir(\vec{p}|\vec{k})\)；</li>
-<li>其次，数据\(Y_i\)落到\([0,p_1),[p_1,p_2),[p_2,1]\)三个区间的个数分别为\(m_1,m_2,m_3\)，所以\(\vec{m}=(m_1, m_2, m_3)\)服从多项式分布\(Multi(\vec{m}|\vec{p})\)<strong>（理解这一点很重要）</strong>；</li>
-<li>在给定了来自数据提供的知识\(\vec{m}\)后，\(\vec{p}\)的后验分布变为\(Dir(\vec{p}|\vec{k}+\vec{m})\)。</li>
-</ul>
-<p>以上贝叶斯分析过程的最简单直接的表述：</p>
-<p>$$<br>Dir(\overrightarrow{p}|\overrightarrow{k})+Multi(\vec{m})=Dir(\vec{p}|\vec{k}+\vec{m})<br>$$</p>
-<p>令\(\overrightarrow{\alpha}=\vec{k}\)，把\(\vec{\alpha}\)从整数集合延拓至实数集合，可以证明如下关系仍然成立：</p>
-<p>$$<br>Dir(\vec{p}|\vec{\alpha})+Multi(\vec{m})=Dir(\vec{p}|\vec{\alpha}+\vec{m}) \quad (11)<br>$$</p>
-<p>公式\((11)\)描述就是<strong>Dirichlet-Multinomial共轭</strong>。同时，我们可以把Dirichlet分布中的\(\alpha\)都可以理解为物理计数。那么，类似于Beta分布，\(Dir(\vec{p}|\vec{\alpha})\)可做如下分解：</p>
-<p>$$<br>Dir(\vec{p}|\vec{1})+Multi(\vec{m}-\vec{1}) = Dir(\vec{p}|\vec{\alpha})<br>$$</p>
-<p>这里\(\vec{1}=(1,1,\cdots,1)\),上式同样可以类似的用纯粹贝叶斯的观点推导和解释。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/概率与统计/">概率与统计</a>
-</div>
-
-
-  <div class="article-tags">
   
-  <span></span> <a href="/tags/Gamma-Beta-Dirichlet/">Gamma,Beta,Dirichlet</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/06/29/hello-world/" title="测试Hexo功能" itemprop="url">测试Hexo功能</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
-		
-  <p class="article-time">
-    <time datetime="2015-06-29T14:10:23.000Z" itemprop="datePublished"> 发表于 2015-06-29</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="公式">公式</h2><p>$$J_\alpha(x)=\sum _{m=0}^\infty \frac{(-1)^ m}{m! \, \Gamma (m + \alpha + 1)}{\left({\frac{x}{2}}\right)}^{2 m + \alpha }$$</p>
-<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 
@@ -724,702 +117,24 @@
 
 
 
-
-<div class="comments-count">
+	<div class="article-share" id="share">
 	
-</div>
+	  <div data-url="http://yoursite.com/home/index.html" data-title="计算广告与机器学习 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
 
 </footer>
 
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/06/20/prob-stats-chapter3-continuous-random-variable/" title="概率与统计-chapter3-连续随机变量" itemprop="url">概率与统计-chapter3-连续随机变量</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
-		
-  <p class="article-time">
-    <time datetime="2015-06-20T14:34:13.000Z" itemprop="datePublished"> 发表于 2015-06-20</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="连续随机变量（continuous_random_variable）">连续随机变量（continuous random variable）</h2><ul>
-<li>author: zhouyongsdzh@foxmail.com</li>
-<li>date: 2015-06-29 22:34:13</li>
-<li>sina weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
-</ul>
-<hr>
-<p><strong>目录</strong></p>
-<ul>
-<li>均匀分布</li>
-<li>高斯分布</li>
-<li>Gamma分布</li>
-<li>Erlang分布</li>
-<li>指数分布</li>
-<li>Beta分布</li>
-<li>Dirichlet分布</li>
-<li>other<br><br></li>
-</ul>
-<h3 id="说明">说明</h3><p>可以取连续值的随机变量称为<strong>连续随机变量</strong>（continuous random variable）。</p>
-<p>由于是取连续值，那么在任意区间都可以有无穷多个结果。比如高度，可以有1米、2米，也可以在两者之间：1.1米、1.11米，1.688米等无穷多个结果。如此，每个结果取值的可能性都是无穷小。</p>
-<p>因此，连续随机变量区别于离散随机变量重要一点：在连续随机变量中，讨论的是时间在<strong><em>某个区间</em></strong>内发生的概率，即\(P(a &lt; X &lt; b)\)，而不是具体某一取值的概率\(P(X)\)。因为在这种情况下，分到各个结果的概率都无限趋于0。显然，无法用离散随机变量中的<strong>概率质量函数</strong>来描述随机变量的分布。</p>
-<p>针对连续随机变量的分布，我们可用以下指标来描述具体的分布：</p>
-<ul>
-<li><p>累积分布函数（Cumulative Distribution Function，简称CDF）</p>
-<p>  累积分布函数本身表示随机变量在一个区间上的概率，所以可直接用于连续随机变量。即：</p>
-</li>
-</ul>
-<p>$$F(x)=P(X \leq x),\quad -\infty &lt; x &lt; \infty$$</p>
-<ul>
-<li><p>概率密度函数（Probability Density Function，简称PDF）</p>
-<p>  根据<code>无穷小</code>的概念，可以得到概率密度函数。在随机变量\(X＝x\)的附近去一个无穷小段，该小段的区间长度为\(dx\)，这无穷小段对应的概率为\(dF\)，那么该点的概率密度为\(dF/dx\)。</p>
-<p>  因此，概率密度函数可以代替累积分布函数，表示一个连续随机变量的概率分布。</p>
-<p>  $$f(x)=\frac {dF(x)}{dx}$$</p>
-<p>  $$F(x)=\int_{-\infty}^{x}f(t)dt$$ </p>
-<blockquote>
-<p>CDF与PDF之间的关系：PDF是CDF的微分，CDF是PDF在区间\([-\infty, x]\)上的积分。</p>
-</blockquote>
-</li>
-<li><p>均值（Expectation，又称均值Mean）</p>
-</li>
-<li>方差（Variance）</li>
-</ul>
-<blockquote>
-<p>这里的连续随机变量主要包括：均匀概率分布、高斯分布、Gamma分布等.<br></p>
-</blockquote>
-<h3 id="均匀分布（Uniform_Distribution）"><strong>均匀分布（Uniform Distribution）</strong></h3><p>假设有一个随机数生成器，产生\([a, b]\)之间的实数\(X)\)（\(a&lt;b\)），每个实数值出现的概率相等，这样的分布被称为均匀分布。那么，随机变量\(X\)服从区间\([a,b]\)上的均匀分布，记作\(X \sim U(a,b)\)。该类型的随机变量称作<strong>均匀随机变量</strong>。</p>
-<blockquote>
-<p>随机变量\(X\)的密度函数用图可表示为一个长方形，长方形的高是\(1\,/\,(b-a)\)，以保证长方形的面积等于1.</p>
-</blockquote>
-<ul>
-<li>均匀随机变量X的<strong>概率密度函数（PDF）</strong>为：</li>
-</ul>
-<p>$$<br>f(x)=<br>\begin{cases}<br>\displaystyle\frac {1}{b-a}, &amp; a \leq x \leq b \\<br>\quad0, &amp; others<br>\end{cases}<br>$$</p>
-<ul>
-<li>均匀随机变量X的<strong>累积分布函数（CDF）</strong>本身就表示随机变量在\([-\infty, x]\)区间上的概率，是概率密度函数在\([-\infty, x]\)区间上的积分，公式如下：</li>
-</ul>
-<p>$$<br>F(x)=P(X \leq x)=\int_{-\infty}^{x}f(t)dt=<br>\begin{cases}<br>\quad0, &amp; -\infty &lt; x &lt; a \\<br>\displaystyle\frac {x-a}{b-a}, &amp; a \leq x \leq b \\<br>\quad1, &amp; b &lt; x &lt; \infty<br>\end{cases}<br>$$</p>
-<ul>
-<li>均匀随机变量X的<strong>期望</strong>：</li>
-</ul>
-<p>$$<br>E(X)=\frac {a+b}{2}<br>$$</p>
-<ul>
-<li>均匀随机变量X的<strong>方差</strong>：</li>
-</ul>
-<p>$$<br>D(X)=E(X^2)-E^2(X)=\frac {(b-a)^2}{12}<br>$$</p>
-<blockquote>
-<p>注：在概率统计学中，几乎所以重要的概率分布都可以从均匀分布\(Uniform(0,1)\)中生成，尤其是在做统计模拟试验中，所有统计分布的随机样本都是通过均匀分布产生的。<br></p>
-</blockquote>
-<h3 id="高斯分布（Gaussian_Distribution）">高斯分布（Gaussian Distribution）</h3><ul>
-<li>概率密度函数</li>
-</ul>
-<p>$$<br>f(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x-\mu)^2}{2 \sigma^2} \right)<br>$$</p>
-<p><br></p>
-<h3 id="Gamma分布（伽马分布，又称\(\Gamma\)型概率分布）">Gamma分布（伽马分布，又称\(\Gamma\)型概率分布）</h3><p>在认识Gamma分布之前，我们先熟悉一下Gamma函数，在@52nlp的<a href="http://www.52nlp.cn/lda-math-%E7%A5%9E%E5%A5%87%E7%9A%84gamma%E5%87%BD%E6%95%B01" target="_blank" rel="external">神奇的Gamma函数</a>一文和<a href="http://baike.baidu.com/link?url=l_mNJgJzx9XbJKf4QBI2zBr3SrEzd6pqx1X-smju8t5vFmzB8xx8ynWew0-2dIrOf9iSuIl5wdaJnTlKFGZbs_" target="_blank" rel="external">百度百科－Gamma函数</a>中，讲的非常清楚。这里仅列出背景、核心公式和说明。</p>
-<p><br></p>
-<h4 id="Gamma函数"><strong>Gamma函数</strong></h4><ul>
-<li><strong>历史由来</strong></li>
-</ul>
-<p>1728年，<a href="http://baike.baidu.com/view/7386144.htm?fromtitle=%E5%93%A5%E5%BE%B7%E5%B7%B4%E8%B5%AB&amp;fromid=1632207&amp;type=syn" target="_blank" rel="external">哥德巴赫</a>（Goldbach C. 德国数学家，1690-1764）在考虑<strong>数列插值</strong>的问题，通俗的说就是把数列的通项公式定义<strong>从整数集合延伸至实数集合</strong>，例如数列1,4,9,16…..可以用通项公式\(n^2\)自然的表达，即便\(n\)为实数的时候，这个通项公式也可以良好定义。</p>
-<p>直观地说，就是可以找到一条平滑的曲线\(f(x)=x^2\)通过所有的整数点\([x, x^2]\)，从而可以把定义在整数集上的公式延伸至实数集合。一天哥德巴赫开始处理<strong>阶乘序列</strong>\(1,2,6,24,120,720,\cdots\)，我们可以计算\(2!,3!\),是否可以计算\(2.5!\)呢？</p>
-<p>遗憾的是，哥德巴赫当时无法解决<strong>阶乘的计算从整数集合延伸至实数集合上</strong>的问题，于是写信请教尼古拉斯.伯努利和其弟丹尼尔.伯努利，由于欧拉当时与丹尼尔.伯努利在一起，因此也得知了该问题。而欧拉与1729年完美的解决了这个问题，由此导致Gamma函数的诞生，当时的欧拉只有22岁。</p>
-<ul>
-<li><strong>Gamma函数发现之旅</strong></li>
-</ul>
-<p>最早发现\(n!\)差值计算的是丹尼尔.伯努利。他发现：如果\(m,n\)都是正整数，且\(m\to\infty\)，有下述公式成立：</p>
-<p>$$<br>\frac {1 \cdot 2 \cdot 3 \cdots m} {(1+n)(2+n) \cdots (m-1+n)} \left(m+ \frac{n}{2}\right)^{n-1} \to n!<br>$$</p>
-<p>用此<strong>无穷乘积</strong>的方式可以把\(n!\)定义延伸至实数集合。如\(n=2.5,m\)足够大时，上式基本可近似计算出\(2.5!\)的值。</p>
-<p>欧拉偶然地发现\(n!\)可用如下无穷乘积表达：</p>
-<p>$$<br>\left[\left(\frac{2}{1}\right)^n \frac{1}{n+1}\right] \left[\left(\frac{3}{2}\right)^n \frac{2}{n+2}\right]<br>\left[\left(\frac{4}{3}\right)^n \frac{3}{n+3}\right]<br>\cdots = n!<br>$$</p>
-<p>于是他用一些简单的例子做一些计算，寻找其规律。当\(n=1/2\)时，整理上式可得：</p>
-<p>$$<br>\left(\frac{1}{2}\right)!=\sqrt{\frac{2\cdot4}{3\cdot3} \cdot \frac{4\cdot6}{5\cdot5} \cdot \frac{6\cdot8}{7\cdot7} \cdot \frac{8\cdot10}{9\cdot9} \cdots}<br>$$</p>
-<p>此式恰好与著名的<a href="http://baike.baidu.com/link?url=FWbPfOA5BqiQxrCJ4KJnedzJRf6blsxbh2qn1XyGlPvUbGXufoVXf4xie6UMnWNUUAH2ewNaziQug2YzHQ9jpK" target="_blank" rel="external">Wallis公式</a>有关。</p>
-<p>注：\( \lim\limits_{k\to\infty} \left(\frac{2^{2k}(k!)^2}{2k!}\right)^2 \frac{1}{2k+1} = \frac{\pi}{2} \qquad（Wallis公式）\) </p>
-<p>Wallis公式是关于圆周率的无穷乘积的公式，Wallis在1665年使用<strong>插值方法</strong>计算半圆曲线\(y=\sqrt{x(1-x)}\)下的面积（即直径为1的半圆面积）时，发现\(\pi/4\)等于下式：</p>
-<p>$$<br>\frac{2\cdot4}{3\cdot3} \cdot \frac{4\cdot6}{5\cdot5} \cdot \frac{6\cdot8}{7\cdot7} \cdot \frac{8\cdot10}{9\cdot9} \cdots = \frac{\pi}{4}<br>$$</p>
-<p>于是欧拉根据Wallis公式得到如下的结果：</p>
-<p>$$<br>\left(\frac{1}{2}\right)! = \frac{\sqrt{\pi}}{2}<br>$$</p>
-<p>欧拉发现\((\frac{1}{2})!\)中含有\(\pi\)，而\(\pi\)与圆相关的积分有关系。欧拉猜测\(n!\)一定可以用积分形式表示。</p>
-<p>Wallis时代微积分还没问世，当时是使用插值方式做推导计算的，但Wallis公式的推导过程基本上是在处理积分\(\int_{0}^{1} x^\frac{1}{2} (1-x)^\frac{1}{2} dx\)。受Wallis启发，欧拉开始考虑如下一般形式的积分：</p>
-<p>$$<br>J(e,n)=\int_{0}^{1} x^e(1-x)^n dx<br>$$</p>
-<p>这里，\(n\)为正整数，\(e\)为正实数。利用<strong>分部积分</strong>法，可得：</p>
-<p>$$<br>J(e,n)=\frac{n}{e+1}J(e+1, n-1)<br>$$</p>
-<p>重复迭代上式，可得：</p>
-<p>$$<br>J(e,n) = \frac {1\cdot2\cdot3\cdots n}{(e+1)(e+2)\cdots (e+n+1)}<br>$$</p>
-<p>于是欧拉得到如下重要的式子：</p>
-<p>$$<br>n!=(e+1)(e+2)\cdots (e+n+1) \int_{0}^{1} x^e(1-x)^n dx<br>$$</p>
-<p>接下来，欧拉使用一些计算技巧，即取\(e=f/g\) 且 \(f\to1, g\to0\)，然后对上式右边计算极限，得到如下简洁的结果：</p>
-<p>$$<br>n! = \int_{0}^{1}(-\log{t})^n dt<br>$$</p>
-<p>到此，欧拉成功地把\(n!\)表达为了积分形式！令\(t=e^{-u}\)，可得常见的Gamma函数形式：</p>
-<p>$$<br>n! = \int_{0}^{\infty} u^n e^{-u} du<br>$$</p>
-<p>注意，此时的\(n\)仍然为正整数，利用上式把<strong>阶乘延伸至实数集</strong>上，就得到Gamma函数的一般形式：</p>
-<p>$$<br>\Gamma(x)=\int_{0}^{1} (-\log t)^{x-1}dt = \int_{0}^{\infty} t^{x-1} e^{-t} dt<br>$$</p>
-<p>.</p>
-<ul>
-<li><strong>为什么</strong>\(\Gamma(n)=(n-1)!\)<strong>，而不是</strong>\(\Gamma(n)=n!\)</li>
-</ul>
-<p>（未完继续…）</p>
-<ul>
-<li><p>数学家的成就</p>
-<ul>
-<li><p>哥德巴赫</p>
-<blockquote>
-<p>哥德巴赫 于1690年3月18日出生于德国（当时是普鲁士）哥尼斯堡的一个富裕家庭。早年在英国牛津大学学习法学。由于喜欢到处旅游，在欧洲各国访问期间结交了伯努利家族，由此对数学产生兴趣。后来又结交了像欧拉等很多著名数学家，并与他们通信交流问题。他在数学上的研究以<strong>数论</strong>为主。</p>
-<ol>
-<li><p>1728年，提出了实数集上的数列差值问题，该问题在1929年由欧拉解决，并诞生了著名的Gamma函数。</p>
-</li>
-<li><p>1742年6月7日，在与好友欧拉的一封信中陈述了著名的<strong>哥德巴赫猜想</strong>：任一大于2的偶数都可以写成两个质数之和。</p>
-</li>
-</ol>
-</blockquote>
-</li>
-<li><p>伯努利</p>
-</li>
-<li><p>欧拉</p>
-<blockquote>
-<p>莱昂哈德·欧拉（Leonhard Euler ，1707年4月15日～1783年9月18日），瑞士数学家、自然科学家。1707年出生于瑞士－巴塞尔的牧师家庭，15岁从巴塞尔大学毕业，翌年获得硕士学位。</p>
-<p>欧拉是18世纪数学界最杰出的人物之一，不仅在数学界做出伟大贡献，而且把数学应用到了几乎整个物理领域。简述其成就：</p>
-<ol>
-<li><p><strong><em>微分方程</em></strong>: 18世纪中叶，欧拉与其它数学家在解决物理问题过程中，创立了<strong>微分方程</strong>学科。偏微分方程的纯数学研究的第一篇论文是欧拉写的《方程的积分法研究》。此外，还提出了<strong>函数用三角级数表示</strong>的方法和<strong>解微分方程的级数法</strong>等。</p>
-</li>
-<li><p><strong><em>微分几何学</em></strong>：引入了空间曲线的参数方程，给出了空间曲线曲率半径的解析表达式；1766年出版了《关于曲面上曲线的研究》，建立了<strong>曲面理论</strong>，是微分几何发展史上的里程碑。</p>
-</li>
-<li><p><strong><em>分析学</em></strong>：1729年引入了<strong>Gamma函数和Beta函数</strong>，证明了椭圆积分的加法定理，最早引入了<strong>二重积分</strong>。</p>
-</li>
-<li><p><strong><em>数论</em></strong>：欧拉的一系列成果奠定了该数学分支。</p>
-</li>
-</ol>
-<p>后人这样评价欧拉：</p>
-<p>著名数学家拉普拉斯（Laplace）说：“读读欧拉，他是所有人的老师”。</p>
-<p>数学史上公认的4名最伟大的数学家分别是：<strong>阿基米德、牛顿、欧拉和高斯</strong>。阿基米德有“翘起地球”的豪言壮语，牛顿因为苹果闻名世界，高斯少年时就显露出计算天赋，唯独欧拉没有戏剧性的故事让人印象深刻。</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Gamma分布">Gamma分布</h4><ul>
-<li><p>概率密度函数:<br>$$<br>f(x)=<br>\begin{cases}<br>\displaystyle\frac {x^{\alpha-1} e^{x/\beta}} {\beta^\alpha \Gamma(\alpha)}, &amp; 0 \leq x \leq \infty; \alpha &gt; 0; \beta &gt; 0 \\<br>\;\;\quad 0, &amp; others<br>\end{cases}<br>$$</p>
-</li>
-<li><p>概率密度函数</p>
-</li>
-</ul>
-<h3 id="Beta分布（贝塔分布）">Beta分布（贝塔分布）</h3><p>在@rickjin的《LDA-math》系列中详细地解释了Beta和Dirichlet分布的由来和推导过程，堪称经典。拜读后，受益颇深。原文见下面链接：</p>
-<ul>
-<li><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%831" target="_blank" rel="external">LDA-math-认识Beta/Dirichlet分布(1)</a> <br></li>
-<li><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%832" target="_blank" rel="external">LDA-math-认识Beta/Dirichlet分布(2)</a> <br></li>
-<li><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%833" target="_blank" rel="external">LDA-math-认识Beta/Dirichlet分布(3)</a> <br></li>
-</ul>
-<p>@rickjin在文中从一个<strong>魔鬼的游戏</strong>开始引入。魔鬼撒旦抓走一人，撒旦说：“你们人类很聪明，而我是很仁慈的，和你玩一个游戏，赢了就可以走，否则把灵魂出卖给我。”</p>
-<blockquote>
-<p>游戏规则：<br><br>我有一个魔盒，上面有一个按钮，你每按一下按钮，就均匀的输出一个[0,1]之间的随机数，我现在按10下，我手上有10个数，你猜第7大的数是什么，偏离不超过0.01就算对。</p>
-</blockquote>
-<h4 id="数学抽象与推导">数学抽象与推导</h4><p>上述游戏实际在说随机变量\(X_1, X_2, \cdots, X_{10} \sim U(0,1)\), 把这\(n\)个随机变量排序后得到顺序统计量\(X_{(1)}, X_{(2)}, \cdots, X_{(10)}\)，然后问\(X_{(k)}\)的分布是什么？</p>
-<blockquote>
-<p>因为如果知道随机变量\(X_{(k)}\)分布的概率密度，用概率密度的极值点作为猜测值是最好的策略。</p>
-</blockquote>
-<p>对于上述游戏而言，\(n=10,k=7\)，\(X_{(k)}\)的分布如何计算？@rickjin在文中列举了通过尝试计算\(X_{(k)}\)落在区间\([x,x+\Delta x]\)的概率，也就是求如下概率值</p>
-<p>$$<br>P(x \leq X_{(k)} \leq x + \Delta x) = \;?<br>$$</p>
-<p>如果把[0,1]区间分为三个子区间，即\([0,x)、[x,x+\Delta x]和(x+\Delta x,1]\)。考虑简单的情形，假设\(n\)个数中只有一个落在了区间\([x,x+\Delta x]\)内，这个区间内的数\(X_{(k)}\)是第\(k\)大的，则区间\([0,x)\)中应该有\(k-1\)个数，区间\((x+\Delta x,1]\)中应该有\(n-k\)个数。那么，符合上述要求的事件\(E\)可表示为：</p>
-<p>$$<br>\begin{align*}<br>E = \{<br>&amp; X_1 \in [x, x+\Delta x], \\<br>&amp; X_i \in [0,x)\quad (i=2,\cdots,k), \\<br>&amp; X_j \in (x+\Delta x,1] \quad (j=k+1,\cdots,n)<br>\}<br>\end{align*}<br>$$</p>
-<blockquote>
-<p>注：</p>
-<ol>
-<li>符号<code>*</code>在markdown中有特殊含义，若要当作latex环境中的语法用，需要转义，即<code>\ *</code>.</li>
-<li>在Mathjax下，<code>$$E = \{x, y\}$$</code>无法正常输出<code>{}</code>, 因为Latex要想输出<code>{}</code>，需要使用<code>\{, \}</code>。而<code>\</code>在markdown中要想正常表法其自身意义也需要再次转义，代码为: <code>$$E = \\{x,y\\}$$</code>。</li>
-</ol>
-<p>$$E = \{ x,y\}$$</p>
-</blockquote>
-<p>那么事件\(E\)发生的概率，有：</p>
-<p>$$<br>\begin{align*}<br>P(E) &amp; = \prod_{i=1}^nP(X_i) \\<br>&amp; = x^{k-1}(1-x-\Delta x)^{n-k}\Delta x \\<br>&amp; = x^{k-1}(1-x)^{n-k}\Delta x + o(\Delta x)<br>\end{align*}<br>$$</p>
-<p>\(o(\Delta x)\)表示\(\Delta x\)的高阶无穷小。显然，由于<strong>不同的排列组合</strong>，即\(n\)个数中有一个落在\([x, x+ \Delta x]\)区间的有\(n\)中取法，余下\(n-1\)个数中有\(k-1\)个落在\([0, x)\)区间有\(\binom{n-1}{k-1}\)种组合，所以<strong>与事件E等概率的事件一共有\(n \binom{n-1}{k-1}\)个（当只有1个数落在\([x, x+ \Delta x]\)时）</strong>。</p>
-<p>继续考虑复杂一些的情形，假设\(n\)个数中<strong>两个数</strong>落在了区间\([x, x+ \Delta x]\)，此时事件\(E^{‘}\)可表示为：</p>
-<p>$$<br>\begin{align*}<br>E’ = \{<br>&amp; X_1,X_2\in [x, x+\Delta x], \\<br>&amp; X_i \in [0,x) \quad (i=3,\cdots,k), \\<br>&amp; X_j \in (x+\Delta x,1] \quad (j=k+1,\cdots,n)<br>\}<br>\end{align*}<br>$$</p>
-<p>此时，事件\(E^{‘}\)发生的概率为：</p>
-<p>$$<br>P(E^{‘}) = x^{k-2}(1-x-\Delta x)^{n-k}(\Delta x)^2 = o(\Delta x)<br>$$</p>
-<p>很容易看出，只要落在\([x, x+ \Delta x]\)内的数字<strong>大于1个</strong>，则对应事件的概率就是\(\Delta x\)。于是随机变量\(X_{(k)}\)落在\([x, x+ \Delta x]\)区间的概率：</p>
-<p>$$<br>\begin{align*}<br>&amp; P( x \le X_{(k)} \le x+\Delta x) \\<br>&amp; = n\binom{n-1}{k-1}P(E) + o(\Delta x) \\<br>&amp; = n\binom{n-1}{k-1}x^{k-1}(1-x)^{n-k}\Delta x + o(\Delta x)<br>\end{align*}<br>$$</p>
-<p>进一步可得\(X_{(k)}\)的概率密度函数为</p>
-<p>$$<br>\begin{align*}<br>f(x) &amp; = \lim_{\Delta x \to 0} \frac {P(x \leq X_{(x)} \leq x + \Delta x)}{\Delta x} \\<br>&amp; = n \binom{n-1}{k-1}x^{k-1}(1-x)^{n-k}\\<br>&amp; = \frac {n!}{(k-1)! (n-k)!}x^{k-1} (1-x)^{n-k} \quad x \in [0,1]<br>\end{align*}<br>$$</p>
-<p>根据<a href="">神奇的Gamma函数、Beta函数系列</a>可知，利用Gamma函数，可以把上述\(f(x)\)表示为</p>
-<p>$$<br>f(x) = \frac {\Gamma(n+1)}{\Gamma(k) \Gamma(n-k+1)} x^{k-1} (1-x)^{n-k}<br>$$</p>
-<p><strong>\(\Gamma\)函数起源于人们希望把数学计算从整数集合拓展至实数集合</strong>。这里另\(\alpha=k, \beta=n-k+1\)，于是可以得到</p>
-<p>$$<br>Beta(x|\alpha,\beta)=f(x)=\frac {\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1}(1-x)^{\beta-1}<br>$$</p>
-<p>上式即为一般意义上的Beta分布！</p>
-<h4 id="\(\beta\)型概率分布"><br><strong>\(\beta\)型概率分布</strong></h4><ul>
-<li>\(\beta\)型随机变量\(X\)的概率密度函数：</li>
-</ul>
-<p>$$<br>f(x)=<br>\begin{cases}<br>\displaystyle\frac {\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1}(1-x)^{\beta-1}, &amp; 0 \leq x \leq 1;\;\alpha &gt; 0, \beta &gt; 0 \\<br>0, &amp; others<br>\end{cases}<br>\quad (**)<br>$$</p>
-<blockquote>
-<p>关于<strong>Beta函数详细推导</strong><br></p>
-<p>$$<br>\begin{align*}<br>f(x;\alpha,\beta) &amp; = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{\int_{0}^{1}t^{\alpha-1}(1-t)^{\beta-1}dt} \\<br>&amp; = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{Beta(\alpha,\beta)}<br>\end{align*}<br>$$</p>
-<p>其中，</p>
-<p>$$<br>Beta(\alpha,\beta)= \int_{0}^{1}t^{\alpha-1}(1-t)^{\beta-1}dt= \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}<br>$$</p>
-</blockquote>
-<ul>
-<li>\(\beta\)型随机变量的期望与方差分别是：</li>
-</ul>
-<p>$$\mu=\frac{\alpha}{\alpha+\beta} \;\qquad\qquad\qquad (期望)$$</p>
-<p>$$\sigma^2=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)} \quad (方差)$$</p>
-<blockquote>
-<p>关于<strong>Gamma函数</strong></p>
-<p>$$<br>\Gamma(\alpha)=\int_{0}^{\infty}t^{\alpha-1}e^{-t}dt<br>$$</p>
-<p>且当\(\alpha\)是正整数时，\(\Gamma(\alpha)=(\alpha-1)!\)</p>
-</blockquote>
-<ul>
-<li>\(\beta\)型分布的期望公式详细推导</li>
-</ul>
-<p>如果\(p \sim Beta(t|\alpha,\beta)\)，那么\(p\)的期望表示如下：</p>
-<p>$$<br>\begin{align*}<br>E(p)<br>&amp; =\int_{0}^{1} t \ast Beta(t|\alpha,\beta)\;dt \\<br>&amp; = \int_{0}^{1} t \ast \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}t^{\alpha-1}(1-t)^{\beta-1}\;dt \\<br>&amp; =\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\int_{0}^{1}t^{\alpha}(1-t)^{\beta-1}\;dt<br>\end{align*}<br>$$</p>
-<p>上式右边的积分\(\int_{0}^{1}t^{\alpha}(1-t)^{\beta-1}\;dt\)恰好对应到概率分布\(Beta(t|\alpha+1,\beta)\)。对于此分布，根据Beta函数在\([0,1]\)之间的累积分布函数等于1，可得:</p>
-<p>$$<br>\int_{0}^{1} \frac{\Gamma(\alpha+\beta+1)}{\Gamma(\alpha+1)\Gamma(\beta)} t^\alpha (1-t)^{\beta-1}\;dt=1<br>$$</p>
-<p>把上式带入\(E(p)\)计算式，得到 </p>
-<p>$$<br>\begin{align*}<br>E(p) &amp; = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} \cdot<br>\frac{\Gamma(\alpha+1)\Gamma(\beta)}{\Gamma(\alpha+\beta+1)} \\<br>&amp; = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha+\beta+1)}\frac{\Gamma(\alpha+1)}{\Gamma(\alpha)} \notag \\<br>&amp; = \frac{\alpha}{\alpha+\beta}<br>\end{align*}<br>$$</p>
-<p>这说明，<strong>对于Beta分布的随机变量，其均值可以用\(\frac{\alpha}{\alpha+\beta}\)来估计</strong>。</p>
-<ul>
-<li>\(\beta\)型概率分布曲线</li>
-</ul>
-<p><strong><em>(此处暂略~)</em></strong></p>
-<p>回到<strong>魔鬼的游戏</strong>中，\(n=10, k=7\)时，按照密度分布的峰值去猜测是最好的策略。</p>
-<p>$$<br>f(x)=\frac{10!}{(6)!(3)!} x^6 (1-x)^3 \quad x \in [0,1]<br>$$</p>
-<p>即便按照密度函数分布的峰值作为猜测结果，第一次猜中的概率也不高。<br><br></p>
-<p><strong>游戏继续\(\cdots\)</strong></p>
-<p>很遗憾，根据上述最好的策略算出来的值竟然有偏差，没猜中，魔鬼微笑着说：“我再仁慈一点，再给你一个机会，你按5下这个机器，你就得到了5个\([0,1]\)之间的随机数，然后我可以告诉你这5个数中的每一个，和我的第7个数相比，谁大谁小，然后你继续猜我手头上的第7大的数是多少。” 这时候该如何猜测呢？</p>
-<h3 id="Beta-Binomial共轭"><br><strong>Beta-Binomial共轭</strong></h3><p>魔鬼的两个问题，数学抽象一下，就是：</p>
-<ul>
-<li>\(X_1,X_2, \cdots, X_n \in Uniform(0,1)\)，对应的顺序统计量为\(X_{(1)},X_{(2)}, \cdots, X_{(n)}\)，我们要猜测\(p=X_{(k)}\)；（第1个问题）</li>
-<li>\(Y_1,Y_2, \cdots, Y_m \in Uniform(0,1)\)，\(Y_i\)中有\(m_1\)个比\(p\)小，\(m_2\)个比\(p\)大；（第2个问题）</li>
-</ul>
-<p>最后的问题：<strong>\(P(p|Y_1,Y_2, \cdots, Y_m)\)的分布是什么？</strong></p>
-<p><strong>问题分析</strong></p>
-<p>由于\(p=X_(k)\)在\(X_1,X_2, \cdots, X_n\)中是第\(k\)大的，利用\(Y_i\)的信息，可以很容易的推理得到\(p=X_{(k)}\)在\(X_1,X_2, \cdots, X_n,\) \(Y_1, Y_2, \cdots, Y_m \in Uniform(0,1)\)这\((m+n)\)个独立随机变量中是第\(k+m_1\)大的。那么按照<strong>Beta分布（贝塔分布）</strong>小节的推理，此时\(p=X_{(k)}\)的概率密度函数是\(Beta(p|\,k+m_1, n-k+1+m_2)\)。</p>
-<p>根据<strong>贝叶斯推理</strong>的逻辑，整理上述过程如下：</p>
-<ul>
-<li>\(p=X_{(k)}\)是我们需要猜测的参数，并且推导出\(p\)的分布为\(f(p)=Beta(p|k,n-k+1)\)，称为\(p\)的<strong>先验分布</strong>；</li>
-<li>数据\(Y_i\)中有\(m_1\)个比\(p\)小，\(m_2\)个比\(p\)大，\(Y_i\)相当于做了\(m\)次<strong>贝努利试验</strong>，所以\(m_1\)服从二项分布\(B(m,p)\)；</li>
-<li>在给定了来自数据提供的\((m_1, m_2)\)的知识后，\(p\)的<strong>后验分布</strong>变为:</li>
-</ul>
-<p>$$f(p|\,m_1,m_2)=Beta(p|\,k+m_1, n-k+1+m_2)$$</p>
-<blockquote>
-<p>关于<strong>贝叶斯参数估计</strong>的基本过程：</p>
-<p>$$先验分布 ＋ 数据知识 ＝ 后验分布$$</p>
-</blockquote>
-<p>在这里，贝叶斯分析过程的简单直观的表述就是：</p>
-<p>$$Beta(p|\,k, n-k+1) + Count(m_1, m_2) = Beta(p|\,k+m_1,n-k+1+m_2)$$</p>
-<p>其中\(m_1,m_2\)对应的是二项分布\(B(m_1+m_2, p)\)的计数。更为一般地数学表述：对于非负实数\(\alpha,\beta\)，存在如下关系</p>
-<p>$$<br>Beta(p|\,\alpha, \beta) + Count(m_1, m_2) = Beta(p|\,\alpha+m_1, \beta+m_2) \quad (**)<br>$$</p>
-<p>该式描述的就是<strong>Beta-Binomial共轭</strong>。</p>
-<blockquote>
-<p>关于<strong>Beta-Binomial共轭</strong> <br><br>数据符合<strong>二项分布</strong>的时候，参数的先验分布和后验分布都能保持<strong>Beta分布</strong>的形式，这种形式不变的好处是：我们能够在先验分布中赋予参数很明确的物理意义，这个物理意义可以延续至后验分布中进行解释，同时从先验变换到后验的过程中从数据中补充的知识也容易给出物理上的解释。</p>
-</blockquote>
-<p>推导过程中可以看到，\(Beta\)分布中的参数\(\alpha,\beta\)都可以理解为物理计数，这两个参数经常被称为<strong>伪计数（pseudo-count）</strong>。\(Beta(p|\,\alpha, \beta)\)可以写成如下表达式：</p>
-<p>$$Beta(p|\,1,1) + Count(\alpha-1, \beta-1) = Beta(p|\,\alpha,\beta)$$</p>
-<p>其中的<strong>\(Beta(p|\,1,1)\)恰好就是均匀分布\(Uniform(0,1)\)</strong>。</p>
-<blockquote>
-<p>关于<strong>Beta分布与均匀分布</strong>的关系：</p>
-<p>$$Beta(p|\,\alpha=1,\beta=1)= Uniform(a=0,b=1)$$</p>
-</blockquote>
-<p>对于\((**)\)共轭公式，其实可纯粹从贝叶斯的角度来进行推导。理解过程：</p>
-<ul>
-<li>假设有一个不均匀的硬币抛出正面的概率为\(p\)，抛\(m\)次后出现正面和反面的次数分别是\(m_1,m_2\)，那么按照传统的<strong>频率学派</strong>观点，\(p\)的估计值应该是\(\hat p = \frac{m_1}{m}\)。<br></li>
-<li>而从<strong>贝叶斯学派</strong>的观点来看，开始对硬币不均匀性一无所知，所以应该假设\(p\ \in Uniform(0,1)\)，于是二项分布的计数\(m_1,m_2\)之后，按照贝叶斯公式计算\(p\)的后验分布：</li>
-</ul>
-<p>$$<br>\begin{align*}<br>P(p|\,m_1,m_2) = &amp; \frac {P(p) \cdot P(m_1,m_2\,|p)}{P(m_1,m_2)} \\<br>= &amp; \frac {1 \cdot P(m_1,m_2 |p)}{\int_{0}^{1} P(m_1,m_2|t)dt} \\<br>= &amp; \frac {\binom{m}{m_1}p^{m_1}(1-p)^{m_2}}{\int_{0}^{1} \binom{m}{m_1}t^{m_1}(1-t)^{m_2}dt} \\<br>= &amp; \frac {p^{m_1}(1-p)^{m_2}}{\int_{0}^{1}t^{m_1}(1-t)^{m_2}dt}<br>\end{align*}<br>$$</p>
-<p>得到的后验分布正好是\(Beta(p|\;m_1 + 1, m_2 + 1)\)。<strong><em>这里真心没看太懂 …</em></strong></p>
-<p>回到<strong>魔鬼的游戏</strong>，如果按出的5个随机数字中，魔鬼告诉你有2个（即\(m_1=2\)）小于他手中第7大的数，那么应该按照如下概率分布的<strong>峰值</strong>做猜测是最好的(\(\alpha+2=9,\beta+3=7\))：</p>
-<p>$$<br>Beta(x|9,7)=\frac{15!}{(8)!(6)!}x^8(1-x)^6  \quad x \in [0,1]<br>$$</p>
-<p>很幸运，这次猜中了，但是魔鬼开始耍赖，游戏不得不继续 \(\cdots\)</p>
-<blockquote>
-<p>游戏3新规则：<br><br>魔说道：“这个游戏对你来说太简单了，我要加大点难度，我们重新来一次，<strong>我按20下生成20个随机数，你要同时给我猜第7大和第13大的数是什么？</strong>”</p>
-</blockquote>
-<p>这时候又该如何猜测呢？<br></p>
-<h3 id="Dirichlet分布（狄利克雷分布）"><strong>Dirichlet分布（狄利克雷分布）</strong></h3><p>对于魔鬼变本加厉的新的游戏规则，数学抽象如下：</p>
-<ul>
-<li>\(X_1,X_2, \cdots, X_n \sim Uniform(0,1)\),</li>
-<li>排序后对应的顺序统计量为\(X_{(1)},X_{(2)}, \cdots, X_{(n)}\),</li>
-<li><strong>问: \((X_{(k_1)},X_{(k_1 + k_2)})\)的联合分布是什么？</strong></li>
-</ul>
-<p>游戏3完全类似游戏1的推导过程，可进行如下的概率计算：</p>
-<blockquote>
-<p>注：为了公式的简洁性，这里取\(x_3=1-x_1-x_2\),但只有\(x_1,x_2\)是变量。说明符号：<br></p>
-<ol>
-<li>n: 总的样本数<br></li>
-<li>\(X_{(k_1)}\)和\(X_{(k_1 + k_2)}\)将n分割为3段，长度分别为\(k_1, k_2和k_3\)，即<br></li>
-</ol>
-<p>$$<br>分段结果：<br>\begin{cases}<br>[X_{(1)}, X_{(k-1)}], &amp; 有(k_1-1)个取值，统一记为x_1 \\<br>[X_{(k_1+1)}, X_{(k_1+k_2)}], &amp; 有(k_2-1)个取值，统一记为x_2 \\<br>[X_{(k_1+k_2+1)}, X_{(n)}] &amp; 有(n-k_1-k_2)个取值，统一记为x_3<br>\end{cases}<br>$$</p>
-</blockquote>
-<p>完全类似于游戏1的推导过程，\(X_{(k_1)},X_{(k_1+k_2)}\)的<strong>联合概率</strong>计算如下：</p>
-<p>$$<br>\begin{align*}<br>&amp; P\Bigl(X_{(k_1)} \in (x_1, x_1+\Delta x), X_{(k_1+k_2)} \in (x_2, x_2+\Delta x)\Bigr) \\<br>&amp; \quad = n(n-1)\binom{n-2}{k_1-1,k_2-1}x_1^{k_1-1}x_2^{k_2-1}x_3^{n-k_1-k_2}(\Delta x)^2 \\<br>&amp; \quad = \frac{n!}{(k_1-1)!(k_2-1)!(n-k_1-k_2)!}x_1^{k_1-1}x_2^{k_2-1}x_3^{n-k_1-k_2}(\Delta x)^2<br>\end{align*}<br>$$</p>
-<blockquote>
-<p>式中的\(n(n-1)\binom{n-2}{k_1-1,k_2-1}\)是一个排列组合问题，比较容易理解。</p>
-</blockquote>
-<p>于是得到\(X_{(k_1)},X_{(k_1+k_2)}\)的联合分布是：</p>
-<p>$$<br>\begin{align*}<br>f(x_1,x_2,x_3) &amp; =\frac{n!}{(k_1-)!(k_2-1)!(n-k_1-k_2)!}x_1^{k_1-1}x_2^{k_2-1}x_3^{n-k_1-k_2} \\<br>&amp; = \frac{\Gamma(n+1)}{\Gamma(k_1)\Gamma(k_2)\Gamma(n-k_1-k_2+1)}x_1^{k_1-1}x_2^{k_2-1}x_3^{n-k_1-k_2}<br>\end{align*} \quad (**)<br>$$</p>
-<p>而公式\((**)\)则是3维形式的Dirichlet分布，即\(Dir(x_1,x_2,x_3\;|\;k_1,k_2,n-k_1-k_2+1)\)。这里令\(\alpha_1=k_1,\alpha_2=k_2,\alpha_3=n-k_1-k_2+1\)，于是分布密度函数可以写为：</p>
-<p>$$<br>f(x_1, x_2, x_3) = \frac{\Gamma(\alpha_1+\alpha_2+\alpha_3)}{\Gamma(\alpha_1)\Gamma(\alpha_2)\Gamma(\alpha_3)}x_1^{\alpha_1-1}x_2^{\alpha_2-1}x_3^{\alpha_3-1} \qquad (0)<br>$$</p>
-<p>公式\((0)\)即为一般形式的3维Dirichlet分布。即使\(\vec{\alpha}=(\alpha_1,\alpha_2,\alpha_3)\)<strong>延伸至非负实数集合</strong>，上述概率分布也是成立的。</p>
-<p>在游戏3的基础上还可以往更高的维度上推，譬如\(X_{(1)},X_{(2)},\cdots,X_{(n)}\)中的4、5、…等更多个数，可以得到更高维度的Dirichlet分布和Dirichlet-Multinomial共轭。</p>
-<ul>
-<li>Dirichlet分布</li>
-</ul>
-<p>如果\(\vec{p} \sim Dir(\vec{t}|\vec{\alpha})\),那么随机变量\(\vec{p}\)的概率密度函数为</p>
-<p>$$<br>\begin{equation}<br>\displaystyle Dir(\overrightarrow{p}|\overrightarrow{\alpha}) =<br>\displaystyle \frac{\Gamma(\sum_{k=1}^{K} \alpha_k)}<br>{\prod_{k=1}^K \Gamma(\alpha_k)} \prod_{k=1}^{K} p_k^{\alpha_k -1}<br>\end{equation}    \qquad (1)<br>$$</p>
-<p>对于给定的\(\overrightarrow{p}\)和\(N\)，多项式分布定义为：</p>
-<p>$$<br>Multi(\overrightarrow{n}|\overrightarrow{p},N)=<br>\binom{N}{\overrightarrow{n}} \prod_{k=1}^K p_k^{n_k} \qquad (2)<br>$$</p>
-<p>而\(Multi(\overrightarrow{n}|\overrightarrow{p},N)\)和\(Dir((\overrightarrow{p}|\overrightarrow{\alpha})\)这两个分布是共轭关系。</p>
-<ul>
-<li>Dirichlet分布均值</li>
-</ul>
-<p>$$<br>E(\vec{p}) = \Bigl(\frac{\alpha_1}{\sum_{i=1}^{K}\alpha_i},\frac{\alpha_2}{\sum_{i=1}^{K}\alpha_i}, \cdots, \frac{\alpha_K}{\sum_{i=1}^{K}\alpha_i}\Bigr)<br>$$</p>
-<blockquote>
-<p>关于<strong>Dirichlet分布与Beta分布</strong>：<br><br>Dirichlet分布是Beta分布在高维度上的推广。当Dirichlet分布维度趋向无限时，便成为Dirichlet过程。<br><br></p>
-</blockquote>
-<h3 id="Dirichlet-Multinomial共轭"><strong>Dirichlet-Multinomial共轭</strong></h3><p>类似于魔鬼的游戏2，调整一下游戏3，可得游戏4的规则如下：</p>
-<blockquote>
-<p>游戏4: <br><br>从魔盒中生成m个随机数\(Y_1,Y_2, \cdots, Y_m \sim Uniform(0,1)\)，魔鬼告诉我们\(Y_i\)和\(X_{(k_1)},X_{(k_1+k_2)}\)相比谁大谁小，然后再次猜测第7大和第13大的数是多少？</p>
-</blockquote>
-<p>同样，对游戏4进行数学抽象，表示如下：</p>
-<ul>
-<li>\(X_1,X_2, \cdots, X_n \sim Uniform(0,1)\)，排序后对应的顺序统计量为\(X_{(1)},X_{(2)},\cdots,X_{(n)}\)；</li>
-<li>令\(p_1=X_{(k_1)},p_2=X_{(k_1+k_2)},p_3=1-p_1-p_2(p_3是为了简洁的数学表达)\)，我们要猜测\(\vec{p}=(p_1,p_2,p_3)\)；</li>
-<li>\(Y_1,Y_2, \cdots, Y_m \sim Uniform(0,1)\),\(Y_i\)中落到\([0,p_1), [p_1,p_2),[p_2,1]\)三个区间的个数分别是\(m_1,m_2,m_3\),其中\(m=m_1+m_2+m_3\)；</li>
-<li>问后验分布\(P(\vec{p}|Y_1,Y_2, \cdots, Y_m)\)的分布是什么？</li>
-</ul>
-<p>为了计算方便，记：</p>
-<p>$$<br>\vec{m}=(m_1, m_2, m_3), \quad \vec{k}=(k_1,k_2,n-k_1-k_2+1)<br>$$</p>
-<p>从游戏中的信息可以得知：\(p_1,p_2\)在\(X_1,X_2, \cdots, X_n,Y_1,Y_2, \cdots, Y_m \sim Uniform(0,1)\)这\(m+n\)个数中分别成为了第\(k_1+m_1, k_2+m_2\)大的数，于是后验分布\(P(\vec{p}|Y_1,Y_2,\cdots, Y_m)\)应该是\(Dir(\vec{p}|k_1+m_1,k_2+m_2, n-k_1-k_2+1+m_3)\)，即\(Dir(\vec{p}|\vec{k}+\vec{m})\)。按照贝叶斯推理的逻辑，同样可以把上述过程整理如下：</p>
-<ul>
-<li>首先，根据游戏3需要猜测参数\(\vec{p}=(p_1,p_2,p_3)\)，其先验分布为\(Dir(\vec{p}|\vec{k})\)；</li>
-<li>其次，数据\(Y_i\)落到\([0,p_1),[p_1,p_2),[p_2,1]\)三个区间的个数分别为\(m_1,m_2,m_3\)，所以\(\vec{m}=(m_1, m_2, m_3)\)服从多项式分布\(Multi(\vec{m}|\vec{p})\)<strong>（理解这一点很重要）</strong>；</li>
-<li>在给定了来自数据提供的知识\(\vec{m}\)后，\(\vec{p}\)的后验分布变为\(Dir(\vec{p}|\vec{k}+\vec{m})\)。</li>
-</ul>
-<p>以上贝叶斯分析过程的最简单直接的表述：</p>
-<p>$$<br>Dir(\overrightarrow{p}|\overrightarrow{k})+Multi(\vec{m})=Dir(\vec{p}|\vec{k}+\vec{m})<br>$$</p>
-<p>令\(\overrightarrow{\alpha}=\vec{k}\)，把\(\vec{\alpha}\)从整数集合延拓至实数集合，可以证明如下关系仍然成立：</p>
-<p>$$<br>Dir(\vec{p}|\vec{\alpha})+Multi(\vec{m})=Dir(\vec{p}|\vec{\alpha}+\vec{m}) \quad (11)<br>$$</p>
-<p>公式\((11)\)描述就是<strong>Dirichlet-Multinomial共轭</strong>。同时，我们可以把Dirichlet分布中的\(\alpha\)都可以理解为物理计数。那么，类似于Beta分布，\(Dir(\vec{p}|\vec{\alpha})\)可做如下分解：</p>
-<p>$$<br>Dir(\vec{p}|\vec{1})+Multi(\vec{m}-\vec{1}) = Dir(\vec{p}|\vec{\alpha})<br>$$</p>
-<p>这里\(\vec{1}=(1,1,\cdots,1)\),上式同样可以类似的用纯粹贝叶斯的观点推导和解释。</p>
-<p>数学</p>
-<hr>
-<p>表格(改日修改语法)</p>
-<p>$$<br>\begin{array}{c|lcr}<br>n &amp; \text{Left} &amp; \text{Center} &amp; \text{Right} \<br>\hline<br>1 &amp; 0.24 &amp; 1 &amp; 125 \<br>2 &amp; -1 &amp; 189 &amp; -8 \<br>3 &amp; -20 &amp; 2000 &amp; 1+10i \<br>\end{array}<br>$$</p>
-<p>$$<br>f(x)=<br>\begin{cases}<br>n/2, &amp; \text{if \(n\) is even} \<br>3n+1, &amp; \text{if \(n\) is odd}<br>\end{cases}<br>$$</p>
-<p>f(x)=<br>\begin{cases}<br>n/2, &amp; \text{if \(n\) is even} \\<br>3n+1, &amp; \text{if \(n\) is odd}<br>\end{cases}</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/计算广告学/">计算广告学</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
+   	       
+	</article>
 	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/05/09/ca_roadmap/" title="计算广告学-RoadMap" itemprop="url">计算广告学-RoadMap</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
-		
-  <p class="article-time">
-    <time datetime="2015-05-09T14:31:24.000Z" itemprop="datePublished"> 发表于 2015-05-09</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <blockquote>
-<p>Author: zhouyongsdzh@foxmail.com </p>
-<p>Date: 2015-05-09</p>
-</blockquote>
-<p>说明</p>
-<p>这里阐述了在线广告介绍以及产品形态、用户画像、大规模约束优化、CTR预估、流量预估、竞价机制设计、广告拍卖等计算广告学核心概念和技术进行总结与梳理</p>
-<h2 id="第一部分：广告与计算">第一部分：广告与计算</h2><ul>
-<li>第01章：在线广告介绍</li>
-<li>第02章：计算广告基础知识</li>
-<li>第03章：受众定向</li>
-</ul>
-<h2 id="第二部分：合约广告系统">第二部分：合约广告系统</h2><ul>
-<li>第04章：流量预估</li>
-<li>第05章：在线分配</li>
-</ul>
-<h2 id="第三部分：竞价广告系统">第三部分：竞价广告系统</h2><ul>
-<li>第06章：匹配与相关性计算</li>
-<li>第07章：广告检索</li>
-<li>第08章：点击率预估</li>
-<li>第09章：竞价机制设计</li>
-</ul>
-<h2 id="第四部分：广告交易系统">第四部分：广告交易系统</h2><ul>
-<li>第10章：交易与拍卖理论</li>
-<li>第11章：在线广告生态系统</li>
-<li>第12章：需求方平台</li>
-<li>第13章：供给方平台</li>
-<li>第14章：数据管理平台</li>
-</ul>
-<h2 id="第五部分：广告智能推荐">第五部分：广告智能推荐</h2><ul>
-<li>第15章：推荐与广告</li>
-<li>第16章：推荐系统与算法</li>
-</ul>
-<h2 id="第六部分：广告相关技术">第六部分：广告相关技术</h2><ul>
-<li>第17章：智能频次控制</li>
-<li>第18章：反作弊技术</li>
-<li>第19章：效果监控与可视化</li>
-<li>第20章：隐私保护与数据安全</li>
-</ul>
-<h2 id="第七部分：大数据与机器学习">第七部分：大数据与机器学习</h2><ul>
-<li>第21章：大数据框架在广告系统中的应用</li>
-<li>第22章：机器学习在广告系统中的应用</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/计算广告学/">计算广告学</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/计算广告学/">计算广告学</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
 	
-</div>
 
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/04/20/ca-chapter1.1-introduction/" title="Chapter1.1 网络广告的前世今生" itemprop="url">Chapter1.1 网络广告的前世今生</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
-		
-  <p class="article-time">
-    <time datetime="2015-04-20T14:54:37.000Z" itemprop="datePublished"> 发表于 2015-04-20</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <ul>
-<li>Author: zhouyongsdzh@foxmail.com </li>
-<li>Date: 2015-04-20</li>
-</ul>
-<h3 id="写在前面"><strong>写在前面</strong></h3><p>计算广告学从字面上理解主要包括两个方面，一个是广告，另一个是计算。如果在20年甚至10年之前，人们也许想不到计算与广告也会发生关系。然而在互联网时代快速变迁的今天，以大数据和人工智能为核心的互联网时代，不仅加剧对传统行业的改造，同时也改变了互联网自身的商业变现模式与规则。</p>
-<p>我们先来看看广告是什么？有人说是市场营销的一种手段，是商业推广最给力的工具之一等等。 一言以蔽之，广告的背后是商业及其内在的规模。</p>
-<p>广告里的计算又是什么呢？包括哪些内容呢？这里的计算不仅包括大规模的数据处理、数据分析、数据存储、数据挖掘、机器学习、海量数据计算（离线计算、流式计算、内存计算），同时也涉及到博弈、竞价、拍卖、交易等经济学范畴的综合体。</p>
-<p>下面，我们分别介绍这两部分包含的内容。</p>
-<h3 id="1-1_网络广告分类">1.1 网络广告分类</h3><p>按计费方式、广告创意、投放方式、广告产品形态等分类</p>
-<h3 id="1-2_网络广告发展史">1.2 网络广告发展史</h3><p>1994年开始 -&gt; 展示、搜索 -&gt; 技术驱动 -&gt; 当前广告生态圈</p>
-<p>世界广告的发展史可以追溯至几千年前。而网络广告的媒介是互联网，互联网的发展从1969年至今还未到半个世纪，因此网络广告的历史就更短了。</p>
-<p>第一个网络广告何时、何地出现的呢？追本溯源，网络广告起源于美国。1994年10月27日是网络广告发展史上的里程碑，当时著名的商业网络杂志Hotwired推出了网络版的Hotwired（注：美国科技新闻评论网，现更名为Wired，2006年7月11日被Conde Nast Publishing收购），并首次在网站上推出了网络广告，在当时立即吸引了AT&amp;T等14个客户在其主页上发布广告，10月27日，AT&amp;T的一个468*60的Banner广告出现在页面上时，标志着网络广告正式诞生。更值得一提的是，该广告的点击率达到40%。</p>
-<p>像AT&amp;T这种在网站的页面上展示banner广告创意的产品形式，这种投放方式称为<strong>展示广告（Display Advertising）</strong>。虽然是在网络这个新媒介上展示，但基本延续了传统广告投放的那一套思路和逻辑。大致过程如下：4A广告代理公司（如奥美等）把网站上的HTML页面当作杂志的版面，在里面设置广告位，然后把广告的创意（图片方式）嵌入到广告位中。网站在广告代理商眼里就相当于一本本的杂志，采买的思路和逻辑与线下的报刊、杂志基本无异。</p>
-<p>还有一个非常重要的关键点，就是广告的售卖模式。想一下，广告主与传统的广告媒介（如电视、报刊、杂志等）是如何谈费用的？双方谈判的其中一个焦点就是广告投放位置、广告投放时间、每个时间单位（按天、周、月）的费用、广告投放的页面中是否可包括竞品的推广信息等，一切细节等谈妥后以合约的方式确定下来。像这种采用合同约定的方式确定某一广告位在某段时间内为某特定广告主所独占，确定广告创意允许范围以及同一页面上的广告排它策略等，这类售卖模式称为<strong>合约式广告（Agreement-based Advertising）</strong>。展示广告的发展在很长一段时间内都在采用传统广告的这一套售卖模式，至今为止这种售卖模式仍旧存在。</p>
-<p>该阶段的广告虽然是按照时间单位计费，但是不同流量规模的网站在相同的时间单位内的费用自然也不同。一个每天拥有10亿流量的网站和另一个每天只有1亿流量的网站，如果广告主分别在这两个网站都投放1个月的广告，前者应该支付更高的费用。那个到底该如何去计费呢？业内普遍采用一个指标：千人成本。即1千个人看到展示的广告后，广告主应该向网站支付的广告成本，称为<strong>CPM计费（Cost Per Mille）</strong>。计算公式如下：</p>
-<p>CPM =（广告费用/到达人数）×1000</p>
-<p>在网络广告发展初期，当时比较大的在线媒体，如AOL（美国在线）、雅虎等网站，已经有了不错的流量规模，它们采用展示广告＋合约售卖的方式，给自身带来了相当可观的营收和利润。那么，随着流量的增长和品牌认知度的提高，通过提高广告位报价的方式，可以保证这些互联网公司业绩的持续增长。但是当网站的流量规模和品牌认知度趋于稳定时，广告主很难再接受广告位的提价，那这些互联网企业又该如何保证业绩的增长呢？</p>
-<p>事情发展到此时，貌似出现了瓶颈。但是不久之后，互联网广告的运营者们经过探索，发现了在线广告不同于传统媒体广告的一个本质特点：<strong>同一个广告位可以对不同的受众（Audience）呈现不同的广告创意</strong>。</p>
-<blockquote>
-<p>举例：两个广告A和B，A广告的定位人群是男性，B广告的定位人群是女性。广告位P每天touch的流量有100W，其中男女比例1:1，各50万。</p>
-<p>按照之前的方式，广告位P只能展示一种广告（非A即B），给广告主带来的收益为1W。但是不管P展示的A还是B，对于广告主而言只能得到50W的有效流量，另外50W对广告主没有意义。因为任何一个产品都有自己的受众人群，非受众人群对该产品很少带来转化。</p>
-<p>现在同一个广告位可以针对不同的人群展示不同的广告创意，判断如果该流量对应的用户是男性，给其展示A广告；如果是女性，展示B广告。</p>
-<p>此时对于A、B广告主而言，都获得了50W的有效流量。对于任意一个广告主而言，之前100W流量需要1W的费用，现在的流量虽然是50W，但有效流量的比重在提升，费用应该在(5K, 1W]之间，假设是6K。那么网站从广告主那里拿到的总费用为1.2W。</p>
-<p>对于网站而言，流量没有变化，但是通过计算用户性别（属于受众定向范畴，第3章详细介绍）的方式可以让收益从1W增加到1.2W。</p>
-</blockquote>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/计算广告学/">计算广告学</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/计算广告学/">计算广告学</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-
-</div>
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-<div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
-<aside class="clearfix">
-
-  
-<div class="categorieslist">
-	<p class="asidetitle">分类</p>
-		<ul>
-		
-		  
-			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/概率与统计/" title="概率与统计">概率与统计<sup>1</sup></a></li>
-		  
-		
-		  
-			<li><a href="/categories/计算广告学/" title="计算广告学">计算广告学<sup>3</sup></a></li>
-		  
-		
-		</ul>
-</div>
-
-
-  
-<div class="tagslist">
-	<p class="asidetitle">标签</p>
-		<ul class="clearfix">
-		
-			
-				<li><a href="/tags/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Gamma-Beta-Dirichlet/" title="Gamma,Beta,Dirichlet">Gamma,Beta,Dirichlet<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Linear-Regression-LogisticRegression-LR-Lasso-Ridge/" title="Linear Regression, LogisticRegression, LR, Lasso, Ridge">Linear Regression, LogisticRegression, LR, Lasso, Ridge<sup>1</sup></a></li>
-			
-		
-		</ul>
-</div>
-
-
-  <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
-    <ul>
-        
-          <li>
-            
-            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
-            
-          </li>
-        
-          <li>
-            
-            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
-            
-          </li>
-        
-    </ul>
-</div>
-
-  
-
-
-  <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
-</div>
-
-</aside>
-</div>
-    </div>
-    <footer><div id="footer" >
+</div>  
+        </div>
+        <footer><div id="footer" >
 	
 	<div class="line">
 		<span></span>
@@ -1456,7 +171,7 @@
 		</p>
 </div>
 </footer>
-    <script src="/js/jquery-2.0.3.min.js"></script>
+        <script src="/js/jquery-2.0.3.min.js"></script>
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
@@ -1505,6 +220,35 @@ $(document).ready(function(){
 });
 </script>
 
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
 
 
 
@@ -1591,5 +335,6 @@ $(document).ready(function(){
 
 <!-- Tiny_search End -->
 
-  </body>
- </html>
+      </body>
+     </html>
+     
