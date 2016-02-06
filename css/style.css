@@ -378,7 +378,7 @@ body >header {
   -webkit-box-shadow: 2px 4px 5px rgba(3,3,3,0.2);
   box-shadow: 2px 4px 5px rgba(3,3,3,0.2);
   background: url("../img/banner.jpg") center #2ca6cb;
-  color: #fff;
+  color: color-black;
   padding: 1em 0 0.8em;
 }
 @media only screen and (min-width: 1024px) {
@@ -399,7 +399,7 @@ body >header >div {
 }
 body >header a {
   display: block;
-  color: #fff;
+  color: color-black;
 }
 #imglogo {
   float: left;
@@ -442,12 +442,12 @@ body >header a {
   font-weight: normal;
 }
 @media only screen and (min-width: 768px) {
-  #textlogo color 000000 {
+  #textlogo color color-black {
     font-size: 190%;
   }
 }
 @media only screen and (min-width: 1024px) {
-  #textlogo color 000000 {
+  #textlogo color color-black {
     font-size: 220%;
   }
 }
