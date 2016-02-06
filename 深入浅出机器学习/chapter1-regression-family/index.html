@@ -4,15 +4,14 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>深入浅出ML之Regression家族 | 计算广告与机器学习</title>
+    <title>第01章：深入浅出ML之Regression家族 | 计算广告与机器学习</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="ZhouYong">
     
 
     
-    <meta name="description" content="第1章: 深入浅出ML之Regression家族
-author: zhouyongsdzh@foxmail.com
+    <meta name="description" content="author: zhouyongsdzh@foxmail.com
 date: 2015-07-25
 weibo: @周永_52ML
 
@@ -23,13 +22,22 @@ weibo: @周永_52ML
 1.2. 线性回归
 1.3. 逻辑斯蒂回归
 
-0.0. 符号定义这里定义《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义">
+0.0. 符号定义这里定义《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：
+
+
+
+符号
+含义
+
+
+
+
+\(x_j\)">
 <meta property="og:type" content="website">
-<meta property="og:title" content="深入浅出ML之Regression家族">
+<meta property="og:title" content="第01章：深入浅出ML之Regression家族">
 <meta property="og:url" content="http://www.52caml.com/深入浅出机器学习/chapter1-regression-family/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
-<meta property="og:description" content="第1章: 深入浅出ML之Regression家族
-author: zhouyongsdzh@foxmail.com
+<meta property="og:description" content="author: zhouyongsdzh@foxmail.com
 date: 2015-07-25
 weibo: @周永_52ML
 
@@ -40,12 +48,21 @@ weibo: @周永_52ML
 1.2. 线性回归
 1.3. 逻辑斯蒂回归
 
-0.0. 符号定义这里定义《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义">
+0.0. 符号定义这里定义《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：
+
+
+
+符号
+含义
+
+
+
+
+\(x_j\)">
 <meta property="og:image" content="http://www.analyticsvidhya.com/wp-content/uploads/2015/08/Regression_Line.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入浅出ML之Regression家族">
-<meta name="twitter:description" content="第1章: 深入浅出ML之Regression家族
-author: zhouyongsdzh@foxmail.com
+<meta name="twitter:title" content="第01章：深入浅出ML之Regression家族">
+<meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
 date: 2015-07-25
 weibo: @周永_52ML
 
@@ -56,7 +73,17 @@ weibo: @周永_52ML
 1.2. 线性回归
 1.3. 逻辑斯蒂回归
 
-0.0. 符号定义这里定义《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义">
+0.0. 符号定义这里定义《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：
+
+
+
+符号
+含义
+
+
+
+
+\(x_j\)">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -116,7 +143,7 @@ weibo: @周永_52ML
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/深入浅出机器学习/chapter1-regression-family/" title="深入浅出ML之Regression家族" itemprop="url">深入浅出ML之Regression家族</a>
+      <a href="/深入浅出机器学习/chapter1-regression-family/" title="第01章：深入浅出ML之Regression家族" itemprop="url">第01章：深入浅出ML之Regression家族</a>
   </h1>
   <p class="article-author">By
        
@@ -132,11 +159,11 @@ weibo: @周永_52ML
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第1章:_深入浅出ML之Regression家族"><span class="toc-number">1.</span> <span class="toc-text">第1章: 深入浅出ML之Regression家族</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#内容列表"><span class="toc-number">1.1.</span> <span class="toc-text">内容列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0-0-_符号定义"><span class="toc-number">1.2.</span> <span class="toc-text">0.0. 符号定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-0-_说明"><span class="toc-number">1.3.</span> <span class="toc-text">1.0. 说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-_回归分析介绍"><span class="toc-number">1.4.</span> <span class="toc-text">1.1. 回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-_线性回归（Linear_Regression）"><span class="toc-number">1.5.</span> <span class="toc-text">1.2. 线性回归（Linear Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1_线性回归模型"><span class="toc-number">1.5.1.</span> <span class="toc-text">1.2.1 线性回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2_线性回归参数学习"><span class="toc-number">1.5.2.</span> <span class="toc-text">1.2.2 线性回归参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3_回归模型目标函数概率解释"><span class="toc-number">1.5.3.</span> <span class="toc-text">1.2.3 回归模型目标函数概率解释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-4-_带权重的线性回归"><span class="toc-number">1.5.4.</span> <span class="toc-text">1.2.4. 带权重的线性回归</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-_逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">1.6.</span> <span class="toc-text">1.3. 逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-_逻辑斯蒂分布"><span class="toc-number">1.6.1.</span> <span class="toc-text">1.3.1. 逻辑斯蒂分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2_逻辑斯蒂回归模型"><span class="toc-number">1.6.2.</span> <span class="toc-text">1.3.2 逻辑斯蒂回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3_LR模型与广义线性模型、最大熵模型、指数族分布"><span class="toc-number">1.6.3.</span> <span class="toc-text">1.3.3 LR模型与广义线性模型、最大熵模型、指数族分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-4-_LR模型在工业界的应用"><span class="toc-number">1.6.4.</span> <span class="toc-text">1.3.4. LR模型在工业界的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Next_…"><span class="toc-number">1.7.</span> <span class="toc-text">Next …</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归问题相关解释"><span class="toc-number">1.8.</span> <span class="toc-text">回归问题相关解释</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#内容列表"><span class="toc-number">1.</span> <span class="toc-text">内容列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0-0-_符号定义"><span class="toc-number">2.</span> <span class="toc-text">0.0. 符号定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-0-_说明"><span class="toc-number">3.</span> <span class="toc-text">1.0. 说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-_回归分析介绍"><span class="toc-number">4.</span> <span class="toc-text">1.1. 回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-_线性回归（Linear_Regression）"><span class="toc-number">5.</span> <span class="toc-text">1.2. 线性回归（Linear Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1_线性回归模型"><span class="toc-number">5.1.</span> <span class="toc-text">1.2.1 线性回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2_线性回归参数学习"><span class="toc-number">5.2.</span> <span class="toc-text">1.2.2 线性回归参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3_回归模型目标函数概率解释"><span class="toc-number">5.3.</span> <span class="toc-text">1.2.3 回归模型目标函数概率解释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-4-_带权重的线性回归"><span class="toc-number">5.4.</span> <span class="toc-text">1.2.4. 带权重的线性回归</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-_逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">6.</span> <span class="toc-text">1.3. 逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-_逻辑斯蒂分布"><span class="toc-number">6.1.</span> <span class="toc-text">1.3.1. 逻辑斯蒂分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2_逻辑斯蒂回归模型"><span class="toc-number">6.2.</span> <span class="toc-text">1.3.2 逻辑斯蒂回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3_LR模型与广义线性模型、最大熵模型、指数族分布"><span class="toc-number">6.3.</span> <span class="toc-text">1.3.3 LR模型与广义线性模型、最大熵模型、指数族分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-4-_LR模型在工业界的应用"><span class="toc-number">6.4.</span> <span class="toc-text">1.3.4. LR模型在工业界的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Next_…"><span class="toc-number">7.</span> <span class="toc-text">Next …</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归问题相关解释"><span class="toc-number">8.</span> <span class="toc-text">回归问题相关解释</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="第1章:_深入浅出ML之Regression家族">第1章: 深入浅出ML之Regression家族</h2><ul>
+		<ul>
 <li>author: zhouyongsdzh@foxmail.com</li>
 <li>date: 2015-07-25</li>
 <li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
@@ -226,10 +253,24 @@ weibo: @周永_52ML
 </ul>
 <h3 id="1-2-_线性回归（Linear_Regression）">1.2. 线性回归（Linear Regression）</h3><p>线性回归是最被广泛应用的建模技术之一。顾名思义，线性回归就是用一组变量（或特征）的线性组合，建立与结果的关系。即期望用一条<strong>最佳的直线（被称为回归线）</strong>来表示自变量（\(Y\)）和一个或多个因变量（\(X\)）之间的关系。</p>
 <ul>
-<li><p>变量特点</p>
-<p>  |自变量（特征）|因变量（结果）|关系|<br>  | —- | —- | —- |<br>  | 连续或离散 | 连续 | 线性 |</p>
-</li>
+<li>变量特点</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>自变量（特征）</th>
+<th>因变量（结果）</th>
+<th>关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>连续或离散</td>
+<td>连续</td>
+<td>线性</td>
+</tr>
+</tbody>
+</table>
 <h4 id="1-2-1_线性回归模型">1.2.1 线性回归模型</h4><ul>
 <li><p>模型表达</p>
 <p>  $$<br>  y(x, w) = w_0 + w_1 x_1 + \cdots + w_n x_n \quad (n \ge 1) \qquad (ml.1.1.1)<br>  $$ </p>
@@ -547,7 +588,7 @@ $$</span>
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/深入浅出机器学习/chapter1-regression-family/" data-title="深入浅出ML之Regression家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/深入浅出机器学习/chapter1-regression-family/" data-title="第01章：深入浅出ML之Regression家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -587,7 +628,7 @@ $$</span>
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第1章:_深入浅出ML之Regression家族"><span class="toc-number">1.</span> <span class="toc-text">第1章: 深入浅出ML之Regression家族</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#内容列表"><span class="toc-number">1.1.</span> <span class="toc-text">内容列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0-0-_符号定义"><span class="toc-number">1.2.</span> <span class="toc-text">0.0. 符号定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-0-_说明"><span class="toc-number">1.3.</span> <span class="toc-text">1.0. 说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-_回归分析介绍"><span class="toc-number">1.4.</span> <span class="toc-text">1.1. 回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-_线性回归（Linear_Regression）"><span class="toc-number">1.5.</span> <span class="toc-text">1.2. 线性回归（Linear Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1_线性回归模型"><span class="toc-number">1.5.1.</span> <span class="toc-text">1.2.1 线性回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2_线性回归参数学习"><span class="toc-number">1.5.2.</span> <span class="toc-text">1.2.2 线性回归参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3_回归模型目标函数概率解释"><span class="toc-number">1.5.3.</span> <span class="toc-text">1.2.3 回归模型目标函数概率解释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-4-_带权重的线性回归"><span class="toc-number">1.5.4.</span> <span class="toc-text">1.2.4. 带权重的线性回归</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-_逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">1.6.</span> <span class="toc-text">1.3. 逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-_逻辑斯蒂分布"><span class="toc-number">1.6.1.</span> <span class="toc-text">1.3.1. 逻辑斯蒂分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2_逻辑斯蒂回归模型"><span class="toc-number">1.6.2.</span> <span class="toc-text">1.3.2 逻辑斯蒂回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3_LR模型与广义线性模型、最大熵模型、指数族分布"><span class="toc-number">1.6.3.</span> <span class="toc-text">1.3.3 LR模型与广义线性模型、最大熵模型、指数族分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-4-_LR模型在工业界的应用"><span class="toc-number">1.6.4.</span> <span class="toc-text">1.3.4. LR模型在工业界的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Next_…"><span class="toc-number">1.7.</span> <span class="toc-text">Next …</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归问题相关解释"><span class="toc-number">1.8.</span> <span class="toc-text">回归问题相关解释</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#内容列表"><span class="toc-number">1.</span> <span class="toc-text">内容列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0-0-_符号定义"><span class="toc-number">2.</span> <span class="toc-text">0.0. 符号定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-0-_说明"><span class="toc-number">3.</span> <span class="toc-text">1.0. 说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-_回归分析介绍"><span class="toc-number">4.</span> <span class="toc-text">1.1. 回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-_线性回归（Linear_Regression）"><span class="toc-number">5.</span> <span class="toc-text">1.2. 线性回归（Linear Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1_线性回归模型"><span class="toc-number">5.1.</span> <span class="toc-text">1.2.1 线性回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2_线性回归参数学习"><span class="toc-number">5.2.</span> <span class="toc-text">1.2.2 线性回归参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3_回归模型目标函数概率解释"><span class="toc-number">5.3.</span> <span class="toc-text">1.2.3 回归模型目标函数概率解释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-4-_带权重的线性回归"><span class="toc-number">5.4.</span> <span class="toc-text">1.2.4. 带权重的线性回归</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-_逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">6.</span> <span class="toc-text">1.3. 逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-_逻辑斯蒂分布"><span class="toc-number">6.1.</span> <span class="toc-text">1.3.1. 逻辑斯蒂分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2_逻辑斯蒂回归模型"><span class="toc-number">6.2.</span> <span class="toc-text">1.3.2 逻辑斯蒂回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3_LR模型与广义线性模型、最大熵模型、指数族分布"><span class="toc-number">6.3.</span> <span class="toc-text">1.3.3 LR模型与广义线性模型、最大熵模型、指数族分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-4-_LR模型在工业界的应用"><span class="toc-number">6.4.</span> <span class="toc-text">1.3.4. LR模型在工业界的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Next_…"><span class="toc-number">7.</span> <span class="toc-text">Next …</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归问题相关解释"><span class="toc-number">8.</span> <span class="toc-text">回归问题相关解释</span></a></li></ol>
  
   </div>
 
