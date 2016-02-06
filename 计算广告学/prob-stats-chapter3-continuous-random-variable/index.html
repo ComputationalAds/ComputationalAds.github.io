@@ -4,40 +4,73 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>概率与统计-chapter0-三个重要函数 | 计算广告与机器学习</title>
+    <title>概率与统计-chapter3-连续随机变量 | 计算广告与机器学习</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="ZhouYong">
     
 
     
-    <meta name="description" content="Author: zhouyongsdzh@foxmail.com
-Date: 2015-07-04
-Sina Weibo: @周永_52ML
+    <meta name="description" content="连续随机变量（continuous random variable）
+author: zhouyongsdzh@foxmail.com
+date: 2015-06-29 22:34:13
+weibo: @周永_52ML
 
-多产的数学家－欧拉他是公认的数学史上4位最伟大的数学家之一，他的一生没有戏剧性的故事，但给后人留下宝贵的科学财富。
-18世纪，数学家辈出的年代，他仍属于佼佼者，被认为是18世纪数学界最杰出的人物之一。
-同时，他在数学领域最多产的一位，不仅在数学界做出伟大贡">
-<meta property="og:type" content="article">
-<meta property="og:title" content="概率与统计-chapter0-三个重要函数">
-<meta property="og:url" content="http://www.52caml.com/2015/07/beta-gamma-dirichlet-function/index.html">
+
+目录
+
+均匀分布
+高斯分布
+Gamma分布
+Erlang分布
+指数分布
+Beta分布
+Dirichlet分布
+other
+
+说明可以取连续值的随机变量称为连续随机变量（cont">
+<meta property="og:type" content="website">
+<meta property="og:title" content="概率与统计-chapter3-连续随机变量">
+<meta property="og:url" content="http://www.52caml.com/计算广告学/prob-stats-chapter3-continuous-random-variable/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
-<meta property="og:description" content="Author: zhouyongsdzh@foxmail.com
-Date: 2015-07-04
-Sina Weibo: @周永_52ML
+<meta property="og:description" content="连续随机变量（continuous random variable）
+author: zhouyongsdzh@foxmail.com
+date: 2015-06-29 22:34:13
+weibo: @周永_52ML
 
-多产的数学家－欧拉他是公认的数学史上4位最伟大的数学家之一，他的一生没有戏剧性的故事，但给后人留下宝贵的科学财富。
-18世纪，数学家辈出的年代，他仍属于佼佼者，被认为是18世纪数学界最杰出的人物之一。
-同时，他在数学领域最多产的一位，不仅在数学界做出伟大贡">
+
+目录
+
+均匀分布
+高斯分布
+Gamma分布
+Erlang分布
+指数分布
+Beta分布
+Dirichlet分布
+other
+
+说明可以取连续值的随机变量称为连续随机变量（cont">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="概率与统计-chapter0-三个重要函数">
-<meta name="twitter:description" content="Author: zhouyongsdzh@foxmail.com
-Date: 2015-07-04
-Sina Weibo: @周永_52ML
+<meta name="twitter:title" content="概率与统计-chapter3-连续随机变量">
+<meta name="twitter:description" content="连续随机变量（continuous random variable）
+author: zhouyongsdzh@foxmail.com
+date: 2015-06-29 22:34:13
+weibo: @周永_52ML
 
-多产的数学家－欧拉他是公认的数学史上4位最伟大的数学家之一，他的一生没有戏剧性的故事，但给后人留下宝贵的科学财富。
-18世纪，数学家辈出的年代，他仍属于佼佼者，被认为是18世纪数学界最杰出的人物之一。
-同时，他在数学领域最多产的一位，不仅在数学界做出伟大贡">
+
+目录
+
+均匀分布
+高斯分布
+Gamma分布
+Erlang分布
+指数分布
+Beta分布
+Dirichlet分布
+other
+
+说明可以取连续值的随机变量称为连续随机变量（cont">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -97,14 +130,14 @@ Sina Weibo: @周永_52ML
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/07/beta-gamma-dirichlet-function/" title="概率与统计-chapter0-三个重要函数" itemprop="url">概率与统计-chapter0-三个重要函数</a>
+      <a href="/计算广告学/prob-stats-chapter3-continuous-random-variable/" title="概率与统计-chapter3-连续随机变量" itemprop="url">概率与统计-chapter3-连续随机变量</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2015-07-04T04:21:53.000Z" itemprop="datePublished"> 发表于 2015-07-04</time>
+    <time datetime="2015-06-20T14:34:13.000Z" itemprop="datePublished"> 发表于 2015-06-20</time>
     
   </p>
 </header>
@@ -113,42 +146,94 @@ Sina Weibo: @周永_52ML
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#多产的数学家－欧拉"><span class="toc-number">1.</span> <span class="toc-text">多产的数学家－欧拉</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gamma函数－第二类欧拉积分"><span class="toc-number">2.</span> <span class="toc-text">Gamma函数－第二类欧拉积分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#历史由来"><span class="toc-number">2.1.</span> <span class="toc-text">历史由来</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Gamma发现之旅"><span class="toc-number">2.2.</span> <span class="toc-text">Gamma发现之旅</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Gamma分布"><span class="toc-number">2.3.</span> <span class="toc-text">Gamma分布</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Beta函数－第一类欧拉积分"><span class="toc-number">3.</span> <span class="toc-text">Beta函数－第一类欧拉积分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数学抽象与推导"><span class="toc-number">3.1.</span> <span class="toc-text">数学抽象与推导</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#\(\beta\)型概率分布"><span class="toc-number">3.2.</span> <span class="toc-text">\(\beta\)型概率分布</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Beta-Binomial共轭"><span class="toc-number">4.</span> <span class="toc-text">Beta-Binomial共轭</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dirichlet分布"><span class="toc-number">5.</span> <span class="toc-text">Dirichlet分布</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dirichlet-Multinomial共轭"><span class="toc-number">6.</span> <span class="toc-text">Dirichlet-Multinomial共轭</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#连续随机变量（continuous_random_variable）"><span class="toc-number">1.</span> <span class="toc-text">连续随机变量（continuous random variable）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">1.1.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#均匀分布（Uniform_Distribution）"><span class="toc-number">1.2.</span> <span class="toc-text">均匀分布（Uniform Distribution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高斯分布（Gaussian_Distribution）"><span class="toc-number">1.3.</span> <span class="toc-text">高斯分布（Gaussian Distribution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gamma分布（伽马分布，又称\(\Gamma\)型概率分布）"><span class="toc-number">1.4.</span> <span class="toc-text">Gamma分布（伽马分布，又称\(\Gamma\)型概率分布）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Gamma函数"><span class="toc-number">1.4.1.</span> <span class="toc-text">Gamma函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Gamma分布"><span class="toc-number">1.4.2.</span> <span class="toc-text">Gamma分布</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Beta分布（贝塔分布）"><span class="toc-number">1.5.</span> <span class="toc-text">Beta分布（贝塔分布）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数学抽象与推导"><span class="toc-number">1.5.1.</span> <span class="toc-text">数学抽象与推导</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#\(\beta\)型概率分布"><span class="toc-number">1.5.2.</span> <span class="toc-text">\(\beta\)型概率分布</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Beta-Binomial共轭"><span class="toc-number">1.6.</span> <span class="toc-text">Beta-Binomial共轭</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dirichlet分布（狄利克雷分布）"><span class="toc-number">1.7.</span> <span class="toc-text">Dirichlet分布（狄利克雷分布）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dirichlet-Multinomial共轭"><span class="toc-number">1.8.</span> <span class="toc-text">Dirichlet-Multinomial共轭</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<ul>
-<li>Author: zhouyongsdzh@foxmail.com</li>
-<li>Date: 2015-07-04</li>
-<li>Sina Weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
+		<h2 id="连续随机变量（continuous_random_variable）">连续随机变量（continuous random variable）</h2><ul>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 2015-06-29 22:34:13</li>
+<li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
 </ul>
-<h3 id="多产的数学家－欧拉"><strong>多产的数学家－欧拉</strong></h3><p>他是公认的数学史上4位最伟大的数学家之一，他的一生没有戏剧性的故事，但给后人留下宝贵的科学财富。</p>
-<p>18世纪，数学家辈出的年代，他仍属于佼佼者，被认为是18世纪数学界最杰出的人物之一。</p>
-<p>同时，他在数学领域最多产的一位，不仅在数学界做出伟大贡献，而且把数学应用到了几乎整个物理领域。他就是<strong>18世纪数学界之星-欧拉</strong>。</p>
-<p><a href="http://baike.baidu.com/link?url=OFDCUSh42Bfc_tOI70iV9Zh3hRkxZww91RL_2zlyGNUccKlXAGZRZzLA47ZtTx_XwROYpptHjgsbIJmlAnGPCoRcRi_UIhtRWMQcoqb8zTP-5rLDaLwqvGxU_s2J7Qu596UmWqAJ-43oM5-70om12q" target="_blank" rel="external">莱昂哈德·欧拉</a>)（Leonhard Euler ，1707年4月15日～1783年9月18日），瑞士数学家、自然科学家。1707年出生于瑞士－巴塞尔的牧师家庭，15岁从巴塞尔大学毕业，翌年获得硕士学位。</p>
-<p>简述其成就：</p>
-<ol>
-<li><strong><em>微分方程</em></strong>: 18世纪中叶，欧拉与其它数学家在解决物理问题过程中，创立了<strong>微分方程</strong>学科。偏微分方程的纯数学研究的第一篇论文是欧拉写的《方程的积分法研究》。此外，还提出了<strong>函数用三角级数表示</strong>的方法和<strong>解微分方程的级数法</strong>等。<br><br></li>
-<li><strong><em>微分几何学</em></strong>：引入了空间曲线的参数方程，给出了空间曲线曲率半径的解析表达式；1766年出版了《关于曲面上曲线的研究》，建立了<strong>曲面理论</strong>，是微分几何发展史上的里程碑。<br><br></li>
-<li><strong><em>分析学</em></strong>：1729年引入了<strong>Gamma函数和Beta函数</strong>，证明了椭圆积分的加法定理，最早引入了<strong>二重积分</strong>。<br><br></li>
-<li><strong><em>数论</em></strong>：欧拉的一系列成果奠定了该数学分支。<br><br></li>
-</ol>
-<blockquote>
-<p>注：数学史上公认的4名最伟大的数学家分别是：<strong>阿基米德、牛顿、欧拉和高斯</strong>。<br></p>
-<p>阿基米德有“翘起地球”的豪言壮语，牛顿因为苹果闻名世界，高斯少年时就显露出计算天赋，唯独欧拉没有戏剧性的故事让人印象深刻。</p>
-</blockquote>
-<p>这里仅总结欧拉在分析学领域中的一个成就－<strong>欧拉积分</strong>及其对应的分布。欧拉积分是一种含参变量的积分，主要包括</p>
+<hr>
+<p><strong>目录</strong></p>
 <ul>
-<li>第一类欧拉积分：又称为Beta函数（简称B函数）</li>
-<li>第二类欧拉积分：又称为Gamma函数</li>
+<li>均匀分布</li>
+<li>高斯分布</li>
+<li>Gamma分布</li>
+<li>Erlang分布</li>
+<li>指数分布</li>
+<li>Beta分布</li>
+<li>Dirichlet分布</li>
+<li>other<br><br></li>
 </ul>
-<h3 id="Gamma函数－第二类欧拉积分">Gamma函数－第二类欧拉积分</h3><blockquote>
-<p>因为Beta函数和Dirichlet函数可以表示用Gamma函数表示，所以先介绍Gamma函数。</p>
+<h3 id="说明">说明</h3><p>可以取连续值的随机变量称为<strong>连续随机变量</strong>（continuous random variable）。</p>
+<p>由于是取连续值，那么在任意区间都可以有无穷多个结果。比如高度，可以有1米、2米，也可以在两者之间：1.1米、1.11米，1.688米等无穷多个结果。如此，每个结果取值的可能性都是无穷小。</p>
+<p>因此，连续随机变量区别于离散随机变量重要一点：在连续随机变量中，讨论的是时间在<strong><em>某个区间</em></strong>内发生的概率，即\(P(a &lt; X &lt; b)\)，而不是具体某一取值的概率\(P(X)\)。因为在这种情况下，分到各个结果的概率都无限趋于0。显然，无法用离散随机变量中的<strong>概率质量函数</strong>来描述随机变量的分布。</p>
+<p>针对连续随机变量的分布，我们可用以下指标来描述具体的分布：</p>
+<ul>
+<li><p>累积分布函数（Cumulative Distribution Function，简称CDF）</p>
+<p>  累积分布函数本身表示随机变量在一个区间上的概率，所以可直接用于连续随机变量。即：</p>
+</li>
+</ul>
+<p>$$F(x)=P(X \leq x),\quad -\infty &lt; x &lt; \infty$$</p>
+<ul>
+<li><p>概率密度函数（Probability Density Function，简称PDF）</p>
+<p>  根据<code>无穷小</code>的概念，可以得到概率密度函数。在随机变量\(X＝x\)的附近去一个无穷小段，该小段的区间长度为\(dx\)，这无穷小段对应的概率为\(dF\)，那么该点的概率密度为\(dF/dx\)。</p>
+<p>  因此，概率密度函数可以代替累积分布函数，表示一个连续随机变量的概率分布。</p>
+<p>  $$f(x)=\frac {dF(x)}{dx}$$</p>
+<p>  $$F(x)=\int_{-\infty}^{x}f(t)dt$$ </p>
+<blockquote>
+<p>CDF与PDF之间的关系：PDF是CDF的微分，CDF是PDF在区间\([-\infty, x]\)上的积分。</p>
 </blockquote>
-<h4 id="历史由来"><br><strong>历史由来</strong></h4><p>1728年，<a href="http://baike.baidu.com/view/7386144.htm?fromtitle=%E5%93%A5%E5%BE%B7%E5%B7%B4%E8%B5%AB&amp;fromid=1632207&amp;type=syn" target="_blank" rel="external">哥德巴赫</a>（Goldbach C. 德国数学家，1690-1764）在考虑<strong>数列插值</strong>的问题，通俗的说就是把数列的通项公式定义<strong>从整数集合延伸至实数集合</strong>，例如数列1,4,9,16…..可以用通项公式\(n^2\)自然地表达，即便\(n\)为实数时，此通项公式也具有良好的定义。另一个自然的解释就是可以找到一条平滑的曲线\(f(x)=x^2\)通过所有的整数点\([x, x^2]\)，从而可以把定义在整数集上的公式延伸至实数集合。</p>
-<p>有一天，哥德巴赫开始处理<strong>阶乘序列</strong>\(1,2,6,24,120,720,\cdots\)，我们可以计算整数的阶乘（如\(2!,3!\)），那么是否可以计算实数的阶乘（如\(2.5!\)）呢？</p>
-<p>遗憾的是，哥德巴赫当时无法解决<strong>阶乘的计算从整数集合延伸至实数集合上</strong>的问题，于是写信请教<a href="https://en.wikipedia.org/wiki/Nicolaus_II_Bernoulli" target="_blank" rel="external">尼古拉斯.伯努利</a>和其弟<a href="https://en.wikipedia.org/wiki/Daniel_Bernoulli" target="_blank" rel="external">丹尼尔.伯努利</a>，由于当时欧拉与丹尼尔.伯努利在一起，因此也得知了该问题。而欧拉与1729年完美的解决了这个问题，由此导致Gamma函数的诞生，当时的欧拉只有22岁。</p>
-<h4 id="Gamma发现之旅"><br><strong>Gamma发现之旅</strong></h4><p>其实最早发现\(n!\)差值计算的是丹尼尔.伯努利。他发现：如果\(m,n\)都是正整数，且\(m\to\infty\)时，有下面公式成立：</p>
+</li>
+<li><p>均值（Expectation，又称均值Mean）</p>
+</li>
+<li>方差（Variance）</li>
+</ul>
+<blockquote>
+<p>这里的连续随机变量主要包括：均匀概率分布、高斯分布、Gamma分布等.<br></p>
+</blockquote>
+<h3 id="均匀分布（Uniform_Distribution）"><strong>均匀分布（Uniform Distribution）</strong></h3><p>假设有一个随机数生成器，产生\([a, b]\)之间的实数\(X)\)（\(a&lt;b\)），每个实数值出现的概率相等，这样的分布被称为均匀分布。那么，随机变量\(X\)服从区间\([a,b]\)上的均匀分布，记作\(X \sim U(a,b)\)。该类型的随机变量称作<strong>均匀随机变量</strong>。</p>
+<blockquote>
+<p>随机变量\(X\)的密度函数用图可表示为一个长方形，长方形的高是\(1\,/\,(b-a)\)，以保证长方形的面积等于1.</p>
+</blockquote>
+<ul>
+<li>均匀随机变量X的<strong>概率密度函数（PDF）</strong>为：</li>
+</ul>
+<p>$$<br>f(x)=<br>\begin{cases}<br>\displaystyle\frac {1}{b-a}, &amp; a \leq x \leq b \\<br>\quad0, &amp; others<br>\end{cases}<br>$$</p>
+<ul>
+<li>均匀随机变量X的<strong>累积分布函数（CDF）</strong>本身就表示随机变量在\([-\infty, x]\)区间上的概率，是概率密度函数在\([-\infty, x]\)区间上的积分，公式如下：</li>
+</ul>
+<p>$$<br>F(x)=P(X \leq x)=\int_{-\infty}^{x}f(t)dt=<br>\begin{cases}<br>\quad0, &amp; -\infty &lt; x &lt; a \\<br>\displaystyle\frac {x-a}{b-a}, &amp; a \leq x \leq b \\<br>\quad1, &amp; b &lt; x &lt; \infty<br>\end{cases}<br>$$</p>
+<ul>
+<li>均匀随机变量X的<strong>期望</strong>：</li>
+</ul>
+<p>$$<br>E(X)=\frac {a+b}{2}<br>$$</p>
+<ul>
+<li>均匀随机变量X的<strong>方差</strong>：</li>
+</ul>
+<p>$$<br>D(X)=E(X^2)-E^2(X)=\frac {(b-a)^2}{12}<br>$$</p>
+<blockquote>
+<p>注：在概率统计学中，几乎所以重要的概率分布都可以从均匀分布\(Uniform(0,1)\)中生成，尤其是在做统计模拟试验中，所有统计分布的随机样本都是通过均匀分布产生的。<br></p>
+</blockquote>
+<h3 id="高斯分布（Gaussian_Distribution）">高斯分布（Gaussian Distribution）</h3><ul>
+<li>概率密度函数</li>
+</ul>
+<p>$$<br>f(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x-\mu)^2}{2 \sigma^2} \right)<br>$$</p>
+<p><br></p>
+<h3 id="Gamma分布（伽马分布，又称\(\Gamma\)型概率分布）">Gamma分布（伽马分布，又称\(\Gamma\)型概率分布）</h3><p>在认识Gamma分布之前，我们先熟悉一下Gamma函数，在@52nlp的<a href="http://www.52nlp.cn/lda-math-%E7%A5%9E%E5%A5%87%E7%9A%84gamma%E5%87%BD%E6%95%B01" target="_blank" rel="external">神奇的Gamma函数</a>一文和<a href="http://baike.baidu.com/link?url=l_mNJgJzx9XbJKf4QBI2zBr3SrEzd6pqx1X-smju8t5vFmzB8xx8ynWew0-2dIrOf9iSuIl5wdaJnTlKFGZbs_" target="_blank" rel="external">百度百科－Gamma函数</a>中，讲的非常清楚。这里仅列出背景、核心公式和说明。</p>
+<p><br></p>
+<h4 id="Gamma函数"><strong>Gamma函数</strong></h4><ul>
+<li><strong>历史由来</strong></li>
+</ul>
+<p>1728年，<a href="http://baike.baidu.com/view/7386144.htm?fromtitle=%E5%93%A5%E5%BE%B7%E5%B7%B4%E8%B5%AB&amp;fromid=1632207&amp;type=syn" target="_blank" rel="external">哥德巴赫</a>（Goldbach C. 德国数学家，1690-1764）在考虑<strong>数列插值</strong>的问题，通俗的说就是把数列的通项公式定义<strong>从整数集合延伸至实数集合</strong>，例如数列1,4,9,16…..可以用通项公式\(n^2\)自然的表达，即便\(n\)为实数的时候，这个通项公式也可以良好定义。</p>
+<p>直观地说，就是可以找到一条平滑的曲线\(f(x)=x^2\)通过所有的整数点\([x, x^2]\)，从而可以把定义在整数集上的公式延伸至实数集合。一天哥德巴赫开始处理<strong>阶乘序列</strong>\(1,2,6,24,120,720,\cdots\)，我们可以计算\(2!,3!\),是否可以计算\(2.5!\)呢？</p>
+<p>遗憾的是，哥德巴赫当时无法解决<strong>阶乘的计算从整数集合延伸至实数集合上</strong>的问题，于是写信请教尼古拉斯.伯努利和其弟丹尼尔.伯努利，由于欧拉当时与丹尼尔.伯努利在一起，因此也得知了该问题。而欧拉与1729年完美的解决了这个问题，由此导致Gamma函数的诞生，当时的欧拉只有22岁。</p>
+<ul>
+<li><strong>Gamma函数发现之旅</strong></li>
+</ul>
+<p>最早发现\(n!\)差值计算的是丹尼尔.伯努利。他发现：如果\(m,n\)都是正整数，且\(m\to\infty\)，有下述公式成立：</p>
 <p>$$<br>\frac {1 \cdot 2 \cdot 3 \cdots m} {(1+n)(2+n) \cdots (m-1+n)} \left(m+ \frac{n}{2}\right)^{n-1} \to n!<br>$$</p>
 <p>用此<strong>无穷乘积</strong>的方式可以把\(n!\)定义延伸至实数集合。如\(n=2.5,m\)足够大时，上式基本可近似计算出\(2.5!\)的值。</p>
 <p>欧拉偶然地发现\(n!\)可用如下无穷乘积表达：</p>
@@ -156,27 +241,16 @@ Sina Weibo: @周永_52ML
 <p>于是他用一些简单的例子做一些计算，寻找其规律。当\(n=1/2\)时，整理上式可得：</p>
 <p>$$<br>\left(\frac{1}{2}\right)!=\sqrt{\frac{2\cdot4}{3\cdot3} \cdot \frac{4\cdot6}{5\cdot5} \cdot \frac{6\cdot8}{7\cdot7} \cdot \frac{8\cdot10}{9\cdot9} \cdots}<br>$$</p>
 <p>此式恰好与著名的<a href="http://baike.baidu.com/link?url=FWbPfOA5BqiQxrCJ4KJnedzJRf6blsxbh2qn1XyGlPvUbGXufoVXf4xie6UMnWNUUAH2ewNaziQug2YzHQ9jpK" target="_blank" rel="external">Wallis公式</a>有关。</p>
-<blockquote>
-<p>关于Wallis公式：</p>
-<p>\( \qquad \lim\limits_{k\to\infty} \left(\frac{2^{2k}(k!)^2}{2k!}\right)^2 \frac{1}{2k+1} = \frac{\pi}{2} \)</p>
-<p>Wallis公式是关于圆周率的无穷乘积的公式，Wallis本人在1665年使用<strong>插值方法</strong>计算<strong>半圆曲线</strong>\(y=\sqrt{x(1-x)}\)下的面积（即直径为1的半圆面积）时，发现\(\pi/4\)等于下式：</p>
-<p>\(<br>\qquad\frac{2\cdot4}{3\cdot3} \cdot \frac{4\cdot6}{5\cdot5} \cdot \frac{6\cdot8}{7\cdot7} \cdot \frac{8\cdot10}{9\cdot9} \cdots = \frac{\pi}{4}<br>\)</p>
-</blockquote>
+<p>注：\( \lim\limits_{k\to\infty} \left(\frac{2^{2k}(k!)^2}{2k!}\right)^2 \frac{1}{2k+1} = \frac{\pi}{2} \qquad（Wallis公式）\) </p>
+<p>Wallis公式是关于圆周率的无穷乘积的公式，Wallis在1665年使用<strong>插值方法</strong>计算半圆曲线\(y=\sqrt{x(1-x)}\)下的面积（即直径为1的半圆面积）时，发现\(\pi/4\)等于下式：</p>
+<p>$$<br>\frac{2\cdot4}{3\cdot3} \cdot \frac{4\cdot6}{5\cdot5} \cdot \frac{6\cdot8}{7\cdot7} \cdot \frac{8\cdot10}{9\cdot9} \cdots = \frac{\pi}{4}<br>$$</p>
 <p>于是欧拉根据Wallis公式得到如下的结果：</p>
 <p>$$<br>\left(\frac{1}{2}\right)! = \frac{\sqrt{\pi}}{2}<br>$$</p>
 <p>欧拉发现\((\frac{1}{2})!\)中含有\(\pi\)，而\(\pi\)与圆相关的积分有关系。欧拉猜测\(n!\)一定可以用积分形式表示。</p>
-<p>Wallis时代微积分还没问世，当时是使用插值方法做推导计算的，但Wallis公式的推导过程基本上都是在处理积分\(\int_{0}^{1} x^\frac{1}{2} (1-x)^\frac{1}{2} dx\)的问题。</p>
-<blockquote>
-<p>关于微积分诞生：<br><br>牛顿与莱布尼茨谁先发明的微积分在数学界有很大的争论。不过本人更认可是莱布尼茨，因为微积分的主要思想是他提出的，微分相关概念和符号是他定义的，并沿用至今。<br><br>1684年<a href="http://baike.baidu.com/link?url=TsKq7RAFzLHNnXSqoXKfEosO1ogw_FQnRME1vlTwvwKiJs0hudGCkvWkUJW1MHwpiGPGB7SHD49O2Nmea5m_i63qc9eJSMlDzZ7VAPo7D2p4d6oj9Bb0MVkLfDUaSbqvNCc5Opspb0YHMMGf8PJXaH5kmhwbnefwifkVxETybompTpK4IDEAoP9ZR83kyP4L" target="_blank" rel="external">莱布尼茨</a>发表了关于微积分的重要文献，标志着微积分作为独立学科正式诞生。莱布尼茨是微积分主要思想的独立发明人。当然，不可否认的是牛顿在此前同样做了很多微积分相关工作。</p>
-</blockquote>
-<p>受Wallis启发，欧拉开始考虑如下一般形式的积分：</p>
+<p>Wallis时代微积分还没问世，当时是使用插值方式做推导计算的，但Wallis公式的推导过程基本上是在处理积分\(\int_{0}^{1} x^\frac{1}{2} (1-x)^\frac{1}{2} dx\)。受Wallis启发，欧拉开始考虑如下一般形式的积分：</p>
 <p>$$<br>J(e,n)=\int_{0}^{1} x^e(1-x)^n dx<br>$$</p>
 <p>这里，\(n\)为正整数，\(e\)为正实数。利用<strong>分部积分</strong>法，可得：</p>
 <p>$$<br>J(e,n)=\frac{n}{e+1}J(e+1, n-1)<br>$$</p>
-<blockquote>
-<p><strong>关于<a href="http://baike.baidu.com/link?url=2UfHeRl5l_jvgTbPSA4APPlKvrivw6i7iTmXB6-phTsDM-VqyQtxfJyb8EpIFR5r_5vwkjedDtN5japSjucvqq" target="_blank" rel="external">分部积分</a></strong>：<br><br>设\(u=u(x)\)和\(v=v(x)\)均为可导函数，分部积分形式如下：<br></p>
-<p>\( \qquad \int u \mathop{v’}dx = \int u dv = [uv] - \int v du \)</p>
-</blockquote>
 <p>重复迭代上式，可得：</p>
 <p>$$<br>J(e,n) = \frac {1\cdot2\cdot3\cdots n}{(e+1)(e+2)\cdots (e+n+1)}<br>$$</p>
 <p>于是欧拉得到如下重要的式子：</p>
@@ -186,20 +260,57 @@ Sina Weibo: @周永_52ML
 <p>到此，欧拉成功地把\(n!\)表达为了积分形式！令\(t=e^{-u}\)，可得常见的Gamma函数形式：</p>
 <p>$$<br>n! = \int_{0}^{\infty} u^n e^{-u} du<br>$$</p>
 <p>注意，此时的\(n\)仍然为正整数，利用上式把<strong>阶乘延伸至实数集</strong>上，就得到Gamma函数的一般形式：</p>
-<p>$$<br>\Gamma(x) = \int_{0}^{1} (-\log t)^{x-1}dt = \int_{0}^{\infty} t^{x-1} e^{-t} dt<br>$$</p>
-<blockquote>
-<p>注：使用MathJax引擎在浏览器上解析时，需要对”_”做转义，应写成下面形式：<br></p>
-<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\<span class="keyword">Gamma</span>(x) = \int\_<span class="list">&#123;0&#125;</span>^<span class="list">&#123;1&#125;</span> (-\log t)^<span class="list">&#123;x-1&#125;</span>dt = \int_<span class="list">&#123;0&#125;</span>^<span class="list">&#123;\infty&#125;</span> t^<span class="list">&#123;x-1&#125;</span> e^<span class="list">&#123;-t&#125;</span>dt</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p><strong>为什么</strong>\(\Gamma(n)=(n-1)!\)<strong>，而不是</strong>\(\Gamma(n)=n!\)</p>
-<p>如果对上述的Gamma函数式做一个调整，将\(t^{x-1}\)替换为\(t^x\)，可得如下函数：</p>
-<p>$$<br>\Gamma(x) = \int_{0}^{\infty} t^x e^{-t}dx<br>$$</p>
-<p>此时\(\Gamma(n)=n!\)，这才是欧拉最早的Gamma函数定义。但后来欧拉修改了原有Gamma函数的定义，使得\(\Gamma(n)=(n-1)!\)。后来的数学家们在对Gamma函数的进一步研究中，认可了这个定义，沿用至今。</p>
-<h4 id="Gamma分布">Gamma分布</h4><ul>
-<li>概率密度函数</li>
+<p>$$<br>\Gamma(x)=\int_{0}^{1} (-\log t)^{x-1}dt = \int_{0}^{\infty} t^{x-1} e^{-t} dt<br>$$</p>
+<p>.</p>
+<ul>
+<li><strong>为什么</strong>\(\Gamma(n)=(n-1)!\)<strong>，而不是</strong>\(\Gamma(n)=n!\)</li>
 </ul>
-<p>$$<br>f(x)=<br>\begin{cases}<br>\displaystyle\frac {x^{\alpha-1} e^{x/\beta}} {\beta^\alpha \Gamma(\alpha)}, &amp; 0 \leq x \leq \infty; \alpha &gt; 0; \beta &gt; 0 \\<br>\;\;\quad 0, &amp; others<br>\end{cases}<br>$$</p>
-<h3 id="Beta函数－第一类欧拉积分">Beta函数－第一类欧拉积分</h3><p>在@rickjin的《LDA-math》系列中详细地解释了Beta和Dirichlet分布的由来和推导过程，堪称经典。原文见下面链接：</p>
+<p>（未完继续…）</p>
+<ul>
+<li><p>数学家的成就</p>
+<ul>
+<li><p>哥德巴赫</p>
+<blockquote>
+<p>哥德巴赫 于1690年3月18日出生于德国（当时是普鲁士）哥尼斯堡的一个富裕家庭。早年在英国牛津大学学习法学。由于喜欢到处旅游，在欧洲各国访问期间结交了伯努利家族，由此对数学产生兴趣。后来又结交了像欧拉等很多著名数学家，并与他们通信交流问题。他在数学上的研究以<strong>数论</strong>为主。</p>
+<ol>
+<li><p>1728年，提出了实数集上的数列差值问题，该问题在1929年由欧拉解决，并诞生了著名的Gamma函数。</p>
+</li>
+<li><p>1742年6月7日，在与好友欧拉的一封信中陈述了著名的<strong>哥德巴赫猜想</strong>：任一大于2的偶数都可以写成两个质数之和。</p>
+</li>
+</ol>
+</blockquote>
+</li>
+<li><p>伯努利</p>
+</li>
+<li><p>欧拉</p>
+<blockquote>
+<p>莱昂哈德·欧拉（Leonhard Euler ，1707年4月15日～1783年9月18日），瑞士数学家、自然科学家。1707年出生于瑞士－巴塞尔的牧师家庭，15岁从巴塞尔大学毕业，翌年获得硕士学位。</p>
+<p>欧拉是18世纪数学界最杰出的人物之一，不仅在数学界做出伟大贡献，而且把数学应用到了几乎整个物理领域。简述其成就：</p>
+<ol>
+<li><p><strong><em>微分方程</em></strong>: 18世纪中叶，欧拉与其它数学家在解决物理问题过程中，创立了<strong>微分方程</strong>学科。偏微分方程的纯数学研究的第一篇论文是欧拉写的《方程的积分法研究》。此外，还提出了<strong>函数用三角级数表示</strong>的方法和<strong>解微分方程的级数法</strong>等。</p>
+</li>
+<li><p><strong><em>微分几何学</em></strong>：引入了空间曲线的参数方程，给出了空间曲线曲率半径的解析表达式；1766年出版了《关于曲面上曲线的研究》，建立了<strong>曲面理论</strong>，是微分几何发展史上的里程碑。</p>
+</li>
+<li><p><strong><em>分析学</em></strong>：1729年引入了<strong>Gamma函数和Beta函数</strong>，证明了椭圆积分的加法定理，最早引入了<strong>二重积分</strong>。</p>
+</li>
+<li><p><strong><em>数论</em></strong>：欧拉的一系列成果奠定了该数学分支。</p>
+</li>
+</ol>
+<p>后人这样评价欧拉：</p>
+<p>著名数学家拉普拉斯（Laplace）说：“读读欧拉，他是所有人的老师”。</p>
+<p>数学史上公认的4名最伟大的数学家分别是：<strong>阿基米德、牛顿、欧拉和高斯</strong>。阿基米德有“翘起地球”的豪言壮语，牛顿因为苹果闻名世界，高斯少年时就显露出计算天赋，唯独欧拉没有戏剧性的故事让人印象深刻。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Gamma分布">Gamma分布</h4><ul>
+<li><p>概率密度函数:<br>$$<br>f(x)=<br>\begin{cases}<br>\displaystyle\frac {x^{\alpha-1} e^{x/\beta}} {\beta^\alpha \Gamma(\alpha)}, &amp; 0 \leq x \leq \infty; \alpha &gt; 0; \beta &gt; 0 \\<br>\;\;\quad 0, &amp; others<br>\end{cases}<br>$$</p>
+</li>
+<li><p>概率密度函数</p>
+</li>
+</ul>
+<h3 id="Beta分布（贝塔分布）">Beta分布（贝塔分布）</h3><p>在@rickjin的《LDA-math》系列中详细地解释了Beta和Dirichlet分布的由来和推导过程，堪称经典。拜读后，受益颇深。原文见下面链接：</p>
 <ul>
 <li><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%831" target="_blank" rel="external">LDA-math-认识Beta/Dirichlet分布(1)</a> <br></li>
 <li><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%832" target="_blank" rel="external">LDA-math-认识Beta/Dirichlet分布(2)</a> <br></li>
@@ -236,7 +347,7 @@ Sina Weibo: @周永_52ML
 <p>$$<br>\begin{align*}<br>&amp; P( x \le X_{(k)} \le x+\Delta x) \\<br>&amp; = n\binom{n-1}{k-1}P(E) + o(\Delta x) \\<br>&amp; = n\binom{n-1}{k-1}x^{k-1}(1-x)^{n-k}\Delta x + o(\Delta x)<br>\end{align*}<br>$$</p>
 <p>进一步可得\(X_{(k)}\)的概率密度函数为</p>
 <p>$$<br>\begin{align*}<br>f(x) &amp; = \lim_{\Delta x \to 0} \frac {P(x \leq X_{(x)} \leq x + \Delta x)}{\Delta x} \\<br>&amp; = n \binom{n-1}{k-1}x^{k-1}(1-x)^{n-k}\\<br>&amp; = \frac {n!}{(k-1)! (n-k)!}x^{k-1} (1-x)^{n-k} \quad x \in [0,1]<br>\end{align*}<br>$$</p>
-<p>利用上述介绍的Gamma函数，可以把\(f(x)\)表示为</p>
+<p>根据<a href="">神奇的Gamma函数、Beta函数系列</a>可知，利用Gamma函数，可以把上述\(f(x)\)表示为</p>
 <p>$$<br>f(x) = \frac {\Gamma(n+1)}{\Gamma(k) \Gamma(n-k+1)} x^{k-1} (1-x)^{n-k}<br>$$</p>
 <p><strong>\(\Gamma\)函数起源于人们希望把数学计算从整数集合拓展至实数集合</strong>。这里另\(\alpha=k, \beta=n-k+1\)，于是可以得到</p>
 <p>$$<br>Beta(x|\alpha,\beta)=f(x)=\frac {\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1}(1-x)^{\beta-1}<br>$$</p>
@@ -250,19 +361,23 @@ Sina Weibo: @周永_52ML
 <p>$$<br>\begin{align*}<br>f(x;\alpha,\beta) &amp; = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{\int_{0}^{1}t^{\alpha-1}(1-t)^{\beta-1}dt} \\<br>&amp; = \frac{x^{\alpha-1}(1-x)^{\beta-1}}{Beta(\alpha,\beta)}<br>\end{align*}<br>$$</p>
 <p>其中，</p>
 <p>$$<br>Beta(\alpha,\beta)= \int_{0}^{1}t^{\alpha-1}(1-t)^{\beta-1}dt= \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}<br>$$</p>
-<p>$$<br>\Gamma(\alpha)=\int_{0}^{\infty}t^{\alpha-1}e^{-t}dt<br>$$<br>且当\(\alpha\)是正整数时，\(\Gamma(\alpha)=(\alpha-1)!\)</p>
 </blockquote>
 <ul>
 <li>\(\beta\)型随机变量的期望与方差分别是：</li>
 </ul>
 <p>$$\mu=\frac{\alpha}{\alpha+\beta} \;\qquad\qquad\qquad (期望)$$</p>
 <p>$$\sigma^2=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)} \quad (方差)$$</p>
+<blockquote>
+<p>关于<strong>Gamma函数</strong></p>
+<p>$$<br>\Gamma(\alpha)=\int_{0}^{\infty}t^{\alpha-1}e^{-t}dt<br>$$</p>
+<p>且当\(\alpha\)是正整数时，\(\Gamma(\alpha)=(\alpha-1)!\)</p>
+</blockquote>
 <ul>
 <li>\(\beta\)型分布的期望公式详细推导</li>
 </ul>
 <p>如果\(p \sim Beta(t|\alpha,\beta)\)，那么\(p\)的期望表示如下：</p>
 <p>$$<br>\begin{align*}<br>E(p)<br>&amp; =\int_{0}^{1} t \ast Beta(t|\alpha,\beta)\;dt \\<br>&amp; = \int_{0}^{1} t \ast \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}t^{\alpha-1}(1-t)^{\beta-1}\;dt \\<br>&amp; =\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\int_{0}^{1}t^{\alpha}(1-t)^{\beta-1}\;dt<br>\end{align*}<br>$$</p>
-<p>上式右边的积分\(\int_{0}^{1}t^{\alpha}(1-t)^{\beta-1}\;dt\)恰好对应到概率分布\(Beta(t|\alpha+1,\beta)\)。对于此分布，根据Beta型随机变量的密度函数在\([0,1]\)之间的累积分布等于1，可得:</p>
+<p>上式右边的积分\(\int_{0}^{1}t^{\alpha}(1-t)^{\beta-1}\;dt\)恰好对应到概率分布\(Beta(t|\alpha+1,\beta)\)。对于此分布，根据Beta函数在\([0,1]\)之间的累积分布函数等于1，可得:</p>
 <p>$$<br>\int_{0}^{1} \frac{\Gamma(\alpha+\beta+1)}{\Gamma(\alpha+1)\Gamma(\beta)} t^\alpha (1-t)^{\beta-1}\;dt=1<br>$$</p>
 <p>把上式带入\(E(p)\)计算式，得到 </p>
 <p>$$<br>\begin{align*}<br>E(p) &amp; = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} \cdot<br>\frac{\Gamma(\alpha+1)\Gamma(\beta)}{\Gamma(\alpha+\beta+1)} \\<br>&amp; = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha+\beta+1)}\frac{\Gamma(\alpha+1)}{\Gamma(\alpha)} \notag \\<br>&amp; = \frac{\alpha}{\alpha+\beta}<br>\end{align*}<br>$$</p>
@@ -316,15 +431,15 @@ Sina Weibo: @周永_52ML
 <li>而从<strong>贝叶斯学派</strong>的观点来看，开始对硬币不均匀性一无所知，所以应该假设\(p\ \in Uniform(0,1)\)，于是二项分布的计数\(m_1,m_2\)之后，按照贝叶斯公式计算\(p\)的后验分布：</li>
 </ul>
 <p>$$<br>\begin{align*}<br>P(p|\,m_1,m_2) = &amp; \frac {P(p) \cdot P(m_1,m_2\,|p)}{P(m_1,m_2)} \\<br>= &amp; \frac {1 \cdot P(m_1,m_2 |p)}{\int_{0}^{1} P(m_1,m_2|t)dt} \\<br>= &amp; \frac {\binom{m}{m_1}p^{m_1}(1-p)^{m_2}}{\int_{0}^{1} \binom{m}{m_1}t^{m_1}(1-t)^{m_2}dt} \\<br>= &amp; \frac {p^{m_1}(1-p)^{m_2}}{\int_{0}^{1}t^{m_1}(1-t)^{m_2}dt}<br>\end{align*}<br>$$</p>
-<p>得到的后验分布正好是\(Beta(p|\;m_1 + 1, m_2 + 1)\)。</p>
+<p>得到的后验分布正好是\(Beta(p|\;m_1 + 1, m_2 + 1)\)。<strong><em>这里真心没看太懂 …</em></strong></p>
 <p>回到<strong>魔鬼的游戏</strong>，如果按出的5个随机数字中，魔鬼告诉你有2个（即\(m_1=2\)）小于他手中第7大的数，那么应该按照如下概率分布的<strong>峰值</strong>做猜测是最好的(\(\alpha+2=9,\beta+3=7\))：</p>
 <p>$$<br>Beta(x|9,7)=\frac{15!}{(8)!(6)!}x^8(1-x)^6  \quad x \in [0,1]<br>$$</p>
 <p>很幸运，这次猜中了，但是魔鬼开始耍赖，游戏不得不继续 \(\cdots\)</p>
 <blockquote>
 <p>游戏3新规则：<br><br>魔说道：“这个游戏对你来说太简单了，我要加大点难度，我们重新来一次，<strong>我按20下生成20个随机数，你要同时给我猜第7大和第13大的数是什么？</strong>”</p>
 </blockquote>
-<p>此时又该如何猜测呢？<br></p>
-<h3 id="Dirichlet分布"><strong>Dirichlet分布</strong></h3><p>对于魔鬼变本加厉的新的游戏规则，数学抽象如下：</p>
+<p>这时候又该如何猜测呢？<br></p>
+<h3 id="Dirichlet分布（狄利克雷分布）"><strong>Dirichlet分布（狄利克雷分布）</strong></h3><p>对于魔鬼变本加厉的新的游戏规则，数学抽象如下：</p>
 <ul>
 <li>\(X_1,X_2, \cdots, X_n \sim Uniform(0,1)\),</li>
 <li>排序后对应的顺序统计量为\(X_{(1)},X_{(2)}, \cdots, X_{(n)}\),</li>
@@ -391,6 +506,12 @@ Sina Weibo: @周永_52ML
 <p>公式\((11)\)描述就是<strong>Dirichlet-Multinomial共轭</strong>。同时，我们可以把Dirichlet分布中的\(\alpha\)都可以理解为物理计数。那么，类似于Beta分布，\(Dir(\vec{p}|\vec{\alpha})\)可做如下分解：</p>
 <p>$$<br>Dir(\vec{p}|\vec{1})+Multi(\vec{m}-\vec{1}) = Dir(\vec{p}|\vec{\alpha})<br>$$</p>
 <p>这里\(\vec{1}=(1,1,\cdots,1)\),上式同样可以类似的用纯粹贝叶斯的观点推导和解释。</p>
+<p>数学</p>
+<hr>
+<p>表格(改日修改语法)</p>
+<p>$$<br>\begin{array}{c|lcr}<br>n &amp; \text{Left} &amp; \text{Center} &amp; \text{Right} \<br>\hline<br>1 &amp; 0.24 &amp; 1 &amp; 125 \<br>2 &amp; -1 &amp; 189 &amp; -8 \<br>3 &amp; -20 &amp; 2000 &amp; 1+10i \<br>\end{array}<br>$$</p>
+<p>$$<br>f(x)=<br>\begin{cases}<br>n/2, &amp; \text{if \(n\) is even} \<br>3n+1, &amp; \text{if \(n\) is odd}<br>\end{cases}<br>$$</p>
+<p>f(x)=<br>\begin{cases}<br>n/2, &amp; \text{if \(n\) is even} \\<br>3n+1, &amp; \text{if \(n\) is odd}<br>\end{cases}</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -398,13 +519,13 @@ Sina Weibo: @周永_52ML
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/概率与统计/">概率与统计</a>
+  <a class="article-category-link" href="/categories/计算广告学/">计算广告学</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Gamma-Beta-Dirichlet/">Gamma,Beta,Dirichlet</a>
+  <span></span> <a href="/tags/概率与统计/">概率与统计</a>
   </div>
 
 </div>
@@ -413,7 +534,7 @@ Sina Weibo: @周永_52ML
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/2015/07/beta-gamma-dirichlet-function/" data-title="概率与统计-chapter0-三个重要函数 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/计算广告学/prob-stats-chapter3-continuous-random-variable/" data-title="概率与统计-chapter3-连续随机变量 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -427,18 +548,18 @@ Sina Weibo: @周永_52ML
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/08/ml-chapter1-regression/" title="深入浅出ML之Regression家族">
+ <a href="/概率与统计/beta-gamma-dirichlet-function/" title="概率与统计-chapter0-三个重要函数">
   <strong>上一篇：</strong><br/>
   <span>
-  深入浅出ML之Regression家族</span>
+  概率与统计-chapter0-三个重要函数</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/06/prob-stats-chapter3-continuous-random-variable/"  title="概率与统计-chapter3-连续随机变量">
+<a href="/计算广告学/ca_roadmap/"  title="计算广告学-RoadMap">
  <strong>下一篇：</strong><br/> 
- <span>概率与统计-chapter3-连续随机变量
+ <span>计算广告学-RoadMap
 </span>
 </a>
 </div>
@@ -453,7 +574,7 @@ Sina Weibo: @周永_52ML
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#多产的数学家－欧拉"><span class="toc-number">1.</span> <span class="toc-text">多产的数学家－欧拉</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gamma函数－第二类欧拉积分"><span class="toc-number">2.</span> <span class="toc-text">Gamma函数－第二类欧拉积分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#历史由来"><span class="toc-number">2.1.</span> <span class="toc-text">历史由来</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Gamma发现之旅"><span class="toc-number">2.2.</span> <span class="toc-text">Gamma发现之旅</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Gamma分布"><span class="toc-number">2.3.</span> <span class="toc-text">Gamma分布</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Beta函数－第一类欧拉积分"><span class="toc-number">3.</span> <span class="toc-text">Beta函数－第一类欧拉积分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数学抽象与推导"><span class="toc-number">3.1.</span> <span class="toc-text">数学抽象与推导</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#\(\beta\)型概率分布"><span class="toc-number">3.2.</span> <span class="toc-text">\(\beta\)型概率分布</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Beta-Binomial共轭"><span class="toc-number">4.</span> <span class="toc-text">Beta-Binomial共轭</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dirichlet分布"><span class="toc-number">5.</span> <span class="toc-text">Dirichlet分布</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dirichlet-Multinomial共轭"><span class="toc-number">6.</span> <span class="toc-text">Dirichlet-Multinomial共轭</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#连续随机变量（continuous_random_variable）"><span class="toc-number">1.</span> <span class="toc-text">连续随机变量（continuous random variable）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">1.1.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#均匀分布（Uniform_Distribution）"><span class="toc-number">1.2.</span> <span class="toc-text">均匀分布（Uniform Distribution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高斯分布（Gaussian_Distribution）"><span class="toc-number">1.3.</span> <span class="toc-text">高斯分布（Gaussian Distribution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gamma分布（伽马分布，又称\(\Gamma\)型概率分布）"><span class="toc-number">1.4.</span> <span class="toc-text">Gamma分布（伽马分布，又称\(\Gamma\)型概率分布）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Gamma函数"><span class="toc-number">1.4.1.</span> <span class="toc-text">Gamma函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Gamma分布"><span class="toc-number">1.4.2.</span> <span class="toc-text">Gamma分布</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Beta分布（贝塔分布）"><span class="toc-number">1.5.</span> <span class="toc-text">Beta分布（贝塔分布）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数学抽象与推导"><span class="toc-number">1.5.1.</span> <span class="toc-text">数学抽象与推导</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#\(\beta\)型概率分布"><span class="toc-number">1.5.2.</span> <span class="toc-text">\(\beta\)型概率分布</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Beta-Binomial共轭"><span class="toc-number">1.6.</span> <span class="toc-text">Beta-Binomial共轭</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dirichlet分布（狄利克雷分布）"><span class="toc-number">1.7.</span> <span class="toc-text">Dirichlet分布（狄利克雷分布）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dirichlet-Multinomial共轭"><span class="toc-number">1.8.</span> <span class="toc-text">Dirichlet-Multinomial共轭</span></a></li></ol></li></ol>
  
   </div>
 
@@ -622,36 +743,8 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
         
     }
-  });
-});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  c.click(function(){
-    ta.css('display', 'block').addClass('fadeIn');
-  });
-  o.click(function(){
-    ta.css('display', 'none');
-  });
-  $(window).scroll(function(){
-    ta.css("top",Math.max(140,320-$(this).scrollTop()));
   });
 });
 </script>

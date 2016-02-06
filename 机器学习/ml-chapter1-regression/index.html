@@ -46,9 +46,9 @@ Polynomial Regression
 
 4
 逐步回归">
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:title" content="深入浅出ML之Regression家族">
-<meta property="og:url" content="http://www.52caml.com/2015/08/ml-chapter1-regression/index.html">
+<meta property="og:url" content="http://www.52caml.com/机器学习/ml-chapter1-regression/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
 <meta property="og:description" content="第一章: 深入浅出ML之Regression家族
 author: zhouyongsdzh@foxmail.com
@@ -182,7 +182,7 @@ Polynomial Regression
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/ml-chapter1-regression/" title="深入浅出ML之Regression家族" itemprop="url">深入浅出ML之Regression家族</a>
+      <a href="/机器学习/ml-chapter1-regression/" title="深入浅出ML之Regression家族" itemprop="url">深入浅出ML之Regression家族</a>
   </h1>
   <p class="article-author">By
        
@@ -436,7 +436,7 @@ Polynomial Regression
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/2015/08/ml-chapter1-regression/" data-title="深入浅出ML之Regression家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/机器学习/ml-chapter1-regression/" data-title="深入浅出ML之Regression家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -450,7 +450,7 @@ Polynomial Regression
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/02/hello-world/" title="测试Hexo功能">
+ <a href="/uncategorized/hello-world/" title="测试Hexo功能">
   <strong>上一篇：</strong><br/>
   <span>
   测试Hexo功能</span>
@@ -459,7 +459,7 @@ Polynomial Regression
 
 
 <div class="next">
-<a href="/2015/07/beta-gamma-dirichlet-function/"  title="概率与统计-chapter0-三个重要函数">
+<a href="/概率与统计/beta-gamma-dirichlet-function/"  title="概率与统计-chapter0-三个重要函数">
  <strong>下一篇：</strong><br/> 
  <span>概率与统计-chapter0-三个重要函数
 </span>
@@ -645,36 +645,8 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
         
     }
-  });
-});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  c.click(function(){
-    ta.css('display', 'block').addClass('fadeIn');
-  });
-  o.click(function(){
-    ta.css('display', 'none');
-  });
-  $(window).scroll(function(){
-    ta.css("top",Math.max(140,320-$(this).scrollTop()));
   });
 });
 </script>
