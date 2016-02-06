@@ -377,7 +377,7 @@ body >header {
   width: 100%;
   -webkit-box-shadow: 2px 4px 5px rgba(3,3,3,0.2);
   box-shadow: 2px 4px 5px rgba(3,3,3,0.2);
-  background: url("../") center #800080;
+  background: url("../img/banner.jpg") center #800080;
   color: color-black;
   padding: 1em 0 0.8em;
 }
@@ -625,7 +625,7 @@ header nav ul li a:hover {
   border-left: 0.5em solid #800080;
 }
 #main section.post a h1 {
-  color: #ea6753;
+  color: #2ca6cb;
   line-height: 2;
 }
 #main section.post a p {
@@ -704,7 +704,7 @@ header nav ul li a:hover {
   padding: 0.5em 1em;
 }
 #page-nav a {
-  color: #ea6753;
+  color: #2ca6cb;
 }
 #page-nav a:hover {
   background: #ccc;
@@ -749,7 +749,7 @@ header nav ul li a:hover {
   font-weight: bold;
 }
 #page-nav .space {
-  color: #ea6753;
+  color: #2ca6cb;
 }
 /* page layout */
 @media only screen and (min-width: 1024px) {
@@ -793,11 +793,11 @@ header nav ul li a:hover {
 }
 .archive-title h2 {
   width: 90%;
-  color: #ea6753;
+  color: #2ca6cb;
   font-size: 120%;
 }
 .archive-title a {
-  color: #ea6753;
+  color: #2ca6cb;
   -webkit-transition: color 0.5s;
   -moz-transition: color 0.5s;
   -o-transition: color 0.5s;
@@ -813,7 +813,7 @@ header nav ul li a:hover {
   transition: color 0.5s;
 }
 .current {
-  color: #ea6753 !important;
+  color: #2ca6cb !important;
 }
 @media only screen and (min-width: 768px) {
   .archive-part {
@@ -1954,8 +1954,8 @@ footer {
 }
 #footer .line span {
   display: block;
-  width: 0.5em;
-  height: 6.25em;
+  width: 0.4em;
+  height: 3.5em;
   border-right: 0.125em solid #fff;
   margin: 0 auto;
 }
@@ -2106,10 +2106,10 @@ footer {
   }
 }
 .copyright a {
-  color: color-green;
+  color: #2ca6cb;
 }
 .copyright a:hover {
-  color: color-green;
+  color: #2ca6cb;
   text-decoration: underline;
 }
 .cc-license {
