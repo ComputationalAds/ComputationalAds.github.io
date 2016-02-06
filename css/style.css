@@ -377,8 +377,8 @@ body >header {
   width: 100%;
   -webkit-box-shadow: 2px 4px 5px rgba(3,3,3,0.2);
   box-shadow: 2px 4px 5px rgba(3,3,3,0.2);
-  background: url("../") center #4b0082;
-  color: color-purple;
+  background: url("../") center #800080;
+  color: color-black;
   padding: 1em 0 0.8em;
 }
 @media only screen and (min-width: 1024px) {
@@ -399,7 +399,7 @@ body >header >div {
 }
 body >header a {
   display: block;
-  color: color-purple;
+  color: #fff;
 }
 #imglogo {
   float: left;
@@ -442,12 +442,12 @@ body >header a {
   font-weight: normal;
 }
 @media only screen and (min-width: 768px) {
-  #textlogo color color-purple {
+  #textlogo color color-black {
     font-size: 190%;
   }
 }
 @media only screen and (min-width: 1024px) {
-  #textlogo color color-purple {
+  #textlogo color color-black {
     font-size: 220%;
   }
 }
@@ -530,7 +530,7 @@ header nav ul li a {
   }
 }
 header nav ul li a:hover {
-  background: #390067;
+  background: #650065;
   color: #e9cd4c;
 }
 .shownav {
@@ -543,8 +543,8 @@ header nav ul li a:hover {
   -webkit-appearance: textfield;
   font-size: 0.87em;
   line-height: 1.7;
-  border: 1px solid color-black;
-  color: color-black;
+  border: 1px solid #fff;
+  color: #fff;
   background: transparent;
   width: 80%;
   padding-left: 0.5em;
@@ -622,10 +622,10 @@ header nav ul li a:hover {
   }
 }
 #main section.post a:hover {
-  border-left: 0.5em solid #4b0082;
+  border-left: 0.5em solid #800080;
 }
 #main section.post a h1 {
-  color: #2ca6cb;
+  color: #ea6753;
   line-height: 2;
 }
 #main section.post a p {
@@ -672,7 +672,7 @@ header nav ul li a:hover {
   text-decoration: none;
 }
 #main article.post-expand .article-more-link a:hover {
-  background: #4b0082;
+  background: #800080;
   color: #fff;
   text-decoration: none;
 }
@@ -692,7 +692,7 @@ header nav ul li a:hover {
   border-left: 0.5em solid #ccc;
 }
 .unexpand .prev:hover {
-  border-left: 0.5em solid #4b0082;
+  border-left: 0.5em solid #800080;
 }
 #page-nav {
   background: #fafafa;
@@ -704,11 +704,11 @@ header nav ul li a:hover {
   padding: 0.5em 1em;
 }
 #page-nav a {
-  color: #2ca6cb;
+  color: #ea6753;
 }
 #page-nav a:hover {
   background: #ccc;
-  color: #4b0082;
+  color: #800080;
 }
 #page-nav .prev {
   float: left;
@@ -749,7 +749,7 @@ header nav ul li a:hover {
   font-weight: bold;
 }
 #page-nav .space {
-  color: #2ca6cb;
+  color: #ea6753;
 }
 /* page layout */
 @media only screen and (min-width: 1024px) {
@@ -793,11 +793,11 @@ header nav ul li a:hover {
 }
 .archive-title h2 {
   width: 90%;
-  color: #2ca6cb;
+  color: #ea6753;
   font-size: 120%;
 }
 .archive-title a {
-  color: #2ca6cb;
+  color: #ea6753;
   -webkit-transition: color 0.5s;
   -moz-transition: color 0.5s;
   -o-transition: color 0.5s;
@@ -805,7 +805,7 @@ header nav ul li a:hover {
   transition: color 0.5s;
 }
 .archive-title a:hover {
-  color: #4b0082;
+  color: #800080;
   -webkit-transition: color 0.5s;
   -moz-transition: color 0.5s;
   -o-transition: color 0.5s;
@@ -885,7 +885,7 @@ article header.article-info >h1 {
   word-break: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  border-left: 5px solid #4b0082;
+  border-left: 5px solid #800080;
 }
 @media only screen and (min-width: 1024px) {
   article header.article-info >h1 {
@@ -1001,7 +1001,7 @@ article .article-content abbr {
   border-bottom: 1px dotted;
 }
 article .article-content blockquote {
-  border-left: 0.2em solid #4b0082;
+  border-left: 0.2em solid #800080;
   margin: 0.65em 0 0.65em 1%;
   padding-left: 1%;
   line-height: 1.5;
@@ -1606,7 +1606,7 @@ section.comment {
   transition: color 1s ease-out;
 }
 #toc.toc-aside a:hover {
-  color: #4b0082;
+  color: #800080;
   -webkit-transition: color 0.3s ease-out;
   -moz-transition: color 0.3s ease-out;
   -o-transition: color 0.3s ease-out;
@@ -1614,7 +1614,7 @@ section.comment {
   transition: color 0.3s ease-out;
 }
 .active {
-  color: #4b0082 !important;
+  color: #800080 !important;
 }
 .openaside {
   display: none;
@@ -1628,7 +1628,7 @@ section.comment {
   border: 1px solid #fff;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  background: #4b0082;
+  background: #800080;
   padding: 0.2em 0.55em;
 }
 .openaside a::before {
@@ -1641,7 +1641,7 @@ section.comment {
   display: none;
 }
 .closeaside a {
-  color: #4b0082;
+  color: #800080;
 }
 .closeaside a:hover {
   color: #2ca6cb;
@@ -1683,7 +1683,7 @@ section.comment {
   color: #2ca6cb;
 }
 .asidetitle a:hover {
-  color: #4b0082;
+  color: #800080;
   -webkit-transition: color 0.5s;
   -moz-transition: color 0.5s;
   -o-transition: color 0.5s;
@@ -1712,7 +1712,7 @@ section.comment {
   padding: 0.5em 5%;
 }
 .categorieslist li a:hover {
-  color: #4b0082;
+  color: #800080;
 }
 .tagslist {
   margin: 1em 0 0;
@@ -1744,11 +1744,11 @@ section.comment {
   background: #dbdbdb;
 }
 .tagslist ul li a:hover {
-  color: #4b0082;
+  color: #800080;
   background: #e6e6e6;
 }
 .rsspart {
-  background: #4b0082;
+  background: #800080;
   width: 100%;
 }
 @media only screen and (min-width: 768px) {
@@ -1772,7 +1772,7 @@ section.comment {
   text-align: center;
 }
 .rsspart a:hover {
-  color: #4b0082;
+  color: #800080;
   background: #fafafa;
 }
 .rsspart a::before {
@@ -1800,7 +1800,7 @@ section.comment {
   padding: 0.5em;
 }
 .archiveslist li a:hover {
-  color: #4b0082;
+  color: #800080;
   -webkit-transition: color 0.25s;
   -moz-transition: color 0.25s;
   -o-transition: color 0.25s;
@@ -1848,7 +1848,7 @@ section.comment {
   float: left;
 }
 .tagcloudlist .tagcloudlist a:hover {
-  color: #4b0082;
+  color: #800080;
   -webkit-transition: color 0.25s;
   -moz-transition: color 0.25s;
   -o-transition: color 0.25s;
@@ -1882,7 +1882,7 @@ section.comment {
   padding: 0 3%;
 }
 .linkslist ul a:hover {
-  color: #4b0082;
+  color: #800080;
   -webkit-transition: color 0.25s;
   -moz-transition: color 0.25s;
   -o-transition: color 0.25s;
@@ -1942,7 +1942,7 @@ footer {
 }
 #footer .line {
   width: 100%;
-  height: 14em;
+  height: 10em;
   margin: 0 auto;
 }
 @media only screen and (min-width: 768px) {
@@ -1998,7 +1998,7 @@ footer {
 }
 .info {
   font-family: "Helvetica Neue", "Helvetica", "Microsoft YaHei", "WenQuanYi Micro Hei", Arial, sans-serif;
-  line-height: 1.65;
+  line-height: 1.7;
   width: 90%;
   margin: 0 auto;
   color: #fff;
@@ -2106,10 +2106,10 @@ footer {
   }
 }
 .copyright a {
-  color: #2ca6cb;
+  color: color-green;
 }
 .copyright a:hover {
-  color: #2ca6cb;
+  color: color-green;
   text-decoration: underline;
 }
 .cc-license {
@@ -2268,7 +2268,7 @@ footer {
   font-weight: normal;
 }
 .article-content .gist .gist-file .gist-meta a:hover {
-  color: #4b0082;
+  color: #800080;
 }
 pre .comment,
 pre .title {
