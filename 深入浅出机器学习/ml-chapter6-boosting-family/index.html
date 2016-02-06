@@ -4,34 +4,70 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>计算广告与机器学习</title>
+    <title>第06章：深入浅出ML之Boosting家族 | 计算广告与机器学习</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="ZhouYong">
     
 
     
-    <meta name="description" content="title: “第06章：深入浅出ML之Boosting家族”mathjax: truedate: 2015-11-22 22:42:16categories:  深入浅出机器学习tags: boosting, adaboost, gradient boosting, BGDT, xgboost
+    <meta name="description" content="author: zhouyongsdzh@foxmail.com
+date: 2015-11-12
+weibo: @周永_52ML
 
-author: zhouyongsdzh@foxmail.com
-date: 2015-11-12">
+内容列表
+6.0. 写在前面
+6.1. Boosting
+6.1.1. Boosting介绍
+6.1.2. 前向分步加法模型
+6.1.3. Boosting四大家族
+
+
+6.2. AdaBoost
+6.2.1. 算法学习过程 
+6.2.2. 算法实例
+6.2.2.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="计算广告与机器学习">
-<meta property="og:url" content="http://www.52caml.com/其它/ml-chapter6-boosting-family/index.html">
+<meta property="og:title" content="第06章：深入浅出ML之Boosting家族">
+<meta property="og:url" content="http://www.52caml.com/深入浅出机器学习/ml-chapter6-boosting-family/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
-<meta property="og:description" content="title: “第06章：深入浅出ML之Boosting家族”mathjax: truedate: 2015-11-22 22:42:16categories:  深入浅出机器学习tags: boosting, adaboost, gradient boosting, BGDT, xgboost
+<meta property="og:description" content="author: zhouyongsdzh@foxmail.com
+date: 2015-11-12
+weibo: @周永_52ML
 
-author: zhouyongsdzh@foxmail.com
-date: 2015-11-12">
+内容列表
+6.0. 写在前面
+6.1. Boosting
+6.1.1. Boosting介绍
+6.1.2. 前向分步加法模型
+6.1.3. Boosting四大家族
+
+
+6.2. AdaBoost
+6.2.1. 算法学习过程 
+6.2.2. 算法实例
+6.2.2.">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_0_0_adboost_binary_classification_1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_0_0_adboost_binary_classification_2.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_1_1_loss_function_graph.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="计算广告与机器学习">
-<meta name="twitter:description" content="title: “第06章：深入浅出ML之Boosting家族”mathjax: truedate: 2015-11-22 22:42:16categories:  深入浅出机器学习tags: boosting, adaboost, gradient boosting, BGDT, xgboost
+<meta name="twitter:title" content="第06章：深入浅出ML之Boosting家族">
+<meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
+date: 2015-11-12
+weibo: @周永_52ML
 
-author: zhouyongsdzh@foxmail.com
-date: 2015-11-12">
+内容列表
+6.0. 写在前面
+6.1. Boosting
+6.1.1. Boosting介绍
+6.1.2. 前向分步加法模型
+6.1.3. Boosting四大家族
+
+
+6.2. AdaBoost
+6.2.1. 算法学习过程 
+6.2.2. 算法实例
+6.2.2.">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -91,14 +127,14 @@ date: 2015-11-12">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/其它/ml-chapter6-boosting-family/" title="" itemprop="url"></a>
+      <a href="/深入浅出机器学习/ml-chapter6-boosting-family/" title="第06章：深入浅出ML之Boosting家族" itemprop="url">第06章：深入浅出ML之Boosting家族</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-06T15:42:32.000Z" itemprop="datePublished"> 发表于 2016-02-06</time>
+    <time datetime="2015-11-22T14:42:16.000Z" itemprop="datePublished"> 发表于 2015-11-22</time>
     
   </p>
 </header>
@@ -111,8 +147,7 @@ date: 2015-11-12">
 		
 		</div>
 		
-		<p>title: “第06章：深入浅出ML之Boosting家族”<br>mathjax: true<br>date: 2015-11-22 22:42:16<br>categories:  深入浅出机器学习<br>tags: boosting, adaboost, gradient boosting, BGDT, xgboost</p>
-<ul>
+		<ul>
 <li>author: zhouyongsdzh@foxmail.com</li>
 <li>date: 2015-11-12</li>
 <li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
@@ -540,6 +575,16 @@ date: 2015-11-12">
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/深入浅出机器学习/">深入浅出机器学习</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/boosting-adaboost-gradient-boosting-BGDT-xgboost/">boosting, adaboost, gradient boosting, BGDT, xgboost</a>
+  </div>
 
 </div>
 
@@ -547,7 +592,7 @@ date: 2015-11-12">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/其它/ml-chapter6-boosting-family/" data-title="计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/深入浅出机器学习/ml-chapter6-boosting-family/" data-title="第06章：深入浅出ML之Boosting家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -560,11 +605,19 @@ date: 2015-11-12">
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/其它/hello-world/" title="测试Hexo功能">
+  <strong>上一篇：</strong><br/>
+  <span>
+  测试Hexo功能</span>
+</a>
+</div>
+
 
 <div class="next">
-<a href="/深入浅出机器学习/ml-chapter1-regression-family/"  title="第01章：深入浅出ML之Regression家族">
+<a href="/概率与统计/beta-gamma-dirichlet-function/"  title="概率与统计-chapter0-三个重要函数">
  <strong>下一篇：</strong><br/> 
- <span>第01章：深入浅出ML之Regression家族
+ <span>概率与统计-chapter0-三个重要函数
 </span>
 </a>
 </div>
@@ -597,7 +650,7 @@ date: 2015-11-12">
 		  
 		
 		  
-			<li><a href="/categories/深入浅出机器学习/" title="深入浅出机器学习">深入浅出机器学习<sup>1</sup></a></li>
+			<li><a href="/categories/深入浅出机器学习/" title="深入浅出机器学习">深入浅出机器学习<sup>2</sup></a></li>
 		  
 		
 		  
@@ -619,6 +672,10 @@ date: 2015-11-12">
 		
 			
 				<li><a href="/tags/连续随机变量/" title="连续随机变量">连续随机变量<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/boosting-adaboost-gradient-boosting-BGDT-xgboost/" title="boosting, adaboost, gradient boosting, BGDT, xgboost">boosting, adaboost, gradient boosting, BGDT, xgboost<sup>1</sup></a></li>
 			
 		
 			
