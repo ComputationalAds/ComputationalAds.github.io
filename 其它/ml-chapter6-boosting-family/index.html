@@ -1,0 +1,868 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>计算广告与机器学习</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ZhouYong">
+    
+
+    
+    <meta name="description" content="title: “第06章：深入浅出ML之Boosting家族”mathjax: truedate: 2015-11-22 22:42:16categories:  深入浅出机器学习tags: boosting, adaboost, gradient boosting, BGDT, xgboost
+
+author: zhouyongsdzh@foxmail.com
+date: 2015-11-12">
+<meta property="og:type" content="website">
+<meta property="og:title" content="计算广告与机器学习">
+<meta property="og:url" content="http://www.52caml.com/其它/ml-chapter6-boosting-family/index.html">
+<meta property="og:site_name" content="计算广告与机器学习">
+<meta property="og:description" content="title: “第06章：深入浅出ML之Boosting家族”mathjax: truedate: 2015-11-22 22:42:16categories:  深入浅出机器学习tags: boosting, adaboost, gradient boosting, BGDT, xgboost
+
+author: zhouyongsdzh@foxmail.com
+date: 2015-11-12">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_0_0_adboost_binary_classification_1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_0_0_adboost_binary_classification_2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_1_1_loss_function_graph.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算广告与机器学习">
+<meta name="twitter:description" content="title: “第06章：深入浅出ML之Boosting家族”mathjax: truedate: 2015-11-22 22:42:16categories:  深入浅出机器学习tags: boosting, adaboost, gradient boosting, BGDT, xgboost
+
+author: zhouyongsdzh@foxmail.com
+date: 2015-11-12">
+
+    
+    <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="计算广告与机器学习" title="计算广告与机器学习"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="计算广告与机器学习">计算广告与机器学习</a></h1>
+				<h2 class="blog-motto">Computational Advertising and Machine Learning</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/home">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.52caml.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/其它/ml-chapter6-boosting-family/" title="" itemprop="url"></a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-06T15:42:32.000Z" itemprop="datePublished"> 发表于 2016-02-06</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#内容列表"><span class="toc-number">1.</span> <span class="toc-text">内容列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-0-_写在前面"><span class="toc-number">2.</span> <span class="toc-text">6.0. 写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-_Boosting"><span class="toc-number">3.</span> <span class="toc-text">6.1. Boosting</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-1-_Boosting介绍"><span class="toc-number">3.1.</span> <span class="toc-text">6.1.1. Boosting介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-2-_前向分步加法模型（Forward_Stagewise_Additive_Modeling）"><span class="toc-number">3.2.</span> <span class="toc-text">6.1.2. 前向分步加法模型（Forward Stagewise Additive Modeling）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-3-_Boosting四大家族"><span class="toc-number">3.3.</span> <span class="toc-text">6.1.3. Boosting四大家族</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-_Adaboost"><span class="toc-number">4.</span> <span class="toc-text">6.2. Adaboost</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-1-_算法学习过程"><span class="toc-number">4.1.</span> <span class="toc-text">6.2.1. 算法学习过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-2-_实例：AdaBoost算法"><span class="toc-number">4.2.</span> <span class="toc-text">6.2.2. 实例：AdaBoost算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-3-_训练误差分析"><span class="toc-number">4.3.</span> <span class="toc-text">6.2.3. 训练误差分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-4-_前向分步加法模型与Adaboost"><span class="toc-number">4.4.</span> <span class="toc-text">6.2.4. 前向分步加法模型与Adaboost</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-_Boosted_Decision_Tree（_提升决策树）"><span class="toc-number">5.</span> <span class="toc-text">6.4. Boosted Decision Tree（ 提升决策树）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-1-_提升树模型"><span class="toc-number">5.1.</span> <span class="toc-text">6.4.1. 提升树模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-2_提升树算法"><span class="toc-number">5.2.</span> <span class="toc-text">6.4.2 提升树算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-_Gradient_Boosting（梯度提升法）"><span class="toc-number">6.</span> <span class="toc-text">6.5. Gradient Boosting（梯度提升法）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-6-_Boosting工具"><span class="toc-number">7.</span> <span class="toc-text">6.6. Boosting工具</span></a></li></ol>
+		
+		</div>
+		
+		<p>title: “第06章：深入浅出ML之Boosting家族”<br>mathjax: true<br>date: 2015-11-22 22:42:16<br>categories:  深入浅出机器学习<br>tags: boosting, adaboost, gradient boosting, BGDT, xgboost</p>
+<ul>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 2015-11-12</li>
+<li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
+</ul>
+<h3 id="内容列表">内容列表</h3><ul>
+<li>6.0. 写在前面</li>
+<li>6.1. Boosting<ul>
+<li>6.1.1. Boosting介绍</li>
+<li>6.1.2. 前向分步加法模型</li>
+<li>6.1.3. Boosting四大家族</li>
+</ul>
+</li>
+<li>6.2. AdaBoost<ul>
+<li>6.2.1. 算法学习过程 </li>
+<li>6.2.2. 算法实例</li>
+<li>6.2.2. 训练误差分析</li>
+<li>6.2.3. 前向分步加法模型与AdaBoost</li>
+</ul>
+</li>
+<li>6.3. Boosted Decision Tree</li>
+<li>6.4. Gradient Boosting</li>
+</ul>
+<h3 id="6-0-_写在前面">6.0. 写在前面</h3><p>提升（boosting）方法是一类应用广泛且非常有效的统计学习方法。</p>
+<p>在2006年，Caruana和Niculescu-Mizil等人完成了一项实验，比较当今世界上现成的分类器（off-the-shelf classifiers）中哪个最好？实现结果表明Boosted Decision Tree（提升决策树）不管是在misclassification error还是produce well-calibrated probabilities方面都是最好的分离器，以ROC曲线作为衡量指标。（效果第二好的方法是随机森林）</p>
+<blockquote>
+<p>参见paper：《An Empirical Comparison of Supervised Learning Algorithms》ICML2006.</p>
+</blockquote>
+<p> 下图给出的是Adaboost算法（Decision Stump as Weak Learner）在处理二类分类问题时，随着弱分类器的个数增加，训练误差与测试误差的曲线图。</p>
+<center><br><table><tr><br><td><p style="text-align:left"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_0_0_adboost_binary_classification_1.png" width="250" height="200" alt="损失函数示意图"><br></p></td><br><td><p style="text-align:right"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_0_0_adboost_binary_classification_2.png" width="250" height="200" alt="损失函数示意图"><br></p></td><br></tr></table><br></center>
+
+<p>从图中可以看出，Adaboost算法随着模型复杂度的增加，测试误差（红色点线）基本保持稳定，并没有出现过拟合的现象。</p>
+<p>其实不仅是Adaboost算法有这种表现，Boosting方法的学习思想和模型结构上可以保证其不容易产生过拟合（除非Weak Learner本身出现过拟合）。</p>
+<p>下面我们主要是从损失函数的差异，来介绍Boosting的家族成员；然后我们针对每个具体的家族成员，详细介绍其学习过程和核心公式；最后从算法应用场景和工具方法给出简单的介绍。</p>
+<h3 id="6-1-_Boosting">6.1. Boosting</h3><h4 id="6-1-1-_Boosting介绍">6.1.1. Boosting介绍</h4><ul>
+<li><p>基本思想</p>
+<p>  Boosting方法基于这样一种思想：</p>
+<blockquote>
+<p>对于一个复杂任务来说，将多个专家的判定进行<strong>适当的综合</strong>得出的判断，要比其中任何一个专家单独的判断好。很容易理解，就是”三个臭皮匠顶个诸葛亮”的意思…😄😄😄。</p>
+</blockquote>
+</li>
+<li><p>历史由来</p>
+<p>  历史上，Kearns和Valiant首先提出了”强可学习（strongly learnable）”和“弱可学习（weakly learnable）”的概念。他们指出：</p>
+<blockquote>
+<p><strong>在概率近似正确（probably approximately correct，PAC）学习框架中：</strong><br><br>①. 一个概念（一个类，label），如果存在一个多项式的学习算法能够学习它，<strong>并且正确率很高</strong>，那么就称这个概念是强可学习的；<br><br>②. 一个概念（一个类，label），如果存在一个多项式的学习算法能够学习它，<strong>学习的正确率仅比随机猜测略好</strong>，那么就称这个概念是弱可学习的。</p>
+<p>Schapire后来证明了: <strong>强可学习和弱可学习是等价的。</strong> 也就是说，<strong>在PAC学习的框架下，一个概念是强可学习的 充分必要条件 是这个概念是弱可学习的。</strong> 表示如下：</p>
+<p>  $$<br>  强可学习 \Leftrightarrow 弱可学习<br>  $$</p>
+</blockquote>
+<p>  如此一来，问题便成为：在学习中，如果已经发现了”弱学习算法”，那么能否将它提升为”强学习算法”？ 通常的，发现弱学习算法通常要比发现强学习算法容易得多。那么如何具体实施提升，便成为开发提升方法时所要解决的问题。关于提升方法的研究很多，最具代表性的当数AdaBoost算法（是1995年由Freund和Schapire提出的）。</p>
+</li>
+<li><p>Boosting学习思路</p>
+<p>  对于一个学习问题来说（以分类问题为例），给定训练数据集，求一个弱学习算法要比求一个强学习算法要容易的多。Boosting方法就是从弱学习算法出发，反复学习，得到一系列弱分类器，然后组合弱分类器，得到一个强分类器。Boosting方法在学习过程中通过改变训练数据的权值分布，针对不同的数据分布调用弱学习算法得到一系列弱分类器。</p>
+<p>  这里面有两个问题需要回答：</p>
+<ol>
+<li>在每一轮学习之前，如何改变训练数据的权值分布？</li>
+<li><p>如何将一组弱分类器组合成一个强分类器？</p>
+<blockquote>
+<p>具体不同的boosting实现，主要区别在弱学习算法本身和上面两个问题的回答上。</p>
+</blockquote>
+<p>针对第一个问题，Adaboost算法的做法是：    </p>
+<p>|<strong>提高那些被前一轮弱分类器错误分类样本的权值，而降低那些被正确分类样本的权值</strong>|<br>| —- |</p>
+<blockquote>
+<p>如此，那些没有得到正确分类的样本，由于其权值加大而受到后一轮的弱分类器的更大关注。</p>
+</blockquote>
+<p>第二个问题，弱分类器的组合，AdaBoost采取<strong>加权多数表决</strong>的方法。具体地：</p>
+<p>| <strong>加大 分类误差率小 的弱分类器的权值，使其在表决中起较大的作用；减小分类误差率大的弱分类器的权值，使其在表决中起较小的作用</strong>|<br>| —- |</p>
+<p>AdaBoost算法的巧妙之处就在于它将这些学习思路自然并且有效地在一个算法里面实现。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="6-1-2-_前向分步加法模型（Forward_Stagewise_Additive_Modeling）">6.1.2. 前向分步加法模型（Forward Stagewise Additive Modeling）</h4><ul>
+<li><p>加法模型</p>
+<p>  考虑加法模型（addtive model）</p>
+<p>  $$<br>  f(x) = \sum_{k=1}^{K} \beta_k \cdot b(x; \gamma_k) \qquad(ml.1.6.11)<br>  $$ </p>
+<p>  其中，\(b(x; \gamma_k)\) 为基函数，\(\gamma_k\)为基函数的参数，\(\beta_k\)为基函数的系数。显然，公式\((ml.1.6.6)\)是一个加法模型。</p>
+</li>
+<li><p>前向分步算法</p>
+<p>  在给定训练数据及损失函数\(L(y,f(x))\)的条件下，学习加法模型\(f(x)\)成为经验风险极小化即损失函数极小化的问题：</p>
+<p>  $$<br>  \min<em>{\beta_k, \gamma_k} \quad \sum</em>{i=1}^{M} L \left[y^{(i)}, \sum_{k=1}^{K} \beta_k b(x^{(i)}; \gamma_k)\right] \qquad(ml.1.6.12)<br>  $$</p>
+<p>  通常这是一个复杂的优化问题。前向分布算法（forward stagwise algorithm）求解这一优化问题的思路是：<strong>因为学习的是加法模型，如果能够从前向后，每一步只学习一个基函数及其系数，逐步逼近优化目标函数式\((ml.1.6.11)\)，那么就可以简化优化的复杂度</strong>。具体地，每步只需优化如下损失函数：</p>
+<p>  &gt;<br>  $$<br>  \min<em>{\beta, \gamma} \quad \sum</em>{i=1}^{M} L(y^{(i)}, \beta b(x^{(i)}; \gamma)) \qquad(n.ml.1.6.7)<br>  $$</p>
+<p>  给定训练数据集\(D={(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \cdots, (x^{(M)}, y^{(M)})}, x^{(i)} \in \mathcal{X} \subseteq R^n, y^{(i)} \in \mathcal{Y} = \)\({-1, +1}\)。损失函数\(L(y, f(x))\)和基函数的集合\({b(x; \gamma)}\)，学习加法模型\(f(x)\)的前向分步算法如下：</p>
+<blockquote>
+<p>\(<br>  { \<br>  \quad 输入：训练数据集D={(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \cdots, (x^{(M)}, y^{(M)})}; 损失函数L(y, f(x));\<br>  \qquad\quad  基函数集{b(x, \gamma)}； \<br>  \quad 输出：加法模型f(x)。 \<br>  \quad 计算过程：\<br>  \qquad (1). 初始化f<em>0(x) = 0 \<br>  \qquad (2). 对于k=1,2,\cdots,K \<br>  \qquad\qquad (a). 极小化损失函数 \<br>  \qquad\qquad\qquad (\beta_k, \gamma_k) = \arg \min</em>{\beta, \gamma} \sum<em>{i=1}^{M} L(y^{(i)}, f</em>{k-1}(x^{(i)}) + \beta b(x; \gamma)) \quad(n.ml.1.6.8)\<br>  \qquad\qquad 得到参数\beta<em>k, \gamma_k. \<br>  \qquad\qquad (b). 更新 \<br>  \qquad\qquad\qquad f_k(x) = f</em>{k-1}(x) + \beta<em>k b(x; \gamma_k) \qquad(n.ml.1.6.9) \<br>  \qquad (3). 得到加法模型 \<br>  \qquad\qquad\qquad f(x) = f_K(x) = \sum</em>{k=1}^{K} \beta_k b(x; \gamma_k) \qquad(n.ml.1.6.10) \<br>  }<br>  \)</p>
+</blockquote>
+<p>  这样前向分步算法将<strong>同时求解</strong>从\(k=1\)到\(K\)的所有参数\(\beta_k, \gamma_k\)的优化问题简化为<strong>逐次求解</strong>各个\(\beta_k, \gamma_k\)的优化问题。</p>
+</li>
+</ul>
+<h4 id="6-1-3-_Boosting四大家族">6.1.3. Boosting四大家族</h4><p>Boosting并非是一个方法，而是一类方法。这里按照损失函数的不同，将其细分为若干类算法，下表给出了4种不同损失函数对应的Boosting方法：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称(Name)</th>
+<th style="text-align:center">损失函数(Loss)</th>
+<th style="text-align:center">导数(Derivative)</th>
+<th style="text-align:center">目标函数\(f^*\)</th>
+<th style="text-align:center">算法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">平方损失<br>(Squared Error)</td>
+<td style="text-align:center">\(\frac{1}{2} (y^{(i)} - f(x^{(i)}))^2\)</td>
+<td style="text-align:center">\(y^{(i)} - f(x^{(i)})\)</td>
+<td style="text-align:center">\(E[y \vert x^{(i)}]\)</td>
+<td style="text-align:center">L2Boosting</td>
+</tr>
+<tr>
+<td style="text-align:center">绝对损失<br>(Absolute Error)</td>
+<td style="text-align:center">\(\vert y^{(i)} - f(x^{(i)}) \vert\)</td>
+<td style="text-align:center">\(sign(y^{(i)} - f(x^{(i)})\)</td>
+<td style="text-align:center">\(median(y \vert x^{(i)})\)</td>
+<td style="text-align:center">Gradient Boosting</td>
+</tr>
+<tr>
+<td style="text-align:center">指数损失<br>(Exponentail Loss)</td>
+<td style="text-align:center">\(\exp(- \tilde {y^{(i)}} f(x^{(i)}))\)</td>
+<td style="text-align:center">\(- \tilde {y^{(i)}} exp(-\tilde {y^{(i)}} f(x^{(i)}))\)</td>
+<td style="text-align:center">\(\frac{1}{2} \log \frac{\pi_i}{1 - \pi_i}\)</td>
+<td style="text-align:center">AdaBoost</td>
+</tr>
+<tr>
+<td style="text-align:center">对数损失<br>(LogLoss)</td>
+<td style="text-align:center">\(\log (1+e^{- \tilde{y^{(i)}} f_i})\)</td>
+<td style="text-align:center">\(y^{(i)} - \pi_i\)</td>
+<td style="text-align:center">\(\frac{1}{2} \log \frac{\pi_i}{1 - \pi_i}\)</td>
+<td style="text-align:center">LogitBoost</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>说明：</p>
+<p>该表来自于<a href="">Machine Learning: A Probabilistic Perspective</a>P587页</p>
+<p><strong>L2Boosting全称：Least Squares Boosting；该算法由Buhlmann和Yu在2003年提出。</strong></p>
+</blockquote>
+<p>二分类问题时损失函数示意图：</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_1_1_loss_function_graph.png" width="300" height="250" alt="损失函数示意图"></p>
+<p>下面主要以AdaBoost算法作为示例，给出以下3个问题的解释：</p>
+<ul>
+<li>AdaBoost为什么能够提升学习精度？</li>
+<li>如何解释AdaBoost算法？</li>
+<li>Boosting方法更具体的实例－Boosting Tree。</li>
+</ul>
+<pre><code>下面首先介绍Adaboost算法。
+</code></pre><h3 id="6-2-_Adaboost">6.2. Adaboost</h3><h4 id="6-2-1-_算法学习过程">6.2.1. 算法学习过程</h4><p>Adaboost算法在分类问题中的主要特点：<strong>通过改变训练样本的权重，学习多个分类器，并将这些分类器进行线性组合，提高分类性能。</strong> AdaBoost－算法描述（伪代码）如下：</p>
+<p>\(<br>    \begin{align}<br>    &amp;{ \<br>    &amp;\quad 输入：训练数据集D={(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \cdots, (x^{(M)},y^{(M)})}，x^{(i)} \in \mathcal{X} \subseteq R^N，\<br>    &amp;\qquad\qquad y^{(i)} \in \mathcal{Y} = {-1, +1}, 弱分类器; \<br>    &amp;\quad 输出：最终分类器G(x). \<br>    &amp;\quad 过程：\<br>    &amp;\qquad (1). 初始化训练数据的权值分布 \<br>    &amp;\qquad\qquad\qquad D<em>1=(w</em>{11}, w<em>{12}, \cdots, w</em>{1M}), \quad w<em>{1i}=\frac{1}{M}, \; i=1,2,\cdots,M \quad(6.1)\<br>    &amp;\qquad (2). 训练K个弱分类器 k=1,2,\cdots,K \<br>    &amp;\qquad\qquad (a). 使用具有权值分布D_k的训练数据集学习，得到基本分类器 \<br>    &amp;\qquad\qquad\qquad\qquad G_k(x): \mathcal{X} \rightarrow {-1, +1} \qquad\qquad(ml.1.6.1)\<br>    &amp;\qquad\qquad (b). 计算G_k(x)在训练数据集上的分类误差率 \<br>    &amp;\qquad\qquad\qquad\qquad e_k = P(G_k(x^{(i)}) \not= y^{(i)}) = \sum</em>{i=1}^{M} w<em>{ki} I(G_k(x^{(i)}) \not= y^{(i)}) \qquad(ml.1.6.2)\<br>    &amp;\qquad\qquad (c). 计算G_k(x)的系数 \<br>    &amp;\qquad\qquad\qquad\qquad \alpha_k = \frac{1}{2} \log \frac{1-e_k}{e_k} \quad(e是自然对数) \qquad(ml.1.6.3)\<br>    &amp;\qquad\qquad (d). 更新训练数据集的权值分布 \<br>    &amp;\qquad\qquad\qquad\qquad D</em>{k+1} = (w<em>{k+1,1}, w</em>{k+1,2}, \cdots, w<em>{k+1,M})\<br>    &amp;\qquad\qquad\qquad\qquad w</em>{k+1,i} = \frac{w<em>{k,i}}{Z_k} \exp(-\alpha_k y^{(i)} G_k(x^{(i)})), \quad i=1,2,\cdots,M \quad(ml.1.6.4)\<br>    &amp;\qquad\qquad\qquad Z_k是规范化因子 \<br>    &amp;\qquad\qquad\qquad\qquad Z_k = \sum</em>{i=1}^{M} w<em>{k,i} \cdot \exp(-\alpha_k y^{(i)} G_k(x^{(i)})) \qquad(ml.1.6.5)\<br>    &amp;\qquad\qquad\qquad 使D</em>{k+1}成为一个概率分布。\<br>    &amp;\qquad (3). 构建基本分类器的线性组合 \<br>    &amp;\qquad\qquad\qquad f(x) = \sum<em>{k=1}^{K} \alpha_k G_k(x) \qquad(ml.1.6.6)\<br>    &amp;\qquad 得到最终的分类器 \<br>    &amp;\qquad\qquad G(x) = sign (f(x)) = sign \left(\sum</em>{k=1}^{K} \alpha_k G_k(x) \right) \qquad(ml.1.6.7)\<br>    &amp;}<br>    \end{align}<br>    \)</p>
+<ul>
+<li><p>AdaBoost算法描述说明</p>
+<ul>
+<li><p>步骤（1）假设训练数据集具有均匀（相同）的权值分布，即每个训练样本在基本分类器的学习中作用相同。</p>
+<blockquote>
+<p>这一假设保证，第一步能在原始数据上学习基本分类器\(G_1(x)\)。</p>
+</blockquote>
+</li>
+<li><p>步骤（2）AdaBoost反复学习基本分类器，在每一轮\(k=1,2,\cdots,K\)顺序地执行下列操作：</p>
+<ul>
+<li>（a）学习基本分类器：使用当前分布\(D_k\)加权的训练数据集，学习基本分类器\(G_k(x)\)；</li>
+<li><p>（b）误差率：计算基本分类器\(G_k(x)\)在加权训练数据集上的分类误差率</p>
+<blockquote>
+<p>$$<br>  e<em>k = P(G_k(x^{(i)}) \not= y^{(i)}) = \sum</em>{G<em>k(x^{(i)}) \not= y^{(i)}} w</em>{ki} \qquad(n.ml.1.6.1)<br>  $$</p>
+</blockquote>
+<p>  这里，\(w<em>{ki}\)表示第\(k\)轮中第\(i\)个样本的权值，\(\sum</em>{i=1}^{M} w_{ki} = 1\)。</p>
+<blockquote>
+<p>这表明，\(G_k(x)\)在加权的训练数据集上的分类误差率 是 被\(G_k(x)\)误分类样本的权值之和。由此可以看出数据权值分布\(D_k\)与基本分类器\(G_k(x)\)的分类误差率的关系。</p>
+</blockquote>
+</li>
+<li><p>（c）分类器权重：计算基本分类器\(G_k(x)\)的系数\(\alpha_k\)，\(\alpha_k\)表示\(G_k(x)\)在最终分类器中的重要性</p>
+<blockquote>
+<p>根据(ml.1.6.3)中公式可知，当\(e_k \le 0.5\)时，\(\alpha_k \ge 0\)，并且\(\alpha_k\)随着\(e_k\)的减小而增大，所以分类误差率越小的基本分类器在最终分类器中的作用越大。</p>
+</blockquote>
+</li>
+<li><p>（d）更新训练数据的权值分布，为下一轮做准备，公式\((ml.1.6.4)\)可以写成：</p>
+<blockquote>
+<p>$$<br>  w<em>{k+1, i} =<br>  \begin{cases}<br>  \frac{w</em>{ki}} {Z<em>k} e^{-\alpha_k}, &amp;\quad G_k(x^{(i)}) = y^{(i)} \<br>  \frac{w</em>{ki}} {Z_k} e^{\alpha_k}, &amp;\quad G_k(x^{(i)}) \not= y^{(i)}<br>  \end{cases} \qquad(n.ml.1.6.2)<br>  $$</p>
+<p>由此可知，被基本分类器\(G_k(x)\)误分类样本的权值得以扩大，而被正确分类样本的权值却得以缩小。相比较来说，误分类样本的权值被放大\(e^{2\alpha_k} = \frac{e_k}{1-e_k}\)倍。因此，误分类样本在下一轮学习中起更大的作用。</p>
+</blockquote>
+<p>|不改变所给的训练数据，而不断改变训练数据权值的分布，使得训练数据在基本分类器中起不同的作用，这也是AdaBoost的一个特点。|<br>|—-|</p>
+</li>
+</ul>
+</li>
+<li><p>步骤（3）线性组合\(f(x)\)实现\(K\)个基本分类器的加权表决。系数\(\alpha_k\)表示了极本分类器\(G_k(x)\)的重要性。</p>
+<blockquote>
+<p> 注意：在这里所有\(\alpha_k\)之和并不为1。\(f(x)\)的符号决定实例\(x\)的类别，\(f(x)\)的绝对值表示分类的精确度。</p>
+</blockquote>
+<p>  |利用基本分类器的线性组合构建最终分类器是AdaBoost的另一个特点。|<br>  |—-|</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-2-2-_实例：AdaBoost算法">6.2.2. 实例：AdaBoost算法</h4><ul>
+<li><p>AdaBoost例子</p>
+<blockquote>
+<p>给定下表所示训练数据。</p>
+<p>  |序号| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |<br>  |—-| —- | —- |—- |—-|—-|—-|—-|—-|—-|—-|<br>  | x | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |<br>  | y | 1 | 1 | 1 | -1 | -1 | -1 | 1 | 1 | 1 | -1 |</p>
+<p>假设弱分类器由\(x<v 或="" x="">v\)产生，其阈值\(v\)使该分类器在训练数据集上分类误差率最低。试用AdaBoost算法学习一个强分类器。</v></p>
+<p>解： 首先初始化数据权值分布（均匀分布）：</p>
+<p>  $$<br>  D<em>1 = (w</em>{1,1}, w<em>{1,2}, \cdots, w</em>{1,10}), \quad w_{1,i}=0.1, \;  i=1,2,\cdots,10<br>  $$</p>
+<p>对\(k=1\)，</p>
+<p>(a). 在权值分布为\(D_1\)的训练数据上，阈值\(v\)取2.5时，分类误差率最低，故基本分类器为：</p>
+<p>  $$<br>  G_1(x) =<br>  \begin{cases}<br>  1,&amp; \quad x &lt; 2.5 \<br>  -1, &amp; \quad x &gt; 2.5<br>  \end{cases}<br>  $$</p>
+<p>(b). \(G_1(x)\)在训练数据集上的误差率\(e_1=P(G_1(x^{(i)}) \not= y^{(i)})=0.3\);</p>
+<p>(c). 计算\(G_1(x)\)的系数：\(\alpha_1 = \frac{1}{2} \log \frac{1-e_1}{e_1} = 0.4236\)；</p>
+<p>(d). 更新训练数据的权值分布:</p>
+<p>  $$<br>  \begin{align}<br>  &amp; D<em>2 = (w</em>{2,1}, w<em>{2,2}, \cdots, w</em>{2,10}) \<br>  &amp; w<em>{2,i} = \frac{w</em>{1,i}} {Z_1} \exp(-\alpha_1 y^{(i)} G_1(x^{(i)})), \quad i=1,2,\cdots,10 \<br>  &amp; D_2 = (0.0715, 0.0715, 0.0715, 0.0715, 0.0715, 0.0715, \<br>  &amp;\qquad\;\; 0.1666, 0.1666, 0.1666, 0.0715) \<br>  &amp; f_1(x) = 0.4236 G_1(x)<br>  \end{align}<br>  $$</p>
+<p>分类器\(sign[f_1(x)]\)在训练数据上有3个误分类点。</p>
+<p>对\(k=2\)，</p>
+<p>(a). 在权值分布为\(D_2\)的训练数据上，阈值\(v\)取8.5时，分类误差率最低，基本分类器为：</p>
+<p>  $$<br>  G_2(x) =<br>  \begin{cases}<br>  1,&amp; \quad x &lt; 8.5 \<br>  -1, &amp; \quad x &gt; 8.5<br>  \end{cases}<br>  $$</p>
+<p>(b). \(G_2(x)\)在训练数据集上的误差率\(e_2=0.2143\);</p>
+<p>(c). 计算\(G_2(x)\)的系数：\(\alpha_2 = 0.6496\)；</p>
+<p>(d). 更新训练数据的权值分布:</p>
+<p>  $$<br>  \begin{align}<br>  &amp; D_3=(0.0455, 0.0455, 0.0455, 0.1667, 0.1667, 0.1667, \<br>  &amp;\qquad\;\; 0.1060, 0.1060, 0.1060, 0.0455) \<br>  &amp; f_2(x) = 0.4236 \cdot G_1(x) + 0.6496 \cdot G_2(x)<br>  \end{align}<br>  $$</p>
+<p>分类器\(sign[f_2(x)]\)在训练数据上有3个误分类点。</p>
+<p>对\(k=3\)，</p>
+<p>(a). 在权值分布为\(D_3\)的训练数据上，阈值\(v\)取5.5时，分类误差率最低，基本分类器为：</p>
+<p>  $$<br>  G_3(x) =<br>  \begin{cases}<br>  1,&amp; \quad x &lt; 5.5 \<br>  -1, &amp; \quad x &gt; 5.5<br>  \end{cases}<br>  $$</p>
+<p>(b). \(G_3(x)\)在训练数据集上的误差率\(e_3=0.1820\);</p>
+<p>(c). 计算\(G_3(x)\)的系数：\(\alpha_2 = 0.7514\)；</p>
+<p>(d). 更新训练数据的权值分布:</p>
+<p>  $$<br>  \begin{align}<br>  &amp; D_4=(0.125, 0.125, 0.125, 0.102, 0.102, 0.102, 0.065, 0.065, 0.065, 0.125)<br>  \end{align}<br>  $$</p>
+<p>于是得到模型线性组合</p>
+<p>  $$<br>  f_3(x) = 0.4236 \cdot G_1(x) + 0.6496 \cdot G_2(x) + 0.7514 \cdot G_3(x)<br>  $$</p>
+<p>分类器\(sign[f_3(x)]\)在训练数据上误分类点个数为0。</p>
+<p> 于是最终分类器为：</p>
+<p>  $$<br>  \begin{align}<br>  G(x) &amp;= sign[f_3(x)] \<br>  &amp;= sign[0.4236 \cdot G_1(x) + 0.6496 \cdot G_2(x) + 0.7514 \cdot G_3(x)]<br>  \end{align}<br>  $$</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="6-2-3-_训练误差分析">6.2.3. 训练误差分析</h4><p><strong>AdaBoost算法最基本的性质是它能在学习过程中不断减少训练误差，即在训练数据集上的分类误差率。</strong> 对于这个问题，有个定理可以保证分类误差率在减少－AdaBoost的训练误差界。</p>
+<ul>
+<li><p><strong>定理：AdaBoost训练误差界</strong></p>
+<p>  |AdaBoost训练误差界|<br>  | —- |<br>  | AdaBoost算法最终分类器的训练误差界为：<br>  $$\frac{1}{M} \sum<em>{i=1}^{M} I(G(x^{(i)}) \not= y^{(i)}) \le \frac{1}{M} \sum</em>{i} \exp(-y^{(i)} f(x^{(i)})) = \prod_{k=1}^{K} Z_k \qquad(ml.1.6.8)$$|<br>  | 其中，\(G(x), f(x)\)和\(Z_k\)分别由公式\((ml.1.6.7), (ml.1.6.6), (ml.1.6.5)\)给出。|</p>
+<blockquote>
+<p>证明如下：</p>
+<p>当\(G(x^{(i)}) \not= y^{(i)}\)时，\(y^{(i)} f(x^{(i)}) &lt; 0\)，因而\(\exp(-y^{(i)} f(x^{(i)})) \ge 1\)。由此，可以直接推导出前半部分。</p>
+<p>后半部分的推导要用到\(Z_k\)的定义式\((ml.1.6.5)\)和\((ml.1.6.4)\)的变形:</p>
+<p>  $$<br>  w<em>{k,i} \exp(-\alpha_k y^{(i)} G_k(x^{(i)})) = Z_k w</em>{k+1,i} \qquad(n.ml.1.6.3)<br>  $$</p>
+<p>推导如下：</p>
+<p>  $$<br>  \begin{align}<br>  \frac{1}{M} \sum<em>{i=1}^{M} \exp(-y^{(i)} f(x^{(i)})) &amp;= \underline{ \frac{1}{M} \sum</em>{i=1}^{M} } \exp \left(-\sum<em>{k=1}^{K} \alpha_k y^{(i)} G_k(x^{(i)}) \right) \<br>  &amp;= \underline{ \sum</em>{i=1}^{M} w<em>{1,i} } \prod</em>{k=1}^{K} \exp(-\alpha<em>k y^{(i)} G_k(x^{(i)})) \<br>  &amp;= \sum</em>{i=1}^{M} w<em>{1,i} \underline{ \exp(-\alpha_1 y^{(i)}) G_k(x^{(i)}) \prod</em>{k=2}^{K} \exp(-\alpha<em>k y^{(i)} G_k(x^{(i)})) } \<br>  &amp;= Z_1 \sum</em>{i=1}^{M} w<em>{2,i} \prod</em>{k=2}^{K} \exp(-\alpha<em>k y^{(i)} G_k(x^{(i)})) \<br>  &amp;= Z_1 Z_2 \sum</em>{i=1}^{M} w<em>{3,i} \prod</em>{k=3}^{K} \exp(-\alpha<em>k y^{(i)} G_k(x^{(i)})) \<br>  &amp;= \cdots \cdots \<br>  &amp;= Z_1 Z_2 \cdots Z</em>{K-1} \sum<em>{i=1}^{M} w</em>{K,i} \exp(-\alpha<em>K y^{(i)} G_K(x^{(i)})) \<br>  &amp;= \prod</em>{k=1}^{K} Z_k<br>  \end{align} \quad(n.ml.1.6.4)<br>  $$</p>
+<p>注意：\(w_{1,i} = \frac{1}{M}\)</p>
+</blockquote>
+<p>  这一定理说明：<strong>可以在每一轮选取适当的\(G_k\)使得\(Z_k\)最小，从而使训练误差下降最快。</strong> 对于二类分类问题，有如下定理。</p>
+</li>
+<li><p>定理：二类分类问题AdaBoost训练误差界</p>
+<p>  |［定理］二类分类问题AdaBoost训练误差界|<br>  |—-|<br>  | $$\prod<em>{k=1}^{K} Z_k = \prod</em>{k=1}^{K} \left[2 \sqrt{e<em>k(1-e_k)} \;\right] = \prod</em>{k=1}^{K} \sqrt{(1-4\gamma<em>k^2)} \le \exp \left(-2 \sum</em>{k=1}^{K} \gamma_k^2 \right) \qquad(ml.1.6.9)$$|<br>  |这里，$$\gamma_k = 0.5 - e_k .$$|</p>
+<blockquote>
+<p>证明：由公式\((ml.1.6.5)\)和\((n.ml.1.6.1)\)可得：</p>
+<p>  $$<br>  \begin{align}<br>  Z<em>k &amp;= \sum</em>{i=1}^{M} w<em>{k,i} \exp(-\alpha_k y^{(i)} G_k(x^{(i)})) \<br>  &amp;= \sum</em>{y^{(i)} = G<em>k(x^{(i)})} w</em>{k,i} \cdot e^{-\alpha<em>k} + \sum</em>{y^{(i)} \not= G<em>k(x^{(i)})} w</em>{k,i} \cdot e^{\alpha_k} \<br>  &amp;= (1-e_k) \cdot e^{-\alpha_k} + e_k \cdot e^{\alpha_k} \<br>  &amp;= 2 \sqrt{e_k (1-e_k)} = \sqrt{1-4\gamma_m^2}<br>  \end{align} \qquad(n.ml.1.6.5)<br>  $$</p>
+<p>注：\(\alpha_k = \frac{1}{2} \log \frac{1-e_k}{e_k}, e^{\alpha_k} = \sqrt{\frac{1-e_k}{e_k}}\)</p>
+<p>对于不等式部分</p>
+<p>  $$<br>  \prod<em>{k=1}^{K} \sqrt{1-4\gamma_m^2} \le \exp \left(-2 \sum</em>{k=1}^{K} \gamma_k^2 \right) \qquad(n.ml.1.6.6)<br>  $$</p>
+<p>则可根据\(e^x\)和\(\sqrt{1-x}\)在点\(x=0\)的泰勒展开式推出不等式\(\sqrt{1-4\gamma_m^2} \le \exp(-2 \gamma_m^2)\)。</p>
+</blockquote>
+<p>  |[推论] AdaBoost训练误差指数速率下降|<br>  | —- |<br>  | 如果存在\(\gamma &gt; 0\)，对所有的\(m\)有\(\gamma<em>k \ge \gamma\)，则有<br>  $$\frac{1}{M} \sum</em>{i=1}^{M} I(G(x^{(i)}) \not= y^{(i)}) \le \exp(-2K\gamma^2) \qquad(ml.1.6.10)$$ |</p>
+<p>  推论表明，在此条件下，<strong>AdaBoost的训练误差是以指数速率下降的</strong>。这一性质对于AdaBoost计算（迭代）效率是利好消息。</p>
+<blockquote>
+<p>注意：AdaBoost算法不需要知道下界\(\gamma\)，这正是Freund和Schapire设计AdaBoost时所考虑的。与一些早期的提升方法不同，AdaBoost具有适应性，即它能适应弱分类器各自的训练误差率。这也是其算法名称的由来（适应的提升）。Ada是Adaptive的简写。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="6-2-4-_前向分步加法模型与Adaboost">6.2.4. 前向分步加法模型与Adaboost</h4><p>AdaBoost算法还有另一个解释，即可以认为<strong>AdaBoost算法是模型为加法模型、损失函数为指数函数、学习算法为前向分步算法</strong>时的学习方法。</p>
+<p>根据前向分步算法可以推导出AdaBoost，用一句话叙述这一关系.</p>
+<table>
+<thead>
+<tr>
+<th>AdaBoost算法是前向分步加法算法的特例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p> 此时，模型是由基本分类器组成的加法模型，损失函数是指数函数。</p>
+<blockquote>
+<p>证明：<strong>前向分步算法学习的是加法模型，当基函数为基本分类器时，该加法模型等价于AdaBoost的最终分类器：</strong></p>
+<p>$$<br>f(x) = \sum_{k=1}^{K} \alpha_k G_k(x) \qquad (n.ml.1.6.11)<br>$$</p>
+<p>由基本分类器\(G_k(x)\)及其系数\(\alpha_k\)组成，\(k=1,2,\cdots,K\)。前向分步算法逐一学习基函数，这一过程与AdaBoost算法逐一学习基本分类器的过程一致。</p>
+<p>下面证明：</p>
+<p><strong>前向分步算法的损失函数是指数损失函数（Exponential）\(L(y, f(x)) = \exp [-y f(x)]\) 时，其学习的具体操作等价于AdaBoost算法学习的具体操作。</strong> </p>
+<p>假设经过\(k-1\)轮迭代，前向分步算法已经得到\(f_{k-1}(x)\):</p>
+<p>$$<br>\begin{align}<br>f<em>{k-1} (x) &amp;= f</em>{k-2}(x) + \alpha<em>{k-1} G</em>{k-1}(x) \<br>&amp;= \alpha<em>1 G_1(x) + \cdots + \alpha</em>{m-1} G_{m-1}(x)<br>\end{align}  \qquad(n.ml.1.6.12)<br>$$</p>
+<p>在第\(k\)轮迭代得到\(\alpha_k, G_k(x)\)和\(f_k(x)\)。</p>
+<p>$$<br>f<em>{k} (x) = f</em>{k-1}(x) + \alpha<em>{k} G</em>{k}(x) \qquad(n.ml.1.6.13)<br>$$</p>
+<p>目标是使前向分步算法得到的\(\alpha_k\)和\(G_k(x)\)使\(f_k(x)\)在训练数据集\(D\)上的指数损失最小，即</p>
+<p>$$<br>(\alpha<em>k, G_k(x)) = \arg \min</em>{\alpha, G} \underbrace{ \sum<em>{i=1}^{M} \exp [-y^{(i)} (f</em>{k-1}(x) + \alpha G(x^{(i)}))] }_{指数损失表达式} \quad(n.ml.1.6.14)<br>$$</p>
+<p>进一步可表示为：</p>
+<p>$$<br>(\alpha<em>k, G_k(x)) = \arg \min</em>{\alpha, G} \sum<em>{i=1}^{M} \overline{w}</em>{k,i}  \cdot \exp [-y^{(i)} \alpha G(x^{(i)})] \quad(n.ml.1.6.15)<br>$$</p>
+<p>其中，\(\overline{w}<em>{k,i} = \exp [-y^{(i)} f</em>{k-1} (x^{(i)})]\)表示第\(i\)样本在之前模型上的指数损失。因为\(\overline{w}<em>{k,i}\)既不依赖\(\alpha\)也不依赖\(G\)，所以与最小化无关。但\(\overline{w}</em>{k,i}\)依赖于\(f_{k-1}(x)\)，随着每一轮迭代而发生变化。</p>
+<p>现在使公式\((n.ml.1.6.15)\)达到最小的\(\alpha_k^{<em>}\)和\(G_k^{</em>}\)就是AdaBoost算法所得到的\(\alpha_k\)和\(G_k(x)\)。求解公式\((n.ml.1.6.15)\)可分为两步：</p>
+<p>第一步：求\(G_k^*\). 对于任意\(\alpha &gt; 0\)，使公式\((n.ml.1.6.15)\)最小的\(G(x)\)由下式得到：</p>
+<p>$$<br>G<em>k^*(x) = \arg \min</em>{G} \sum<em>{i=1}^{M} \overline{w}</em>{k,i} \cdot I(y^{(i)} \not= G(x^{(i)})) \qquad(n.ml.1.6.16)<br>$$</p>
+<p> 此分类器\(G_k^*(x)\)即为AdaBoost算法的基本分类器\(G_k(x)\)，因为它是使第\(k\)轮加权训练数据分类误差率最小的基本分类器。</p>
+<p>之后，求\(\alpha_k^{*}\)。参考公式\((n.ml.1.6.5)\)，公式\((n.ml.1.6.15)\)中的：</p>
+<p>$$<br>\begin{align<em>}<br>\sum<em>{i=1}^{M} \overline{w}</em>{k,i}  \cdot \exp [-y^{(i)} \alpha G(x^{(i)})] &amp;= \sum<em>{y^{(i)} = G_k(x^{(i)})} \overline{w}</em>{k,i} \cdot e^{-\alpha} + \sum<em>{y^{(i)} \neq G_k(x^{(i)})} \overline{w}</em>{k,i} \cdot e^{\alpha} \<br>&amp;= (e^{\alpha} - e^{-\alpha}) \sum<em>{i=1}^{M} \overline{w}</em>{k,i} I(y^{(i)} \neq G(x^{(i)})) + e^{-\alpha} \sum<em>{i=1}^{M} \overline{w}</em>{k,i}<br>\end{align</em>} \quad(n.ml.1.6.17)<br>$$</p>
+<p>把已得到的\(G_k^{*}\)带入公式\((n.ml.1.6.17)\)，并对\(\alpha\)求导（导数为0），即得到使公式\((n.ml.1.6.15)\)最小的\(\alpha\)。</p>
+<p>$$<br>\alpha_{k}^{*} = \frac{1}{2} \log \frac{1-e_k}{e_k}<br>$$</p>
+<p>\(e_k\)为分类误差率</p>
+<p>$$<br>e<em>k = \frac{ \sum</em>{i=1}^{M} \overline{w}<em>{k,i} I(y^{(i)} \neq G_k(x^{(i)})) } {\sum</em>{i=1}^{M} \overline{w}<em>{k,i} } = \sum</em>{i=1}^{M} w_{k,i} I(y^{(i)} \neq G_k(x^{(i)}))<br>$$</p>
+<p>可以看出，这里求得的\(\alpha_k^{*}\)与AdaBoost算法\((2)-(c)\)步的\(\alpha_k\)完全一致。</p>
+<p>最后看一下每一轮样本权值的更新。由：\(f<em>k(x) = f</em>{k-1}(x) + \alpha<em>k G_k(x)\)以及\(\overline{w}</em>{k,i} = \exp[-y^{(i)} f_{k-1}(x^{(i)})]\)，可得：</p>
+<p>$$<br>\overline{w}<em>{k+1,i} = \overline{w}</em>{k,i} \exp[-y^{(i)} \alpha_k G_k(x)]<br>$$</p>
+<p>这与Adaboost算法的第\((2)-(d)\)步的样本权值的更新，可看出二者是等价的（只相差规范化因子）。</p>
+</blockquote>
+<ul>
+<li><p>AdaBoost算法缺点</p>
+<ul>
+<li><p>对异常点敏感</p>
+<p>  指数损失存在的一个问题是不断增加误分类样本的权重（指数上升）。如果数据样本是异常点（outlier），会极大的干扰后面基本分类器学习效果；</p>
+</li>
+<li><p>模型无法用于概率估计</p>
+<blockquote>
+<p>MLAPP中的原话：”\(e^{-\tilde{y}f}\) is not the logarithm of any pmf for binary variables \(\tilde{y} \in {-1, +1}\); consequently we cannot recover probability estimate from \(f(x)\).” </p>
+<p>意思就是说对于取值为\(\tilde{y} \in {-1, +1}\)的随机变量来说，\(e^{-\tilde{y}f}\)不是任何概率密度函数的对数形式，模型\(f(x)\)的结果无法用概率解释。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-4-_Boosted_Decision_Tree（_提升决策树）">6.4. Boosted Decision Tree（ 提升决策树）</h3><p>提升决策树是指以<strong>分类树或回归树</strong>为基本分类器的提升方法，被认为是统计学习中性能最好的方法之一。</p>
+<blockquote>
+<p>提升决策树简称提升树，Boosting Tree.</p>
+</blockquote>
+<h4 id="6-4-1-_提升树模型">6.4.1. 提升树模型</h4><p>提升树模型实际采用加法模型（即基函数的线性组合）与前向分步算法，以决策树为基函数的提升方法称为提升树（Boosting Tree）。</p>
+<blockquote>
+<p>对分类问题决策树是二叉分类树，对回归问题决策树是二叉回归树。在6.1.3节AdaBoost例子中，基本分类器是\(x<v\\)或\\(x>v\)，可以看作是由一个跟结点直接连接两个叶结点的简单决策树，即所谓的决策树桩（Decision Stump）。</v\\)或\\(x></p>
+</blockquote>
+<p>提升树模型可以表示为决策树的加法模型：</p>
+<p>$$<br>f<em>K(x) = \sum</em>{k=1}^{K} T(x; \Theta_k) \qquad(ml.1.6.13)<br>$$</p>
+<p>其中，\(T(x; \Theta_k)\)表示决策树，\(\Theta_k\)为决策树的参数，\(K\)为树的个数。</p>
+<h4 id="6-4-2_提升树算法">6.4.2 提升树算法</h4><p>提升树算法采用前向分步算法。首先确定初始提升树\(f_0(x) = 0\)，第\(k\)步的模型为：</p>
+<p>$$<br>f<em>k(x) = f</em>{k-1}(x) + T(x; \Theta_k) \qquad(ml.1.6.14)<br>$$</p>
+<p>其中，\(f_{k-1}(x)\)为当前模型，通过<strong>经验风险极小化</strong>确定下一颗决策树的参数\(\Theta_k\)，</p>
+<p>$$<br>\hat{\Theta}<em>k = \arg \min</em>{\Theta<em>k} \sum</em>{i=1}^{M} L(y^{(i)}, \; f_{k-1}(x) + T(x^{(i)}; \Theta_k))  \qquad(ml.1.6.15)<br>$$</p>
+<blockquote>
+<p>由于树的线性组合可以很好的拟合训练数据，即使数据中的输入和输出之间的关系很复杂也是如此，所以提升树是一个高功能的学习算法。 </p>
+</blockquote>
+<p><strong>提升树家族</strong></p>
+<p>不同问题的提升树学习算法，其主要区别在于<strong>损失函数</strong>不同。平方损失函数常用于回归问题，用指数损失函数用于分类问题，以及绝对损失函数用于决策问题。</p>
+<ul>
+<li><p>分类问题回归树</p>
+<p>  对于二类分类问题，提升树算法只需要将6.1.3节中AdaBoost算法例子中的基本分类器限制为<strong>二类分类树</strong>即可，可以说此时的决策树算法时AdaBoost算法的特殊情况。</p>
+<blockquote>
+<p>损失函数仍为指数损失的前向加法模型。</p>
+</blockquote>
+</li>
+<li><p>回归问题的决策树</p>
+<p>  已知训练数据集\(D={(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \cdots, (x^{(M)}, y^{(M)})}, x^{(i)} \in \mathcal{X} \subseteq R^n, y^{(i)} \in \mathcal{Y} \) \( \subseteq R, \mathcal{Y}\)为输出空间。如果将输入空间\(\mathcal{X}\)划分为\(J\)个互不相交的区域\(R_1, R_2, \cdots, R_J\)，并且在每个区域上确定输出的常量\(c_j\)，那么树可以表示为：</p>
+<p>  $$<br>  T(x; \Theta) = \sum_{j=1}^{J} c_j I(x \in R_j)  \qquad(ml.1.6.16)<br>  $$</p>
+<p>  其中，参数\(\Theta={(R_1, c_1), (R_2, c_2), \cdots, (R_J, c_J)}\)表示树的区域划分和各区域上的常数。\(J\)是回归树的复杂度即叶结点的个数。</p>
+</li>
+<li><p>回归问题提升树－前向分步算法</p>
+<blockquote>
+<p>回归问题提升树使用以下前向分步算法：</p>
+<p>  $$<br>  \begin{align}<br>  f<em>0(x) &amp;= 0 \<br>  f_k(x) &amp;= f</em>{k-1}(x) + T(x; \Theta<em>k) \quad k=1,2,\cdots,K \<br>  f_K(x) &amp;= \sum</em>{k=1}^{K} T(x; \Theta_k)<br>  \end{align} \qquad(n.ml1.6.17)<br>  $$</p>
+<p>在前向分布算法的第\(k\)步，给定当前模型\(f_{k-1}(x)\)，需求解：</p>
+<p>  $$<br>  \hat{\Theta}<em>k = \arg \min</em>{\Theta<em>k} \sum</em>{i=1}^{M} \underbrace{ L(y^{(i)}, \; f<em>{k-1}(x) + T(x^{(i)}; \Theta_k)) }</em>{损失函数} \qquad(n.ml.1.6.18)<br>  $$</p>
+<p>得到\(\hat{\Theta}_k\)，即第\(k\)颗树的参数。</p>
+<p>当采用<strong>平方误差损失函数</strong>时，</p>
+<p>  $$<br>  L(y, f(x)) = (y - f(x))^2 \qquad (n.ml.1.6.19)<br>  $$</p>
+<p>将平方误差损失函数展开为：</p>
+<p>  $$<br>  \begin{align}<br>  &amp;L(y, f<em>{k-1}(x) + T(x; \Theta_k)) \<br>  &amp;\qquad = [y - f</em>{k-1}(x) - T(x; \Theta_k)]^2 \<br>  &amp;\qquad = [r - T(x; \Theta_k)]^2<br>  \end{align} \qquad(n.ml.1.6.20)<br>  $$</p>
+<p>这里\( r = y - f_{k-1}(x) \)，表示当前模型的拟合数据的残差（residual）。所以，对回归问题的提升树算法来说，只需要简单地拟合当前模型的残差。</p>
+<blockquote>
+<p>由于损失函数是平方损失，因此该方法属于<strong>L2Boosting</strong>的一种实现。</p>
+</blockquote>
+</blockquote>
+</li>
+<li><p>回归问题提升树－算法描述</p>
+<p>  \(<br>  { \<br>  \quad\, 输入：训练数据集D={(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \cdots, (x^{(M)}, y^{(M)})}, x^{(i)} \in \mathcal{X} \subseteq R^n, y^{(i)} \in \mathcal{Y}; \<br>  \quad 输出：提升树f<em>K(x). \<br>  \quad 过程: \<br>  \qquad (1). 初始化模型f_0(x) = 0； \<br>  \qquad\; (2). 循环训练K个模型 k=1,2,\cdots,K \<br>  \qquad\qquad (a). 计算残差：r</em>{ki} = y^{(i)} - f<em>{k-1}(x^{(i)}), \quad i=1,2,\cdots,M \<br>  \qquad\qquad (b). 拟合残差r</em>{ki}学习一个回归树，得到T(x;\Theta<em>k) \<br>  \qquad\qquad (c). 更新f_k(x) = f</em>{k-1}(x) + T(x; \Theta<em>k) \<br>  \qquad\; (3). 得到回归提升树 \<br>  \qquad\qquad f_K(x) = \sum</em>{k=1}^{K} T(x; \Theta_k) \<br>   }<br>  \)</p>
+</li>
+</ul>
+<h3 id="6-5-_Gradient_Boosting（梯度提升法）">6.5. Gradient Boosting（梯度提升法）</h3><p>提升树方法是利用加法模型与前向分布算法实现整个优化学习过程。Adaboost的指数损失和回归提升树的平方损失，在前向分布中的每一步都比较简单。但对于一般损失函数而言（比如绝对损失），每一个优化并不容易。</p>
+<p>针对这一问题。Freidman提出了梯度提升（gradient boosting）算法。该算法思想：</p>
+<p><strong>利用损失函数的负梯度在当前模型的值作为回归问题提升树算法中残差的近似值，拟合一个回归树。</strong></p>
+<p>损失函数的负梯度为：</p>
+<p>$$<br>-\left[ \frac{\partial L(y^{(i)}, f(x^{(i)}))} {\partial f(x^{(i)})} \right]<em>{f(x) = f</em>{k-1}(x)} \approx r_{m,i}<br>$$</p>
+<ul>
+<li><p>Gradient Boosting－算法描述</p>
+<p>  \(<br>  { \<br>  \quad\, 输入：训练数据集D={(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \cdots, (x^{(M)}, y^{(M)})}, x^{(i)} \in \mathcal{X} \subseteq R^n, y^{(i)} \in \mathcal{Y}; \<br>  \qquad\quad\; 损失函数L(y, f(x)); \<br>  \quad 输出：提升树\hat{f}(x). \<br>  \quad 过程: \<br>  \qquad (1). 初始化模型 \<br>  \qquad\qquad\qquad f<em>0(x) = \arg \min_c \sum</em>{i=1}^{M} L(y^{(i)}, c)； \<br>  \qquad\; (2). 循环训练K个模型 k=1,2,\cdots,K \<br>  \qquad\qquad (a). 计算残差：对于i=1,2,\cdots,M \<br>  \qquad\qquad\qquad\qquad r<em>{ki} = -\left[ \frac{\partial L(y^{(i)}, \; f(x^{(i)}))} {\partial f(x^{(i)})} \right]</em>{f(x) = f<em>{k-1}(x)} \<br>  \qquad\qquad (b). 拟合残差r</em>{ki}学习一个回归树，得到第k颗树的叶结点区域R<em>{kj}，\quad j=1,2,\cdots,J \<br>  \qquad\qquad (c). 对j=1,2,\cdots,J, 计算：\<br>  \qquad\qquad\qquad\qquad c</em>{kj} = \arg \min<em>c \sum</em>{x^{(i)} \in R<em>{kj}} L(y^{(i)}, \; f</em>{k-1}(x^{(i)}) + c)\<br>  \qquad\qquad (d). 更新模型：\<br>  \qquad\qquad\qquad\qquad    f<em>k(x) = f</em>{k-1}(x) + \sum<em>{j=1}^{J} c</em>{kj} I(x \in R<em>{kj}) \<br>  \qquad\; (3). 得到回归提升树 \<br>  \qquad\qquad\qquad \hat{f}(x) = f_K(x) = \sum</em>{k=1}^{K} \sum<em>{j=1}^{J} c</em>{kj} I(x \in R_{kj}) \<br>   }<br>  \)</p>
+<blockquote>
+<p>算法解释：</p>
+<ol>
+<li>第（1）步初始化，估计使损失函数极小化的常数值（是一个只有根结点的树）；</li>
+<li>第(2)(a)步计算损失函数的负梯度在当前模型的值，将它作为残差的估计。(对于平方损失函数，他就是残差；对于一般损失函数，它就是残差的近似值)</li>
+<li>第(2)(b)步估计回归树的结点区域，以拟合残差的近似值；</li>
+<li>第(2)(c)步利用线性搜索估计叶结点区域的值，使损失函数极小化；</li>
+<li>第(2)(d)步更新回归树。</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h3 id="6-6-_Boosting工具">6.6. Boosting工具</h3><p>Boosting类方法在不仅在二分类、多分类上有着出色的表现，在预估（回归）问题上依然出类拔萃。</p>
+<blockquote>
+<p>2012年KDD cup竞赛和Kaggle上的许多数据挖掘竞赛，Boosting类方法帮助参赛者取得好成绩提供了强有力的支持。</p>
+</blockquote>
+<p>“工欲善其事，必先利其器”。Github上和机器学习工具包（如sklearn）中有很多优秀的开源boosting实现。在这里重点介绍两个Boosting开源工具。</p>
+<ul>
+<li><p><a href="https://github.com/dmlc/xgboost.git" target="_blank" rel="external">XGBoost</a> </p>
+<p>  说到Boosting开源工具，首推<a href="http://www.weibo.com/u/2397265244?is_all=1" target="_blank" rel="external">@陈天奇怪</a>同学的<a href="https://github.com/dmlc/xgboost.git" target="_blank" rel="external">XGBoost</a> (eXtreme Gradient Boosting)。上面说的各种竞赛很多优秀的战果都是用@陈天奇同学的神器。</p>
+<p>  从名称可以看出，该版本侧重于Gradient Boosting方面，提供了Graident Boosting算法的框架，给出了GBDT，GBRT，GBM具体实现。提供了多语言接口（C++, Python, Java,R等），供大家方便使用。</p>
+<p>  更令人振奋的一件事情是，最新版本的xgboost是基于分布式通信协议rabit开发的，可部署在分布式资源调度系统上（如yarn，s3等）。我们完全可以利用最新版的xgboost在分布式环境下解决分类、预估等场景问题。</p>
+<blockquote>
+<p>注：</p>
+<ol>
+<li>xgboost是<a href="https://github.com/dmlc" target="_blank" rel="external">DMLC</a>（即分布式机器学习社区）下面的一个子项目，由@陈天奇怪，@李沐等机器学习大神发起。</li>
+<li><a href="https://github.com/dmlc/rabit" target="_blank" rel="external">Rabit</a>是一个为分布式机器学习提供Allreduce和Broadcast编程范式和容错功能的开源库（也是@陈天奇同学的又一神器）。它主要是解决MPI系统机器之间无容错功能的问题，并且主要针对Allreduce和Broadcast接口提供可容错功能。</li>
+</ol>
+<p>题外话：</p>
+<p>2014年第一次用xgboost时，用于Kaggle移动CTR预估竞赛。印象比较深刻的是，同样的训练数据（特征工程后），分别用xgboost中的GBDT和MLLib中的LR模型（LBFGS优化），在验证集上的表现前者比后者好很多（logloss和auc都是如此）。线上提交结果时，名次直接杀进前100名，当时给我留下了非常好的印象。后来，因为项目原因，没有过多的使用xgboost，但一直关注着。</p>
+<p>目前，我个人更加关注和正在做的是：<strong>基于Rabit开发/封装一些在工业界真正能发挥重要价值的（分布式）机器学习工具</strong>，用于解决超大规模任务的学习问题。这里面会涉及到分布式环境下的编程范式，可以高效地在分布式环境下工作的优化算法（<code>admm</code>等）和模型(<code>loss + regularization term</code>)等。</p>
+<p>关于大数据下的机器学习发展，个人越来越更倾向于<strong>计算引擎</strong>与<strong>资源调度</strong>之间弱耦合或者无关联更好些。计算引擎可以在任意的分布式资源调度系统上工作，实现真正的可插拔，是一个不错的方向。</p>
+<p>与之观念对应的是，spark上集成的graphx和mllib中的许多计算模块，虽然使用起来很简便（几十行核心代码就能搭建一个学习任务的pipeline）。但可以想象的是，随着spark的进一步发展，该分布式计算平台会变的非常重，功能也会越来越多。离专注、专一和极致的解决某类问题越来越远，对每一类问题给出的解决方案并不会特别好。</p>
+</blockquote>
+</li>
+<li><p><a href="http://www.multiboost.org/" target="_blank" rel="external">MultiBoost</a></p>
+<p>  <a href="http://www.multiboost.org/" target="_blank" rel="external">MultiBoost</a>工具的侧重点不同于<a href="https://github.com/dmlc/xgboost.git" target="_blank" rel="external">XGBoost</a>，是Adaboost算法的多分类版本实现，更偏向于解决<strong>multi-class / multi-label / multi-task的分类问题</strong>。</p>
+<p>  我们曾经用该工具完成了用户<strong>兴趣画像</strong>的多标签（multi-label）分类问题，其分类效果（Precision / Recall）要比<strong>Naive Bayes</strong>好些。</p>
+<p>  <a href="http://www.multiboost.org/" target="_blank" rel="external">MultiBoost</a>是用C++实现的。值得一提的是，由我们组的算法大神<a href="http://weibo.com/baigang111?is_all=1" target="_blank" rel="external">@BaiGang</a>用scala语言实现了MulitBoost的spark版本，详见Github:<a href="https://github.com/BaiGang/spark_multiboost" target="_blank" rel="external">Spark_MultiBoost</a></p>
+</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.52caml.com/其它/ml-chapter6-boosting-family/" data-title="计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/深入浅出机器学习/ml-chapter1-regression-family/"  title="第01章：深入浅出ML之Regression家族">
+ <strong>下一篇：</strong><br/> 
+ <span>第01章：深入浅出ML之Regression家族
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#内容列表"><span class="toc-number">1.</span> <span class="toc-text">内容列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-0-_写在前面"><span class="toc-number">2.</span> <span class="toc-text">6.0. 写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-_Boosting"><span class="toc-number">3.</span> <span class="toc-text">6.1. Boosting</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-1-_Boosting介绍"><span class="toc-number">3.1.</span> <span class="toc-text">6.1.1. Boosting介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-2-_前向分步加法模型（Forward_Stagewise_Additive_Modeling）"><span class="toc-number">3.2.</span> <span class="toc-text">6.1.2. 前向分步加法模型（Forward Stagewise Additive Modeling）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-3-_Boosting四大家族"><span class="toc-number">3.3.</span> <span class="toc-text">6.1.3. Boosting四大家族</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-_Adaboost"><span class="toc-number">4.</span> <span class="toc-text">6.2. Adaboost</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-1-_算法学习过程"><span class="toc-number">4.1.</span> <span class="toc-text">6.2.1. 算法学习过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-2-_实例：AdaBoost算法"><span class="toc-number">4.2.</span> <span class="toc-text">6.2.2. 实例：AdaBoost算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-3-_训练误差分析"><span class="toc-number">4.3.</span> <span class="toc-text">6.2.3. 训练误差分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-4-_前向分步加法模型与Adaboost"><span class="toc-number">4.4.</span> <span class="toc-text">6.2.4. 前向分步加法模型与Adaboost</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-_Boosted_Decision_Tree（_提升决策树）"><span class="toc-number">5.</span> <span class="toc-text">6.4. Boosted Decision Tree（ 提升决策树）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-1-_提升树模型"><span class="toc-number">5.1.</span> <span class="toc-text">6.4.1. 提升树模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-2_提升树算法"><span class="toc-number">5.2.</span> <span class="toc-text">6.4.2 提升树算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-_Gradient_Boosting（梯度提升法）"><span class="toc-number">6.</span> <span class="toc-text">6.5. Gradient Boosting（梯度提升法）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-6-_Boosting工具"><span class="toc-number">7.</span> <span class="toc-text">6.6. Boosting工具</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/概率与统计/" title="概率与统计">概率与统计<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/深入浅出机器学习/" title="深入浅出机器学习">深入浅出机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/连续随机变量/" title="连续随机变量">连续随机变量<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linear-Regression，Logistic-Regression，Lasso，Ridge，SoftMax/" title="Linear Regression，Logistic Regression，Lasso，Ridge，SoftMax">Linear Regression，Logistic Regression，Lasso，Ridge，SoftMax<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Gamma-Beta-Dirichlet/" title="Gamma,Beta,Dirichlet">Gamma,Beta,Dirichlet<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, Welcome to CAML technology sharing platform.  <br/>
+			I&#39;m Zhou Yong, engaged in algorithms work on computational advertising and machine learning.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1707438033" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/ComputationalAds" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zhouyongsdzh@foxmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="ZhouYong">ZhouYong</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
