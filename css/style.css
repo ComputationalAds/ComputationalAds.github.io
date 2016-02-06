@@ -378,7 +378,7 @@ body >header {
   -webkit-box-shadow: 2px 4px 5px rgba(3,3,3,0.2);
   box-shadow: 2px 4px 5px rgba(3,3,3,0.2);
   background: url("../img/banner.jpg") center #800080;
-  color: color-black;
+  color: color-red;
   padding: 1em 0 0.8em;
 }
 @media only screen and (min-width: 1024px) {
@@ -399,7 +399,7 @@ body >header >div {
 }
 body >header a {
   display: block;
-  color: #fff;
+  color: color-red;
 }
 #imglogo {
   float: left;
@@ -442,12 +442,12 @@ body >header a {
   font-weight: normal;
 }
 @media only screen and (min-width: 768px) {
-  #textlogo color color-black {
+  #textlogo color color-red {
     font-size: 190%;
   }
 }
 @media only screen and (min-width: 1024px) {
-  #textlogo color color-black {
+  #textlogo color color-red {
     font-size: 220%;
   }
 }
@@ -1992,7 +1992,7 @@ footer {
 @media only screen and (min-width: 768px) {
   .author {
     position: absolute;
-    top: 6em;
+    top: 3.5em;
     margin: 0 0 1.5em;
   }
 }
