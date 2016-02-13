@@ -65,7 +65,7 @@ weibo: @周永_52ML
 
 \(x_j\)
 第\">
-<meta property="og:image" content="http://www.analyticsvidhya.com/wp-content/uploads/2015/08/Regression_Line.png">
+<meta property="og:image" content="http://www.analyticsvidhya.com/wp-content/uploads/2015/08/Regression\_Line.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第01章：深入浅出ML之Regression家族">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
@@ -159,7 +159,7 @@ weibo: @周永_52ML
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-13T02:36:34.000Z" itemprop="datePublished"> 发表于 2016-02-13</time>
+    <time datetime="2016-02-13T03:28:15.000Z" itemprop="datePublished"> 发表于 2016-02-13</time>
     
   </p>
 </header>
@@ -243,7 +243,7 @@ weibo: @周永_52ML
 <li><p>什么是回归分析？</p>
 <p>  回归分析是预测建模技术的一种方法，用于研究自变量与因变量之间的关系。该技术主要用于预测、时间序列建模遗迹寻找变量之间的the causal effect relationship。 举例，rash driving和number of road accidents by a driver通过回归技术可以进行更好的研究。</p>
 <p>  回归分析是用于建模和数据分析的一个重要工具。在这里，我们用曲线/直线去拟合数据点，希望所有数据点到曲线/直线的距离差异之和最小。在后面的章节中会详细解释这部分。</p>
-<p>  <img src="http://www.analyticsvidhya.com/wp-content/uploads/2015/08/Regression_Line.png" alt="回归分析"></p>
+<p>  <img src="http://www.analyticsvidhya.com/wp-content/uploads/2015/08/Regression\_Line.png" alt="回归分析"></p>
 </li>
 <li><p>为什么要使用回归分析？</p>
 <p>  正如上面描述，回归分析用于估计两个或多个变量之间的关系。让我们通过一个简单的例子理解这个问题：</p>
@@ -302,7 +302,7 @@ weibo: @周永_52ML
 <p>  公式\((ml.1.1.2)\)中的参数向量\(w\)是\(n+1\)维的，每个参数变量的取值是实数集合，也就是说参数向量\(w\)在\(n+1\)维实数空间中取值结果有无穷种可能。</p>
 <p>  那么，如何根据一个规则或机制帮助我们评估求得的参数\(w\)比较好（或是最好）？直观地认为，如果求得的参数\(w\)线性求和后，得到的结果\(h_{w}(x)\)与真实值\(y\)之差越小越好。</p>
 <p>  因此，我们需要引入一个函数用来衡量\(h_{w}(x)\)表示真实值\(y\)好坏的程度，该函数称为损失函数（loss function，也称为错误函数）。数学表示如下：</p>
-<p>  $$<br>  \begin{align*}<br>  &amp; J(w) = \frac{1}{2} \sum_{i=1}^{m} \left(h_{w}(x^{(i)}) - y^{(i)} \right)^2 \<br>  &amp; \min_{w} \quad J(w)<br>  \end{align*}    \qquad (ml.1.1.3)<br>  $$</p>
+<p>  $$<br>  \begin{align}<br>  &amp; J(w) = \frac{1}{2} \sum_{i=1}^{m} \left(h_{w}(x^{(i)}) - y^{(i)} \right)^2 \<br>  &amp; \min_{w} \quad J(w)<br>  \end{align}    \qquad (ml.1.1.3)<br>  $$</p>
 <p>  这个损失函数用的是\(x^{(i)}\)的估计值\(h_{w}(x^{(i)}\)与真实值\(y^{(i)}\)之差的平方和。从优化的角度讲，公式\((ml.1.1.3)\)是待优化的<strong>目标函数（Object Function）</strong>，可将其转化为最优化问题求参数。</p>
 </li>
 </ul>
@@ -348,7 +348,7 @@ weibo: @周永_52ML
 <h4 id="1-2-3_回归模型目标函数概率解释">1.2.3 回归模型目标函数概率解释</h4><p>一般地，机器学习中不同的模型会对应不同的目标函数。而回归模型（尤其是线性回归类）的目标函数通常用真实值与预测值之差的平方和作为优化的目标函数。那么为什么要选用误差平方和作为目标函数呢？下面从概率论中的中心极限定理、高斯概率分布的角度给出解释。</p>
 <ul>
 <li><p>中心极限定理</p>
-<p>  目标函数的概率解释需要用到<a href="http://baike.baidu.com/link?url=ySGNbFu9xwtwd_inKXWzbEO7FMnDLVCFihcn32_HpSmVrjBNAx7WJVvfIqOwDsqyI4tK3pJhA7RwditlZrG0e_" target="_blank" rel="external">中心极限定理</a>。中心极限定理研究的是<strong>独立随机变量和的极限分布为正态分布</strong>的问题。</p>
+<p>  目标函数的概率解释需要用到<a href="http://baike.baidu.com/link?url=ySGNbFu9xwtwd\_inKXWzbEO7FMnDLVCFihcn32\_HpSmVrjBNAx7WJVvfIqOwDsqyI4tK3pJhA7RwditlZrG0e\_" target="_blank" rel="external">中心极限定理</a>。中心极限定理研究的是<strong>独立随机变量和的极限分布为正态分布</strong>的问题。</p>
 <p>  中心极限定理公式表示：</p>
 <blockquote>
 <p>设\(n\)个随机变量\(X_1, X_2, \cdots, X_m\)相互独立，均具有相同的数学期望与方差，即\(E(X_i) = \mu; D(X_i) = \sigma^2\)。令\(Y_n\)为随机变量之和，有</p>
@@ -395,7 +395,7 @@ weibo: @周永_52ML
 </blockquote>
 </li>
 </ul>
-<h4 id="1-2-4-_带权重的线性回归">1.2.4. 带权重的线性回归</h4><h3 id="1-3-_逻辑斯蒂回归（Logistic_Regression）">1.3. 逻辑斯蒂回归（Logistic Regression）</h3><h4 id="1-3-1-_逻辑斯蒂分布">1.3.1. 逻辑斯蒂分布</h4><p>介绍逻辑斯蒂回归模型之前，首先看一个并不常见的概率分布——<a href="https://en.wikipedia.org/wiki/Logistic_distribution" target="_blank" rel="external">逻辑斯蒂分布</a>。</p>
+<h4 id="1-2-4-_带权重的线性回归">1.2.4. 带权重的线性回归</h4><h3 id="1-3-_逻辑斯蒂回归（Logistic_Regression）">1.3. 逻辑斯蒂回归（Logistic Regression）</h3><h4 id="1-3-1-_逻辑斯蒂分布">1.3.1. 逻辑斯蒂分布</h4><p>介绍逻辑斯蒂回归模型之前，首先看一个并不常见的概率分布——<a href="https://en.wikipedia.org/wiki/Logistic\_distribution" target="_blank" rel="external">逻辑斯蒂分布</a>。</p>
 <ul>
 <li><p>逻辑斯蒂分布</p>
 <p>  设\(X\)是<strong>连续随机变量</strong>，如果随机变量\(X\)对应的概率密度函数\(f(x)\)和累积分布函数\(F(x)\)分别是：</p>
@@ -456,34 +456,34 @@ $$</span>
 </blockquote>
 <p>  这里从事件、变量以及结果的角度给予解释。</p>
 <p>  我们所能拿到的训练数据统称为观测样本。问题：样本是如何生成的？</p>
-<p>  <strong>一个样本可以理解为发生的一次事件，样本生成的过程即事件发生的过程。对于0/1分类问题来讲，产生的结果有两种可能，符合伯努利试验的概率假设。因此，我们可以说样本的生成过程即为伯努利试验过程，产生的结果（0/1）服从伯努利分布。这里我们假设结果为1的概率为\(h<em>{w}(x)\)，结果为0的概率为\(1-h</em>{w}(x)\)</strong>。</p>
+<p>  <strong>一个样本可以理解为发生的一次事件，样本生成的过程即事件发生的过程。对于0/1分类问题来讲，产生的结果有两种可能，符合伯努利试验的概率假设。因此，我们可以说样本的生成过程即为伯努利试验过程，产生的结果（0/1）服从伯努利分布。这里我们假设结果为1的概率为\(h_{w}(x)\)，结果为0的概率为\(1-h_{w}(x)\)</strong>。</p>
 <p>  那么，对于第\(i\)个样本，概率公式表示如下：</p>
 <p>  $$P(y^{(i)}=1|x^{(i)}; w) = h_{w}(x^{(i)}) \qquad (ml.1.5)$$ </p>
 <p>  $$P(y^{(i)}=0|x^{(i)}; w) = 1 - h_{w}(x^{(i)}) \qquad (ml.1.6)$$</p>
 <p>  将公式\((ml.1.5)\)和\((ml.1.6)\)合并在一起，可得第\(i\)个样本正确预测的概率：</p>
-<p> $$<br> P(y^{(i)}|x^{(i)}; w) = (h<em>{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h</em>{w}(x^{(i)}))^{1-y^{(i)}} \qquad (ml.1.7)<br> $$</p>
+<p> $$<br> P(y^{(i)}|x^{(i)}; w) = (h_{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \qquad (ml.1.7)<br> $$</p>
 <p> 上式是对一条样本进行建模的数据表达。对于多条样本，假设每条样本生成过程独立，在整个样本空间中（\(m\)个样本）的概率分布为：</p>
-<p> $$P(Y|X; w) = \prod<em>{i=1}^{m} \left( (h</em>{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \right) \qquad(ml.1.8)$$</p>
+<p> $$P(Y|X; w) = \prod_{i=1}^{m} \left( (h_{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \right) \qquad(ml.1.8)$$</p>
 <p> 通过极大似然估计（Maximum Likelihood Evaluation，简称MLE）方法求概率参数。具体地，下面给出了通过随机梯度下降法（Stochastic Gradient Descent，简称SGD）求参数。</p>
 </li>
 <li><p>参数学习算法</p>
 <p>  公式\((ml.1.8)\)不仅可以理解为在已观测的样本空间中的概率分布表达式。如果从统计学的角度可以理解为参数\(w\)似然性的函数表达式（即似然函数表达式）。参数在整个样本空间中的似然函数可表示为：</p>
-<p>  $$<br>  \begin{align<em>}<br>  L(w) &amp; = P(Y|X; w) \<br>  &amp; = \prod<em>{i=1}^{m} P(y^{(i)}|x^{(i)}; w) \<br>  &amp; = \prod</em>{i=1}^{m} \left( (h<em>{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h</em>{w}(x^{(i)}))^{1-y^{(i)}} \right)<br>  \end{align</em>} \quad\qquad (ml.1.9)<br>  $$</p>
+<p>  $$<br>  \begin{align<em>}<br>  L(w) &amp; = P(Y|X; w) \<br>  &amp; = \prod_{i=1}^{m} P(y^{(i)}|x^{(i)}; w) \<br>  &amp; = \prod_{i=1}^{m} \left( (h_{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \right)<br>  \end{align</em>} \quad\qquad (ml.1.9)<br>  $$</p>
 <p>  为了方便参数求解，对公式\((ml.1.9)\)取对数，可得：</p>
-<p> $$<br>  \begin{align<em>}<br>  l(w) &amp; = logL(w) \<br>  &amp; = \sum<em>{i=1}^{m} \left( y^{(i)} \cdot \log (h</em>{w}(x^{(i)})) + (1-y^{(i)}) \cdot \log(1- h_{w}(x^{(i)})) \right)<br>  \end{align</em>} \qquad (ml.1.10)<br>  $$</p>
+<p> $$<br>  \begin{align<em>}<br>  l(w) &amp; = logL(w) \<br>  &amp; = \sum_{i=1}^{m} \left( y^{(i)} \cdot \log (h_{w}(x^{(i)})) + (1-y^{(i)}) \cdot \log(1- h_{w}(x^{(i)})) \right)<br>  \end{align</em>} \qquad (ml.1.10)<br>  $$</p>
 <blockquote>
 <p>最大化log似然函数，就是最小化交叉熵误差（Cross Entropy Error）。</p>
 </blockquote>
 <p> 先不考虑累加和\(\sum_{i=1}^{m}\)，针对每个参数\(w_j\)求偏导：</p>
-<p> $$<br>\begin{align<em>}<br>\frac{\partial}{\partial w<em>j} l(w) &amp; = \left( y \frac{1}{h</em>{w}(x)} - (1-y) \frac{1}{1-h<em>{w}(x)}\right) \frac{\partial}{\partial w_j} h</em>{w}(x) \<br>&amp; = \left( \frac{y-h<em>{w}(x)}{h</em>{w}(x) \cdot (1 - h<em>{w}(x))}\right) \cdot h</em>{w}(x) (1 - h<em>{w}(x)) \cdot \frac{\partial}{\partial w_j} w^T x \<br>&amp; = \left( y-h</em>{w}(x) \right) \cdot \frac{\partial}{\partial w<em>j} w^T x \<br>&amp; = \left( y-h</em>{w}(x) \right) \cdot x_{j}<br>\end{align</em>}  \qquad (ml.1.11)<br>  $$ </p>
+<p> $$<br>\begin{align<em>}<br>\frac{\partial}{\partial w_j} l(w) &amp; = \left( y \frac{1}{h_{w}(x)} - (1-y) \frac{1}{1-h_{w}(x)}\right) \frac{\partial}{\partial w_j} h_{w}(x) \<br>&amp; = \left( \frac{y-h_{w}(x)}{h_{w}(x) \cdot (1 - h_{w}(x))}\right) \cdot h_{w}(x) (1 - h_{w}(x)) \cdot \frac{\partial}{\partial w_j} w^T x \<br>&amp; = \left( y-h_{w}(x) \right) \cdot \frac{\partial}{\partial w_j} w^T x \<br>&amp; = \left( y-h_{w}(x) \right) \cdot x_{j}<br>\end{align</em>}  \qquad (ml.1.11)<br>  $$ </p>
 <p> 最后，通过扫描样本，迭代下述公式可求得参数：</p>
-<p> $$<br> w<em>{j+1} = w_j + \alpha \cdot (y^{(i)} - h</em>{w}(x^{(i)})) \cdot x_{j}^{(i)} \qquad (ml.1.12)<br> $$</p>
+<p> $$<br> w_{j+1} = w_j + \alpha \cdot (y^{(i)} - h_{w}(x^{(i)})) \cdot x_{j}^{(i)} \qquad (ml.1.12)<br> $$</p>
 <p> 公式\((ml.1.12)\)中的\(\alpha\)表示学习率（learning rete，又称学习步长），还有Batch Gradient法等，这些会在《深入浅出优化算法》系列中的梯度法章节中详细介绍。</p>
 <p> 基于梯度法求目标函数极值，另一种推导方式：</p>
 <blockquote>
-<p> $$<br>  \begin{align<em>}<br>  l(w) &amp; = \log L(w) \<br>  &amp; = \sum<em>{i=1}^{m} \left( y^{(i)} \cdot \log (h</em>{w}(x^{(i)})) + (1-y^{(i)}) \cdot \log(1- h<em>{w}(x^{(i)})) \right) \<br>  &amp; = \sum</em>{i=1}^{m} \left( y^{(i)} \cdot \underline { \log {\frac {h<em>w(x^{(i)})}{ 1-h_w(x^{(i)})}} } + \log (1-h_w(x^{(i)}))\right) \<br>  &amp; = \sum</em>{i=1}^{m} \left(y^{(i)} \cdot w^T x^{(i)} - \log (1 + \exp(w^Tx^{(i)})) \right)<br>  \end{align</em>}<br>  $$</p>
+<p> $$<br>  \begin{align<em>}<br>  l(w) &amp; = \log L(w) \<br>  &amp; = \sum_{i=1}^{m} \left( y^{(i)} \cdot \log (h_{w}(x^{(i)})) + (1-y^{(i)}) \cdot \log(1- h_{w}(x^{(i)})) \right) \<br>  &amp; = \sum_{i=1}^{m} \left( y^{(i)} \cdot \underline { \log {\frac {h_w(x^{(i)})}{ 1-h_w(x^{(i)})}} } + \log (1-h_w(x^{(i)}))\right) \<br>  &amp; = \sum_{i=1}^{m} \left(y^{(i)} \cdot w^T x^{(i)} - \log (1 + \exp(w^Tx^{(i)})) \right)<br>  \end{align</em>}<br>  $$</p>
 <p>同样的，对每个参数求偏导，推导结果为：</p>
-<p>  $$<br>  \frac{\partial}{\partial w<em>j} l(w) = y^{(i)} x_j^{(i)} - \frac {\exp({w^Tx^{(i)}})} {1+\exp({w^Tx^{(i)}})}  x_j^{(i)} = \left( y^{(i)} - h</em>{w}(x^{(i)}) \right) \cdot x_{j}^{(i)}<br>  $$</p>
+<p>  $$<br>  \frac{\partial}{\partial w_j} l(w) = y^{(i)} x_j^{(i)} - \frac {\exp({w^Tx^{(i)}})} {1+\exp({w^Tx^{(i)}})}  x_j^{(i)} = \left( y^{(i)} - h_{w}(x^{(i)}) \right) \cdot x_{j}^{(i)}<br>  $$</p>
 </blockquote>
 <p> Sigmoid函数性质：</p>
 <p> &gt;</p>
@@ -499,9 +499,9 @@ $$</span>
 </li>
 <li><p>交叉熵误差</p>
 <p>  其实从公式\((ml.1.10)\)中不难看出，LR模型的对数似然函数对应的就是交叉熵的表达式。在给定样本空间下，对于条件概率\(P(y|x)=h_w(yx)\)来说，其似然函数表达式为：</p>
-<p>  $$<br>  \max<em>{h} likelihood(h) \propto \prod</em>{i=1}^{m} h_w(y^{(i)} x^{(i)})<br>  $$</p>
+<p>  $$<br>  \max_{h} likelihood(h) \propto \prod_{i=1}^{m} h_w(y^{(i)} x^{(i)})<br>  $$</p>
 <p>  上式表示函数\(h\)的可能性，即\(likelihood(h)\)。该式越大，说明\(h\)越逼近真实目标函数\(f\)。将其转化为求极小值问题（添加负号），并写成\(\log\)形式为：</p>
-<p>  $$<br>  \begin{align<em>}<br>  &amp; \min<em>w \quad \frac{1}{m} \sum</em>{i=1}^{m} - \log (h<em>w(y^{(i)} x^{(i)})) \qquad\qquad(1)\<br>  \Longrightarrow \; &amp; \min_w \quad \frac{1}{m} \sum</em>{i=1}^{m} \underline{ \log (1+\exp(-y^{(i)} w^T x^{(i)})) } \quad\;\,(2)\<br>  \Longrightarrow \; &amp; \min<em>w \quad \underbrace { \frac{1}{m} \sum</em>{i=1}^{m} \underline{err(w,y^{(i)},x^{(i)})} }<em>{E</em>{in}(w)} \qquad\qquad\quad\, (3) \<br>  \end{align</em>} \<br>  $$</p>
+<p>  $$<br>  \begin{align<em>}<br>  &amp; \min_w \quad \frac{1}{m} \sum_{i=1}^{m} - \log (h_w(y^{(i)} x^{(i)})) \qquad\qquad(1)\<br>  \Longrightarrow \; &amp; \min_w \quad \frac{1}{m} \sum_{i=1}^{m} \underline{ \log (1+\exp(-y^{(i)} w^T x^{(i)})) } \quad\;\,(2)\<br>  \Longrightarrow \; &amp; \min_w \quad \underbrace { \frac{1}{m} \sum_{i=1}^{m} \underline{err(w,y^{(i)},x^{(i)})} }_{E_{in}(w)} \qquad\qquad\quad\, (3) \<br>  \end{align</em>} \<br>  $$</p>
 <p>  公式\((1)\)添加了\(\frac{1}{m}\)是为了写成Loss Function的长相（对于给定数据来说，其作为一个常数，对求解无妨）；公式\((3)\)表达式又称为交叉熵损失（Cross-Entropy Error）。</p>
 <blockquote>
 <p>值得说明的是：不止LR模型的损失函数是交叉熵损失，几乎所有的条件概率模型对应的Loss Function都是交叉熵损失。</p>
@@ -554,7 +554,7 @@ $$</span>
 <blockquote>
 <p>注：LR模型用于解决大规模预估问题还是有很多挑战的。比如上面提到的几个问题，当然都不是预估模型的问题，而是一个大规模机器学习任务所面临的问题：</p>
 <ol>
-<li>特征离散化表示后（尤其是ID类特征），样本变得非常稀疏，学习时需要考虑；</li>
+<li>特征离散化表示后（尤其是ID类特征），特征会非常稀疏，学习时需要考虑稀疏性问题；</li>
 <li>训练数据集相比样本的高维度特征向量表示来说，显得“捉襟见肘”时，学习时要考虑过拟合问题；</li>
 <li>如何在更多的训练数据集和更高的数据特征维度上，借助<code>分布式框架＋优化求解算法框架</code>解决超大规模离散LR模型学习问题？</li>
 </ol>
@@ -612,19 +612,11 @@ $$</span>
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/hello-world/" title="测试Hexo功能">
-  <strong>上一篇：</strong><br/>
-  <span>
-  测试Hexo功能</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/head_first_ml/ml-chapter6-boosting-family/"  title="第06章：深入浅出ML之Boosting家族">
+<a href="/hello-world/"  title="测试Hexo功能">
  <strong>下一篇：</strong><br/> 
- <span>第06章：深入浅出ML之Boosting家族
+ <span>测试Hexo功能
 </span>
 </a>
 </div>
