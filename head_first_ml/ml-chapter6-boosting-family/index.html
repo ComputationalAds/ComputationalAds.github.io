@@ -509,7 +509,7 @@ Gradie">
 </tr>
 </tbody>
 </table>
-<p>$$\frac{1}{M} \sum_{i=1}^{M} I(G(x^{(i)}) \not= y^{(i)}) \le \exp(-2K\gamma^2) \qquad(ml.1.6.10)$$ |</p>
+<p>$$\frac{1}{M} \sum_{i=1}^{M} I(G(x^{(i)}) \not= y^{(i)}) \le \exp(-2K\gamma^2) \qquad(ml.1.6.10)$$|</p>
 <p>推论表明，在此条件下，<strong>AdaBoost的训练误差是以指数速率下降的</strong>。这一性质对于AdaBoost计算（迭代）效率是利好消息。</p>
 <blockquote>
 <p>注意：AdaBoost算法不需要知道下界\(\gamma\)，这正是Freund和Schapire设计AdaBoost时所考虑的。与一些早期的提升方法不同，AdaBoost具有适应性，即它能适应弱分类器各自的训练误差率。这也是其算法名称的由来（适应的提升）。Ada是Adaptive的简写。</p>
@@ -665,7 +665,7 @@ Gradie">
 <blockquote>
 <p>注：</p>
 <ol>
-<li>xgboost是<a href="https://github.com/dmlc" target="_blank" rel="external">DMLC</a>（即分布式机器学习社区）下面的一个子项目，由@陈天奇怪，@李沐等机器学习大神发起。</li>
+<li>XGBoost是<a href="https://github.com/dmlc" target="_blank" rel="external">DMLC</a>（即分布式机器学习社区）下面的一个子项目，由@陈天奇怪，@李沐等机器学习大神发起。</li>
 <li><a href="https://github.com/dmlc/rabit" target="_blank" rel="external">Rabit</a>是一个为分布式机器学习提供Allreduce和Broadcast编程范式和容错功能的开源库（也是@陈天奇同学的又一神器）。它主要是解决MPI系统机器之间无容错功能的问题，并且主要针对Allreduce和Broadcast接口提供可容错功能。</li>
 </ol>
 <p>题外话：</p>
@@ -677,7 +677,7 @@ Gradie">
 </li>
 <li><p><a href="http://www.multiboost.org/" target="_blank" rel="external">MultiBoost</a></p>
 <p>  <a href="http://www.multiboost.org/" target="_blank" rel="external">MultiBoost</a>工具的侧重点不同于<a href="https://github.com/dmlc/xgboost.git" target="_blank" rel="external">XGBoost</a>，是Adaboost算法的多分类版本实现，更偏向于解决<strong>multi-class / multi-label / multi-task的分类问题</strong>。</p>
-<p>  我们曾经用该工具完成了用户<strong>兴趣画像</strong>的多标签（multi-label）分类问题，其分类效果（Precision / Recall）要比<strong>Naive Bayes</strong>好些。</p>
+<p>  我们曾经基于该工具训练了用于<strong>用户兴趣画像</strong>的多标签（multi-label）分类模型，其分类效果（Precision / Recall作为指标）要比Naive Bayes好。</p>
 <p>  <a href="http://www.multiboost.org/" target="_blank" rel="external">MultiBoost</a>是用C++实现的。值得一提的是，由我们组的算法大神<a href="http://weibo.com/baigang111?is_all=1" target="_blank" rel="external">@BaiGang</a>用scala语言实现了MulitBoost的spark版本，详见Github:<a href="https://github.com/BaiGang/spark_multiboost" target="_blank" rel="external">Spark_MultiBoost</a></p>
 </li>
 </ul>
