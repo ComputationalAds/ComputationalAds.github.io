@@ -294,15 +294,15 @@ weibo: @周永_52ML
 <li>在统计中，\(w_1,w_2,\cdots,w_n\)称为偏回归系数，\(w_0\)称为截距。</li>
 </ol>
 </blockquote>
-<p>  如果令\(x<em>0=1, y(x,w)=h</em>{w}(x)\), 可以将公式\((ml.1.1.1)\)写成向量形式，即：</p>
-<p>  $$<br>  h<em>{w}(x) = \sum</em>{i=0}^{n} w_i x_i = w^T x \qquad(ml.1.1.2)<br>  $$</p>
+<p>  如果令\(x_0=1, y(x,w)=h_{w}(x)\), 可以将公式\((ml.1.1.1)\)写成向量形式，即：</p>
+<p>  $$<br>  h_{w}(x) = \sum_{i=0}^{n} w_i x_i = w^T x \qquad(ml.1.1.2)<br>  $$</p>
 <p>  其中，\(w=(w_0, w_1, \cdots, w_n)\)，\(x=(1, x_1, x_2, \cdots, x_n)\) 均为向量，\(w^T\)为\(w\)的转置。</p>
 </li>
 <li><p>参数学习准则</p>
 <p>  公式\((ml.1.1.2)\)中的参数向量\(w\)是\(n+1\)维的，每个参数变量的取值是实数集合，也就是说参数向量\(w\)在\(n+1\)维实数空间中取值结果有无穷种可能。</p>
-<p>  那么，如何根据一个规则或机制帮助我们评估求得的参数\(w\)比较好（或是最好）？直观地认为，如果求得的参数\(w\)线性求和后，得到的结果\(h_{w}(x)\)与真实值\(y\)之差越小越好。</p>
+<p>  那么，如何根据一个规则或机制帮助我们评估求得的参数\(w\)比较好（或是最好）？直观地认为，如果求得的参数\\(w\)线性求和后，得到的结果\(h_{w}(x)\)与真实值\(y\)之差越小越好。</p>
 <p>  因此，我们需要引入一个函数用来衡量\(h_{w}(x)\)表示真实值\(y\)好坏的程度，该函数称为损失函数（loss function，也称为错误函数）。数学表示如下：</p>
-<p>  $$<br>  \begin{align}<br>  &amp; J(w) = \frac{1}{2} \sum<em>{i=1}^{m} \left(h</em>{w}(x^{(i)}) - y^{(i)} \right)^2 \<br>  &amp; \min_{w} \quad J(w)<br>  \end{align}    \qquad (ml.1.1.3)<br>  $$</p>
+<p>  $$<br>  \begin{align}<br>  &amp; J(w) = \frac{1}{2} \sum_{i=1}^{m} \left(h_{w}(x^{(i)}) - y^{(i)} \right)^2 \\<br>  &amp; \min_{w} \quad J(w)<br>  \end{align}    \qquad (ml.1.1.3)<br>  $$</p>
 <p>  这个损失函数用的是\(x^{(i)}\)的估计值\(h_{w}(x^{(i)}\)与真实值\(y^{(i)}\)之差的平方和。从优化的角度讲，公式\((ml.1.1.3)\)是待优化的<strong>目标函数（Object Function）</strong>，可将其转化为最优化问题求参数。</p>
 </li>
 </ul>
@@ -426,7 +426,7 @@ $$</span>
 <li><p>LR模型表达式</p>
 <p>  <strong>LR模型表达式为参数化的逻辑斯蒂（累积）分布函数</strong>（默认参数\(\mu=0,s=1\)）即：</p>
 <p>  $$<br>  h_w(x) = \frac{1}{1+e^{-w^T \cdot x}} \qquad(ml.1.1.7)<br>  $$</p>
-<p>  这里，\(x \in R^{n+1}, Y \in {1,0}\)，\(w \in R^{n+1}\)是权值向量。其中权值向量\(w\)中包含偏置项,即\(w=(w_0, w_1, \cdots, w_n)\), \(x=(1, x_1, \cdots, x_n)\)。</p>
+<p>  这里，\(x \in R^{n+1}, Y \in \{1,0\}\)，\(w \in R^{n+1}\)是权值向量。其中权值向量\(w\)中包含偏置项,即\(w=(w_0, w_1, \cdots, w_n)\), \(x=(1, x_1, \cdots, x_n)\)。</p>
 </li>
 <li><p>理解LR模型</p>
 <ul>
@@ -456,41 +456,41 @@ $$</span>
 </blockquote>
 <p>  这里从事件、变量以及结果的角度给予解释。</p>
 <p>  我们所能拿到的训练数据统称为观测样本。问题：样本是如何生成的？</p>
-<p>  <strong>一个样本可以理解为发生的一次事件，样本生成的过程即事件发生的过程。对于0/1分类问题来讲，产生的结果有两种可能，符合伯努利试验的概率假设。因此，我们可以说样本的生成过程即为伯努利试验过程，产生的结果（0/1）服从伯努利分布。这里我们假设结果为1的概率为\(h<em>{w}(x)\)，结果为0的概率为\(1-h</em>{w}(x)\)</strong>。</p>
+<p>  <strong>一个样本可以理解为发生的一次事件，样本生成的过程即事件发生的过程。对于0/1分类问题来讲，产生的结果有两种可能，符合伯努利试验的概率假设。因此，我们可以说样本的生成过程即为伯努利试验过程，产生的结果（0/1）服从伯努利分布。这里我们假设结果为1的概率为\(h_{w}(x)\)，结果为0的概率为\(1-h_{w}(x)\)</strong>。</p>
 <p>  那么，对于第\(i\)个样本，概率公式表示如下：</p>
 <p>  $$P(y^{(i)}=1|x^{(i)}; w) = h_{w}(x^{(i)}) \qquad (ml.1.5)$$ </p>
 <p>  $$P(y^{(i)}=0|x^{(i)}; w) = 1 - h_{w}(x^{(i)}) \qquad (ml.1.6)$$</p>
 <p>  将公式\((ml.1.5)\)和\((ml.1.6)\)合并在一起，可得第\(i\)个样本正确预测的概率：</p>
-<p> $$<br> P(y^{(i)}|x^{(i)}; w) = (h<em>{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h</em>{w}(x^{(i)}))^{1-y^{(i)}} \qquad (ml.1.7)<br> $$</p>
+<p> $$<br> P(y^{(i)}|x^{(i)}; w) = (h_{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \qquad (ml.1.7)<br> $$</p>
 <p> 上式是对一条样本进行建模的数据表达。对于多条样本，假设每条样本生成过程独立，在整个样本空间中（\(m\)个样本）的概率分布为：</p>
-<p> $$P(Y|X; w) = \prod<em>{i=1}^{m} \left( (h</em>{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \right) \qquad(ml.1.8)$$</p>
+<p> $$P(Y|X; w) = \prod_{i=1}^{m} \left( (h_{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \right) \qquad(ml.1.8)$$</p>
 <p> 通过极大似然估计（Maximum Likelihood Evaluation，简称MLE）方法求概率参数。具体地，下面给出了通过随机梯度下降法（Stochastic Gradient Descent，简称SGD）求参数。</p>
 </li>
 <li><p>参数学习算法</p>
 <p>  公式\((ml.1.8)\)不仅可以理解为在已观测的样本空间中的概率分布表达式。如果从统计学的角度可以理解为参数\(w\)似然性的函数表达式（即似然函数表达式）。参数在整个样本空间中的似然函数可表示为：</p>
-<p>  $$<br>  \begin{align}<br>  L(w) &amp; = P(Y|X; w) \<br>  &amp; = \prod<em>{i=1}^{m} P(y^{(i)}|x^{(i)}; w) \<br>  &amp; = \prod</em>{i=1}^{m} \left( (h<em>{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h</em>{w}(x^{(i)}))^{1-y^{(i)}} \right)<br>  \end{align} \quad\qquad (ml.1.9)<br>  $$</p>
+<p>  $$<br>  \begin{align}<br>  L(w) &amp; = P(Y|X; w) \\<br>  &amp; = \prod_{i=1}^{m} P(y^{(i)}|x^{(i)}; w) \\<br>  &amp; = \prod_{i=1}^{m} \left( (h_{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \right)<br>  \end{align} \quad\qquad (ml.1.9)<br>  $$</p>
 <p>  为了方便参数求解，对公式\((ml.1.9)\)取对数，可得：</p>
-<p> $$<br>  \begin{align<em>}<br>  l(w) &amp; = logL(w) \<br>  &amp; = \sum<em>{i=1}^{m} \left( y^{(i)} \cdot \log (h</em>{w}(x^{(i)})) + (1-y^{(i)}) \cdot \log(1- h_{w}(x^{(i)})) \right)<br>  \end{align</em>} \qquad (ml.1.10)<br>  $$</p>
+<p> $$<br>  \begin{align_}<br>  l(w) &amp; = logL(w) \\<br>  &amp; = \sum_{i=1}^{m} \left( y^{(i)} \cdot \log (h_{w}(x^{(i)})) + (1-y^{(i)}) \cdot \log(1- h_{w}(x^{(i)})) \right)<br>  \end{align_} \qquad (ml.1.10)<br>  $$</p>
 <blockquote>
 <p>最大化log似然函数，就是最小化交叉熵误差（Cross Entropy Error）。</p>
 </blockquote>
 <p> 先不考虑累加和\(\sum_{i=1}^{m}\)，针对每个参数\(w_j\)求偏导：</p>
-<p> $$<br>\begin{align<em>}<br>\frac{\partial}{\partial w<em>j} l(w) &amp; = \left( y \frac{1}{h</em>{w}(x)} - (1-y) \frac{1}{1-h<em>{w}(x)}\right) \frac{\partial}{\partial w_j} h</em>{w}(x) \<br>&amp; = \left( \frac{y-h<em>{w}(x)}{h</em>{w}(x) \cdot (1 - h<em>{w}(x))}\right) \cdot h</em>{w}(x) (1 - h<em>{w}(x)) \cdot \frac{\partial}{\partial w_j} w^T x \<br>&amp; = \left( y-h</em>{w}(x) \right) \cdot \frac{\partial}{\partial w<em>j} w^T x \<br>&amp; = \left( y-h</em>{w}(x) \right) \cdot x_{j}<br>\end{align</em>}  \qquad (ml.1.11)<br>  $$ </p>
+<p> $$<br>\begin{align_}<br>\frac{\partial}{\partial w_j} l(w) &amp; = \left( y \frac{1}{h_{w}(x)} - (1-y) \frac{1}{1-h_{w}(x)}\right) \frac{\partial}{\partial w_j} h_{w}(x) \\<br>&amp; = \left( \frac{y-h_{w}(x)}{h_{w}(x) \cdot (1 - h_{w}(x))}\right) \cdot h_{w}(x) (1 - h_{w}(x)) \cdot \frac{\partial}{\partial w_j} w^T x \\<br>&amp; = \left( y-h_{w}(x) \right) \cdot \frac{\partial}{\partial w_j} w^T x \\<br>&amp; = \left( y-h_{w}(x) \right) \cdot x_{j}<br>\end{align_}  \qquad (ml.1.11)<br>  $$ </p>
 <p> 最后，通过扫描样本，迭代下述公式可求得参数：</p>
-<p> $$<br> w<em>{j+1} = w_j + \alpha \cdot (y^{(i)} - h</em>{w}(x^{(i)})) \cdot x_{j}^{(i)} \qquad (ml.1.12)<br> $$</p>
+<p> $$<br> w_{j+1} = w_j + \alpha \cdot (y^{(i)} - h_{w}(x^{(i)})) \cdot x_{j}^{(i)} \qquad (ml.1.12)<br> $$</p>
 <p> 公式\((ml.1.12)\)中的\(\alpha\)表示学习率（learning rete，又称学习步长），还有Batch Gradient法等，这些会在《深入浅出优化算法》系列中的梯度法章节中详细介绍。</p>
 <p> 基于梯度法求目标函数极值，另一种推导方式：</p>
 <blockquote>
-<p> $$<br>  \begin{align<em>}<br>  l(w) &amp; = \log L(w) \<br>  &amp; = \sum<em>{i=1}^{m} \left( y^{(i)} \cdot \log (h</em>{w}(x^{(i)})) + (1-y^{(i)}) \cdot \log(1- h<em>{w}(x^{(i)})) \right) \<br>  &amp; = \sum</em>{i=1}^{m} \left( y^{(i)} \cdot \underline { \log {\frac {h<em>w(x^{(i)})}{ 1-h_w(x^{(i)})}} } + \log (1-h_w(x^{(i)}))\right) \<br>  &amp; = \sum</em>{i=1}^{m} \left(y^{(i)} \cdot w^T x^{(i)} - \log (1 + \exp(w^Tx^{(i)})) \right)<br>  \end{align</em>}<br>  $$</p>
+<p> $$<br>  \begin{align_}<br>  l(w) &amp; = \log L(w) \\<br>  &amp; = \sum_{i=1}^{m} \left( y^{(i)} \cdot \log (h_{w}(x^{(i)})) + (1-y^{(i)}) \cdot \log(1- h_{w}(x^{(i)})) \right) \\<br>  &amp; = \sum_{i=1}^{m} \left( y^{(i)} \cdot \underline { \log {\frac {h_w(x^{(i)})}{ 1-h_w(x^{(i)})}} } + \log (1-h_w(x^{(i)}))\right) \\<br>  &amp; = \sum_{i=1}^{m} \left(y^{(i)} \cdot w^T x^{(i)} - \log (1 + \exp(w^Tx^{(i)})) \right)<br>  \end{align_}<br>  $$</p>
 <p>同样的，对每个参数求偏导，推导结果为：</p>
-<p>  $$<br>  \frac{\partial}{\partial w<em>j} l(w) = y^{(i)} x_j^{(i)} - \frac {\exp({w^Tx^{(i)}})} {1+\exp({w^Tx^{(i)}})}  x_j^{(i)} = \left( y^{(i)} - h</em>{w}(x^{(i)}) \right) \cdot x_{j}^{(i)}<br>  $$</p>
+<p>  $$<br>  \frac{\partial}{\partial w_j} l(w) = y^{(i)} x_j^{(i)} - \frac {\exp({w^Tx^{(i)}})} {1+\exp({w^Tx^{(i)}})}  x_j^{(i)} = \left( y^{(i)} - h_{w}(x^{(i)}) \right) \cdot x_{j}^{(i)}<br>  $$</p>
 </blockquote>
 <p> Sigmoid函数性质：</p>
 <p> &gt;</p>
 <blockquote>
 <p>①. \(h_w(-x) = 1 - h_w(x)\)</p>
 <p>②. \(h_w^{‘}(x) = (1-h_w(x)) \cdot h_w(x)\) </p>
-<p>推导：<br><br>  \(<br>  \begin{align<em>}<br>  h^{‘}(x) &amp; = (\frac {1}{1+e^{-x}})^{‘} = - \frac {1}{(1+e^{-x})^2} \cdot     (e^{-x})^{‘} \<br>  &amp; = \frac {e^{-x}} {(1+e^{-x})^2} = \frac {e^{-x}} {1+e^{-x}} \cdot \frac{1}    {1+e^{-x}} \<br>  &amp; = (1-h(x)) \cdot h(x)<br>  \end{align</em>}<br>  \)</p>
+<p>推导：<br><br>  \(<br>  \begin{align_}<br>  h^{‘}(x) &amp; = (\frac {1}{1+e^{-x}})^{‘} = - \frac {1}{(1+e^{-x})^2} \cdot     (e^{-x})^{‘} \\<br>  &amp; = \frac {e^{-x}} {(1+e^{-x})^2} = \frac {e^{-x}} {1+e^{-x}} \cdot \frac{1}    {1+e^{-x}} \\<br>  &amp; = (1-h(x)) \cdot h(x)<br>  \end{align_}<br>  \)</p>
 </blockquote>
 <p>  <strong>重要考察点：</strong></p>
 <blockquote>
@@ -499,9 +499,9 @@ $$</span>
 </li>
 <li><p>交叉熵误差</p>
 <p>  其实从公式\((ml.1.10)\)中不难看出，LR模型的对数似然函数对应的就是交叉熵的表达式。在给定样本空间下，对于条件概率\(P(y|x)=h_w(yx)\)来说，其似然函数表达式为：</p>
-<p>  $$<br>  \max<em>{h} likelihood(h) \propto \prod</em>{i=1}^{m} h_w(y^{(i)} x^{(i)})<br>  $$</p>
+<p>  $$<br>  \max_{h} likelihood(h) \propto \prod_{i=1}^{m} h_w(y^{(i)} x^{(i)})<br>  $$</p>
 <p>  上式表示函数\(h\)的可能性，即\(likelihood(h)\)。该式越大，说明\(h\)越逼近真实目标函数\(f\)。将其转化为求极小值问题（添加负号），并写成\(\log\)形式为：</p>
-<p>  $$<br>  \begin{align<em>}<br>  &amp; \min<em>w \quad \frac{1}{m} \sum</em>{i=1}^{m} - \log (h<em>w(y^{(i)} x^{(i)})) \qquad\qquad(1)\<br>  \Longrightarrow \; &amp; \min_w \quad \frac{1}{m} \sum</em>{i=1}^{m} \underline{ \log (1+\exp(-y^{(i)} w^T x^{(i)})) } \quad\;\,(2)\<br>  \Longrightarrow \; &amp; \min<em>w \quad \underbrace { \frac{1}{m} \sum</em>{i=1}^{m} \underline{err(w,y^{(i)},x^{(i)})} }<em>{E</em>{in}(w)} \qquad\qquad\quad\, (3) \<br>  \end{align</em>} \<br>  $$</p>
+<p>  $$<br>  \begin{align_}<br>  &amp; \min_w \quad \frac{1}{m} \sum_{i=1}^{m} - \log (h_w(y^{(i)} x^{(i)})) \qquad\qquad(1)\\<br>  \Longrightarrow \; &amp; \min_w \quad \frac{1}{m} \sum_{i=1}^{m} \underline{ \log (1+\exp(-y^{(i)} w^T x^{(i)})) } \quad\;\,(2)\\<br>  \Longrightarrow \; &amp; \min_w \quad \underbrace { \frac{1}{m} \sum_{i=1}^{m} \underline{err(w,y^{(i)},x^{(i)})} }_{E_{in}(w)} \qquad\qquad\quad\, (3) \\<br>  \end{align_} \<br>  $$</p>
 <p>  公式\((1)\)添加了\(\frac{1}{m}\)是为了写成Loss Function的长相（对于给定数据来说，其作为一个常数，对求解无妨）；公式\((3)\)表达式又称为交叉熵损失（Cross-Entropy Error）。</p>
 <blockquote>
 <p>值得说明的是：不止LR模型的损失函数是交叉熵损失，几乎所有的条件概率模型对应的Loss Function都是交叉熵损失。</p>
@@ -519,7 +519,7 @@ $$</span>
 <blockquote>
 <p>LR模型与指数族分布也存在密切的关系</p>
 <p>指数族分布的归一化形式（Canonical Form）：</p>
-<p>  $$<br>  p(y|\eta) = h(y) \cdot g(\eta) \cdot \exp{\eta^T \mu(y)}<br>  $$</p>
+<p>  $$<br>  p(y|\eta) = h(y) \cdot g(\eta) \cdot \exp\{\eta^T \mu(y)\}<br>  $$</p>
 <p>其中，</p>
 <p>前面说道，LR模型对应的结果只有两种可能，多次独立同分布实验服从二项分布。也就是说</p>
 </blockquote>
