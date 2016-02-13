@@ -171,7 +171,7 @@ weibo: @周永_52ML
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-13T10:51:46.000Z" itemprop="datePublished"> 发表于 2016-02-13</time>
+    <time datetime="2016-02-13T10:57:24.000Z" itemprop="datePublished"> 发表于 2016-02-13</time>
     
   </p>
 </header>
@@ -476,16 +476,15 @@ weibo: @周永_52ML
 <blockquote>
 <p>除此之外，还有<strong>Batch GD，共轭梯度，拟牛顿法（LBFGS），ADMM分布学习算法</strong>等都可用于求解参数，这些将在《最优化算法》系列中的对应章节中详细介绍。</p>
 </blockquote>
-<p> 基于梯度法求目标函数极值，另一种推导方式：</p>
-<p>  &gt;<br> $$<br>  \begin{align}<br>  l(w) &amp; = \log L(w) \\\<br>  &amp; = \sum_{i=1}^{m} \left( y^{(i)} \cdot \log (h_{w}(x^{(i)})) + (1-y^{(i)}) \cdot \log(1- h_{w}(x^{(i)})) \right) \\\<br>  &amp; = \sum_{i=1}^{m} \left( y^{(i)} \cdot \underline { \log {\frac {h_w(x^{(i)})}{ 1-h_w(x^{(i)})}} } + \log (1-h_w(x^{(i)}))\right) \\\<br>  &amp; = \sum_{i=1}^{m} \left(y^{(i)} \cdot w^T x^{(i)} - \log (1 + \exp(w^Tx^{(i)})) \right)<br>  \end{align} \qquad(n.ml.1.1.5)<br>  $$<br>  &gt;</p>
+<p> 基于梯度法求目标函数极值，另一种推导方式：<br>  &gt;<br> $$<br>  \begin{align}<br>  l(w) &amp; = \log L(w) \\\<br>  &amp; = \sum_{i=1}^{m} \left( y^{(i)} \cdot \log (h_{w}(x^{(i)})) + (1-y^{(i)}) \cdot \log(1- h_{w}(x^{(i)})) \right) \\\<br>  &amp; = \sum_{i=1}^{m} \left( y^{(i)} \cdot \underline { \log {\frac {h_w(x^{(i)})}{ 1-h_w(x^{(i)})}} } + \log (1-h_w(x^{(i)}))\right) \\\<br>  &amp; = \sum_{i=1}^{m} \left(y^{(i)} \cdot w^T x^{(i)} - \log (1 + \exp(w^Tx^{(i)})) \right)<br>  \end{align} \qquad(n.ml.1.1.5)<br>  $$<br>  &gt;</p>
 <blockquote>
 <p>同样的，对每个参数求偏导，推导结果为：</p>
 <p>  $$<br>  \frac{\partial}{\partial w_j} l(w) = y^{(i)} x_j^{(i)} - \frac {\exp({w^Tx^{(i)}})} {1+\exp({w^Tx^{(i)}})}  x_j^{(i)} = \left( y^{(i)} - h_{w}(x^{(i)}) \right) \cdot x_{j}^{(i)} \qquad(n.ml.1.1.6)<br>  $$</p>
 </blockquote>
 <p> Sigmoid函数性质：</p>
 <blockquote>
-<p>①. \(h_w(-x) = 1 - h_w(x)\) <br><br>②. \(h_w^{‘}(x) = (1-h_w(x)) \cdot h_w(x)\) </p>
-<p>推导：<br><br>  \(<br>  \begin{align}<br>  h^{‘}(x) &amp; = (\frac {1}{1+e^{-x}})^{‘} = - \frac {1}{(1+e^{-x})^2} \cdot     (e^{-x})^{‘} \\\<br>  &amp; = \frac {e^{-x}} {(1+e^{-x})^2} = \frac {e^{-x}} {1+e^{-x}} \cdot \frac{1}    {1+e^{-x}} \\\<br>  &amp; = (1-h(x)) \cdot h(x)<br>  \end{align}<br>  \)</p>
+<p>①. \(h_w(-x) = 1 - h_w(x)\) <br><br>②. \(h_w^{\prime}(x) = (1-h_w(x)) \cdot h_w(x)\) </p>
+<p>推导：<br><br>  \(<br>  \begin{align}<br>  h^{\prime}(x) &amp; = (\frac {1}{1+e^{-x}})^{\prime} = - \frac {1}{(1+e^{-x})^2} \cdot     (e^{-x})^{\prime} \\\<br>  &amp; = \frac {e^{-x}} {(1+e^{-x})^2} = \frac {e^{-x}} {1+e^{-x}} \cdot \frac{1}    {1+e^{-x}} \\\<br>  &amp; = (1-h(x)) \cdot h(x)<br>  \end{align}<br>  \)</p>
 </blockquote>
 <p><strong>重要考察点</strong></p>
 <blockquote>
