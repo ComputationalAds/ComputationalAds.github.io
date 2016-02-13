@@ -159,7 +159,7 @@ weibo: @周永_52ML
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-13T04:32:17.000Z" itemprop="datePublished"> 发表于 2016-02-13</time>
+    <time datetime="2016-02-13T08:51:05.000Z" itemprop="datePublished"> 发表于 2016-02-13</time>
     
   </p>
 </header>
@@ -383,7 +383,9 @@ weibo: @周永_52ML
 <p>   根据公式\((ml.1.1.6)\)估计得到一条样本的结果概率，然而模型的最终目标是希望能在全部样本上预测最准，也就是概率积最大，这个概率积就是似然函数，最大化即为最大似然估计。优化的目标的函数即为似然函数，表示如下：</p>
 <p>   $$<br>   \max \quad L(w) = \prod_{i=1}^{m} \frac{1}{\sqrt{2\pi} \sigma} \exp \left(- \frac{(y^{(i)} - w^T x^{(i)})^2} {2 \sigma^2}\right) \qquad(ml.1.1.7)<br>   $$</p>
 <p>   对数似然函数如下：</p>
-<p>   $$<br>   \max \; \mathcal{l}(w) = \log L(w) = -m \cdot \log \sqrt{2\pi} \sigma - \frac{1}{2\sigma^2} \sum_{i=1}^{m} \left(y^{(i)} - w^T x^{(i)}\right)^2  \qquad(ml.1.1.8)</p>
+<p>   $$<br>   \max \quad \mathcal{l}(w) = -m \cdot \log \sqrt{2\pi} \sigma - \frac{1}{2\sigma^2} \sum_{i=1}^{m} \left(y^{(i)} - w^T x^{(i)}\right)^2  \qquad(ml.1.1.8)</p>
+<pre><code><span class="variable">$$</span>
+</code></pre><p>   $$<br>   \max \quad l(w) = -m \cdot \log \sqrt{2\pi} \sigma - \frac{1}{2\sigma^2} \sum_{i=1}^{m} \left(y^{(i)} - w^T x^{(i)}\right)^2  \qquad(ml.1.1.8)</p>
 <pre><code><span class="variable">$$</span>
 </code></pre><p>   由于\(n,\sigma\)变量为常数，因此公式\(ml.1.1.8\)等价于：</p>
 <p>   $$<br>   \min \; \frac{1}{2} \sum_{i=1}^{m} \left(y^{(i)} - w^T x^{(i)}\right)^2 \qquad(ml.1.1.9)<br>   $$</p>
