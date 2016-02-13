@@ -33,9 +33,9 @@ weibo: @周永_52ML
 
 
 \(x_j\)">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:title" content="第01章：深入浅出ML之Regression家族">
-<meta property="og:url" content="http://www.52caml.com/深入浅出机器学习/ml-chapter1-regression-family/index.html">
+<meta property="og:url" content="http://www.52caml.com/Head-First-ML/head_first_ml/ml-chapter1-regression-family/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
 <meta property="og:description" content="author: zhouyongsdzh@foxmail.com
 date: 2015-07-25
@@ -143,14 +143,14 @@ weibo: @周永_52ML
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/深入浅出机器学习/ml-chapter1-regression-family/" title="第01章：深入浅出ML之Regression家族" itemprop="url">第01章：深入浅出ML之Regression家族</a>
+      <a href="/Head-First-ML/head_first_ml/ml-chapter1-regression-family/" title="第01章：深入浅出ML之Regression家族" itemprop="url">第01章：深入浅出ML之Regression家族</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-06T15:51:30.000Z" itemprop="datePublished"> 发表于 2016-02-06</time>
+    <time datetime="2016-02-13T01:05:43.000Z" itemprop="datePublished"> 发表于 2016-02-13</time>
     
   </p>
 </header>
@@ -573,7 +573,7 @@ $$</span>
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/深入浅出机器学习/">深入浅出机器学习</a>
+  <a class="article-category-link" href="/categories/Head-First-ML/">Head_First_ML</a>
 </div>
 
 
@@ -588,7 +588,7 @@ $$</span>
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/深入浅出机器学习/ml-chapter1-regression-family/" data-title="第01章：深入浅出ML之Regression家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/Head-First-ML/head_first_ml/ml-chapter1-regression-family/" data-title="第01章：深入浅出ML之Regression家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -601,19 +601,11 @@ $$</span>
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/Head-First-ML/head_first_ml/ml-chapter1-regression-family/" title="第01章：深入浅出ML之Regression家族">
-  <strong>上一篇：</strong><br/>
-  <span>
-  第01章：深入浅出ML之Regression家族</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/其它/hello-world/"  title="测试Hexo功能">
+<a href="/深入浅出机器学习/ml-chapter1-regression-family/"  title="第01章：深入浅出ML之Regression家族">
  <strong>下一篇：</strong><br/> 
- <span>测试Hexo功能
+ <span>第01章：深入浅出ML之Regression家族
 </span>
 </a>
 </div>
@@ -805,8 +797,36 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
   });
 });
 </script>
