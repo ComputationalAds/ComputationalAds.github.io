@@ -61,9 +61,9 @@ AdaBoost
 
 Boosted Decision Tree
 Gradie">
-<meta property="og:image" content="https://github.com/ComputationalAdvertising/spark_lr/blob/master/img/ml_6_0_0_adboost_binary_classification_1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_0_0_adboost_binary_classification_1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_0_0_adboost_binary_classification_2.png">
-<meta property="og:image" content="https://github.com/ComputationalAdvertising/spark_lr/blob/master/img/ml_6_1_1_loss_function_graph.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_1_1_loss_function_graph.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第06章：深入浅出ML之Boosting家族">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
@@ -164,7 +164,7 @@ Gradie">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boosting"><span class="toc-number">2.</span> <span class="toc-text">Boosting</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Boosting介绍"><span class="toc-number">2.1.</span> <span class="toc-text">Boosting介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前向分步加法模型（Forward_Stagewise_Additive_Modeling）"><span class="toc-number">2.2.</span> <span class="toc-text">前向分步加法模型（Forward Stagewise Additive Modeling）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Boosting四大家族"><span class="toc-number">2.3.</span> <span class="toc-text">Boosting四大家族</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Adaboost"><span class="toc-number">3.</span> <span class="toc-text">Adaboost</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#算法学习过程"><span class="toc-number">3.1.</span> <span class="toc-text">算法学习过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实例：AdaBoost算法"><span class="toc-number">3.2.</span> <span class="toc-text">实例：AdaBoost算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#训练误差分析"><span class="toc-number">3.3.</span> <span class="toc-text">训练误差分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前向分步加法模型与Adaboost"><span class="toc-number">3.4.</span> <span class="toc-text">前向分步加法模型与Adaboost</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boosted_Decision_Tree（提升决策树）"><span class="toc-number">4.</span> <span class="toc-text">Boosted Decision Tree（提升决策树）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#提升树模型"><span class="toc-number">4.1.</span> <span class="toc-text">提升树模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提升树算法"><span class="toc-number">4.2.</span> <span class="toc-text">提升树算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradient_Boosting（梯度提升法）"><span class="toc-number">5.</span> <span class="toc-text">Gradient Boosting（梯度提升法）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boosting工具"><span class="toc-number">6.</span> <span class="toc-text">Boosting工具</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boosting"><span class="toc-number">2.</span> <span class="toc-text">Boosting</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Boosting介绍"><span class="toc-number">2.1.</span> <span class="toc-text">Boosting介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前向分步加法模型"><span class="toc-number">2.2.</span> <span class="toc-text">前向分步加法模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Boosting四大家族"><span class="toc-number">2.3.</span> <span class="toc-text">Boosting四大家族</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Adaboost"><span class="toc-number">3.</span> <span class="toc-text">Adaboost</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#算法学习过程"><span class="toc-number">3.1.</span> <span class="toc-text">算法学习过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实例：AdaBoost算法"><span class="toc-number">3.2.</span> <span class="toc-text">实例：AdaBoost算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#训练误差分析"><span class="toc-number">3.3.</span> <span class="toc-text">训练误差分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前向分步加法模型与Adaboost"><span class="toc-number">3.4.</span> <span class="toc-text">前向分步加法模型与Adaboost</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boosted_Decision_Tree"><span class="toc-number">4.</span> <span class="toc-text">Boosted Decision Tree</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#提升树模型"><span class="toc-number">4.1.</span> <span class="toc-text">提升树模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提升树算法"><span class="toc-number">4.2.</span> <span class="toc-text">提升树算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradient_Boosting"><span class="toc-number">5.</span> <span class="toc-text">Gradient Boosting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boosting工具"><span class="toc-number">6.</span> <span class="toc-text">Boosting工具</span></a></li></ol>
 		
 		</div>
 		
@@ -200,7 +200,7 @@ Gradie">
 <p>参见paper：《An Empirical Comparison of Supervised Learning Algorithms》ICML2006.</p>
 </blockquote>
 <p> 下图给出的是Adaboost算法（Decision Stump as Weak Learner）在处理二类分类问题时，随着弱分类器的个数增加，训练误差与测试误差的曲线图。</p>
-<center><br><table><tr><br><td><p style="text-align:left"><img src="https://github.com/ComputationalAdvertising/spark_lr/blob/master/img/ml_6_0_0_adboost_binary_classification_1.png" width="250" height="200" alt="损失函数示意图"><br></p></td><br><td><p style="text-align:right"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_0_0_adboost_binary_classification_2.png" width="250" height="200" alt="损失函数示意图"><br></p></td><br></tr></table><br></center>
+<center><br><table><tr><br><td><p style="text-align:left"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_0_0_adboost_binary_classification_1.png" width="400" height="300" alt="损失函数示意图"><br></p></td><br><td><p style="text-align:right"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_0_0_adboost_binary_classification_2.png" width="400" height="300" alt="损失函数示意图"><br></p></td><br></tr></table><br></center>
 
 <p>从图中可以看出，Adaboost算法随着模型复杂度的增加，测试误差（红色点线）基本保持稳定，并没有出现过拟合的现象。</p>
 <p>其实不仅是Adaboost算法有这种表现，Boosting方法的学习思想和模型结构上可以保证其不容易产生过拟合（除非Weak Learner本身出现过拟合）。</p>
@@ -244,9 +244,9 @@ Gradie">
 </li>
 </ul>
 <p><br></p>
-<h4 id="前向分步加法模型（Forward_Stagewise_Additive_Modeling）"><strong>前向分步加法模型（Forward Stagewise Additive Modeling）</strong></h4><ul>
-<li><p>加法模型</p>
-<p>  考虑加法模型（addtive model）</p>
+<h4 id="前向分步加法模型"><strong>前向分步加法模型</strong></h4><p>英文名称：Forward Stagewise Additive Modeling</p>
+<ul>
+<li><p>加法模型（addtive model）</p>
 <p>  $$<br>  f(x) = \sum_{k=1}^{K} \beta_k \cdot b(x; \gamma_k) \qquad(ml.1.6.11)<br>  $$ </p>
 <p>  其中，\(b(x; \gamma_k)\) 为基函数，\(\gamma_k\)为基函数的参数，\(\beta_k\)为基函数的系数。显然，公式\((ml.1.6.6)\)是一个加法模型。</p>
 </li>
@@ -310,7 +310,7 @@ Gradie">
 <p><strong>L2Boosting全称：Least Squares Boosting；该算法由Buhlmann和Yu在2003年提出。</strong></p>
 </blockquote>
 <p>二分类问题时损失函数示意图：</p>
-<p></p><p style="text-align:center"><img src="https://github.com/ComputationalAdvertising/spark_lr/blob/master/img/ml_6_1_1_loss_function_graph.png" width="600" height="500" alt="损失函数示意图"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_1_1_loss_function_graph.png" width="500" height="400" alt="损失函数示意图"></p>
 <p>下面主要以AdaBoost算法作为示例，给出以下3个问题的解释：</p>
 <ul>
 <li>AdaBoost为什么能够提升学习精度？</li>
@@ -321,7 +321,7 @@ Gradie">
 <h3 id="Adaboost"><br><strong>Adaboost</strong></h3><h4 id="算法学习过程"><br><strong>算法学习过程</strong></h4><p>Adaboost算法在分类问题中的主要特点：<strong>通过改变训练样本的权重，学习多个分类器，并将这些分类器进行线性组合，提高分类性能。</strong> AdaBoost－算法描述（伪代码）如下：</p>
 <p>\(<br>    \begin{align}<br>    &amp;\{ \\<br>    &amp;\quad 输入：训练数据集D=\{(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \cdots, (x^{(M)},y^{(M)})\}，x^{(i)} \in \mathcal{X} \subseteq R^N，\\<br>    &amp;\qquad\qquad y^{(i)} \in \mathcal{Y} = \{-1, +1\}, 弱分类器; \\<br>    &amp;\quad 输出：最终分类器G(x). \\<br>    &amp;\quad 过程：\\<br>    &amp;\qquad (1). 初始化训练数据的权值分布 \\<br>    &amp;\qquad\qquad\qquad D_1=(w_{11}, w_{12}, \cdots, w_{1M}), \quad w_{1i}=\frac{1}{M}, \; i=1,2,\cdots,M \quad(6.1)\\<br>    &amp;\qquad (2). 训练K个弱分类器 k=1,2,\cdots,K \\<br>    &amp;\qquad\qquad (a). 使用具有权值分布D_k的训练数据集学习，得到基本分类器 \\<br>    &amp;\qquad\qquad\qquad\qquad G_k(x): \mathcal{X} \rightarrow \{-1, +1\} \qquad\qquad(ml.1.6.1)\\<br>    &amp;\qquad\qquad (b). 计算G_k(x)在训练数据集上的分类误差率 \\<br>    &amp;\qquad\qquad\qquad\qquad e_k = P(G_k(x^{(i)}) \not= y^{(i)}) = \sum_{i=1}^{M} w_{ki} I(G_k(x^{(i)}) \not= y^{(i)}) \qquad(ml.1.6.2)\\<br>    &amp;\qquad\qquad (c). 计算G_k(x)的系数 \\<br>    &amp;\qquad\qquad\qquad\qquad \alpha_k = \frac{1}{2} \log \frac{1-e_k}{e_k} \quad(e是自然对数) \qquad(ml.1.6.3)\\<br>    &amp;\qquad\qquad (d). 更新训练数据集的权值分布 \\<br>    &amp;\qquad\qquad\qquad\qquad D_{k+1} = (w_{k+1,1}, w_{k+1,2}, \cdots, w_{k+1,M})\\<br>    &amp;\qquad\qquad\qquad\qquad w_{k+1,i} = \frac{w_{k,i}}{Z_k} \exp(-\alpha_k y^{(i)} G_k(x^{(i)})), \quad i=1,2,\cdots,M \quad(ml.1.6.4)\\<br>    &amp;\qquad\qquad\qquad Z_k是规范化因子 \\<br>    &amp;\qquad\qquad\qquad\qquad Z_k = \sum_{i=1}^{M} w_{k,i} \cdot \exp(-\alpha_k y^{(i)} G_k(x^{(i)})) \qquad(ml.1.6.5)\\<br>    &amp;\qquad\qquad\qquad 使D_{k+1}成为一个概率分布。\\<br>    &amp;\qquad (3). 构建基本分类器的线性组合 \\<br>    &amp;\qquad\qquad\qquad f(x) = \sum_{k=1}^{K} \alpha_k G_k(x) \qquad(ml.1.6.6)\\<br>    &amp;\qquad 得到最终的分类器 \\<br>    &amp;\qquad\qquad G(x) = sign (f(x)) = sign \left(\sum_{k=1}^{K} \alpha_k G_k(x) \right) \qquad(ml.1.6.7)\\<br>    &amp;\}<br>    \end{align}<br>    \)</p>
 <ul>
-<li><p>AdaBoost算法描述说明</p>
+<li><p><strong>AdaBoost算法描述说明</strong></p>
 <ul>
 <li><p>步骤（1）假设训练数据集具有均匀（相同）的权值分布，即每个训练样本在基本分类器的学习中作用相同。</p>
 <blockquote>
@@ -575,7 +575,7 @@ Gradie">
 </li>
 </ul>
 <p><br></p>
-<h3 id="Boosted_Decision_Tree（提升决策树）"><strong>Boosted Decision Tree（提升决策树）</strong></h3><p>提升决策树是指以<strong>分类树或回归树</strong>为基本分类器的提升方法，被认为是统计学习中性能最好的方法之一。</p>
+<h3 id="Boosted_Decision_Tree"><strong>Boosted Decision Tree</strong></h3><p>提升决策树是指以<strong>分类树或回归树</strong>为基本分类器的提升方法，被认为是统计学习中性能最好的方法之一。</p>
 <blockquote>
 <p>提升决策树简称提升树，Boosting Tree.</p>
 </blockquote>
@@ -631,7 +631,7 @@ Gradie">
 </li>
 </ul>
 <p><br></p>
-<h3 id="Gradient_Boosting（梯度提升法）"><strong>Gradient Boosting（梯度提升法）</strong></h3><p>提升树方法是利用加法模型与前向分布算法实现整个优化学习过程。Adaboost的指数损失和回归提升树的平方损失，在前向分布中的每一步都比较简单。但对于一般损失函数而言（比如绝对损失），每一个优化并不容易。</p>
+<h3 id="Gradient_Boosting"><strong>Gradient Boosting</strong></h3><p>提升树方法是利用加法模型与前向分布算法实现整个优化学习过程。Adaboost的指数损失和回归提升树的平方损失，在前向分布中的每一步都比较简单。但对于一般损失函数而言（比如绝对损失），每一个优化并不容易。</p>
 <p>针对这一问题。Freidman提出了梯度提升（gradient boosting）算法。该算法思想：</p>
 <p><strong>利用损失函数的负梯度在当前模型的值作为回归问题提升树算法中残差的近似值，拟合一个回归树。</strong></p>
 <p>损失函数的负梯度为：</p>
@@ -747,7 +747,7 @@ Gradie">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boosting"><span class="toc-number">2.</span> <span class="toc-text">Boosting</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Boosting介绍"><span class="toc-number">2.1.</span> <span class="toc-text">Boosting介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前向分步加法模型（Forward_Stagewise_Additive_Modeling）"><span class="toc-number">2.2.</span> <span class="toc-text">前向分步加法模型（Forward Stagewise Additive Modeling）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Boosting四大家族"><span class="toc-number">2.3.</span> <span class="toc-text">Boosting四大家族</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Adaboost"><span class="toc-number">3.</span> <span class="toc-text">Adaboost</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#算法学习过程"><span class="toc-number">3.1.</span> <span class="toc-text">算法学习过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实例：AdaBoost算法"><span class="toc-number">3.2.</span> <span class="toc-text">实例：AdaBoost算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#训练误差分析"><span class="toc-number">3.3.</span> <span class="toc-text">训练误差分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前向分步加法模型与Adaboost"><span class="toc-number">3.4.</span> <span class="toc-text">前向分步加法模型与Adaboost</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boosted_Decision_Tree（提升决策树）"><span class="toc-number">4.</span> <span class="toc-text">Boosted Decision Tree（提升决策树）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#提升树模型"><span class="toc-number">4.1.</span> <span class="toc-text">提升树模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提升树算法"><span class="toc-number">4.2.</span> <span class="toc-text">提升树算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradient_Boosting（梯度提升法）"><span class="toc-number">5.</span> <span class="toc-text">Gradient Boosting（梯度提升法）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boosting工具"><span class="toc-number">6.</span> <span class="toc-text">Boosting工具</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boosting"><span class="toc-number">2.</span> <span class="toc-text">Boosting</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Boosting介绍"><span class="toc-number">2.1.</span> <span class="toc-text">Boosting介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前向分步加法模型"><span class="toc-number">2.2.</span> <span class="toc-text">前向分步加法模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Boosting四大家族"><span class="toc-number">2.3.</span> <span class="toc-text">Boosting四大家族</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Adaboost"><span class="toc-number">3.</span> <span class="toc-text">Adaboost</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#算法学习过程"><span class="toc-number">3.1.</span> <span class="toc-text">算法学习过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实例：AdaBoost算法"><span class="toc-number">3.2.</span> <span class="toc-text">实例：AdaBoost算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#训练误差分析"><span class="toc-number">3.3.</span> <span class="toc-text">训练误差分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前向分步加法模型与Adaboost"><span class="toc-number">3.4.</span> <span class="toc-text">前向分步加法模型与Adaboost</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boosted_Decision_Tree"><span class="toc-number">4.</span> <span class="toc-text">Boosted Decision Tree</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#提升树模型"><span class="toc-number">4.1.</span> <span class="toc-text">提升树模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提升树算法"><span class="toc-number">4.2.</span> <span class="toc-text">提升树算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradient_Boosting"><span class="toc-number">5.</span> <span class="toc-text">Gradient Boosting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boosting工具"><span class="toc-number">6.</span> <span class="toc-text">Boosting工具</span></a></li></ol>
  
   </div>
 
