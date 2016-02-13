@@ -17,7 +17,7 @@
 大家好，欢迎来到CAML技术共享平台！猴年到，祝大家春节愉快，万事如意！！！
 CAML平台致力于整理和分享互联网广告领域的核心问题和解决方案。作者水平有限，期望能与对此话题感兴趣的朋友一起学习、交流和分享。
 众所周知，机器学习是一门交叉性很强的学科，而我们这里主">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:title" content="计算广告与机器学习－技术共享平台">
 <meta property="og:url" content="http://www.52caml.com/home/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
@@ -284,8 +284,36 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
   });
 });
 </script>
