@@ -27,9 +27,9 @@ weibo: @周永_52ML
 6.2.1. 算法学习过程 
 6.2.2. 算法实例
 6.2.2.">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:title" content="第06章：深入浅出ML之Boosting家族">
-<meta property="og:url" content="http://www.52caml.com/深入浅出机器学习/ml-chapter6-boosting-family/index.html">
+<meta property="og:url" content="http://www.52caml.com/深入浅出机器学习/head_first_ml/ml-chapter6-boosting-family/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
 <meta property="og:description" content="author: zhouyongsdzh@foxmail.com
 date: 2015-11-12
@@ -127,7 +127,7 @@ weibo: @周永_52ML
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/深入浅出机器学习/ml-chapter6-boosting-family/" title="第06章：深入浅出ML之Boosting家族" itemprop="url">第06章：深入浅出ML之Boosting家族</a>
+      <a href="/深入浅出机器学习/head_first_ml/ml-chapter6-boosting-family/" title="第06章：深入浅出ML之Boosting家族" itemprop="url">第06章：深入浅出ML之Boosting家族</a>
   </h1>
   <p class="article-author">By
        
@@ -592,7 +592,7 @@ weibo: @周永_52ML
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/深入浅出机器学习/ml-chapter6-boosting-family/" data-title="第06章：深入浅出ML之Boosting家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/深入浅出机器学习/head_first_ml/ml-chapter6-boosting-family/" data-title="第06章：深入浅出ML之Boosting家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -615,7 +615,7 @@ weibo: @周永_52ML
 
 
 <div class="next">
-<a href="/概率与统计/beta-gamma-dirichlet-function/"  title="概率与统计-chapter0-三个重要函数">
+<a href="/概率与统计/stats/beta-gamma-dirichlet-function/"  title="概率与统计-chapter0-三个重要函数">
  <strong>下一篇：</strong><br/> 
  <span>概率与统计-chapter0-三个重要函数
 </span>
@@ -646,10 +646,6 @@ weibo: @周永_52ML
 		<ul>
 		
 		  
-			<li><a href="/categories/Head-First-ML/" title="Head_First_ML">Head_First_ML<sup>1</sup></a></li>
-		  
-		
-		  
 			<li><a href="/categories/概率与统计/" title="概率与统计">概率与统计<sup>2</sup></a></li>
 		  
 		
@@ -671,10 +667,6 @@ weibo: @周永_52ML
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Linear-Regression，Logistic-Regression，Lasso，Ridge，SoftMax/" title="Linear Regression，Logistic Regression，Lasso，Ridge，SoftMax">Linear Regression，Logistic Regression，Lasso，Ridge，SoftMax<sup>2</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
 			
 		
@@ -683,11 +675,15 @@ weibo: @周永_52ML
 			
 		
 			
+				<li><a href="/tags/Gamma-Beta-Dirichlet/" title="Gamma,Beta,Dirichlet">Gamma,Beta,Dirichlet<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/boosting-adaboost-gradient-boosting-BGDT-xgboost/" title="boosting, adaboost, gradient boosting, BGDT, xgboost">boosting, adaboost, gradient boosting, BGDT, xgboost<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Gamma-Beta-Dirichlet/" title="Gamma,Beta,Dirichlet">Gamma,Beta,Dirichlet<sup>1</sup></a></li>
+				<li><a href="/tags/Linear-Regression，Logistic-Regression，Lasso，Ridge，SoftMax/" title="Linear Regression，Logistic Regression，Lasso，Ridge，SoftMax">Linear Regression，Logistic Regression，Lasso，Ridge，SoftMax<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -809,8 +805,36 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
   });
 });
 </script>

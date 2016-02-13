@@ -29,9 +29,9 @@ Dirichlet分布
 other
 
 说明可以取连续值的随机变量称为连续随机变量（cont">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:title" content="概率与统计-chapter3-连续随机变量">
-<meta property="og:url" content="http://www.52caml.com/概率与统计/prob-stats-chapter3-continuous-random-variable/index.html">
+<meta property="og:url" content="http://www.52caml.com/概率与统计/stats/prob-stats-chapter3-continuous-random-variable/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
 <meta property="og:description" content="连续随机变量（continuous random variable）
 author: zhouyongsdzh@foxmail.com
@@ -130,7 +130,7 @@ other
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/概率与统计/prob-stats-chapter3-continuous-random-variable/" title="概率与统计-chapter3-连续随机变量" itemprop="url">概率与统计-chapter3-连续随机变量</a>
+      <a href="/概率与统计/stats/prob-stats-chapter3-continuous-random-variable/" title="概率与统计-chapter3-连续随机变量" itemprop="url">概率与统计-chapter3-连续随机变量</a>
   </h1>
   <p class="article-author">By
        
@@ -534,7 +534,7 @@ other
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/概率与统计/prob-stats-chapter3-continuous-random-variable/" data-title="概率与统计-chapter3-连续随机变量 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/概率与统计/stats/prob-stats-chapter3-continuous-random-variable/" data-title="概率与统计-chapter3-连续随机变量 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -548,7 +548,7 @@ other
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/概率与统计/beta-gamma-dirichlet-function/" title="概率与统计-chapter0-三个重要函数">
+ <a href="/概率与统计/stats/beta-gamma-dirichlet-function/" title="概率与统计-chapter0-三个重要函数">
   <strong>上一篇：</strong><br/>
   <span>
   概率与统计-chapter0-三个重要函数</span>
@@ -557,7 +557,7 @@ other
 
 
 <div class="next">
-<a href="/计算广告学/ca_roadmap/"  title="计算广告学-RoadMap">
+<a href="/计算广告学/computational_ads/ca_roadmap/"  title="计算广告学-RoadMap">
  <strong>下一篇：</strong><br/> 
  <span>计算广告学-RoadMap
 </span>
@@ -588,10 +588,6 @@ other
 		<ul>
 		
 		  
-			<li><a href="/categories/Head-First-ML/" title="Head_First_ML">Head_First_ML<sup>1</sup></a></li>
-		  
-		
-		  
 			<li><a href="/categories/概率与统计/" title="概率与统计">概率与统计<sup>2</sup></a></li>
 		  
 		
@@ -613,10 +609,6 @@ other
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Linear-Regression，Logistic-Regression，Lasso，Ridge，SoftMax/" title="Linear Regression，Logistic Regression，Lasso，Ridge，SoftMax">Linear Regression，Logistic Regression，Lasso，Ridge，SoftMax<sup>2</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
 			
 		
@@ -625,11 +617,15 @@ other
 			
 		
 			
+				<li><a href="/tags/Gamma-Beta-Dirichlet/" title="Gamma,Beta,Dirichlet">Gamma,Beta,Dirichlet<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/boosting-adaboost-gradient-boosting-BGDT-xgboost/" title="boosting, adaboost, gradient boosting, BGDT, xgboost">boosting, adaboost, gradient boosting, BGDT, xgboost<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Gamma-Beta-Dirichlet/" title="Gamma,Beta,Dirichlet">Gamma,Beta,Dirichlet<sup>1</sup></a></li>
+				<li><a href="/tags/Linear-Regression，Logistic-Regression，Lasso，Ridge，SoftMax/" title="Linear Regression，Logistic Regression，Lasso，Ridge，SoftMax">Linear Regression，Logistic Regression，Lasso，Ridge，SoftMax<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -751,8 +747,36 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
   });
 });
 </script>

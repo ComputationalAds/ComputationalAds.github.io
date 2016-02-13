@@ -18,9 +18,9 @@ Sina Weibo: @周永_52ML
 多产的数学家－欧拉他是公认的数学史上4位最伟大的数学家之一，他的一生没有戏剧性的故事，但给后人留下宝贵的科学财富。
 18世纪，数学家辈出的年代，他仍属于佼佼者，被认为是18世纪数学界最杰出的人物之一。
 同时，他在数学领域最多产的一位，不仅在数学界做出伟大贡">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:title" content="概率与统计-chapter0-三个重要函数">
-<meta property="og:url" content="http://www.52caml.com/概率与统计/beta-gamma-dirichlet-function/index.html">
+<meta property="og:url" content="http://www.52caml.com/概率与统计/stats/beta-gamma-dirichlet-function/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
 <meta property="og:description" content="Author: zhouyongsdzh@foxmail.com
 Date: 2015-07-04
@@ -97,7 +97,7 @@ Sina Weibo: @周永_52ML
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/概率与统计/beta-gamma-dirichlet-function/" title="概率与统计-chapter0-三个重要函数" itemprop="url">概率与统计-chapter0-三个重要函数</a>
+      <a href="/概率与统计/stats/beta-gamma-dirichlet-function/" title="概率与统计-chapter0-三个重要函数" itemprop="url">概率与统计-chapter0-三个重要函数</a>
   </h1>
   <p class="article-author">By
        
@@ -413,7 +413,7 @@ Sina Weibo: @周永_52ML
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/概率与统计/beta-gamma-dirichlet-function/" data-title="概率与统计-chapter0-三个重要函数 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/概率与统计/stats/beta-gamma-dirichlet-function/" data-title="概率与统计-chapter0-三个重要函数 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -427,7 +427,7 @@ Sina Weibo: @周永_52ML
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/深入浅出机器学习/ml-chapter6-boosting-family/" title="第06章：深入浅出ML之Boosting家族">
+ <a href="/深入浅出机器学习/head_first_ml/ml-chapter6-boosting-family/" title="第06章：深入浅出ML之Boosting家族">
   <strong>上一篇：</strong><br/>
   <span>
   第06章：深入浅出ML之Boosting家族</span>
@@ -436,7 +436,7 @@ Sina Weibo: @周永_52ML
 
 
 <div class="next">
-<a href="/概率与统计/prob-stats-chapter3-continuous-random-variable/"  title="概率与统计-chapter3-连续随机变量">
+<a href="/概率与统计/stats/prob-stats-chapter3-continuous-random-variable/"  title="概率与统计-chapter3-连续随机变量">
  <strong>下一篇：</strong><br/> 
  <span>概率与统计-chapter3-连续随机变量
 </span>
@@ -467,10 +467,6 @@ Sina Weibo: @周永_52ML
 		<ul>
 		
 		  
-			<li><a href="/categories/Head-First-ML/" title="Head_First_ML">Head_First_ML<sup>1</sup></a></li>
-		  
-		
-		  
 			<li><a href="/categories/概率与统计/" title="概率与统计">概率与统计<sup>2</sup></a></li>
 		  
 		
@@ -492,10 +488,6 @@ Sina Weibo: @周永_52ML
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Linear-Regression，Logistic-Regression，Lasso，Ridge，SoftMax/" title="Linear Regression，Logistic Regression，Lasso，Ridge，SoftMax">Linear Regression，Logistic Regression，Lasso，Ridge，SoftMax<sup>2</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
 			
 		
@@ -504,11 +496,15 @@ Sina Weibo: @周永_52ML
 			
 		
 			
+				<li><a href="/tags/Gamma-Beta-Dirichlet/" title="Gamma,Beta,Dirichlet">Gamma,Beta,Dirichlet<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/boosting-adaboost-gradient-boosting-BGDT-xgboost/" title="boosting, adaboost, gradient boosting, BGDT, xgboost">boosting, adaboost, gradient boosting, BGDT, xgboost<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Gamma-Beta-Dirichlet/" title="Gamma,Beta,Dirichlet">Gamma,Beta,Dirichlet<sup>1</sup></a></li>
+				<li><a href="/tags/Linear-Regression，Logistic-Regression，Lasso，Ridge，SoftMax/" title="Linear Regression，Logistic Regression，Lasso，Ridge，SoftMax">Linear Regression，Logistic Regression，Lasso，Ridge，SoftMax<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -630,8 +626,36 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
   });
 });
 </script>
