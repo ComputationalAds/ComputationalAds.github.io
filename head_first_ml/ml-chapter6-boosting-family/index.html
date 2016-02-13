@@ -449,16 +449,18 @@ Gradie">
 <table>
 <thead>
 <tr>
-<th>AdaBoost训练误差界</th>
+<th>［定理］AdaBoost训练误差界</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>AdaBoost算法最终分类器的训练误差界为：</td>
+<td>$$ \frac{1}{M} \sum_{i=1}^{M} I(G(x^{(i)}) \not= y^{(i)}) \le \frac{1}{M} \sum_{i} \exp(-y^{(i)} f(x^{(i)})) = \prod_{k=1}^{K} Z_k \qquad(ml.1.6.8) $$</td>
+</tr>
+<tr>
+<td>其中，\(G(x), f(x)\)和\(Z_k\)分别由公式\((ml.1.6.7), (ml.1.6.6), (ml.1.6.5)\)给出</td>
 </tr>
 </tbody>
 </table>
-<p>$$\frac{1}{M} \sum_{i=1}^{M} I(G(x^{(i)}) \not= y^{(i)}) \le \frac{1}{M} \sum_{i} \exp(-y^{(i)} f(x^{(i)})) = \prod_{k=1}^{K} Z_k \qquad(ml.1.6.8)$$|<br>| 其中，\(G(x), f(x)\)和\(Z_k\)分别由公式\((ml.1.6.7), (ml.1.6.6), (ml.1.6.5)\)给出。|</p>
 <blockquote>
 <p>证明如下：</p>
 <p>当\(G(x^{(i)}) \not= y^{(i)}\)时，\(y^{(i)} f(x^{(i)}) &lt; 0\)，因而\(\exp(-y^{(i)} f(x^{(i)})) \ge 1\)。由此，可以直接推导出前半部分。</p>
@@ -483,7 +485,7 @@ Gradie">
 <td>$$\prod_{k=1}^{K} Z_k = \prod_{k=1}^{K} \left[2 \sqrt{e_k(1-e_k)} \;\right] = \prod_{k=1}^{K} \sqrt{(1-4\gamma_k^2)} \le \exp \left(-2 \sum_{k=1}^{K} \gamma_k^2 \right) \qquad(ml.1.6.9)$$</td>
 </tr>
 <tr>
-<td>这里，$$\gamma_k = 0.5 - e_k .$$</td>
+<td>这里，\(\gamma_k = 0.5 - e_k \)</td>
 </tr>
 </tbody>
 </table>
