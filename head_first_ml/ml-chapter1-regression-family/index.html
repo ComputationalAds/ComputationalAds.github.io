@@ -18,11 +18,11 @@ weibo: @周永_52ML
 —
 内容列表
 
-0.0. 符号定义
-1.0. 说明
-1.1. 回归分析介绍
-1.2. 线性回归
-1.3. 逻辑斯蒂回归
+符号定义
+说明
+回归分析介绍
+线性回归
+逻辑斯蒂回归
 
 符号定义这里定义《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：
 
@@ -35,7 +35,11 @@ weibo: @周永_52ML
 
 
 \(x_j\)
-第\">
+第\(j\)维特征
+
+
+\(x\)
+一条样本中的特征向">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第01章：深入浅出ML之Regression家族">
 <meta property="og:url" content="http://www.52caml.com/head_first_ml/ml-chapter1-regression-family/index.html">
@@ -47,11 +51,11 @@ weibo: @周永_52ML
 —
 内容列表
 
-0.0. 符号定义
-1.0. 说明
-1.1. 回归分析介绍
-1.2. 线性回归
-1.3. 逻辑斯蒂回归
+符号定义
+说明
+回归分析介绍
+线性回归
+逻辑斯蒂回归
 
 符号定义这里定义《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：
 
@@ -64,7 +68,11 @@ weibo: @周永_52ML
 
 
 \(x_j\)
-第\">
+第\(j\)维特征
+
+
+\(x\)
+一条样本中的特征向">
 <meta property="og:image" content="http://www.analyticsvidhya.com/wp-content/uploads/2015/08/Regression_Line.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第01章：深入浅出ML之Regression家族">
@@ -75,11 +83,11 @@ weibo: @周永_52ML
 —
 内容列表
 
-0.0. 符号定义
-1.0. 说明
-1.1. 回归分析介绍
-1.2. 线性回归
-1.3. 逻辑斯蒂回归
+符号定义
+说明
+回归分析介绍
+线性回归
+逻辑斯蒂回归
 
 符号定义这里定义《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：
 
@@ -92,7 +100,11 @@ weibo: @周永_52ML
 
 
 \(x_j\)
-第\">
+第\(j\)维特征
+
+
+\(x\)
+一条样本中的特征向">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -159,7 +171,7 @@ weibo: @周永_52ML
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-13T08:53:31.000Z" itemprop="datePublished"> 发表于 2016-02-13</time>
+    <time datetime="2016-02-13T10:44:31.000Z" itemprop="datePublished"> 发表于 2016-02-13</time>
     
   </p>
 </header>
@@ -168,7 +180,7 @@ weibo: @周永_52ML
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#符号定义"><span class="toc-number">1.</span> <span class="toc-text">符号定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">2.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归分析介绍"><span class="toc-number">3.</span> <span class="toc-text">回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线性回归（Linear_Regression）"><span class="toc-number">4.</span> <span class="toc-text">线性回归（Linear Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1_线性回归模型"><span class="toc-number">4.1.</span> <span class="toc-text">1.2.1 线性回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2_线性回归参数学习"><span class="toc-number">4.2.</span> <span class="toc-text">1.2.2 线性回归参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3_回归模型目标函数概率解释"><span class="toc-number">4.3.</span> <span class="toc-text">1.2.3 回归模型目标函数概率解释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-4-_带权重的线性回归"><span class="toc-number">4.4.</span> <span class="toc-text">1.2.4. 带权重的线性回归</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-_逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">5.</span> <span class="toc-text">1.3. 逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-_逻辑斯蒂分布"><span class="toc-number">5.1.</span> <span class="toc-text">1.3.1. 逻辑斯蒂分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2_逻辑斯蒂回归模型"><span class="toc-number">5.2.</span> <span class="toc-text">1.3.2 逻辑斯蒂回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3_LR模型与广义线性模型、最大熵模型、指数族分布"><span class="toc-number">5.3.</span> <span class="toc-text">1.3.3 LR模型与广义线性模型、最大熵模型、指数族分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-4-_LR模型在工业界的应用"><span class="toc-number">5.4.</span> <span class="toc-text">1.3.4. LR模型在工业界的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Next_…"><span class="toc-number">6.</span> <span class="toc-text">Next …</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归问题相关解释"><span class="toc-number">7.</span> <span class="toc-text">回归问题相关解释</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#符号定义"><span class="toc-number">1.</span> <span class="toc-text">符号定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">2.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归分析介绍"><span class="toc-number">3.</span> <span class="toc-text">回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线性回归（Linear_Regression）"><span class="toc-number">4.</span> <span class="toc-text">线性回归（Linear Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线性回归模型"><span class="toc-number">4.1.</span> <span class="toc-text">线性回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线性回归参数学习"><span class="toc-number">4.2.</span> <span class="toc-text">线性回归参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#概率解释－回归模型目标函数"><span class="toc-number">4.3.</span> <span class="toc-text">概率解释－回归模型目标函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#带权重的线性回归"><span class="toc-number">4.4.</span> <span class="toc-text">带权重的线性回归</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">5.</span> <span class="toc-text">逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂分布"><span class="toc-number">5.1.</span> <span class="toc-text">逻辑斯蒂分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂回归模型"><span class="toc-number">5.2.</span> <span class="toc-text">逻辑斯蒂回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LR模型与广义线性模型、最大熵模型、指数族分布"><span class="toc-number">5.3.</span> <span class="toc-text">LR模型与广义线性模型、最大熵模型、指数族分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LR模型在工业界的应用"><span class="toc-number">5.4.</span> <span class="toc-text"> LR模型在工业界的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Next_…"><span class="toc-number">6.</span> <span class="toc-text">Next …</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归问题相关解释"><span class="toc-number">7.</span> <span class="toc-text">回归问题相关解释</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#更多信息请关注：计算广告与机器学习－技术共享平台"><span class="toc-number">7.1.</span> <span class="toc-text">更多信息请关注：计算广告与机器学习－技术共享平台</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -180,11 +192,11 @@ weibo: @周永_52ML
 <p>—</p>
 <p><strong>内容列表</strong></p>
 <ul>
-<li>0.0. 符号定义</li>
-<li>1.0. 说明</li>
-<li>1.1. 回归分析介绍</li>
-<li>1.2. 线性回归</li>
-<li>1.3. 逻辑斯蒂回归</li>
+<li>符号定义</li>
+<li>说明</li>
+<li>回归分析介绍</li>
+<li>线性回归</li>
+<li>逻辑斯蒂回归</li>
 </ul>
 <h3 id="符号定义">符号定义</h3><p>这里定义《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：</p>
 <table>
@@ -233,59 +245,45 @@ weibo: @周永_52ML
 </tr>
 </tbody>
 </table>
-<h3 id="说明">说明</h3><p>回归技术是在整个数据科学体系中占有非常重要的一个位置。回归分析是统计学中的<strong>相关分析知识体系</strong>中重要组成部分。在机器学习中，回归、分类和标注共同构成了监督学习技术。</p>
+<h3 id="说明">说明</h3><p>回归技术在整个数据科学体系中占有非常重要的位置，回归分析是统计学中的<strong>相关分析知识体系</strong>中重要组成部分。在机器学习中，回归、分类和标注共同构成了监督学习技术。</p>
 <blockquote>
-<p>监督学习（supervised learning）是机器学习在工业界应用最广的一个领域分支。在学术界中也是研究最多的技术之一。大家都知道的数据挖掘十大经典算法中，监督学习技术占据6席。</p>
+<p>监督学习（supervised learning）是机器学习在工业界应用最广的一个领域分支。在学术界中也是研究最多的领域之一。大家都知道的数据挖掘十大经典算法中，监督学习技术占据6席。</p>
 </blockquote>
-<p>线性回归和逻辑斯蒂回归（Logistic Regression）通常是作为学习一个预测模型的首选算法。</p>
 <h3 id="回归分析介绍">回归分析介绍</h3><p>在介绍具体的回归技术之前，有必要探讨下以下几个问题。回归分析是什么？为什么要使用回归分析呢？</p>
 <ul>
 <li><p>什么是回归分析？</p>
-<p>  回归分析是预测建模技术的一种方法，用于研究自变量与因变量之间的关系。该技术主要用于预测、时间序列建模遗迹寻找变量之间的the causal effect relationship。 举例，rash driving和number of road accidents by a driver通过回归技术可以进行更好的研究。</p>
-<p>  回归分析是用于建模和数据分析的一个重要工具。在这里，我们用曲线/直线去拟合数据点，希望所有数据点到曲线/直线的距离差异之和最小。在后面的章节中会详细解释这部分。</p>
+<p>  回归分析是解决预测建模任务时的一种方法，用于研究自变量与因变量之间的关系。该方法主要用于预测、时间序列建模以及寻找变量之间的因果关系。 举例，rash driving和number of road accidents by a driver通过回归技术可以进行更好的研究。</p>
+<p>  回归分析是用于建模和数据分析的一个重要工具。这里，我们用曲线/直线去拟合数据点，希望所有数据点到曲线或直线的距离差异之和最小（后面会给出公式量化）。</p>
 <p>  <img src="http://www.analyticsvidhya.com/wp-content/uploads/2015/08/Regression_Line.png" alt="回归分析"></p>
+<blockquote>
+<p>上图是某一阶段的股票指数波动示意图，用一条（红色）曲线拟合真实数据。</p>
+</blockquote>
 </li>
 <li><p>为什么要使用回归分析？</p>
-<p>  正如上面描述，回归分析用于估计两个或多个变量之间的关系。让我们通过一个简单的例子理解这个问题：</p>
+<p>  正如上面描述，回归分析多用于建立两个或多个变量之间的关系表达。我们通过一个例子理解这个问题：</p>
 <blockquote>
-<p>假如，你想根据当前的经济环境，估计企业的营收增长情况。公司最近的数据表明其营收增长大约是经济增长的2.5倍。根据这个观察，我们可以根据当前和过去的信息，预测公司未来的营收增长情况。</p>
+<p>假如，你想根据当前的经济环境预估企业的营收增长情况。公司最近的财报表明营收增长大约是经济增长的2.5倍。利用这个关系，就可以根据当前和过去的营收和经济数据，预测公司未来的营收增长情况。</p>
 </blockquote>
-<p>  使用回归分析会带来诸多好处，比如：</p>
+<p>  使用回归分析有诸多好处，比如：</p>
 <ol>
-<li>它可以表明自变量（特征）与因变量（结果）之间的显著关系；</li>
+<li>它可以清晰的表示自变量（特征）与因变量（结果）之间的显著关系；</li>
 <li><p>还可以表明多个自变量（特征）对因变量（结果）的影响程度（根据feature对应权重大小）.</p>
 <p>同时，回归分析也可以去比较两个变量之间的影响，比如促销活动的次数与价格波动的影响。这些有助于帮助市场研究人员/数据分析师/数据科学家去消除或评估最佳的一组变量用于建立预测模型。</p>
 </li>
 </ol>
 </li>
 <li><p>回归技术分类</p>
-<p>  有很多种不同的回归技术可做预测。可以根据目标变量的个数、因变量的类型以及回归函数的形状这三个维度对回归技术做一个归类。下面分别介绍具体的回归技术。</p>
+<p>  有很多种不同的回归技术可做预测。根据目标变量的个数、因变量的类型以及回归函数的形状这三个维度对回归技术做一个归类。我们从回归家族中拿出两个经典的回归技术——线性回归和逻辑斯蒂回归，详细阐述其技术原理和应用场景。</p>
+<p>  一睹为快，简要的看下二者在变量上的差异：</p>
+<p>  | 方法 | 自变量（特征）| 因变量（结果）| 关系 |<br>| :—: | :—: | :—: | :—: |<br>| 线性回归 | 连续或离散 | 连续实数 | 线性 |<br>| Logistic回归 | 连续或离散 | (0,1)之间连续值 | 非线性 |</p>
+<p>  首先看线性回归。<br></p>
 </li>
 </ul>
-<h3 id="线性回归（Linear_Regression）">线性回归（Linear Regression）</h3><p>线性回归是最被广泛应用的建模技术之一。顾名思义，线性回归就是用一组变量（或特征）的线性组合，建立与结果的关系。即期望用一条<strong>最佳的直线（被称为回归线）</strong>来表示自变量（\(Y\)）和一个或多个因变量（\(X\)）之间的关系。</p>
-<ul>
-<li>变量特点</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">自变量（特征）</th>
-<th style="text-align:center">因变量（结果）</th>
-<th style="text-align:center">关系</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">连续或离散</td>
-<td style="text-align:center">连续</td>
-<td style="text-align:center">线性</td>
-</tr>
-</tbody>
-</table>
-<h4 id="1-2-1_线性回归模型">1.2.1 线性回归模型</h4><ul>
+<h3 id="线性回归（Linear_Regression）">线性回归（Linear Regression）</h3><p>线性回归是最被广泛应用的建模技术之一。顾名思义，就是用一组变量（或特征）的线性组合，来建立与结果的关系。即期望用一条<strong>最佳的直线（被称为回归线）</strong>来表示因变量（\(Y\)）和一个或多个自变量（\(X\)）之间的关系。<br></p>
+<h4 id="线性回归模型">线性回归模型</h4><ul>
 <li><p>模型表达</p>
-<p>  $$<br>  y(x, w) = w_0 + w_1 x_1 + \cdots + w_n x_n \quad (n \ge 1) \qquad (ml.1.1.1)<br>  $$ </p>
-<p>  其中，\(x_1,x_2,\cdots,x_n\)表示自变量（集合），\(y\)是因变量，\(w\)为参数向量，\(w_i\)表示对应自变量（特征）的权重，\(w_0\)是偏倚项（又称为截距）。</p>
+<p>  $$<br>  y(x, w) = w_0 + w_1 x_1 + \cdots + w_n x_n  \qquad (ml.1.1.1)<br>  $$ </p>
+<p>  其中，\(x_1,x_2,\cdots,x_n\)表示自变量（集合）；\(y\)是因变量；\(w\)为参数向量；\(w_i\)表示对应自变量（特征）的权重，\(w_0\)是偏倚项（又称为截距）。</p>
 <blockquote>
 <p> 关于参数\(w\)： <br></p>
 <ol>
@@ -299,17 +297,17 @@ weibo: @周永_52ML
 <p>  其中，\(w=(w_0, w_1, \cdots, w_n)\)，\(x=(1, x_1, x_2, \cdots, x_n)\) 均为向量，\(w^T\)为\(w\)的转置。</p>
 </li>
 <li><p>参数学习准则</p>
-<p>  公式\((ml.1.1.2)\)中的参数向量\(w\)是\(n+1\)维的，每个参数变量的取值是实数集合，也就是说参数向量\(w\)在\(n+1\)维实数空间中取值结果有无穷种可能。</p>
-<p>  那么，如何根据一个规则或机制帮助我们评估求得的参数\(w\)比较好（或是最好）？直观地认为，如果求得的参数\\(w\)线性求和后，得到的结果\(h_{w}(x)\)与真实值\(y\)之差越小越好。</p>
-<p>  因此，我们需要引入一个函数用来衡量\(h_{w}(x)\)表示真实值\(y\)好坏的程度，该函数称为损失函数（loss function，也称为错误函数）。数学表示如下：</p>
-<p>  $$<br>  \begin{align}<br>  &amp; J(w) = \frac{1}{2} \sum_{i=1}^{m} \left(h_{w}(x^{(i)}) - y^{(i)} \right)^2 \\<br>  &amp; \min_{w} \quad J(w)<br>  \end{align}    \qquad (ml.1.1.3)<br>  $$</p>
-<p>  这个损失函数用的是\(x^{(i)}\)的估计值\(h_{w}(x^{(i)}\)与真实值\(y^{(i)}\)之差的平方和。从优化的角度讲，公式\((ml.1.1.3)\)是待优化的<strong>目标函数（Object Function）</strong>，可将其转化为最优化问题求参数。</p>
+<p>  公式\((ml.1.1.2)\)中的参数向量\(w\)是\(n+1\)维，每个参数的取值是实数集合，也就是说参数向量\(w\)在\(n+1\)维实数空间中取值结果有无穷种可能。</p>
+<p>  那么，如何利用一个规则或机制帮助我们评估求得的参数\(w\)，并且使得到的线性模型效果最佳？直观地认为，如果求得的参数\\(w\)线性求和后，得到的结果\(h_{w}(x)\)与真实值\(y\)之差越小越好。</p>
+<p>  这是我们需要引入一个函数用来衡量\(h_{w}(x)\)表示真实值\(y\)好坏的程度，该函数称为损失函数（loss function，也称为错误函数）。数学表示如下：</p>
+<p>  $$<br>  \begin{align}<br>  &amp; J(w) = \frac{1}{2} \sum_{i=1}^{m} \left(h_{w}(x^{(i)}) - y^{(i)} \right)^2 \\\<br>  &amp; \min_{w} \quad J(w)<br>  \end{align}    \qquad (ml.1.1.3)<br>  $$</p>
+<p>  这个损失函数用的是\(x^{(i)}\)的估计值\(h_{w}(x^{(i)})\)与真实值\(y^{(i)}\)之差的平方和。从优化的角度讲，公式\((ml.1.1.3)\)是待优化的<strong>目标函数（Object Function）</strong>（如果不考虑其它问题，诸如过拟合等），可将其转化为最优化问题求参数。<br></p>
 </li>
 </ul>
-<h4 id="1-2-2_线性回归参数学习">1.2.2 线性回归参数学习</h4><p>如何调整参数\(w\)使得\(J(w)\)取得最小值？方法有很多，这里先介绍两种比较简单的方法，即最小二乘法和梯度下降法。</p>
+<h4 id="线性回归参数学习">线性回归参数学习</h4><p>如何调整参数\(w\)使得\(J(w)\)取得最小值？方法有很多，这里先介绍两种比较经典的方法，即最小二乘法和梯度下降法。</p>
 <ul>
 <li><p>最小二乘法（Least Square）</p>
-<p>  最小二乘法是一种完全数学描述的方法，直接给出闭式解结果。它用\(X\)表示观测数据中的特征矩阵，结果表示成\(Y\)向量，损失仍是公式\((ml.1.1.3)\)，那么\(w\)可直接用下面公式表示：</p>
+<p>  最小二乘法是一种完全数学描述的方法，直接给出闭式解结果。它用\(X\)表示观测数据中的特征矩阵，结果表示成\(Y\)向量，目标函数仍是\((ml.1.1.3)\)，那么\(w\)可直接用下面公式表示：</p>
 <p>  $$<br>  w = (X^T X)^{-1} X^T Y  \qquad \qquad (ml.1.1.4)<br>  $$</p>
 <blockquote>
 <p>公式来源：</p>
@@ -317,198 +315,197 @@ weibo: @周永_52ML
 </blockquote>
 </li>
 <li><p>梯度下降法（Gradient Descent）</p>
-<p>  由于最小二乘法直接进行矩阵运算（求逆等），尽管可以得到全局最优解，计算复杂度比较高，计算效率较低，尤其在互联网海量数据背景下的回归分析或预测问题。</p>
+<p>  由于最小二乘法直接进行矩阵运算（求逆等），尽管可以得到全局最优解。但是在互联网海量数据背景下的回归分析或预测问题，其计算效率较低，甚至无法完成（涉及超大矩阵的求逆运算）。</p>
 <p>  而基于梯度法求解参数是一个不错的选择，原因主要有2点：</p>
-<blockquote>
 <ol>
-<li>算法复杂度与样本规模\(n\)呈线性关系；</li>
-<li>如果目标函数是凸函数，批梯度法可保证能得到最优解，随机梯度法也能接近得到最优解。</li>
-</ol>
+<li>算法复杂度与样本规模（样本数\(m\)、特征维度\(n\)）呈线性关系；</li>
+<li><p>如果目标函数是凸函数，批梯度法可保证能得到最优解，随机梯度法也能近似得到最优解。</p>
+<blockquote>
+<p>基于梯度法求解回归问题的目标函数极值问题，将在《最优化算法》系列中详细讲解。</p>
 </blockquote>
-<p>  基于梯度法求解回归问题目标函数极值问题，将在《最优化算法》系列中详细讲解。</p>
+</li>
+</ol>
 </li>
 <li><p>最小二乘法与梯度下降法求解异同</p>
 <ul>
 <li><p>相同点</p>
 <blockquote>
 <ol>
-<li>本质相同：两种求解方法都是在给定已知数据\((自变量x,因变量y)\)的前提下对\(因变量y\)算出一个估值函数（\(x与y\)关联表达式），然后对给定的新输入\(x\)通过估值函数得出\(y\)。</li>
-<li>目标相同：都是在已知数据的框架下，使得估算值与真实值的之差的平方和尽可能小。</li>
+<li><strong>本质相同</strong>：两种求解方法都是在给定已知数据（自变量\(x\)，因变量\(y\)）的前提下对因变量\(y\)算出一个估值函数（\(x与y\)关联表达式），然后对给定的新输入\(x\)通过估值函数得出\(y\)。</li>
+<li><strong>目标相同</strong>：都是在已知数据的框架下，使得估算值与真实值的之差的平方和尽可能小。</li>
 </ol>
 </blockquote>
 </li>
 <li><p>不同点</p>
 <blockquote>
-<p>实现方法与结果不同：最小二乘法直接通过建立等价关系找到全局最小，非迭代法。而梯度下降法作为迭代法的一种，先给定一个参数向量初始值，然后向目标函数下降最快的方向调整（即梯度方向），在若干次迭代之后找到全局最小。<br><br>相比最小二乘法，随机梯度下降法的一个缺点是：在接近极值时收敛速度变慢，并且该方法对初始值的选区比较敏感。</p>
+<p><strong>实现方法与结果不同</strong>：最小二乘法直接通过建立等价关系找到全局最小，非迭代法。而梯度下降法作为迭代法的一种，先给定一个参数向量初始值，然后向目标函数下降最快的方向调整（即梯度方向），在若干次迭代之后找到全局最小。<br><br>相比最小二乘法，随机梯度下降法的一个缺点是：在接近极值时收敛速度变慢，并且该方法对初始值的选取比较敏感。<br></p>
 </blockquote>
 </li>
 </ul>
 </li>
 </ul>
-<h4 id="1-2-3_回归模型目标函数概率解释">1.2.3 回归模型目标函数概率解释</h4><p>一般地，机器学习中不同的模型会对应不同的目标函数。而回归模型（尤其是线性回归类）的目标函数通常用真实值与预测值之差的平方和作为优化的目标函数。那么为什么要选用误差平方和作为目标函数呢？下面从概率论中的中心极限定理、高斯概率分布的角度给出解释。</p>
+<h4 id="概率解释－回归模型目标函数">概率解释－回归模型目标函数</h4><p>一般地，机器学习中不同的模型会有相应的目标函数。而回归模型（尤其是线性回归类）的目标函数通常用平方损失函数作为优化的目标函数（即真实值与预测值之差的平方和）。为什么要选用误差平方和作为目标函数呢？答案可以从概率论中的中心极限定理、高斯分布等知识中找到。</p>
 <ul>
 <li><p>中心极限定理</p>
-<p>  目标函数的概率解释需要用到<a href="http://baike.baidu.com/link?url=ySGNbFu9xwtwd_inKXWzbEO7FMnDLVCFihcn32_HpSmVrjBNAx7WJVvfIqOwDsqyI4tK3pJhA7RwditlZrG0e_" target="_blank" rel="external">中心极限定理</a>。中心极限定理研究的是<strong>独立随机变量和的极限分布为正态分布</strong>的问题。</p>
+<p>  目标函数的概率解释需要用到<a href="http://baike.baidu.com/link?url=ySGNbFu9xwtwd_inKXWzbEO7FMnDLVCFihcn32_HpSmVrjBNAx7WJVvfIqOwDsqyI4tK3pJhA7RwditlZrG0e_" target="_blank" rel="external">中心极限定理</a>。中心极限定理本身就是研究<strong>独立随机变量和的极限分布为正态分布</strong>的问题。</p>
 <p>  中心极限定理公式表示：</p>
 <blockquote>
-<p>设\(n\)个随机变量\(X_1, X_2, \cdots, X_m\)相互独立，均具有相同的数学期望与方差，即\(E(X_i) = \mu; D(X_i) = \sigma^2\)。令\(Y_n\)为随机变量之和，有</p>
+<p>设\(n\)个随机变量\(X_1, X_2, \cdots, X_n\)相互独立，均具有相同的数学期望与方差，即\(E(X_i) = \mu\); \(D(X_i) = \sigma^2\)。令\(Y_n\)为随机变量之和，有</p>
 <p>  $$<br>  Y_n = X_1 + X_2 + \cdots + X_n    \qquad (n.ml.1.1.1)<br>  $$</p>
 <p>  $$<br>  Z_n = \frac {Y_n - E(Y_n)} {\sqrt{D(Y_n)}} = \frac {Y_n - n \mu} {\sqrt{n} \sigma} \rightarrow \mathcal{N}(0,1)  \qquad(n.ml.1.1.2)<br>  $$</p>
 <p>称随机变量\(Z_n\)为\(n\)个随机变量\(X_1, X_2, \cdots, X_m\)的规范和。</p>
 </blockquote>
 <p>  中心极限定理定义：</p>
 <blockquote>
-<p>设从均值为\(\mu\)、方差为\(\sigma^2\)（有限）的人一一个总体中抽取样本量为n的样本，当n充分大时，<strong>样本均值的抽样分布（\(\frac{1}{n} Y_n\)）</strong>近似服从于均值为\(\mu\)、方差为\(\sigma^2\)的正态分布。</p>
+<p>设从均值为\(\mu\)、方差为\(\sigma^2\)（有限）的任意一个总体中抽取样本量为\(n\)的样本，当\(n\)充分大时，<strong>样本均值的抽样分布[\(\frac{1}{n} Y_n\)]</strong>近似服从于均值为\(\mu\)、方差为\(\sigma^2\)的正态分布。</p>
 </blockquote>
 </li>
 <li><p>高斯分布</p>
 <p>  假设给定一个输入样例\(x^{(i)}\)根据公式\((ml.1.1.1)\)得到预测值\(w^{T}x^{(i)}\)与真实值\(y^{(i)}\)之间存在误差，即为\(\epsilon^{(i)}\)。那么，它们之间的关系表示如下：</p>
 <p>  $$<br>  y^{(i)} = w^T x^{(i)} + \epsilon^{(i)} \qquad (ml.1.1.5)<br>   $$</p>
-<p>   而这里认为误差\(\epsilon^{(i)}\)服从标准高斯分布。解释如下：</p>
+<p>   而这里假设误差\(\epsilon^{(i)}\)服从标准高斯分布是合理的。解释如下：</p>
 <blockquote>
-<p>回归模型的最终目标是建立自变量\(x\)与结果\(y\)之间的关系（通过表达式），就是希望通过\(x\)能较准确的表示结果\(y\)。</p>
-<p>而在实际应用场景中，很难甚至不可能把导致\(y\)结果的所有变量都找出来，并放到回归模型中。那么模型中存在的\(x\)通常认为是影响结果\(y\)最主要的变量集合（又称因子, 在ML中叫做特征集）。根据中心极限定理，把那些对结果影响比较小的变量之和认为服从正态分布是合理的。</p>
+<p>回归模型的最终目标是建立自变量\(x\)与结果\(y\)之间的关系（通过函数表达式），希望通过\(x\)能较准确的表示结果\(y\)。</p>
+<p>而在实际应用场景中，很难甚至不可能把导致\(y\)结果的所有变量（特征）都找出来，并放到回归模型中。那么模型中存在的\(x\)通常认为是影响结果\(y\)最主要的变量集合（又称因子, 在ML中叫做特征集）。根据中心极限定理，把那些对结果影响比较小的变量（假设独立同分布）之和认为服从正态分布是合理的。</p>
 </blockquote>
-<p>   举个例子来说明误差服从高斯分布是合理的：</p>
+<p>   示例说明误差服从高斯分布是合理的：</p>
 <blockquote>
-<p>斯坦福大学《机器学习》课程第一节将线性回归的例子中，它是根据训练数据去建立房屋的面积\(x\)与房屋的售价\(y\)之间的函数表达。</p>
-<p>在它的数据集中把房屋面积最为主要的变量，其实决定房屋售价除了房屋面积外，还有房屋所在的地段（地铁、学区、城区、郊区），周边交通状况，当地房价，楼层，采光，绿化面积，… 等等太多因素会影响房价。</p>
-<p>在实际中，因数据收集问题可能拿不到所有影响房屋售价的因素（变量），可以假设多个因素变量相互独立，根据中心极限定理，认为变量之和服从高斯分布。即：</p>
+<p>Andrew Ng《机器学习》课程第1节的线性回归例子中，根据训练数据建立房屋的面积\(x\)与房屋的售价\(y\)之间的函数表达。</p>
+<p>它的数据集中把房屋面积最为主要的变量。除此之外我们还知道房屋所在的地段（地铁、学区、城区、郊区），周边交通状况，当地房价，楼层，采光，绿化面积，… 等等诸多因素会影响房价。</p>
+<p>在实际中，因<strong>数据收集问题</strong>可能拿不到所有影响房屋售价的因素（变量），可以假设多个因素变量相互独立，根据中心极限定理，认为变量之和服从高斯分布。即：</p>
 <p>   $$<br>   \epsilon^{(i)} = y^{(i)} - w^T x^{(i)} \rightarrow \mathcal{N}(0,\sigma^2) \qquad(n.ml.1.1.3)<br>   $$</p>
 </blockquote>
 <p>   那么\(x\)和\(y\)的条件概率可表示为：</p>
 <p>   $$<br>   p(y^{(i)} | x^{(i)}; w) = \frac{1}{\sqrt{2\pi} \sigma} \exp {\left(- \frac{(y^{(i)} - w^T x^{(i)})^2}{2 \sigma^2}\right)}      \qquad(ml.1.1.6)<br>   $$</p>
+<p><br> </p>
 </li>
-<li><p>极大似然估计与平方损失函数</p>
-<p>   根据公式\((ml.1.1.6)\)估计得到一条样本的结果概率，然而模型的最终目标是希望能在全部样本上预测最准，也就是概率积最大，这个概率积就是似然函数，最大化即为最大似然估计。优化的目标的函数即为似然函数，表示如下：</p>
-<p>   $$<br>   \max \quad L(w) = \prod_{i=1}^{m} \frac{1}{\sqrt{2\pi} \sigma} \exp \left(- \frac{(y^{(i)} - w^T x^{(i)})^2} {2 \sigma^2}\right) \qquad(ml.1.1.7)<br>   $$</p>
-<p>   对数似然函数如下：</p>
-<p>   $$ \max \quad \mathcal{l}(w) = -m \cdot \log \sqrt{2\pi} \sigma - \frac{1}{2\sigma^2} \sum_{i=1}^{m} \left(y^{(i)} - w^T x^{(i)}\right)^2  \qquad(ml.1.1.8) $$</p>
-<p>   $$ \max \quad l(w) = -m \cdot \log \sqrt{2\pi} \sigma - \frac{1}{2\sigma^2} \sum_{i=1}^{m} \left(y^{(i)} - w^T x^{(i)}\right)^2  \qquad(ml.1.1.8) $$</p>
+<li><p><strong>极大似然估计与损失函数极小化是等价的</strong></p>
+<p>   根据公式\((ml.1.1.6)\)估计得到一条样本的结果概率，模型的最终目标是希望在全部样本上预测最准，也就是概率积最大，这个概率积就是似然函数。优化的目标的函数即为似然函数，表示如下：</p>
+<p>   $$<br>   \max_{w} \quad L(w) = \prod_{i=1}^{m} \frac{1}{\sqrt{2\pi} \sigma} \exp \left(- \frac{(y^{(i)} - w^T x^{(i)})^2} {2 \sigma^2}\right) \qquad(ml.1.1.7)<br>   $$</p>
+<p>   对\(L(x)\)取对数，可得：</p>
+<p>   $$ \max_{w} \; \mathcal{l}(w) = -m \cdot \log \sqrt{2\pi} \sigma - \frac{1}{2\sigma^2} \sum_{i=1}^{m} \left(y^{(i)} - w^T x^{(i)}\right)^2  \qquad(ml.1.1.8) $$</p>
 <p>   由于\(n,\sigma\)变量为常数，因此公式\((ml.1.1.8)\)等价于：</p>
-<p>   $$<br>   \min \; \frac{1}{2} \sum_{i=1}^{m} \left(y^{(i)} - w^T x^{(i)}\right)^2 \qquad(ml.1.1.9)<br>   $$</p>
-<p>   我们可以发现，经过最大似然估计推导出来的待优化的目标函数\((ml.1.1.9)\)与误差平方和\((ml.1.1.3)\)是等价的。因此，可以得出结论：</p>
+<p>   $$<br>   \min_{w} \; \frac{1}{2} \sum_{i=1}^{m} \left(y^{(i)} - w^T x^{(i)}\right)^2 \qquad(ml.1.1.9)<br>   $$</p>
+<p>   我们可以发现，经过最大似然估计推导出来的待优化的目标函数\((ml.1.1.9)\)与平方损失函数\((ml.1.1.3)\)是等价的。因此，可以得出结论：</p>
 <blockquote>
-<p>线性回归 误差平方和极小化与极大似然估计等价。<br><br>注：在最大熵模型中，可以得出 对偶函数极大化与极大似然估计等价的结论。（具体参考《第2章：深入浅出ML之Entropy Methods Family》）</p>
+<p>线性回归 误差平方损失极小化与极大似然估计等价。<strong>其实在概率模型中，目标函数的原函数（或对偶函数）极小化（或极大化）与极大似然估计等价，这是一个带有普遍性的结论。</strong></p>
+<blockquote>
+<p>在本系列《第2章：深入浅出ML之Entropy Methods家族》和李航老师的《统计学习方法》中，谈到最大熵模型时，都给出了<strong>对偶函数极大化与极大似然估计等价</strong>的结论。</p>
+</blockquote>
 <p>为什么是条件概率？</p>
-<p>因为我们希望预测值与真实值更接近，这就意味着希望求出来的参数\(w\)，在给定输入\(x\)的情况下，得到的预测值等于真实值的可能性越大越好。而\(w, x\)均是前提条件，因此用条件概率\(p(y|x; w)\)表示。即\(p(y|x; w)\)越大，越能说明估计的越准确。（当然也不能一味地只优化该条件概率，还要考虑拟合过度以及模型的泛化能力问题，这部分在《第7章－统计学习理论与方法》中详细阐述。）</p>
+<p>因为我们希望预测值与真实值更接近，这就意味着希望求出来的参数\(w\)，在给定输入\(x\)的情况下，得到的预测值等于真实值的可能性越大越好。而\(w, x\)均是前提条件，因此用条件概率\(p(y|x; w)\)表示。即\(p(y|x; w)\)越大，越能说明估计的越准确。（当然也不能一味地只优化该条件概率，还要考虑拟合过度以及模型的泛化能力问题，这部分在《第07章：深入浅出ML之统计学习理论》中详细阐述。）</p>
 </blockquote>
 </li>
 </ul>
-<h4 id="1-2-4-_带权重的线性回归">1.2.4. 带权重的线性回归</h4><h3 id="1-3-_逻辑斯蒂回归（Logistic_Regression）">1.3. 逻辑斯蒂回归（Logistic Regression）</h3><h4 id="1-3-1-_逻辑斯蒂分布">1.3.1. 逻辑斯蒂分布</h4><p>介绍逻辑斯蒂回归模型之前，首先看一个并不常见的概率分布——<a href="https://en.wikipedia.org/wiki/Logistic_distribution" target="_blank" rel="external">逻辑斯蒂分布</a>。</p>
+<h4 id="带权重的线性回归"><br>带权重的线性回归</h4><h3 id="逻辑斯蒂回归（Logistic_Regression）"><br>逻辑斯蒂回归（Logistic Regression）</h3><h4 id="逻辑斯蒂分布"><br>逻辑斯蒂分布</h4><p>介绍逻辑斯蒂回归模型之前，首先看一个并不常见的概率分布——<a href="https://en.wikipedia.org/wiki/Logistic_distribution" target="_blank" rel="external">逻辑斯蒂分布</a>。</p>
 <ul>
 <li><p>逻辑斯蒂分布</p>
 <p>  设\(X\)是<strong>连续随机变量</strong>，如果随机变量\(X\)对应的概率密度函数\(f(x)\)和累积分布函数\(F(x)\)分别是：</p>
-<p>  $$<br>  f(x) = \frac{e^{- \frac{x-\mu}{s}}} {s(1+e^{- \frac{x-\mu}{s}})^2} \qquad\quad(ml.1.1.5)<br>  $$</p>
-<p>  $$<br>  F(x) = P(X \leq x) = \int_{-\infty}^{x} f(x) dx = \frac {1} {1+e^{- \frac{x-\mu}{s}}}  \qquad(ml.1.1.6)<br>  $$</p>
+<p>  $$<br>  f(x) = \frac{e^{- \frac{x-\mu}{s}}} {s(1+e^{- \frac{x-\mu}{s}})^2} \qquad\quad(ml.1.1.10)<br>  $$</p>
+<p>  $$<br>  F(x) = P(X \leq x) = \int_{-\infty}^{x} f(x) dx = \frac {1} {1+e^{- \frac{x-\mu}{s}}}  \qquad(ml.1.1.11)<br>  $$</p>
 <p>  那么，\(X\)服从逻辑斯蒂分布。其中，\(\mu\)为位置参数，\(s&gt;0\)为形状参数。</p>
-</li>
-<li><p>逻辑斯蒂分布图形</p>
-<p>  逻辑斯蒂分布的密度函数\(f(x)\)和累积分布函数\(F(x)\)的图形，如下图所示：</p>
 </li>
 </ul>
 <pre><code>&gt; 累积分布函数属于逻辑斯蒂函数，其图形是一条<span class="command">\\</span>(S<span class="command">\\</span>)型曲线（又称为Sigmoid曲线）。该曲线的特点是：以点<span class="command">\\</span>((<span class="command">\mu</span>, <span class="command">\frac</span><span class="special">{</span>1<span class="special">}</span><span class="special">{</span>2<span class="special">}</span>)<span class="command">\\</span>)为中心对称，即满足：
 &gt;
 <span class="formula">$$
-F(-x+<span class="command">\mu</span>) - <span class="command">\frac</span><span class="special">{</span>1<span class="special">}</span><span class="special">{</span>2<span class="special">}</span> = -F(x-<span class="command">\mu</span>) + <span class="command">\frac</span><span class="special">{</span>1<span class="special">}</span><span class="special">{</span>2<span class="special">}</span> <span class="command">\qquad</span>(n.ml.1.1.3)
+F(-x+<span class="command">\mu</span>) - <span class="command">\frac</span><span class="special">{</span>1<span class="special">}</span><span class="special">{</span>2<span class="special">}</span> = -F(x-<span class="command">\mu</span>) + <span class="command">\frac</span><span class="special">{</span>1<span class="special">}</span><span class="special">{</span>2<span class="special">}</span> <span class="command">\qquad</span>(n.ml.1.1.4)
 $$</span>
 &gt;
 &gt; 曲线在中心附近增长较快，在两端增长速度较慢。从密度函数和分布函数图形都能看出，形状参数<span class="command">\\</span>(s<span class="command">\\</span>)的值越小，曲线在中心附近增长的越快。
-</code></pre><h4 id="1-3-2_逻辑斯蒂回归模型">1.3.2 逻辑斯蒂回归模型</h4><p>前面介绍的回归模型，其应用场景大多是回归分析，一般不用在分类问题上。原因可以概括为以下两个：</p>
-<blockquote>
+</code></pre><h4 id="逻辑斯蒂回归模型">逻辑斯蒂回归模型</h4><p>前面介绍的线性回归，其应用场景大多是回归分析，一般不用在分类问题上。原因可以概括为以下两个：</p>
 <ol>
-<li>回归模型是连续型模型，即预测出的值都是连续值（实数值），非Category值；</li>
+<li>回归模型是连续型模型，即预测出的值都是连续值（实数值），非离散值；</li>
 <li>预测结果受样本噪声的影响比较大。</li>
 </ol>
-</blockquote>
 <p>而本节要介绍的逻辑斯蒂回归模型（Logistic Regression Model，简称LR模型）是一种可用来分类的模型。在这里，自变量\(X\)取值为连续值或离散值，因变量\(Y\)取值为1或0。</p>
 <ul>
-<li><p>LR模型表达式</p>
+<li><p><strong>LR模型表达式</strong></p>
 <p>  <strong>LR模型表达式为参数化的逻辑斯蒂（累积）分布函数</strong>（默认参数\(\mu=0,s=1\)）即：</p>
-<p>  $$<br>  h_w(x) = \frac{1}{1+e^{-w^T \cdot x}} \qquad(ml.1.1.7)<br>  $$</p>
-<p>  这里，\(x \in R^{n+1}, Y \in \{1,0\}\)，\(w \in R^{n+1}\)是权值向量。其中权值向量\(w\)中包含偏置项,即\(w=(w_0, w_1, \cdots, w_n)\), \(x=(1, x_1, \cdots, x_n)\)。</p>
+<p>  $$<br>  h_w(x) = \frac{1}{1+e^{-w^T \cdot x}} \qquad(ml.1.1.12)<br>  $$</p>
+<p>  \(h_w(x)\)作为事件结果\(y=1\)的概率取值。这里，\(x \in R^{n+1}, y \in \{1,0\}\)，\(w \in R^{n+1}\)是权值向量。其中权值向量\(w\)中包含偏置项，即\(w=(w_0, w_1, \cdots, w_n)\), \(x=(1, x_1, \cdots, x_n)\)。</p>
 </li>
-<li><p>理解LR模型</p>
+<li><p><strong>理解LR模型</strong></p>
 <ul>
-<li><p>对数几率</p>
+<li><p><strong>对数几率</strong></p>
 <p>  一个事件发生的几率(odds)是指该事件发生的概率与该事件不发生的概率的比值。如果事件发生的概率是\(p\)，那么该事件的几率为\(\frac{p}{1-p}\)，该事件的对数几率（log odds，用logit函数表示）是：</p>
-<p>  $$<br>  logit(p) = \log \frac{p}{1-p}     \qquad(ml.1.1.9)<br>  $$</p>
-<p>  对LR而言，根据公式\((ml.1.1.7)\)和\((ml.1.1.8)\)可得：</p>
-<p>  $$<br>\log \frac{P(Y=1|x)}{1-P(Y=1|x)} = w^T x \qquad(ml.1.1.10)<br>$$</p>
-<p>  即在LR模型中，输出\(Y=1\)的对数几率是输入实例\(x\)的线性函数。</p>
+<p>  $$<br>  logit(p) = \log \frac{p}{1-p}     \qquad(ml.1.1.13)<br>  $$</p>
+<p>  对LR而言，根据公式\((ml.1.1.12)\)和\((ml.1.1.13)\)可得：</p>
+<p>  $$<br>\log \frac{h_w(x)}{1-h_w(x)} = w^T x \qquad(ml.1.1.14)<br>$$</p>
+<p>  即在LR模型中，输出\(y=1\)的对数几率是输入实例\(x\)的线性函数。</p>
 </li>
 <li><p>函数映射</p>
-<p>  除了从对数几率的角度理解LR外，这里再换一个角度：</p>
-<blockquote>
-<p>考虑对输入实例\(x\)进行分类的线性函数\(w^Tx\)，其值域为实数域（\(x \in R^{n+1}, w \in R^{n+1}\)）。通过LR模型表达式\((ml.1.1.7)\)可以将线性函数\(w^T x\)的结果映射到\((0,1)\)区间，取值表示为结果为1的概率（在二分类场景中）。</p>
-</blockquote>
-<p>  这是，线性函数的值愈接近正无穷\(\infty\)，概率值就越接近1；反之，其值越接近负无穷，概率值就越接近0.这样的模型就是LR模型。</p>
+<p>  除了从对数几率的角度理解LR外，从函数映射也可以理解LR模型：</p>
+<p>  考虑对输入实例\(x\)进行分类的线性表达式\(w^Tx\)，其值域为实数域（\(x \in R^{n+1}\)，\(w \in R^{n+1}\)）。通过LR模型表达式\((ml.1.1.13)\)可以将线性函数\(w^T x\)的结果映射到\((0,1)\)区间，取值表示为结果为1的概率（在二分类场景中）。</p>
+<p>  线性函数的值愈接近正无穷\(\infty\)，概率值就越接近1；反之，其值越接近负无穷，概率值就越接近0。这样的模型就是LR模型。</p>
 <blockquote>
 <p>逻辑斯蒂回归本质上还是线性回归，只是特征到结果的映射过程中加了一层函数映射（即sigmoid函数），即先把特征/变量线性求和，然后使用sigmoid函数将线性和约束至\((0,1)\)之间，结果值用于二分或回归预测。</p>
 </blockquote>
 </li>
 </ul>
 </li>
-<li><p>LR模型——概率解释</p>
-<p>  LR模型多用于解决0/1二分类问题，如广告是否被点击（是/否）、商品是否被购买（是/否）等互联网领域中常见的应用场景。</p>
+<li><p><strong>LR模型——概率解释</strong></p>
+<p>  LR模型多用于解决二分类问题，如广告是否被点击（是/否）、商品是否被购买（是/否）等互联网领域中常见的应用场景。</p>
 <blockquote>
-<p>但是实际场景中，我们又不把它处理成“绝对的”分类问题，而是用其预测值作为Label是1的概率。</p>
+<p>但是实际场景中，我们又不把它处理成“绝对的”分类问题，而是用其预测值作为事件发生的概率。</p>
 </blockquote>
 <p>  这里从事件、变量以及结果的角度给予解释。</p>
 <p>  我们所能拿到的训练数据统称为观测样本。问题：样本是如何生成的？</p>
 <p>  <strong>一个样本可以理解为发生的一次事件，样本生成的过程即事件发生的过程。对于0/1分类问题来讲，产生的结果有两种可能，符合伯努利试验的概率假设。因此，我们可以说样本的生成过程即为伯努利试验过程，产生的结果（0/1）服从伯努利分布。这里我们假设结果为1的概率为\(h_{w}(x)\)，结果为0的概率为\(1-h_{w}(x)\)</strong>。</p>
 <p>  那么，对于第\(i\)个样本，概率公式表示如下：</p>
-<p>  $$P(y^{(i)}=1|x^{(i)}; w) = h_{w}(x^{(i)}) \qquad (ml.1.5)$$ </p>
-<p>  $$P(y^{(i)}=0|x^{(i)}; w) = 1 - h_{w}(x^{(i)}) \qquad (ml.1.6)$$</p>
-<p>  将公式\((ml.1.5)\)和\((ml.1.6)\)合并在一起，可得第\(i\)个样本正确预测的概率：</p>
-<p> $$<br> P(y^{(i)}|x^{(i)}; w) = (h_{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \qquad (ml.1.7)<br> $$</p>
+<p>  $$P(y^{(i)}=1|x^{(i)}; w) = h_{w}(x^{(i)}) \qquad (ml.1.1.15)$$ </p>
+<p>  $$P(y^{(i)}=0|x^{(i)}; w) = 1 - h_{w}(x^{(i)}) \qquad (ml.1.1.16)$$</p>
+<p>  将公式\((ml.1.1.15)\)和\((ml.1.1.16)\)合并在一起，可得第\(i\)个样本正确预测的概率：</p>
+<p> $$<br> P(y^{(i)}|x^{(i)}; w) = (h_{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \qquad (ml.1.1.17)<br> $$</p>
 <p> 上式是对一条样本进行建模的数据表达。对于多条样本，假设每条样本生成过程独立，在整个样本空间中（\(m\)个样本）的概率分布为：</p>
-<p> $$P(Y|X; w) = \prod_{i=1}^{m} \left( (h_{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \right) \qquad(ml.1.8)$$</p>
+<p> $$P(Y|X; w) = \prod_{i=1}^{m} \left( (h_{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \right) \qquad(ml.1.1.18)$$</p>
 <p> 通过极大似然估计（Maximum Likelihood Evaluation，简称MLE）方法求概率参数。具体地，下面给出了通过随机梯度下降法（Stochastic Gradient Descent，简称SGD）求参数。</p>
 </li>
-<li><p>参数学习算法</p>
-<p>  公式\((ml.1.8)\)不仅可以理解为在已观测的样本空间中的概率分布表达式。如果从统计学的角度可以理解为参数\(w\)似然性的函数表达式（即似然函数表达式）。参数在整个样本空间中的似然函数可表示为：</p>
-<p>  $$<br>  \begin{align}<br>  L(w) &amp; = P(Y|X; w) \\<br>  &amp; = \prod_{i=1}^{m} P(y^{(i)}|x^{(i)}; w) \\<br>  &amp; = \prod_{i=1}^{m} \left( (h_{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \right)<br>  \end{align} \quad\qquad (ml.1.9)<br>  $$</p>
-<p>  为了方便参数求解，对公式\((ml.1.9)\)取对数，可得：</p>
-<p> $$<br>  \begin{align_}<br>  l(w) &amp; = logL(w) \\<br>  &amp; = \sum_{i=1}^{m} \left( y^{(i)} \cdot \log (h_{w}(x^{(i)})) + (1-y^{(i)}) \cdot \log(1- h_{w}(x^{(i)})) \right)<br>  \end{align_} \qquad (ml.1.10)<br>  $$</p>
+<li><p><strong>参数学习算法</strong></p>
+<p>  公式\((ml.1.1.18)\)不仅可以理解为在已观测的样本空间中的概率分布表达式。如果从统计学的角度可以理解为参数\(w\)似然性的函数表达式（即似然函数表达式）。参数在整个样本空间中的似然函数可表示为：</p>
+<p>  $$<br>  \begin{align}<br>  L(w) &amp; = P(Y|X; w) \\\<br>  &amp; = \prod_{i=1}^{m} P(y^{(i)}|x^{(i)}; w) \\\<br>  &amp; = \prod_{i=1}^{m} \left( (h_{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \right)<br>  \end{align} \quad\qquad (ml.1.1.19)<br>  $$</p>
+<p>  为了方便参数求解，对公式\((ml.1.1.19)\)取对数，可得：</p>
+<p> $$<br>  \begin{align_}<br>  l(w) &amp; = logL(w) \\\<br>  &amp; = \sum_{i=1}^{m} \left( y^{(i)} \cdot \log (h_{w}(x^{(i)})) + (1-y^{(i)}) \cdot \log(1- h_{w}(x^{(i)})) \right)<br>  \end{align_} \qquad (ml.1.1.20)<br>  $$</p>
 <blockquote>
 <p>最大化log似然函数，就是最小化交叉熵误差（Cross Entropy Error）。</p>
 </blockquote>
 <p> 先不考虑累加和\(\sum_{i=1}^{m}\)，针对每个参数\(w_j\)求偏导：</p>
-<p> $$<br>\begin{align_}<br>\frac{\partial}{\partial w_j} l(w) &amp; = \left( y \frac{1}{h_{w}(x)} - (1-y) \frac{1}{1-h_{w}(x)}\right) \frac{\partial}{\partial w_j} h_{w}(x) \\<br>&amp; = \left( \frac{y-h_{w}(x)}{h_{w}(x) \cdot (1 - h_{w}(x))}\right) \cdot h_{w}(x) (1 - h_{w}(x)) \cdot \frac{\partial}{\partial w_j} w^T x \\<br>&amp; = \left( y-h_{w}(x) \right) \cdot \frac{\partial}{\partial w_j} w^T x \\<br>&amp; = \left( y-h_{w}(x) \right) \cdot x_{j}<br>\end{align_}  \qquad (ml.1.11)<br>  $$ </p>
+<p> $$<br>\begin{align_}<br>\frac{\partial}{\partial w_j} l(w) &amp; = \left( y \frac{1}{h_{w}(x)} - (1-y) \frac{1}{1-h_{w}(x)}\right) \frac{\partial}{\partial w_j} h_{w}(x) \\<br>&amp; = \left( \frac{y-h_{w}(x)}{h_{w}(x) \cdot (1 - h_{w}(x))}\right) \cdot h_{w}(x) (1 - h_{w}(x)) \cdot \frac{\partial}{\partial w_j} w^T x \\<br>&amp; = \left( y-h_{w}(x) \right) \cdot \frac{\partial}{\partial w_j} w^T x \\<br>&amp; = \left( y-h_{w}(x) \right) \cdot x_{j}<br>\end{align_}  \qquad (ml.1.1.21)<br>  $$ </p>
 <p> 最后，通过扫描样本，迭代下述公式可求得参数：</p>
-<p> $$<br> w_{j+1} = w_j + \alpha \cdot (y^{(i)} - h_{w}(x^{(i)})) \cdot x_{j}^{(i)} \qquad (ml.1.12)<br> $$</p>
-<p> 公式\((ml.1.12)\)中的\(\alpha\)表示学习率（learning rete，又称学习步长），还有Batch Gradient法等，这些会在《深入浅出优化算法》系列中的梯度法章节中详细介绍。</p>
+<p> $$<br> w_{j+1} = w_j + \alpha \cdot (y^{(i)} - h_{w}(x^{(i)})) \cdot x_{j}^{(i)} \qquad (ml.1.1.22)<br> $$</p>
+<p> 公式\((ml.1.1.22)\)中的\(\alpha\)表示学习率（learning rete，又称学习步长）。</p>
+<blockquote>
+<p>除此之外，还有<strong>Batch GD，共轭梯度，拟牛顿法（LBFGS），ADMM分布学习算法</strong>等都可用于求解参数，这些将在《最优化算法》系列中的对应章节中详细介绍。</p>
+</blockquote>
 <p> 基于梯度法求目标函数极值，另一种推导方式：</p>
 <blockquote>
-<p> $$<br>  \begin{align_}<br>  l(w) &amp; = \log L(w) \\<br>  &amp; = \sum_{i=1}^{m} \left( y^{(i)} \cdot \log (h_{w}(x^{(i)})) + (1-y^{(i)}) \cdot \log(1- h_{w}(x^{(i)})) \right) \\<br>  &amp; = \sum_{i=1}^{m} \left( y^{(i)} \cdot \underline { \log {\frac {h_w(x^{(i)})}{ 1-h_w(x^{(i)})}} } + \log (1-h_w(x^{(i)}))\right) \\<br>  &amp; = \sum_{i=1}^{m} \left(y^{(i)} \cdot w^T x^{(i)} - \log (1 + \exp(w^Tx^{(i)})) \right)<br>  \end{align_}<br>  $$</p>
+<p> $$<br>  \begin{align}<br>  l(w) &amp; = \log L(w) \\\<br>  &amp; = \sum_{i=1}^{m} \left( y^{(i)} \cdot \log (h_{w}(x^{(i)})) + (1-y^{(i)}) \cdot \log(1- h_{w}(x^{(i)})) \right) \\\<br>  &amp; = \sum_{i=1}^{m} \left( y^{(i)} \cdot \underline { \log {\frac {h_w(x^{(i)})}{ 1-h_w(x^{(i)})}} } + \log (1-h_w(x^{(i)}))\right) \\\<br>  &amp; = \sum_{i=1}^{m} \left(y^{(i)} \cdot w^T x^{(i)} - \log (1 + \exp(w^Tx^{(i)})) \right)<br>  \end{align} \qquad(n.ml.1.1.5)<br>  $$</p>
 <p>同样的，对每个参数求偏导，推导结果为：</p>
-<p>  $$<br>  \frac{\partial}{\partial w_j} l(w) = y^{(i)} x_j^{(i)} - \frac {\exp({w^Tx^{(i)}})} {1+\exp({w^Tx^{(i)}})}  x_j^{(i)} = \left( y^{(i)} - h_{w}(x^{(i)}) \right) \cdot x_{j}^{(i)}<br>  $$</p>
+<p>  $$<br>  \frac{\partial}{\partial w_j} l(w) = y^{(i)} x_j^{(i)} - \frac {\exp({w^Tx^{(i)}})} {1+\exp({w^Tx^{(i)}})}  x_j^{(i)} = \left( y^{(i)} - h_{w}(x^{(i)}) \right) \cdot x_{j}^{(i)} \qquad(n.ml.1.1.6)<br>  $$</p>
 </blockquote>
 <p> Sigmoid函数性质：</p>
 <p> &gt;</p>
 <blockquote>
-<p>①. \(h_w(-x) = 1 - h_w(x)\)</p>
-<p>②. \(h_w^{‘}(x) = (1-h_w(x)) \cdot h_w(x)\) </p>
-<p>推导：<br><br>  \(<br>  \begin{align_}<br>  h^{‘}(x) &amp; = (\frac {1}{1+e^{-x}})^{‘} = - \frac {1}{(1+e^{-x})^2} \cdot     (e^{-x})^{‘} \\<br>  &amp; = \frac {e^{-x}} {(1+e^{-x})^2} = \frac {e^{-x}} {1+e^{-x}} \cdot \frac{1}    {1+e^{-x}} \\<br>  &amp; = (1-h(x)) \cdot h(x)<br>  \end{align_}<br>  \)</p>
+<p>①. \(h_w(-x) = 1 - h_w(x)\) <br><br>②. \(h_w^{‘}(x) = (1-h_w(x)) \cdot h_w(x)\) </p>
+<p>推导：<br><br>  \(<br>  \begin{align}<br>  h^{‘}(x) &amp; = (\frac {1}{1+e^{-x}})^{‘} = - \frac {1}{(1+e^{-x})^2} \cdot     (e^{-x})^{‘} \\\<br>  &amp; = \frac {e^{-x}} {(1+e^{-x})^2} = \frac {e^{-x}} {1+e^{-x}} \cdot \frac{1}    {1+e^{-x}} \\\<br>  &amp; = (1-h(x)) \cdot h(x)<br>  \end{align}<br>  \)</p>
 </blockquote>
-<p>  <strong>重要考察点：</strong></p>
+<p><strong>重要考察点：</strong></p>
 <blockquote>
-<p>注：这部分公式推导是LR模型的核心部分，在ML算法相关面试中，LR模型公式推导是考察频次最高的知识点。期望有准备寻求数据挖掘、机器学习等职位同学，一定要做到这些公式可以熟练的推导出来。</p>
+<p>注：这部分公式推导是LR模型的核心部分，在机器学习相关面试中，LR模型公式推导是可能是考察频次最高的一个点。打算寻求数据挖掘、机器学习等职位的朋友，建议能做到公式的熟练推导。</p>
 </blockquote>
 </li>
 <li><p>交叉熵误差</p>
-<p>  其实从公式\((ml.1.10)\)中不难看出，LR模型的对数似然函数对应的就是交叉熵的表达式。在给定样本空间下，对于条件概率\(P(y|x)=h_w(yx)\)来说，其似然函数表达式为：</p>
-<p>  $$<br>  \max_{h} likelihood(h) \propto \prod_{i=1}^{m} h_w(y^{(i)} x^{(i)})<br>  $$</p>
+<p>  其实从公式\((ml.1.1.20)\)中不难看出，LR模型的对数似然函数对应的就是交叉熵的表达式。在给定样本空间下，对于条件概率\(P(y|x)=h_w(yx)\)来说，其似然函数表达式为：</p>
+<p>  $$<br>  \max_{h} likelihood(h) \propto \prod_{i=1}^{m} h_w(y^{(i)} x^{(i)}) \qquad (ml.1.1.23)<br>  $$</p>
 <p>  上式表示函数\(h\)的可能性，即\(likelihood(h)\)。该式越大，说明\(h\)越逼近真实目标函数\(f\)。将其转化为求极小值问题（添加负号），并写成\(\log\)形式为：</p>
-<p>  $$<br>  \begin{align_}<br>  &amp; \min_w \quad \frac{1}{m} \sum_{i=1}^{m} - \log (h_w(y^{(i)} x^{(i)})) \qquad\qquad(1)\\<br>  \Longrightarrow \; &amp; \min_w \quad \frac{1}{m} \sum_{i=1}^{m} \underline{ \log (1+\exp(-y^{(i)} w^T x^{(i)})) } \quad\;\,(2)\\<br>  \Longrightarrow \; &amp; \min_w \quad \underbrace { \frac{1}{m} \sum_{i=1}^{m} \underline{err(w,y^{(i)},x^{(i)})} }_{E_{in}(w)} \qquad\qquad\quad\, (3) \\<br>  \end{align_} \<br>  $$</p>
+<p>  $$<br>  \begin{align}<br>  &amp; \min_w \quad \frac{1}{m} \sum_{i=1}^{m} - \log (h_w(y^{(i)} x^{(i)})) \qquad\qquad(1) \\\<br>  \Longrightarrow \; &amp; \min_w \quad \frac{1}{m} \sum_{i=1}^{m} \underline{ \log (1+\exp(-y^{(i)} w^T x^{(i)})) } \quad\;\,(2)\\\<br>  \Longrightarrow \; &amp; \min_w \quad \underbrace { \frac{1}{m} \sum_{i=1}^{m} \underline{err(w,y^{(i)},x^{(i)})} }_{E_{in}(w)} \qquad\qquad\quad\, (3) \\\<br>  \end{align} \qquad (ml.1.1.24)<br>  $$</p>
 <p>  公式\((1)\)添加了\(\frac{1}{m}\)是为了写成Loss Function的长相（对于给定数据来说，其作为一个常数，对求解无妨）；公式\((3)\)表达式又称为交叉熵损失（Cross-Entropy Error）。</p>
 <blockquote>
 <p>值得说明的是：不止LR模型的损失函数是交叉熵损失，几乎所有的条件概率模型对应的Loss Function都是交叉熵损失。</p>
 </blockquote>
 </li>
 </ul>
-<h4 id="1-3-3_LR模型与广义线性模型、最大熵模型、指数族分布">1.3.3 LR模型与广义线性模型、最大熵模型、指数族分布</h4><ul>
+<h4 id="LR模型与广义线性模型、最大熵模型、指数族分布"><br><strong>LR模型与广义线性模型、最大熵模型、指数族分布</strong></h4><ul>
 <li><p>LR模型是广义线性模型的特例</p>
 <p>   当目标值分布服从伯努利分布时</p>
 </li>
@@ -519,24 +516,27 @@ $$</span>
 <blockquote>
 <p>LR模型与指数族分布也存在密切的关系</p>
 <p>指数族分布的归一化形式（Canonical Form）：</p>
-<p>  $$<br>  p(y|\eta) = h(y) \cdot g(\eta) \cdot \exp\{\eta^T \mu(y)\}<br>  $$</p>
-<p>其中，</p>
-<p>前面说道，LR模型对应的结果只有两种可能，多次独立同分布实验服从二项分布。也就是说</p>
+<p>  $$<br>  p(y|\eta) = h(y) \cdot g(\eta) \cdot \exp \{ \eta^T \mu(y) \} \qquad(n.ml.1.1.7)<br>  $$</p>
+<p>前面说道，LR模型对应的结果只有两种可能，多次独立同分布实验服从二项分布。LR模型是指数族分布中\(y\)服从二项分布的特例。</p>
 </blockquote>
 </li>
 </ul>
-<h4 id="1-3-4-_LR模型在工业界的应用">1.3.4. LR模型在工业界的应用</h4><p>本节主要是想聊聊LR模型在工业界中的应用，毫不扩张地说，LR模型是工业界应用最多的模型之一，不管是在各种预估问题场景（如推荐／广告系统中的点击率预估，转化率预估等），抑或是分类场景（如用户画像中的标签预测，判断某一篇文章是否具有商业价值，判断某次广告点击是否是作弊行为等等），我们发现都离不开LR的身影。</p>
+<h4 id="LR模型在工业界的应用"><br> <strong>LR模型在工业界的应用</strong></h4><p>本节主要是想聊聊LR模型在工业界中的应用。毫不扩张地说，LR模型是工业界应用最多的模型之一，不管是在各种预估问题场景（如推荐、广告系统中的点击率预估，转化率预估等），亦或是分类场景（如用户画像中的标签预测，判断内容是否具有商业价值，判断点击作弊等等），我们发现都离会出现LR的身影。</p>
 <p>总结发现，LR模型自身的特点具备了应用广泛性。其特点主要有：</p>
 <ul>
-<li>模型易学：LR模型建模思路清晰，容易理解与掌握；</li>
+<li>模型易用：LR模型建模思路清晰，容易理解与掌握；</li>
 <li>概率结果：输出结果可以用概率解释（二项分布），天然的可用于结果预估问题上；</li>
-<li>模型强解释性：特征（向量）和标签之间通过线性累加与Sigmoid函数建立关联，参数的取值直接反应特征的强弱，具有强解释性；</li>
-<li>简单易用：有大量的机器学习开源工具包包含LR模型，如sklearn、spark-mllib等，是用起来比较方便，能快速的搭建起一个learning task pipeline；</li>
+<li>强解释性：特征（向量）和标签之间通过线性累加与Sigmoid函数建立关联，参数的取值直接反应特征的强弱，具有强解释性；</li>
+<li>简单易用：有大量的机器学习开源工具包含LR模型，如sklearn、spark-mllib等，使用起来比较方便，能快速的搭建起一个learning task pipeline；</li>
 </ul>
-<p>但是在工业界的大规模学习任务－如广告的CTR预估问题。一个完备的预估系统，除了选择预估模型自身外，还要考虑模型能否解决学习任务、业务场景中出现的问题。</p>
-<blockquote>
-<p>比如学习的过拟合问题，学习的数据稀疏性问题，模型自身的学习效率（收敛速度，稳定性），以及模型自身如何结合实际应用场景（比如说要解决多资源位／多广告位的点击预估问题），给出在分布式环境下的解决方案等。</p>
-</blockquote>
+<p>但在工业界中典型的大规模学习任务－如广告的CTR预估问题。除了预估模型自身外，还要考虑模型能否解决学习任务、业务场景中出现的问题。比如：</p>
+<ol>
+<li>学习的<strong>过拟合问题</strong>；</li>
+<li>学习的<strong>数据稀疏性问题</strong>；</li>
+<li>模型自身的<strong>学习效率（收敛速度，稳定性）</strong>；</li>
+<li>训练模型时<strong>数据、特征的扩展性问题</strong>，即学习算法可否在分布式环境下工作；</li>
+<li>如何<strong>结合实际应用场景</strong>（比如多资源位／多广告位的点击预估问题），给出相应的解决方案.</li>
+</ol>
 <p>从模型的角度，过拟合和稀疏性问题可以在优化求解中的LR损失函数基础上加上正则项来解决：</p>
 <ul>
 <li><p><strong>loss function + \(\underline{ \lambda |w|_{2}^{2}}\)</strong>：解决过拟合</p>
@@ -544,7 +544,7 @@ $$</span>
 <li><p><strong>loss function + \(\underline{ \lambda |w|_{1}}\)</strong>：解决稀疏性，比如Google13年出的预估方法－FTRL模型，虽然是在线学算法，但主要是为了解决预估时的稀疏性问题。</p>
 </li>
 </ul>
-<p>超大规模稀疏LR模型学习问题，LR模型自身是做不到的。这个时候需要我们为它选择一个学习算法和分布式系统。在分布式环境下，约束优化求解理想方案之一－ADMM算法（交叉方向乘子法），可用于求解形式为<code>&quot;loss function + 正则项&quot;</code>目标函数极值问题。</p>
+<p><strong>超大规模稀疏LR模型学习问题</strong>，LR模型自身是做不到的。这个时候需要我们为它选择一个学习算法和分布式系统。在分布式环境下，约束优化求解理想方案之一－ADMM算法（交叉方向乘子法），可用于求解形式为<code>&quot;loss function + 正则项&quot;</code>目标函数极值问题。</p>
 <p>关于ADMM，这里给出简单的概括：</p>
 <ol>
 <li>ADMM算法在拉格朗日函数中引入惩罚函数项（二阶项）用于保证求解时的收敛效率（收敛速度）和结果的健壮性（放松目标函数为强凸的限制）。</li>
@@ -577,7 +577,7 @@ $$</span>
 </blockquote>
 </li>
 </ul>
-  
+<h4 id="更多信息请关注：计算广告与机器学习－技术共享平台">更多信息请关注：<a href="http://www.52caml.com/" target="_blank" rel="external">计算广告与机器学习－技术共享平台</a></h4>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -631,7 +631,7 @@ $$</span>
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#符号定义"><span class="toc-number">1.</span> <span class="toc-text">符号定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">2.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归分析介绍"><span class="toc-number">3.</span> <span class="toc-text">回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线性回归（Linear_Regression）"><span class="toc-number">4.</span> <span class="toc-text">线性回归（Linear Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1_线性回归模型"><span class="toc-number">4.1.</span> <span class="toc-text">1.2.1 线性回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2_线性回归参数学习"><span class="toc-number">4.2.</span> <span class="toc-text">1.2.2 线性回归参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3_回归模型目标函数概率解释"><span class="toc-number">4.3.</span> <span class="toc-text">1.2.3 回归模型目标函数概率解释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-4-_带权重的线性回归"><span class="toc-number">4.4.</span> <span class="toc-text">1.2.4. 带权重的线性回归</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-_逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">5.</span> <span class="toc-text">1.3. 逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-_逻辑斯蒂分布"><span class="toc-number">5.1.</span> <span class="toc-text">1.3.1. 逻辑斯蒂分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2_逻辑斯蒂回归模型"><span class="toc-number">5.2.</span> <span class="toc-text">1.3.2 逻辑斯蒂回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3_LR模型与广义线性模型、最大熵模型、指数族分布"><span class="toc-number">5.3.</span> <span class="toc-text">1.3.3 LR模型与广义线性模型、最大熵模型、指数族分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-4-_LR模型在工业界的应用"><span class="toc-number">5.4.</span> <span class="toc-text">1.3.4. LR模型在工业界的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Next_…"><span class="toc-number">6.</span> <span class="toc-text">Next …</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归问题相关解释"><span class="toc-number">7.</span> <span class="toc-text">回归问题相关解释</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#符号定义"><span class="toc-number">1.</span> <span class="toc-text">符号定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">2.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归分析介绍"><span class="toc-number">3.</span> <span class="toc-text">回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线性回归（Linear_Regression）"><span class="toc-number">4.</span> <span class="toc-text">线性回归（Linear Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线性回归模型"><span class="toc-number">4.1.</span> <span class="toc-text">线性回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#线性回归参数学习"><span class="toc-number">4.2.</span> <span class="toc-text">线性回归参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#概率解释－回归模型目标函数"><span class="toc-number">4.3.</span> <span class="toc-text">概率解释－回归模型目标函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#带权重的线性回归"><span class="toc-number">4.4.</span> <span class="toc-text">带权重的线性回归</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">5.</span> <span class="toc-text">逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂分布"><span class="toc-number">5.1.</span> <span class="toc-text">逻辑斯蒂分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂回归模型"><span class="toc-number">5.2.</span> <span class="toc-text">逻辑斯蒂回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LR模型与广义线性模型、最大熵模型、指数族分布"><span class="toc-number">5.3.</span> <span class="toc-text">LR模型与广义线性模型、最大熵模型、指数族分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LR模型在工业界的应用"><span class="toc-number">5.4.</span> <span class="toc-text"> LR模型在工业界的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Next_…"><span class="toc-number">6.</span> <span class="toc-text">Next …</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归问题相关解释"><span class="toc-number">7.</span> <span class="toc-text">回归问题相关解释</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#更多信息请关注：计算广告与机器学习－技术共享平台"><span class="toc-number">7.1.</span> <span class="toc-text">更多信息请关注：计算广告与机器学习－技术共享平台</span></a></li></ol></li></ol>
  
   </div>
 
