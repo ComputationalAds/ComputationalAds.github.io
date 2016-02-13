@@ -193,14 +193,13 @@ Gradie">
 <li>Boosted Decision Tree</li>
 <li>Gradient Boosting</li>
 </ul>
-<p><br></p>
 <h3 id="写在前面"><strong>写在前面</strong></h3><p>提升（boosting）方法是一类应用广泛且非常有效的统计学习方法。</p>
 <p>在2006年，Caruana和Niculescu-Mizil等人完成了一项实验，比较当今世界上现成的分类器（off-the-shelf classifiers）中哪个最好？实现结果表明Boosted Decision Tree（提升决策树）不管是在misclassification error还是produce well-calibrated probabilities方面都是最好的分离器，以ROC曲线作为衡量指标。（效果第二好的方法是随机森林）</p>
 <blockquote>
 <p>参见paper：《An Empirical Comparison of Supervised Learning Algorithms》ICML2006.</p>
 </blockquote>
 <p> 下图给出的是Adaboost算法（Decision Stump as Weak Learner）在处理二类分类问题时，随着弱分类器的个数增加，训练误差与测试误差的曲线图。</p>
-<center><br><table><tr><br><td><p style="text-align:left"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_0_0_adboost_binary_classification_1.png" width="400" height="300" alt="损失函数示意图"><br></p></td><br><td><p style="text-align:right"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_0_0_adboost_binary_classification_2.png" width="400" height="300" alt="损失函数示意图"><br></p></td><br></tr></table><br></center>
+<center><br><table><tr><br><td><p style="text-align:left"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_0_0_adboost_binary_classification_1.png" width="420" height="340" alt="损失函数示意图"><br></p></td><br><td><p style="text-align:right"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_0_0_adboost_binary_classification_2.png" width="400" height="320" alt="损失函数示意图"><br></p></td><br></tr></table><br></center>
 
 <p>从图中可以看出，Adaboost算法随着模型复杂度的增加，测试误差（红色点线）基本保持稳定，并没有出现过拟合的现象。</p>
 <p>其实不仅是Adaboost算法有这种表现，Boosting方法的学习思想和模型结构上可以保证其不容易产生过拟合（除非Weak Learner本身出现过拟合）。</p>
@@ -310,7 +309,7 @@ Gradie">
 <p><strong>L2Boosting全称：Least Squares Boosting；该算法由Buhlmann和Yu在2003年提出。</strong></p>
 </blockquote>
 <p>二分类问题时损失函数示意图：</p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_1_1_loss_function_graph.png" width="500" height="400" alt="损失函数示意图"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_6_1_1_loss_function_graph.png" width="550" height="440" alt="损失函数示意图"></p>
 <p>下面主要以AdaBoost算法作为示例，给出以下3个问题的解释：</p>
 <ul>
 <li>AdaBoost为什么能够提升学习精度？</li>
@@ -678,7 +677,7 @@ Gradie">
 <li><p><a href="http://www.multiboost.org/" target="_blank" rel="external">MultiBoost</a></p>
 <p>  <a href="http://www.multiboost.org/" target="_blank" rel="external">MultiBoost</a>工具的侧重点不同于<a href="https://github.com/dmlc/xgboost.git" target="_blank" rel="external">XGBoost</a>，是Adaboost算法的多分类版本实现，更偏向于解决<strong>multi-class / multi-label / multi-task的分类问题</strong>。</p>
 <p>  我们曾经基于该工具训练了用于<strong>用户兴趣画像</strong>的多标签（multi-label）分类模型，其分类效果（Precision / Recall作为指标）要比Naive Bayes好。</p>
-<p>  <a href="http://www.multiboost.org/" target="_blank" rel="external">MultiBoost</a>是用C++实现的。值得一提的是，由我们组的算法大神<a href="http://weibo.com/baigang111?is_all=1" target="_blank" rel="external">@BaiGang</a>用scala语言实现了MulitBoost的spark版本，详见Github:<a href="https://github.com/BaiGang/spark_multiboost" target="_blank" rel="external">Spark_MultiBoost</a></p>
+<p>  <a href="http://www.multiboost.org/" target="_blank" rel="external">MultiBoost</a>是用C++实现的。值得一提的是，由我们组的算法大神和男神<a href="http://weibo.com/baigang111?is_all=1" target="_blank" rel="external">@BaiGang</a>实现了MulitBoost的spark版本（Scala语言），详见<a href="https://github.com/BaiGang/spark_multiboost" target="_blank" rel="external">Github: Spark_MultiBoost</a></p>
 </li>
 </ul>
 <hr>
