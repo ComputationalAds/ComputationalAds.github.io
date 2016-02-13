@@ -11,18 +11,18 @@
     
 
     
-    <meta name="description" content="公式$$J\alpha(x)=\sum{m=0}^\infty \frac{(-1)^ m}{m! \, \Gamma (m + \alpha + 1)}{\left({\frac{x}{2}}\right)}^{2 m + \alpha }$$
-Welcome to Hexo! This is your very first post. Check documentation for more">
+    <meta name="description" content="公式$$J_\alpha(x)=\sum_{m=0}^\infty \frac{(-1)^ m}{m! \, \Gamma (m + \alpha + 1)}{\left({\frac{x}{2}}\right)}^{2 m + \alpha }$$
+Welcome to Hexo! This is your very first post. Check documentation for mor">
 <meta property="og:type" content="article">
 <meta property="og:title" content="测试Hexo功能">
 <meta property="og:url" content="http://www.52caml.com/hello-world/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
-<meta property="og:description" content="公式$$J\alpha(x)=\sum{m=0}^\infty \frac{(-1)^ m}{m! \, \Gamma (m + \alpha + 1)}{\left({\frac{x}{2}}\right)}^{2 m + \alpha }$$
-Welcome to Hexo! This is your very first post. Check documentation for more">
+<meta property="og:description" content="公式$$J_\alpha(x)=\sum_{m=0}^\infty \frac{(-1)^ m}{m! \, \Gamma (m + \alpha + 1)}{\left({\frac{x}{2}}\right)}^{2 m + \alpha }$$
+Welcome to Hexo! This is your very first post. Check documentation for mor">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="测试Hexo功能">
-<meta name="twitter:description" content="公式$$J\alpha(x)=\sum{m=0}^\infty \frac{(-1)^ m}{m! \, \Gamma (m + \alpha + 1)}{\left({\frac{x}{2}}\right)}^{2 m + \alpha }$$
-Welcome to Hexo! This is your very first post. Check documentation for more">
+<meta name="twitter:description" content="公式$$J_\alpha(x)=\sum_{m=0}^\infty \frac{(-1)^ m}{m! \, \Gamma (m + \alpha + 1)}{\left({\frac{x}{2}}\right)}^{2 m + \alpha }$$
+Welcome to Hexo! This is your very first post. Check documentation for mor">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -89,7 +89,7 @@ Welcome to Hexo! This is your very first post. Check documentation for more">
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-13T02:46:41.000Z" itemprop="datePublished"> 发表于 2016-02-13</time>
+    <time datetime="2016-02-13T03:21:55.000Z" itemprop="datePublished"> 发表于 2016-02-13</time>
     
   </p>
 </header>
@@ -102,7 +102,7 @@ Welcome to Hexo! This is your very first post. Check documentation for more">
 		
 		</div>
 		
-		<h2 id="公式">公式</h2><p>$$J<em>\alpha(x)=\sum</em>{m=0}^\infty \frac{(-1)^ m}{m! \, \Gamma (m + \alpha + 1)}{\left({\frac{x}{2}}\right)}^{2 m + \alpha }$$</p>
+		<h2 id="公式">公式</h2><p>$$J_\alpha(x)=\sum_{m=0}^\infty \frac{(-1)^ m}{m! \, \Gamma (m + \alpha + 1)}{\left({\frac{x}{2}}\right)}^{2 m + \alpha }$$</p>
 <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h4 id="1-2-1_线性回归模型">1.2.1 线性回归模型</h4><ul>
 <li><p>模型表达</p>
@@ -116,13 +116,13 @@ Welcome to Hexo! This is your very first post. Check documentation for more">
 <li>在统计中，\(w_1,w_2,\cdots,w_n\)称为偏回归系数，\(w_0\)称为截距。</li>
 </ol>
 </blockquote>
-<p>  如果令\(x<em>0=1, y(x,w)=h</em>{w}(x)\), 可以将公式\((ml.1.1.1)\)写成向量形式，即：</p>
-<p>  $$<br>  h<em>{w}(x) = \sum</em>{i=0}^{n} w_i x_i = w^T x \qquad(ml.1.1.2)<br>  $$</p>
+<p>  如果令\(x_0=1, y(x,w)=h_{w}(x)\), 可以将公式\((ml.1.1.1)\)写成向量形式，即：</p>
+<p>  $$<br>  h_{w}(x) = \sum_{i=0}^{n} w_i x_i = w^T x \qquad(ml.1.1.2)<br>  $$</p>
 <p>  其中，\(w=(w_0, w_1, \cdots, w_n)\)，\(x=(1, x_1, x_2, \cdots, x_n)\) 均为向量，\(w^T\)为\(w\)的转置。</p>
 </li>
 </ul>
 <p>   上式是对一条样本进行建模的数据表达。对于多条样本，假设每条样本生成过程独立，在整个样本空间中（\(m\)个样本）的概率分布为：</p>
-<p>   $$P(Y|X; w) = \prod<em>{i=1}^{m} \left( (h</em>{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \right) \qquad(ml.1.8)$$</p>
+<p>   $$P(Y|X; w) = \prod_{i=1}^{m} \left( (h_{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \right) \qquad(ml.1.8)$$</p>
 <h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 <p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
 <h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
