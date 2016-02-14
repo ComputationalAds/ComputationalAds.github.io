@@ -41,6 +41,7 @@ weibo: @周永_52ML
 K-Means聚类
 
 写在前面聚类属于无监督学习体系下的一类算法，数据样本通常表示为\(D=\{(x^{(1)}, ?), (x^{(2)}, ?), \cdots, (x^{(m)}, ?)\}\)。与分类相比">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_10_1_1_jensen_inequality.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第10章：深入浅出ML之Clustering家族">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
@@ -131,7 +132,7 @@ K-Means聚类
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#期望最大值算法（Expectation_Maximization）"><span class="toc-number">2.</span> <span class="toc-text">期望最大值算法（Expectation Maximization）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数学铺垫"><span class="toc-number">2.1.</span> <span class="toc-text">数学铺垫</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EM算法描述"><span class="toc-number">2.2.</span> <span class="toc-text">EM算法描述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EM算法收敛性证明"><span class="toc-number">2.3.</span> <span class="toc-text">EM算法收敛性证明</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高斯混合模型"><span class="toc-number">3.</span> <span class="toc-text">高斯混合模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#K-means聚类"><span class="toc-number">4.</span> <span class="toc-text">K-means聚类</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#期望最大值算法"><span class="toc-number">2.</span> <span class="toc-text">期望最大值算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数学铺垫"><span class="toc-number">2.1.</span> <span class="toc-text">数学铺垫</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EM算法描述"><span class="toc-number">2.2.</span> <span class="toc-text">EM算法描述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EM算法收敛性证明"><span class="toc-number">2.3.</span> <span class="toc-text">EM算法收敛性证明</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高斯混合模型"><span class="toc-number">3.</span> <span class="toc-text">高斯混合模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#K-means聚类"><span class="toc-number">4.</span> <span class="toc-text">K-means聚类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text"></span></a>
 		
 		</div>
 		
@@ -157,7 +158,7 @@ K-Means聚类
 </ul>
 <p>传统的参数学习算法无法解决该类问题，How to do it? 下面要介绍的期望最大值算法可以很好的解决该类问题。</p>
 <p><br></p>
-<h3 id="期望最大值算法（Expectation_Maximization）"><strong>期望最大值算法（Expectation Maximization）</strong></h3><p>期望最大值算法（简称EM算法）是<strong>在概率模型中寻找参数最大似然估计或者最大后验估计的算法</strong>，其中概率模型依赖于无法观测的隐藏变量。</p>
+<h3 id="期望最大值算法"><strong>期望最大值算法</strong></h3><p>期望最大值（Expectation Maximization，简称EM算法）是<strong>在概率模型中寻找参数最大似然估计或者最大后验估计的算法</strong>，其中概率模型依赖于无法观测的隐藏变量。</p>
 <p>其主要思想就是<strong>通过迭代来建立完整数据的对数似然函数的期望界限，然后最大化不完整数据的对数似然函数</strong>。</p>
 <p>本节将尽可能详尽地描述EM算法的原理。并结合下一节的高斯混合模型介绍EM算法是如何求解的。</p>
 <p><br></p>
@@ -171,7 +172,7 @@ K-Means聚类
 <p>  Jensen不等式表述如下：</p>
 <p>  <strong>如果\(f\)是凸函数，\(X\)是随机变量，那么有 \(E[f(X)] \ge f (E[X])\).</strong></p>
 <p>  特别的，如果\(f\)是凸函数，那么 \(E[f(X)] = f[E(X)]\)当且仅当\(p(x=E[X])=1\)，此时随机变量\(X\)就是常量。</p>
-<p>  （上述符号可用该图表示）</p>
+<p>  </p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_10_1_1_jensen_inequality.png" width="550" height="440" alt="Jensen不等式与凸函数"></p>
 <p>  在图中，实现\(f\)是凸函数，\(X\)是随机变量，假设其取值为\(x\)和\(y\)（概率分别为0.5）。那么\(X\)的期望值就是\([x,y]\)的中值，从图中可以看到\(E[f(x)] \ge f(E[x])\)成立。</p>
 <blockquote>
 <p>Jensen不等式同样可应用于凹函数，不等号方向相反即可，即\(E[f(X)] \le f(E[X])\)。</p>
@@ -378,8 +379,7 @@ K-Means聚类
 <p>  联合概率分布\(P(x,y)\)最大所对应的\(y\)就是\(x\)的最佳类别。</p>
 </li>
 </ul>
-<hr>
-<p>更多信息请关注：<a href="http://www.52caml.com/" target="_blank" rel="external">计算广告与机器学习－CAML 技术共享平台</a></p>
+<h2 id=""><br></h2><p>更多信息请关注：<a href="http://www.52caml.com/" target="_blank" rel="external">计算广告与机器学习－CAML 技术共享平台</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -442,7 +442,7 @@ K-Means聚类
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#期望最大值算法（Expectation_Maximization）"><span class="toc-number">2.</span> <span class="toc-text">期望最大值算法（Expectation Maximization）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数学铺垫"><span class="toc-number">2.1.</span> <span class="toc-text">数学铺垫</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EM算法描述"><span class="toc-number">2.2.</span> <span class="toc-text">EM算法描述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EM算法收敛性证明"><span class="toc-number">2.3.</span> <span class="toc-text">EM算法收敛性证明</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高斯混合模型"><span class="toc-number">3.</span> <span class="toc-text">高斯混合模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#K-means聚类"><span class="toc-number">4.</span> <span class="toc-text">K-means聚类</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#期望最大值算法"><span class="toc-number">2.</span> <span class="toc-text">期望最大值算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数学铺垫"><span class="toc-number">2.1.</span> <span class="toc-text">数学铺垫</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EM算法描述"><span class="toc-number">2.2.</span> <span class="toc-text">EM算法描述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EM算法收敛性证明"><span class="toc-number">2.3.</span> <span class="toc-text">EM算法收敛性证明</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#高斯混合模型"><span class="toc-number">3.</span> <span class="toc-text">高斯混合模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#K-means聚类"><span class="toc-number">4.</span> <span class="toc-text">K-means聚类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text"></span></a>
  
   </div>
 
