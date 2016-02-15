@@ -478,18 +478,17 @@ weibo: @周永_52ML
 <p>  $$<br>\Psi(w) = \min_{P \in \mathcal{C}} L(P,w) = L(P_w, w) \qquad(ml.1.2.17)<br>$$</p>
 <blockquote>
 <p>\(\Psi(w)\)称为对偶函数（\(Latex: \Psi\) = <code>\Psi</code>）。将其解记作：</p>
-<p>$$<br>P_w = arg \min_{P \in \mathcal{C}} L(P,w) = P_w (y|x) \qquad(n.ml.1.2.11)<br>$$</p>
+<p>  $$<br>  P_w = arg \min_{P \in \mathcal{C}} L(P,w) = P_w (y|x) \qquad(n.ml.1.2.11)<br>  $$</p>
 <p>具体地，固定\(w_i\)，求\(L(P,w)\)对\(P(y|x)\)的偏导数：</p>
-<p>$$<br>\begin{align}<br>\frac{\partial L(P,w)} {\partial P(y|x)} &amp; = \sum_{x,y} \tilde{P}(x) \cdot \left(logP(y|x) + 1 \right) - \sum_{y} w_0 - \sum_{x,y} \left( \tilde{P}(x) \cdot \sum_{i=1}^{n} w_i \cdot f_i(x,y) \right) \\<br>&amp; = \sum_{x,y} \tilde{P}(x) \cdot \left(logP(y|x) + 1 - w_0 - \sum_{i=1}^{n} w_i \cdot f_i(x,y) \right)     \qquad(n.ml.1.2.12)<br>\end{align}<br>$$</p>
+<p>  $$<br>  \begin{align}<br>\frac{\partial L(P,w)} {\partial P(y|x)} &amp; = \sum_{x,y} \tilde{P}(x) \cdot \left(logP(y|x) + 1 \right) - \sum_{y} w_0 - \sum_{x,y} \left( \tilde{P}(x) \cdot \sum_{i=1}^{n} w_i \cdot f_i(x,y) \right) \\<br>&amp; = \sum_{x,y} \tilde{P}(x) \cdot \left(logP(y|x) + 1 - w_0 - \sum_{i=1}^{n} w_i \cdot f_i(x,y) \right)     \qquad(n.ml.1.2.12)<br>  \end{align}<br>  $$</p>
 <p>令偏导数等于0，在\(\tilde{P}(x) &gt; 0\)的情况下，求得：</p>
-<p>$$<br>P(y|x) = \exp {\left( \sum_{i=1}^{n} w_i \cdot f_i(x,y) + w_0 - 1 \right)} = \frac  {\exp \left(\sum_{i=1}^{n} w_i \cdot f_i(x,y) \right)} {\exp(1-w_0)}  \quad(n.ml.1.2.13)<br>$$</p>
+<p>  $$<br>  P(y|x) = \exp {\left( \sum_{i=1}^{n} w_i \cdot f_i(x,y) + w_0 - 1 \right)} = \frac  {\exp \left(\sum_{i=1}^{n} w_i \cdot f_i(x,y) \right)} {\exp(1-w_0)}  \quad(n.ml.1.2.13)<br>  $$</p>
 <p>由于 \(\sum_{y} P(y|x) = 1\)，可得：</p>
-<p>$$<br>P_w (y|x) = \frac{1}{Z_w(x)} \exp \left(\sum_{i=1}^{n} w_i \cdot f_i(x,y) \right) \qquad\quad(n.ml.1.2.14)<br>$$</p>
+<p>  $$<br>P_w (y|x) = \frac{1}{Z_w(x)} \exp \left(\sum_{i=1}^{n} w_i \cdot f_i(x,y) \right) \qquad\quad(n.ml.1.2.14)<br>  $$</p>
 <p>其中，</p>
-<p>$$<br>Z_w(x) = \sum_{y} \exp \left(\sum_{i=1}^{n} w_i \cdot f_i(x,y) \right) \qquad\quad(n.ml.1.2.15)<br>$$</p>
+<p>  $$<br>Z_w(x) = \sum_{y} \exp \left(\sum_{i=1}^{n} w_i \cdot f_i(x,y) \right) \qquad\quad(n.ml.1.2.15)<br>  $$</p>
 </blockquote>
 <p>  \(Z_w(x)\)称为归一化因子；\(f_i(x,y)\)是特征函数；\(w_i\)是第\(i\)个参数（特征权值）。公式\((n.ml.1.2.14)\)、\((n.ml.1.2.15)\) 表示的模型\(P_w = P_w(y|x)\)就是最大熵模型（\(w\)是最大熵模型中的参数向量）。</p>
-<p>  将公式\((n.ml.1.2.14)\)和公式\((n.ml.1.2.15)\)代入\((ml.1.2.17)\)可得\(\Psi(w)\)，推到过程如下：</p>
 </li>
 <li><p><strong>最后，求解对偶问题外部的极大化问题</strong></p>
 <p>  对偶问题外部极大化表达式：</p>
