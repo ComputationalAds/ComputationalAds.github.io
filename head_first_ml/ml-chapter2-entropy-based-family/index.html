@@ -173,7 +173,7 @@ weibo: @周永_52ML
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念"><span class="toc-number">2.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#熵与信息熵"><span class="toc-number">2.1.</span> <span class="toc-text">熵与信息熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#条件熵"><span class="toc-number">2.2.</span> <span class="toc-text">条件熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#联合熵"><span class="toc-number">2.3.</span> <span class="toc-text">联合熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#相对熵、KL距离"><span class="toc-number">2.4.</span> <span class="toc-text">相对熵、KL距离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#互信息"><span class="toc-number">2.5.</span> <span class="toc-text">互信息</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念"><span class="toc-number">2.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#熵与信息熵"><span class="toc-number">2.1.</span> <span class="toc-text">熵与信息熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#条件熵"><span class="toc-number">2.2.</span> <span class="toc-text">条件熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#联合熵"><span class="toc-number">2.3.</span> <span class="toc-text">联合熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#相对熵、KL距离"><span class="toc-number">2.4.</span> <span class="toc-text">相对熵、KL距离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#互信息"><span class="toc-number">2.5.</span> <span class="toc-text">互信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最大熵模型（Maximum_Entropy_Model）"><span class="toc-number">3.</span> <span class="toc-text">最大熵模型（Maximum Entropy Model）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#最大熵原理"><span class="toc-number">3.1.</span> <span class="toc-text">最大熵原理</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -326,9 +326,33 @@ weibo: @周永_52ML
 <p>  设\(X\)和\(Y\)为两个离散随机变量，事件\(Y=y_j\)的出现对于事件\(X=x_i\)的出现的互信息量\(I(x_i,y_j)\)定义为：</p>
 <p>  $$<br>  I(x_i;y_j) = log_2 {\frac{p(x_i|y_j)}{p(x_i)}} = log_2 {\frac {p(x_i,y_j)}{p(x_i)p(y_j)}} \qquad(ml.1.2.5)<br>  $$</p>
 <p>  对于事件\(X\)和\(Y\)来说，它们之间的互信息用\(I(X;Y)\)表示，公式为：</p>
+<p>  $$<br>  I(X;Y) = \sum_{i=1}^{m} \sum_{j=1}^{n} p(x_i,y_j) \cdot log_2 {\frac{p(x_i,y_j)}{p(x_i)p(y_j)}}     \qquad(ml.1.2.6)<br>  $$</p>
+<blockquote>
+<p>公式解释：<br><br><br>互信息就是随机事件\(X\)的不确定性（即熵\(H(X)\)），以及在知道随机事件\(Y\)条件下的不确定性（即条件熵\(H(X|Y)\)）<strong>之间的差异</strong>，即</p>
+<p>  $$<br>  I(X;Y) = H(X) - H(X|Y) \qquad(n.ml.1.2.7)<br>  $$</p>
+</blockquote>
+<p>  所谓两个事件相关性的量化度量，就是在了解了其中一个事件\(Y\)的前提下，对消除另一个事件\(X\)不确定性所提供的信息量。</p>
+</li>
+<li><p>互信息与其它熵之间的关系</p>
+<ul>
+<li>\(H(X|Y) = H(X,Y) - H(Y)\) </li>
+<li>\(I(X;Y) = H(X) + H(Y) - H(X,Y)\) </li>
+<li>\(I(X;Y) = H(X) - H(X|Y)\)</li>
+<li>\(I(X;X) = H(X)\)</li>
+</ul>
+</li>
+<li>互信息应用场景<ul>
+<li>机器学习－\&lt;特征，Label>之间相关性<ul>
+<li>计算随机事件之间（不同的事件空间）的<strong>相关性</strong>。</li>
+</ul>
 </li>
 </ul>
-  
+</li>
+</ul>
+<hr>
+<p><br></p>
+<h3 id="最大熵模型（Maximum_Entropy_Model）">最大熵模型（Maximum Entropy Model）</h3><p><br></p>
+<h4 id="最大熵原理">最大熵原理</h4>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -390,7 +414,7 @@ weibo: @周永_52ML
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念"><span class="toc-number">2.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#熵与信息熵"><span class="toc-number">2.1.</span> <span class="toc-text">熵与信息熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#条件熵"><span class="toc-number">2.2.</span> <span class="toc-text">条件熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#联合熵"><span class="toc-number">2.3.</span> <span class="toc-text">联合熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#相对熵、KL距离"><span class="toc-number">2.4.</span> <span class="toc-text">相对熵、KL距离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#互信息"><span class="toc-number">2.5.</span> <span class="toc-text">互信息</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念"><span class="toc-number">2.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#熵与信息熵"><span class="toc-number">2.1.</span> <span class="toc-text">熵与信息熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#条件熵"><span class="toc-number">2.2.</span> <span class="toc-text">条件熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#联合熵"><span class="toc-number">2.3.</span> <span class="toc-text">联合熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#相对熵、KL距离"><span class="toc-number">2.4.</span> <span class="toc-text">相对熵、KL距离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#互信息"><span class="toc-number">2.5.</span> <span class="toc-text">互信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最大熵模型（Maximum_Entropy_Model）"><span class="toc-number">3.</span> <span class="toc-text">最大熵模型（Maximum Entropy Model）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#最大熵原理"><span class="toc-number">3.1.</span> <span class="toc-text">最大熵原理</span></a></li></ol></li></ol>
  
   </div>
 
