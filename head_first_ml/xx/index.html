@@ -40,7 +40,7 @@ weibo: @周永_52ML
 写">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第02章：深入浅出ML之Entropy-Based家族">
-<meta property="og:url" content="http://www.52caml.com/head_first_ml/ml-chapter2-entropy-based-family/index.html">
+<meta property="og:url" content="http://www.52caml.com/head_first_ml/xx/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
 <meta property="og:description" content="author: zhouyongsdzh@foxmail.com
 date: 2015-08-04
@@ -157,7 +157,7 @@ weibo: @周永_52ML
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/head_first_ml/ml-chapter2-entropy-based-family/" title="第02章：深入浅出ML之Entropy-Based家族" itemprop="url">第02章：深入浅出ML之Entropy-Based家族</a>
+      <a href="/head_first_ml/xx/" title="第02章：深入浅出ML之Entropy-Based家族" itemprop="url">第02章：深入浅出ML之Entropy-Based家族</a>
   </h1>
   <p class="article-author">By
        
@@ -173,7 +173,7 @@ weibo: @周永_52ML
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念"><span class="toc-number">2.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#熵与信息熵"><span class="toc-number">2.1.</span> <span class="toc-text">熵与信息熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#条件熵"><span class="toc-number">2.2.</span> <span class="toc-text">条件熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#联合熵"><span class="toc-number">2.3.</span> <span class="toc-text">联合熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#相对熵、KL距离"><span class="toc-number">2.4.</span> <span class="toc-text">相对熵、KL距离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#互信息"><span class="toc-number">2.5.</span> <span class="toc-text">互信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最大熵模型（Maximum_Entropy_Model）"><span class="toc-number">3.</span> <span class="toc-text">最大熵模型（Maximum Entropy Model）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#最大熵原理"><span class="toc-number">3.1.</span> <span class="toc-text">最大熵原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最大熵模型定义"><span class="toc-number">3.2.</span> <span class="toc-text">最大熵模型定义</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念"><span class="toc-number">2.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#熵与信息熵"><span class="toc-number">2.1.</span> <span class="toc-text">熵与信息熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#条件熵"><span class="toc-number">2.2.</span> <span class="toc-text">条件熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#联合熵"><span class="toc-number">2.3.</span> <span class="toc-text">联合熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#相对熵、KL距离"><span class="toc-number">2.4.</span> <span class="toc-text">相对熵、KL距离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#互信息"><span class="toc-number">2.5.</span> <span class="toc-text">互信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最大熵模型（Maximum_Entropy_Model）"><span class="toc-number">3.</span> <span class="toc-text">最大熵模型（Maximum Entropy Model）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#最大熵原理"><span class="toc-number">3.1.</span> <span class="toc-text">最大熵原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最大熵模型定义"><span class="toc-number">3.2.</span> <span class="toc-text">最大熵模型定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最大熵模型参数学习"><span class="toc-number">3.3.</span> <span class="toc-text">最大熵模型参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对偶函数极大化与极大似然估计等价"><span class="toc-number">3.4.</span> <span class="toc-text">对偶函数极大化与极大似然估计等价</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数学习的最优化问题"><span class="toc-number">4.</span> <span class="toc-text">参数学习的最优化问题</span></a></li></ol>
 		
 		</div>
 		
@@ -379,7 +379,7 @@ weibo: @周永_52ML
 <p>现在从先验知识中得到一些<code>信息</code>：\(A和B\)的概率值之和满足以下条件：</p>
 <p>  $$<br>  P(A) + P(B) = \frac{3}{10}        \qquad(exp.ml.1.2.3)<br>  $$</p>
 <p>  同样的，满足公式\((exp.ml.1.2.1)和(exp.ml.1.2.3)\)两个约束条件的概率分布仍有无穷多个。在缺少其它信息的情况下，坚持无偏原则，得到：</p>
-<p>  $$<br>  \begin{align}<br>  P(A) = P(B) = \frac{3}{20} \qquad (exp.ml.1.2.4) \\<br>  P(C) = P(D) = P(E) = \frac{7}{30} \qquad (exp.ml.1.2.5)<br>  \end{align}<br>  $$</p>
+<p>  $$<br>  \begin{align_}<br>  P(A) = P(B) = \frac{3}{20} \qquad (exp.ml.1.2.4) \\<br>  P(C) = P(D) = P(E) = \frac{7}{30} \qquad (exp.ml.1.2.5)<br>  \end{align_}<br>  $$</p>
 <p>…</p>
 <p>还可以继续按照满足约束条件下的求等概率的方法估计概率分布。以上概率模型学习的方法正是遵循了最大熵原理。</p>
 </blockquote>
@@ -406,11 +406,151 @@ weibo: @周永_52ML
 <blockquote>
 <p>①. 特征函数\(f(x,y)\)关于经验分布\(\tilde{P}(x,y)\)的期望值，用\(E_{\tilde{P}}(f)\)表示如下：</p>
 <p>  $$<br>  E_{\tilde{P}} = \sum_{x,y} \tilde{P}(x,y) \cdot f(x,y)    \qquad\qquad(n.ml.1.2.8)<br>  $$</p>
+<p>②. 特征函数\(f(x,y)\)关于模型\(P(y|x)\)与经验分布\(\tilde{P}(x)\)的期望值，用\(E_P(f)\)表示如下：</p>
+<p>  $$<br>  E_P(f) = \sum_{x,y} \tilde{P}(x) \cdot P(y|x) \cdot f(x,y)    \qquad(n.ml.1.2.9)<br>  $$</p>
+<p>③. 如果模型能够获取训练数据中足够的信息，那么就可以假设这两个期望值相等。即：</p>
+<p>  $$<br>  \sum_{x,y} \tilde{P}(x,y) \cdot f(x,y) ＝ \sum_{x,y} \tilde{P}(x) \cdot P(y|x) \cdot f(x,y)    \qquad(n.ml.1.2.10)<br>  $$</p>
+<p>注：公式\((n.ml.1.2.10)\)是频率学派－点估计求参数套路，之所以假设相等，是因为有\(p(x,y)=p(y|x) \cdot p(x)\)</p>
+</blockquote>
+<p>  我们将公式\((n.ml.1.2.10)\)作为概率模型学习的约束条件。假如有\(n\)个特征函数\(f_{i} (x,y), i=1,2, \cdots, n\)，那么就有\(n\)个约束条件。</p>
+</li>
+</ul>
+</li>
+<li><p>最大熵模型定义</p>
+<p>  假设满足所有约束条件的模型集合为：</p>
+<p>  $$<br>  \mathcal{C} = \{P \in \mathcal{P} | E_{P}(f_i) = E_{\tilde{P}}(f_i), i=1,2, \cdots, n\} \qquad (ml.1.2.10)<br>  $$ </p>
+<p>  定义在条件概率分布\(P(y|x)\)上的条件熵为：</p>
+<p>  $$<br>  H(P) = - \sum_{x,y} \tilde{P}(x) \cdot P(y|x) \cdot \log {P(y|x)}     \qquad (ml.1.2.11)<br>  $$</p>
+<p>  模型集合\(\mathcal{C}\)中条件熵\(H(P)\)最大的模型称为最大熵模型。 </p>
+<blockquote>
+<p>注：<strong>最大熵模型中\(\log\)是指以\(e\)为底的对数</strong>，与信息熵公式中以2为底不同。本文如无特殊说明，\(\log\)均指自然对数。</p>
 </blockquote>
 </li>
 </ul>
+<p><br></p>
+<h4 id="最大熵模型参数学习">最大熵模型参数学习</h4><p>最大熵模型学习过程即为求解最大熵模型的过程，<strong>最大熵模型的学习问题可以表示为带有约束的最优化问题</strong>。</p>
+<ul>
+<li><p>示例：学习《最大熵原理》示例中的最大熵模型</p>
+<p>   为了简便，这里分别以\(y_1,y_2,y_3,y_4,y_5\)表示\(A,B,C,D和E\)，最大熵模型学习的最优化问题可以表示为：</p>
+<p>   $$<br>   \begin{align_}<br>   &amp; min \quad -H(P) = \sum_{i=1}^{5} P(y_i) \cdot log{P(y_i)} \\<br>   &amp; s.t. \quad P(y_1) + P(y_2) = \tilde{P}(y_1) + \tilde{P}(y_2) = \frac{3}{10} \\<br>   &amp; \qquad \sum_{i=1}^{5} P(y_i) = \sum_{i=1}^{5} \tilde{P}(y_i) = 1<br>   \end{align_} \qquad\quad (exp.ml.1.2.5)<br>   $$</p>
+<blockquote>
+<p>提示：这里面没有特征\(x\)和特征函数\(f_i(x,y)\)的约束。</p>
+</blockquote>
+<p>   将带约束优化问题转化为无约束优化问题：引入拉格朗日乘子\(w_0,w_1\)，定义朗格朗日函数：</p>
+<p>   $$<br>   L(P,w) = \sum_{i=1}^{5} P(y_i) log{P(y_i)} + w_1 \left( P(y_1) + P(y_2) - \frac{3}{10} \right) + w_0 \left(\sum_{i=1}^{5} P(y_i) - 1 \right) \;(exp.ml.1.2.6)<br>   $$</p>
+<p>   根据拉格朗日对偶性，可以通过求解对偶最优化问题得到原始最优化问题的解，所以求解（对偶问题）：\(\max_{w} \min_{P} L(P,w) \)。求解过程如下：</p>
+<blockquote>
+<p>首先求解\(L(P,w)\)关于\(P\)的极小化问题。为此，固定\(w_0,w_1\)，求偏导数：</p>
+<p>   $$<br>   \begin{align_}<br>   &amp; \frac{\partial L(P,w)}{\partial P(y_1)} = 1 + log_2 P(y_1) + w_1 + w_0 \\<br>   &amp; \frac{\partial L(P,w)}{\partial P(y_2)} = 1 + log_2 P(y_2) + w_1 + w_0 \\<br>   &amp; \frac{\partial L(P,w)}{\partial P(y_3)} = 1 + log_2 P(y_3) + w_0 \\<br>   &amp; \frac{\partial L(P,w)}{\partial P(y_4)} = 1 + log_2 P(y_4) + w_0 \\<br>   &amp; \frac{\partial L(P,w)}{\partial P(y_5)} = 1 + log_2 P(y_5) + w_0 \\<br>   \end{align_}<br>   $$</p>
+<p>令各偏导数等于0，可解得：</p>
+<p>   $$<br>   \begin{align_}<br>   &amp; P(y_1) = P(y_2) = e^{-w_1 - w_0 - 1} \\<br>   &amp; P(y_3) = P(y_4) = P(y_5) = e^{-w_0 -1}<br>   \end{align_}<br>   $$</p>
+<p>于是，极小化结果为：</p>
+<p>   $$<br>   \min_{P} \; L(P,w) = L(P_w, w) = -2 e^{-w_1 - w_0 - 1} -3 e^{-w_0 - 1} - \frac{3}{10} w_1 - w_0<br>   $$</p>
+<p>下面再求解对偶函数\(L(P_w,w)\)关于\(w\)的极大化问题：</p>
+<p>   $$<br>   \max_{w} \; L(P_w, w) = -2 e^{-w_1 - w_0 - 1} -3 e^{-w_0 - 1} - \frac{3}{10} w_1 - w_0        \qquad(exp.ml.1.2.7)<br>   $$</p>
+<p>分别求\(L(P_w,w)\)对\(w_0,w_1\)的偏导数，并令其为0，得到：</p>
+<p>   $$<br>   \begin{align_}<br>   &amp; e^{-w_1 - w_0 - 1} = \frac{3}{20} \\<br>   &amp; e^{-w_0 - 1} = \frac{7}{30}<br>   \end{align_}<br>   $$</p>
+<p>于是得到所求的概率分布为：</p>
+<p>   $$<br>   \begin{align_}<br>   &amp; P(y_1) = P(y_2) = \frac{3}{20} \\<br>   &amp; P(y_3) = P(y_4) = P(y_5) = \frac{7}{30}<br>   \end{align_}<br>   $$</p>
+</blockquote>
+</li>
+<li><p>最大熵模型学习一般流程</p>
+<p>  对于给定的训练\(D=\{(x^{(1)},y^{(1)}), (x^{(2)},y^{(2)}), \cdots, (x^{(N)},y^{(N)})\}\)以及特征函数\(f_i(x,y),i=1,2,\cdots,n\)，最大熵模型的学习等价于带约束的最优化问题：</p>
+<p>  $$<br>  \begin{align_}<br>  &amp; \max_{P \in \mathcal{C}} \quad H(P) = -\sum_{x,y} \tilde{P}(x) \cdot P(y|x) \cdot log P(y|x) \\<br>  &amp; s.t. \quad E_P(f_i) = E_{\tilde{P}} (f_i), \; i=1,2,\cdots,n \\<br>  &amp; \qquad \sum_{y} P(y|x) = 1<br>  \end{align_}        \qquad\quad(ml.1.2.12)<br>  $$</p>
+<p>  按照最优化问题的习惯思路，将求最大值问题改写为求等价的最小值问题，即：</p>
+<p>  $$<br>  \begin{align_}<br>  &amp; \min_{P \in \mathcal{C}} \quad -H(P) = \sum_{x,y} \tilde{P}(x) \cdot P(y|x) \cdot log P(y|x) \\<br>  &amp; s.t. \quad E_P(f_i) - E_{\tilde{P}} (f_i) = 0, \; i=1,2,\cdots,n \\<br>  &amp; \qquad \sum_{y} P(y|x) = 1<br>  \end{align_}        \qquad\quad(ml.1.2.13)<br>  $$</p>
+<p>  求解约束最优化问题\((ml.1.2.13)\)所得出的解，就是最大熵模型学习的解。</p>
+<p>  <strong>将约束最优化的原始问题转换为无约束最优化的对偶问题</strong>。具体推导过程如下：</p>
+<ul>
+<li><p><strong>首先，引入拉格朗日乘子\(w_0,w_1,\cdots,w_n\)，定义拉格朗日函数\(L(P,w)\)</strong></p>
+<p>  表达式为：</p>
+<p>  $$<br>\begin{align_}<br>L(P,w) &amp; = -H(P) + w_0 \cdot \left( 1- \sum_{y} P(y|x) \right) + \sum_{i=1}^{n} w_i \cdot \left( E_{\tilde{P}}(f_i) - E_P (f_i) \right) \\<br>&amp; = \sum_{x,y} \tilde{P}(x) \cdot P(y|x) \cdot log {P(y|x)} + w_0 \cdot \left( 1- \sum_{y} P(y|x) \right) \\<br>&amp; \qquad + \sum_{i=1}^{n} w_i \cdot \left(\sum_{x,y} \tilde{P}(x,y) \cdot f_i(x,y) -  \sum_{x.y} \tilde{P}(x) \cdot P(y|x) \cdot f_i(x,y) \right)<br>\end{align_} \quad(ml.1.2.14)<br>$$</p>
+<p>  最优化的原始问题是：</p>
+<p>  $$<br>\min_{P \in \mathcal{C}} \max_{w} L(P,w) \qquad\qquad(ml.1.2.15)<br>  $$</p>
+<p>  对偶问题是：</p>
+<p>  $$<br>  \max_{w} \min_{P \in \mathcal{C}} L(P,w) \qquad\qquad(ml.1.2.16)<br>  $$</p>
+<blockquote>
+<p>通俗的讲，由_最小最大问题_转化为_最大最小问题_。</p>
+</blockquote>
+<p><strong>由于最大熵模型对应的朗格朗日函数\(L(P,w)\)是参数\(P\)的凸函数，所以原始问题\((ml.1.2.15)\)的解与对偶问题\((ml.1.2.16)\)的解是等价的</strong>。因此，可以通过求解对偶问题来得到原始问题的解。</p>
+</li>
+<li><p><strong>其次，求对偶问题\((ml.1.2.16)\)内部的极小化问题\(\min_{P \in \mathcal{C}} L(P,w)\)</strong></p>
+<p>  \(\min_{P \in \mathcal{C}} L(P,w)\)是乘子\(w\)的函数，将其记作：</p>
+<p>  $$<br>\Psi(w) = \min_{P \in \mathcal{C}} L(P,w) = L(P_w, w) \qquad(ml.1.2.17)<br>$$</p>
+<blockquote>
+<p>\(\Psi(w)\)称为对偶函数（\(Latex: \Psi\) = <code>\Psi</code>）。将其解记作：</p>
+<p>$$<br>P_w = arg \min_{P \in \mathcal{C}} L(P,w) = P_w (y|x) \qquad(n.ml.1.2.11)<br>$$</p>
+<p>具体地，固定\(w_i\)，求\(L(P,w)\)对\(P(y|x)\)的偏导数：</p>
+<p>$$<br>\begin{align_}<br>\frac{\partial L(P,w)} {\partial P(y|x)} &amp; = \sum_{x,y} \tilde{P}(x) \cdot \left(logP(y|x) + 1 \right) - \sum_{y} w_0 - \sum_{x,y} \left( \tilde{P}(x) \cdot \sum_{i=1}^{n} w_i \cdot f_i(x,y) \right) \\<br>&amp; = \sum_{x,y} \tilde{P}(x) \cdot \left(logP(y|x) + 1 - w_0 - \sum_{i=1}^{n} w_i \cdot f_i(x,y) \right)     \qquad(n.ml.1.2.12)<br>\end{align_}<br>$$</p>
+<p>令偏导数等于0，在\(\tilde{P}(x) &gt; 0\)的情况下，求得：</p>
+<p>$$<br>P(y|x) = \exp {\left( \sum_{i=1}^{n} w_i \cdot f_i(x,y) + w_0 - 1 \right)} = \frac  {\exp \left(\sum_{i=1}^{n} w_i \cdot f_i(x,y) \right)} {\exp(1-w_0)}  \quad(n.ml.1.2.13)<br>$$</p>
+<p>由于 \(\sum_{y} P(y|x) = 1\)，可得：</p>
+<p>$$<br>P_w (y|x) = \frac{1}{Z_w(x)} \exp \left(\sum_{i=1}^{n} w_i \cdot f_i(x,y) \right) \qquad\quad(n.ml.1.2.14)<br>$$</p>
+<p>其中，</p>
+<p>$$<br>Z_w(x) = \sum_{y} \exp \left(\sum_{i=1}^{n} w_i \cdot f_i(x,y) \right) \qquad\quad(n.ml.1.2.15)<br>$$</p>
+</blockquote>
+<p>  \(Z_w(x)\)称为归一化因子；\(f_i(x,y)\)是特征函数；\(w_i\)是第\(i\)个参数（特征权值）。公式\((n.ml.1.2.14)\)、\((n.ml.1.2.15)\) 表示的模型\(P_w = P_w(y|x)\)就是最大熵模型（\(w\)是最大熵模型中的参数向量）。</p>
+<p>  将公式\((n.ml.1.2.14)\)和公式\((n.ml.1.2.15)\)代入\((ml.1.2.17)\)可得\(\Psi(w)\)，推到过程如下：</p>
 </li>
 </ul>
+</li>
+</ul>
+<pre><code>+ **最后，求解对偶问题外部的极大化问题**
+
+    对偶问题外部极大化表达式：
+
+    <span class="formula">$$
+    <span class="command">\max</span>_<span class="special">{</span>w<span class="special">}</span> <span class="command">\Psi</span>(w)        <span class="command">\qquad</span><span class="command">\qquad</span>(ml.1.2.18)
+     $$</span>    
+
+     将其解记作<span class="command">\\</span>(w^@<span class="command">\\</span>)，即: <span class="command">\\</span>(w^@ = arg <span class="command">\max</span>_<span class="special">{</span>w<span class="special">}</span> <span class="command">\Psi</span>(w)<span class="command">\\</span>)。
+
+     也就是说，可以应用最优化算法求对偶函数<span class="command">\\</span>(<span class="command">\Psi</span>(w)<span class="command">\\</span>)的极大化，得到<span class="command">\\</span>(w^@<span class="command">\\</span>)，用其表示<span class="command">\\</span>(P^@ = P_<span class="special">{</span>w^@<span class="special">}</span> = P_<span class="special">{</span>w^@<span class="special">}</span>(y|x)<span class="command">\\</span>)是学习到的最优模型（最大熵模型）。
+
+     **最大熵模型的学习归结为对偶函数<span class="command">\\</span>(<span class="command">\Psi</span>(w)<span class="command">\\</span>)的极大化。**
+</code></pre><p><br>     </p>
+<h4 id="对偶函数极大化与极大似然估计等价">对偶函数极大化与极大似然估计等价</h4><p>从最大熵模型的学习过程可以看出，最大熵模型是由\(n.ml.1.2.14\)和\(n.ml.1.2.15\)表示的条件概率分布。下面证明：<strong>对偶函数的极大化等价于最大熵模型的极大似然估计</strong>。</p>
+<ul>
+<li><p><strong><code>对偶函数极大化＝极大似然估计</code></strong></p>
+<p>  已知训练数据的经验概率分布\(\tilde{P}(x,y)\)，条件概率分布分布\(P(y|x)\)的对数似然函数表示为：</p>
+<p>  $$<br>  L_{\tilde{P}}(P_w) = \log \prod_{x,y} P(y|x)^{\tilde{P}(x,y)} = \sum_{x,y} \tilde{P}(x,y) \cdot \log P(y|x)  \qquad(ml.1.2.19)<br>  $$</p>
+<p>  当<strong>条件概率分布\(P(y|x)\)是最大熵模型</strong>(公式\((n.ml.1.2.14)和n(.ml.1.2.15)\))时，对数似然函数\(L_{\tilde{P}}(P_w)\)为：</p>
+<p>  $$<br>  \begin{align_}<br>  L_{\tilde{P}}(P_w) &amp; = \sum_{x,y} \tilde{P}(x,y) \cdot \log P(y|x) \\<br>  &amp; = \sum_{x,y} \left (\tilde{P}(x,y) \cdot \sum_{i=1}^{n} w_i f_i(x,y)\right) - \sum_{x,y} \tilde{P}(x,y) \cdot log Z_w(x) \\<br>  &amp; = \sum_{x,y} \left (\tilde{P}(x,y) \cdot \sum_{i=1}^{n} w_i f_i(x,y)\right) - \sum_{x} \tilde{P}(x) \cdot log Z_w(x)<br>  \end{align_} \quad(ml.1.2.20)<br>  $$</p>
+<p>  再看对偶函数\(\Psi(w)\)，由公式\((ml.1.2.14)\)和公式\((ml.1.2.17)\)可得：</p>
+<p>  $$<br>  \begin{align_}<br>  \Psi(w) &amp; = \sum_{x,y} \tilde{P}(x) \cdot P_w(y|x) \cdot \log P_w(y|x) \\<br>  &amp; \qquad\quad + \sum_{i=1}^{n} w_i \cdot \left(\sum_{x,y} \tilde{P}(x,y) f_i(x,y) - \sum_{x,y} \tilde{P}(x) P_w(y|x)f_i(x,y) \right) \\<br>  &amp; = \sum_{x,y} \tilde{P}(x,y) \sum_{i=1}^{n} w_i f_i(x,y) + \sum_{x,y} \tilde{P}(x)P_w(y|x) \left(\underline{log P_w(y|x) - \sum_{i=1}^{n} w_i f_i (x,y)}\right) \\<br>  &amp; = \sum_{x,y} \tilde{P}(x,y) \sum_{i=1}^{n} w_i f_i(x,y) - \sum_{x,y} \tilde{P}(x) P_w(y|x) \cdot \underline{\log Z_w(x)} \\<br>  &amp; = \sum_{x,y} \tilde{P}(x,y) \sum_{i=1}^{n} w_i f_i(x,y) - \sum_{x} \tilde{P}(x) \log Z_w(x)<br>  \end{align_} \quad(ml.1.2.21)<br>  $$</p>
+<blockquote>
+<p>其中， 第二步推导第三步中用到了:</p>
+<p>  $$<br>  \sum_{i=1}^{n} w_i \cdot f_i(x,y) = \log P_w(y|x) \cdot Z_w(x) \qquad(n.ml.1.2.16)<br>  $$</p>
+<p>根据公式\((n.ml.1.2.14)\)得到。在最后一步用到了\(\sum_{y} P(y|x) = 1\)的性质。即：</p>
+<p>  $$<br>  \begin{align_}<br>  \sum_{x,y} \tilde{P}(x) P_w(y|x) \log Z_w(x) &amp; = \sum_{x} \tilde{P}(x) \left( \sum_{y} P_w(y|x) \right) \log Z_w(x) \\<br>  &amp; = \sum_{x} \tilde{P}(x) \log Z_w(x)<br>  \end{align_}    \qquad(n.ml.1.2.17)<br>  $$</p>
+</blockquote>
+<p>  比较公式\((ml.1.2.20)\)和\((ml.1.2.21)\)，可以发现：</p>
+<p>  $$<br>  \Psi(w) = L_{\tilde{P}}(P_w)        \qquad\qquad(ml.1.2.22)<br>  $$</p>
+<p>  <strong>即对偶函数\(\Psi(w)\)等价于对数似然函数\(L_{\tilde{P}}(P_w)\)，于是最大熵模型学习中的对偶函数极大化等价于最大熵模型的极大似然估计</strong>的结论得以证明。</p>
+<blockquote>
+<p>总结：<strong>最大熵模型的学习问题就转化为具体求解对数似然函数极大化或对偶函数极大化</strong>的问题。</p>
+</blockquote>
+<p>  可以将最大熵模型写成更为一般的形式：</p>
+<p>  $$<br>  \begin{align_}<br>  P_w(y|x) &amp;= \frac{1}{Z_w(x)} \cdot \exp \left(\sum_{i=1}^{n} w_i \cdot f_i(x,y)\right) \\<br>  Z_w(x) &amp;= \sum_{y} \exp \left(\sum_{i=1}^{n} w_i \cdot f_i(x,y)\right)<br>  \end{align_} \qquad(ml.1.2.23)<br>  $$</p>
+<p>  这里，\(x \in R^n\)为输入（向量），\(y \in \{1,2, \cdots, K\}\)为输出，\(w \in R^n\)为权值向量，\(f_i(x,y), i=1,2, \cdots, n\)为任意实值特征函数。</p>
+<blockquote>
+<p>小结：<br><br>①. <strong>最大熵模型与LR模型有类似的形式，它们又称为对数线性模型（Log Linear Model）。</strong></p>
+<p>②. <strong>模型学习就是在给定的训练数据条件下对模型进行极大似然估计或正则化的极大似然估计。</strong></p>
+</blockquote>
+</li>
+</ul>
+<p><br></p>
+<h3 id="参数学习的最优化问题">参数学习的最优化问题</h3><p>已知偶函数极大化与极大似然估计等价，那么LR模型、最大熵模型的学习问题可以归结为<strong>以似然函数为目标函数的最优化问题，通常通过迭代算法求解（非闭式解）。</strong></p>
+<blockquote>
+<p>该部分在<a href="http://www.52caml.com/head_first_ml/ml-chapter1-regression-family/" target="_blank" rel="external">《第01章：深入浅出ML之Regression家族》</a>中有详细介绍。</p>
+</blockquote>
+<p>从最优化的角度来，此时的目标函数具有良好的性质：光滑的凸函数。因此多种最优化方法都适用，并且能保证找到全局最优解。常用的方法有改进的迭代尺度法（Improved Iterative Scaling, IIS）、梯度下降法（SGD、mini-batch GD等）、共轭梯度法、拟牛顿法等。</p>
+<blockquote>
+<p><strong>该部分最优化求解方法会在《最优化算法》系列中详细阐述。</strong></p>
+</blockquote>
+<p><br></p>
+<hr>
+<p>更多信息请关注：<a href="http://www.52caml.com/" target="_blank" rel="external">计算广告与机器学习－CAML 技术共享平台</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -433,7 +573,7 @@ weibo: @周永_52ML
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/head_first_ml/ml-chapter2-entropy-based-family/" data-title="第02章：深入浅出ML之Entropy-Based家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/head_first_ml/xx/" data-title="第02章：深入浅出ML之Entropy-Based家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -447,18 +587,18 @@ weibo: @周永_52ML
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/head_first_ml/xx/" title="第02章：深入浅出ML之Entropy-Based家族">
+ <a href="/head_first_ml/ml-chapter10-clustering-family/" title="第10章：深入浅出ML之Clustering家族">
   <strong>上一篇：</strong><br/>
   <span>
-  第02章：深入浅出ML之Entropy-Based家族</span>
+  第10章：深入浅出ML之Clustering家族</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/head_first_ml/ml-chapter1-regression-family/"  title="第01章：深入浅出ML之Regression家族">
+<a href="/head_first_ml/ml-chapter2-entropy-based-family/"  title="第02章：深入浅出ML之Entropy-Based家族">
  <strong>下一篇：</strong><br/> 
- <span>第01章：深入浅出ML之Regression家族
+ <span>第02章：深入浅出ML之Entropy-Based家族
 </span>
 </a>
 </div>
@@ -473,7 +613,7 @@ weibo: @周永_52ML
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念"><span class="toc-number">2.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#熵与信息熵"><span class="toc-number">2.1.</span> <span class="toc-text">熵与信息熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#条件熵"><span class="toc-number">2.2.</span> <span class="toc-text">条件熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#联合熵"><span class="toc-number">2.3.</span> <span class="toc-text">联合熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#相对熵、KL距离"><span class="toc-number">2.4.</span> <span class="toc-text">相对熵、KL距离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#互信息"><span class="toc-number">2.5.</span> <span class="toc-text">互信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最大熵模型（Maximum_Entropy_Model）"><span class="toc-number">3.</span> <span class="toc-text">最大熵模型（Maximum Entropy Model）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#最大熵原理"><span class="toc-number">3.1.</span> <span class="toc-text">最大熵原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最大熵模型定义"><span class="toc-number">3.2.</span> <span class="toc-text">最大熵模型定义</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念"><span class="toc-number">2.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#熵与信息熵"><span class="toc-number">2.1.</span> <span class="toc-text">熵与信息熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#条件熵"><span class="toc-number">2.2.</span> <span class="toc-text">条件熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#联合熵"><span class="toc-number">2.3.</span> <span class="toc-text">联合熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#相对熵、KL距离"><span class="toc-number">2.4.</span> <span class="toc-text">相对熵、KL距离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#互信息"><span class="toc-number">2.5.</span> <span class="toc-text">互信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最大熵模型（Maximum_Entropy_Model）"><span class="toc-number">3.</span> <span class="toc-text">最大熵模型（Maximum Entropy Model）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#最大熵原理"><span class="toc-number">3.1.</span> <span class="toc-text">最大熵原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最大熵模型定义"><span class="toc-number">3.2.</span> <span class="toc-text">最大熵模型定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最大熵模型参数学习"><span class="toc-number">3.3.</span> <span class="toc-text">最大熵模型参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对偶函数极大化与极大似然估计等价"><span class="toc-number">3.4.</span> <span class="toc-text">对偶函数极大化与极大似然估计等价</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数学习的最优化问题"><span class="toc-number">4.</span> <span class="toc-text">参数学习的最优化问题</span></a></li></ol>
  
   </div>
 
