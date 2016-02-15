@@ -164,7 +164,7 @@ weibo: @周永_52ML
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-15T13:45:02.000Z" itemprop="datePublished"> 发表于 2016-02-15</time>
+    <time datetime="2015-08-12T13:45:02.000Z" itemprop="datePublished"> 发表于 2015-08-12</time>
     
   </p>
 </header>
@@ -271,6 +271,7 @@ weibo: @周永_52ML
 </ul>
 </li>
 </ul>
+<p><br>    </p>
 <h4 id="相对熵、KL距离">相对熵、KL距离</h4><ul>
 <li><p>相对熵概念</p>
 <p>  相对熵，又称为交叉熵或<strong>KL距离</strong>，是Kullback-Leibler散度（Kullback-Leibler Divergence）的简称。它主要用于衡量<strong>相同事件空间里</strong>的两个概率分布的差异。简单介绍其背景：</p>
@@ -316,8 +317,6 @@ weibo: @周永_52ML
 </li>
 </ul>
 </li>
-<li><p>相对熵对应工具 </p>
-</li>
 </ul>
 <p><br></p>
 <h4 id="互信息">互信息</h4><p>如果说相对熵（KL）距离衡量的是相同事件空间里的两个事件的相似度大小，那么，互信息通常用来衡量不同事件空间里的两个信息（随机事件、变量）的相关性大小。</p>
@@ -342,7 +341,7 @@ weibo: @周永_52ML
 </ul>
 </li>
 <li>互信息应用场景<ul>
-<li>机器学习－\&lt;特征，Label>之间相关性<ul>
+<li>机器学习－<code>&lt;feature，label&gt;</code>之间相关性<ul>
 <li>计算随机事件之间（不同的事件空间）的<strong>相关性</strong>。</li>
 </ul>
 </li>
@@ -472,7 +471,7 @@ weibo: @周永_52ML
 <blockquote>
 <p>通俗的讲，由_最小最大问题_转化为_最大最小问题_。</p>
 </blockquote>
-<p><strong>由于最大熵模型对应的朗格朗日函数\(L(P,w)\)是参数\(P\)的凸函数，所以原始问题\((ml.1.2.15)\)的解与对偶问题\((ml.1.2.16)\)的解是等价的</strong>。因此，可以通过求解对偶问题来得到原始问题的解。</p>
+<p>  <strong>由于最大熵模型对应的朗格朗日函数\(L(P,w)\)是参数\(P\)的凸函数，所以原始问题\((ml.1.2.15)\)的解与对偶问题\((ml.1.2.16)\)的解是等价的</strong>。因此，可以通过求解对偶问题来得到原始问题的解。</p>
 </li>
 <li><p><strong>其次，求对偶问题\((ml.1.2.16)\)内部的极小化问题\(\min_{P \in \mathcal{C}} L(P,w)\)</strong></p>
 <p>  \(\min_{P \in \mathcal{C}} L(P,w)\)是乘子\(w\)的函数，将其记作：</p>
@@ -492,23 +491,17 @@ weibo: @周永_52ML
 <p>  \(Z_w(x)\)称为归一化因子；\(f_i(x,y)\)是特征函数；\(w_i\)是第\(i\)个参数（特征权值）。公式\((n.ml.1.2.14)\)、\((n.ml.1.2.15)\) 表示的模型\(P_w = P_w(y|x)\)就是最大熵模型（\(w\)是最大熵模型中的参数向量）。</p>
 <p>  将公式\((n.ml.1.2.14)\)和公式\((n.ml.1.2.15)\)代入\((ml.1.2.17)\)可得\(\Psi(w)\)，推到过程如下：</p>
 </li>
+<li><p><strong>最后，求解对偶问题外部的极大化问题</strong></p>
+<p>  对偶问题外部极大化表达式：</p>
+<p>  $$<br>  \max_{w} \Psi(w)        \qquad\qquad(ml.1.2.18)<br>   $$    </p>
+<p>   将其解记作\(w^@\)，即: \(w^@ = arg \max_{w} \Psi(w)\)。</p>
+<p>   也就是说，可以应用最优化算法求对偶函数\(\Psi(w)\)的极大化，得到\(w^@\)，用其表示\(P^@ = P_{w^@} = P_{w^@}(y|x)\)是学习到的最优模型（最大熵模型）。</p>
+<p>   <strong>最大熵模型的学习归结为对偶函数\(\Psi(w)\)的极大化。</strong></p>
+</li>
 </ul>
 </li>
 </ul>
-<pre><code>+ **最后，求解对偶问题外部的极大化问题**
-
-    对偶问题外部极大化表达式：
-
-    <span class="formula">$$
-    <span class="command">\max</span>_<span class="special">{</span>w<span class="special">}</span> <span class="command">\Psi</span>(w)        <span class="command">\qquad</span><span class="command">\qquad</span>(ml.1.2.18)
-     $$</span>    
-
-     将其解记作<span class="command">\\</span>(w^@<span class="command">\\</span>)，即: <span class="command">\\</span>(w^@ = arg <span class="command">\max</span>_<span class="special">{</span>w<span class="special">}</span> <span class="command">\Psi</span>(w)<span class="command">\\</span>)。
-
-     也就是说，可以应用最优化算法求对偶函数<span class="command">\\</span>(<span class="command">\Psi</span>(w)<span class="command">\\</span>)的极大化，得到<span class="command">\\</span>(w^@<span class="command">\\</span>)，用其表示<span class="command">\\</span>(P^@ = P_<span class="special">{</span>w^@<span class="special">}</span> = P_<span class="special">{</span>w^@<span class="special">}</span>(y|x)<span class="command">\\</span>)是学习到的最优模型（最大熵模型）。
-
-     **最大熵模型的学习归结为对偶函数<span class="command">\\</span>(<span class="command">\Psi</span>(w)<span class="command">\\</span>)的极大化。**
-</code></pre><p><br>     </p>
+<p><br>     </p>
 <h4 id="对偶函数极大化与极大似然估计等价">对偶函数极大化与极大似然估计等价</h4><p>从最大熵模型的学习过程可以看出，最大熵模型是由\(n.ml.1.2.14\)和\(n.ml.1.2.15\)表示的条件概率分布。下面证明：<strong>对偶函数的极大化等价于最大熵模型的极大似然估计</strong>。</p>
 <ul>
 <li><p><strong><code>对偶函数极大化＝极大似然估计</code></strong></p>
@@ -516,6 +509,8 @@ weibo: @周永_52ML
 <p>  $$<br>  L_{\tilde{P}}(P_w) = \log \prod_{x,y} P(y|x)^{\tilde{P}(x,y)} = \sum_{x,y} \tilde{P}(x,y) \cdot \log P(y|x)  \qquad(ml.1.2.19)<br>  $$</p>
 <p>  当<strong>条件概率分布\(P(y|x)\)是最大熵模型</strong>(公式\((n.ml.1.2.14)和n(.ml.1.2.15)\))时，对数似然函数\(L_{\tilde{P}}(P_w)\)为：</p>
 <p>  $$<br>  \begin{align}<br>  L_{\tilde{P}}(P_w) &amp; = \sum_{x,y} \tilde{P}(x,y) \cdot \log P(y|x) \\<br>  &amp; = \sum_{x,y} \left (\tilde{P}(x,y) \cdot \sum_{i=1}^{n} w_i f_i(x,y)\right) - \sum_{x,y} \tilde{P}(x,y) \cdot log Z_w(x) \\<br>  &amp; = \sum_{x,y} \left (\tilde{P}(x,y) \cdot \sum_{i=1}^{n} w_i f_i(x,y)\right) - \sum_{x} \tilde{P}(x) \cdot log Z_w(x)<br>  \end{align} \quad(ml.1.2.20)<br>  $$</p>
+<p>  再看对偶函数\(\Psi(w)\)，由公式\((ml.1.2.14)\)和公式\((ml.1.2.17)\)可得：</p>
+<p>  $$<br>  \begin{align}<br>  \Psi(w) &amp; = \sum_{x,y} \tilde{P}(x) \cdot P_w(y|x) \cdot \log P_w(y|x) \\<br>  &amp; \qquad\quad + \sum_{i=1}^{n} w_i \cdot \left(\sum_{x,y} \tilde{P}(x,y) f_i(x,y) - \sum_{x,y} \tilde{P}(x) P_w(y|x)f_i(x,y) \right) \\<br>  &amp; = \sum_{x,y} \tilde{P}(x,y) \sum_{i=1}^{n} w_i f_i(x,y) + \sum_{x,y} \tilde{P}(x)P_w(y|x) \left(\underline{log P_w(y|x) - \sum_{i=1}^{n} w_i f_i (x,y)}\right) \\<br>  &amp; = \sum_{x,y} \tilde{P}(x,y) \sum_{i=1}^{n} w_i f_i(x,y) - \sum_{x,y} \tilde{P}(x) P_w(y|x) \cdot \underline{\log Z_w(x)} \\<br>  &amp; = \sum_{x,y} \tilde{P}(x,y) \sum_{i=1}^{n} w_i f_i(x,y) - \sum_{x} \tilde{P}(x) \log Z_w(x)<br>  \end{align} \quad(ml.1.2.21)<br>  $$</p>
 <blockquote>
 <p>其中， 第二步推导第三步中用到了:</p>
 <p>  $$<br>  \sum_{i=1}^{n} w_i \cdot f_i(x,y) = \log P_w(y|x) \cdot Z_w(x) \qquad(n.ml.1.2.16)<br>  $$</p>
@@ -584,11 +579,19 @@ weibo: @周永_52ML
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/head_first_ml/ml-chapter1-regression-family/" title="第01章：深入浅出ML之Regression家族">
+  <strong>上一篇：</strong><br/>
+  <span>
+  第01章：深入浅出ML之Regression家族</span>
+</a>
+</div>
+
 
 <div class="next">
-<a href="/hello-world/"  title="测试Hexo功能">
+<a href="/stats/beta-gamma-dirichlet-function/"  title="概率与统计-chapter0-三个重要函数">
  <strong>下一篇：</strong><br/> 
- <span>测试Hexo功能
+ <span>概率与统计-chapter0-三个重要函数
 </span>
 </a>
 </div>
