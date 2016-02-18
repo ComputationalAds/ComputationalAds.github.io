@@ -1,0 +1,1086 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>第04章：深入浅出ML之Kernal-Based家族 | 计算广告与机器学习</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ZhouYong">
+    
+
+    
+    <meta name="description" content="author: zhouyongsdzh@foxmail.com
+date: 2015-11-12
+weibo: @周永_52ML
+
+
+内容列表
+
+写在前面
+Support Vector Machine
+Kernel Methods
+
+写在前面本章主要是想介绍Kernal方法，以及其在监督学习中体现最充分的一个分类方法－支持向量机。具体地，之所以把它们归类到一个章节，还有以下两个原因：
+
+SVM中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第04章：深入浅出ML之Kernal-Based家族">
+<meta property="og:url" content="http://www.52caml.com/head_first_ml/ml-chapter4-kernal-based-family/index.html">
+<meta property="og:site_name" content="计算广告与机器学习">
+<meta property="og:description" content="author: zhouyongsdzh@foxmail.com
+date: 2015-11-12
+weibo: @周永_52ML
+
+
+内容列表
+
+写在前面
+Support Vector Machine
+Kernel Methods
+
+写在前面本章主要是想介绍Kernal方法，以及其在监督学习中体现最充分的一个分类方法－支持向量机。具体地，之所以把它们归类到一个章节，还有以下两个原因：
+
+SVM中">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_4_1_1_svm_introduction.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_4_1_2_svm_geometric_margin.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_4_1_5_optimal_margin_classifier.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_4_1_6_soft_margin_and_non_seperate.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第04章：深入浅出ML之Kernal-Based家族">
+<meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
+date: 2015-11-12
+weibo: @周永_52ML
+
+
+内容列表
+
+写在前面
+Support Vector Machine
+Kernel Methods
+
+写在前面本章主要是想介绍Kernal方法，以及其在监督学习中体现最充分的一个分类方法－支持向量机。具体地，之所以把它们归类到一个章节，还有以下两个原因：
+
+SVM中">
+
+    
+    <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="计算广告与机器学习" title="计算广告与机器学习"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="计算广告与机器学习">计算广告与机器学习</a></h1>
+				<h2 class="blog-motto">Computational Advertising and Machine Learning</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/home">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.52caml.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/head_first_ml/ml-chapter4-kernal-based-family/" title="第04章：深入浅出ML之Kernal-Based家族" itemprop="url">第04章：深入浅出ML之Kernal-Based家族</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-06T14:42:16.000Z" itemprop="datePublished"> 发表于 2015-10-06</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持向量机（Support_Vector_Machine）"><span class="toc-number">2.</span> <span class="toc-text">支持向量机（Support Vector Machine）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LR与SVM"><span class="toc-number">2.1.</span> <span class="toc-text">LR与SVM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数间隔与几何间隔"><span class="toc-number">2.2.</span> <span class="toc-text">函数间隔与几何间隔</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最优间隔分类器"><span class="toc-number">2.3.</span> <span class="toc-text">最优间隔分类器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#极值问题求解的一般思路"><span class="toc-number">2.4.</span> <span class="toc-text">极值问题求解的一般思路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最优间隔分类器学习过程"><span class="toc-number">2.5.</span> <span class="toc-text">最优间隔分类器学习过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#软间隔与正则化（Soft-Margin_and_Regularization）"><span class="toc-number">2.6.</span> <span class="toc-text">软间隔与正则化（Soft-Margin and Regularization）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内容总结"><span class="toc-number">2.7.</span> <span class="toc-text">内容总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kernal_Methods"><span class="toc-number">3.</span> <span class="toc-text">Kernal Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#核函数引入（Kernals）"><span class="toc-number">3.1.</span> <span class="toc-text">核函数引入（Kernals）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#核函数有效性判定"><span class="toc-number">3.2.</span> <span class="toc-text">核函数有效性判定</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<ul>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 2015-11-12</li>
+<li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
+</ul>
+<hr>
+<p><strong>内容列表</strong></p>
+<ul>
+<li>写在前面</li>
+<li>Support Vector Machine</li>
+<li>Kernel Methods</li>
+</ul>
+<h3 id="写在前面">写在前面</h3><p>本章主要是想介绍Kernal方法，以及其在监督学习中体现最充分的一个分类方法－支持向量机。具体地，之所以把它们归类到一个章节，还有以下两个原因：</p>
+<ol>
+<li>SVM中用到了Kernal思想解决低维空间线性不可分和高维空间的计算复杂度的问题；</li>
+<li>Kernel在机器学习中的特征映射（特征空间变换）和特征表达上，占据很重要的位置；</li>
+</ol>
+<p>本章顺序是这样的：首先介绍支持向量机核心原理、公式、求解以及推倒过程，并引入kernel技术；然后，具体介绍Kernel方法，如何用在特征空间表达上以及对应的应用场景。</p>
+<h3 id="支持向量机（Support_Vector_Machine）">支持向量机（Support Vector Machine）</h3><h4 id="LR与SVM">LR与SVM</h4><ul>
+<li><p>LR模型回顾</p>
+<p>  在第01章中，我们详细阐述了Logistic Regression模型。我们直接地可理解为，LR的目的是从特征中学习出一个0/1分类或回归模型。</p>
+<blockquote>
+<p>LR特点：</p>
+<p>LR模型将特征的线性组合作为自变量（取值范围\((-\infty, \infty)\)），使用logistic函数（又称sigmoid函数）将自变量映射到\((0,1)\)上，映射后的值被认为是y=1的概率（如果是分类问题），表达式 \(P(y=1|x;w)=h_w(x)\)。（具体细节可参考《第1章：深入理解回归Family》）</p>
+</blockquote>
+<p>  当我们要判别一个样本（用一组特征表示）属于哪个类时，只需求出\(h_w(x)\)即可；若\(h_w(x)&gt;0.5\)，则属于y=1的类；反之属于y=0的类。（阈值0.5的前提条件：当正负样本基本均衡时）</p>
+<blockquote>
+<p>再次审视\(h_w(x)\)：</p>
+<p>  $$<br> P(Y=1|X=x; w) = h_w(x) = \frac{1}{1+e^{-w^T \cdot x}}<br> $$</p>
+<p>我们可以发现， \(h_w(x)\)只与\(w^Tx\)有关：若\(w^Tx \geq 0\)，则\(h_w(x) \geq 0.5\)；\(w^Tx &lt; 0\)，则\(h_w(x) &lt; 0.5\)。也就是说，一个样本真实类别的决定权还在\(w^Tx\)。</p>
+<p>从几何角度可这样理解：当\(w^Tx \gg 0\)时，\(h_w(x)=1\)；反之，\(h_w(x)=0\)。</p>
+</blockquote>
+<p>  如果我们从\(w^Tx\)出发，希望LR模型最终达到的目标就是：<strong>让训练数据中y=1的特征组合尽可能远大于0（即\(w^Tx \gg 0\)）；让训练数据中y=0的特征组合尽可能远小于0（即\(w^Tx \ll 0\)）</strong>。</p>
+<p>  LogReg模型要用<strong>全部训练数据</strong>学习参数\(w\)，学习过程中尽可能使正样本的特征组合远大于0，负样本的特征组合远小于0。</p>
+<blockquote>
+<p><strong>注意：LR强调的是在全部训练样本上达到这个目标，采用MLE作为求参准则。</strong></p>
+</blockquote>
+</li>
+<li><p>SVM直观引入</p>
+<p>  <img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_4_1_1_svm_introduction.png" width="300" height="250" alt="SVM几何间隔" align="right"></p>
+<p>  假设\(w^Tx=0\)是正负样本的分割线（或分割面，SVM中称为超平面），存在a、b、c三个样本点（如右图所示），它们到\(w^Tx=0\)的距离分别表示为\(h(a)、h(b)、h(c)\)（其中\(h(a) &gt; h(b) &gt; h(c)\)），即a点距离分割面的距离最远，c点距离最近。</p>
+<p>  相对于c点来说，我们更有把握的确定a点的类别，b点类别基本也可以确定。c点因为距离分割面比较近，没有把握确定其类别。</p>
+<blockquote>
+<p>因为c点距离\(w^Tx=0\)比较近，而训练出来的模型存在一定的误差。参数\(w\)稍微变动一些，可能直接导致c点类别的判断结果截然不同。</p>
+</blockquote>
+<p>  因此我们可以得出如下总结：<strong>我们更关心的是靠近中间分割面的点，如果让它们尽可能的远离分割面即可，没必要在所有点上达到最优。</strong> 如果这样的话，就需要使得一部分点（距离中间线较远的点）靠近中间线来换取另一部分点（距离中间线较近的点）更加远离中间线。</p>
+<p>  也许这就是SVM与LR不同的学习思想和出发点：<strong>前者考虑局部</strong>（只关心距离较近的点，不太关心已经确定远离的点），<strong>后者考虑全局</strong>（整体上达到最远，会出现已经远离的点调整中间线后更加远离）。    </p>
+<blockquote>
+<p><strong>其实SVM仅利用支持向量（少部分样本）表示训练样本，非全部样本。</strong></p>
+</blockquote>
+</li>
+</ul>
+<h4 id="函数间隔与几何间隔">函数间隔与几何间隔</h4><ul>
+<li><p>形式化表示</p>
+<p>  这里，我们先定义SVM中使用的样本标签为\(\{-1, 1\}\)（与LR中的\(\{0, 1\}\)不同）。同时LR中的参数\(w \in R^{n+1}\)，在这里\(w \in R^{n}, b \in R\)。SVM中要求的分类器可表示为：</p>
+<p>  $$<br>  h_{w,b}(x) = g(z) = g(w^Tx + b)        \qquad\qquad(ml.1.4.1)<br>  $$</p>
+<blockquote>
+<p>由于是分类问题，我们只需要考虑\(w^Tx + b\)的正负问题即可，不用关心\(g(z)\)绝对大小。因此我们这里将\(g(z)\)做一个简化，将其简单映射到\(y=1\)和\(y=-1\)上。映射关系如下：</p>
+<p>  $$<br>  g(z) =<br>  \begin{cases}<br>  \quad 1, &amp; z \ge 0 \\<br>  \;\, -1, &amp; z &lt; 0<br>  \end{cases}     \qquad\quad(n.ml.1.4.1)<br>  $$</p>
+</blockquote>
+</li>
+<li><p>函数间隔（Functional Margin）</p>
+<p>  任意给定一个训练样本\((x^{(i)}, y^{(i)})\)，用\(x^{(i)}\)表示样本特征（向量），\(y^{(i)}\)表示样本标签，\(i\)表示第\(i\)个样本。定义函数间隔：</p>
+<p>  $$<br>  \hat{\gamma}^{(i)} = y^{(i)} \left(w^T x^{(i)} + b\right)  \qquad(ml.1.4.2)<br>  $$</p>
+<p>  当\(y^{(i)}=1\)时，在公式\((n.ml.1.4.1)\)定义中，\(w^Tx^{(i)}+b \ge 0\)，\(\hat{\gamma}^{(i)}\)的值实际上就是\(\left|w^Tx^{(i)}+b\right|\)，反之亦然。</p>
+<blockquote>
+<p>为了使函数间隔最大（如此我们就更有信心确认该样本是正例还是反例），当\(y^{(i)}=1\)时，\(w^Tx^{(i)}+b\)应该是个比较大的正数，反之是个较大的负数。</p>
+</blockquote>
+<p>  因此，<strong>函数间隔可以表示我们认为样本（一组特征表示）是正例还是反例的确信度。</strong></p>
+<p>  公式\((ml.1.4.2)\)定义的是一个样本的函数间隔，现在我们定义在全局样本上的函数间隔：</p>
+<p>  $$<br>  \hat{\gamma} = \min_{i=1,2,\cdots, m} \hat{\gamma}^{(i)} \qquad\quad(ml.1.4.3)<br>  $$</p>
+<p>  即全局函数间隔就是在所有训练样本上分类正例和负例确信度最小的那个函数间隔。</p>
+<p>  继续考虑参数\(w、b\)，如果同时加大这两个值，比如在\(w^Tx+b\)前面乘一个系数\(n\)(\(n&gt;1\))，那么所有点的函数间隔都会增加\(n\)倍，参数倍数缩放对求解问题不应该有影响。</p>
+<blockquote>
+<p>因为我们要求的是\(w^Tx+b=0\)，参数同比例缩放对结果是无影响的。</p>
+</blockquote>
+<p>  为了限制\(w和b\)，需要加入归一化条件，毕竟求解的目标是确定唯一一个\(w和b\)，而不是多组线性相关的向量。</p>
+</li>
+<li><p>几何间隔（Geometric Margin）</p>
+<p>  <img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_4_1_2_svm_geometric_margin.png" width="300" height="250" alt="SVM几何间隔" align="right"></p>
+<p>  如右图所示，假设分割面\(w^Tx+b=0\)上有了点B，\(n\)维空间任意一点A\((x^{(i)}, y^{(i)})\)到该分割面的距离用\(\gamma^{(i)}\)表示，假设B点就是A在分割面上的投影。利用中学的几何知识可知，向量\(\overrightarrow{BA}\)的方向是\(w\)（分割面的梯度），单位向量是\(\frac{w}{| w |}\)。</p>
+<blockquote>
+<p>那么B点的坐标可以求得：</p>
+<p>  $$<br>  x = x^{(i)} - \gamma^{(i)} \frac{w}{|w|}  \qquad (n.ml.1.4.2)<br>  $$</p>
+<p>将公式\((n.ml.1.4.2)\)带入\(w^Tx+b=0\)得到：</p>
+<p>  $$<br>  w^T (x^{(i)} - \gamma^{(i)} \frac{w}{|w|}) + b =0 \qquad(n.ml.1.4.3)<br>  $$</p>
+<p>进一步整理得到：</p>
+<p>  $$<br>  \gamma^{(i)} = \left(\frac{w}{|w|}\right)^T x^{(i)} + \frac{b}{|w|} \qquad(n.ml.1.4.4)<br>  $$</p>
+<p>\(\gamma^{(i)}实际上就是n维空间中点到超平面的距离。\) <br><br><br>注：在我们广告算法组的机器学习算法相关面试中，经常会请求职者推导\(n\)维空间中点到超平面的距离公式（如果求职者知道SVM），但是能完整推导出来的只有十之二三。本质是想考察求职者对经典模型中一些<strong>核心公式由来</strong>的理解程度。</p>
+</blockquote>
+<p>  几何间隔在分类问题中，可表示为：</p>
+<p>  $$<br>  \gamma^{(i)} = y^{(i)} \left( \left(\frac{w}{|w|}\right)^T x^{(i)} + \frac{b}{|w|} \right) \qquad(ml.1.4.4)<br>  $$</p>
+<p>  可以发现，当\(|w|=1\)时，就是函数间隔。其实<strong>几何间隔是函数间隔归一化的结果</strong>。那么，全局几何间隔定义为：</p>
+<p>  $$<br>  \gamma = \min_{i=1,2,\cdots, m} \gamma^{(i)} \qquad(ml.1.4.5)<br>  $$</p>
+</li>
+</ul>
+<h4 id="最优间隔分类器">最优间隔分类器</h4><p>在前面也提到，SVM的目标是寻找一个超平面，使得距离超平面最近的点能有更大的间距。不考虑所有的点都必须远离超平面，只关心求得的超平面能够让所有的点中离它最近的点具有最大间距。因此，我们需要数学化表示最优间隔（optimal margin classifier）。</p>
+<ul>
+<li><p>形式化表示</p>
+<p>  最优间隔形式化可表示为：</p>
+<p>  $$<br>  \begin{align}<br>  &amp; \max_{w, b} \; \gamma \\<br>  &amp; s.t. \; y^{(i)}(w^Tx+b) \ge \gamma, \; i=1,\cdots,m \\<br>  &amp; \qquad |w|=1<br>  \end{align}  \qquad(ml.1.4.6)<br>  $$</p>
+<blockquote>
+<p>这里利用\(|w|=1\)约束\(w\)，使得\(w^Tx+b\)是几何间隔。</p>
+</blockquote>
+<p>  到这里其实已经将SVM的模型定义出来了，求解出来的模型称为最优间隔分类器。如果求得了\(w\)和\(b\)，对于任意一个样本\(x\)，我们就能够分类了。那么，<strong>接下来主要工作就是围绕如何求解参数\(w\)和\(b\)来展开的</strong>。</p>
+<p>  由于\(|w|=1\)不是凸函数，那么先利用几何间隔和函数间隔的关系转化一下\(\gamma=\frac{\hat{\gamma}}{|w|}\)，因此公式\((ml.1.4.6)\)可改写为：</p>
+<p>  $$<br>  \begin{align}<br>  &amp; \max_{w, b} \; \frac {\hat{\gamma}} {|w|} \\<br>  &amp; s.t. \; y^{(i)}(w^Tx+b) \ge \gamma, \; i=1,\cdots,m<br>  \end{align}  \qquad(ml.1.4.7)<br>  $$</p>
+<blockquote>
+<p>上式所求的极大值仍然是几何间隔，只不过此时的\(w\)不再受\(|w|=1\)的约束了。</p>
+</blockquote>
+<p>  然而此时的目标函数仍然不是凸函数，无法方便求解。继续改写目标函数…</p>
+<p>  前面说过同时缩放\(w\)和\(b\)对结果没有影响，但最后希望求得的是确定值，不是一组倍数值。为了达到这个目的，需要对\(\hat{\gamma}\)做一些限制，以保证最终解是唯一的。为了简便，取\(\hat{\gamma}=1\)。</p>
+<blockquote>
+<p><strong>将全局函数间隔定义为1</strong>，即将离超平面最近的点的距离定义为\(\frac{1}{|w|}\)（当然定义为其它非0常数也可以，不影响最终的参数求解）。</p>
+</blockquote>
+<p>  由于求\(\frac{1}{|w|}\)的极大值等价于求\(\frac{1}{2} |w|^2\)的极小值，因此目标函数可进一步改写为：</p>
+<p>  $$<br>  \begin{align}<br>  &amp; \max_{w, b} \; \frac{1}{2} |w|^2 \\<br>  &amp; s.t. \; y^{(i)}(w^Tx+b) \ge 1, \; i=1,\cdots,m<br>  \end{align}  \qquad(ml.1.4.8)<br>  $$</p>
+<p>  公式\((ml.1.4.8)\)是一个典型的带不等式约束的二次规划求解问题（目标函数是自变量的二次函数）。</p>
+<p>  到此为止，我们完成了目标函数由非凸到凸的转变。</p>
+<p>  下面的章节都是围绕着如何求二次规划问题而展开的。首先，介绍了带约束条件求解极值问题的两种常规思路：<strong>拉格朗日乘子主要用于解决等式约束的最优化问题；拉格朗日对偶和KKT条件用于解决不等式约束的极值优化问题</strong>；然后，针对最优间隔分类器问题给出完整的公式推导过程。</p>
+</li>
+</ul>
+<h4 id="极值问题求解的一般思路">极值问题求解的一般思路</h4><ul>
+<li><p><strong>拉格朗日乘子（Lagrange Multiplier）</strong></p>
+<p>  拉格朗日乘子法通常用于求解带等式约束的极值问题，一个典型的最优化问题形式化表示如下：</p>
+<p>  &gt;<br>  $$<br>  \begin{align}<br>  &amp; \min_{w} \quad f(w) \\<br>  &amp; s.t. \; h_i(w) = 0, \quad i=1,\cdots,k<br>  \end{align}        \qquad\quad(n.ml.1.4.5)<br>  $$</p>
+<p>  目标函数是\(f(w)\)，\(w \in R^n\) （\(n\)表示参数向量个数）；下面是等式约束，其中\(k\)为等式约束的个数。这类问题通常解法是引入拉格朗日乘子（又称算子），这里用\(\beta\)表示乘子，得到的拉格朗日公式为：</p>
+<p>  &gt;<br>  $$<br>  \mathcal{L}(w,\beta) = f(w) + \sum_{i=1}^{k} \beta_i \cdot h_i(w) \qquad(n.ml.1.4.6)<br>  $$</p>
+<p>  然后分别对\(w\)和\(\beta\)求偏导，使得偏导数等于0，进而求解出\(w\)和\(\beta\)。</p>
+<blockquote>
+<p>为什么引入拉格朗日乘子就可以求解出极值？</p>
+<p>主要原因是\(f(w)\)的切线方向（\(dw\)变化方向）受其它等式的约束，\(dw\)的变化方向与\(f(w)\)的梯度方向垂直时才能获得极值。并且<strong>在极值点处，\(f(w)\)的梯度与其它等式梯度的线性组合平行</strong>。因此它们之间存在线性关系。具体可参考《深入理解最优化算法》系列。</p>
+</blockquote>
+</li>
+<li><p><strong>拉格朗日对偶（Lagrange Duality）</strong></p>
+<p>  对于带有不等式约束的极值问题，形式化表示如下：</p>
+<p>  &gt;<br>  $$<br>  \begin{align}<br>  &amp; \min_{w} \quad f(w) \\<br>  &amp; s.t. \; g_i(w) \leq 0, \quad i = 1, \cdots, l \\<br>  &amp; \quad\;\;\, h_i(w) = 0, \quad i =1, \cdots, k<br>  \end{align}        \qquad(n.ml.1.4.7)<br>  $$</p>
+<p>  定义拉格朗日公式：</p>
+<p>  &gt;<br>  $$<br>  \mathcal{L}(w, \alpha, \beta) = f(w) + \sum_{i=1}^{l} \alpha_i g_i(w) + \sum_{i=1}^{k} \beta_i h_i(w)  \quad(n.ml.1.4.8)<br>  $$</p>
+<p>  公式\((n.ml.1.4.8)\)中的\(\alpha_i\)和\(\beta_i\)都是拉格朗日乘子。但如果按照该公式求解会出现以下问题。</p>
+<blockquote>
+<p>因为目标函数要求的是最小值，而约束条件\(h_i(w) \le 0\)，如果将\(\alpha_i\)调整为很大的正数，会使得最后的函数结果为负无穷（\(-\infty\)）。</p>
+</blockquote>
+<p>  因此，我们需要排除上述情况的发生。策略如下，定义函数：</p>
+<blockquote>
+<p>  $$<br>  \theta_{\mathcal{P}}(w) = \max_{\alpha, \beta;\, \alpha_i \geq 0} \mathcal{L}(w, \alpha, \beta)  \qquad\quad (n.ml.1.4.9)<br>  $$</p>
+</blockquote>
+<p>  公式\((n.ml.1.4.9)\)中的\(\mathcal{P}\)表示原问题，即primal。_假设\(g_i(w) &gt; 0\)或者\(h_i(w) \neq 0\)，那么我们总可以通过调整\(\alpha_i\)和\(\beta_i\)，使得\(\theta_{\mathcal{P}}(w)\)趋向正无穷。而只有当函数\(g\)和\(h\)满足约束条件时，\(\theta_{\mathcal{P}}(w)\)为\(f(w)\)。_ </p>
+<blockquote>
+<p>公式\((n.ml.1.4.9)\)精妙之处就在于\(\alpha_i \ge 0\)，而且是求极大值。因此公式\((n.ml.1.4.9)\)可以写为：</p>
+<p>  $$<br>  \theta_{\mathcal{P}}(w) =<br>  \begin{cases}<br>  f(w), \quad &amp; 如果w满足原问题约束; \\<br>  \; \infty, \quad &amp; Otherwise.<br>  \end{cases}        \qquad(n.ml.1.4.10)<br>  $$</p>
+<p>公式\((n.ml.1.4.9)\)和\((n.ml.1.4.10)\)是理解拉格朗日对偶的关键。</p>
+</blockquote>
+<p>  如此，我们原来要求解的\(\min_w f(w)\)可以转化为求解\(\min_w \theta_{\mathcal{P}}(w)\)了。即：</p>
+<p>  &gt;<br>  $$<br>  \min_w f(w) = \min_w \theta_{\mathcal{P}}(w) = \min_{w} \max_{\alpha, \beta;\, \alpha_i \geq 0} \mathcal{L}(w, \alpha, \beta)  \qquad (n.ml.1.4.11)<br>  $$</p>
+<p>  这里先用\(\mathcal{P}^{\ast}\)表示\(\min_w \theta_{\mathcal{P}}(w)\)。如果直接求解，又会面临如下问题：</p>
+<blockquote>
+<p>首先面对两个参数\(\alpha、\beta\)，并且参数\(\alpha_i\)也是一个不等式约束；然后再在\(w\)上求极小值。这个过程不容易做，可否有相对容易的解法呢？</p>
+</blockquote>
+<p>  我们换一个角度考虑该问题，令\(\theta_{\mathcal{D}}(\alpha, \beta) = \min_{w} \mathcal{L}(w, \alpha, \beta)\)。\(\mathcal{D}\)是对偶的意思，\(\theta_{\mathcal{D}}(\alpha, \beta)\)将问题转化为**先求拉格朗日关于\(w\)的最小值，将\(\alpha\)和\(\beta\)看作是固定值。然后再求\(\theta_{\mathcal{D}}(\alpha, \beta)\)的极大值**。即：</p>
+<p>  &gt;<br>  $$<br>  \max_{\alpha, \beta;\, \alpha_i \geq 0} \theta_{\mathcal{D}}(\alpha, \beta) = \max_{\alpha, \beta;\, \alpha_i \geq 0} \min_{w} \mathcal{L}(w, \alpha, \beta)   \qquad (n.ml.1.4.12)<br>  $$</p>
+<p>  问题转化为原问题的对偶问题来求解。其实，相对于原问题来说只是更换了\(max\)和\(min\)的顺序，而一般更换顺序的结果是：\(max \; min \; f(x) \le min \; max \; f(x)\)。用\(\mathcal{D}^{\ast}\)表示对偶问题，与原问题\(\mathcal{P}^{\ast}\)关系如下：</p>
+<p>  $$<br>  \mathcal{D}^{\ast} = \max_{\alpha,\beta; \; \alpha_i \ge 0} \min_{w} \mathcal{L}(w, \alpha, \beta) \le \min_{w} \max_{\alpha,\beta; \; \alpha_i \ge 0} \mathcal{L}(w, \alpha, \beta) = \mathcal{P}^{\ast} \quad (ml.1.4.9)<br>  $$</p>
+<blockquote>
+<p>即将_最小最大问题_转化为_最大最小问题。_ </p>
+<p>(这部分可与《第2章：深入理解ML之Entropy_Methods Family》结合起来理解，更容易理解并能建立起优化问题、最大熵以及SVM之间的公式关联。)</p>
+</blockquote>
+<p>  这里我们总结下拉格朗日对偶的精髓：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>将原有参数\(w\)的计算提前并消除\(w\)，使得优化函数变为拉格朗日乘子的单一参数优化问题。</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>KKT条件</p>
+<p>  公式\((ml.1.4.9)\)有一个问题：在什么条件下\(\mathcal{P}^{\ast}\)与\(\mathcal{D}^{\ast}\)    两者等价？</p>
+<p>  暂时先不回答这个问题，我们假设函数\(f(w)\)和\(g(w)\)是凸函数，\(h(w)\)是仿射的（affine，仿射的含义是指存在\(a_i、b_i\)，能够使得\(h_i(w)=a_i^T w + b_i成立\)）。并且存在\(w\)使得对于所有的\(i\)，\(g_i(w)&lt;0\)。在这种假设下，一定存在\(w^{\ast}、\alpha^{\ast}、 \beta^{\ast}\)使得\(w^{\ast}\)是原问题的解，\(\alpha^{\ast}、\beta^{\ast}\)是对偶问题的解。此时也满足\(\mathcal{P}=\mathcal{D}=\mathcal{L}(w^{\ast},\alpha^{\ast},\beta^{\ast})\)。</p>
+<p>  另外，解\(w^{\ast}、\alpha^{\ast}、 \beta^{\ast}\)满足<strong>库恩-塔克条件(Karush-Kuhn-Tucker, 简称KKT条件)</strong>，该条件表示如下：</p>
+<p>  $$<br>  \begin{align}<br>  \frac{\partial} {\partial w_i} \mathcal{L}(w^{\ast}, \alpha^{\ast}, \beta^{\ast}) &amp; = 0, \quad i=1,\cdots,n \qquad(1)\\<br>  \frac{\partial}{\partial \beta_i} \mathcal{L}(w^{\ast}, \alpha^{\ast}, \beta^{\ast}) &amp; = 0, \quad i =1, \cdots, k \qquad(2)\\<br>  a^{\ast} g_i(w^{\ast}) &amp; = 0, \quad i=1,\cdots, l \qquad\;(3)\\<br>  g_i(w^{\ast}) &amp; \le 0, \quad i = 1,\cdots, l \qquad\;(4)\\<br>  a^{\ast} &amp; \geq 0, \quad i=1,\cdots, l        \qquad\;(5)<br>  \end{align}  \qquad (ml.1.4.10)<br>  $$</p>
+<p>  所以，如果\(w^{\ast}、\alpha^{\ast}、\beta^{\ast}\)满足了库恩-塔克条件，那么它们就是原问题与对偶问题的解。</p>
+<p>  在这里我重点关注公式\((ml.1.4.10)-(3)\)，这个条件称作是KKT Dual Complementarity条件。这个条件隐含了<strong>如果\(\alpha^{\ast} &gt; 0\)</strong>，那么\(g_i(w) = 0\)。</p>
+<blockquote>
+<p>从集合的角度可这样理解：\(g_i(w^{\ast})=0\)时，\(w\)处在可行域的边界上，这时才是真正起作用的约束。而位于可行域内部\(（即g_i(w^{\ast})&lt;0）\)的点都是不起作用的约束，对应的\(\alpha^{\ast}=0\)。</p>
+</blockquote>
+<p>  这个KKT双重补足条件会用来解释SVM中的<strong>支持向量和SMO的收敛测试</strong>。KKT思想可总结如下：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>KKT总体思想是认为极值会在可行域边界上取得，也就是不等式为0或等式约束的条件下取得，而最优下降（或上升）方向一般是这些等式的线性组合，其中每个元素要么是不等式为0的约束，要么是等式约束。对于在可行域边界内的点，对目标函数最优解不起作用，因此前面的系数为0。</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="最优间隔分类器学习过程">最优间隔分类器学习过程</h4><ul>
+<li><p>优化目标</p>
+<p>  重新前面的SVM的优化问题：</p>
+<blockquote>
+<p>$$<br>  \begin{align}<br>  &amp; \max_{w, b} \; \frac{1}{2} |w|^2 \\<br>  &amp; s.t. \; y^{(i)}(w^Tx+b) \ge 1, \; i=1,\cdots,m<br>  \end{align}  \qquad(n.ml.1.4.13)<br>  $$</p>
+<p>首先将约束条件改写为：</p>
+<p>  $$<br>  g_i(w) = -y^{(i)} (w^T x^{(i)} + b) + 1 \le 0   \qquad\quad(n.ml.1.4.14)<br>  $$</p>
+</blockquote>
+<p>  <img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_4_1_5_optimal_margin_classifier.png" width="270" height="200" alt="最优间隔分类器" align="right"></p>
+<p>  根据上一节中的KKT条件可知，只有函数间隔是1（离超平面最近的点）的线性约束式前面的系数\(\alpha_i &gt; 0\)，也就是说这些对应的约束式\(g_i(w) = 0\)。对于其它的不在线上的点\(g_i(w) &lt; 0\)，极值不会在它们所在的范围内取得，因此前面的系数\(\alpha_i = 0\)。</p>
+<blockquote>
+<p>这里每一个约束式对应一个训练样本。</p>
+</blockquote>
+<p>  如右图所示，实线是最大间隔超平面，用”×”表示正样本，”o”表示负样本。在虚线上的点（两个”×”和一个”o”）就是函数间隔是1的点（又称支持向量），那么它们前面的系数\(\alpha_i &gt; 0\)，其它点都是\(\alpha_i = 0\)。</p>
+<p>  因此，可构造拉格朗日函数如下：</p>
+<p>  $$<br>  \mathcal{L}(w,b,\alpha) = \frac{1}{2} |w|^2 - \sum_{i=1}^{m} \alpha_i \cdot  \left(y^{(i)} (w^Tx + b) - 1\right)  \qquad(ml.1.4.11)<br>  $$</p>
+<blockquote>
+<p>说明：这里面只有\(\alpha_i\)而没有\(\beta_i\)，是因为SVM原问题中没有等式约束，只有不等式约束。</p>
+</blockquote>
+</li>
+<li><p>SVM对偶问题</p>
+<p>  下面我们看着拉格朗日的对偶问题来求解，对偶函数表达式如下：</p>
+<p>  $$<br>  \mathcal{D} = \max_{\alpha;\; \alpha \ge 0} \min_{w,b} \mathcal{L}(w,b,\alpha)  \qquad\qquad(ml.1.4.12)<br>  $$</p>
+<ul>
+<li><p>首先，极小化过程。固定参数\(\alpha\)，求\(\mathcal{L}(w,b,\alpha)\)关于\(w\)和\(b\)的最小值。分别对\(w\)和\(b\)求偏导：</p>
+<p>$$<br>\begin{align}<br>\nabla_w \mathcal{L}(w,b,\alpha) = w - \sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} = 0 \qquad(1)\\<br>\frac{\partial}{\partial b} \mathcal{L}(w,b,\alpha) = \sum_{i=1}^{m} \alpha_i y^{(i)} = 0  \qquad\qquad\;\;\;(2)<br>\end{align}        \qquad(ml.1.4.13)<br>$$</p>
+<blockquote>
+<p>根据公式\((ml.1.4.13)\)-\((1)\)可得到：</p>
+<p>\(<br>\qquad\qquad w = \sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} \qquad(n.ml.1.4.15)<br>\)</p>
+</blockquote>
+<p>将公式\((n.ml.1.4.15)\)带入\((ml.1.4.11)\)，此时得到的是该目标函数的最小部分（因为目标函数是凸函数）。公式推导如下：</p>
+<p>&gt;<br>$$<br>\begin{align}<br>\mathcal{L}(w,b,\alpha) &amp; = \frac{1}{2} w^T w - \sum_{i=1}^{m} \alpha_i y^{(i)} w^T x^{(i)} - b \cdot \sum_{i=1}^{m} \alpha_i y^{(i)}  + \sum_{i=1}^{m} \alpha_i \qquad\quad (1)\\<br>&amp; = \frac{1}{2} w^T \cdot \sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} - w^T \cdot \sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} + \sum_{i=1}^{m} \alpha_i - b \sum_{i=1}^{m} \alpha_i y^{(i)} \quad(2) \\<br>&amp; = -\frac{1}{2} w^T \sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} + \sum_{i=1}^{m} \alpha_i - b \sum_{i=1}^{m} \alpha_i y^{(i)} \qquad\quad(3) \\<br>&amp; = -\frac{1}{2} \left(\sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} \right)^T \cdot\sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} + \sum_{i=1}^{m} \alpha_i - b\sum_{i=1}^{m} \alpha_i y^{(i)} \quad(4) \\<br>&amp; = -\frac{1}{2} \sum_{i=1}^{m} \sum_{j=1}^{m} \alpha_i \alpha_j y^{(i)} y^{(j)} \cdot (x^{(i)})^T x^{(j)} + \sum_{i=1}^{m} \alpha_i - b \sum_{i=1}^{m} \alpha_i y^{(i)} \quad(5)<br>\end{align} \;(n.ml.1.4.16)<br>$$</p>
+<blockquote>
+<p>说明：第\((3)\)步到第\((4)\)步使用了线性代数中的转置运算，由于\(\alpha_i\)和\(y^{(i)}\)都是实数，因此转置后一样。第\((4)\)步到第\((5)\)步使用了乘法运算规则: \((a+b)(a+b) = aa + ab + ba + bb\)。</p>
+<p>公式\((n.ml.1.4.16)\)主要目的是将\(\mathcal{L}(w,b,\alpha)\)转化为关于拉格朗日乘子\(\alpha\)的函数。</p>
+</blockquote>
+<p>又因为有\((n.ml.1.4.13)-(2)\)成立，所以公式\((n.ml.1.4.16)-(5)\)最后一项为0。因此，目标函数最后整理为：</p>
+<p>$$<br>\mathcal{L}(w,b,\alpha) = -\frac{1}{2} \sum_{i=1}^{m} \sum_{j=1}^{m} \alpha_i \alpha_j y^{(i)} y^{(j)} (x^{(i)})^T x^{(j)} + \sum_{i=1}^{m} \alpha_i \qquad(ml.1.4.14)<br>$$</p>
+<p>&gt;</p>
+<blockquote>
+<p>这里我们将向量内积\((x^{(i)})^T x^{(j)}\)表示为\(\langle x^{(i)}, x^{(j)} \rangle\)。<strong>正因为有向量内积的（复杂）计算，才有后面Kernal的出现</strong>。</p>
+</blockquote>
+</li>
+<li><p>接着，求极大化过程。此时极值问题可表示为：</p>
+<p>$$<br>\begin{align}<br>&amp; \max_{\alpha} \quad -\frac{1}{2} \sum_{i=1}^{m} \sum_{j=1}^{m} \alpha_i \alpha_j y^{(i)} y^{(j)} (x^{(i)})^T x^{(j)} + \sum_{i=1}^{m} \alpha_i \\<br>&amp; s.t. \quad \alpha_i \ge 0, \quad i=1,\cdots, m \\<br>&amp; \qquad \sum_{i=1}^{m} \alpha_i y^{(i)} = 0.<br>\end{align} \qquad\quad(ml.1.4.15)<br>$$</p>
+<blockquote>
+<p>从公式\((ml.1.4.15)\)中可以看出，目标函数和线性约束都是凸函数，并且这里不存在不等式约束。根据4.1.4节中介绍的KKT条件可知：存在\(w\)使得对于所有的\(i，g_i(w) &lt; 0\)。因此，一定存在\(w^{\ast}、\alpha^{\ast}\)使得\(w^{\ast}\)是原问题的解，\(\alpha^{\ast}\)是对偶问题的解。（在这里，求\(\alpha_i\)就是求\(\alpha^{\ast}\)了。）</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>对偶问题求解思路</p>
+<p>  如果求出\(\alpha_i\)，根据\((n.ml.1.4.15)\)可求出\(w\)（即\(w^{\ast}\)，原问题的解）。参数\(b\)的求解可利用下面的公式：</p>
+<p>  &gt;<br>  $$<br>  b^{\ast} = - \frac{\max_{i:y^{(i)}=-1} {w^{\ast}}^T x^{(i)} + \min_{i:y^{(i)}=1} {w^{\ast}}^T x^{(i)}} {2}  \qquad\quad (n.ml.1.4.17)<br>  $$</p>
+<p>  即<strong>离超平面最近的正的函数间隔要等于离超平面最近的负的函数间隔</strong>。这样，我们就可以求出最优间隔分类器\(w^T x + b = 0\)。</p>
+<blockquote>
+<p>此外，我们根据公式\((n.ml.1.4.15)\)得到了参数\(w\)的表达式。但别忘了，我们SVM通篇考虑的是最优间隔分类器\(w^x+b=0\)的求解。根据\(w\)的表达式，我们带入方程可得：</p>
+<p>  $$<br>  w^T x + b = \left(\sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)}\right)^T x + b = \sum_{i=1}^{m} \alpha_i y^{(i)} \langle x^{(i)}, x \rangle + b  \qquad(n.ml.1.4.18)<br>  $$</p>
+<p>也就是说，如果按照\(w^T x + b\)为新来的样本做分类，首先根据\(w\)和\(b\)做一次线性运算，然后看求出来的结果是大于0还是小于0，以此来判断样本是正例还是负例。<strong>现在有了\(\alpha_i\)，我们不需要求\(w\)，只需要将新来的样本与训练数据中的所有样本做内积即可</strong>。</p>
+<p><strong>或许存在这样一个疑问：与所有样本做内积是否太耗时了？</strong> 其实不然，根据KKT条件可知，只有支持向量的参数\(\alpha_i\)是大于0的，其它情况都等于0。因此，我们只需要求新样本与支持向量的内积，然后运算即可。</p>
+<p>(上面的疑惑可以在本章4.2节核方法中寻找答案。)</p>
+</blockquote>
+<p>  上面的讨论都是建立在样本线性可分的假设前提下，当样本不可分时，我们可以尝试利用核函数将特征映射到高维空间，这样很可能就可分了。然而，映射后也不能保证样本100%线性可分，那又该如何？这就是下面通过引入松弛变量的软间隔模型和正则化要解决的问题。</p>
+</li>
+</ul>
+<h4 id="软间隔与正则化（Soft-Margin_and_Regularization）">软间隔与正则化（Soft-Margin and Regularization）</h4><p>为了解决上述问题，这里需要将模型做一个调整，以保证在不可分的情况下，也能够尽可能地找出分隔超平面。</p>
+<ul>
+<li><p>软间隔与惩罚项</p>
+<p>  <img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_4_1_6_soft_margin_and_non_seperate.png" width="270" height="225" alt="soft-margin" align="right"></p>
+<p>  从右图可以看到，如果多一个离群点（也许是噪声，黑圆圈表示）可能造成超平面的移动，求出来的最优间隔在缩小（实线部分），那么之前的模型对噪声非常敏感。更有甚者，如果离群点在另一个类中，此时就线性不可分了。</p>
+<p>  如何解决这个问题呢？</p>
+<p>  我们可以考虑允许一些点游离并在模型求解中违背约束条件（函数间隔\(\ge 1\)）。那么新的模型就可以定义如下：</p>
+<p>  $$<br>  \begin{align}<br>  &amp; \min_{w,b,\gamma} \quad \frac{1}{2} |w|^2 + C \sum_{i=1}^{m} \xi_i \\<br>  &amp; s.t \quad y^{(i)} (w^T x^{(i)} + b) \ge 1-\xi_i, \; i=1,2,\cdots,m \\<br>  &amp; \qquad \xi_i \ge 0, \quad i=1,2,\cdots, m<br>  \end{align}    \qquad(ml.1.4.16)<br>  $$</p>
+<p>  公式\((ml.1.4.16)\)被称为SVM的<strong>软间隔</strong>模型，非负参数\(\xi_i\)称为松弛变量。</p>
+<blockquote>
+<p>引入松弛变量就是允许样本点的函数间隔小于1，即在最大间隔区间里面，或者函数间隔可以为负数，即样本点在对方的区域中。</p>
+</blockquote>
+<p>  而放松限制条件后，我们需要重新调整目标函数，以对离群点进行惩罚。目标函数后面的\(C\sum_{i=1}^{m} \xi_i\)就表示离群点越多，目标函数值就越大，而我们要求的事尽可能小的目标函数值。</p>
+<blockquote>
+<p>这里的参数\(C\)表现离群点的权重（在《深入理解ML》系列第7章正则化部分有详细介绍，那里称为惩罚因子，与这里的离群点权重是同一个意思）。\(C\)越大，表明离群点对目标函数影响越大，也就越不希望看到离群点。</p>
+</blockquote>
+<p>  我们可以给出以下总结：</p>
+<p>  <strong>目标函数控制了离群点的数据和程度，使大部分样本点仍然遵守限制条件。同时，考虑了离群点对模型的影响。</strong></p>
+</li>
+</ul>
+<pre><code>模型修改后，同时也需要对<span class="command">\\</span>((ml.1.4.11)<span class="command">\\</span>)拉格朗日公式进行修改如下：
+
+<span class="formula">$$
+<span class="command">\mathcal</span><span class="special">{</span>L<span class="special">}</span>(w,b,<span class="command">\alpha</span>) = <span class="command">\frac</span><span class="special">{</span>1<span class="special">}</span><span class="special">{</span>2<span class="special">}</span> <span class="command">\|</span>w<span class="command">\|</span>^2 + C<span class="command">\sum</span>_<span class="special">{</span>i=1<span class="special">}</span>^<span class="special">{</span>m<span class="special">}</span> <span class="command">\xi</span>_i - <span class="command">\sum</span>_<span class="special">{</span>i=1<span class="special">}</span>^<span class="special">{</span>m<span class="special">}</span> <span class="command">\alpha</span>_i <span class="command">\cdot</span>  <span class="command">\left</span>(y^<span class="special">{</span>(i)<span class="special">}</span> (w^Tx + b) - 1 + <span class="command">\xi</span>_i <span class="command">\right</span>) - <span class="command">\sum</span>_<span class="special">{</span>i=1<span class="special">}</span>^<span class="special">{</span>m<span class="special">}</span> <span class="command">\gamma</span>_i <span class="command">\xi</span>_i <span class="command">\quad</span>(ml.1.4.17)
+$$</span>
+
+这里的<span class="command">\\</span>(<span class="command">\alpha</span>_i、<span class="command">\gamma</span>_i<span class="command">\\</span>)都是拉格朗日乘子。
+
+&gt; 回想4.1.4节中介绍的拉格朗日对偶中提到的求法。&lt;br&gt;
+&gt; 1. 首先，写出拉格朗日公式（如<span class="command">\\</span>((ml.1.4.17)<span class="command">\\</span>)）；&lt;br&gt;
+&gt; 2. 然后，将其看作是变量<span class="command">\\</span>(w<span class="command">\\</span>)和<span class="command">\\</span>(b<span class="command">\\</span>)的函数，分别对其求偏导，得到<span class="command">\\</span>(w<span class="command">\\</span>)和<span class="command">\\</span>(b<span class="command">\\</span>)的表达式；&lt;br&gt;
+&gt; 3. 最后，把表达式带入拉格朗日公式中，求带入公式后的极大值。
+
+整体推导过程如4.1.5节类似，这里只给出最后结果：
+
+<span class="formula">$$
+<span class="command">\begin</span><span class="special">{</span>align<span class="special">}</span>
+<span class="special">&amp;</span> <span class="command">\max</span>_<span class="special">{</span><span class="command">\alpha</span><span class="special">}</span> <span class="command">\quad</span>  W(<span class="command">\alpha</span>) = - <span class="command">\frac</span><span class="special">{</span>1<span class="special">}</span><span class="special">{</span>2<span class="special">}</span> <span class="command">\sum</span>_<span class="special">{</span>i=1<span class="special">}</span>^<span class="special">{</span>m<span class="special">}</span> <span class="command">\sum</span>_<span class="special">{</span>j=1<span class="special">}</span>^<span class="special">{</span>m<span class="special">}</span> y^<span class="special">{</span>(i)<span class="special">}</span> y^<span class="special">{</span>(j)<span class="special">}</span> <span class="command">\alpha</span>_i <span class="command">\alpha</span>_j <span class="command">\langle</span> x^<span class="special">{</span>(i)<span class="special">}</span>, x^<span class="special">{</span>(j)<span class="special">}</span><span class="command">\rangle</span> + <span class="command">\sum</span>_<span class="special">{</span>i=1<span class="special">}</span>^<span class="special">{</span>m<span class="special">}</span> <span class="command">\alpha</span>_i <span class="command">\\</span>
+<span class="special">&amp;</span> s.t. <span class="command">\quad</span> 0 <span class="command">\le</span> <span class="command">\alpha</span>_i <span class="command">\le</span> C, <span class="command">\quad</span> i=1,<span class="command">\cdots</span>,m <span class="command">\\</span>
+<span class="special">&amp;</span> <span class="command">\qquad</span> <span class="command">\sum</span>_<span class="special">{</span>i=1<span class="special">}</span>^<span class="special">{</span>m<span class="special">}</span> <span class="command">\alpha</span>_i y^<span class="special">{</span>(i)<span class="special">}</span> = 0
+<span class="command">\end</span><span class="special">{</span>align<span class="special">}</span> <span class="command">\qquad</span>(ml.1.4.18)
+$$</span>
+
+此时我们会发现，新的目标函数中没有了参数<span class="command">\\</span>(<span class="command">\xi</span>_i<span class="command">\\</span>)，与之前的模型（公式<span class="command">\\</span>((ml.1.4.15)<span class="command">\\</span>)）唯一的不同在于<span class="command">\\</span>(<span class="command">\alpha</span>_i<span class="command">\\</span>)又多了<span class="command">\\</span>(<span class="command">\alpha</span>_i <span class="command">\le</span> C<span class="command">\\</span>)的限制条件。
+
+&gt; 需要注意的是：参数<span class="command">\\</span>(b<span class="command">\\</span>)的求值公式也发生了变化，改变结果在SMO算法里面介绍。
+
+软间隔模型对应的KKT条件，变化如下：
+
+<span class="formula">$$
+<span class="command">\begin</span><span class="special">{</span>align<span class="special">}</span>
+<span class="command">\alpha</span>_i = 0 <span class="special">&amp;</span> <span class="command">\Rightarrow</span> y^<span class="special">{</span>(i)<span class="special">}</span> (w^T x^<span class="special">{</span>(i)<span class="special">}</span> + b ) <span class="command">\ge</span> 1 <span class="command">\qquad</span> (1) <span class="command">\\</span>
+<span class="command">\alpha</span>_i = C <span class="special">&amp;</span> <span class="command">\Rightarrow</span> y^<span class="special">{</span>(i)<span class="special">}</span> (w^T x^<span class="special">{</span>(i)<span class="special">}</span> + b ) <span class="command">\le</span> 1 <span class="command">\qquad</span> (2) <span class="command">\\</span>
+0 &lt; <span class="command">\alpha</span>_i &lt; C <span class="special">&amp;</span> <span class="command">\Rightarrow</span> y^<span class="special">{</span>(i)<span class="special">}</span> (w^T x^<span class="special">{</span>(i)<span class="special">}</span> + b ) = 1 <span class="command">\qquad</span> (3) <span class="command">\\</span>
+<span class="command">\end</span><span class="special">{</span>align<span class="special">}</span> <span class="command">\qquad</span>(ml.1.4.19)
+$$</span>
+
+公式<span class="command">\\</span>((ml.1.4.19)<span class="command">\\</span>)第<span class="command">\\</span>((1)<span class="command">\\</span>)式子表明，在两条间隔线外的样本点前面的系数为0；第<span class="command">\\</span>((2)<span class="command">\\</span>)个式子表明，在间隔线内的样本点（离群点）前面的系数为<span class="command">\\</span>(C<span class="command">\\</span>)；第<span class="command">\\</span>((3)<span class="command">\\</span>)个式子表明，支持向量（即在超平面两边的最大间隔线上）的样本想前面系数在<span class="command">\\</span>((0, C)<span class="command">\\</span>)上。
+
+&gt; 通过KKT条件克制，某些在最大间隔线上的样本点也不是支持向量，相反可能是离群点（<span class="command">\\</span>((1)、(2)中等号成立时<span class="command">\\</span>)）。
+
+SMO算法（Sequential Minimal Optimization）用于求解目标函数<span class="command">\\</span>(W(<span class="command">\alpha</span>)<span class="command">\\</span>)的极大值。（具体参考4.3节）
+</code></pre><h4 id="内容总结">内容总结</h4><p>这里中带你介绍了SVM的基本公式推导，并就其中的关键点给予了介绍。</p>
+<p>首先，通过LR与SVM两个经典模型的比较，前者全局，后者局部（从对参数起作用的训练样本角度），引入SVM；通过函数间隔和几何间隔的介绍，明确了最优间隔的公式表达以及带优化的目标函数；并且将非凸函数转化为凸函数，以便于后续求解；</p>
+<p>其次，我们详细地给出了求解带约束的极值优化问题的求解方法：拉格朗日乘子法与拉格朗日对偶法。并且详细推导了最优间隔分类器的优化学习过程，发现参数\(w\)可以用特征向量内积表示，进而引入核函数。此时，我们通过调整核函数就可以完成特征从低维到高维的映射，在低维上计算，实则表现在高位空间上。</p>
+<blockquote>
+<p>核函数主要用来解决特征空间变换（线性不可分、特征映射等）以及在高维空间计算效率问题。</p>
+</blockquote>
+<p>由于在实际场景中，训练样本不一定都线性可分。为了提升SVM算法的通用性，引入了松弛变量对优化模型进行软间隔处理，导致的结果就是优化问题变得更加复杂。然而，拉格朗日对偶求解结果中，松弛变量并没有出现在带优化的目标函数中。最后的优化求解问题，也通过SMO算法得到了解决。</p>
+<ul>
+<li>参考资料：<ul>
+<li>斯坦福大学《机器学习》课程与讲义（Andrew Ng男神）；</li>
+<li>台湾大学《机器学习技法》课程与讲义 （林老师）；</li>
+<li>《模式识别与机器学习》</li>
+<li>技术博客：<a href="http://www.cnblogs.com/jerrylead" target="_blank" rel="external">http://www.cnblogs.com/jerrylead</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="Kernal_Methods">Kernal Methods</h3><h4 id="核函数引入（Kernals）">核函数引入（Kernals）</h4><ul>
+<li><p>特征映射</p>
+<p>  Andrew Ng男神在《机器学习》课程第一讲的线性回归中提到例子，用回归模型拟合房屋面积（用\(x\)表示）与价格（用\(y\)表示）之间的关系。示例中的回归模型用的是\(y=w_0 + w_1 x\)方程拟合的。假设从样本的分布中可以看到\(x\)与\(\)符合3次曲线关系，那么我们希望使用\(x\)的3次多项式来逼近这些样本点。</p>
+<p>  那么首先需要做的是将特征\(x\)扩展至三维\((x,x^2,x^3)\)，然后再续着特征与结果之间的关系模型。我们将这种特征变换称作<strong>特征映射（Feature Mapping）</strong>。映射函数这里用\(\phi(x)\)表示，在该例中可表示为：</p>
+<blockquote>
+<p>  $$<br>  \phi(x) =<br>  \begin{equation}<br>  \left[</p>
+<pre><code><span class="string">\begin{array}{c}</span>
+    x <span class="string">\\</span>
+    x^<span class="number">2</span> <span class="string">\\</span>
+    x^<span class="number">3</span> <span class="string">\\</span>
+<span class="string">\end{array}</span>
+</code></pre><p>  \right]<br>  \end{equation}    \qquad\qquad(exp.ml.1.4.1)<br>  $$</p>
+</blockquote>
+<p>  我们希望将特征映射后的特征应用于上一节中的SVM分类，而不是原始特征（Raw Feature）。这样，就需要将公式\((n.ml.1.4.18)\)中的内积从\(\langle x^{(i)}, x\rangle\)映射到 \(\langle \phi(x^{(i)}), \phi(x) \rangle\)。</p>
+<blockquote>
+<p>为什么要用映射后的特征，而不是原始特征来计算呢?</p>
+<p>为了更好的拟合数据是其中一个原因。另外一个重要原因是：样本可能存在在低维空间线性不可分的情况，而将其映射到高维空间中往往就可分。（结论：假如样本数是\(m\)，那么特征的\((m-1)\)次幂方程一定能将数据线性可分。PRML一书第一章中解释的比较清楚。</p>
+</blockquote>
+</li>
+<li><p>核函数定义</p>
+<p>   将核函数形式化定义：如果原始特征内积\(\langle x,z \rangle\)，映射后为\(\langle \phi(x), \phi(z) \rangle\)，那么核函数定义为：</p>
+<p>   $$<br>   K(x,z) = \phi(x)^T \phi(z)    \qquad (ml.1.4.16)<br>   $$</p>
+<blockquote>
+<p>如果要实现\(\phi(x)^T \phi(z)\)的计算，只需要先计算\(\phi(x)\)，然后再计算\(\phi(z)^T \phi(z)\)即可。然而这种计算方式是非常低效的。如果最初特征是\(n\)维的，现在将其映射到\(n^2\)维，然后再计算，此时时间复杂度从\(O(n)\)上升为\(O(n^2)\)。那么有没有特征维度增加但计算时间复杂度没有增加的方法呢？</p>
+<p>要想解决上面这个问题，核函数是非常给力的方法。举例：假设\(x\)和\(z\)都是\(n\)维的，有:</p>
+<p>   $$<br>   K(x,z) = (x^Tz)^2    \qquad\quad(n.ml.1.4.19)<br>   $$</p>
+<p>展开后，可以得到：</p>
+<p>   $$<br>   \begin{align}<br>   K(x,z) &amp; = (x^Tz)^2 = \left( \sum_{i=1}^{n} x_i z_i \right) \cdot \left( \sum_{i=1}^{n} x_i z_i \right) \\<br>   &amp; = \sum_{i=1}^{n} \sum_{j=1}^{n} (x_i x_j) (z_i z_j) = \phi(x)^T \phi(z)<br>   \end{align}  \qquad(n.ml.1.4.20)</p>
+<pre><code><span class="variable">$$</span>
+</code></pre></blockquote>
+<p>   从公式\((n.ml.1.4.20)\)可以看出，只要计算原始特征\(x\)和\(z\)的平方（时间复杂度\(O(n)\)），就等价于映射后特征的内积。</p>
+<blockquote>
+<p>举例：当\(n\)=3时，根据上面的公式可得：</p>
+<p>   $$<br>  \phi(x) =<br>  \begin{equation}<br>  \left[</p>
+<pre><code><span class="string">\begin{array}{cc}</span>
+    x_1 x_1 <span class="string">\\</span>
+    x_1 x_2 <span class="string">\\</span>
+    x_1 x_3 <span class="string">\\</span>
+    x_2 x_1 <span class="string">\\</span>
+    x_2 x_2 <span class="string">\\</span>
+    x_2 x_3 <span class="string">\\</span>
+    x_3 x_1 <span class="string">\\</span>
+    x_3 x_2 <span class="string">\\</span>
+    x_3 x_3 <span class="string">\\</span>
+<span class="string">\end{array}</span>
+</code></pre><p>  \right]<br>  \end{equation}    \qquad\qquad(exp.ml.1.4.2)<br>   $$</p>
+</blockquote>
+<p>  也就是说，核函数\(K(x,z) = (x^Tz)^2\)只能选择这样的映射函数\(\phi\)时，才能等价于映射后特征的内积。下面再看一个核函数：</p>
+<blockquote>
+<p>$$<br>   \begin{align}<br>   K(x,z) &amp; = (x^Tz + c)^2 \\<br>   &amp; = \sum_{i=1}^{n} \sum_{j=1}^{n} (x_i x_j)(z_i z_j) + \sum_{i=1}^{n} (\sqrt{2c} x_i) (\sqrt{2c} z_i) + c^2<br>   \end{align} \qquad(n.ml.1.4.21)<br>   $$</p>
+<p>那么其对应的映射函数应该为：</p>
+<p>   $$<br>  \phi(x) =<br>  \begin{equation}<br>  \left[</p>
+<pre><code><span class="string">\begin{array}{cc}</span>
+    x_1 x_1 <span class="string">\\</span>
+    x_1 x_2 <span class="string">\\</span>
+    x_1 x_3 <span class="string">\\</span>
+    x_2 x_1 <span class="string">\\</span>
+    x_2 x_2 <span class="string">\\</span>
+    x_2 x_3 <span class="string">\\</span>
+    x_3 x_1 <span class="string">\\</span>
+    x_3 x_2 <span class="string">\\</span>
+    x_3 x_3 <span class="string">\\</span>
+    <span class="string">\sqrt{2c}x_1</span> <span class="string">\\</span>
+    <span class="string">\sqrt{2c}x_2</span> <span class="string">\\</span>
+    <span class="string">\sqrt{2c}x_3</span> <span class="string">\\</span>
+    c <span class="string">\\</span>
+<span class="string">\end{array}</span>
+</code></pre><p>  \right]<br>  \end{equation}    \qquad\qquad(exp.ml.1.4.2)<br>   $$</p>
+</blockquote>
+<p>  由于计算的是内积，我们联想一下余弦相似度：如果\(x\)和\(z\)向量夹角越小，那么么核函数值就越大，反之就越小。因此，核函数值大小与 \(\phi(x)\)和\(\phi(z)\)相似度 成正相关。下面再看一个核函数:</p>
+<p>  &gt;<br>  $$<br>  K(x,z) = \exp \left( -\frac{|x-z|^2}{2\sigma^2} \right)  \qquad(n.ml.1.4.22)<br>  $$</p>
+<p>  从公式\((n.ml.1.4.22)\)可以看出，如果\(x\)和\(z\)很近（\(|x-z| \thickapprox 0\)），那么核函数值为1；如果\(x\)和\(z\)相差很大（\(|x-z| \gg 0\)），那么核函数值约等于0。由于这个函数类似于高斯分布，因此称为<strong>高斯和函数</strong>，也叫做<strong>径向基函数（Radial Basic Function，简称RBF）</strong>。它能够把原始函数映射到无穷维。</p>
+<p>  （此处可给出 kernel解决低维空间不可分的问题）。</p>
+</li>
+</ul>
+<h4 id="核函数有效性判定">核函数有效性判定</h4><p>先抛出一个问题：</p>
+<blockquote>
+<p>给定一个函数\(K\)，我们能否使用\(K\)来替代计算\(\phi(x)^T \phi(z)\)？也就是说，能否找出一个\(\phi\)，使得对于所有的\(x\)和\(z\)，都有\(K(x,z) = \phi(x)^T \phi(z)\)？</p>
+<p>公式\((n.ml.1.4.19)\)描述的核函数\(K(x,z) = (x^T z)^2\)，是否能够认为\(K\)是一个有效的核函数？</p>
+</blockquote>
+<ul>
+<li><p>Mercer定理</p>
+<p>  在介绍Mercer定理之前，我们先解决上面的问题：</p>
+<blockquote>
+<p>给定\(m\)个训练样本\(\{x^{(1)}, x^{(2)}, \cdots, x^{(m)}\}\)，每一个\(x^{(i)}\)对应一个特征向量。那么，我们可以将任意两个样本\(x^{(i)}\)和\(x^{(j)}\)带入函数\(K\)中，计算得到\( K_{ij} = K(x^{(i)}, x^{(j)})\)，其中\(1 \le i \le m\)，\(1 \le j \le m\)。</p>
+<p>这样，我们就可以计算得到一个\(m*m\)的核函数矩阵（Kernel Matrix）。这里为了方便，将和函数矩阵和核函数\(K(x,z)\)都用\(K\)来表示。</p>
+</blockquote>
+<p>  假设\(K\)是有效的核函数，那么根据核函数定义：</p>
+<p>  $$<br>  \begin{align}<br>  K_{ij} &amp; = K(x^{(i)}, x^{(j)}) \\<br>  &amp; = \phi(x^{(i)})^T \phi(x^{(j)}) = \phi(x^{(j)})^T \phi(x^{(i)}) \\<br>  &amp; = K(x^{(j)}, x^{(i)}) = K_{ji}<br>  \end{align}  \qquad(ml.1.4.17)<br>  $$</p>
+<p>  可见，核函数矩阵\(K\)应该是个对称阵。下面的公式推导会给出更明确的结论。</p>
+<blockquote>
+<p>首先，使用符号\(\phi_k(x)\)来表示映射函数\(\phi(x)\)的第\(k\)维属性值。那么，对于任意向量\(z\)，可得：</p>
+<p>  $$<br>  \begin{align}<br>  z^T K z &amp; = \sum_{i=1}^{m} \sum_{j=1}^{m} z_i K_{ij} z_j \\<br>  &amp; = \sum_{i=1}^{m} \sum_{j=1}^{m} z_i \phi(x^{(i)})^T \phi(x^{(j)}) z_j \\<br>  &amp; = \sum_{i=1}^{m} \sum_{j=1}^{m} z_i \sum_{k=1}^{n} \phi_k(x^{(i)})\phi_k(x^{(j)}) z_j \\<br>  &amp; = \sum_{k=1}^{n} \sum_{i=1}^{m} \sum_{j=1}^{m} z_i \phi_k(x^{(i)})\phi_k(x^{(j)}) z_j \\<br>  &amp; = \sum_{k=1}^{n} \left( \sum_{i=1}^{m} z_i \phi(x^{(i)}) \right)^2 \\<br>  &amp; \ge 0<br>  \end{align}  \qquad\quad(n.ml.1.4.23)<br>  $$</p>
+</blockquote>
+<p>  从公式\((n.ml.1.4.23)\)可以看出，如果\(K\)是个有效的核函数（即\(K(x,z)\)与\(\phi(x)^T \phi(z)\)等价），那么，在训练集上得到的核函数矩阵\(K\)应该是半正定的（\(K \ge 0\))。</p>
+<p>  如此，我们可以得出核函数的必要条件是：</p>
+<blockquote>
+<p><strong>\(K\)是有效的核函数 =&gt; 核函数矩阵\(K\)是半正定的。</strong></p>
+</blockquote>
+<p>  比较幸运的是，这个条件也是充分的。具体由<strong>Mercer定理</strong>来表达:</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Mercer定理：</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>如果函数\(K\)是\(R^n \times R^n \rightarrow R\)上的映射（即从两个\(n\)维向量映射到实数域）并且如果\(K\)是个有效的核函数（也称为Mercer核函数），那么当且仅当对于训练样例\( \{x^{(1)}, \cdots, x^{(m)}\}\)来说，其相应的核函数矩阵是半正定的。</td>
+</tr>
+</tbody>
+</table>
+<p>Mercer定理可以说明：为了证明\(K\)是有效的核函数，我们不用直接去寻找\(\phi\)，只需要在训练集上求出各个\(K_{ij}\)，然后判定矩阵\(K\)是否是半正定即可。</p>
+<blockquote>
+<p>注：使用矩阵左上角主子式 \(\ge 0\)等方法可判定矩阵是否是半正定的。</p>
+</blockquote>
+<p>当然，Mercer定理证明过程中可以通过\(L2\)范数和再生希尔伯特空间等概念，但在\(n\)维情况下，这里给出的证明是等价的。</p>
+<p>Kernel方法不仅用在SVM上，只要在模型的计算过程中出现\(\langle x,z \rangle\)，我们都可以使用\(K(x,z)\)去替换，通过特征空间变换解决本章开头所提到的特征映射问题。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/深入浅出机器学习/">深入浅出机器学习</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/KKT/">KKT</a><a href="/tags/Kernels/">Kernels</a><a href="/tags/SVM/">SVM</a><a href="/tags/VC维/">VC维</a><a href="/tags/支持向量机/">支持向量机</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.52caml.com/head_first_ml/ml-chapter4-kernal-based-family/" data-title="第04章：深入浅出ML之Kernal-Based家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/head_first_ml/ml-chapter10-clustering-family/" title="第10章：深入浅出ML之Clustering家族">
+  <strong>上一篇：</strong><br/>
+  <span>
+  第10章：深入浅出ML之Clustering家族</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/stats/beta-gamma-dirichlet-function/"  title="概率与统计-chapter0-三个重要函数">
+ <strong>下一篇：</strong><br/> 
+ <span>概率与统计-chapter0-三个重要函数
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持向量机（Support_Vector_Machine）"><span class="toc-number">2.</span> <span class="toc-text">支持向量机（Support Vector Machine）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LR与SVM"><span class="toc-number">2.1.</span> <span class="toc-text">LR与SVM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数间隔与几何间隔"><span class="toc-number">2.2.</span> <span class="toc-text">函数间隔与几何间隔</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最优间隔分类器"><span class="toc-number">2.3.</span> <span class="toc-text">最优间隔分类器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#极值问题求解的一般思路"><span class="toc-number">2.4.</span> <span class="toc-text">极值问题求解的一般思路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最优间隔分类器学习过程"><span class="toc-number">2.5.</span> <span class="toc-text">最优间隔分类器学习过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#软间隔与正则化（Soft-Margin_and_Regularization）"><span class="toc-number">2.6.</span> <span class="toc-text">软间隔与正则化（Soft-Margin and Regularization）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内容总结"><span class="toc-number">2.7.</span> <span class="toc-text">内容总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kernal_Methods"><span class="toc-number">3.</span> <span class="toc-text">Kernal Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#核函数引入（Kernals）"><span class="toc-number">3.1.</span> <span class="toc-text">核函数引入（Kernals）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#核函数有效性判定"><span class="toc-number">3.2.</span> <span class="toc-text">核函数有效性判定</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/概率与统计/" title="概率与统计">概率与统计<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/深入浅出机器学习/" title="深入浅出机器学习">深入浅出机器学习<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/连续随机变量/" title="连续随机变量">连续随机变量<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AdaBoost/" title="AdaBoost">AdaBoost<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Gradient-Boosting/" title="Gradient Boosting">Gradient Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/BGDT/" title="BGDT">BGDT<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/XGBoost/" title="XGBoost">XGBoost<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Kernels/" title="Kernels">Kernels<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVM/" title="SVM">SVM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/支持向量机/" title="支持向量机">支持向量机<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/KKT/" title="KKT">KKT<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/VC维/" title="VC维">VC维<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/信息论/" title="信息论">信息论<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/信息熵/" title="信息熵">信息熵<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/条件熵/" title="条件熵">条件熵<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/联合熵/" title="联合熵">联合熵<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Gamma-Beta-Dirichlet/" title="Gamma,Beta,Dirichlet">Gamma,Beta,Dirichlet<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/KL距离/" title="KL距离">KL距离<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/互信息/" title="互信息">互信息<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/最大熵原理/" title="最大熵原理">最大熵原理<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, Welcome to CAML technology sharing platform.  <br/>
+			I&#39;m Zhou Yong, engaged in algorithms work on computational advertising and machine learning.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1707438033" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/ComputationalAds" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zhouyongsdzh@foxmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="ZhouYong">ZhouYong</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>
