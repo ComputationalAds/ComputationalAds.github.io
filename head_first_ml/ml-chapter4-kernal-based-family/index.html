@@ -433,51 +433,33 @@ SVM中">
 </blockquote>
 <p>  我们可以给出以下总结：</p>
 <p>  <strong>目标函数控制了离群点的数据和程度，使大部分样本点仍然遵守限制条件。同时，考虑了离群点对模型的影响。</strong></p>
+<p>  模型修改后，同时也需要对\((ml.1.4.11)\)拉格朗日公式进行修改如下：</p>
+<p>  $$<br>  \mathcal{L}(w,b,\alpha) = \frac{1}{2} |w|^2 + C\sum_{i=1}^{m} \xi_i - \sum_{i=1}^{m} \alpha_i \cdot  \left(y^{(i)} (w^Tx + b) - 1 + \xi_i \right) - \sum_{i=1}^{m} \gamma_i \xi_i \quad(ml.1.4.17)<br>  $$</p>
+<p>  这里的\(\alpha_i、\gamma_i\)都是拉格朗日乘子。</p>
+<blockquote>
+<p>回想4.1.4节中介绍的拉格朗日对偶中提到的求法。<br></p>
+<ol>
+<li>首先，写出拉格朗日公式（如\((ml.1.4.17)\)）；<br></li>
+<li>然后，将其看作是变量\(w\)和\(b\)的函数，分别对其求偏导，得到\(w\)和\(b\)的表达式；<br></li>
+<li>最后，把表达式带入拉格朗日公式中，求带入公式后的极大值。</li>
+</ol>
+</blockquote>
+<p>  整体推导过程如4.1.5节类似，这里只给出最后结果：</p>
+<p>  $$<br>  \begin{align}<br>  &amp; \max_{\alpha} \quad  W(\alpha) = - \frac{1}{2} \sum_{i=1}^{m} \sum_{j=1}^{m} y^{(i)} y^{(j)} \alpha_i \alpha_j \langle x^{(i)}, x^{(j)}\rangle + \sum_{i=1}^{m} \alpha_i \\<br>  &amp; s.t. \quad 0 \le \alpha_i \le C, \quad i=1,\cdots,m \\<br>  &amp; \qquad \sum_{i=1}^{m} \alpha_i y^{(i)} = 0<br>  \end{align} \qquad(ml.1.4.18)<br>  $$</p>
+<p>  此时我们会发现，新的目标函数中没有了参数\(\xi_i\)，与之前的模型（公式\((ml.1.4.15)\)）唯一的不同在于\(\alpha_i\)又多了\(\alpha_i \le C\)的限制条件。</p>
+<blockquote>
+<p>需要注意的是：参数\(b\)的求值公式也发生了变化，改变结果在SMO算法里面介绍。</p>
+</blockquote>
+<p>  软间隔模型对应的KKT条件，变化如下：</p>
+<p>  $$<br>  \begin{align}<br>  \alpha_i = 0 &amp; \Rightarrow y^{(i)} (w^T x^{(i)} + b ) \ge 1 \qquad (1) \\<br>  \alpha_i = C &amp; \Rightarrow y^{(i)} (w^T x^{(i)} + b ) \le 1 \qquad (2) \\<br>  0 &lt; \alpha_i &lt; C &amp; \Rightarrow y^{(i)} (w^T x^{(i)} + b ) = 1 \qquad (3) \\<br>  \end{align} \qquad(ml.1.4.19)<br>  $$</p>
+<p>  公式\((ml.1.4.19)\)第\((1)\)式子表明，在两条间隔线外的样本点前面的系数为0；第\((2)\)个式子表明，在间隔线内的样本点（离群点）前面的系数为\(C\)；第\((3)\)个式子表明，支持向量（即在超平面两边的最大间隔线上）的样本想前面系数在\((0, C)\)上。</p>
+<blockquote>
+<p>通过KKT条件克制，某些在最大间隔线上的样本点也不是支持向量，相反可能是离群点（\((1)、(2)中等号成立时\)）。</p>
+</blockquote>
+<p>  SMO算法（Sequential Minimal Optimization）用于求解目标函数\(W(\alpha)\)的极大值。（具体参考4.3节）</p>
 </li>
 </ul>
-<pre><code>模型修改后，同时也需要对<span class="command">\\</span>((ml.1.4.11)<span class="command">\\</span>)拉格朗日公式进行修改如下：
-
-<span class="formula">$$
-<span class="command">\mathcal</span><span class="special">{</span>L<span class="special">}</span>(w,b,<span class="command">\alpha</span>) = <span class="command">\frac</span><span class="special">{</span>1<span class="special">}</span><span class="special">{</span>2<span class="special">}</span> <span class="command">\|</span>w<span class="command">\|</span>^2 + C<span class="command">\sum</span>_<span class="special">{</span>i=1<span class="special">}</span>^<span class="special">{</span>m<span class="special">}</span> <span class="command">\xi</span>_i - <span class="command">\sum</span>_<span class="special">{</span>i=1<span class="special">}</span>^<span class="special">{</span>m<span class="special">}</span> <span class="command">\alpha</span>_i <span class="command">\cdot</span>  <span class="command">\left</span>(y^<span class="special">{</span>(i)<span class="special">}</span> (w^Tx + b) - 1 + <span class="command">\xi</span>_i <span class="command">\right</span>) - <span class="command">\sum</span>_<span class="special">{</span>i=1<span class="special">}</span>^<span class="special">{</span>m<span class="special">}</span> <span class="command">\gamma</span>_i <span class="command">\xi</span>_i <span class="command">\quad</span>(ml.1.4.17)
-$$</span>
-
-这里的<span class="command">\\</span>(<span class="command">\alpha</span>_i、<span class="command">\gamma</span>_i<span class="command">\\</span>)都是拉格朗日乘子。
-
-&gt; 回想4.1.4节中介绍的拉格朗日对偶中提到的求法。&lt;br&gt;
-&gt; 1. 首先，写出拉格朗日公式（如<span class="command">\\</span>((ml.1.4.17)<span class="command">\\</span>)）；&lt;br&gt;
-&gt; 2. 然后，将其看作是变量<span class="command">\\</span>(w<span class="command">\\</span>)和<span class="command">\\</span>(b<span class="command">\\</span>)的函数，分别对其求偏导，得到<span class="command">\\</span>(w<span class="command">\\</span>)和<span class="command">\\</span>(b<span class="command">\\</span>)的表达式；&lt;br&gt;
-&gt; 3. 最后，把表达式带入拉格朗日公式中，求带入公式后的极大值。
-
-整体推导过程如4.1.5节类似，这里只给出最后结果：
-
-<span class="formula">$$
-<span class="command">\begin</span><span class="special">{</span>align<span class="special">}</span>
-<span class="special">&amp;</span> <span class="command">\max</span>_<span class="special">{</span><span class="command">\alpha</span><span class="special">}</span> <span class="command">\quad</span>  W(<span class="command">\alpha</span>) = - <span class="command">\frac</span><span class="special">{</span>1<span class="special">}</span><span class="special">{</span>2<span class="special">}</span> <span class="command">\sum</span>_<span class="special">{</span>i=1<span class="special">}</span>^<span class="special">{</span>m<span class="special">}</span> <span class="command">\sum</span>_<span class="special">{</span>j=1<span class="special">}</span>^<span class="special">{</span>m<span class="special">}</span> y^<span class="special">{</span>(i)<span class="special">}</span> y^<span class="special">{</span>(j)<span class="special">}</span> <span class="command">\alpha</span>_i <span class="command">\alpha</span>_j <span class="command">\langle</span> x^<span class="special">{</span>(i)<span class="special">}</span>, x^<span class="special">{</span>(j)<span class="special">}</span><span class="command">\rangle</span> + <span class="command">\sum</span>_<span class="special">{</span>i=1<span class="special">}</span>^<span class="special">{</span>m<span class="special">}</span> <span class="command">\alpha</span>_i <span class="command">\\</span>
-<span class="special">&amp;</span> s.t. <span class="command">\quad</span> 0 <span class="command">\le</span> <span class="command">\alpha</span>_i <span class="command">\le</span> C, <span class="command">\quad</span> i=1,<span class="command">\cdots</span>,m <span class="command">\\</span>
-<span class="special">&amp;</span> <span class="command">\qquad</span> <span class="command">\sum</span>_<span class="special">{</span>i=1<span class="special">}</span>^<span class="special">{</span>m<span class="special">}</span> <span class="command">\alpha</span>_i y^<span class="special">{</span>(i)<span class="special">}</span> = 0
-<span class="command">\end</span><span class="special">{</span>align<span class="special">}</span> <span class="command">\qquad</span>(ml.1.4.18)
-$$</span>
-
-此时我们会发现，新的目标函数中没有了参数<span class="command">\\</span>(<span class="command">\xi</span>_i<span class="command">\\</span>)，与之前的模型（公式<span class="command">\\</span>((ml.1.4.15)<span class="command">\\</span>)）唯一的不同在于<span class="command">\\</span>(<span class="command">\alpha</span>_i<span class="command">\\</span>)又多了<span class="command">\\</span>(<span class="command">\alpha</span>_i <span class="command">\le</span> C<span class="command">\\</span>)的限制条件。
-
-&gt; 需要注意的是：参数<span class="command">\\</span>(b<span class="command">\\</span>)的求值公式也发生了变化，改变结果在SMO算法里面介绍。
-
-软间隔模型对应的KKT条件，变化如下：
-
-<span class="formula">$$
-<span class="command">\begin</span><span class="special">{</span>align<span class="special">}</span>
-<span class="command">\alpha</span>_i = 0 <span class="special">&amp;</span> <span class="command">\Rightarrow</span> y^<span class="special">{</span>(i)<span class="special">}</span> (w^T x^<span class="special">{</span>(i)<span class="special">}</span> + b ) <span class="command">\ge</span> 1 <span class="command">\qquad</span> (1) <span class="command">\\</span>
-<span class="command">\alpha</span>_i = C <span class="special">&amp;</span> <span class="command">\Rightarrow</span> y^<span class="special">{</span>(i)<span class="special">}</span> (w^T x^<span class="special">{</span>(i)<span class="special">}</span> + b ) <span class="command">\le</span> 1 <span class="command">\qquad</span> (2) <span class="command">\\</span>
-0 &lt; <span class="command">\alpha</span>_i &lt; C <span class="special">&amp;</span> <span class="command">\Rightarrow</span> y^<span class="special">{</span>(i)<span class="special">}</span> (w^T x^<span class="special">{</span>(i)<span class="special">}</span> + b ) = 1 <span class="command">\qquad</span> (3) <span class="command">\\</span>
-<span class="command">\end</span><span class="special">{</span>align<span class="special">}</span> <span class="command">\qquad</span>(ml.1.4.19)
-$$</span>
-
-公式<span class="command">\\</span>((ml.1.4.19)<span class="command">\\</span>)第<span class="command">\\</span>((1)<span class="command">\\</span>)式子表明，在两条间隔线外的样本点前面的系数为0；第<span class="command">\\</span>((2)<span class="command">\\</span>)个式子表明，在间隔线内的样本点（离群点）前面的系数为<span class="command">\\</span>(C<span class="command">\\</span>)；第<span class="command">\\</span>((3)<span class="command">\\</span>)个式子表明，支持向量（即在超平面两边的最大间隔线上）的样本想前面系数在<span class="command">\\</span>((0, C)<span class="command">\\</span>)上。
-
-&gt; 通过KKT条件克制，某些在最大间隔线上的样本点也不是支持向量，相反可能是离群点（<span class="command">\\</span>((1)、(2)中等号成立时<span class="command">\\</span>)）。
-
-SMO算法（Sequential Minimal Optimization）用于求解目标函数<span class="command">\\</span>(W(<span class="command">\alpha</span>)<span class="command">\\</span>)的极大值。（具体参考4.3节）
-</code></pre><h4 id="内容总结">内容总结</h4><p>这里中带你介绍了SVM的基本公式推导，并就其中的关键点给予了介绍。</p>
+<h4 id="内容总结">内容总结</h4><p>这里中带你介绍了SVM的基本公式推导，并就其中的关键点给予了介绍。</p>
 <p>首先，通过LR与SVM两个经典模型的比较，前者全局，后者局部（从对参数起作用的训练样本角度），引入SVM；通过函数间隔和几何间隔的介绍，明确了最优间隔的公式表达以及带优化的目标函数；并且将非凸函数转化为凸函数，以便于后续求解；</p>
 <p>其次，我们详细地给出了求解带约束的极值优化问题的求解方法：拉格朗日乘子法与拉格朗日对偶法。并且详细推导了最优间隔分类器的优化学习过程，发现参数\(w\)可以用特征向量内积表示，进而引入核函数。此时，我们通过调整核函数就可以完成特征从低维到高维的映射，在低维上计算，实则表现在高位空间上。</p>
 <blockquote>
@@ -498,7 +480,7 @@ SMO算法（Sequential Minimal Optimization）用于求解目标函数<span clas
 <p>  Andrew Ng男神在《机器学习》课程第一讲的线性回归中提到例子，用回归模型拟合房屋面积（用\(x\)表示）与价格（用\(y\)表示）之间的关系。示例中的回归模型用的是\(y=w_0 + w_1 x\)方程拟合的。假设从样本的分布中可以看到\(x\)与\(\)符合3次曲线关系，那么我们希望使用\(x\)的3次多项式来逼近这些样本点。</p>
 <p>  那么首先需要做的是将特征\(x\)扩展至三维\((x,x^2,x^3)\)，然后再续着特征与结果之间的关系模型。我们将这种特征变换称作<strong>特征映射（Feature Mapping）</strong>。映射函数这里用\(\phi(x)\)表示，在该例中可表示为：</p>
 <blockquote>
-<p>  $$<br>  \phi(x) =<br>  \begin{equation}<br>  \left[</p>
+<p>$$<br>  \phi(x) =<br>  \begin{equation}<br>  \left[</p>
 <pre><code><span class="string">\begin{array}{c}</span>
     x <span class="string">\\</span>
     x^<span class="number">2</span> <span class="string">\\</span>
@@ -526,7 +508,7 @@ SMO算法（Sequential Minimal Optimization）用于求解目标函数<span clas
 <p>   从公式\((n.ml.1.4.20)\)可以看出，只要计算原始特征\(x\)和\(z\)的平方（时间复杂度\(O(n)\)），就等价于映射后特征的内积。</p>
 <blockquote>
 <p>举例：当\(n\)=3时，根据上面的公式可得：</p>
-<p>   $$<br>  \phi(x) =<br>  \begin{equation}<br>  \left[</p>
+<p>$$<br>  \phi(x) =<br>  \begin{equation}<br>  \left[</p>
 <pre><code><span class="string">\begin{array}{cc}</span>
     x_1 x_1 <span class="string">\\</span>
     x_1 x_2 <span class="string">\\</span>
@@ -544,7 +526,7 @@ SMO算法（Sequential Minimal Optimization）用于求解目标函数<span clas
 <blockquote>
 <p>$$<br>   \begin{align}<br>   K(x,z) &amp; = (x^Tz + c)^2 \\<br>   &amp; = \sum_{i=1}^{n} \sum_{j=1}^{n} (x_i x_j)(z_i z_j) + \sum_{i=1}^{n} (\sqrt{2c} x_i) (\sqrt{2c} z_i) + c^2<br>   \end{align} \qquad(n.ml.1.4.21)<br>   $$</p>
 <p>那么其对应的映射函数应该为：</p>
-<p>   $$<br>  \phi(x) =<br>  \begin{equation}<br>  \left[</p>
+<p>$$<br>  \phi(x) =<br>  \begin{equation}<br>  \left[</p>
 <pre><code><span class="string">\begin{array}{cc}</span>
     x_1 x_1 <span class="string">\\</span>
     x_1 x_2 <span class="string">\\</span>
