@@ -522,7 +522,7 @@ SVM中">
 <span class="string">\end{array}</span>
 </code></pre><p>  \right]<br>  \end{equation}    \qquad\qquad(exp.ml.1.4.2)<br>   $$</p>
 </blockquote>
-<p>  &gt;<br>  $$<br>  \phi(x) =<br>  \begin{bmatrix}<br>  &amp; x_1 x_1 \\<br>  &amp; x_1 x_2 \\<br>  &amp; x_1 x_3 \\<br>  &amp; x_2 x_1 \\<br>  &amp; x_2 x_2 \\<br>  &amp; x_2 x_3 \\<br>  &amp; x_3 x_1 \\<br>  &amp; x_3 x_2 \\<br>  &amp; x_3 x_3 \\<br>  \end{bmatrix}     \qquad\qquad(exp.ml.1.4.2)<br>  $$</p>
+<p>  &gt;<br>  $$<br>  \phi(x) =<br>  \begin{bmatrix}<br>  x_1 x_1 \\<br>  x_1 x_2 \\<br>  x_1 x_3 \\<br>  x_2 x_1 \\<br>  x_2 x_2 \\<br>  x_2 x_3 \\<br>  x_3 x_1 \\<br>  x_3 x_2 \\<br>  x_3 x_3 \\<br>  \end{bmatrix}     \qquad\qquad(exp.ml.1.4.2)<br>  $$</p>
 <p>  也就是说，核函数\(K(x,z) = (x^Tz)^2\)只能选择这样的映射函数\(\phi\)时，才能等价于映射后特征的内积。下面再看一个核函数：</p>
 <blockquote>
 <p>$$<br>   \begin{align}<br>   K(x,z) &amp; = (x^Tz + c)^2 \\<br>   &amp; = \sum_{i=1}^{n} \sum_{j=1}^{n} (x_i x_j)(z_i z_j) + \sum_{i=1}^{n} (\sqrt{2c} x_i) (\sqrt{2c} z_i) + c^2<br>   \end{align} \qquad(n.ml.1.4.21)<br>   $$</p>
