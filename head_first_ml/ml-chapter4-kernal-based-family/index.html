@@ -138,7 +138,7 @@ SVM中">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持向量机（Support_Vector_Machine）"><span class="toc-number">2.</span> <span class="toc-text">支持向量机（Support Vector Machine）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LR与SVM"><span class="toc-number">2.1.</span> <span class="toc-text">LR与SVM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数间隔与几何间隔"><span class="toc-number">2.2.</span> <span class="toc-text">函数间隔与几何间隔</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最优间隔分类器"><span class="toc-number">2.3.</span> <span class="toc-text">最优间隔分类器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#极值问题求解的一般思路"><span class="toc-number">2.4.</span> <span class="toc-text">极值问题求解的一般思路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最优间隔分类器学习过程"><span class="toc-number">2.5.</span> <span class="toc-text">最优间隔分类器学习过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#软间隔与正则化（Soft-Margin_and_Regularization）"><span class="toc-number">2.6.</span> <span class="toc-text">软间隔与正则化（Soft-Margin and Regularization）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内容总结"><span class="toc-number">2.7.</span> <span class="toc-text">内容总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kernal_Methods"><span class="toc-number">3.</span> <span class="toc-text">Kernal Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#核函数引入（Kernals）"><span class="toc-number">3.1.</span> <span class="toc-text">核函数引入（Kernals）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#核函数有效性判定"><span class="toc-number">3.2.</span> <span class="toc-text">核函数有效性判定</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持向量机（Support_Vector_Machine）"><span class="toc-number">2.</span> <span class="toc-text">支持向量机（Support Vector Machine）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LR与SVM"><span class="toc-number">2.1.</span> <span class="toc-text">LR与SVM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数间隔与几何间隔"><span class="toc-number">2.2.</span> <span class="toc-text">函数间隔与几何间隔</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最优间隔分类器"><span class="toc-number">2.3.</span> <span class="toc-text">最优间隔分类器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#极值问题求解的一般思路"><span class="toc-number">2.4.</span> <span class="toc-text">极值问题求解的一般思路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最优间隔分类器学习过程"><span class="toc-number">2.5.</span> <span class="toc-text">最优间隔分类器学习过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#软间隔与正则化（Soft-Margin_and_Regularization）"><span class="toc-number">2.6.</span> <span class="toc-text">软间隔与正则化（Soft-Margin and Regularization）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内容总结"><span class="toc-number">2.7.</span> <span class="toc-text">内容总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#核方法"><span class="toc-number">3.</span> <span class="toc-text">核方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#核函数引入"><span class="toc-number">3.1.</span> <span class="toc-text">核函数引入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#核函数有效性判定"><span class="toc-number">3.2.</span> <span class="toc-text">核函数有效性判定</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -475,18 +475,14 @@ SVM中">
 </ul>
 </li>
 </ul>
-<h3 id="Kernal_Methods">Kernal Methods</h3><h4 id="核函数引入（Kernals）">核函数引入（Kernals）</h4><ul>
+<p><br></p>
+<h3 id="核方法">核方法</h3><p><br></p>
+<h4 id="核函数引入">核函数引入</h4><ul>
 <li><p>特征映射</p>
 <p>  Andrew Ng男神在《机器学习》课程第一讲的线性回归中提到例子，用回归模型拟合房屋面积（用\(x\)表示）与价格（用\(y\)表示）之间的关系。示例中的回归模型用的是\(y=w_0 + w_1 x\)方程拟合的。假设从样本的分布中可以看到\(x\)与\(\)符合3次曲线关系，那么我们希望使用\(x\)的3次多项式来逼近这些样本点。</p>
 <p>  那么首先需要做的是将特征\(x\)扩展至三维\((x,x^2,x^3)\)，然后再续着特征与结果之间的关系模型。我们将这种特征变换称作<strong>特征映射（Feature Mapping）</strong>。映射函数这里用\(\phi(x)\)表示，在该例中可表示为：</p>
 <blockquote>
-<p>$$<br>  \phi(x) =<br>  \begin{equation}<br>  \left[</p>
-<pre><code><span class="string">\begin{array}{c}</span>
-    x <span class="string">\\</span>
-    x^<span class="number">2</span> <span class="string">\\</span>
-    x^<span class="number">3</span> <span class="string">\\</span>
-<span class="string">\end{array}</span>
-</code></pre><p>  \right]<br>  \end{equation}    \qquad\qquad(exp.ml.1.4.1)<br>  $$</p>
+<p>$$<br>  \phi(x) =<br>  \begin{bmatrix}<br>  x \\<br>  x^2 \\<br>  x^3 \\<br>  \end{bmatrix} \qquad\qquad(exp.ml.1.4.1)<br>  $$</p>
 </blockquote>
 <p>  我们希望将特征映射后的特征应用于上一节中的SVM分类，而不是原始特征（Raw Feature）。这样，就需要将公式\((n.ml.1.4.18)\)中的内积从\(\langle x^{(i)}, x\rangle\)映射到 \(\langle \phi(x^{(i)}), \phi(x) \rangle\)。</p>
 <blockquote>
@@ -508,50 +504,27 @@ SVM中">
 <p>   从公式\((n.ml.1.4.20)\)可以看出，只要计算原始特征\(x\)和\(z\)的平方（时间复杂度\(O(n)\)），就等价于映射后特征的内积。</p>
 <blockquote>
 <p>举例：当\(n\)=3时，根据上面的公式可得：</p>
-<p>$$<br>  \phi(x) =<br>  \begin{equation}<br>  \left[</p>
-<pre><code><span class="string">\begin{array}{cc}</span>
-    x_1 x_1 <span class="string">\\</span>
-    x_1 x_2 <span class="string">\\</span>
-    x_1 x_3 <span class="string">\\</span>
-    x_2 x_1 <span class="string">\\</span>
-    x_2 x_2 <span class="string">\\</span>
-    x_2 x_3 <span class="string">\\</span>
-    x_3 x_1 <span class="string">\\</span>
-    x_3 x_2 <span class="string">\\</span>
-    x_3 x_3 <span class="string">\\</span>
-<span class="string">\end{array}</span>
-</code></pre><p>  \right]<br>  \end{equation}    \qquad\qquad(exp.ml.1.4.2)<br>   $$</p>
+<p>$$<br>  \phi(x) =<br>  \begin{bmatrix}<br>  x_1 x_1 \\<br>  x_1 x_2 \\<br>  x_1 x_3 \\<br>  x_2 x_1 \\<br>  x_2 x_2 \\<br>  x_2 x_3 \\<br>  x_3 x_1 \\<br>  x_3 x_2 \\<br>  x_3 x_3 \\<br>  \end{bmatrix}     \qquad\qquad(exp.ml.1.4.2)<br>  $$</p>
 </blockquote>
-<p>  &gt;<br>  $$<br>  \phi(x) =<br>  \begin{bmatrix}<br>  x_1 x_1 \\<br>  x_1 x_2 \\<br>  x_1 x_3 \\<br>  x_2 x_1 \\<br>  x_2 x_2 \\<br>  x_2 x_3 \\<br>  x_3 x_1 \\<br>  x_3 x_2 \\<br>  x_3 x_3 \\<br>  \end{bmatrix}     \qquad\qquad(exp.ml.1.4.2)<br>  $$</p>
 <p>  也就是说，核函数\(K(x,z) = (x^Tz)^2\)只能选择这样的映射函数\(\phi\)时，才能等价于映射后特征的内积。下面再看一个核函数：</p>
 <blockquote>
 <p>$$<br>   \begin{align}<br>   K(x,z) &amp; = (x^Tz + c)^2 \\<br>   &amp; = \sum_{i=1}^{n} \sum_{j=1}^{n} (x_i x_j)(z_i z_j) + \sum_{i=1}^{n} (\sqrt{2c} x_i) (\sqrt{2c} z_i) + c^2<br>   \end{align} \qquad(n.ml.1.4.21)<br>   $$</p>
 <p>那么其对应的映射函数应该为：</p>
-<p>$$<br>  \phi(x) =<br>  \begin{equation}<br>  \left[</p>
-<pre><code><span class="string">\begin{array}{cc}</span>
-    x_1 x_1 <span class="string">\\</span>
-    x_1 x_2 <span class="string">\\</span>
-    x_1 x_3 <span class="string">\\</span>
-    x_2 x_1 <span class="string">\\</span>
-    x_2 x_2 <span class="string">\\</span>
-    x_2 x_3 <span class="string">\\</span>
-    x_3 x_1 <span class="string">\\</span>
-    x_3 x_2 <span class="string">\\</span>
-    x_3 x_3 <span class="string">\\</span>
-    <span class="string">\sqrt{2c}x_1</span> <span class="string">\\</span>
-    <span class="string">\sqrt{2c}x_2</span> <span class="string">\\</span>
-    <span class="string">\sqrt{2c}x_3</span> <span class="string">\\</span>
-    c <span class="string">\\</span>
-<span class="string">\end{array}</span>
-</code></pre><p>  \right]<br>  \end{equation}    \qquad\qquad(exp.ml.1.4.2)<br>   $$</p>
+<p>$$<br>  \phi(x) =<br>  \begin{bmatrix}<br>  x_1 x_1 \\<br>  x_1 x_2 \\<br>  x_1 x_3 \\<br>  x_2 x_1 \\<br>  x_2 x_2 \\<br>  x_2 x_3 \\<br>  x_3 x_1 \\<br>  x_3 x_2 \\<br>  x_3 x_3 \\<br>  \sqrt{2c}x_1 \\<br>  \sqrt{2c}x_2 \\<br>  \sqrt{2c}x_3 \\<br>  c \\<br>  \end{bmatrix} \qquad\qquad(exp.ml.1.4.2)<br>   $$</p>
 </blockquote>
-<p>  由于计算的是内积，我们联想一下余弦相似度：如果\(x\)和\(z\)向量夹角越小，那么么核函数值就越大，反之就越小。因此，核函数值大小与 \(\phi(x)\)和\(\phi(z)\)相似度 成正相关。下面再看一个核函数:</p>
-<p>  &gt;<br>  $$<br>  K(x,z) = \exp \left( -\frac{|x-z|^2}{2\sigma^2} \right)  \qquad(n.ml.1.4.22)<br>  $$</p>
-<p>  从公式\((n.ml.1.4.22)\)可以看出，如果\(x\)和\(z\)很近（\(|x-z| \thickapprox 0\)），那么核函数值为1；如果\(x\)和\(z\)相差很大（\(|x-z| \gg 0\)），那么核函数值约等于0。由于这个函数类似于高斯分布，因此称为<strong>高斯和函数</strong>，也叫做<strong>径向基函数（Radial Basic Function，简称RBF）</strong>。它能够把原始函数映射到无穷维。</p>
-<p>  （此处可给出 kernel解决低维空间不可分的问题）。</p>
 </li>
 </ul>
-<h4 id="核函数有效性判定">核函数有效性判定</h4><p>先抛出一个问题：</p>
+<pre><code>由于计算的是内积，我们联想一下余弦相似度：如果<span class="command">\\</span>(x<span class="command">\\</span>)和<span class="command">\\</span>(z<span class="command">\\</span>)向量夹角越小，那么么核函数值就越大，反之就越小。因此，核函数值大小与 <span class="command">\\</span>(<span class="command">\phi</span>(x)<span class="command">\\</span>)和<span class="command">\\</span>(<span class="command">\phi</span>(z)<span class="command">\\</span>)相似度 成正相关。下面再看一个核函数:
+
+&gt;
+<span class="formula">$$
+K(x,z) = <span class="command">\exp</span> <span class="command">\left</span>( -<span class="command">\frac</span><span class="special">{</span><span class="command">\|</span>x-z<span class="command">\|</span>^2<span class="special">}</span><span class="special">{</span>2<span class="command">\sigma</span>^2<span class="special">}</span> <span class="command">\right</span>)  <span class="command">\qquad</span>(n.ml.1.4.22)
+$$</span>
+
+从公式<span class="command">\\</span>((n.ml.1.4.22)<span class="command">\\</span>)可以看出，如果<span class="command">\\</span>(x<span class="command">\\</span>)和<span class="command">\\</span>(z<span class="command">\\</span>)很近（<span class="command">\\</span>(<span class="command">\|</span>x-z<span class="command">\|</span> <span class="command">\thickapprox</span> 0<span class="command">\\</span>)），那么核函数值为1；如果<span class="command">\\</span>(x<span class="command">\\</span>)和<span class="command">\\</span>(z<span class="command">\\</span>)相差很大（<span class="command">\\</span>(<span class="command">\|</span>x-z<span class="command">\|</span> <span class="command">\gg</span> 0<span class="command">\\</span>)），那么核函数值约等于0。由于这个函数类似于高斯分布，因此称为**高斯和函数**，也叫做**径向基函数（Radial Basic Function，简称RBF）**。它能够把原始函数映射到无穷维。
+
+（此处可给出 kernel解决低维空间不可分的问题）。
+</code></pre><h4 id="核函数有效性判定">核函数有效性判定</h4><p>先抛出一个问题：</p>
 <blockquote>
 <p>给定一个函数\(K\)，我们能否使用\(K\)来替代计算\(\phi(x)^T \phi(z)\)？也就是说，能否找出一个\(\phi\)，使得对于所有的\(x\)和\(z\)，都有\(K(x,z) = \phi(x)^T \phi(z)\)？</p>
 <p>公式\((n.ml.1.4.19)\)描述的核函数\(K(x,z) = (x^T z)^2\)，是否能够认为\(K\)是一个有效的核函数？</p>
@@ -658,7 +631,7 @@ SVM中">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持向量机（Support_Vector_Machine）"><span class="toc-number">2.</span> <span class="toc-text">支持向量机（Support Vector Machine）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LR与SVM"><span class="toc-number">2.1.</span> <span class="toc-text">LR与SVM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数间隔与几何间隔"><span class="toc-number">2.2.</span> <span class="toc-text">函数间隔与几何间隔</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最优间隔分类器"><span class="toc-number">2.3.</span> <span class="toc-text">最优间隔分类器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#极值问题求解的一般思路"><span class="toc-number">2.4.</span> <span class="toc-text">极值问题求解的一般思路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最优间隔分类器学习过程"><span class="toc-number">2.5.</span> <span class="toc-text">最优间隔分类器学习过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#软间隔与正则化（Soft-Margin_and_Regularization）"><span class="toc-number">2.6.</span> <span class="toc-text">软间隔与正则化（Soft-Margin and Regularization）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内容总结"><span class="toc-number">2.7.</span> <span class="toc-text">内容总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kernal_Methods"><span class="toc-number">3.</span> <span class="toc-text">Kernal Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#核函数引入（Kernals）"><span class="toc-number">3.1.</span> <span class="toc-text">核函数引入（Kernals）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#核函数有效性判定"><span class="toc-number">3.2.</span> <span class="toc-text">核函数有效性判定</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持向量机（Support_Vector_Machine）"><span class="toc-number">2.</span> <span class="toc-text">支持向量机（Support Vector Machine）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LR与SVM"><span class="toc-number">2.1.</span> <span class="toc-text">LR与SVM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数间隔与几何间隔"><span class="toc-number">2.2.</span> <span class="toc-text">函数间隔与几何间隔</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最优间隔分类器"><span class="toc-number">2.3.</span> <span class="toc-text">最优间隔分类器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#极值问题求解的一般思路"><span class="toc-number">2.4.</span> <span class="toc-text">极值问题求解的一般思路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最优间隔分类器学习过程"><span class="toc-number">2.5.</span> <span class="toc-text">最优间隔分类器学习过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#软间隔与正则化（Soft-Margin_and_Regularization）"><span class="toc-number">2.6.</span> <span class="toc-text">软间隔与正则化（Soft-Margin and Regularization）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内容总结"><span class="toc-number">2.7.</span> <span class="toc-text">内容总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#核方法"><span class="toc-number">3.</span> <span class="toc-text">核方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#核函数引入"><span class="toc-number">3.1.</span> <span class="toc-text">核函数引入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#核函数有效性判定"><span class="toc-number">3.2.</span> <span class="toc-text">核函数有效性判定</span></a></li></ol></li></ol>
  
   </div>
 
