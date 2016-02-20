@@ -200,7 +200,9 @@ SVM中用到了Kernal思想解决低维">
 <p>  拉格朗日乘子法通常用于求解带等式约束的极值问题，一个典型的最优化问题形式化表示如下：</p>
 <p>  $$<br>  \begin{align}<br>  &amp; \min_{w} \quad f(w) \\<br>  &amp; s.t. \; h_i(w) = 0, \quad i=1,\cdots,k<br>  \end{align}        \qquad\quad(ml.1.4.3)<br>  $$</p>
 <p>  目标函数是\(f(w)\)，\(w \in R^n\) （\(n\)表示参数向量个数）；下面是等式约束，其中\(k\)为等式约束的个数。这类问题通常解法是引入拉格朗日乘子（又称算子），这里用\(\beta\)表示乘子，得到的拉格朗日公式为：</p>
-<p>  &gt;<br>  $$<br>  \mathcal{L}(w,\beta) = f(w) + \sum_{i=1}^{k} \beta_i \cdot h_i(w) \qquad(n.ml.1.4.4)<br>  $$</p>
+<blockquote>
+<p>$$<br>  \mathcal{L}(w,\beta) = f(w) + \sum_{i=1}^{k} \beta_i \cdot h_i(w) \qquad(n.ml.1.4.4)<br>  $$</p>
+</blockquote>
 <p>  然后分别对\(w\)和\(\beta\)求偏导，使得偏导数等于0，进而求解出\(w\)和\(\beta\)。</p>
 <blockquote>
 <p>为什么引入拉格朗日乘子就可以求解出极值？</p>
@@ -209,21 +211,25 @@ SVM中用到了Kernal思想解决低维">
 </li>
 <li><p><strong>拉格朗日对偶（Lagrange Duality）</strong></p>
 <p>  对于带有不等式约束的极值问题，形式化表示如下：</p>
-<p>  &gt;<br>  $$<br>  \begin{align}<br>  &amp; \min_{w} \quad f(w) \\<br>  &amp; s.t. \; g_i(w) \leq 0, \quad i = 1, \cdots, l \\<br>  &amp; \quad\;\;\, h_i(w) = 0, \quad i =1, \cdots, k<br>  \end{align}        \qquad(n.ml.1.4.5)<br>  $$</p>
+<blockquote>
+<p>$$<br>  \begin{align}<br>  &amp; \min_{w} \quad f(w) \\<br>  &amp; s.t. \; g_i(w) \leq 0, \quad i = 1, \cdots, l \\<br>  &amp; \quad\;\;\, h_i(w) = 0, \quad i =1, \cdots, k<br>  \end{align}        \qquad(n.ml.1.4.5)<br>  $$</p>
+</blockquote>
 <p>  定义拉格朗日公式：</p>
-<p>  &gt;<br>  $$<br>  \mathcal{L}(w, \alpha, \beta) = f(w) + \sum_{i=1}^{l} \alpha_i g_i(w) + \sum_{i=1}^{k} \beta_i h_i(w)  \quad(n.ml.1.4.6)<br>  $$</p>
+<blockquote>
+<p>$$<br>  \mathcal{L}(w, \alpha, \beta) = f(w) + \sum_{i=1}^{l} \alpha_i g_i(w) + \sum_{i=1}^{k} \beta_i h_i(w)  \quad(n.ml.1.4.6)<br>  $$</p>
+</blockquote>
 <p>  公式\((n.ml.1.4.6)\)中的\(\alpha_i\)和\(\beta_i\)都是拉格朗日乘子。但如果按照该公式求解会出现以下问题。</p>
 <blockquote>
 <p>因为目标函数要求的是最小值，而约束条件\(h_i(w) \le 0\)，如果将\(\alpha_i\)调整为很大的正数，会使得最后的函数结果为负无穷（\(-\infty\)）。</p>
 </blockquote>
 <p>  因此，我们需要排除上述情况的发生。策略如下，定义函数：</p>
 <blockquote>
-<p>  $$<br>  \theta_{\mathcal{P}}(w) = \max_{\alpha, \beta;\, \alpha_i \geq 0} \mathcal{L}(w, \alpha, \beta)  \qquad\quad (n.ml.1.4.7)<br>  $$</p>
+<p>$$<br>  \theta_{\mathcal{P}}(w) = \max_{\alpha, \beta;\, \alpha_i \geq 0} \mathcal{L}(w, \alpha, \beta)  \qquad\quad (n.ml.1.4.7)<br>  $$</p>
 </blockquote>
 <p>  公式\((n.ml.1.4.5)\)中的\(\mathcal{P}\)表示原问题，即primal。_假设\(g_i(w) &gt; 0\)或者\(h_i(w) \neq 0\)，那么我们总可以通过调整\(\alpha_i\)和\(\beta_i\)，使得\(\theta_{\mathcal{P}}(w)\)趋向正无穷。而只有当函数\(g\)和\(h\)满足约束条件时，\(\theta_{\mathcal{P}}(w)\)为\(f(w)\)。_ </p>
 <blockquote>
 <p>公式\((n.ml.1.4.7)\)精妙之处就在于\(\alpha_i \ge 0\)，而且是求极大值。因此公式\((n.ml.1.4.7)\)可以写为：</p>
-<p>$$<br>  \theta_{\mathcal{P}}(w) =<br>  \begin{cases}<br>  f(w), \quad &amp; 如果w满足原问题约束; \\<br>  \; \infty, \quad &amp; Otherwise.<br>  \end{cases}        \qquad(n.ml.1.4.8)<br>  $$</p>
+<p>$$<br>  \theta_{\mathcal{P}}(w) =<br>  \begin{cases}<br>  f(w), \quad &amp; 如果w满足原问题约束; \\<br>  \; \infty, \quad &amp; otherwise.<br>  \end{cases}        \qquad(n.ml.1.4.8)<br>  $$</p>
 <p>公式\((n.ml.1.4.7)\)和\((n.ml.1.4.8)\)是理解拉格朗日对偶的关键。</p>
 </blockquote>
 <p>  如此，我们原来要求解的\(\min_w f(w)\)可以转化为求解\(\min_w \theta_{\mathcal{P}}(w)\)了。即：</p>
@@ -379,7 +385,9 @@ SVM中用到了Kernal思想解决低维">
 <p>  对于带有不等式约束的极值问题，形式化表示如下：</p>
 <p>  &gt;<br>  $$<br>  \begin{align}<br>  &amp; \min_{w} \quad f(w) \\<br>  &amp; s.t. \; g_i(w) \leq 0, \quad i = 1, \cdots, l \\<br>  &amp; \quad\;\;\, h_i(w) = 0, \quad i =1, \cdots, k<br>  \end{align}        \qquad(n.ml.1.4.7)<br>  $$</p>
 <p>  定义拉格朗日公式：</p>
-<p>  &gt;<br>  $$<br>  \mathcal{L}(w, \alpha, \beta) = f(w) + \sum_{i=1}^{l} \alpha_i g_i(w) + \sum_{i=1}^{k} \beta_i h_i(w)  \quad(n.ml.1.4.8)<br>  $$</p>
+<blockquote>
+<p>$$<br>  \mathcal{L}(w, \alpha, \beta) = f(w) + \sum_{i=1}^{l} \alpha_i g_i(w) + \sum_{i=1}^{k} \beta_i h_i(w)  \quad(n.ml.1.4.8)<br>  $$</p>
+</blockquote>
 <p>  公式\((n.ml.1.4.8)\)中的\(\alpha_i\)和\(\beta_i\)都是拉格朗日乘子。但如果按照该公式求解会出现以下问题。</p>
 <blockquote>
 <p>因为目标函数要求的是最小值，而约束条件\(h_i(w) \le 0\)，如果将\(\alpha_i\)调整为很大的正数，会使得最后的函数结果为负无穷（\(-\infty\)）。</p>
