@@ -174,7 +174,7 @@ weibo: @周永_52ML
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-06T14:20:31.000Z" itemprop="datePublished"> 发表于 2016-02-06</time>
+    <time datetime="2016-02-20T05:42:09.000Z" itemprop="datePublished"> 发表于 2016-02-20</time>
     
   </p>
 </header>
@@ -321,6 +321,12 @@ weibo: @周永_52ML
 <p>  如果令\(x_0=1, y(x,w)=h_{w}(x)\), 可以将公式\((ml.1.1.1)\)写成向量形式，即：</p>
 <p>  $$<br>  h_{w}(x) = \sum_{i=0}^{n} w_i x_i = w^T x \qquad(ml.1.1.2)<br>  $$</p>
 <p>  其中，\(w=(w_0, w_1, \cdots, w_n)\)，\(x=(1, x_1, x_2, \cdots, x_n)\) 均为向量，\(w^T\)为\(w\)的转置。</p>
+<blockquote>
+<p>公式\((ml.1.1.2)\)中，假设特征空间与输入空间\(x\)相同。</p>
+<p>准确的讲，模型表达式要建立的是特征空间与结果之间的关系。在一些应用场景中，需要将输入空间映射到特征空间，然后建模. 定义映射函数为\(\phi(x)\)，因此我们可以把公式\((ml.1.1.2)\)写成更通用的表达方式：</p>
+<p>$$<br>  h_w(x) = w^T \phi(x)<br>  $$</p>
+<p>特征映射相关技术，包括特征哈希、特征学习、Kernel等，在后面的章节中会详细介绍。</p>
+</blockquote>
 </li>
 <li><p>参数学习准则</p>
 <p>  公式\((ml.1.1.2)\)中的参数向量\(w\)是\(n+1\)维，每个参数的取值是实数集合，也就是说参数向量\(w\)在\(n+1\)维实数空间中取值结果有无穷种可能。</p>
@@ -417,7 +423,7 @@ weibo: @周永_52ML
 <blockquote>
 <p>线性回归 误差平方损失极小化与极大似然估计等价。<strong>其实在概率模型中，目标函数的原函数（或对偶函数）极小化（或极大化）与极大似然估计等价，这是一个带有普遍性的结论。</strong></p>
 <blockquote>
-<p>在本系列《第02章：深入浅出ML之Entropy Methods家族》和李航老师的《统计学习方法》中，谈到最大熵模型时，都给出了<strong>对偶函数极大化与极大似然估计等价</strong>的结论。</p>
+<p>在本系列<a href="http://www.52caml.com/head_first_ml/ml-chapter2-entropy-based-family/" target="_blank" rel="external">《第02章：深入浅出ML之Entropy-Based家族》</a>和李航老师的《统计学习方法》中，谈到最大熵模型时，都给出了<strong>对偶函数极大化与极大似然估计等价</strong>的结论。</p>
 </blockquote>
 <p>为什么是条件概率？</p>
 <p>因为我们希望预测值与真实值更接近，这就意味着希望求出来的参数\(w\)，在给定输入\(x\)的情况下，得到的预测值等于真实值的可能性越大越好。而\(w, x\)均是前提条件，因此用条件概率\(p(y|x; w)\)表示。即\(p(y|x; w)\)越大，越能说明估计的越准确。（当然也不能一味地只优化该条件概率，还要考虑拟合过度以及模型的泛化能力问题，这部分在《第07章：深入浅出ML之统计学习理论》中详细阐述。）</p>
@@ -639,19 +645,11 @@ weibo: @周永_52ML
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/head_first_ml/ml-chapter6-boosting-family/" title="第06章：深入浅出ML之Boosting家族">
-  <strong>上一篇：</strong><br/>
-  <span>
-  第06章：深入浅出ML之Boosting家族</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/head_first_ml/ml-chapter10-clustering-family/"  title="第10章：深入浅出ML之Clustering家族">
+<a href="/head_first_ml/ml-chapter2-entropy-based-family/"  title="第02章：深入浅出ML之Entropy-Based家族">
  <strong>下一篇：</strong><br/> 
- <span>第10章：深入浅出ML之Clustering家族
+ <span>第02章：深入浅出ML之Entropy-Based家族
 </span>
 </a>
 </div>
@@ -684,7 +682,7 @@ weibo: @周永_52ML
 		  
 		
 		  
-			<li><a href="/categories/深入浅出机器学习/" title="深入浅出机器学习">深入浅出机器学习<sup>6</sup></a></li>
+			<li><a href="/categories/深入浅出机器学习/" title="深入浅出机器学习">深入浅出机器学习<sup>5</sup></a></li>
 		  
 		
 		  
@@ -705,30 +703,6 @@ weibo: @周永_52ML
 			
 		
 			
-				<li><a href="/tags/Kernels/" title="Kernels">Kernels<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/SVM/" title="SVM">SVM<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/支持向量机/" title="支持向量机">支持向量机<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/KKT/" title="KKT">KKT<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/VC维/" title="VC维">VC维<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/XGBoost/" title="XGBoost">XGBoost<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/连续随机变量/" title="连续随机变量">连续随机变量<sup>1</sup></a></li>
 			
 		
@@ -746,6 +720,30 @@ weibo: @周永_52ML
 		
 			
 				<li><a href="/tags/BGDT/" title="BGDT">BGDT<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/XGBoost/" title="XGBoost">XGBoost<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Kernels/" title="Kernels">Kernels<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVM/" title="SVM">SVM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/支持向量机/" title="支持向量机">支持向量机<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/KKT/" title="KKT">KKT<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/VC维/" title="VC维">VC维<sup>1</sup></a></li>
 			
 		
 			
