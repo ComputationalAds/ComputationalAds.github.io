@@ -204,7 +204,7 @@ weibo: @周永_52ML
 <li>参数学习的最优化算法</li>
 </ul>
 <p><br></p>
-<h3 id="写在前面">写在前面</h3><p>记得在《Pattern Recognition And Machine Learning》一书中的开头有讲到：“概率论、决策论、信息论3个重要工具贯穿着《PRML》整本书，虽然看起来令人生畏…”。确实如此，其实这3大理论在机器学习中每一种技法或多或少都会出现其身影（不局限于概率模型）。</p>
+<h3 id="写在前面">写在前面</h3><p>记得在《Pattern Recognition And Machine Learning》一书中的开头有讲到：“概率论、决策论、信息论3个重要工具贯穿着《PRML》整本书，虽然看起来令人生畏…”。确实如此，其实这3大理论在机器学习的每一种技法中，或多或少都会出现其身影（不局限在概率模型）。</p>
 <blockquote>
 <p>《PRML》书中原话：”This chapter also provides a self-contained introduction to <strong>three important tools that will be used throughout the book, namely probability theory, decision theory, and information theory</strong>. Although these might sound like daunting topics, they are in fact straightforward, and a clear understanding of them is essential if machine learning techniques are to be used to best effect in practical applications.”</p>
 <p>怀念好学生时代：<a href="http://photo.weibo.com/1707438033/albums/detail/album_id/3942924873266495#!/mode/2/page/1" target="_blank" rel="external">那些年－书本啃过的印记</a></p>
@@ -353,12 +353,24 @@ weibo: @周永_52ML
 <h3 id="最大熵模型（Maximum_Entropy_Model）">最大熵模型（Maximum Entropy Model）</h3><p><br></p>
 <h4 id="最大熵原理">最大熵原理</h4><p>在介绍最大熵模型之前，我们先了解一下最大熵原理，因为<strong>最大熵原理是选择最优概率模型的一个准则</strong>。</p>
 <ul>
-<li><p><strong>最大熵原理</strong></p>
-<p>  | <strong>在概率模型空间集合中，在满足给定约束条件的前提下，使信息熵最大化得到的概率模型，就是最优的模型。</strong> |<br>  | —- |</p>
+<li><strong>最大熵原理</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>在概率模型空间集合中，在满足给定约束条件的前提下，使信息熵最大化得到的概率模型，就是最优的模型。</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <p>通常用约束条件来确定概率模型的集合。</p>
 </blockquote>
-</li>
+<ul>
 <li><p><strong>理解最大熵原理</strong></p>
 <p>  假设离散随机变量\(X\)的概率分布是\(P(X)\)，其信息熵可用公式\((ml.1.2.1)\) 表示，并且熵满足以下不等式：</p>
 <p>  $$<br>  0 \leq H(X) \leq log_2 |X|         \qquad\quad(ml.1.2.7)<br>  $$</p>
