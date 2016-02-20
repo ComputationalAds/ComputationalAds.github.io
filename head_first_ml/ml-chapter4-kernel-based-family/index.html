@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>第04章：深入浅出ML之Kernal-Based家族 | 计算广告与机器学习</title>
+    <title>第04章：深入浅出ML之Kernel-Based家族 | 计算广告与机器学习</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="ZhouYong">
@@ -28,7 +28,7 @@ weibo: @周永_52ML
 
 SVM中用到了Kernal思想解决低维">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第04章：深入浅出ML之Kernal-Based家族">
+<meta property="og:title" content="第04章：深入浅出ML之Kernel-Based家族">
 <meta property="og:url" content="http://www.52caml.com/head_first_ml/ml-chapter4-kernel-based-family/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
 <meta property="og:description" content="author: zhouyongsdzh@foxmail.com
@@ -52,7 +52,7 @@ SVM中用到了Kernal思想解决低维">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_4_1_5_optimal_margin_classifier.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_4_1_6_soft_margin_and_non_seperate.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第04章：深入浅出ML之Kernal-Based家族">
+<meta name="twitter:title" content="第04章：深入浅出ML之Kernel-Based家族">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
 date: 2015-11-12
 weibo: @周永_52ML
@@ -128,7 +128,7 @@ SVM中用到了Kernal思想解决低维">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/head_first_ml/ml-chapter4-kernel-based-family/" title="第04章：深入浅出ML之Kernal-Based家族" itemprop="url">第04章：深入浅出ML之Kernal-Based家族</a>
+      <a href="/head_first_ml/ml-chapter4-kernel-based-family/" title="第04章：深入浅出ML之Kernel-Based家族" itemprop="url">第04章：深入浅出ML之Kernel-Based家族</a>
   </h1>
   <p class="article-author">By
        
@@ -174,27 +174,31 @@ SVM中用到了Kernal思想解决低维">
 <p>这里，先以回归模型的目标函数为例，给出其对偶形式；然后在简要描述带约束的最优化问题求解的一般思路，引出核函数。</p>
 <p><br></p>
 <h4 id="无约束优化问题对偶形式"><strong>无约束优化问题对偶形式</strong></h4><p>在<a href="http://www.52caml.com/head_first_ml/ml-chapter1-regression-family/" target="_blank" rel="external">《第01章：深入浅出ML之Regression家族》</a>中，我们给出了回归模型的目标函数：</p>
-<p>$$<br>\begin{align}<br>\min_{w} \quad J(w) &amp;= \frac{1}{2} \sum_{i=0}^{m} \left(h_{w}(x^{(i)}) - y^{(i)} \right)^2 ＋ \frac{\lambda}{2} {\Vert w \Vert}_{2}^{2} \\<br>&amp;= \frac{1}{2} \sum_{i=0}^{m} \left(w^T \phi(x^{(i)}) - y^{(i)} \right)^2 ＋ \frac{\lambda}{2} w^T w<br>\end{align}  \qquad(ml.1.4.1)<br>$$</p>
-<p>回归模型通用形式：\(h_w(x) = w^T \phi(x)\)，其中\(\phi(x)\)是一个\(n \times 1\)的向量。对参数向量\(w\)求导，可得：</p>
-<p>$$<br>\begin{align}<br>w = -\frac{1}{\lambda} \sum_{i=1}^{m} \underline{ \left(w^T \phi(x^{(i)} - y^{(i)}\right) } \cdot \phi(x^{(i)}) = \sum_{i=1}^{m} \alpha^{(i)} \cdot \phi(x^{(i)}) = \Phi^T \alpha<br>\end{align} \qquad\qquad(ml.1.4.2)<br>$$</p>
 <blockquote>
-<p>其中<br>\(<br>\alpha^{(i)} = -\frac{1}{\lambda} \left( w^T \phi(x^{(i)}) - y^{(i)} \right) \qquad(n.ml.1.4.1)<br>\)</p>
+<p>$$<br>\begin{align}<br>\min_{w} \quad J(w) &amp;= \frac{1}{2} \sum_{i=0}^{m} \left(h_{w}(x^{(i)}) - y^{(i)} \right)^2 ＋ \frac{\lambda}{2} {\Vert w \Vert}_{2}^{2} \\<br>&amp;= \frac{1}{2} \sum_{i=0}^{m} \left(w^T \phi(x^{(i)}) - y^{(i)} \right)^2 ＋ \frac{\lambda}{2} w^T w<br>\end{align}  \qquad(n.ml.1.4.1)<br>$$</p>
+</blockquote>
+<p>回归模型通用形式：\(h_w(x) = w^T \phi(x)\)，其中\(\phi(x)\)是一个\(n \times 1\)的向量。对参数向量\(w\)求导，可得：</p>
+<p>$$<br>\begin{align}<br>w = -\frac{1}{\lambda} \sum_{i=1}^{m} \underline{ \left(w^T \phi(x^{(i)}) - y^{(i)}\right) } \cdot \phi(x^{(i)}) = \sum_{i=1}^{m} \alpha^{(i)} \cdot \phi(x^{(i)}) = \Phi^T \alpha<br>\end{align} \qquad(ml.1.4.1)<br>$$</p>
+<blockquote>
+<p>其中<br>\(<br>\alpha^{(i)} = -\frac{1}{\lambda} \left( w^T \phi(x^{(i)}) - y^{(i)} \right) \qquad<br>\)</p>
 <p>\(\alpha_{m \times 1} = (\alpha^{(1)}, \alpha^{(2)}, \cdots, \alpha^{(m)})^T\)是一个向量；\(\Phi_{m \times n} = (\phi(x^{(1)}), \phi(x^{(2)}), \cdots, \phi(x^{(m)}))\) 称为<a href="https://en.wikipedia.org/wiki/Design_matrix" target="_blank" rel="external">设计矩阵</a>。</p>
 </blockquote>
-<p>接下来，按照对偶表示的思路，重新定义目标函数。将\(w = \Phi^T \alpha\)带入公式\((ml.1.4.1)\)可得：</p>
-<p>$$<br>J(\alpha) = \frac{1}{2} a^T \Phi \Phi^T \Phi \Phi^T a - \frac{1}{2} a^T \Phi \Phi^T \cdot Y + \frac{1}{2} Y^T Y + \frac{\lambda}{2} a^T \Phi \Phi^T \alpha \qquad(ml.1.4.3)<br>$$</p>
+<p>接下来，按照对偶表示的思路，重新定义目标函数。将\(w = \Phi^T \alpha\)带入公式\((n.ml.1.4.1)\)可得：</p>
+<blockquote>
+<p>$$<br>J(\alpha) = \frac{1}{2} a^T \Phi \Phi^T \Phi \Phi^T a - \frac{1}{2} a^T \Phi \Phi^T \cdot Y + \frac{1}{2} Y^T Y + \frac{\lambda}{2} a^T \Phi \Phi^T \alpha \qquad(n.ml.1.4.2)<br>$$</p>
+</blockquote>
 <p>其中真实结果集合\(Y = (y^{(1)}, y^{(2)}, \cdots, y^{(m)})^T\)。定义<a href="https://en.wikipedia.org/wiki/Gramian_matrix" target="_blank" rel="external">格拉姆矩阵(Gramian Matrix)</a> \(K = \Phi \Phi^T\)一个\(m \times m\)的对称矩阵，每一个元素：</p>
-<p>$$<br>K_{ij} = \phi(x^{(i)})^T \cdot \phi(x^{(j)}) = k(x^{(i)}, x^{(j)}) \qquad (ml.1.4.4)<br>$$</p>
+<p>$$<br>K_{ij} = \phi(x^{(i)})^T \cdot \phi(x^{(j)}) = k(x^{(i)}, x^{(j)}) \qquad (ml.1.4.2)<br>$$</p>
 <blockquote>
 <p>格拉姆矩阵形式：</p>
-<p>$$<br>K =<br>\begin{bmatrix}<br>(x^{(1)}, x^{(1)}) &amp; (x^{(1)}, x^{(2)}) &amp; \cdots &amp; (x^{(1)}, x^{(m)}) \\<br>(x^{(2)}, x^{(1)}) &amp; (x^{(2)}, x^{(2)}) &amp; \cdots &amp; (x^{(2)}, x^{(m)}) \\<br>\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\<br>(x^{(m)}, x^{(1)}) &amp; (x^{(m)}, x^{(2)}) &amp; \cdots &amp; (x^{(m)}, x^{(m)})<br>\end{bmatrix} \qquad(n.ml.1.4.2)<br>$$</p>
+<p>$$<br>K =<br>\begin{bmatrix}<br>(x^{(1)}, x^{(1)}) &amp; (x^{(1)}, x^{(2)}) &amp; \cdots &amp; (x^{(1)}, x^{(m)}) \\<br>(x^{(2)}, x^{(1)}) &amp; (x^{(2)}, x^{(2)}) &amp; \cdots &amp; (x^{(2)}, x^{(m)}) \\<br>\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\<br>(x^{(m)}, x^{(1)}) &amp; (x^{(m)}, x^{(2)}) &amp; \cdots &amp; (x^{(m)}, x^{(m)})<br>\end{bmatrix} \qquad(n.ml.1.4.3)<br>$$</p>
 <p>格拉姆矩阵的一个重要应用是计算线性无关：一组向量线性无关 当且仅当 格拉姆矩阵行列式不等于0。<br>（如果\(\phi(x)\)是随机变量，得到的格拉姆矩阵是协方差矩阵。）</p>
 </blockquote>
 <p>公式\((ml.1.4.4)\)是一个表示任意两个样本之间关系的函数。后面会提到，每一个玉树值可通过定义核函数来计算。</p>
 <h4 id="约束优化问题求解一般思路">约束优化问题求解一般思路</h4><ul>
 <li><p><strong>拉格朗日乘子（Lagrange Multiplier）</strong></p>
 <p>  拉格朗日乘子法通常用于求解带等式约束的极值问题，一个典型的最优化问题形式化表示如下：</p>
-<p>  &gt;<br>  $$<br>  \begin{align}<br>  &amp; \min_{w} \quad f(w) \\<br>  &amp; s.t. \; h_i(w) = 0, \quad i=1,\cdots,k<br>  \end{align}        \qquad\quad(n.ml.1.4.3)<br>  $$</p>
+<p>  $$<br>  \begin{align}<br>  &amp; \min_{w} \quad f(w) \\<br>  &amp; s.t. \; h_i(w) = 0, \quad i=1,\cdots,k<br>  \end{align}        \qquad\quad(ml.1.4.3)<br>  $$</p>
 <p>  目标函数是\(f(w)\)，\(w \in R^n\) （\(n\)表示参数向量个数）；下面是等式约束，其中\(k\)为等式约束的个数。这类问题通常解法是引入拉格朗日乘子（又称算子），这里用\(\beta\)表示乘子，得到的拉格朗日公式为：</p>
 <p>  &gt;<br>  $$<br>  \mathcal{L}(w,\beta) = f(w) + \sum_{i=1}^{k} \beta_i \cdot h_i(w) \qquad(n.ml.1.4.4)<br>  $$</p>
 <p>  然后分别对\(w\)和\(\beta\)求偏导，使得偏导数等于0，进而求解出\(w\)和\(\beta\)。</p>
@@ -219,19 +223,23 @@ SVM中用到了Kernal思想解决低维">
 <p>  公式\((n.ml.1.4.5)\)中的\(\mathcal{P}\)表示原问题，即primal。_假设\(g_i(w) &gt; 0\)或者\(h_i(w) \neq 0\)，那么我们总可以通过调整\(\alpha_i\)和\(\beta_i\)，使得\(\theta_{\mathcal{P}}(w)\)趋向正无穷。而只有当函数\(g\)和\(h\)满足约束条件时，\(\theta_{\mathcal{P}}(w)\)为\(f(w)\)。_ </p>
 <blockquote>
 <p>公式\((n.ml.1.4.7)\)精妙之处就在于\(\alpha_i \ge 0\)，而且是求极大值。因此公式\((n.ml.1.4.7)\)可以写为：</p>
-<p>  $$<br>  \theta_{\mathcal{P}}(w) =<br>  \begin{cases}<br>  f(w), \quad &amp; 如果w满足原问题约束; \\<br>  \; \infty, \quad &amp; Otherwise.<br>  \end{cases}        \qquad(n.ml.1.4.8)<br>  $$</p>
+<p>$$<br>  \theta_{\mathcal{P}}(w) =<br>  \begin{cases}<br>  f(w), \quad &amp; 如果w满足原问题约束; \\<br>  \; \infty, \quad &amp; Otherwise.<br>  \end{cases}        \qquad(n.ml.1.4.8)<br>  $$</p>
 <p>公式\((n.ml.1.4.7)\)和\((n.ml.1.4.8)\)是理解拉格朗日对偶的关键。</p>
 </blockquote>
 <p>  如此，我们原来要求解的\(\min_w f(w)\)可以转化为求解\(\min_w \theta_{\mathcal{P}}(w)\)了。即：</p>
-<p>  &gt;<br>  $$<br>  \min_w f(w) = \min_w \theta_{\mathcal{P}}(w) = \min_{w} \max_{\alpha, \beta;\, \alpha_i \geq 0} \mathcal{L}(w, \alpha, \beta)  \qquad (n.ml.1.4.9)<br>  $$</p>
+<blockquote>
+<p>$$<br>  \min_w f(w) = \min_w \theta_{\mathcal{P}}(w) = \min_{w} \max_{\alpha, \beta;\, \alpha_i \geq 0} \mathcal{L}(w, \alpha, \beta)  \qquad (n.ml.1.4.9)<br>  $$</p>
+</blockquote>
 <p>  这里先用\(\mathcal{P}^{\ast}\)表示\(\min_w \theta_{\mathcal{P}}(w)\)。如果直接求解，又会面临如下问题：</p>
 <blockquote>
 <p>首先面对两个参数\(\alpha、\beta\)，并且参数\(\alpha_i\)也是一个不等式约束；然后再在\(w\)上求极小值。这个过程不容易做，可否有相对容易的解法呢？</p>
 </blockquote>
 <p>  我们换一个角度考虑该问题，令\(\theta_{\mathcal{D}}(\alpha, \beta) = \min_{w} \mathcal{L}(w, \alpha, \beta)\)。\(\mathcal{D}\)是对偶的意思，\(\theta_{\mathcal{D}}(\alpha, \beta)\)将问题转化为**先求拉格朗日关于\(w\)的最小值，将\(\alpha\)和\(\beta\)看作是固定值。然后再求\(\theta_{\mathcal{D}}(\alpha, \beta)\)的极大值**。即：</p>
-<p>  &gt;<br>  $$<br>  \max_{\alpha, \beta;\, \alpha_i \geq 0} \theta_{\mathcal{D}}(\alpha, \beta) = \max_{\alpha, \beta;\, \alpha_i \geq 0} \min_{w} \mathcal{L}(w, \alpha, \beta)   \qquad (n.ml.1.4.10)<br>  $$</p>
+<blockquote>
+<p>$$<br>  \max_{\alpha, \beta;\, \alpha_i \geq 0} \theta_{\mathcal{D}}(\alpha, \beta) = \max_{\alpha, \beta;\, \alpha_i \geq 0} \min_{w} \mathcal{L}(w, \alpha, \beta)   \qquad (n.ml.1.4.10)<br>  $$</p>
+</blockquote>
 <p>  问题转化为原问题的对偶问题来求解。其实，相对于原问题来说只是更换了\(max\)和\(min\)的顺序，而一般更换顺序的结果是：\(max \; min \; f(x) \le min \; max \; f(x)\)。用\(\mathcal{D}^{\ast}\)表示对偶问题，与原问题\(\mathcal{P}^{\ast}\)关系如下：</p>
-<p>  $$<br>  \mathcal{D}^{\ast} = \max_{\alpha,\beta; \; \alpha_i \ge 0} \min_{w} \mathcal{L}(w, \alpha, \beta) \le \min_{w} \max_{\alpha,\beta; \; \alpha_i \ge 0} \mathcal{L}(w, \alpha, \beta) = \mathcal{P}^{\ast} \quad (ml.1.4.5)<br>  $$</p>
+<p>  $$<br>  \mathcal{D}^{\ast} = \max_{\alpha,\beta; \; \alpha_i \ge 0} \min_{w} \mathcal{L}(w, \alpha, \beta) \le \min_{w} \max_{\alpha,\beta; \; \alpha_i \ge 0} \mathcal{L}(w, \alpha, \beta) = \mathcal{P}^{\ast} \quad (ml.1.4.4)<br>  $$</p>
 <blockquote>
 <p>即将_最小最大问题_转化为_最大最小问题。_ </p>
 <p>(这部分可与<a href="http://www.52caml.com/head_first_ml/ml-chapter2-entropy-based-family/" target="_blank" rel="external">《第02章：深入理解ML之Entropy-Based家族》</a>结合起来理解，更容易理解并能建立起优化问题、最大熵以及后面要介绍的SVM之间的公式关联。)</p>
@@ -686,7 +694,7 @@ $$</span>
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/head_first_ml/ml-chapter4-kernel-based-family/" data-title="第04章：深入浅出ML之Kernal-Based家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/head_first_ml/ml-chapter4-kernel-based-family/" data-title="第04章：深入浅出ML之Kernel-Based家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
