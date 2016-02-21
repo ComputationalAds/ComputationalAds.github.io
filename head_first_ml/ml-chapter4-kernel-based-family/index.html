@@ -24,9 +24,10 @@ weibo: @周永_52ML
 支持向量机
 
 
-写在前面机器学习中有这样一条理论：低维空间线性不可分的数据通过非线性映射到高维特征空间则可能线性可分。极端地，假设数据集中有\(m\)个样本，一定可以在\(m-1\)维空间中线性可分。
+写在前面
+机器学习中有这样一条理论：低维空间线性不可分的数据通过非线性映射到高维特征空间则可能线性可分。极端地，假设数据集中有\(m\)个样本，一定可以在\(m-1\)维空间中线性可分。
 
-每一个样本在特征">
+每一个样本在特">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第04章：深入浅出ML之Kernel-Based家族">
 <meta property="og:url" content="http://www.52caml.com/head_first_ml/ml-chapter4-kernel-based-family/index.html">
@@ -44,9 +45,10 @@ weibo: @周永_52ML
 支持向量机
 
 
-写在前面机器学习中有这样一条理论：低维空间线性不可分的数据通过非线性映射到高维特征空间则可能线性可分。极端地，假设数据集中有\(m\)个样本，一定可以在\(m-1\)维空间中线性可分。
+写在前面
+机器学习中有这样一条理论：低维空间线性不可分的数据通过非线性映射到高维特征空间则可能线性可分。极端地，假设数据集中有\(m\)个样本，一定可以在\(m-1\)维空间中线性可分。
 
-每一个样本在特征">
+每一个样本在特">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_4_1_1_svm_introduction.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_4_1_2_svm_geometric_margin.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_4_1_5_optimal_margin_classifier.png">
@@ -66,9 +68,10 @@ weibo: @周永_52ML
 支持向量机
 
 
-写在前面机器学习中有这样一条理论：低维空间线性不可分的数据通过非线性映射到高维特征空间则可能线性可分。极端地，假设数据集中有\(m\)个样本，一定可以在\(m-1\)维空间中线性可分。
+写在前面
+机器学习中有这样一条理论：低维空间线性不可分的数据通过非线性映射到高维特征空间则可能线性可分。极端地，假设数据集中有\(m\)个样本，一定可以在\(m-1\)维空间中线性可分。
 
-每一个样本在特征">
+每一个样本在特">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -162,7 +165,8 @@ weibo: @周永_52ML
 <li>支持向量机</li>
 </ul>
 <p><br></p>
-<h3 id="写在前面"><strong>写在前面</strong></h3><p>机器学习中有这样一条理论：低维空间线性不可分的数据通过<strong>非线性映射</strong>到高维特征空间则可能线性可分。极端地，假设数据集中有\(m\)个样本，一定可以在\(m-1\)维空间中线性可分。</p>
+<h3 id="写在前面"><strong>写在前面</strong></h3><hr>
+<p>机器学习中有这样一条理论：低维空间线性不可分的数据通过<strong>非线性映射</strong>到高维特征空间则可能线性可分。极端地，假设数据集中有\(m\)个样本，一定可以在\(m-1\)维空间中线性可分。</p>
 <blockquote>
 <p>每一个样本在特征空间中对应一个点，试想一下，2个点可以用一维空间分开；3个点可以在2维空间（平面）上线性可分；… ；\(m\)个点，可以在\(m-1\)维空间中线性可分。</p>
 </blockquote>
@@ -176,7 +180,8 @@ weibo: @周永_52ML
 <p>从上式可以看出，<strong>核函数将\(n\)维高维特征空间的内积计算转化为\(k\)维低维输入空间的核函数计算，巧妙地解决了在高维特征空间中计算可能出现的“维数灾难”等问题。从而为高维特征空间解决复杂的学习问题奠定了理论基础。</strong></p>
 <p>本章的安排是这样。首先介绍一些对偶优化问题的基本形式，引出核函数并且为后面的SVM做铺垫；然后给出核函数的发展、常用的核函数等方法；最后详细介绍核函数在分类方法中的经典应用－支持向量机。</p>
 <p><br></p>
-<h3 id="对偶优化问题"><strong>对偶优化问题</strong></h3><p>我们都知道，机器学习模型参数学习过程，大多要通过《最优化算法》中的一些方法来求解。其中，带约束条件的最优化问题（极值求解问题）一般是引入拉格朗日乘子法，构建拉格朗日对偶函数，通过求其对偶函数的解，从而得到原始问题的最优解。</p>
+<h3 id="对偶优化问题"><strong>对偶优化问题</strong></h3><hr>
+<p>我们都知道，机器学习模型参数学习过程，大多要通过《最优化算法》中的一些方法来求解。其中，带约束条件的最优化问题（极值求解问题）一般是引入拉格朗日乘子法，构建拉格朗日对偶函数，通过求其对偶函数的解，从而得到原始问题的最优解。</p>
 <p>其实不仅是带约束的最优化问题，任何一个最优化问题都伴随着一个”影子”最优化问题。其中一个称为原始问题，另一个称为对偶问题。</p>
 <p>这里，先以回归模型的目标函数为例，给出其对偶形式；然后在简要描述带约束的最优化问题求解的一般思路，引出核函数。</p>
 <p><br></p>
@@ -203,7 +208,8 @@ weibo: @周永_52ML
 </blockquote>
 <p>公式\((ml.1.4.4)\)是一个表示任意两个样本之间关系的函数。后面会提到，每一个玉树值可通过定义核函数来计算。</p>
 <p><br></p>
-<h4 id="约束优化问题求解一般思路"><strong>约束优化问题求解一般思路</strong></h4><ul>
+<h4 id="约束优化问题求解一般思路"><strong>约束优化问题求解一般思路</strong></h4><hr>
+<ul>
 <li><p><strong>拉格朗日乘子（Lagrange Multiplier）</strong></p>
 <p>  拉格朗日乘子法通常用于求解带等式约束的极值问题，一个典型的最优化问题形式化表示如下：</p>
 <p>  $$<br>  \begin{align}<br>  &amp; \min_{w} \quad f(w) \\<br>  &amp; s.t. \; h_i(w) = 0, \quad i=1,\cdots,k<br>  \end{align}        \qquad\quad(ml.1.4.3)<br>  $$</p>
@@ -274,15 +280,18 @@ weibo: @周永_52ML
 </tbody>
 </table>
 <p><br></p>
-<h3 id="核方法">核方法</h3><p>在机器学习中，核方法被形式化为特征空间的向量内积。又被称为核技巧（kernel trick），或核置换（kernel substitution）。</p>
+<h3 id="核方法"><strong>核方法</strong></h3><hr>
+<p>在机器学习中，核方法被形式化为特征空间的向量内积。又被称为核技巧（kernel trick），或核置换（kernel substitution）。</p>
 <p><br></p>
-<h4 id="核函数介绍">核函数介绍</h4><p>早在机器学习学科成立之前，核函数相关理论、核函数技术以及核函数的有效性定理就已经存在。1964年Aizerman等人把势函数（potential function）相关研究引入到模式识别领域。中间过去很多年，直到1992年Boser等人在研究机器学习中最大间隔分类器中再次将核函数引入进来，产生了支持向量机技术。从这开始，核函数在机器学习的理论和应用得到了更多地关注和极大的兴趣。</p>
+<h4 id="核函数介绍"><strong>核函数介绍</strong></h4><hr>
+<p>早在机器学习学科成立之前，核函数相关理论、核函数技术以及核函数的有效性定理就已经存在。1964年Aizerman等人把势函数（potential function）相关研究引入到模式识别领域。中间过去很多年，直到1992年Boser等人在研究机器学习中最大间隔分类器中再次将核函数引入进来，产生了支持向量机技术。从这开始，核函数在机器学习的理论和应用得到了更多地关注和极大的兴趣。</p>
 <p>例如，Scholkopf等人将核函数应用到主成分分析PCA中产生了核主元分析法（kernel PCA），Mika等人将核函数引入到Fisher判别中产生了核Fisher判别分析（kernel Fisher discriminant）等等。这些技术在机器学习、模式识别等不同领域中起到了很重要的作用。</p>
 <blockquote>
 <p>核函数有效性Mercer定理可追溯至1909年。</p>
 </blockquote>
 <p><br></p>
-<h4 id="核函数引入">核函数引入</h4><p>Andrew Ng男神在《机器学习》课程第一讲的线性回归中提到例子，用回归模型拟合房屋面积（\(x\)表示）与价格（\(y\)表示）之间的关系。示例中的回归模型用\(y=w_0 + w_1 x\)方程拟合。假设从样本的分布中可以看到\(x\)与\(y\)符合3次曲线关系，那么我们希望使用\(x\)的3次多项式来逼近这些样本点。</p>
+<h4 id="核函数引入"><strong>核函数引入</strong></h4><hr>
+<p>Andrew Ng男神在《机器学习》课程第一讲的线性回归中提到例子，用回归模型拟合房屋面积（\(x\)表示）与价格（\(y\)表示）之间的关系。示例中的回归模型用\(y=w_0 + w_1 x\)方程拟合。假设从样本的分布中可以看到\(x\)与\(y\)符合3次曲线关系，那么我们希望使用\(x\)的3次多项式来逼近这些样本点。</p>
 <p>首先要做的是将一维特征\(x\)映射至三维\((x,x^2,x^3)\)，然后再根据新特征与结果之间的关系模型。我们将这种特征变换称作<strong>特征映射（Feature Mapping）</strong>。映射函数这里用\(\phi(x)\)表示，该例中可表示为：</p>
 <blockquote>
 <p>$$<br>    \phi(x): \;\; x \longrightarrow<br>    \begin{bmatrix}<br>    x \\<br>    x^2 \\<br>    x^3 \\<br>    \end{bmatrix} \qquad\qquad(exp.ml.1.4.1)<br>$$</p>
@@ -293,7 +302,8 @@ weibo: @周永_52ML
 <p>为了更好的拟合数据是其中一个原因。另外一个重要原因是本章<strong>写在前面</strong>提到的：样本可能存在在低维空间线性不可分的情况，而将其映射到高维空间中往往就可分。</p>
 </blockquote>
 <p><br></p>
-<h4 id="核函数方法">核函数方法</h4><p>核函数形式化定义：如果原始特征内积\(\langle x,z \rangle\)，映射后为\(\langle \phi(x), \phi(z) \rangle\)，那么核函数定义为：</p>
+<h4 id="核函数方法"><strong>核函数方法</strong></h4><hr>
+<p>核函数形式化定义：如果原始特征内积\(\langle x,z \rangle\)，映射后为\(\langle \phi(x), \phi(z) \rangle\)，那么核函数定义为：</p>
 <p>$$<br>K(x,z) = \phi(x)^T \phi(z)    \qquad (ml.1.4.5)<br>$$</p>
 <blockquote>
 <p>如果要实现\(\phi(x)^T \phi(z)\)的计算，只需要先计算\(\phi(x)\)，然后再计算\(\phi(z)^T \phi(z)\)即可。然而这种计算方式是非常低效的。如果最初特征是\(n\)维的，现在将其映射到\(n^2\)维，然后再计算，此时时间复杂度从\(O(n)\)上升为\(O(n^2)\)。</p>
@@ -327,7 +337,8 @@ weibo: @周永_52ML
 <p>注意：sigmoid核对应的核函数矩阵不是正定的。之所以仍作为kernel的一种是因为给了kernel在实际应用中更多的扩展，包括在svm、神经网络等方法中的应用。</p>
 </blockquote>
 <p><br></p>
-<h4 id="核函数有效性判定"><strong>核函数有效性判定</strong></h4><p>问题：</p>
+<h4 id="核函数有效性判定"><strong>核函数有效性判定</strong></h4><hr>
+<p>问题：</p>
 <blockquote>
 <p>给定一个函数\(K\)，我们能否使用\(K\)来替代计算\(\phi(x)^T \phi(z)\)？也就是说，能否找出一个\(\phi\)，使得对于所有的\(x\)和\(z\)，都有\(K(x,z) = \phi(x)^T \phi(z)\)？</p>
 <p>公式\((n.ml.1.4.11)\)描述的核函数\(K(x,z) = (x^T z)^2\)，是否能够认为\(K\)是一个有效的核函数？</p>
@@ -373,10 +384,12 @@ weibo: @周永_52ML
 <p>当然，Mercer定理证明过程中可以通过\(L2\)范数和再生希尔伯特空间等概念，但在\(n\)维情况下，这里给出的证明是等价的。</p>
 <p>Kernel方法不仅用在SVM上，只要在模型的计算过程中出现\(\langle x,z \rangle\)，我们都可以使用\(K(x,z)\)去替换，通过特征空间变换解决本章开头所提到的特征映射问题。</p>
 <p><br></p>
-<h3 id="支持向量机">支持向量机</h3><p>支持向量机（Support Vector Machine，简称SVM）是建立在统计学习理论之上的学习算法，其主要优势体现在解决线性不可分问题，通过引入核函数，巧妙地解决了在高维空间的内积运算复杂度的问题，从而很好的解决了非线性分类问题。</p>
+<h3 id="支持向量机"><strong>支持向量机</strong></h3><hr>
+<p>支持向量机（Support Vector Machine，简称SVM）是建立在统计学习理论之上的学习算法，其主要优势体现在解决线性不可分问题，通过引入核函数，巧妙地解决了在高维空间的内积运算复杂度的问题，从而很好的解决了非线性分类问题。</p>
 <p>这里我们先通过LR模型与SVM比较，建立二者之间的基本认知。</p>
 <p><br></p>
-<h4 id="LR与SVM">LR与SVM</h4><ul>
+<h4 id="LR与SVM"><strong>LR与SVM</strong></h4><hr>
+<ul>
 <li><p>LR模型回顾</p>
 <p>  在第1章，我们详细阐述了Logistic Regression模型。我们直接地可理解为，LR的目的是从特征中学习出一个0/1分类或回归模型。</p>
 <blockquote>
@@ -411,7 +424,8 @@ weibo: @周永_52ML
 </li>
 </ul>
 <p><br></p>
-<h4 id="函数间隔与几何间隔"><strong>函数间隔与几何间隔</strong></h4><ul>
+<h4 id="函数间隔与几何间隔"><strong>函数间隔与几何间隔</strong></h4><hr>
+<ul>
 <li><p>形式化表示</p>
 <p>  这里，我们先定义SVM中使用的样本标签为\(\{-1, 1\}\)（与LR中的\(\{0, 1\}\)不同）。同时LR中的参数\(w \in R^{n+1}\)，在这里\(w \in R^{n}, b \in R\)。SVM中要求的分类器可表示为：</p>
 <p>  $$<br>  h_{w,b}(x) = g(z) = g(w^Tx + b)        \qquad\qquad(ml.1.4.10)<br>  $$</p>
@@ -458,7 +472,8 @@ weibo: @周永_52ML
 </li>
 </ul>
 <p><br></p>
-<h4 id="最优间隔分类器"><strong>最优间隔分类器</strong></h4><p>在前面也提到，SVM的目标是寻找一个超平面，使得距离超平面最近的点能有更大的间距。不考虑所有的点都必须远离超平面，只关心求得的超平面能够让所有的点中离它最近的点具有最大间距。因此，我们需要数学化表示最优间隔（optimal margin classifier）。</p>
+<h4 id="最优间隔分类器"><strong>最优间隔分类器</strong></h4><hr>
+<p>在前面也提到，SVM的目标是寻找一个超平面，使得距离超平面最近的点能有更大的间距。不考虑所有的点都必须远离超平面，只关心求得的超平面能够让所有的点中离它最近的点具有最大间距。因此，我们需要数学化表示最优间隔（optimal margin classifier）。</p>
 <ul>
 <li><p>形式化表示</p>
 <p>  最优间隔形式化可表示为：</p>
@@ -484,7 +499,7 @@ weibo: @周永_52ML
 </li>
 </ul>
 <p><br></p>
-<h4 id="最优间隔分类器学习过程">最优间隔分类器学习过程</h4><p>—</p>
+<h4 id="最优间隔分类器学习过程">最优间隔分类器学习过程</h4><hr>
 <ul>
 <li><p>KKT条件</p>
 <p>  第一节对偶优化问题中，公式\((ml.1.4.4)\)有一个问题：在什么条件下\(\mathcal{P}^{\ast}\)与\(\mathcal{D}^{\ast}\)    两者等价？</p>
@@ -542,14 +557,13 @@ weibo: @周永_52ML
 <p>\(<br>\qquad\qquad w = \sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} \qquad(n.ml.1.4.20)<br>\)</p>
 </blockquote>
 <p>将公式\((n.ml.1.4.20)\)带入\((ml.1.4.18)\)，此时得到的是该目标函数的最小部分（因为目标函数是凸函数）。公式推导如下：</p>
-<p>&gt;<br>$$<br>\begin{align}<br>\mathcal{L}(w,b,\alpha) &amp; = \frac{1}{2} w^T w - \sum_{i=1}^{m} \alpha_i y^{(i)} w^T x^{(i)} - b \cdot \sum_{i=1}^{m} \alpha_i y^{(i)}  + \sum_{i=1}^{m} \alpha_i \qquad\quad (1)\\<br>&amp; = \frac{1}{2} w^T \cdot \sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} - w^T \cdot \sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} + \sum_{i=1}^{m} \alpha_i - b \sum_{i=1}^{m} \alpha_i y^{(i)} \quad(2) \\<br>&amp; = -\frac{1}{2} w^T \sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} + \sum_{i=1}^{m} \alpha_i - b \sum_{i=1}^{m} \alpha_i y^{(i)} \qquad\quad(3) \\<br>&amp; = -\frac{1}{2} \left(\sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} \right)^T \cdot\sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} + \sum_{i=1}^{m} \alpha_i - b\sum_{i=1}^{m} \alpha_i y^{(i)} \quad(4) \\<br>&amp; = -\frac{1}{2} \sum_{i=1}^{m} \sum_{j=1}^{m} \alpha_i \alpha_j y^{(i)} y^{(j)} \cdot (x^{(i)})^T x^{(j)} + \sum_{i=1}^{m} \alpha_i - b \sum_{i=1}^{m} \alpha_i y^{(i)} \quad(5)<br>\end{align} \;(n.ml.1.4.21)<br>$$</p>
 <blockquote>
+<p>$$<br>\begin{align}<br>\mathcal{L}(w,b,\alpha) &amp; = \frac{1}{2} w^T w - \sum_{i=1}^{m} \alpha_i y^{(i)} w^T x^{(i)} - b \cdot \sum_{i=1}^{m} \alpha_i y^{(i)}  + \sum_{i=1}^{m} \alpha_i \qquad\quad (1)\\<br>&amp; = \frac{1}{2} w^T \cdot \sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} - w^T \cdot \sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} + \sum_{i=1}^{m} \alpha_i - b \sum_{i=1}^{m} \alpha_i y^{(i)} \quad(2) \\<br>&amp; = -\frac{1}{2} w^T \sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} + \sum_{i=1}^{m} \alpha_i - b \sum_{i=1}^{m} \alpha_i y^{(i)} \qquad\quad(3) \\<br>&amp; = -\frac{1}{2} \left(\sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} \right)^T \cdot\sum_{i=1}^{m} \alpha_i y^{(i)} x^{(i)} + \sum_{i=1}^{m} \alpha_i - b\sum_{i=1}^{m} \alpha_i y^{(i)} \quad(4) \\<br>&amp; = -\frac{1}{2} \sum_{i=1}^{m} \sum_{j=1}^{m} \alpha_i \alpha_j y^{(i)} y^{(j)} \cdot (x^{(i)})^T x^{(j)} + \sum_{i=1}^{m} \alpha_i - b \sum_{i=1}^{m} \alpha_i y^{(i)} \quad(5)<br>\end{align} \;(n.ml.1.4.21)<br>$$</p>
 <p>说明：第\((3)\)步到第\((4)\)步使用了线性代数中的转置运算，由于\(\alpha_i\)和\(y^{(i)}\)都是实数，因此转置后一样。第\((4)\)步到第\((5)\)步使用了乘法运算规则: \((a+b)(a+b) = aa + ab + ba + bb\)。</p>
 <p>公式\((n.ml.1.4.21)\)主要目的是将\(\mathcal{L}(w,b,\alpha)\)转化为关于拉格朗日乘子\(\alpha\)的函数。</p>
 </blockquote>
 <p>又因为有\((ml.1.4.21)-(2)\)成立，所以公式\((n.ml.1.4.21)-(5)\)最后一项为0。因此，目标函数最后整理为：</p>
 <p>$$<br>\mathcal{L}(w,b,\alpha) = -\frac{1}{2} \sum_{i=1}^{m} \sum_{j=1}^{m} \alpha_i \alpha_j y^{(i)} y^{(j)} (x^{(i)})^T x^{(j)} + \sum_{i=1}^{m} \alpha_i \qquad(ml.1.4.22)<br>$$</p>
-<p>&gt;</p>
 <blockquote>
 <p>这里我们将向量内积\((x^{(i)})^T x^{(j)}\)表示为\(\langle x^{(i)}, x^{(j)} \rangle\)。<strong>正因为有向量内积的（复杂）计算，才有后面Kernal的出现</strong>。</p>
 </blockquote>
@@ -581,7 +595,7 @@ weibo: @周永_52ML
 <h4 id="软间隔与正则化">软间隔与正则化</h4><p>为了解决上述问题，这里需要将模型做一个调整，以保证在不可分的情况下，也能够尽可能地找出分隔超平面。</p>
 <ul>
 <li><p>软间隔与惩罚项</p>
-<p>  <img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_4_1_6_soft_margin_and_non_seperate.png" width="360" height="300" alt="soft-margin" align="right"></p>
+<p>  <img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_4_1_6_soft_margin_and_non_seperate.png" width="270" height="225" alt="soft-margin" align="right"></p>
 <p>  从右图可以看到，如果多一个离群点（也许是噪声，黑圆圈表示）可能造成超平面的移动，求出来的最优间隔在缩小（实线部分），那么之前的模型对噪声非常敏感。更有甚者，如果离群点在另一个类中，此时就线性不可分了。</p>
 <p>  如何解决这个问题呢？</p>
 <p>  我们可以考虑允许一些点游离并在模型求解中违背约束条件（函数间隔\(\ge 1\)）。那么新的模型就可以定义如下：</p>
@@ -626,7 +640,7 @@ weibo: @周永_52ML
 </li>
 </ul>
 <p><br></p>
-<h4 id="总结"><strong>总结</strong></h4><p>—</p>
+<h4 id="总结"><strong>总结</strong></h4><hr>
 <p>这里中带你介绍了SVM的基本公式推导，并就其中的关键点给予了介绍。</p>
 <p>首先，通过LR与SVM两个经典模型的比较，前者全局，后者局部（从对参数起作用的训练样本角度），引入SVM；通过函数间隔和几何间隔的介绍，明确了最优间隔的公式表达以及带优化的目标函数；并且将非凸函数转化为凸函数，以便于后续求解；</p>
 <p>其次，我们详细地给出了求解带约束的极值优化问题的求解方法：拉格朗日乘子法与拉格朗日对偶法。并且详细推导了最优间隔分类器的优化学习过程，发现参数\(w\)可以用特征向量内积表示，进而引入核函数。此时，我们通过调整核函数就可以完成特征从低维到高维的映射，在低维上计算，实则表现在高位空间上。</p>
