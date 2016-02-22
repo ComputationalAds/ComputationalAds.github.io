@@ -25,7 +25,7 @@ weibo: @周永_52ML
 
 
 写在前面
-机器学习中有这样一条理论：低维空间线性不可分的数据通过非线性映射到高维特征空间则可能线性可分。极端地，假设数据集中有\(m\)个样本，一定可以在\(m-1\)维空间中线性可分。
+机器学习中有这样一个结论：低维空间线性不可分的数据通过非线性映射到高维特征空间则可能线性可分。极端地，假设数据集中有\(m\)个样本，一定可以在\(m-1\)维空间中线性可分。
 
 每一个样本在特">
 <meta property="og:type" content="article">
@@ -46,7 +46,7 @@ weibo: @周永_52ML
 
 
 写在前面
-机器学习中有这样一条理论：低维空间线性不可分的数据通过非线性映射到高维特征空间则可能线性可分。极端地，假设数据集中有\(m\)个样本，一定可以在\(m-1\)维空间中线性可分。
+机器学习中有这样一个结论：低维空间线性不可分的数据通过非线性映射到高维特征空间则可能线性可分。极端地，假设数据集中有\(m\)个样本，一定可以在\(m-1\)维空间中线性可分。
 
 每一个样本在特">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_4_1_1_svm_introduction.png">
@@ -69,7 +69,7 @@ weibo: @周永_52ML
 
 
 写在前面
-机器学习中有这样一条理论：低维空间线性不可分的数据通过非线性映射到高维特征空间则可能线性可分。极端地，假设数据集中有\(m\)个样本，一定可以在\(m-1\)维空间中线性可分。
+机器学习中有这样一个结论：低维空间线性不可分的数据通过非线性映射到高维特征空间则可能线性可分。极端地，假设数据集中有\(m\)个样本，一定可以在\(m-1\)维空间中线性可分。
 
 每一个样本在特">
 
@@ -166,7 +166,7 @@ weibo: @周永_52ML
 </ul>
 <p><br></p>
 <h3 id="写在前面"><strong>写在前面</strong></h3><hr>
-<p>机器学习中有这样一条理论：低维空间线性不可分的数据通过<strong>非线性映射</strong>到高维特征空间则可能线性可分。极端地，假设数据集中有\(m\)个样本，一定可以在\(m-1\)维空间中线性可分。</p>
+<p>机器学习中有这样一个结论：低维空间线性不可分的数据通过<strong>非线性映射</strong>到高维特征空间则可能线性可分。极端地，假设数据集中有\(m\)个样本，一定可以在\(m-1\)维空间中线性可分。</p>
 <blockquote>
 <p>每一个样本在特征空间中对应一个点，试想一下，2个点可以用一维空间分开；3个点可以在2维空间（平面）上线性可分；… ；\(m\)个点，可以在\(m-1\)维空间中线性可分。</p>
 </blockquote>
@@ -185,7 +185,8 @@ weibo: @周永_52ML
 <p>其实不仅是带约束的最优化问题，任何一个最优化问题都伴随着一个”影子”最优化问题。其中一个称为原始问题，另一个称为对偶问题。</p>
 <p>这里，先以回归模型的目标函数为例，给出其对偶形式；然后在简要描述带约束的最优化问题求解的一般思路，引出核函数。</p>
 <p><br></p>
-<h4 id="无约束优化问题的对偶形式"><strong>无约束优化问题的对偶形式</strong></h4><p>在<a href="http://www.52caml.com/head_first_ml/ml-chapter1-regression-family/" target="_blank" rel="external">《第01章：深入浅出ML之Regression家族》</a>中，我们给出了回归模型的目标函数：</p>
+<h4 id="无约束优化问题的对偶形式"><strong>无约束优化问题的对偶形式</strong></h4><hr>
+<p>在<a href="http://www.52caml.com/head_first_ml/ml-chapter1-regression-family/" target="_blank" rel="external">《第01章：深入浅出ML之Regression家族》</a>中，我们给出了回归模型的目标函数：</p>
 <blockquote>
 <p>$$<br>\begin{align}<br>\min_{w} \quad J(w) &amp;= \frac{1}{2} \sum_{i=0}^{m} \left(h_{w}(x^{(i)}) - y^{(i)} \right)^2 ＋ \frac{\lambda}{2} {\Vert w \Vert}_{2}^{2} \\<br>&amp;= \frac{1}{2} \sum_{i=0}^{m} \left(w^T \phi(x^{(i)}) - y^{(i)} \right)^2 ＋ \frac{\lambda}{2} w^T w<br>\end{align}  \qquad(n.ml.1.4.1)<br>$$</p>
 </blockquote>
@@ -592,7 +593,8 @@ weibo: @周永_52ML
 </li>
 </ul>
 <p><br></p>
-<h4 id="软间隔与正则化">软间隔与正则化</h4><p>为了解决上述问题，这里需要将模型做一个调整，以保证在不可分的情况下，也能够尽可能地找出分隔超平面。</p>
+<h4 id="软间隔与正则化"><strong>软间隔与正则化</strong></h4><hr>
+<p>为了解决上述问题，这里需要将模型做一个调整，以保证在不可分的情况下，也能够尽可能地找出分隔超平面。</p>
 <ul>
 <li><p>软间隔与惩罚项</p>
 <p>  <img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_4_1_6_soft_margin_and_non_seperate.png" width="270" height="225" alt="soft-margin" align="right"></p>
