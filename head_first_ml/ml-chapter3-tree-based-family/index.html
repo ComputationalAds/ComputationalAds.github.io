@@ -151,7 +151,7 @@ sina weibo: @周永_52ML
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树学习过程"><span class="toc-number">2.</span> <span class="toc-text">决策树学习过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征选择方法"><span class="toc-number">3.</span> <span class="toc-text">特征选择方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ID3-信息增益"><span class="toc-number">3.1.</span> <span class="toc-text">ID3-信息增益</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#增益率"><span class="toc-number">3.2.</span> <span class="toc-text">增益率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基尼指数"><span class="toc-number">3.3.</span> <span class="toc-text">基尼指数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树－ID3"><span class="toc-number">4.</span> <span class="toc-text">决策树－ID3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树－C4-5"><span class="toc-number">5.</span> <span class="toc-text">决策树－C4.5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分类与回归树"><span class="toc-number">6.</span> <span class="toc-text">分类与回归树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#随机森林"><span class="toc-number">7.</span> <span class="toc-text">随机森林</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-_基本概念"><span class="toc-number">8.</span> <span class="toc-text">3.1. 基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-_熵与信息熵"><span class="toc-number">8.1.</span> <span class="toc-text">3.1.1. 熵与信息熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-_特征选择方法"><span class="toc-number">8.2.</span> <span class="toc-text">3.1.2. 特征选择方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-2-1-_信息增益（Information_Gain）"><span class="toc-number">8.2.1.</span> <span class="toc-text">3.1.2.1. 信息增益（Information Gain）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-2-3-_基尼指数（Gini_Index）"><span class="toc-number">8.2.2.</span> <span class="toc-text">3.1.2.3. 基尼指数（Gini Index）</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树学习过程"><span class="toc-number">2.</span> <span class="toc-text">决策树学习过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征选择方法"><span class="toc-number">3.</span> <span class="toc-text">特征选择方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#信息增益－ID3"><span class="toc-number">3.1.</span> <span class="toc-text">信息增益－ID3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#增益率"><span class="toc-number">3.2.</span> <span class="toc-text">增益率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基尼指数"><span class="toc-number">3.3.</span> <span class="toc-text">基尼指数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分类与回归树"><span class="toc-number">4.</span> <span class="toc-text">分类与回归树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Next"><span class="toc-number">5.</span> <span class="toc-text">Next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol>
 		
 		</div>
 		
@@ -333,29 +333,7 @@ sina weibo: @周永_52ML
 </tr>
 </tbody>
 </table>
-<p>除了具体介绍这3个具体算法对应的特征选择方法外，还会简要的介绍决策树学习过程出现的模型和数据问题，分别是:</p>
-<table>
-<thead>
-<tr>
-<th>问题</th>
-<th>解决方案</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>过拟合</td>
-<td>剪枝处理</td>
-</tr>
-<tr>
-<td>连续值</td>
-<td>二分法（C4.5）</td>
-</tr>
-<tr>
-<td>缺失值</td>
-<td>IG推广策略</td>
-</tr>
-</tbody>
-</table>
+<p>除了具体介绍这3个具体算法对应的特征选择方法外，还会简要的介绍决策树学习过程出现的模型和数据问题，如过拟合问题，连续值和缺失值问题等。</p>
 <p><br></p>
 <h3 id="决策树学习过程">决策树学习过程</h3><hr>
 <p>图4.1~图4.4给出的仅仅是单层决策树，只有一个非叶节点（对应一个特征）。那么对于含有多个特征的分类问题来说，决策树的学习过程通常是一个通过递归选择最优划分特征，并根据该特征的取值情况对训练数据进行分割，使得切割后对应的<strong>数据子集有一个较好的分类</strong>的过程。</p>
@@ -493,142 +471,91 @@ sina weibo: @周永_52ML
 <p>假设 训练数据集\(D=\{(x^{(1)},y^{(1)}), (x^{(2)},y^{(2)}), \cdots, (x^{(m)},y^{(m)}) \} \) (特征用离散值表示)，候选特征集合\(F=\{f^1, f^2, \cdots, f^n\} \)。开始，建立根节点，将所有训练数据都置于根节点（\(m\)条样本）。从特征集合\(F\)中选择一个最优特征\(f^{\ast}\)，按照\(f^{\ast}\)取值讲训练数据集切分成若干子集，使得各个自己有一个在当前条件下最好的分类。</p>
 <p>如果子集中样本类别基本相同，那么构建叶节点，并将数据子集划分给对应的叶节点；如果子集中样本类别差异较大，不能被基本正确分类，需要在剩下的特征集合（\(F-\{f^{\ast}\}\)）中选择新的最优特征，构建响应的内部节点，继续对数据子集进行切分。如此递归地进行下去，直至所有数据自己都能被基本正确分类，或者没有合适的最优特征为止。</p>
 <p>这样最终结果是每个子集都被分到叶节点上，对应着一个明确的类别。那么，递归生成的层级结构即为一棵决策树。我们将上面的文字描述用伪代码形式表达出来，即为：</p>
-<p>\(<br>\{ \\<br>\quad输入: 训练数据集D=\{(x^{(1)},y^{(1)}), (x^{(2)},y^{(2)}), \cdots, (x^{(m)},y^{(m)}) \} \; (特征用离散值表示); \\<br>\qquad\quad\; 候选特征集F=\{f^1, f^2, \cdots, f^n\} \\<br>\quad输出：一颗决策树T(D,F) \\<br>\quad学习过程：\\<br>\qquad 01. \;\; 创建节点node; \\<br>\quad\;\;\;02. \;\; if \; D中样本全属于同一类别C； \; then \\<br>\qquad 03. \qquad 将node作为叶节点，用类别C标记，返回； \\<br>\qquad 04. \; endif \\<br>\qquad 05. \;\; if \; F为空（F=\emptyset）or \; D中样本在F的取值相同；\; then \\<br>\qquad 06. \qquad 将node作为叶节点，其类别标记为D中样本数最多的类（多数表决），返回； \\<br>\qquad 07. \;\underline{ 选择F中最优划分特征，得到f^{\ast}(f^{\ast} \in F) }； \\<br>\qquad 08. \;标记节点node为f^{\ast} \\<br>\qquad 09. \;\; for \; f^{\ast} \;中的每一个已知值f_{i}^{\ast}; \; do \\<br>\qquad 10. \quad\;\; 为节点node生成一个分支；令D_i表示D中在特征f^{\ast}上取值为f_i^{\ast}的样本子集； \; //划分子集 \\<br>\qquad 11. \quad\;\; if \; D_i为空；\; then \\<br>\qquad 12. \qquad\quad 将分支节点标记为叶节点，其类别标记为D_i中样本最多的类；\; then \\<br>\qquad 13. \quad\;\; else \\<br>\qquad 14. \qquad\quad 以T(D_i, F-\{f^{\ast}\})为分支节点；\quad // 递归过程 \\<br>\qquad 15. \quad\;\; endif \\<br>\qquad 16. \; done<br>\\\}<br>\)</p>
-<p>决策树学习过程中递归的每一步，在选择最优特征后，根据特征取值切割当前节点的数据集，得到若干数据子集。注意，数据子集是根据当前特征的取值划分的，因此决策树学习过程可以认为是特征空间划分的过程。每一个特征子空间对应决策树中的一个叶子节点，特征子空间对应的类别就是叶子节点对应数据子集中样本数最好的类别。</p>
+<p>\(<br>\{ \\<br>\quad输入: 训练数据集D=\{(x^{(1)},y^{(1)}), (x^{(2)},y^{(2)}), \cdots, (x^{(m)},y^{(m)}) \} \; (特征用离散值表示); \\<br>\qquad\quad\; 候选特征集F=\{f^1, f^2, \cdots, f^n\} \\<br>\quad输出：一颗决策树T(D,F) \\<br>\quad学习过程：\\<br>\qquad 01. \;\; 创建节点node; \\<br>\quad\;\;\;02. \;\; if \; D中样本全属于同一类别C； \; then \\<br>\qquad 03. \qquad 将node作为叶节点，用类别C标记，返回； \\<br>\qquad 04. \; endif \\<br>\qquad 05. \;\; if \; F为空（F=\emptyset）or \; D中样本在F的取值相同；\; then \\<br>\qquad 06. \qquad 将node作为叶节点，其类别标记为D中样本数最多的类（多数表决），返回； \\<br>\qquad 07. \;\underline{ 选择F中最优特征，得到f^{\ast}(f^{\ast} \in F) }； \\<br>\qquad 08. \;标记节点node为f^{\ast} \\<br>\qquad 09. \;\; for \; f^{\ast} \;中的每一个已知值f_{i}^{\ast}; \; do \\<br>\qquad 10. \quad\;\; 为节点node生成一个分支；令D_i表示D中在特征f^{\ast}上取值为f_i^{\ast}的样本子集； \; //划分子集 \\<br>\qquad 11. \quad\;\; if \; D_i为空；\; then \\<br>\qquad 12. \qquad\quad 将分支节点标记为叶节点，其类别标记为D_i中样本最多的类；\; then \\<br>\qquad 13. \quad\;\; else \\<br>\qquad 14. \qquad\quad 以T(D_i, F-\{f^{\ast}\})为分支节点；\quad // 递归过程 \\<br>\qquad 15. \quad\;\; endif \\<br>\qquad 16. \; done<br>\\\}<br>\)</p>
+<p>决策树学习过程中递归的每一步，在选择最优特征后，根据特征取值切割当前节点的数据集，得到若干数据子集。由于决策树学习过程是递归的选择最优特征，因此可以理解为这是一个特征空间划分的过程。每一个特征子空间对应决策树中的一个叶子节点，特征子空间相应的类别就是叶子节点对应数据子集中样本数最多的类别。</p>
 <p><br></p>
 <h3 id="特征选择方法"><strong>特征选择方法</strong></h3><hr>
-<p>上面我们提到，递归地选择最优特征，根据特征取值切割数据集，使得对应的数据自己有一个较好的分类。那么，如何评价数据子集能对应一个最好的分类呢？如果子集中的样本都属于同一个类别，当然是最好的结果；如果说大多数的样本类型相同，只有少部分是有不同，也是可以接受的。</p>
-<p>在决策树中我们学习</p>
-<p>决策树学习过程中，最重要的是第07行，即如何选择最优划分特征。也就是我们常说的特征选择选择问题。</p>
-<p>特征选择，顾名思义，就是将特征的重要程度量化之后再进行选择，而如何量化特征的重要性，就成了各种方法间最大的区别。</p>
+<p>上面多次提到递归地选择最优特征，根据特征取值切割数据集，使得对应的数据子集有一个较好的分类。从伪代码中也可以看出，在决策树学习过程中，最重要的是第07行，即如何选择最优特征？也就是我们常说的特征选择选择问题。</p>
+<p>顾名思义，特征选择就是将特征的重要程度量化之后再进行选择，而如何量化特征的重要性，就成了各种方法间最大的区别。</p>
 <blockquote>
-<p>例如卡方检验、Spearman法、<a href="http://www.52caml.com/head_first_ml/ml-chapter2-entropy-based-family/#互信息" target="_blank" rel="external">互信息</a>等使用<code>&lt;feature, label&gt;</code>之间的<strong>关联性</strong>来进行这个量化，关联性越强，特征得分越高，该特征越应该被优先选择。</p>
+<p>例如卡方检验、斯皮尔曼法（Spearman）、<a href="http://www.52caml.com/head_first_ml/ml-chapter2-entropy-based-family/#互信息" target="_blank" rel="external">互信息</a>等使用<code>&lt;feature, label&gt;</code>之间的<strong>关联性</strong>来进行量化<code>feature</code>的重要程度。关联性越强，特征得分越高，该特征越应该被优先选择。</p>
 </blockquote>
-<p>在这里，我们希望随着特征划分过程不断进行，希望决策树的分支节点（对应特征）所包含的样本尽可能属于同一类别，即希望节点的”纯度（purity）”越来越高。</p>
+<p>在这里，希望随着特征选择过程地不断进行，决策树的分支节点所包含的样本尽可能属于<br>同一类别，即希望节点的”纯度（purity）”越来越高。</p>
+<blockquote>
+<p>如果子集中的样本都属于同一个类别，当然是最好的结果；如果说大多数的样本类型相同，只有少部分样本不同，也可以接受。</p>
+</blockquote>
 <p>那么如何才能做到选择的特征对应的样本子集纯度最高呢？</p>
+<p>ID3算法用<strong>信息增益</strong>来刻画样例集的纯度;C4.5算法采用<strong>增益率</strong>;</p>
 <ul>
-<li><p>ID3算法用<strong>信息增益</strong>来刻画样例集的”纯度”</p>
-<blockquote>
-<p>信息增益思想：衡量特征的重要性是根据特征为当前划分带来多少信息，带来的信息越多，该特征就越重要，此时节点的”纯度”也就越高。</p>
-</blockquote>
-</li>
-<li><p>C4.5算法采用<strong>增益率</strong>刻画样例集的纯度</p>
-</li>
 <li>CART算法采用<strong>基尼指数</strong>来刻画样例集纯度</li>
 </ul>
 <p><br></p>
-<h4 id="ID3-信息增益"><strong>ID3-信息增益</strong></h4><p>信息增益基于<a href="">信息熵</a>，</p>
+<h4 id="信息增益－ID3"><strong>信息增益－ID3</strong></h4><hr>
+<p>信息增益（Information Gain，简称IG）衡量特征的重要性是根据<strong>当前特征为划分带来多少信息量，带来的信息越多，该特征就越重要，此时节点的”纯度”也就越高。</strong></p>
+<p>分类系统的信息熵，我们在<a href="http://www.52caml.com/head_first_ml/ml-chapter2-entropy-based-family/#熵与信息熵" target="_blank" rel="external">第02章：熵与信息熵</a>部分已经给出计算公式，这里再复习一下：</p>
 <blockquote>
-<p>信息熵相关知识，之前已经在<a href="http://www.52caml.com/head_first_ml/ml-chapter2-entropy-based-family/" target="_blank" rel="external">《第02章：深入浅出ML之Entropy-Based家族》</a>给出了详细的介绍。信息增益的计算依赖信息熵相关计算。</p>
+<p>对一个分类系统来说，假设类别\(C\)可能的取值为\(c_1, c_2, \cdots, c_k\)（\(k\)是类别总数），每一个类别出现的概率分别是\(p(c_1),p(c_2), \cdots, p(c_k)\)。此时，分类系统的熵可以表示为:</p>
+<p>$$<br>H(C) = - \sum_{i=1}^{k} p(c_i) \cdot \log_{2} p(c_i) \qquad (n.ml.1.3.1)<br>$$</p>
+<p>分类系统的作用就是输出一个特征向量（文本特征、ID特征、特征特征等）属于哪个类别的值，而这个值可能是\(c_1, c_2, \cdots, c_k\)，因此这个值所携带的信息量就是公式\((n.ml.1.3.1)\)这么多。</p>
 </blockquote>
-<p>从第02章中我们已经知道，熵确定了要编码集合S中任意成员（即以均匀的概率随机抽出的一个成员）的分类所需要的最小二进制位数。</p>
-<p>先给出信息熵和信息增益的公式表达；</p>
-<p>然后给出信息增益＝信息熵－条件熵</p>
-<p>最后结合本示例，给出outlook的为特征</p>
-<p>删除教室举例</p>
-<pre><code>如何度量一个特征<span class="command">\\</span>(t<span class="command">\\</span>)给系统带来的信息量呢？直观的，可以先分别求出系统有特征<span class="command">\\</span>(t<span class="command">\\</span>)和没特征<span class="command">\\</span>(t<span class="command">\\</span>)时对应的信息量，两者的差值就是这个特征<span class="command">\\</span>(t<span class="command">\\</span>)给系统带来的信息量，即增益。
-
-系统含有特征<span class="command">\\</span>(t<span class="command">\\</span>)时信息量容易计算，即分类系统的信息熵，根据<span class="special">[</span><span class="command">\\</span>((ml.1.2.1)<span class="command">\\</span>)信息熵计算公式<span class="special">]</span>(http://www.52caml.com/head_first_ml/ml-chapter2-entropy-based-family/<span class="special">#</span>熵与信息熵)（即包含所有特征时系统的信息量）。
-
-&gt; 对于一个分类系统来说，假设类别<span class="command">\\</span>(C<span class="command">\\</span>)可能的取值为<span class="command">\\</span>(c_1, c_2, <span class="command">\cdots</span>, c_k<span class="command">\\</span>)（<span class="command">\\</span>(k<span class="command">\\</span>)是类别总数），每一个类别出现的概率分别是<span class="command">\\</span>(p(c_1),p(c_2), <span class="command">\cdots</span>, p(c_k)<span class="command">\\</span>)。此时，分类系统的熵可以表示为:
-&gt;
-<span class="formula">$$
-H(C) = - <span class="command">\sum</span>_<span class="special">{</span>i=1<span class="special">}</span>^<span class="special">{</span>k<span class="special">}</span> p(c_i) <span class="command">\cdot</span> <span class="command">\log</span>_<span class="special">{</span>2<span class="special">}</span> p(c_i) <span class="command">\qquad</span> (n.ml.1.3.1)
-$$</span>
-&gt;
-&gt; 分类系统的作用就是输出一个特征向量（文本特征、ID特征、特征特征等）属于哪个类别的值，而这个值可能是<span class="command">\\</span>(c_1, c_2, <span class="command">\cdots</span>, c_k<span class="command">\\</span>)，因此这个值所携带的信息量就是公式<span class="command">\\</span>((n.ml.1.3.1)<span class="command">\\</span>)这么多。
-
-问题：**当系统不包含特征<span class="command">\\</span>(t<span class="command">\\</span>)时，如何计算信息量？**
-
-这里，我们换一个角度来思考该问题，把系统要做的事情想象成这样：
-
-&gt; “ 说教室里有很多座位，同学们每次上课进来时可以随便坐，因而座位变化是很大的（无数种可能的座次情况）；但现在有一个座位，看黑板很清楚，听老师讲课也很清楚，被校长家亲戚的孩子托关系，把这个座位定下来了，每次只能给她坐，其他人不可以。”
-&gt;
-&gt; 可以看到，对于座次的可能情况来说，很容易得出以下两种情况是等价的：①. 教室里没有这个座位；②.     教室里虽然有这个位置，但其它人不能坐（因为它不参与到变化中来，是不变的）。
-&gt; 
-&gt; 对应到一个分类系统来说，就是下面条件等价：①. 系统不包含特征<span class="command">\\</span>(t<span class="command">\\</span>)；②.系统虽然包含特征<span class="command">\\</span>(t<span class="command">\\</span>)，但是<span class="command">\\</span>(t<span class="command">\\</span>)已经固定了，不能变化。
-
-当我们不包含分类系统特征<span class="command">\\</span>(t<span class="command">\\</span>)的时候，就用情况②来代替，就是计算当一个特征<span class="command">\\</span>(t<span class="command">\\</span>)不能变化时，系统的信息量是多少。这个信息量有个专门的术语，叫做<span class="special">[</span>条件熵<span class="special">]</span>(http://www.52caml.com/head_first_ml/ml-chapter2-entropy-based-family/<span class="special">#</span>条件熵)。顾名思义，是指固定某些变量后，系统的信息度量值。那么问题接踵而至：
-
-&gt; 例如，一个特征<span class="command">\\</span>(t<span class="command">\\</span>)，可能的取值有<span class="command">\\</span>(k<span class="command">\\</span>)种（<span class="command">\\</span>(t_1, t_2, <span class="command">\cdots</span>, t_k<span class="command">\\</span>)），当计算条件熵<span class="special">&amp;</span><span class="special">&amp;</span>需要固定<span class="command">\\</span>(t<span class="command">\\</span>)的时候，应该把它固定在哪个值上呢？
-&gt;
-&gt; 答案是每一个值都要固定，计算<span class="command">\\</span>(k<span class="command">\\</span>)个值，然后取均值才是条件熵。求均值时要用每个值出现的概率来算平均，并非简单的相加除以<span class="command">\\</span>(k<span class="command">\\</span>)。
-
-条件熵表达式：假设特征<span class="command">\\</span>(t<span class="command">\\</span>)的取值有<span class="command">\\</span>(k<span class="command">\\</span>)个，<span class="command">\\</span>(H(C|t=t_i)<span class="command">\\</span>) 是指特征<span class="command">\\</span>(t<span class="command">\\</span>)被固定为值<span class="command">\\</span>(t_i<span class="command">\\</span>)时的条件熵；<span class="command">\\</span>(H(C|t)<span class="command">\\</span>)是指特征<span class="command">\\</span>(t<span class="command">\\</span>)被固定时的条件熵。二者之间的关系是：
-
-&gt;<span class="formula">$$</span>
-</code></pre><p>\begin{align}<br>H(C|t) &amp; = p_1 \cdot H(C|t=t_1) + p_2 \cdot H(C|t=t_2) + \cdots + p_k \cdot H(C|t=t_{k}) \\<br>&amp; = \sum_{i=1}^{k} p_i \cdot H(C|t=t_i)<br>\end{align}        \quad (n.ml.1.3.2)<br>    $$</p>
-<pre><code>接下来的问题是：如何求解<span class="command">\\</span>(P(C|T=t_i)？<span class="command">\\</span>)
-
-&gt; 以二分类为例（正例为1，负例为0），假设总样本数为<span class="command">\\</span>(m<span class="command">\\</span>)条，特征<span class="command">\\</span>(t<span class="command">\\</span>)的取值为<span class="command">\\</span>(k<span class="command">\\</span>)个，其中特征<span class="command">\\</span>(t=t_i<span class="command">\\</span>)对应的样本数为<span class="command">\\</span>(m_i<span class="command">\\</span>)条，其中正例<span class="command">\\</span>(m_<span class="special">{</span>i1<span class="special">}</span><span class="command">\\</span>)条，负例<span class="command">\\</span>(m_<span class="special">{</span>i0<span class="special">}</span><span class="command">\\</span>)条（即<span class="command">\\</span>(m_i=m_<span class="special">{</span>i0<span class="special">}</span> + m_<span class="special">{</span>i1<span class="special">}</span><span class="command">\\</span>)）。那么有：
-&gt; 
-&gt; <span class="formula">$$ </span>
-</code></pre><p>\begin{align}<br>P(C|T=t_i) &amp; = - \frac{m_{i1}}{m_i} \cdot log_{2} \frac{m_{i1}}{m_i} - \frac{m_{i0}}{m_i} \cdot log_{2} \frac{m_{i0}}{m_i} \\<br>&amp; = -\sum_{j=0}^{K-1} \frac{m_{ij}}{m_i} \cdot log_{2} \frac{m_{ij}}{m_i}<br>\end{align} \qquad (n.ml.1.3.3)<br>    $$</p>
-<pre><code>&gt; 
-&gt; 这里<span class="command">\\</span>(K=2<span class="command">\\</span>)表示分类的类别数,其中<span class="command">\\</span>( p_i = <span class="command">\frac</span> <span class="special">{</span>m_i<span class="special">}</span><span class="special">{</span>m<span class="special">}</span>，等价于p(T=t_i) <span class="command">\\</span>)。而公式<span class="command">\\</span>(<span class="command">\frac</span><span class="special">{</span>m_<span class="special">{</span>ij<span class="special">}</span><span class="special">}</span><span class="special">{</span>m_i<span class="special">}</span><span class="command">\\</span>)物理含义是当<span class="command">\\</span>(t=t_i<span class="command">\\</span>)时，<span class="command">\\</span>(C=c_j<span class="command">\\</span>)的概率，即条件概率<span class="command">\\</span>(p(c_j|t_i)<span class="command">\\</span>)。
-&gt;
-&gt;因此，条件熵计算公式为：
-&gt;
-&gt;<span class="formula">$$</span>
-</code></pre><p>\begin{align}<br>H(C|T) &amp; = \sum_{i=1}^{n} p(t_i) \cdot H(C|T=t_i) \\<br>&amp; = - \sum_{i=1}^{n} p(t_i) \cdot \sum_{j=1}^{k} p(c_j|t_i) \cdot log_2 p(c_j|t_i) \\<br>&amp; = - \sum_{i=1}^{n} \sum_{j=1}^{k} p(c_j,t_i) \cdot log_2 p(c_j|t_i)<br>\end{align} \qquad (n.ml.1.3.4)<br>    $$</p>
-<ul>
-<li><p>信息增益计算</p>
-<p>  特征\(a\)给系统带来的信息增益等于<strong>系统原有的熵与固定特征\(a\)后的条件熵之差</strong>，公式表示如下:</p>
-<p>  $$<br>\begin{align}<br>IG(T) &amp; = H(C) - H(C|T) \\<br>&amp; = -\sum_{i=1}^{K} p(c_i) \cdot \log_{2} p(c_i) + \sum_{i=1}^{k} \sum_{j=1}^{K} p(c_j,t_i) \cdot \log_2 p(c_j|t_i)<br>\end{align}  \qquad(ml.1.3.1)<br>  $$</p>
-<p>  \(k表示特征t取值个数，K表示类别C个数，\sum_{j=0}^{K-1} \frac{m_{ij}}{m_i} \cdot log_{2} \frac{m_{ij}}{m_i}表示每一个类别对应的熵。\)</p>
-</li>
-<li><p>信息增益示例</p>
+<p>假设离散特征\(t\)的取值有\(I\)个，\(H(C|t=t_i)\) 表示特征\(t\)被取值为\(t_i\)时的条件熵；\(H(C|t)\)是指特征\(t\)被固定时的条件熵。二者之间的关系是：</p>
 <blockquote>
-<p>以天气数据为例，根据wind（是否刮风）、temperature（温度）、humidity（湿度）和outlook（阴晴）来决定是否出去玩（play）。样本中总共有14条记录，取值为yes和no的记录分别是9和5，即9个正样本、5个负样本，用\(S(9+,5-)\)表示，S表示样本(sample)的意思。<br> <br><br>定义：根据category数计算信息熵公式</p>
-<p>   $$<br>   info (m_1,m_2, \cdots, m_K) = - \sum_{i=1}^{K} \frac{m_i}{m} * log_{2} (\frac{m_i}{m})    \qquad(n.ml.1.3.5)<br>   $$</p>
-<p>注：该公式在下面的示例计算熵与条件熵时会用到。</p>
+<p>$$<br>\begin{align}<br>H(C|t) &amp; = p_1 \cdot H(C|t=t_1) + p_2 \cdot H(C|t=t_2) + \cdots + p_k \cdot H(C|t=t_{n}) \\<br>&amp; = \sum_{i=1}^{I} p_i \cdot H(C|t=t_i)<br>\end{align}        \quad (n.ml.1.3.2)<br>$$</p>
+<p>假设总样本数有\(m\)条，特征\(t=t_i\)时的样本数\(m_i\)，\(p_i=\frac{m_i}{m}\).</p>
+</blockquote>
+<p>接下来，如何求\(P(C|T=t_i)？\)</p>
+<blockquote>
+<p>以二分类为例（正例为1，负例为0），总样本数为\(m\)条，特征\(t\)的取值为\(I\)个，其中特征\(t=t_i\)对应的样本数为\(m_i\)条，其中正例\(m_{i1}\)条，负例\(m_{i0}\)条（即\(m_i=m_{i0} + m_{i1}\)）。那么有：</p>
+<p>$$<br>\begin{align}<br>P(C|T=t_i) &amp; = - \frac{m_{i1}}{m_i} \cdot log_{2} \frac{m_{i1}}{m_i} - \frac{m_{i0}}{m_i} \cdot log_{2} \frac{m_{i0}}{m_i} \\<br>&amp; = -\sum_{j=0}^{k-1} \frac{m_{ij}}{m_i} \cdot log_{2} \frac{m_{ij}}{m_i}<br>\end{align} \qquad (n.ml.1.3.3)<br>$$</p>
+<p>这里\(k=2\)表示分类的类别数，公式\(\frac{m_{ij}}{m_i}\)物理含义是当\(t=t_i\)且\(C=c_j\)的概率，即条件概率\(p(c_j|t_i)\)。</p>
+<p>因此，条件熵计算公式为：</p>
+<p>$$<br>\begin{align}<br>H(C|t) &amp; = \sum_{i=1}^{I} p(t_i) \cdot H(C|t=t_i) \\<br>&amp; = - \sum_{i=1}^{I} p(t_i) \cdot \underline { \sum_{j=0}^{k-1} p(c_j|t_i) \cdot log_2 p(c_j|t_i) } \\<br>&amp; = - \sum_{i=1}^{I} \sum_{j=o}^{k-1} p(c_j,t_i) \cdot log_2 p(c_j|t_i)<br>\end{align} \qquad (n.ml.1.3.4)<br>    $$</p>
+</blockquote>
+<p>特征\(t\)给系统带来的信息增益等于<strong>系统原有的熵与固定特征\(t\)后的条件熵之差</strong>，公式表示如下:</p>
+<p>$$<br>\begin{align}<br>IG(T) &amp; = H(C) - H(C|T) \\<br>&amp; = -\sum_{i=1}^{k} p(c_i) \cdot \log_{2} p(c_i) + \sum_{i=1}^{n} \sum_{j=1}^{k} p(c_j,t_i) \cdot \log_2 p(c_j|t_i)<br>\end{align}  \qquad(ml.1.3.1)<br>    $$</p>
+<p>\(n表示特征t取值个数，k表示类别C个数，\sum_{j=0}^{n-1} \frac{m_{ij}}{m_i} \cdot log_{2} \frac{m_{ij}}{m_i}表示每一个类别对应的熵。\)</p>
+<p>下面以天气数据为例，介绍通过信息增益选择最优特征的工作过程：</p>
+<blockquote>
+<p>根据阴晴、温度、湿度和刮风来决定是否出去玩。样本中总共有14条记录，取值为“是”和“否”的yangebnshu分别是9和5，即9个正样本、5个负样本，用\(S(9+,5-)\)表示，S表示样本(sample)的意思。<br> <br></p>
 <p>(1). 分类系统的熵:</p>
-<p>   $$<br>   Entropy(S) = info(9,5) = -\frac{9}{14} _ log_2 (\frac{9}{14}) - \frac{5}{14} _ log_2 (\frac{5}{14}) = 0.940位    \quad(exp.1.3.1)<br>   $$</p>
-<p>(2). 如果以特征outlook（阴晴）作为根节点。outlook取值为{sunny, overcast, rainy}, 3个取值对应的正负样本数分别为(2+,3-), (4+,0-), (3+,2-)，那么在这三个节点上的信息熵分别为：</p>
-<p>   $$<br>   \begin{align_}<br>   &amp; Entropy(S|outlook=sunny) = info(2,3) = 0.971位  \quad(exp.1.3.2.1) \\<br>   &amp; Entropy(S|outlook=overcast) = info(4,0) = 0位  \;\;\quad(exp.1.3.2.2) \\<br>   &amp; Entropy(S|outlook=rainy) = info(3,2) = 0.971位  \;\quad(exp.1.3.2.3)<br>   \end{align_}<br>   $$</p>
-<p>以特征outlook为根节点，平均信息值（即条件熵）为：<br></p>
-<p>   $$<br>   Entropy(S|outlook) = \frac{5}{14} _ 0.971 + \frac{4}{14} _ 0 + \frac{5}{14} * 0.971 = 0.693位 \quad (exp.1.3.2)<br>   $$</p>
-<p>以特征\(outlook\)为条件，计算得到的条件熵代表了期望的信息总量，即对于一个新样本判定其属于哪个类别所必需的信息量。<br><br><br>(3). 计算特征\(outlook\)对应的信息增益:</p>
-<p>   $$<br>   IG(outlook) = Entropy(S) - Entropy(S|outlook) = 0.247位 \quad(exp.1.3.3.1)<br>   $$</p>
+<p>$$<br>Entropy(S) = info(9,5) = -\frac{9}{14} _ log_2 (\frac{9}{14}) - \frac{5}{14} _ log_2 (\frac{5}{14}) = 0.940位    \quad(exp.1.3.1)<br>$$</p>
+<p>(2). 如果以特征”阴晴”作为根节点。“阴晴”取值为{sunny, overcast, rainy}, 分别对应的正负样本数分别为(2+,3-), (4+,0-), (3+,2-)，那么在这三个节点上的信息熵分别为：</p>
+<p>$$<br>\begin{align}<br>&amp; Entropy(S| “阴晴”=sunny) = info(2,3) = 0.971位  \quad(exp.1.3.2.1) \\<br>&amp; Entropy(S| “阴晴”=overcast) = info(4,0) = 0位  \;\;\quad(exp.1.3.2.2) \\<br>&amp; Entropy(S| “阴晴”=rainy) = info(3,2) = 0.971位  \;\quad(exp.1.3.2.3)<br>\end{align}<br>$$</p>
+<p>以特“阴晴”为根节点，平均信息值（即条件熵）为：<br></p>
+<p>$$<br>Entropy(S| “阴晴”) = \frac{5}{14} _ 0.971 + \frac{4}{14} _ 0 + \frac{5}{14} * 0.971 = 0.693位 \quad (exp.1.3.2)<br>$$</p>
+<p>以特征\( “阴晴”\)为条件，计算得到的条件熵代表了期望的信息总量，即对于一个新样本判定其属于哪个类别所必需的信息量。<br><br><br>(3). 计算特征\( “阴晴”\)对应的信息增益:</p>
+<p>$$<br>IG( “阴晴”) = Entropy(S) - Entropy(S| “阴晴”) = 0.247位 \quad(exp.1.3.3.1)<br>$$</p>
 <p>同样的计算方法，可得每个特征对应的信息增益，即</p>
-<p>   $$<br>   IG(windy) = Entropy(S) - Entropy(S|windy) = 0.048位 \qquad\qquad\quad(exp.1.3.3.2) \\<br>   IG(humidity) = Entropy(S) - Entropy(S|humidity) = 0.152位 \quad\qquad(exp.1.3.3.3) \\<br>   IG(temperature) = Entropy(S) - Entropy(S|temperature) = 0.029位 \;\;(exp.1.3.3.4)<br>   $$</p>
+<p>$$<br>IG(“刮风”) = Entropy(S) - Entropy(S|“刮风”) = 0.048位 \qquad\qquad(exp.1.3.3.2) \\<br>IG(“湿度”) = Entropy(S) - Entropy(S|“湿度”) = 0.152位 \qquad\qquad(exp.1.3.3.3) \\<br>IG(“温度”) = Entropy(S) - Entropy(S|“温度”) = 0.029位 \qquad\qquad(exp.1.3.3.4)<br>$$</p>
 </blockquote>
-<p>  显然，特征”Outlook”的信息增益最大，于是把它作为划分特征。基于”Outlook”对根节点进行划分的结果如下：</p>
-<p>  (跟节点划分示意图)</p>
-</li>
-</ul>
-<pre><code>然后，决策树学习算法将对子节点进一步划分，重复上面的步骤。最终会得到一颗基于<span class="keyword">*</span><span class="keyword">*</span>信息增益<span class="keyword">*</span><span class="keyword">*</span>特征划分得到的决策树。
-
-(基于信息增益特征划分得到的决策树)
-
-ID3算法是按照信息增益进行最优特征选择的。
-</code></pre><ul>
-<li><p>IG存在的问题</p>
+<p>显然，特征“阴晴”的信息增益最大，于是把它作为划分特征。基于“阴晴”对根节点进行划分的结果，如图4.5所示（决策树学习过程部分）。决策树学习算法对子节点进一步划分，重复上面的计算步骤。</p>
+<p>用信息增益选择最优特征，并不是完美的，存在问题或缺点主要有以下两个：</p>
 <ul>
-<li><strong>倾向于选择拥有较多特征值的特征</strong><ul>
-<li>尤其feature集中包含ID类特征时，ID类特征会被选择分裂特征，但在该类特征上的分支对预测未知样本的类别并无帮助，也没能得到任何有关决策的结构，导致过拟合发生。</li>
-</ul>
-</li>
-<li><p><strong>只能考察特征对整个系统的贡献，而不能具体到某个类别上；</strong></p>
-<ul>
-<li>这就使得它只适合用来做所谓“全局”的特征选择（指所有的类都使用相同的特征集合），而无法做“本地”的特征选择（对于文本分类来讲，每个类别有自己的特征集合，因为有的词项（word item）对一个类别很有区分度，对另一个类别则无足轻重）</li>
-</ul>
-<p>为了弥补信息增益这一缺点，一个被称为<strong>增益率（Gain Ratio）</strong>的信息度量修正方法被采用。</p>
-</li>
-</ul>
-</li>
-</ul>
-<p><br>     </p>
-<h4 id="增益率"><strong>增益率</strong></h4><p>与信息增益不同，信息增益率的计算考虑了<strong>特征分裂数据集后所产生的子节点的数量和规模，而忽略任何有关类别的信息</strong>。</p>
+<li><p><strong>倾向于选择拥有较多取值的特征</strong></p>
 <blockquote>
-<p>以3.1.2.1节信息增益示例为例，按照特征outlook将数据集分裂成3个子集，规模分别为5、4和5，因此不考虑子集中所包含的类别，产生一个分裂信息为：</p>
-<p>$$<br>SplitInfo(outlook) = info(5,4,5) = 1.577位 \qquad(exp.1.3.4)<br>$$</p>
+<p>尤其特征集中包含ID类特征时，ID类特征会最先被选择为分裂特征，但在该类特征上的分支对预测未知样本的类别并无意义，降低了决策树模型的泛化能力，也容易使模型易发生过拟合。</p>
+</blockquote>
+</li>
+<li><p><strong>只能考察特征对整个系统的贡献，而不能具体到某个类别上</strong></p>
+<blockquote>
+<p>信息增益只适合用来做所谓“全局”的特征选择（指所有的类都使用相同的特征集合），而无法做“本地”的特征选择（对于文本分类来讲，每个类别有自己的特征集合，因为有的词项（word item）对一个类别很有区分度，对另一个类别则无足轻重）。</p>
+</blockquote>
+</li>
+</ul>
+<p>为了弥补信息增益这一缺点，一个被称为<strong>增益率（Gain Ratio）</strong>的修正方法被用来做最优特征选择。</p>
+<p><br>     </p>
+<h4 id="增益率"><strong>增益率</strong></h4><hr>
+<p>与信息增益不同，信息增益率的计算考虑了<strong>特征分裂数据集后所产生的子节点的数量和规模，而忽略任何有关类别的信息</strong>。</p>
+<blockquote>
+<p>以信息增益示例为例，按照特征“阴晴”将数据集分裂成3个子集，规模分别为5、4和5，因此不考虑子集中所包含的类别，产生一个分裂信息为：</p>
+<p>$$<br>SplitInfo(“阴晴”) = info(5,4,5) = 1.577位 \qquad(exp.1.3.4)<br>$$</p>
 <p>分裂信息熵（Split Information）可简单地理解为<strong>表示信息分支所需要的信息量</strong>。 <br><br>那么信息增益率：</p>
 <p>$$<br>IG_{ratio}(T) = \frac{IG(T)}{SplitInfo(T)} \qquad(n.ml.1.3.3)<br>$$</p>
-<p>在这里，特征outlook的信息增益率为\(IG_{ratio}(outlook)=\frac{0.247}{1.577} = 0.157\)。减少信息增益方法对取值数较多的特征的影响。</p>
+<p>在这里，特征 “阴晴”的信息增益率为\(IG_{ratio}( “阴晴”)=\frac{0.247}{1.577} = 0.157\)。减少信息增益方法对取值数较多的特征的影响。</p>
 </blockquote>
 <p><br></p>
-<h4 id="基尼指数"><strong>基尼指数</strong></h4><p>基尼指数（Gini Index）是另外一种数据不纯度的度量方法。</p>
+<h4 id="基尼指数"><strong>基尼指数</strong></h4><hr>
+<p>基尼指数（Gini Index）是另外一种数据不纯度的度量方法。</p>
 <ul>
 <li><p>基尼指数定义：</p>
 <p>  这里同样以分类系统为例，理解基尼指数的含义：</p>
@@ -639,41 +566,26 @@ ID3算法是按照信息增益进行最优特征选择的。
 <p>  $$<br>  Gini(C) = 1 - \sum_{i=1}^{k} {p_i}^2    \qquad(ml.1.3.4)<br>  $$</p>
 <blockquote>
 <p>其中\(p(c_i) = \frac{类别属于c_i的样本数}{总样本数n}\)。可以看出，如果所有的样本都属于同一个类别，则\(p_1=1,Gini(C)=0\)，此时数据不纯度最低。</p>
-<p>在下面介绍的CART(Classification And Regression Tree，分类与回归树)算法中利用基尼指数都早二叉决策树，对每个特征都会枚举其特征的非空真子集，以特征outlook分裂后的基尼指数为：</p>
-<p>  $$<br>  Gini_{outlook}(C) = \frac{|C_1|}{|C|} Gini(C1) + \frac{|C_2|}{|C|} Gini(C_2) + \frac{|C_3|}{|C|} Gini(C_3) \qquad(n.ml.1.3.4)<br>  $$</p>
+<p>在下面介绍的CART(Classification And Regression Tree，分类与回归树)算法中利用基尼指数都早二叉决策树，对每个特征都会枚举其特征的非空真子集，以特征 “阴晴”分裂后的基尼指数为：</p>
+<p>  $$<br>  Gini_{ “阴晴”}(C) = \frac{|C_1|}{|C|} Gini(C1) + \frac{|C_2|}{|C|} Gini(C_2) + \frac{|C_3|}{|C|} Gini(C_3) \qquad(n.ml.1.3.4)<br>  $$</p>
 </blockquote>
 </li>
 </ul>
-<p><br></p>
-<h3 id="决策树－ID3">决策树－ID3</h3><hr>
-<p><br></p>
-<h3 id="决策树－C4-5">决策树－C4.5</h3><hr>
 <p><br></p>
 <h3 id="分类与回归树">分类与回归树</h3><hr>
 <p><br></p>
-<h3 id="随机森林">随机森林</h3><hr>
-<h3 id="3-1-_基本概念">3.1. 基本概念</h3><h4 id="3-1-1-_熵与信息熵">3.1.1. 熵与信息熵</h4><p>关于熵的相关介绍，参考<a href="http://www.52caml.com/head_first_ml/ml-chapter2-entropy-based-family/" target="_blank" rel="external">《第02章：深入浅出ML之Entropy-Based家族》</a></p>
-<h4 id="3-1-2-_特征选择方法">3.1.2. 特征选择方法</h4><p>在基于树的分类模型中，特征选择方法总是选择最好的特征作为分类特征，目标是让每个分支的记录的类别尽可能纯。基本处理过程就是将所有特征列表中的特征按照<strong>某个标准排序</strong>，从而选择最好的特征。</p>
-<p>特征选择方法有很多，这里先介绍在树模型中常用的3个特征选择方法：信息增益、增益比率和基尼指数。</p>
-<h5 id="3-1-2-1-_信息增益（Information_Gain）">3.1.2.1. 信息增益（Information Gain）</h5><h5 id="3-1-2-3-_基尼指数（Gini_Index）">3.1.2.3. 基尼指数（Gini Index）</h5><p>基尼指数是另外一种数据不纯度的度量方法。</p>
+<h3 id="Next">Next</h3><hr>
 <ul>
-<li><p>基尼指数定义：</p>
-<p>  这里同样以分类系统为例，理解基尼指数的含义：</p>
-<blockquote>
-<p>假设分类系统中，类别\(C\)可能的取值为\(c_1, c_2, \cdots, c_k\)（\(k\)是类别总数），一个样本属于类别\(c_i\)的概率为\(p(c_i)\)。</p>
-</blockquote>
-<p>  那么基尼指数公式表示为：</p>
-<p>  $$<br>  Gini(C) = 1 - \sum_{i=1}^{k} {p_i}^2    \qquad(ml.1.3.4)<br>  $$</p>
-<blockquote>
-<p>其中\(p(c_i) = \frac{类别属于c_i的样本数}{总样本数n}\)。可以看出，如果所有的样本都属于同一个类别，则\(p_1=1,Gini(C)=0\)，此时数据不纯度最低。</p>
-<p>在下面介绍的CART(Classification And Regression Tree，分类与回归树)算法中利用基尼指数都早二叉决策树，对每个特征都会枚举其特征的非空真子集，以特征outlook分裂后的基尼指数为：</p>
-<p>  $$<br>  Gini_{outlook}(C) = \frac{|C_1|}{|C|} Gini(C1) + \frac{|C_2|}{|C|} Gini(C_2) + \frac{|C_3|}{|C|} Gini(C_3) \qquad(n.ml.1.3.4)<br>  $$</p>
-</blockquote>
-<p>  <a href="http://www.chawenti.com/articles/18892.html" target="_blank" rel="external">http://www.chawenti.com/articles/18892.html</a></p>
-</li>
+<li>随机森林</li>
 </ul>
-<pre><code>+ 参考：<span class="string">http:</span><span class="comment">//wenku.baidu.com/link?url=xMRoqqThIY5xC01z9AjL7VtAUYKlHHi7zEMl9gF4b-rbu-cxjLJDfQ0zlnwWT4maOnZp03Q4l1ioaB319vEQWb81YvB8udk9axZacVS26Qi</span>
-</code></pre>  
+<p><br></p>
+<h3 id="参考资料">参考资料</h3><ul>
+<li><a href="http://www.chawenti.com/articles/18892.html" target="_blank" rel="external">http://www.chawenti.com/articles/18892.html</a></li>
+<li><a href="http://wenku.baidu.com/link?url=xMRoqqThIY5xC01z9AjL7VtAUYKlHHi7zEMl9gF4b-rbu-cxjLJDfQ0zlnwWT4maOnZp03Q4l1ioaB319vEQWb81YvB8udk9axZacVS26Qi" target="_blank" rel="external">http://wenku.baidu.com/link?url=xMRoqqThIY5xC01z9AjL7VtAUYKlHHi7zEMl9gF4b-rbu-cxjLJDfQ0zlnwWT4maOnZp03Q4l1ioaB319vEQWb81YvB8udk9axZacVS26Qi</a></li>
+</ul>
+<hr>
+<p>更多信息请关注：<a href="http://www.52caml.com/" target="_blank" rel="external">计算广告与机器学习－CAML 技术共享平台</a></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -735,7 +647,7 @@ ID3算法是按照信息增益进行最优特征选择的。
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树学习过程"><span class="toc-number">2.</span> <span class="toc-text">决策树学习过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征选择方法"><span class="toc-number">3.</span> <span class="toc-text">特征选择方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ID3-信息增益"><span class="toc-number">3.1.</span> <span class="toc-text">ID3-信息增益</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#增益率"><span class="toc-number">3.2.</span> <span class="toc-text">增益率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基尼指数"><span class="toc-number">3.3.</span> <span class="toc-text">基尼指数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树－ID3"><span class="toc-number">4.</span> <span class="toc-text">决策树－ID3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树－C4-5"><span class="toc-number">5.</span> <span class="toc-text">决策树－C4.5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分类与回归树"><span class="toc-number">6.</span> <span class="toc-text">分类与回归树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#随机森林"><span class="toc-number">7.</span> <span class="toc-text">随机森林</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-_基本概念"><span class="toc-number">8.</span> <span class="toc-text">3.1. 基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-_熵与信息熵"><span class="toc-number">8.1.</span> <span class="toc-text">3.1.1. 熵与信息熵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-_特征选择方法"><span class="toc-number">8.2.</span> <span class="toc-text">3.1.2. 特征选择方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-2-1-_信息增益（Information_Gain）"><span class="toc-number">8.2.1.</span> <span class="toc-text">3.1.2.1. 信息增益（Information Gain）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-2-3-_基尼指数（Gini_Index）"><span class="toc-number">8.2.2.</span> <span class="toc-text">3.1.2.3. 基尼指数（Gini Index）</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树学习过程"><span class="toc-number">2.</span> <span class="toc-text">决策树学习过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征选择方法"><span class="toc-number">3.</span> <span class="toc-text">特征选择方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#信息增益－ID3"><span class="toc-number">3.1.</span> <span class="toc-text">信息增益－ID3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#增益率"><span class="toc-number">3.2.</span> <span class="toc-text">增益率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基尼指数"><span class="toc-number">3.3.</span> <span class="toc-text">基尼指数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分类与回归树"><span class="toc-number">4.</span> <span class="toc-text">分类与回归树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Next"><span class="toc-number">5.</span> <span class="toc-text">Next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol>
  
   </div>
 
