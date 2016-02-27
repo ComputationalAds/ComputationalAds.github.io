@@ -359,8 +359,135 @@ sina weibo: @周永_52ML
 <p><br></p>
 <h3 id="决策树学习过程">决策树学习过程</h3><hr>
 <p>图4.1~图4.4给出的仅仅是单层决策树，只有一个非叶节点（对应一个特征）。那么对于含有多个特征的分类问题来说，决策树的学习过程通常是一个通过递归选择最优划分特征，并根据该特征的取值情况对训练数据进行分割，使得切割后对应的<strong>数据子集有一个较好的分类</strong>的过程。</p>
+<blockquote>
 <p>为了更直观的解释决策树的学习过程，这里参考《数据挖掘－实用机器学习技术》一书中P69页提供的天气数据，根据天气情况决定是否出去玩，数据信息如下：</p>
-<p>&gt;<br>| ID | 阴晴 | 温度 | 湿度 | 刮风 | 玩 |<br>| :—: | —- | —- | —- | —- | :—: |<br>| 1 | sunny | hot | high | false | 否 |<br>| 2 | sunny | hot | high | true | 否 |<br>| 3 | overcast | hot | high | false | 是 |<br>| 4 | rainy | mild | high | false | 是 |<br>| 5 | rainy | cool | normal | false | 是 |<br>| 6 | rainy | cool | normal | true | 否 |<br>| 7 | overcast | cool | normal | true | 是 |<br>| 8 | sunny | mild | high |  false | 否 |<br>| 9 | sunny | cool | normal | false | 是 |<br>|10 | rainy | mild | normal | false | 是 |<br>|11 | sunny | mild | normal | true | 是 |<br>|12 | overcast | mild | high | true | 是 |<br>|13 | overcast | hot | normal | false | 是 |<br>|14 | rainy | mild | high | true | 否 |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">ID</th>
+<th>阴晴</th>
+<th>温度</th>
+<th>湿度</th>
+<th>刮风</th>
+<th style="text-align:center">玩</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td>sunny</td>
+<td>hot</td>
+<td>high</td>
+<td>false</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td>sunny</td>
+<td>hot</td>
+<td>high</td>
+<td>true</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td>overcast</td>
+<td>hot</td>
+<td>high</td>
+<td>false</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td>rainy</td>
+<td>mild</td>
+<td>high</td>
+<td>false</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td>rainy</td>
+<td>cool</td>
+<td>normal</td>
+<td>false</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td>rainy</td>
+<td>cool</td>
+<td>normal</td>
+<td>true</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td>overcast</td>
+<td>cool</td>
+<td>normal</td>
+<td>true</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td>sunny</td>
+<td>mild</td>
+<td>high</td>
+<td>false</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td>sunny</td>
+<td>cool</td>
+<td>normal</td>
+<td>false</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td>rainy</td>
+<td>mild</td>
+<td>normal</td>
+<td>false</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td>sunny</td>
+<td>mild</td>
+<td>normal</td>
+<td>true</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td>overcast</td>
+<td>mild</td>
+<td>high</td>
+<td>true</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td>overcast</td>
+<td>hot</td>
+<td>normal</td>
+<td>false</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">14</td>
+<td>rainy</td>
+<td>mild</td>
+<td>high</td>
+<td>true</td>
+<td style="text-align:center">否</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
 <p>利用ID3算法中的<strong>信息增益</strong>特征选择方法，递归的学习一棵决策树，得到树结构，如图4.5所示：</p>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_3_1_1_decision_tree_info_gain.png" width="550" height="400" alt="ID3-决策树示意图"></p>
 <p>假设 训练数据集\(D=\{(x^{(1)},y^{(1)}), (x^{(2)},y^{(2)}), \cdots, (x^{(m)},y^{(m)}) \} \) (特征用离散值表示)，候选特征集合\(F=\{f^1, f^2, \cdots, f^n\} \)。开始，建立根节点，将所有训练数据都置于根节点（\(m\)条样本）。从特征集合\(F\)中选择一个最优特征\(f^{\ast}\)，按照\(f^{\ast}\)取值讲训练数据集切分成若干子集，使得各个自己有一个在当前条件下最好的分类。</p>
