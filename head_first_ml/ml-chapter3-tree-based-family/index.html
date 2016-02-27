@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>深入浅出ML之Tree-Based家族 | 计算广告与机器学习</title>
+    <title>第03章：深入浅出ML之Tree-Based家族 | 计算广告与机器学习</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="ZhouYong">
@@ -18,17 +18,20 @@ sina weibo: @周永_52ML
 
 内容列表
 
-Decision Stump
-ID3
-C4.5
-CART
-Random Forest
+写在前面
+决策树学习过程
+特征选择方法
+决策树解读
+分类与回归树
+随机森林
 
 
 写在前面
-本章我想以一个例子作为直观引入，来介绍决策树的结构、学习过程以及具体方法在学习过程中的差异。（注：构造下面的成绩示例数据，来说明决策树的构造过">
+本章我想以一个例子作为直观引入，来介绍决策树的结构、学习过程以及具体方法在学习过程中的差异。（注：构造下面的成绩示例数据，来说明决策树的构造过程）
+
+假">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入浅出ML之Tree-Based家族">
+<meta property="og:title" content="第03章：深入浅出ML之Tree-Based家族">
 <meta property="og:url" content="http://www.52caml.com/head_first_ml/ml-chapter3-tree-based-family/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
 <meta property="og:description" content="author: zhouyongsdzh@foxmail.com
@@ -38,19 +41,22 @@ sina weibo: @周永_52ML
 
 内容列表
 
-Decision Stump
-ID3
-C4.5
-CART
-Random Forest
+写在前面
+决策树学习过程
+特征选择方法
+决策树解读
+分类与回归树
+随机森林
 
 
 写在前面
-本章我想以一个例子作为直观引入，来介绍决策树的结构、学习过程以及具体方法在学习过程中的差异。（注：构造下面的成绩示例数据，来说明决策树的构造过">
+本章我想以一个例子作为直观引入，来介绍决策树的结构、学习过程以及具体方法在学习过程中的差异。（注：构造下面的成绩示例数据，来说明决策树的构造过程）
+
+假">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_3_0_1_decision_tree_graph.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_3_1_1_decision_tree_info_gain.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入浅出ML之Tree-Based家族">
+<meta name="twitter:title" content="第03章：深入浅出ML之Tree-Based家族">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
 date: 2015-09-15
 sina weibo: @周永_52ML
@@ -58,15 +64,18 @@ sina weibo: @周永_52ML
 
 内容列表
 
-Decision Stump
-ID3
-C4.5
-CART
-Random Forest
+写在前面
+决策树学习过程
+特征选择方法
+决策树解读
+分类与回归树
+随机森林
 
 
 写在前面
-本章我想以一个例子作为直观引入，来介绍决策树的结构、学习过程以及具体方法在学习过程中的差异。（注：构造下面的成绩示例数据，来说明决策树的构造过">
+本章我想以一个例子作为直观引入，来介绍决策树的结构、学习过程以及具体方法在学习过程中的差异。（注：构造下面的成绩示例数据，来说明决策树的构造过程）
+
+假">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -126,14 +135,14 @@ Random Forest
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/head_first_ml/ml-chapter3-tree-based-family/" title="深入浅出ML之Tree-Based家族" itemprop="url">深入浅出ML之Tree-Based家族</a>
+      <a href="/head_first_ml/ml-chapter3-tree-based-family/" title="第03章：深入浅出ML之Tree-Based家族" itemprop="url">第03章：深入浅出ML之Tree-Based家族</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2015-08-08T14:34:13.000Z" itemprop="datePublished"> 发表于 2015-08-08</time>
+    <time datetime="2015-09-28T14:34:13.000Z" itemprop="datePublished"> 发表于 2015-09-28</time>
     
   </p>
 </header>
@@ -154,11 +163,12 @@ Random Forest
 <hr>
 <p><strong>内容列表</strong></p>
 <ul>
-<li>Decision Stump</li>
-<li>ID3</li>
-<li>C4.5</li>
-<li>CART</li>
-<li>Random Forest</li>
+<li>写在前面</li>
+<li>决策树学习过程</li>
+<li>特征选择方法</li>
+<li>决策树解读</li>
+<li>分类与回归树</li>
+<li>随机森林</li>
 </ul>
 <p><br></p>
 <h3 id="写在前面">写在前面</h3><hr>
@@ -549,7 +559,7 @@ ID3算法是按照信息增益进行最优特征选择的。
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/decision-stump-ID3，C4-5，IG，RandomForest/">decision stump, ID3，C4.5，IG，RandomForest</a>
+  <span></span> <a href="/tags/C4-5/">C4.5</a><a href="/tags/CART/">CART</a><a href="/tags/Decision-Stump/">Decision Stump</a><a href="/tags/Decision-Tree/">Decision Tree</a><a href="/tags/ID3/">ID3</a><a href="/tags/IG/">IG</a><a href="/tags/Random-Forest/">Random Forest</a><a href="/tags/信息增益/">信息增益</a><a href="/tags/决策树/">决策树</a><a href="/tags/决策树桩/">决策树桩</a><a href="/tags/分类与回归树/">分类与回归树</a><a href="/tags/随机森林/">随机森林</a>
   </div>
 
 </div>
@@ -558,7 +568,7 @@ ID3算法是按照信息增益进行最优特征选择的。
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/head_first_ml/ml-chapter3-tree-based-family/" data-title="深入浅出ML之Tree-Based家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/head_first_ml/ml-chapter3-tree-based-family/" data-title="第03章：深入浅出ML之Tree-Based家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -685,31 +695,31 @@ ID3算法是按照信息增益进行最优特征选择的。
 			
 		
 			
-				<li><a href="/tags/decision-stump-ID3，C4-5，IG，RandomForest/" title="decision stump, ID3，C4.5，IG，RandomForest">decision stump, ID3，C4.5，IG，RandomForest<sup>1</sup></a></li>
+				<li><a href="/tags/Decision-Tree/" title="Decision Tree">Decision Tree<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/信息论/" title="信息论">信息论<sup>1</sup></a></li>
+				<li><a href="/tags/决策树/" title="决策树">决策树<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/信息熵/" title="信息熵">信息熵<sup>1</sup></a></li>
+				<li><a href="/tags/ID3/" title="ID3">ID3<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/条件熵/" title="条件熵">条件熵<sup>1</sup></a></li>
+				<li><a href="/tags/C4-5/" title="C4.5">C4.5<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Gamma-Beta-Dirichlet/" title="Gamma,Beta,Dirichlet">Gamma,Beta,Dirichlet<sup>1</sup></a></li>
+				<li><a href="/tags/信息增益/" title="信息增益">信息增益<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/相对熵/" title="相对熵">相对熵<sup>1</sup></a></li>
+				<li><a href="/tags/IG/" title="IG">IG<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/KL距离/" title="KL距离">KL距离<sup>1</sup></a></li>
+				<li><a href="/tags/CART/" title="CART">CART<sup>1</sup></a></li>
 			
 		
 		</ul>
