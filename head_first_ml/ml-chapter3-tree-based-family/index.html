@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>第03章：深入浅出ML之Tree-Based家族 | 计算广告与机器学习</title>
+    <title>深入浅出ML之Tree-Based家族 | 计算广告与机器学习</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="ZhouYong">
@@ -18,18 +18,17 @@ sina weibo: @周永_52ML
 
 内容列表
 
-写在前面
-决策树学习过程
-特征选择方法
-决策树模型
-分类与回归树
+Decision Stump
+ID3
+C4.5
+CART
 Random Forest
 
 
 写在前面
-本章我想以一个例子作为直观引入，来介绍决策树的结构、学习过程以及具体方法在学习过程中的差异。（注：构造下面的成绩示例数据，来说明决策树">
+本章我想以一个例子作为直观引入，来介绍决策树的结构、学习过程以及具体方法在学习过程中的差异。（注：构造下面的成绩示例数据，来说明决策树的构造过">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第03章：深入浅出ML之Tree-Based家族">
+<meta property="og:title" content="深入浅出ML之Tree-Based家族">
 <meta property="og:url" content="http://www.52caml.com/head_first_ml/ml-chapter3-tree-based-family/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
 <meta property="og:description" content="author: zhouyongsdzh@foxmail.com
@@ -39,19 +38,19 @@ sina weibo: @周永_52ML
 
 内容列表
 
-写在前面
-决策树学习过程
-特征选择方法
-决策树模型
-分类与回归树
+Decision Stump
+ID3
+C4.5
+CART
 Random Forest
 
 
 写在前面
-本章我想以一个例子作为直观引入，来介绍决策树的结构、学习过程以及具体方法在学习过程中的差异。（注：构造下面的成绩示例数据，来说明决策树">
-<meta property="og:image" content="/Users/zhouyong/Desktop/ocean_mountain/1_数据科学/1.3. 数据科学-机器学习/机器学习_资料/ml_3_0_1_decision_tree_graph.png">
+本章我想以一个例子作为直观引入，来介绍决策树的结构、学习过程以及具体方法在学习过程中的差异。（注：构造下面的成绩示例数据，来说明决策树的构造过">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_3_0_1_decision_tree_graph.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_3_1_1_decision_tree_info_gain.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第03章：深入浅出ML之Tree-Based家族">
+<meta name="twitter:title" content="深入浅出ML之Tree-Based家族">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
 date: 2015-09-15
 sina weibo: @周永_52ML
@@ -59,16 +58,15 @@ sina weibo: @周永_52ML
 
 内容列表
 
-写在前面
-决策树学习过程
-特征选择方法
-决策树模型
-分类与回归树
+Decision Stump
+ID3
+C4.5
+CART
 Random Forest
 
 
 写在前面
-本章我想以一个例子作为直观引入，来介绍决策树的结构、学习过程以及具体方法在学习过程中的差异。（注：构造下面的成绩示例数据，来说明决策树">
+本章我想以一个例子作为直观引入，来介绍决策树的结构、学习过程以及具体方法在学习过程中的差异。（注：构造下面的成绩示例数据，来说明决策树的构造过">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -128,14 +126,14 @@ Random Forest
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/head_first_ml/ml-chapter3-tree-based-family/" title="第03章：深入浅出ML之Tree-Based家族" itemprop="url">第03章：深入浅出ML之Tree-Based家族</a>
+      <a href="/head_first_ml/ml-chapter3-tree-based-family/" title="深入浅出ML之Tree-Based家族" itemprop="url">深入浅出ML之Tree-Based家族</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2015-09-28T14:34:13.000Z" itemprop="datePublished"> 发表于 2015-09-28</time>
+    <time datetime="2015-08-08T14:34:13.000Z" itemprop="datePublished"> 发表于 2015-08-08</time>
     
   </p>
 </header>
@@ -156,11 +154,10 @@ Random Forest
 <hr>
 <p><strong>内容列表</strong></p>
 <ul>
-<li>写在前面</li>
-<li>决策树学习过程</li>
-<li>特征选择方法</li>
-<li>决策树模型</li>
-<li>分类与回归树</li>
+<li>Decision Stump</li>
+<li>ID3</li>
+<li>C4.5</li>
+<li>CART</li>
 <li>Random Forest</li>
 </ul>
 <p><br></p>
@@ -171,69 +168,69 @@ Random Forest
 <table>
 <thead>
 <tr>
-<th>id</th>
-<th style="text-align:center">score</th>
+<th style="text-align:center">编号</th>
+<th style="text-align:center">Score</th>
 <th style="text-align:center">等级1</th>
 <th style="text-align:center">等级2</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center">82</td>
 <td style="text-align:center">良好</td>
 <td style="text-align:center">过关</td>
 </tr>
 <tr>
-<td>2</td>
+<td style="text-align:center">2</td>
 <td style="text-align:center">74</td>
 <td style="text-align:center">中等</td>
 <td style="text-align:center">不过关</td>
 </tr>
 <tr>
-<td>3</td>
+<td style="text-align:center">3</td>
 <td style="text-align:center">68</td>
 <td style="text-align:center">中等</td>
 <td style="text-align:center">不过关</td>
 </tr>
 <tr>
-<td>4</td>
+<td style="text-align:center">4</td>
 <td style="text-align:center">91</td>
 <td style="text-align:center">优秀</td>
 <td style="text-align:center">过关</td>
 </tr>
 <tr>
-<td>5</td>
+<td style="text-align:center">5</td>
 <td style="text-align:center">88</td>
 <td style="text-align:center">良好</td>
 <td style="text-align:center">过关</td>
 </tr>
 <tr>
-<td>6</td>
+<td style="text-align:center">6</td>
 <td style="text-align:center">53</td>
 <td style="text-align:center">较差</td>
 <td style="text-align:center">不过关</td>
 </tr>
 <tr>
-<td>7</td>
+<td style="text-align:center">7</td>
 <td style="text-align:center">76</td>
 <td style="text-align:center">良好</td>
 <td style="text-align:center">过关</td>
 </tr>
 <tr>
-<td>8</td>
+<td style="text-align:center">8</td>
 <td style="text-align:center">62</td>
 <td style="text-align:center">中等</td>
 <td style="text-align:center">不过关</td>
 </tr>
 <tr>
-<td>9</td>
+<td style="text-align:center">9</td>
 <td style="text-align:center">58</td>
 <td style="text-align:center">较差</td>
 <td style="text-align:center">不过关</td>
 </tr>
 <tr>
-<td>10</td>
+<td style="text-align:center">10</td>
 <td style="text-align:center">97</td>
 <td style="text-align:center">优秀</td>
 <td style="text-align:center">过关</td>
@@ -281,16 +278,16 @@ Random Forest
 </table>
 </blockquote>
 <p>我们按照树结构展示出来，如下图所示：</p>
-<p><img src="/Users/zhouyong/Desktop/ocean_mountain/1_数据科学/1.3. 数据科学-机器学习/机器学习_资料/ml_3_0_1_decision_tree_graph.png" alt="xx"></p>
-<p>如果按照“等级1”作为划分标准，取值<code>“优秀”，“良好”，“中等”和“较差”</code>分别对应4个分支，如图4.1所示。由于只有一个划分属性，它对应的是一个单层决策树，亦称作“决策树桩”（Decision Stump）。</p>
+<p><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_3_0_1_decision_tree_graph.png" alt="xx"></p>
+<p>如果按照“等级1”作为划分标准，取值<code>“优秀”，“良好”，“中等”和“较差”</code>分别对应4个分支，如图4.1所示。由于只有一个划分特征，它对应的是一个单层决策树，亦称作“决策树桩”（Decision Stump）。</p>
 <blockquote>
 <p>决策树桩的特点是：只有一个非叶节点，或者说它的根节点等于内部节点（我们在下面介绍决策树多层结构时再介绍）。</p>
 </blockquote>
-<p>“等级1”取值类型是category，而在实际数据中，一些特征取值可能是连续值（如这里的score属性）。如果用决策树模型解决一些回归或分类问题的化，在学习的过程中就需要有将连续值转化为离散值的方法在里面，在特征工程中称为特征离散化。</p>
+<p>“等级1”取值类型是category，而在实际数据中，一些特征取值可能是连续值（如这里的score特征）。如果用决策树模型解决一些回归或分类问题的化，在学习的过程中就需要有将连续值转化为离散值的方法在里面，在特征工程中称为特征离散化。</p>
 <blockquote>
 <p>在图4.2中，我们把<strong>连续值划分为两个区域</strong>，分别是\(score \ge 75\) 和 \(0 \le score \lt 75\) </p>
 </blockquote>
-<p>图4.3和图4.4属于CART（Classification and Regression Tree，分类与回归树）模型。<strong>CART假设决策树是二叉树</strong>，根节点和内部节点的特征取值为”是”或”否”，节点的左分支对应”是”，右分支对应“否”，<strong>每一次划分属性选择都会把当前特征对应的样本子集划分到两个区域。</strong></p>
+<p>图4.3和图4.4属于CART（Classification and Regression Tree，分类与回归树）模型。<strong>CART假设决策树是二叉树</strong>，根节点和内部节点的特征取值为”是”或”否”，节点的左分支对应”是”，右分支对应“否”，<strong>每一次划分特征选择都会把当前特征对应的样本子集划分到两个区域。</strong></p>
 <blockquote>
 <p>在CART学习过程中，不论特征原有取值是连续值（如图4.2）或离散值（图4.3，图4.4），也要转化为离散二值形式。</p>
 </blockquote>
@@ -298,12 +295,12 @@ Random Forest
 <blockquote>
 <p><code>Label</code>是连续值，通常对应的是回归树；当<code>Label</code>是category时，对应分类树模型；</p>
 </blockquote>
-<p>后面会提到，CART学习的过程中最核心的是<strong>通过遍历</strong>选择最优划分属性及对应的属性值。那么二者的区别也体现在具体最优划分属性的方法上。</p>
+<p>后面会提到，CART学习的过程中最核心的是<strong>通过遍历</strong>选择最优划分特征及对应的特征值。那么二者的区别也体现在具体最优划分特征的方法上。</p>
 <p>同样，为了直观了解本节要介绍的内容，这里用一个表格来说明：</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">决策树模型</th>
+<th style="text-align:center">决策树算法</th>
 <th style="text-align:center">特征选择方法</th>
 <th style="text-align:center">作者信息</th>
 </tr>
@@ -312,15 +309,17 @@ Random Forest
 <tr>
 <td style="text-align:center">ID3</td>
 <td style="text-align:center">信息增益</td>
-<td style="text-align:center">1985.</td>
+<td style="text-align:center">Quinlan. 1986. <br>(Iterative Dichotomiser 迭代二分器)</td>
 </tr>
 <tr>
 <td style="text-align:center">C4.5</td>
 <td style="text-align:center">增益率</td>
+<td style="text-align:center">Quinlan. 1993. </td>
 </tr>
 <tr>
 <td style="text-align:center">CART</td>
 <td style="text-align:center">回归树： 最小二乘<br> 分类树： 基尼指数</td>
+<td style="text-align:center">Breiman. 1984. <br> (Classification and Regression Tree 分类与回归树)</td>
 </tr>
 </tbody>
 </table>
@@ -349,147 +348,27 @@ Random Forest
 </table>
 <p><br></p>
 <h3 id="决策树学习过程">决策树学习过程</h3><hr>
-<p>\(<br>\{ \\<br>\quad输入: 训练数据集D=\{(x^{(1)},y^{(1)}), (x^{(2)},y^{(2)}), \cdots, (x^{(m)},y^{(m)}) \} \; (属性用离散值表示); \\<br>\qquad\quad\; 候选属性集A=\{a^1, a^2, \cdots, a^n\} \\<br>\quad输出：一颗决策树T(D,A) \\<br>\quad学习过程：\\<br>\qquad 01. \;\; 创建节点node; \\<br>\quad\;\;\;02. \;\; if \; D中样本全属于同一类别C； \; then \\<br>\qquad 03. \qquad 将node作为叶节点，用类别C标记，返回； \\<br>\qquad 04. \; endif \\<br>\qquad 05. \;\; if \; A为空（A=\emptyset）or \; D中样本在A的取值相同；\; then \\<br>\qquad 06. \qquad 将node作为叶节点，其类别标记为D中样本数最多的类（多数表决），返回； \\<br>\qquad 07. \;\underline{ 选择A中最优划分属性，得到a^{\ast}(a^{\ast} \in A) }； \\<br>\qquad 08. \;标记节点node为a^{\ast} \\<br>\qquad 09. \;\; for \; a^{\ast} \;中的每一个已知值a_{i}^{\ast}; \; do \\<br>\qquad 10. \quad\;\; 为节点node生成一个分支；令D_i表示D中在属性a^{\ast}上取值为a_i^{\ast}的样本子集； \; //划分子集 \\<br>\qquad 11. \quad\;\; if \; D_i为空；\; then \\<br>\qquad 12. \qquad\quad 将分支节点标记为叶节点，其类别标记为D中样本最多的类；\; then \\<br>\qquad 13. \quad\;\; else \\<br>\qquad 14. \qquad\quad 以T(D, A-\{a^{\ast}\})为分支节点；\quad // 剪掉当前属性 \\<br>\qquad 15. \quad\;\; endif \\<br>\qquad 16. \; done<br>\\\}<br>\)</p>
-<ul>
-<li>参考：<a href="http://wenku.baidu.com/link?url=xMRoqqThIY5xC01z9AjL7VtAUYKlHHi7zEMl9gF4b-rbu-cxjLJDfQ0zlnwWT4maOnZp03Q4l1ioaB319vEQWb81YvB8udk9axZacVS26Qi" target="_blank" rel="external">http://wenku.baidu.com/link?url=xMRoqqThIY5xC01z9AjL7VtAUYKlHHi7zEMl9gF4b-rbu-cxjLJDfQ0zlnwWT4maOnZp03Q4l1ioaB319vEQWb81YvB8udk9axZacVS26Qi</a></li>
-</ul>
-<p><strong>数据集</strong></p>
-<p>接下来的决策树中的示例数据，参考《数据挖掘－实用机器学习技术》一书中P69页提供的天气数据，根据天气情况决定是否出去玩，数据信息如下：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">ID</th>
-<th>阴晴</th>
-<th>温度</th>
-<th>湿度</th>
-<th>刮风</th>
-<th style="text-align:center">玩</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td>sunny</td>
-<td>hot</td>
-<td>high</td>
-<td>false</td>
-<td style="text-align:center">否</td>
-</tr>
-<tr>
-<td style="text-align:center">2</td>
-<td>sunny</td>
-<td>hot</td>
-<td>high</td>
-<td>true</td>
-<td style="text-align:center">否</td>
-</tr>
-<tr>
-<td style="text-align:center">3</td>
-<td>overcast</td>
-<td>hot</td>
-<td>high</td>
-<td>false</td>
-<td style="text-align:center">是</td>
-</tr>
-<tr>
-<td style="text-align:center">4</td>
-<td>rainy</td>
-<td>mild</td>
-<td>high</td>
-<td>false</td>
-<td style="text-align:center">是</td>
-</tr>
-<tr>
-<td style="text-align:center">5</td>
-<td>rainy</td>
-<td>cool</td>
-<td>normal</td>
-<td>false</td>
-<td style="text-align:center">是</td>
-</tr>
-<tr>
-<td style="text-align:center">6</td>
-<td>rainy</td>
-<td>cool</td>
-<td>normal</td>
-<td>true</td>
-<td style="text-align:center">否</td>
-</tr>
-<tr>
-<td style="text-align:center">7</td>
-<td>overcast</td>
-<td>cool</td>
-<td>normal</td>
-<td>true</td>
-<td style="text-align:center">是</td>
-</tr>
-<tr>
-<td style="text-align:center">8</td>
-<td>sunny</td>
-<td>mild</td>
-<td>high</td>
-<td>false</td>
-<td style="text-align:center">否</td>
-</tr>
-<tr>
-<td style="text-align:center">9</td>
-<td>sunny</td>
-<td>cool</td>
-<td>normal</td>
-<td>false</td>
-<td style="text-align:center">是</td>
-</tr>
-<tr>
-<td style="text-align:center">10</td>
-<td>rainy</td>
-<td>mild</td>
-<td>normal</td>
-<td>false</td>
-<td style="text-align:center">是</td>
-</tr>
-<tr>
-<td style="text-align:center">11</td>
-<td>sunny</td>
-<td>mild</td>
-<td>normal</td>
-<td>true</td>
-<td style="text-align:center">是</td>
-</tr>
-<tr>
-<td style="text-align:center">12</td>
-<td>overcast</td>
-<td>mild</td>
-<td>high</td>
-<td>true</td>
-<td style="text-align:center">是</td>
-</tr>
-<tr>
-<td style="text-align:center">13</td>
-<td>overcast</td>
-<td>hot</td>
-<td>normal</td>
-<td>false</td>
-<td style="text-align:center">是</td>
-</tr>
-<tr>
-<td style="text-align:center">14</td>
-<td>rainy</td>
-<td>mild</td>
-<td>high</td>
-<td>true</td>
-<td style="text-align:center">否</td>
-</tr>
-</tbody>
-</table>
+<p>图4.1~图4.4给出的仅仅是单层决策树，只有一个非叶节点（对应一个特征）。那么对于含有多个特征的分类问题来说，决策树的学习过程通常是一个通过递归选择最优划分特征，并根据该特征的取值情况对训练数据进行分割，使得切割后对应的<strong>数据子集有一个较好的分类</strong>的过程。</p>
+<p>为了更直观的解释决策树的学习过程，这里参考《数据挖掘－实用机器学习技术》一书中P69页提供的天气数据，根据天气情况决定是否出去玩，数据信息如下：</p>
+<p>&gt;<br>| ID | 阴晴 | 温度 | 湿度 | 刮风 | 玩 |<br>| :—: | —- | —- | —- | —- | :—: |<br>| 1 | sunny | hot | high | false | 否 |<br>| 2 | sunny | hot | high | true | 否 |<br>| 3 | overcast | hot | high | false | 是 |<br>| 4 | rainy | mild | high | false | 是 |<br>| 5 | rainy | cool | normal | false | 是 |<br>| 6 | rainy | cool | normal | true | 否 |<br>| 7 | overcast | cool | normal | true | 是 |<br>| 8 | sunny | mild | high |  false | 否 |<br>| 9 | sunny | cool | normal | false | 是 |<br>|10 | rainy | mild | normal | false | 是 |<br>|11 | sunny | mild | normal | true | 是 |<br>|12 | overcast | mild | high | true | 是 |<br>|13 | overcast | hot | normal | false | 是 |<br>|14 | rainy | mild | high | true | 否 |</p>
+<p>利用ID3算法中的<strong>信息增益</strong>特征选择方法，递归的学习一棵决策树，得到树结构，如图4.5所示：</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_3_1_1_decision_tree_info_gain.png" width="550" height="400" alt="ID3-决策树示意图"></p>
+<p>假设 训练数据集\(D=\{(x^{(1)},y^{(1)}), (x^{(2)},y^{(2)}), \cdots, (x^{(m)},y^{(m)}) \} \) (特征用离散值表示)，候选特征集合\(F=\{f^1, f^2, \cdots, f^n\} \)。开始，建立根节点，将所有训练数据都置于根节点（\(m\)条样本）。从特征集合\(F\)中选择一个最优特征\(f^{\ast}\)，按照\(f^{\ast}\)取值讲训练数据集切分成若干子集，使得各个自己有一个在当前条件下最好的分类。</p>
+<p>如果子集中样本类别基本相同，那么构建叶节点，并将数据子集划分给对应的叶节点；如果子集中样本类别差异较大，不能被基本正确分类，需要在剩下的特征集合（\(F-\{f^{\ast}\}\)）中选择新的最优特征，构建响应的内部节点，继续对数据子集进行切分。如此递归地进行下去，直至所有数据自己都能被基本正确分类，或者没有合适的最优特征为止。</p>
+<p>这样最终结果是每个子集都被分到叶节点上，对应着一个明确的类别。那么，递归生成的层级结构即为一棵决策树。我们将上面的文字描述用伪代码形式表达出来，即为：</p>
+<p>\(<br>\{ \\<br>\quad输入: 训练数据集D=\{(x^{(1)},y^{(1)}), (x^{(2)},y^{(2)}), \cdots, (x^{(m)},y^{(m)}) \} \; (特征用离散值表示); \\<br>\qquad\quad\; 候选特征集F=\{f^1, f^2, \cdots, f^n\} \\<br>\quad输出：一颗决策树T(D,F) \\<br>\quad学习过程：\\<br>\qquad 01. \;\; 创建节点node; \\<br>\quad\;\;\;02. \;\; if \; D中样本全属于同一类别C； \; then \\<br>\qquad 03. \qquad 将node作为叶节点，用类别C标记，返回； \\<br>\qquad 04. \; endif \\<br>\qquad 05. \;\; if \; F为空（F=\emptyset）or \; D中样本在F的取值相同；\; then \\<br>\qquad 06. \qquad 将node作为叶节点，其类别标记为D中样本数最多的类（多数表决），返回； \\<br>\qquad 07. \;\underline{ 选择F中最优划分特征，得到f^{\ast}(f^{\ast} \in F) }； \\<br>\qquad 08. \;标记节点node为f^{\ast} \\<br>\qquad 09. \;\; for \; f^{\ast} \;中的每一个已知值f_{i}^{\ast}; \; do \\<br>\qquad 10. \quad\;\; 为节点node生成一个分支；令D_i表示D中在特征f^{\ast}上取值为f_i^{\ast}的样本子集； \; //划分子集 \\<br>\qquad 11. \quad\;\; if \; D_i为空；\; then \\<br>\qquad 12. \qquad\quad 将分支节点标记为叶节点，其类别标记为D_i中样本最多的类；\; then \\<br>\qquad 13. \quad\;\; else \\<br>\qquad 14. \qquad\quad 以T(D_i, F-\{f^{\ast}\})为分支节点；\quad // 递归过程 \\<br>\qquad 15. \quad\;\; endif \\<br>\qquad 16. \; done<br>\\\}<br>\)</p>
+<p>决策树学习过程中递归的每一步，在选择最优特征后，根据特征取值切割当前节点的数据集，得到若干数据子集。注意，数据子集是根据当前特征的取值划分的，因此决策树学习过程可以认为是特征空间划分的过程。每一个特征子空间对应决策树中的一个叶子节点，特征子空间对应的类别就是叶子节点对应数据子集中样本数最好的类别。</p>
 <p><br></p>
 <h3 id="特征选择方法"><strong>特征选择方法</strong></h3><hr>
-<p>决策树学习过程中，最重要的是第07行，即如何选择最优划分属性。也就是我们常说的特征选择选择问题。</p>
+<p>上面我们提到，递归地选择最优特征，根据特征取值切割数据集，使得对应的数据自己有一个较好的分类。那么，如何评价数据子集能对应一个最好的分类呢？如果子集中的样本都属于同一个类别，当然是最好的结果；如果说大多数的样本类型相同，只有少部分是有不同，也是可以接受的。</p>
+<p>在决策树中我们学习</p>
+<p>决策树学习过程中，最重要的是第07行，即如何选择最优划分特征。也就是我们常说的特征选择选择问题。</p>
 <p>特征选择，顾名思义，就是将特征的重要程度量化之后再进行选择，而如何量化特征的重要性，就成了各种方法间最大的区别。</p>
 <blockquote>
 <p>例如卡方检验、Spearman法、<a href="http://www.52caml.com/head_first_ml/ml-chapter2-entropy-based-family/#互信息" target="_blank" rel="external">互信息</a>等使用<code>&lt;feature, label&gt;</code>之间的<strong>关联性</strong>来进行这个量化，关联性越强，特征得分越高，该特征越应该被优先选择。</p>
 </blockquote>
-<p>在这里，我们希望随着属性划分过程不断进行，希望决策树的分支节点（对应特征）所包含的样本尽可能属于同一类别，即希望节点的”纯度（purity）”越来越高。</p>
-<p>那么如何才能做到选择的属性对应的样本子集纯度最高呢？</p>
+<p>在这里，我们希望随着特征划分过程不断进行，希望决策树的分支节点（对应特征）所包含的样本尽可能属于同一类别，即希望节点的”纯度（purity）”越来越高。</p>
+<p>那么如何才能做到选择的特征对应的样本子集纯度最高呢？</p>
 <ul>
 <li><p>ID3算法用<strong>信息增益</strong>来刻画样例集的”纯度”</p>
 <blockquote>
@@ -508,7 +387,7 @@ Random Forest
 <p>从第02章中我们已经知道，熵确定了要编码集合S中任意成员（即以均匀的概率随机抽出的一个成员）的分类所需要的最小二进制位数。</p>
 <p>先给出信息熵和信息增益的公式表达；</p>
 <p>然后给出信息增益＝信息熵－条件熵</p>
-<p>最后结合本示例，给出outlook的为属性</p>
+<p>最后结合本示例，给出outlook的为特征</p>
 <p>删除教室举例</p>
 <pre><code>如何度量一个特征<span class="command">\\</span>(t<span class="command">\\</span>)给系统带来的信息量呢？直观的，可以先分别求出系统有特征<span class="command">\\</span>(t<span class="command">\\</span>)和没特征<span class="command">\\</span>(t<span class="command">\\</span>)时对应的信息量，两者的差值就是这个特征<span class="command">\\</span>(t<span class="command">\\</span>)给系统带来的信息量，即增益。
 
@@ -520,7 +399,7 @@ Random Forest
 H(C) = - <span class="command">\sum</span>_<span class="special">{</span>i=1<span class="special">}</span>^<span class="special">{</span>k<span class="special">}</span> p(c_i) <span class="command">\cdot</span> <span class="command">\log</span>_<span class="special">{</span>2<span class="special">}</span> p(c_i) <span class="command">\qquad</span> (n.ml.1.3.1)
 $$</span>
 &gt;
-&gt; 分类系统的作用就是输出一个特征向量（文本特征、ID特征、属性特征等）属于哪个类别的值，而这个值可能是<span class="command">\\</span>(c_1, c_2, <span class="command">\cdots</span>, c_k<span class="command">\\</span>)，因此这个值所携带的信息量就是公式<span class="command">\\</span>((n.ml.1.3.1)<span class="command">\\</span>)这么多。
+&gt; 分类系统的作用就是输出一个特征向量（文本特征、ID特征、特征特征等）属于哪个类别的值，而这个值可能是<span class="command">\\</span>(c_1, c_2, <span class="command">\cdots</span>, c_k<span class="command">\\</span>)，因此这个值所携带的信息量就是公式<span class="command">\\</span>((n.ml.1.3.1)<span class="command">\\</span>)这么多。
 
 问题：**当系统不包含特征<span class="command">\\</span>(t<span class="command">\\</span>)时，如何计算信息量？**
 
@@ -577,15 +456,15 @@ $$</span>
 <p>同样的计算方法，可得每个特征对应的信息增益，即</p>
 <p>   $$<br>   IG(windy) = Entropy(S) - Entropy(S|windy) = 0.048位 \qquad\qquad\quad(exp.1.3.3.2) \\<br>   IG(humidity) = Entropy(S) - Entropy(S|humidity) = 0.152位 \quad\qquad(exp.1.3.3.3) \\<br>   IG(temperature) = Entropy(S) - Entropy(S|temperature) = 0.029位 \;\;(exp.1.3.3.4)<br>   $$</p>
 </blockquote>
-<p>  显然，属性”Outlook”的信息增益最大，于是把它作为划分属性。基于”Outlook”对根节点进行划分的结果如下：</p>
+<p>  显然，特征”Outlook”的信息增益最大，于是把它作为划分特征。基于”Outlook”对根节点进行划分的结果如下：</p>
 <p>  (跟节点划分示意图)</p>
 </li>
 </ul>
-<pre><code>然后，决策树学习算法将对子节点进一步划分，重复上面的步骤。最终会得到一颗基于<span class="keyword">*</span><span class="keyword">*</span>信息增益<span class="keyword">*</span><span class="keyword">*</span>属性划分得到的决策树。
+<pre><code>然后，决策树学习算法将对子节点进一步划分，重复上面的步骤。最终会得到一颗基于<span class="keyword">*</span><span class="keyword">*</span>信息增益<span class="keyword">*</span><span class="keyword">*</span>特征划分得到的决策树。
 
-(基于信息增益属性划分得到的决策树)
+(基于信息增益特征划分得到的决策树)
 
-ID3算法是按照信息增益进行最优属性选择的。
+ID3算法是按照信息增益进行最优特征选择的。
 </code></pre><ul>
 <li><p>IG存在的问题</p>
 <ul>
@@ -623,7 +502,7 @@ ID3算法是按照信息增益进行最优属性选择的。
 <p>  $$<br>  Gini(C) = 1 - \sum_{i=1}^{k} {p_i}^2    \qquad(ml.1.3.4)<br>  $$</p>
 <blockquote>
 <p>其中\(p(c_i) = \frac{类别属于c_i的样本数}{总样本数n}\)。可以看出，如果所有的样本都属于同一个类别，则\(p_1=1,Gini(C)=0\)，此时数据不纯度最低。</p>
-<p>在下面介绍的CART(Classification And Regression Tree，分类与回归树)算法中利用基尼指数都早二叉决策树，对每个特征都会枚举其特征的非空真子集，以属性outlook分裂后的基尼指数为：</p>
+<p>在下面介绍的CART(Classification And Regression Tree，分类与回归树)算法中利用基尼指数都早二叉决策树，对每个特征都会枚举其特征的非空真子集，以特征outlook分裂后的基尼指数为：</p>
 <p>  $$<br>  Gini_{outlook}(C) = \frac{|C_1|}{|C|} Gini(C1) + \frac{|C_2|}{|C|} Gini(C_2) + \frac{|C_3|}{|C|} Gini(C_3) \qquad(n.ml.1.3.4)<br>  $$</p>
 </blockquote>
 </li>
@@ -650,13 +529,14 @@ ID3算法是按照信息增益进行最优属性选择的。
 <p>  $$<br>  Gini(C) = 1 - \sum_{i=1}^{k} {p_i}^2    \qquad(ml.1.3.4)<br>  $$</p>
 <blockquote>
 <p>其中\(p(c_i) = \frac{类别属于c_i的样本数}{总样本数n}\)。可以看出，如果所有的样本都属于同一个类别，则\(p_1=1,Gini(C)=0\)，此时数据不纯度最低。</p>
-<p>在下面介绍的CART(Classification And Regression Tree，分类与回归树)算法中利用基尼指数都早二叉决策树，对每个特征都会枚举其特征的非空真子集，以属性outlook分裂后的基尼指数为：</p>
+<p>在下面介绍的CART(Classification And Regression Tree，分类与回归树)算法中利用基尼指数都早二叉决策树，对每个特征都会枚举其特征的非空真子集，以特征outlook分裂后的基尼指数为：</p>
 <p>  $$<br>  Gini_{outlook}(C) = \frac{|C_1|}{|C|} Gini(C1) + \frac{|C_2|}{|C|} Gini(C_2) + \frac{|C_3|}{|C|} Gini(C_3) \qquad(n.ml.1.3.4)<br>  $$</p>
 </blockquote>
 <p>  <a href="http://www.chawenti.com/articles/18892.html" target="_blank" rel="external">http://www.chawenti.com/articles/18892.html</a></p>
 </li>
 </ul>
-  
+<pre><code>+ 参考：<span class="string">http:</span><span class="comment">//wenku.baidu.com/link?url=xMRoqqThIY5xC01z9AjL7VtAUYKlHHi7zEMl9gF4b-rbu-cxjLJDfQ0zlnwWT4maOnZp03Q4l1ioaB319vEQWb81YvB8udk9axZacVS26Qi</span>
+</code></pre>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -669,7 +549,7 @@ ID3算法是按照信息增益进行最优属性选择的。
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/C4-5/">C4.5</a><a href="/tags/CART/">CART</a><a href="/tags/Decision-Stump/">Decision Stump</a><a href="/tags/Gini-Index/">Gini Index</a><a href="/tags/ID3/">ID3</a><a href="/tags/IG/">IG</a><a href="/tags/RandomForest/">RandomForest</a><a href="/tags/信息增益/">信息增益</a><a href="/tags/分类与回归树/">分类与回归树</a><a href="/tags/基尼指数/">基尼指数</a>
+  <span></span> <a href="/tags/decision-stump-ID3，C4-5，IG，RandomForest/">decision stump, ID3，C4.5，IG，RandomForest</a>
   </div>
 
 </div>
@@ -678,7 +558,7 @@ ID3算法是按照信息增益进行最优属性选择的。
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/head_first_ml/ml-chapter3-tree-based-family/" data-title="第03章：深入浅出ML之Tree-Based家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/head_first_ml/ml-chapter3-tree-based-family/" data-title="深入浅出ML之Tree-Based家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -805,31 +685,31 @@ ID3算法是按照信息增益进行最优属性选择的。
 			
 		
 			
-				<li><a href="/tags/Decision-Stump/" title="Decision Stump">Decision Stump<sup>1</sup></a></li>
+				<li><a href="/tags/decision-stump-ID3，C4-5，IG，RandomForest/" title="decision stump, ID3，C4.5，IG，RandomForest">decision stump, ID3，C4.5，IG，RandomForest<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/ID3/" title="ID3">ID3<sup>1</sup></a></li>
+				<li><a href="/tags/信息论/" title="信息论">信息论<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/C4-5/" title="C4.5">C4.5<sup>1</sup></a></li>
+				<li><a href="/tags/信息熵/" title="信息熵">信息熵<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/CART/" title="CART">CART<sup>1</sup></a></li>
+				<li><a href="/tags/条件熵/" title="条件熵">条件熵<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/分类与回归树/" title="分类与回归树">分类与回归树<sup>1</sup></a></li>
+				<li><a href="/tags/Gamma-Beta-Dirichlet/" title="Gamma,Beta,Dirichlet">Gamma,Beta,Dirichlet<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/IG/" title="IG">IG<sup>1</sup></a></li>
+				<li><a href="/tags/相对熵/" title="相对熵">相对熵<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/信息增益/" title="信息增益">信息增益<sup>1</sup></a></li>
+				<li><a href="/tags/KL距离/" title="KL距离">KL距离<sup>1</sup></a></li>
 			
 		
 		</ul>
