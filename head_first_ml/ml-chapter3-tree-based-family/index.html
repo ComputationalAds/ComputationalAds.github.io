@@ -151,7 +151,7 @@ sina weibo: @周永_52ML
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树学习过程"><span class="toc-number">2.</span> <span class="toc-text">决策树学习过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征选择方法"><span class="toc-number">3.</span> <span class="toc-text">特征选择方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#信息增益－ID3"><span class="toc-number">3.1.</span> <span class="toc-text">信息增益－ID3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#增益率"><span class="toc-number">3.2.</span> <span class="toc-text">增益率</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分类与回归树"><span class="toc-number">4.</span> <span class="toc-text">分类与回归树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#二叉分类树"><span class="toc-number">4.1.</span> <span class="toc-text">二叉分类树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二叉回归树"><span class="toc-number">4.2.</span> <span class="toc-text">二叉回归树</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Next"><span class="toc-number">5.</span> <span class="toc-text">Next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树学习过程"><span class="toc-number">2.</span> <span class="toc-text">决策树学习过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征选择方法"><span class="toc-number">3.</span> <span class="toc-text">特征选择方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#信息增益"><span class="toc-number">3.1.</span> <span class="toc-text">信息增益</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#增益率"><span class="toc-number">3.2.</span> <span class="toc-text">增益率</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分类与回归树"><span class="toc-number">4.</span> <span class="toc-text">分类与回归树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#二叉分类树"><span class="toc-number">4.1.</span> <span class="toc-text">二叉分类树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二叉回归树"><span class="toc-number">4.2.</span> <span class="toc-text">二叉回归树</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NEXT_\(\cdots\)"><span class="toc-number">5.</span> <span class="toc-text">NEXT \(\cdots\)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol>
 		
 		</div>
 		
@@ -490,7 +490,7 @@ sina weibo: @周永_52ML
 <li>CART算法采用<strong>基尼指数</strong>来刻画样例集纯度</li>
 </ul>
 <p><br></p>
-<h4 id="信息增益－ID3"><strong>信息增益－ID3</strong></h4><hr>
+<h4 id="信息增益"><strong>信息增益</strong></h4><hr>
 <p>信息增益（Information Gain，简称IG）衡量特征的重要性是根据<strong>当前特征为划分带来多少信息量，带来的信息越多，该特征就越重要，此时节点的”纯度”也就越高。</strong></p>
 <p>分类系统的信息熵，我们在<a href="http://www.52caml.com/head_first_ml/ml-chapter2-entropy-based-family/#熵与信息熵" target="_blank" rel="external">第02章：熵与信息熵</a>部分已经给出计算公式，这里再复习一下：</p>
 <blockquote>
@@ -550,7 +550,7 @@ sina weibo: @周永_52ML
 <p>以信息增益示例为例，按照特征“阴晴”将数据集分裂成3个子集，规模分别为5、4和5，因此不考虑子集中所包含的类别，产生一个分裂信息为：</p>
 <p>$$<br>SplitInfo(“阴晴”) = info(5,4,5) = 1.577位 \qquad(exp.1.3.4)<br>$$</p>
 <p>分裂信息熵（Split Information）可简单地理解为<strong>表示信息分支所需要的信息量</strong>。 <br><br>那么信息增益率：</p>
-<p>$$<br>IG_{ratio}(T) = \frac{IG(T)}{SplitInfo(T)} \qquad(n.ml.1.3.3)<br>$$</p>
+<p>$$<br>IG_{ratio}(T) = \frac{IG(T)}{SplitInfo(T)} \qquad(n.ml.1.3.5)<br>$$</p>
 <p>在这里，特征 “阴晴”的信息增益率为\(IG_{ratio}( “阴晴”)=\frac{0.247}{1.577} = 0.157\)。减少信息增益方法对取值数较多的特征的影响。</p>
 </blockquote>
 <p>基尼指数（Gini Index）是CART中分类树的特征选择方法。这部分会在下面的“分类与回归树－二叉分类树”一节中介绍。</p>
@@ -584,34 +584,57 @@ sina weibo: @周永_52ML
 <h4 id="二叉分类树">二叉分类树</h4><hr>
 <p>二叉分类树中用基尼指数（Gini Index）作为最优特征选择的度量标准。基尼指数定义如下：</p>
 <p>同样以分类系统为例，数据集\(D\)中类别\(C\)可能的取值为\(c_1, c_2, \cdots, c_k\)（\(k\)是类别数），一个样本属于类别\(c_i\)的概率为\(p(i)\)。那么<strong>概率分布的基尼指数</strong>公式表示为：</p>
-<p>$$<br>Gini(D) = 1 - \sum_{i=1}^{k} {p_i}^2    \qquad(ml.1.3.4)<br>$$</p>
+<p>$$<br>Gini(D) = 1 - \sum_{i=1}^{k} {p_i}^2    \qquad(ml.1.3.2)<br>$$</p>
 <blockquote>
 <p>其中\(p_i = \frac{类别属于c_i的样本数}{总样本数}\)。如果所有的样本类别相同，则\(p_1 = 1, p_2 = p_3 = \cdots = p_k = 0\)，则有\( Gini(C)=0\)，此时数据不纯度最低。\(Gini(D)\)的物理含义是表示数据集\(D\)的不确定性。数值越大，表明其不确定性越大（这一点与信息熵相似）。</p>
 <p>如果\(k=2\)（二分类问题，类别命名为正类和负类），若样本属于正类的概率是\(p\)，那么对应基尼指数为：</p>
-<p>$$<br>Gini(D) = 2 p (1-p)<br>$$</p>
+<p>$$<br>Gini(D) = 2 p (1-p) \qquad\qquad (n.ml.1.3.6)<br>$$</p>
 </blockquote>
 <p>如果数据集\(D\)根据特征\(f\)是否取某一可能值\(f_{\ast}\)，将\(D\)划分为\(D_1\)和\(D_2\)两部分，即\(D_1=\{(x, y) \in D | f(x) = f_{\ast}\}, D_2=D-D_1\)。那么特征\(f\)在数据集\(D\)基尼指数定义为：</p>
-<p>$$<br>Gini(D, f=f_{\ast}) = \frac{\vert D_1 \vert}{\vert D \vert} Gini(D_1) + \frac{\vert D_2 \vert}{\vert D \vert} Gini(D_2)<br>$$</p>
+<p>$$<br>Gini(D, f=f_{\ast}) = \frac{\vert D_1 \vert}{\vert D \vert} Gini(D_1) + \frac{\vert D_2 \vert}{\vert D \vert} Gini(D_2) \qquad\qquad (ml.1.3.3)<br>$$</p>
 <p>在实际操作中，<strong>通过遍历所有特征（如果是连续值，需做离散化）及其取值</strong>，选择基尼指数最小所对应的特征和特征值。</p>
 <p>这里仍然以天气数据为例，给出特征“阴晴”的基尼指数计算过程。</p>
 <blockquote>
 <p>(1). 当特征“阴晴”取值为”sunny”时，\(D_1 = \{1,2,8,9,11\}, |D_1|=5\); \(D_2=\{3,4,5,6,7,10,12,13,14\}, |D_2|=9\)。\(D_1、D_2\)数据自己对应的类别数分别为\((+2,-3)、(+7,-2)\)。因此\(Gini(D_1) = 2 \cdot \frac{3}{5} \cdot \frac{2}{5} = \frac{12}{25} \)；\(Gini(D_2) = 2 \cdot \frac{7}{9} \cdot \frac{2}{9} = \frac{28}{81}\). 对应的基尼指数为：</p>
-<p>$$<br>Gini(C, “阴晴”=”sunny”) = \frac{5}{14} Gini(D_1) + \frac{9}{14} Gini(D_2) = \frac{5}{14} \frac{12}{25} + \frac{9}{14} \frac{28}{81} = 0.394 \qquad(n.ml.1.3.4)<br>$$</p>
+<p>$$<br>Gini(C, “阴晴”=”sunny”) = \frac{5}{14} Gini(D_1) + \frac{9}{14} Gini(D_2) = \frac{5}{14} \frac{12}{25} + \frac{9}{14} \frac{28}{81} = 0.394 \quad(exp.1.3.5)<br>$$</p>
 <p>(2). 当特征“阴晴”取值为”overcast”时，\(D_1 = \{2,7,12,13\}, |D_1|=4\); \(D_2=\{1,2,4,5,6,8,9,10,11,14\}, |D_2|=10\)。\(D_1、D_2\)数据自己对应的类别数分别为\((+4,-0)、(+5,-5)\)。因此\(Gini(D_1) = 2 \cdot 1 \cdot 0 = 0；Gini(D_2) = 2 \cdot \frac{5}{10} \cdot \frac{5}{10} = \frac{1}{2}\). 对应的基尼指数为：</p>
-<p>$$<br>Gini(C, “阴晴”=”sunny”) = \frac{4}{14} Gini(D_1) + \frac{10}{14} Gini(D_2) = 0 + \frac{10}{14} \cdot \frac{1}{2} = \frac{5}{14} = 0.357 \qquad(n.ml.1.3.4)<br>$$</p>
+<p>$$<br>Gini(C, “阴晴”=”sunny”) = \frac{4}{14} Gini(D_1) + \frac{10}{14} Gini(D_2) = 0 + \frac{10}{14} \cdot \frac{1}{2} = \frac{5}{14} = 0.357 \quad(exp.1.3.6)<br>$$</p>
 <p>(3). 当特征“阴晴”取值为”rainy”时，\(D_1 = \{4,5,6,10,14\}, |D_1|=5\); \(D_2=\{1,2,3,7,8,9,11,12,13\}, |D_2|=9\)。\(D_1、D_2\)数据自己对应的类别数分别为\((+3,-2)、(+6,-3)\)。因此\(Gini(D_1) = 2 \cdot \frac{3}{5} \cdot \frac{2}{5} = \frac{12}{25} \)；\(Gini(D_2) = 2 \cdot \frac{6}{9} \cdot \frac{3}{9} = \frac{4}{9}\). 对应的基尼指数为：</p>
-<p>$$<br>Gini(C, “阴晴”=”sunny”) = \frac{5}{14} Gini(D_1) + \frac{9}{14} Gini(D_2) = \frac{5}{14} \frac{12}{25} + \frac{9}{14} \frac{4}{9} = \frac{4}{7} = 0.457 \qquad(n.ml.1.3.4)<br>$$</p>
-<p>也就说，如果特征”阴晴”是最优特征的话，那么特征取值为”overcast”应作为划分节点。</p>
+<p>$$<br>Gini(C, “阴晴”=”sunny”) = \frac{5}{14} Gini(D_1) + \frac{9}{14} Gini(D_2) = \frac{5}{14} \frac{12}{25} + \frac{9}{14} \frac{4}{9} = \frac{4}{7} = 0.457 \quad(exp.1.3.7)<br>$$</p>
 </blockquote>
+<p>如果特征”阴晴”是最优特征的话，那么特征取值为”overcast”应作为划分节点。</p>
 <p><br></p>
 <h4 id="二叉回归树">二叉回归树</h4><hr>
+<p>二叉回归树采用<strong>平方误差最小化</strong>作为特征选择和切分点选择的依据。一棵回归树对应着特征空间的若干个划分及其在划分单元上的输出值。假设将特征空间划分为\(J\)个单元（子空间），分别是\(\{R_1, R_2, \cdots, R_J\}\)，在每个单元\(R_j\)（对应回归树的一个叶子节点）上有一个固定的输出值\(v_j\)（连续变量）。给定训练数据集\(D=\{(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \cdots, (x^{(m)}, y^{(m)})\}\)，二叉回归树模型可表示为：</p>
+<p>$$<br>f(x) = \sum_{j=1}^{J} v_j \cdot I(x \in R_j) \qquad (ml.1.3.4)<br>$$</p>
+<blockquote>
+<p>\(I(x \in R_j)\)为指示函数，如果输入样本\(x\)属于 \(R_j\)字空间，指示函数为1，对应的输出结果为\(v_j\)。<strong>每个输入\(x\)仅对应一个划分单元（字空间）</strong>。</p>
+</blockquote>
+<p>当特征空间的划分确定时，用平方误差来表示二叉回归树模型对于训练数据的预测误差，即表示如下：</p>
+<p>$$<br>\hat{v_j} := \arg \min \sum_{x^{(i)} \in R_j} \left(y^{(i)} - f(x^{(i)}) \right)^2 \qquad(ml.1.3.5)<br>$$</p>
+<p>每个单元的最优输出值可通过最小化平方误差求得。易知，划分单元\(R_j\)上的\(v_j\)的最优值\(\hat{v_j}\)是\(R_j\)上的所有输入样本\(x^{(i)}\)对应的输出\(y^{(i)}\)的均值，即\(\hat{c_j} = avg(y^{(i)} | x^{(i)} \in R_j)\)。</p>
+<p>下面要解决的问题是：如何划分特征空间？</p>
+<p>一个启发式的方式就是选择特征空间中第\(k\)个特征\(f_k\)和它的取值\(s\),作为划分特征和划分点。定义两个区域（对应内部节点两个分支）：</p>
+<blockquote>
+<p>$$<br>R_1(k, s) = \{x \,|\, f_k \le s\}, \quad R_2(k, s) = \{x \,|\, f_k \gt s\} \qquad(n.ml.1.3.7)<br>$$</p>
+</blockquote>
+<p>然后寻找最优划分特征\(f_k\)和最优划分点\(s\)。具体操作就是<strong>遍历所有未划分过的特征集合和对应的取值（集合）</strong>，求解：</p>
+<p>$$<br>\min_{f_k, \, s} \left[ \min_{v_1} \sum_{x^{(i)} \in R_1(f_k, \, s)} (y^{(i)} - v_1)^2 + \min_{v_2} \sum_{x^{(i)} \in R_2(f_k, \, s)} (y^{(i)} - v_2)^2\right] \qquad(ml.1.3.6)<br>$$</p>
+<p>第1步：固定特征\(f_k\)，最小化<code>[ ... ]</code>里的式子可得最优划分点\(s\)。即：</p>
+<blockquote>
+<p>$$<br>\hat{c_1} = avg (y^{(i)} \,|\, x^{(i)} \in R_1(f_k, s)), \quad \hat{c_2} = avg (y^{(i)} \,|\, x^{(i)} \in R_2(f_k, s)) \qquad(n.ml.1.3.8)<br>$$</p>
+</blockquote>
+<p>第1步：遍历所有特征集合，寻找最优的划分特征，构成\((f_k, s)\)对。这样就可生成一个内部节点，对应的特征\(f_k\)和划分值\(s\)。依此将特征空间划分为两个区域（对应两个数据子集）。</p>
+<p>对每个子区域重复1、2两步的划分过程，直到满足划分停止条件为止（一般的，特征集合\(F = \emptyset\)时）。如此就得到一颗回归树，亦称为最小二乘回归树（Least Squares Regression Tree）。</p>
 <p><br></p>
-<h3 id="Next">Next</h3><hr>
+<h3 id="NEXT_\(\cdots\)">NEXT \(\cdots\)</h3><hr>
 <ul>
+<li>决策树解读</li>
 <li>随机森林</li>
 </ul>
 <p><br></p>
-<h3 id="参考资料">参考资料</h3><ul>
+<h3 id="参考资料">参考资料</h3><hr>
+<ul>
 <li>《机器学习导论》</li>
 <li>《机器学习》－周志华</li>
 <li>《统计学习方法》</li>
@@ -683,7 +706,7 @@ sina weibo: @周永_52ML
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树学习过程"><span class="toc-number">2.</span> <span class="toc-text">决策树学习过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征选择方法"><span class="toc-number">3.</span> <span class="toc-text">特征选择方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#信息增益－ID3"><span class="toc-number">3.1.</span> <span class="toc-text">信息增益－ID3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#增益率"><span class="toc-number">3.2.</span> <span class="toc-text">增益率</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分类与回归树"><span class="toc-number">4.</span> <span class="toc-text">分类与回归树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#二叉分类树"><span class="toc-number">4.1.</span> <span class="toc-text">二叉分类树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二叉回归树"><span class="toc-number">4.2.</span> <span class="toc-text">二叉回归树</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Next"><span class="toc-number">5.</span> <span class="toc-text">Next</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树学习过程"><span class="toc-number">2.</span> <span class="toc-text">决策树学习过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征选择方法"><span class="toc-number">3.</span> <span class="toc-text">特征选择方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#信息增益"><span class="toc-number">3.1.</span> <span class="toc-text">信息增益</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#增益率"><span class="toc-number">3.2.</span> <span class="toc-text">增益率</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分类与回归树"><span class="toc-number">4.</span> <span class="toc-text">分类与回归树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#二叉分类树"><span class="toc-number">4.1.</span> <span class="toc-text">二叉分类树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二叉回归树"><span class="toc-number">4.2.</span> <span class="toc-text">二叉回归树</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NEXT_\(\cdots\)"><span class="toc-number">5.</span> <span class="toc-text">NEXT \(\cdots\)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol>
  
   </div>
 
