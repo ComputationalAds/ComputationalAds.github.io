@@ -1,0 +1,922 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>第09章：深入浅出ML之Factorization家族 | 计算广告与机器学习</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ZhouYong">
+    
+
+    
+    <meta name="description" content="author: zhouyongsdzh@foxmail.com
+date: 2015-07-25
+weibo: @周永_52ML
+
+
+内容列表
+
+写在前面
+Factorization Machine
+Field-aware Factorization Machine
+
+
+写在前面
+
+FM
+FFM
+
+
+因子分解机
+Factorization Machine（简称FM）是由是由Konstanz大学S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第09章：深入浅出ML之Factorization家族">
+<meta property="og:url" content="http://www.52caml.com/head_first_ml/ml-chapter9_factorization-family/index.html">
+<meta property="og:site_name" content="计算广告与机器学习">
+<meta property="og:description" content="author: zhouyongsdzh@foxmail.com
+date: 2015-07-25
+weibo: @周永_52ML
+
+
+内容列表
+
+写在前面
+Factorization Machine
+Field-aware Factorization Machine
+
+
+写在前面
+
+FM
+FFM
+
+
+因子分解机
+Factorization Machine（简称FM）是由是由Konstanz大学S">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第09章：深入浅出ML之Factorization家族">
+<meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
+date: 2015-07-25
+weibo: @周永_52ML
+
+
+内容列表
+
+写在前面
+Factorization Machine
+Field-aware Factorization Machine
+
+
+写在前面
+
+FM
+FFM
+
+
+因子分解机
+Factorization Machine（简称FM）是由是由Konstanz大学S">
+
+    
+    <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="计算广告与机器学习" title="计算广告与机器学习"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="计算广告与机器学习">计算广告与机器学习</a></h1>
+				<h2 class="blog-motto">Computational Advertising and Machine Learning</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/home">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.52caml.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/head_first_ml/ml-chapter9_factorization-family/" title="第09章：深入浅出ML之Factorization家族" itemprop="url">第09章：深入浅出ML之Factorization家族</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-22T14:43:47.000Z" itemprop="datePublished"> 发表于 2015-12-22</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型总结"><span class="toc-number">2.3.</span> <span class="toc-text">FM模型总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#应用场景"><span class="toc-number">2.4.</span> <span class="toc-text">应用场景</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-7_非负矩阵分解"><span class="toc-number">3.</span> <span class="toc-text">9.7 非负矩阵分解</span></a></li></ol>
+		
+		</div>
+		
+		<ul>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 2015-07-25</li>
+<li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
+</ul>
+<hr>
+<p><strong>内容列表</strong></p>
+<ul>
+<li>写在前面</li>
+<li>Factorization Machine</li>
+<li>Field-aware Factorization Machine</li>
+</ul>
+<p><br></p>
+<h3 id="写在前面">写在前面</h3><hr>
+<ul>
+<li>FM</li>
+<li>FFM</li>
+</ul>
+<p><br></p>
+<h3 id="因子分解机">因子分解机</h3><hr>
+<p>Factorization Machine（简称FM）是由是由Konstanz大学Steffen Rendle（现任职于Google）于2010年最早提出的，旨在解决大规模稀疏数据下的特征组合问题。介绍FM之前，先介绍一下在实际应用场景中稀疏数据是如何产生的？</p>
+<p>用于在网站上的行为数据会被Server端以日志的形式记录下来（这些数据通常会存在在多台服务器的硬盘上，以我浪为例，各业务线收集的日志会通过thrift等方式交给数据中心托管，它们负责把数据定时上传至HDFS上，或者由数据中心生成hive表）。我们会发现日志中大多数出现的特征是categorical类型的，这种特征类型的取值仅仅是一个标识，本身并没有实际意义，更不能用其取值比较大小。（比日志中记录了用户访问的频道，如”news”, “auto”, “finance”等）。</p>
+<blockquote>
+<p>假设channel特征有10个取值，分别为\(\{\text{“auto”}, \text{“finance”}, \text{“ent”}, \text{“news”}, \text{“sports”}, \text{“mil”}, \text{“weather”}, \text{“house”}, \text{“edu”}, \text{“games”} \}\)。部分训练数据如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">user</th>
+<th style="text-align:center">channel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">user1</td>
+<td style="text-align:center">sports</td>
+</tr>
+<tr>
+<td style="text-align:center">user2</td>
+<td style="text-align:center">news</td>
+</tr>
+<tr>
+<td style="text-align:center">user3</td>
+<td style="text-align:center">finance</td>
+</tr>
+<tr>
+<td style="text-align:center">user4</td>
+<td style="text-align:center">house</td>
+</tr>
+<tr>
+<td style="text-align:center">user5</td>
+<td style="text-align:center">edu</td>
+</tr>
+<tr>
+<td style="text-align:center">user6</td>
+<td style="text-align:center">news</td>
+</tr>
+<tr>
+<td style="text-align:center">…</td>
+<td style="text-align:center">…</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>特征ETL过程中，需要对其进行one-hot编码操作（独热编码）将categorical型特征转化为数值型特征。上例转化后的结果如下：</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">user</th>
+<th style="text-align:center">chn-auto</th>
+<th style="text-align:center">chn-finance</th>
+<th style="text-align:center">chn-ent</th>
+<th style="text-align:center">chn-news</th>
+<th style="text-align:center">chn-sports</th>
+<th style="text-align:center">chn-mil</th>
+<th style="text-align:center">chn-weather</th>
+<th style="text-align:center">chn-house</th>
+<th style="text-align:center">chn-edu</th>
+<th style="text-align:center">chn-games</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">user1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">user2</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">user3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">user4</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">user5</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">user6</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>可以发现，由one-hot编码带来的数据稀疏性会导致特征空间变大。上面的例子中，一维categorical特征在经过one－hot编码后变成了10数值型特征。真实应用场景中，未编码前特征总维度可能仅有数十维或者到数百维的categorical型特征，经过one－hout编码后，达到数千万、数亿甚至更高维度的数值特征都是常有的。</p>
+<blockquote>
+<p>我们广告/推荐业务的点击预估系统，编码前是特征不到100维，编码后（包括特征哈希后）的维度达到300w量级。</p>
+</blockquote>
+<p>此外也能返现，<strong>特征空间增长的维度取决于categorical型特征的取值个数。</strong>在数据稀疏性的现实情况下，我们还可以做些什么事情？我们还可以考虑特征之间的关联信息。下面要回答两个问题：1. 为什么要考虑特征之间的关联信息？2. 如何得到组合特征？</p>
+<ol>
+<li>为什么要考虑特征之间的关联信息？</li>
+</ol>
+<p>大量的研究和实际数据分析结果表明：某些特征之间的关联信息（相关度）对事件结果的的发生会产生很大的影响。例如：《参考毕业设计中的示例》</p>
+<ol>
+<li>如何得到组合特征？</li>
+</ol>
+<p>样本中特征之间的关联信息在one－hot编码和浅层学习模型（如LR、SVM）是做不到的。目前工业界主要有两种手段得到组合特征。1. 人工特征工程（数据分析，人工构造）；2. 特征模型做组合特征的学习（深度学习方法、FM方法）</p>
+<p>我们在《第01章：多项式回归模型中》看到的<a href="">多项式回归模型</a>，其中的交叉因子项\(x_i x_j\)就是组合特征最直观的例子。</p>
+<blockquote>
+<p>\(x_i x_j\)表示特征\(x_i\)和\(x_j\)的组合，当\(x_i\)和\(x_j\)都非零时，组合特征\(x_i x_j\)才有意义。</p>
+</blockquote>
+<p>这里我们以二阶多项式模型（degree=2时FM模型）为例，来分析和探讨FM的公式表达和参数学习过程。</p>
+<p><br></p>
+<h4 id="FM模型表达">FM模型表达</h4><hr>
+<p>为了更好的介绍FM模型，我们先从多项式回归、交叉组合特征说起，然后自然地过度到FM模型。</p>
+<p><strong>_二阶多项式回归模型_</strong></p>
+<p>我们首先看二阶多项式模型的表达式：</p>
+<blockquote>
+<p>$$<br>\hat{y}(x) := \underbrace {w_0 + \sum_{i=1}^{n} w_i x_i }_{线性回归} + \underbrace {\sum_{i=1}^{n} \sum_{j=i+1}^{n} w_{ij} x_i x_j}_{交叉项（组合特征）} \qquad (n.ml.1.9.1)<br>$$</p>
+</blockquote>
+<p>其中，\(n\)表示样本特征维度，\(w_0 \in R,\; w ＝ \{w_1, w_2, \cdots, w_n\}\in R^n, w_{ij} \in R^{n \times n}\)为模型参数。</p>
+<p>从公式\(\text{(n.ml.1.9.1)}\)可知，交叉项中的组合特征参数总共有\(\frac{n(n-1)}{2}\)个，任意两个交叉项参数\(w_{ij}\)都是独立的。然而，在数据非常稀疏的实际应用场景中，交叉项参数的学习是很困难的。为什么呢？</p>
+<p>因为我们知道，<strong>回归模型的参数\(w\)的学习结果就是从训练样本中计算充分统计量（符合指数族分布的模型都具有此性质）</strong>，而在这里交叉项的每一个参数\(w_{ij}\)的学习过程需要大量的\(x_i、x_j\)同时非零的训练样本数据。由于样本数据本来就很稀疏，能够满足“\(x_i\)和\(x_j\)都非零”的样本数就会更少。训练样本不充分，学到的参数\(w_{ij}\)就不是充分统计量结果，导致参数\(w_{ij}\)不准确，而这会严重影响模型的性能和稳定性。How to do it ?</p>
+<p>如何解决二阶交叉项参数的学习问题呢？矩阵分解方法已经给出了解决思路。这里借用CMU讨论课中提到的<a href="http://www.cs.cmu.edu/~wcohen/10-605/2015-guest-lecture/FM.pdf" target="_blank" rel="external">FM课件</a>和<a href="http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html" target="_blank" rel="external">美团－深入FFM原理与实践</a>中提到的矩阵分解例子（美团技术团队的分享都很赞👍）。</p>
+<blockquote>
+<p>在基于Model-Based的协同过滤中，一个rating矩阵可以分解为user矩阵和item矩阵，每个user和item都可以采用一个隐向量表示。如下图所示。</p>
+<p>《插入图片》</p>
+<p>上图把每一个user表示成了一个二维向量，同时将每个item也表示成一个二维向量，两个向量的点积就是矩阵中user对item的打分。</p>
+</blockquote>
+<p>根据矩阵分解的启发，如果把多项式模型中二阶交叉项参数\(w_{ij}\)组成一个对称矩阵\(W\)（对角元素设为正实数），那么这个矩阵就可以分解为\(W = V \cdot V^T\)，\(V\)的第\(j\)列对应着第\(j\)维特征的隐向量。</p>
+<p>换句话说，将每个交叉项参数\(w_{ij}\)用隐向量的点积\(\langle \mathbf{v}_i, \mathbf{v}_j\rangle\)表示，这就是FM模型的核心思想。下面对FM模型表达式和参数求解过程，给出详细说明。</p>
+<p><strong>_FM模型_</strong></p>
+<p>当度为2（degree＝2）时，FM模型表达式为：</p>
+<p>$$<br>\hat{y}(\mathbf{x}) := w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle \mathbf{v}_i, \mathbf{v}_j \rangle x_i x_j \qquad(ml.1.9.1)<br>$$  </p>
+<p>其中，\(v_i\)表示第\(i\)特征的隐向量，\(\langle \cdot, \cdot\rangle\)表示两个长度为\(k\)的向量的点积（即内积），计算公式为：</p>
+<p>$$<br>\langle \mathbf{v}_i, \mathbf{v}_j \rangle := \sum_{f=1}^{k} v_{i,f} \cdot v_{j,f} \qquad(ml.1.9.2)<br>$$</p>
+<blockquote>
+<p>公式解读：</p>
+<ol>
+<li>线性模型＋交叉项（表示非线性）</li>
+</ol>
+<p>前两部分是传统的线性模型（见第01章），最后一项表示将<strong>两个互异的特征分量</strong>之间的交互关系考虑进来。</p>
+<ol>
+<li>对于2-way的FM，参数的含义（结合论文）</li>
+</ol>
+<ul>
+<li><p>交叉项系数</p>
+<p> 与线性模型求解最大的不同，即FM模型在线性回归基础上加入了一个特征交叉项，即：<br>$$<br>\hat{y}(x) := w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n-1} \sum_{j=i+1}^{n} w_{ij} x_i x_j<br>$$</p>
+</li>
+</ul>
+<p>如果直接在二阶交叉项\(x_i x_j\)前面加上交叉项系数\(w_{ij}\)的话，那么在稀疏数据的情况下（实际应用场景如此）存在一个很大的缺陷：在对于训练样本中未出现交互的特征分量，不能对相应的参数进行估计。（需要结合CTR特征数据，给成示例解释）</p>
+<p>FM求解过程中的做法是：对每一个特征分量\(x_i\)引入**辅助向量\(v_i ＝ (v_{i,1}, v_{i,2}, \cdots, v_{i,k})\)**，利用\(v_i v_j^T\)点积结果对交叉项的系数\(w_{ij}\)进行估计，公式表示为：\(\hat{w_{ij}} := v_i v_j^T\).</p>
+<p>系数矩阵\(V\)可以写成：</p>
+</blockquote>
+<p>隐向量的长度\(k\)称为超参数\((k \in N^+, k \ll n)\)，\(v_i = (v_{i,1}, v_{i,2}, \cdots, v_{i,k})\)的含义是用\(k\)个描述特征的因子来表示第\(i\)维特征。根据公式\((ml.1.9.1)\)，二阶交叉项的参数由\(n \cdot n\)个减少到\(n \cdot k\)个，远少于二阶多项式模型中的参数数量。</p>
+<p>此外，<strong>参数因子化表示后，使得\(x_h x_i\)的参数与\(x_i x_j\)的参数不再相互独立</strong>。这样，我们就可以在样本稀疏情况下相对合理的估计FM的二阶项参数。具体的</p>
+<blockquote>
+<p>$$<br>\begin{align}<br>\langle \mathbf{v}_h, \mathbf{v}_i \rangle &amp;:= \sum_{f=1}^{k} v_{h,f} \cdot v_{i,f}  \quad(1)\\<br>\langle \mathbf{v}_i, \mathbf{v}_j \rangle &amp;:= \sum_{f=1}^{k} v_{i,f} \cdot v_{j,f} \;\quad(2)<br>\end{align} \qquad (n.ml.1.9.2)<br>$$</p>
+</blockquote>
+<p>\(x_h x_i\)与\(x_i x_j\)的系数分别为\(\langle \mathbf{v}_h, \mathbf{v}_i \rangle\)和\(\langle \mathbf{v}_i, \mathbf{v}_j \rangle\)，他们之间有共同项\(\mathbf{v}_i\)。也就是说，所有包含\(x_i\)的非零组合特征（存在某个\(j \neq i\)，使得\(x_ix_j \neq 0\)）的样本都可以用来学习隐向量\(\mathbf{v}_i\)，这在很大程度上避免了数据稀疏行造成参数估计不准确的影响。</p>
+<blockquote>
+<p>在二阶多项式模型中，参数\(w_{hi}\)和\(w_{ij}\)的学习过程是相互独立的。</p>
+</blockquote>
+<p>论文中还提到FM模型的应用场景，并且说公式\((ml.1.9.1)\)作为一个通用的拟合模型（Generic Model），可以采用不同的损失函数来解决具体问题。比如：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">FM应用场景</th>
+<th style="text-align:center">损失函数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">回归</td>
+<td style="text-align:center">均方误差（MSE）损失</td>
+<td style="text-align:center">Mean Square Error，与平方误差类似</td>
+</tr>
+<tr>
+<td style="text-align:center">二类分类</td>
+<td style="text-align:center">Hinge/Cross-Entopy损失</td>
+<td style="text-align:center">分类时，结果需要做sigmoid变换</td>
+</tr>
+<tr>
+<td style="text-align:center">排序</td>
+<td style="text-align:center">.</td>
+<td style="text-align:center">. </td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h4 id="FM参数学习">FM参数学习</h4><hr>
+<p><strong>_等式变换_</strong></p>
+<p>公式\((ml.1.9.1)\)中直观地看，FM模型的复杂度为\(O(kn^2)\)，但是通过下面的等价转换，可以将FM的二次项化简，其复杂度可优化到\(O(kn)\)。即：</p>
+<p>$$<br>\sum_{i=1}^{n} \sum_{j=i+1}^{n} {\langle v_i, v_j \rangle} x_i x_j = \frac{1}{2} \sum_{f=1}^{k} {\left \lgroup \left(\sum_{i=1}^{n} v_{i,f} x_i \right)^2 - \sum_{i=1}^{n} v_{i,f}^2 x_i^2\right \rgroup} \qquad(ml.1.9.3)<br>$$</p>
+<p>下面给出详细推导：</p>
+<blockquote>
+<p>$$<br>\begin{align}<br>&amp; \sum_{i=1}^{n} \sum_{j=i+1}^{n} {\langle \mathbf{v}_i, \mathbf{v}_j \rangle} x_i x_j \qquad\qquad\qquad\qquad\qquad\qquad(1)\\<br>= &amp; \frac{1}{2} \sum_{i=1}^{n} \sum_{j=1}^{n} {\langle \mathbf{v}_i, \mathbf{v}_j \rangle} x_i x_j - \frac{1}{2} \sum_{i=1}^{n} {\langle \mathbf{v}_i, \mathbf{v}_i \rangle} x_i x_i \qquad\qquad\;\;(2)\\<br>= &amp; \frac{1}{2} \left(\sum_{i=1}^{n} \sum_{j=1}^{n} \sum_{f=1}^{k} v_{i,f} v_{j,f} x_i x_j - \sum_{i=1}^{n} \sum_{f=1}^{k} v_{i,f} v_{i,f} x_i x_i \right) \qquad\,(3) \\<br>= &amp; \frac{1}{2} \sum_{f=1}^{k} {\left \lgroup \left(\sum_{i=1}^{n} v_{i,f} x_i \right) \cdot \left(\sum_{j=1}^{n} v_{j,f} x_j \right) - \sum_{i=1}^{n} v_{i,f}^2 x_i^2 \right \rgroup} \quad\;\;\,(4) \\<br>= &amp; \frac{1}{2} \sum_{f=1}^{k}  {\left \lgroup \left(\sum_{i=1}^{n} v_{i,f} x_i \right)^2 - \sum_{i=1}^{n} v_{i,f}^2 x_i^2\right \rgroup} \qquad\qquad\qquad\;\;(5)<br>\end{align} \qquad(n.ml.1.9.3)<br>$$</p>
+<p>解读第（1）步到第（2）步，这里用\(A\)表示系数矩阵\(V\)的上三角元素，\(B\)表示对角线上的交叉项系数。由于系数矩阵\(V\)是一个对称阵，所以下三角与上三角相等，有下式成立：</p>
+<p>$$<br>A = \frac{1}{2} (2A+B) - \frac{1}{2} B.  \quad \underline{ A=\sum_{i=1}^{n} \sum_{j=i+1}^{n} {\langle \mathbf{v}_i, \mathbf{v}_j \rangle} x_i x_j } ; \quad \underline{ B = \frac{1}{2} \sum_{i=1}^{n} {\langle \mathbf{v}_i, \mathbf{v}_i \rangle} x_i x_i } \quad (n.ml.1.9.4)<br>$$</p>
+</blockquote>
+<p>如果用随机梯度下降（Stochastic Gradient Descent）法学习模型参数。那么，模型各个参数的梯度如下：</p>
+<p>$$<br>\frac{\partial}{\partial \theta} y(\mathbf{x}) =<br>\left \{<br>\begin{array}{ll}<br>1,         &amp; \text{if}\; \theta\; \text{is}\; w_0 \qquad \text{(常数项)} \\<br>x_i     &amp; \text{if}\; \theta\; \text{is}\; w_i \;\qquad \text{(线性项)} \\<br>x_i \sum_{j=1}^{n} v_{j,f} x_j - v_{i,f} x_i^2, &amp; \text{if}\; \theta\; \text{is}\; v_{i,f} \qquad \text{(交叉项)}<br>\end{array}<br>\right. \qquad\quad(ml.1.9.4)<br>$$</p>
+<p>其中， \(v_{j,f}\)是隐向量\(\mathbf{v}_j\)的第\(f\)个元素。</p>
+<p><strong>_梯度法训练FM_</strong></p>
+<p>给出伪代码</p>
+<p><strong>_FM训练复杂度_</strong></p>
+<p>由于\(\sum_{j=1}^{n} v_{j,f} x_j\)只与\(f\)有关，在参数迭代过程中，只需要计算第一次所有\(f\)的\(\sum_{j=1}^{n} v_{j,f} x_j\)，就能够方便地得到所有\(v_{i,f}\)的梯度。显然，计算所有\(f\)的\(\sum_{j=1}^{n} v_{j,f} x_j\)的复杂度是\(O(kn)\)；已知\(\sum_{j=1}^{n} v_{j,f} x_j\)时，计算每个参数梯度的复杂度是\(O(n)\)；得到梯度后，更新每个参数的复杂度是 \(O(1)\)；模型参数一共有\(nk + n + 1\)个。因此，FM参数训练的时间复杂度为\(O(kn)\)。</p>
+<p>综上可知，FM算法可以在线性时间内完成模型训练，以及对新样本做出预测，是一个非常高效地模型。</p>
+<p><br></p>
+<h4 id="FM模型总结">FM模型总结</h4><hr>
+<ul>
+<li>总结：在一些文章中把FM模型称为多项式的广义线性模型，也是恰如其分的。</li>
+<li>FM仅仅是一个可以表示特征之间交互关系的函数表法式，可以推广到高阶的形式，即将多个互异特征分量之间的关系考虑进来。例如在广告中如果考虑<code>user-ad-context</code>三维特征之间的关系，在FM模型中对应的degree=3.</li>
+<li>FM三大优势<ul>
+<li>针对稀疏数据进行参数估计</li>
+<li>线性复杂度</li>
+<li>通用的预估模型，可以工作着任何数据的特征数据上，稀疏or稠密</li>
+</ul>
+</li>
+<li>FM最大特点：对稀疏数据有很好的学习能力，通过交互项可以学习特征之间的相互关系。</li>
+</ul>
+<p><a href="http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html" target="_blank" rel="external">http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html</a></p>
+<h4 id="应用场景">应用场景</h4><p>推荐算法，预估模型（如CTR预估等）</p>
+<h3 id="9-7_非负矩阵分解">9.7 非负矩阵分解</h3>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/深入浅出机器学习/">深入浅出机器学习</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/FFM/">FFM</a><a href="/tags/FM/">FM</a><a href="/tags/Factorization-Machine/">Factorization Machine</a><a href="/tags/Field-aware-FM/">Field-aware FM</a><a href="/tags/分解机器/">分解机器</a><a href="/tags/因子分解机/">因子分解机</a><a href="/tags/场感知分解机器/">场感知分解机器</a><a href="/tags/特征交叉/">特征交叉</a><a href="/tags/组合特征/">组合特征</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.52caml.com/head_first_ml/ml-chapter9_factorization-family/" data-title="第09章：深入浅出ML之Factorization家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/hello-world/" title="测试Hexo功能">
+  <strong>上一篇：</strong><br/>
+  <span>
+  测试Hexo功能</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/head_first_ml/ml-chapter6-boosting-family/"  title="第06章：深入浅出ML之Boosting家族">
+ <strong>下一篇：</strong><br/> 
+ <span>第06章：深入浅出ML之Boosting家族
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型总结"><span class="toc-number">2.3.</span> <span class="toc-text">FM模型总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#应用场景"><span class="toc-number">2.4.</span> <span class="toc-text">应用场景</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-7_非负矩阵分解"><span class="toc-number">3.</span> <span class="toc-text">9.7 非负矩阵分解</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/概率与统计/" title="概率与统计">概率与统计<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/深入浅出机器学习/" title="深入浅出机器学习">深入浅出机器学习<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/连续随机变量/" title="连续随机变量">连续随机变量<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分解机器/" title="分解机器">分解机器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/因子分解机/" title="因子分解机">因子分解机<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Factorization-Machine/" title="Factorization Machine">Factorization Machine<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FM/" title="FM">FM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FFM/" title="FFM">FFM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/场感知分解机器/" title="场感知分解机器">场感知分解机器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Field-aware-FM/" title="Field-aware FM">Field-aware FM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/特征交叉/" title="特征交叉">特征交叉<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/组合特征/" title="组合特征">组合特征<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AdaBoost/" title="AdaBoost">AdaBoost<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Gradient-Boosting/" title="Gradient Boosting">Gradient Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/BGDT/" title="BGDT">BGDT<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/XGBoost/" title="XGBoost">XGBoost<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Kernel/" title="Kernel">Kernel<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/对偶优化/" title="对偶优化">对偶优化<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/SVM/" title="SVM">SVM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/支持向量机/" title="支持向量机">支持向量机<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, Welcome to CAML technology sharing platform.  <br/>
+			I&#39;m Zhou Yong, engaged in algorithms work on computational advertising and machine learning.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1707438033" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/ComputationalAds" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zhouyongsdzh@foxmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="ZhouYong">ZhouYong</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>
