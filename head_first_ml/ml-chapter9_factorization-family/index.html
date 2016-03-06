@@ -352,7 +352,7 @@ Factorization Machine（简称FM）是由是由Konstanz大学S">
 <p>如何解决二阶交叉项参数的学习问题呢？矩阵分解方法已经给出了解决思路。这里借用CMU讨论课中提到的<a href="http://www.cs.cmu.edu/~wcohen/10-605/2015-guest-lecture/FM.pdf" target="_blank" rel="external">FM课件</a>和<a href="http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html" target="_blank" rel="external">美团－深入FFM原理与实践</a>中提到的矩阵分解例子（美团技术团队的分享都很赞👍）。</p>
 <blockquote>
 <p>在基于Model-Based的协同过滤中，一个rating矩阵可以分解为user矩阵和item矩阵，每个user和item都可以采用一个隐向量表示。如下图所示。</p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_9_2_1_fm_mf_example.png" width="600" height="400" alt="Decision Tree"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_9_2_1_fm_mf_example.png" width="800" height="500" alt="cf_mf"></p>
 <p>上图把每一个user表示成了一个二维向量，同时将每个item也表示成一个二维向量，两个向量的点积就是矩阵中user对item的打分。</p>
 </blockquote>
 <p>根据矩阵分解的启发，如果把多项式模型中二阶交叉项参数\(w_{ij}\)组成一个对称矩阵\(W\)（对角元素设为正实数），那么这个矩阵就可以分解为\(W = V \cdot V^T\)，\(V\)的第\(j\)列对应着第\(j\)维特征的隐向量。</p>
