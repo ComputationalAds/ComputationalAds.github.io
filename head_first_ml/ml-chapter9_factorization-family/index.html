@@ -439,7 +439,7 @@ FFM
 <p>  很明显，单特征参数（\(k\)维隐向量\(\mathbf{v}_i\)）的学习要比交叉项参数\(w_{ij}\)学习得更充分。示例说明：</p>
 <blockquote>
 <p>假如有10w条训练样本，其中出现<code>女性</code>特征的样本数为3w，出现<code>男性</code>特征的样本数为6w，出现<code>汽车</code>特征的样本数为2000，出现<code>化妆品</code>的样本数为1000。特征共现的样本数如下：</p>
-<p>  | 共现交叉特征 | 样本数 | 注 |<br>  | :—: | :—: | :—: |<br>  | <code>&lt;女性，汽车&gt;</code> | 500 | . |<br>  | <code>&lt;女性，化妆品&gt;</code> | 1000 | . |<br>  | <code>&lt;男性，汽车&gt;</code> | 1500 | . |<br>  | <code>&lt;男性，化妆品&gt;</code> | 0 | 样本中无此特征组合项 |</p>
+<p>| 共现交叉特征 | 样本数 | 注 |<br>  | :—: | :—: | :—: |<br>  | <code>&lt;女性，汽车&gt;</code> | 500 | . |<br>  | <code>&lt;女性，化妆品&gt;</code> | 1000 | . |<br>  | <code>&lt;男性，汽车&gt;</code> | 1500 | . |<br>  | <code>&lt;男性，化妆品&gt;</code> | 0 | 样本中无此特征组合项 |</p>
 <p><code>&lt;女性，汽车&gt;</code>的含义是<font color="#EE0000">女性看汽车广告</font>。可以看到，单特征对应的样本数大于组合特征对应的样本数。训练时，单特征参数相比交叉项特征参数会学习的更加充分。 </p>
 </blockquote>
 </li>
@@ -549,7 +549,7 @@ FFM
 </tbody>
 </table>
 <p>那么，FFM所有的（二阶）组合特征共有10项（\(\mathbf{C}_{5}^{2} = \frac{5 \times 4}{ 2!}= 10\)），即为：</p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_9_2_2_ffm_samples.png" width="700" height="200" alt="ffm_samples"></p>
+<p></p><p style="text-align:left"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_9_2_2_ffm_samples.png" width="700" height="200" alt="ffm_samples"></p>
 <p>其中，红色表示Field编码，蓝色表示Feature编码，绿色表示样本的组合特征取值（离散化后的结果）。二阶交叉项的系数是通过与Field相关的隐向量的点积得到的。如果单特征有n个，全部做二阶特征组合的话，会有\(\mathbf{C}_{n}^{2} = \frac{n(n-1)}{2}\)个。</p>
 </blockquote>
 <h4 id="FFM应用场景">FFM应用场景</h4><p>在我们的广告业务系统、商业推荐以及自媒体－推荐系统中，<strong>FFM模型作为点击预估系统中的核心算法之一，用于预估广告、商品、文章的点击率（CTR）和转化率（CVR）</strong>。</p>
