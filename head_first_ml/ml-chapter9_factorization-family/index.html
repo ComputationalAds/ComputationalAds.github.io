@@ -357,6 +357,59 @@ FFM
 </blockquote>
 <p>根据矩阵分解的启发，如果把多项式模型中二阶交叉项参数\(w_{ij}\)组成一个对称矩阵\(W\)（对角元素设为正实数），那么这个矩阵就可以分解为\(W = V \cdot V^T\)，\(V \in R^{n \times k}\)称为系数矩阵，其中第\(i\)行对应着第\(i\)维特征的隐向量 (这部分在FM公式解读中详细介绍)。</p>
 <p><strong>将每个交叉项参数\(w_{ij}\)用隐向量的点积\(\langle \mathbf{v}_i, \mathbf{v}_j\rangle\)表示，是FM模型的核心思想</strong>。下面对FM模型表达式和参数求解过程，给出详细说明。</p>
+<p><strong>1. FM模型</strong></p>
+<p>这里我们只讨论二阶FM模型（degree＝2），其表达式为：</p>
+<p>$$<br>\hat{y}(\mathbf{x}) := w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle \mathbf{v}_i, \mathbf{v}_j \rangle x_i x_j \qquad(ml.1.9.1)<br>$$  </p>
+<p>其中，\(v_i\)表示第\(i\)特征的隐向量，\(\langle \cdot, \cdot\rangle\)表示两个长度为\(k\)的向量的点积（即内积），计算公式为：</p>
+<p>$$<br>\langle \mathbf{v}_i, \mathbf{v}_j \rangle := \sum_{f=1}^{k} v_{i,f} \cdot v_{j,f} \qquad(ml.1.9.2)<br>$$</p>
+<blockquote>
+<p>公式解读：</p>
+<ul>
+<li><p><strong>线性模型＋交叉项</strong></p>
+<p> 直观地看FM模型表达式，前两项是<a href="http://www.52caml.com/head_first_ml/ml-chapter1-regression-family/#线性回归模型" target="_blank" rel="external">线性回归模型</a>的表达式，最后一项是二阶特征交叉项（又称组合特征项），表示模型将<strong>两个互异的特征分量</strong>之间的交互关系考虑进来。<strong>用交叉项表示组合特征，从而建立特征与结果之间的非线性关系</strong>。</p>
+</li>
+<li><p><strong>交叉项系数 \(\to\) 隐向量点积</strong></p>
+<p> 由于FM模型是在线性回归基础上加入了特征交叉项，模型求解时不直接求特征交叉项的系数\(w_{ij}\)（对应的组合特征稀疏，导致学习不充分），故而采用隐向量的点积\(\langle \mathbf{v}_i, \mathbf{v}_j\rangle\)表示\(w_{ij}\)。</p>
+<p>具体的，FM求解过程中的做法是：对每一个特征分量\(x_i\)引入**隐向量\(v_i ＝ (v_{i,1}, v_{i,2}, \cdots, v_{i,k})\)**，利用\(v_i v_j^T\)点积结果对交叉项的系数\(w_{ij}\)进行估计，公式表示：\(\hat{w_{ij}} := v_i v_j^T\).</p>
+</li>
+</ul>
+</blockquote>
+<p>隐向量的长度\(k\)称为超参数\((k \in N^+, k \ll n)\)，\(v_i = (v_{i,1}, v_{i,2}, \cdots, v_{i,k})\)的含义是用\(k\)个描述特征的因子来表示第\(i\)维特征。根据公式\((ml.1.9.1)\)，二阶交叉项的参数由\(n \cdot n\)个减少到\(n \cdot k\)个，远少于二阶多项式模型中的参数数量。</p>
+<p>此外，<strong>参数因子化表示后，使得\(x_h x_i\)的参数与\(x_i x_j\)的参数不再相互独立</strong>。这样，我们就可以在样本稀疏情况下相对合理的估计FM的二阶项参数。具体的</p>
+<blockquote>
+<p>$$<br>\begin{align}<br>\langle \mathbf{v}_h, \mathbf{v}_i \rangle &amp;:= \sum_{f=1}^{k} v_{h,f} \cdot v_{i,f}  \quad(1)\\<br>\langle \mathbf{v}_i, \mathbf{v}_j \rangle &amp;:= \sum_{f=1}^{k} v_{i,f} \cdot v_{j,f} \;\quad(2)<br>\end{align} \qquad (n.ml.1.9.2)<br>$$</p>
+</blockquote>
+<p>\(x_h x_i\)与\(x_i x_j\)的系数分别为\(\langle \mathbf{v}_h, \mathbf{v}_i \rangle\)和\(\langle \mathbf{v}_i, \mathbf{v}_j \rangle\)，他们之间有共同项\(\mathbf{v}_i\)。也就是说，所有包含\(x_i\)的非零组合特征（存在某个\(j \neq i\)，使得\(x_ix_j \neq 0\)）的样本都可以用来学习隐向量\(\mathbf{v}_i\)，这在很大程度上避免了数据稀疏行造成参数估计不准确的影响。</p>
+<blockquote>
+<p>在二阶多项式模型中，参数\(w_{hi}\)和\(w_{ij}\)的学习过程是相互独立的。</p>
+</blockquote>
+<p>论文中还提到FM模型的应用场景，并且说公式\((ml.1.9.1)\)作为一个通用的拟合模型（Generic Model），可以采用不同的损失函数来解决具体问题。比如：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">FM应用场景</th>
+<th style="text-align:center">损失函数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">回归</td>
+<td style="text-align:center">均方误差（MSE）损失</td>
+<td style="text-align:center">Mean Square Error，与平方误差类似</td>
+</tr>
+<tr>
+<td style="text-align:center">二类分类</td>
+<td style="text-align:center">Hinge/Cross-Entopy损失</td>
+<td style="text-align:center">分类时，结果需要做sigmoid变换</td>
+</tr>
+<tr>
+<td style="text-align:center">排序</td>
+<td style="text-align:center">.</td>
+<td style="text-align:center">. </td>
+</tr>
+</tbody>
+</table>
   
 	</div>
 		<footer class="article-footer clearfix">
