@@ -56,6 +56,7 @@ FFM
 因子分解机
 因子分解机（Factorization Machine，简称FM），又称分解机器。是">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_9_2_1_fm_mf_example.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_9_2_2_ffm_samples.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第09章：深入浅出ML之Factorization家族">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
@@ -153,7 +154,7 @@ FFM
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM总结"><span class="toc-number">2.3.</span> <span class="toc-text">FM总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#场感知分解机"><span class="toc-number">3.</span> <span class="toc-text">场感知分解机</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM总结"><span class="toc-number">2.3.</span> <span class="toc-text">FM总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#场感知分解机"><span class="toc-number">3.</span> <span class="toc-text">场感知分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FFM应用场景"><span class="toc-number">3.1.</span> <span class="toc-text">FFM应用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考资料"><span class="toc-number">3.2.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -538,7 +539,31 @@ FFM
 </tbody>
 </table>
 <p>那么，FFM所有的（二阶）组合特征共有10项（\(\mathbf{C}_{5}^{2} = \frac{5 \times 4}{ 2!}= 10\)），即为：</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_9_2_2_ffm_samples.png" width="500" height="200" alt="ffm_samples"></p>
+<p>其中，红色表示Field编码，蓝色表示Feature编码，绿色表示样本的组合特征取值（离散化后的结果）。二阶交叉项的系数是通过与Field相关的隐向量的点积得到的。如果单特征有n个，全部做二阶特征组合的话，会有\(\mathbf{C}_{n}^{2} = \frac{n(n-1)}{2}\)个。</p>
 </blockquote>
+<h4 id="FFM应用场景">FFM应用场景</h4><p>在我们的广告业务系统、商业推荐以及自媒体－推荐系统中，<strong>FFM模型作为点击预估系统中的核心算法之一，用于预估广告、商品、文章的点击率（CTR）和转化率（CVR）</strong>。</p>
+<p>在鄙司广告算法团队，点击预估系统已成为基础设施，支持并服务于不同的业务线和应用场景。预估模型都是离线训练，然后定时更新到线上实时计算，因此预估问题最大的差异就体现在数据场景和特征工程。以广告的点击率为例，特征主要分为如下几类：</p>
+<ul>
+<li>用户属性与行为特征：</li>
+<li>广告特征：</li>
+<li>上下文环境特征：</li>
+</ul>
+<p>为了使用开源的FFM模型，所以的特征必须转化为<code>field_id:feat_id:value</code>格式，其中<code>field_id</code>表示特征所属field的编号，<code>feat_id</code>表示特征编号，value为特征取值。数值型的特征如果无需离散化，只需分配单独的field编号即可，如历史pseudo-ctr。categorical特征需要经过one-hot编码转化为数值型，编码产生的所有特征同属于一个field，特征value只能是0/1, 如用户年龄区间、性别、兴趣、人群等。</p>
+<p><strong>开源工具FFM使用时，注意事项（参考新浪广告算法组的实战经验和<a href="http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html" target="_blank" rel="external">美团－深入FFM原理与实践</a>）:</strong></p>
+<ul>
+<li>样本归一化：</li>
+<li>特征归一化：</li>
+<li>省略0值特征：</li>
+</ul>
+<p>回归、分类、排序等。推荐算法，预估模型（如CTR预估等）</p>
+<h4 id="参考资料">参考资料</h4><ul>
+<li>Sina广告点击预估系统实践</li>
+<li>FM、FFM相关Paper、技术博客</li>
+<li><a href="http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html" target="_blank" rel="external">http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html</a></li>
+</ul>
+<hr>
+<p>更多信息请关注：<a href="http://www.52caml.com/" target="_blank" rel="external">计算广告与机器学习－CAML 技术共享平台</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -601,7 +626,7 @@ FFM
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM总结"><span class="toc-number">2.3.</span> <span class="toc-text">FM总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#场感知分解机"><span class="toc-number">3.</span> <span class="toc-text">场感知分解机</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM总结"><span class="toc-number">2.3.</span> <span class="toc-text">FM总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#场感知分解机"><span class="toc-number">3.</span> <span class="toc-text">场感知分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FFM应用场景"><span class="toc-number">3.1.</span> <span class="toc-text">FFM应用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考资料"><span class="toc-number">3.2.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol>
  
   </div>
 
