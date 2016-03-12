@@ -436,22 +436,15 @@ FFM
 <ul>
 <li><p><strong>FM降低了交叉项参数学习不充分的影响</strong></p>
 <p>  One-Hot编码后的样本数据非常稀疏，交叉组合特征更是如此。为了解决交叉项参数学习不充分、导致模型有偏或不稳定的问题。作者借鉴矩阵分解的思路：每一维特征用\(k\)维的隐向量表示，交叉项的参数\(w_{ij}\)用对应特征隐向量的内积表示，即\(\langle \mathbf{v}_i, \mathbf{v}_j \rangle\)（也可以理解为平滑技术之一）。这样参数学习由之前需要交叉项参数的过程，转变为学习\(n\)个单特征对应\(k\)维隐向量的过程。</p>
+<p>  很明显，单特征参数（\(k\)维隐向量\(\mathbf{v}_i\)）的学习要比交叉项参数\(w_{ij}\)学习得更充分。示例说明：</p>
+<blockquote>
+<p>假如有10w条训练样本，其中出现<code>女性</code>特征的样本数为3w，出现<code>男性</code>特征的样本数为6w，出现<code>汽车</code>特征的样本数为2000，出现<code>化妆品</code>的样本数为1000。特征共现的样本数如下：</p>
+<p>  | 共现交叉特征 | 样本数 | 注 |<br>  | :—: | :—: | :—: |<br>  | <code>&lt;女性，汽车&gt;</code> | 500 | . |<br>  | <code>&lt;女性，化妆品&gt;</code> | 1000 | . |<br>  | <code>&lt;男性，汽车&gt;</code> | 1500 | . |<br>  | <code>&lt;男性，化妆品&gt;</code> | 0 | 样本中无此特征组合项 |</p>
+<p><code>&lt;女性，汽车&gt;</code>的含义是<font color="#EE0000">女性看汽车广告</font>。可以看到，单特征对应的样本数大于组合特征对应的样本数。训练时，单特征参数相比交叉项特征参数会学习的更加充分。 </p>
+</blockquote>
 </li>
 </ul>
-<pre><code>很明显，单特征参数（\\(k\\)维隐向量\\(\mathbf{v}_i\\)）的学习要比交叉项参数\\(w_{ij}\\)学习得更充分。示例说明：
-
-&gt; 假如有<span class="number">10</span>w条训练样本，其中出现<span class="escape">``</span><span class="escape">`女</span>性<span class="escape">``</span><span class="escape">`特</span>征的样本数为<span class="number">3</span>w，出现<span class="escape">``</span><span class="escape">`男</span>性<span class="escape">``</span><span class="escape">`特</span>征的样本数为<span class="number">6</span>w，出现<span class="escape">``</span><span class="escape">`汽</span>车<span class="escape">``</span><span class="escape">`特</span>征的样本数为<span class="number">2000</span>，出现<span class="escape">``</span><span class="escape">`化</span>妆品<span class="escape">``</span><span class="escape">`的</span>样本数为<span class="number">1000</span>。特征共现的样本数如下：
-&gt;
-| 共现交叉特征 | 样本数 | 注 |
-<span class="label">| :--: | :--: | :--:</span> |
-| <span class="escape">``</span><span class="escape">`&lt;</span>女性，汽车&gt;<span class="escape">``</span><span class="escape">` </span>| <span class="number">500</span> | . |
-| <span class="escape">``</span><span class="escape">`&lt;</span>女性，化妆品&gt;<span class="escape">``</span><span class="escape">` </span>| <span class="number">1000</span> | . |
-| <span class="escape">``</span><span class="escape">`&lt;</span>男性，汽车&gt;<span class="escape">``</span><span class="escape">` </span>| <span class="number">1500</span> | . |
-| <span class="escape">``</span><span class="escape">`&lt;</span>男性，化妆品&gt;<span class="escape">``</span><span class="escape">` </span>| <span class="number">0</span> | 样本中无此特征组合项 |
-&gt;
-&gt;
-&gt; <span class="escape">``</span><span class="escape">`&lt;</span>女性，汽车&gt;<span class="escape">``</span><span class="escape">`的</span>含义是&lt;font color=<span class="string">"#EE0000"</span>&gt;女性看汽车广告&lt;/font&gt;。可以看到，单特征对应的样本数大于组合特征对应的样本数。训练时，单特征参数相比交叉项特征参数会学习的更加充分。 
-</code></pre><ul>
+<ul>
 <li><p><strong>FM提升了模型预估能力</strong>    </p>
 <p>  从上面的示例中发现，样本中没有<code>&lt;男性，化妆品&gt;</code>交叉特征，即没有<font color="#EE0000">男性看化妆品广告</font>的数据。如果用多项式模型来建模，对应的交叉项参数\(w_{\text{男性,化妆品}}\)是学不出来的，因为数据中没有对应的共现交叉特征。那么多项式模型就不能对<font color="#EE0000">男性看化妆品广告</font>的场景结果作出预估。</p>
 <p>  FM模型是否通过学习能得到交叉项参数\(w_{\text{男性,化妆品}}\)呢？答案是肯定的。由于FM模型是把交叉项参数用对应的特征隐向量内积表示，这里表示为\(w_{\text{男性,化妆品}} = \langle \mathbf{v}_{男性}, \mathbf{v}_{化妆品}\rangle\)。</p>
@@ -493,7 +486,24 @@ FFM
 <p>这里以<a href="http://www.csie.ntu.edu.tw/~r01922136/slides/ffm.pdf" target="_blank" rel="external">NTU_FFM.pdf</a>和<a href="http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html" target="_blank" rel="external">美团－深入FFM原理与实践</a>都提到的例子，给出FFM－Fields特征组合的工作过程。</p>
 <blockquote>
 <p>给出一下输入数据：</p>
-<p>User | Movie | Genre | Price |<br>| :—: | :—: | :—: | :—: |<br>| YuChin | 3Idiots | Comedy, Drama | $9.99 |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">User</th>
+<th style="text-align:center">Movie</th>
+<th style="text-align:center">Genre</th>
+<th style="text-align:center">Price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">YuChin</td>
+<td style="text-align:center">3Idiots</td>
+<td style="text-align:center">Comedy, Drama</td>
+<td style="text-align:center">$9.99</td>
+</tr>
+</tbody>
+</table>
 <p>Price是数值型特征，实际应用中通常会把价格划分为若干个区间（即连续特征离散化），然后再one-hot编码，这里假设$9.99对应的离散化区间tag为”2”。当然不是所有的连续型特征都要做离散化，比如某广告位、某类广告／商品、抑或某类人群统计的历史CTR（pseudo－CTR）通常无需做离散化。</p>
 <p>该条记录可以编码为5个数值特征，即<code>User^YuChin</code>, <code>Movie^3Idiots</code>, <code>Genre^Comedy</code>, <code>Genre^Drama</code>, <code>Price^2</code>。其中<code>Genre^Comedy</code>, <code>Genre^Drama</code>属于同一个field。为了说明FFM的样本格式，我们把所有的特征和对应的field映射成整数编号。</p>
 <table>
@@ -539,7 +549,7 @@ FFM
 </tbody>
 </table>
 <p>那么，FFM所有的（二阶）组合特征共有10项（\(\mathbf{C}_{5}^{2} = \frac{5 \times 4}{ 2!}= 10\)），即为：</p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_9_2_2_ffm_samples.png" width="500" height="200" alt="ffm_samples"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_9_2_2_ffm_samples.png" width="700" height="200" alt="ffm_samples"></p>
 <p>其中，红色表示Field编码，蓝色表示Feature编码，绿色表示样本的组合特征取值（离散化后的结果）。二阶交叉项的系数是通过与Field相关的隐向量的点积得到的。如果单特征有n个，全部做二阶特征组合的话，会有\(\mathbf{C}_{n}^{2} = \frac{n(n-1)}{2}\)个。</p>
 </blockquote>
 <h4 id="FFM应用场景">FFM应用场景</h4><p>在我们的广告业务系统、商业推荐以及自媒体－推荐系统中，<strong>FFM模型作为点击预估系统中的核心算法之一，用于预估广告、商品、文章的点击率（CTR）和转化率（CVR）</strong>。</p>
