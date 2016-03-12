@@ -153,7 +153,7 @@ FFM
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -410,6 +410,25 @@ FFM
 </tr>
 </tbody>
 </table>
+<p><br></p>
+<h4 id="FM参数学习">FM参数学习</h4><hr>
+<p><strong>等式变换</strong></p>
+<p>公式\((ml.1.9.1)\)中直观地看，FM模型的复杂度为\(O(kn^2)\)，但是通过下面的等价转换，可以将FM的二次项化简，其复杂度可优化到\(O(kn)\)。即：</p>
+<p>$$<br>\sum_{i=1}^{n} \sum_{j=i+1}^{n} {\langle \mathbf{v}_i, \mathbf{v}_j \rangle} x_i x_j = \frac{1}{2} \sum_{f=1}^{k} {\left \lgroup \left(\sum_{i=1}^{n} v_{i,f} x_i \right)^2 - \sum_{i=1}^{n} v_{i,f}^2 x_i^2\right \rgroup} \qquad(ml.1.9.3)<br>$$</p>
+<p>下面给出详细推导：</p>
+<blockquote>
+<p>$$<br>\begin{align}<br>&amp; \sum_{i=1}^{n} \sum_{j=i+1}^{n} {\langle \mathbf{v}_i, \mathbf{v}_j \rangle} x_i x_j \qquad\qquad\qquad\qquad\qquad\qquad(1)\\<br>= &amp; \frac{1}{2} \sum_{i=1}^{n} \sum_{j=1}^{n} {\langle \mathbf{v}_i, \mathbf{v}_j \rangle} x_i x_j - \frac{1}{2} \sum_{i=1}^{n} {\langle \mathbf{v}_i, \mathbf{v}_i \rangle} x_i x_i \qquad\qquad\;\;(2)\\<br>= &amp; \frac{1}{2} \left(\sum_{i=1}^{n} \sum_{j=1}^{n} \sum_{f=1}^{k} v_{i,f} v_{j,f} x_i x_j - \sum_{i=1}^{n} \sum_{f=1}^{k} v_{i,f} v_{i,f} x_i x_i \right) \qquad\,(3) \\<br>= &amp; \frac{1}{2} \sum_{f=1}^{k} {\left \lgroup \left(\sum_{i=1}^{n} v_{i,f} x_i \right) \cdot \left(\sum_{j=1}^{n} v_{j,f} x_j \right) - \sum_{i=1}^{n} v_{i,f}^2 x_i^2 \right \rgroup} \quad\;\;\,(4) \\<br>= &amp; \frac{1}{2} \sum_{f=1}^{k}  {\left \lgroup \left(\sum_{i=1}^{n} v_{i,f} x_i \right)^2 - \sum_{i=1}^{n} v_{i,f}^2 x_i^2\right \rgroup} \qquad\qquad\qquad\;\;(5)<br>\end{align} \qquad(n.ml.1.9.3)<br>$$</p>
+<p>解读第（1）步到第（2）步，这里用\(A\)表示系数矩阵\(V\)的上三角元素，\(B\)表示对角线上的交叉项系数。由于系数矩阵\(V\)是一个对称阵，所以下三角与上三角相等，有下式成立：</p>
+<p>$$<br>A = \frac{1}{2} (2A+B) - \frac{1}{2} B.  \quad \underline{ A=\sum_{i=1}^{n} \sum_{j=i+1}^{n} {\langle \mathbf{v}_i, \mathbf{v}_j \rangle} x_i x_j } ; \quad \underline{ B = \frac{1}{2} \sum_{i=1}^{n} {\langle \mathbf{v}_i, \mathbf{v}_i \rangle} x_i x_i } \quad (n.ml.1.9.4)<br>$$</p>
+</blockquote>
+<p>如果用随机梯度下降（Stochastic Gradient Descent）法学习模型参数。那么，模型各个参数的梯度如下：</p>
+<p>$$<br>\frac{\partial}{\partial \theta} y(\mathbf{x}) =<br>\left \{<br>\begin{array}{ll}<br>1,         &amp; \text{if}\; \theta\; \text{is}\; w_0 \qquad \text{(常数项)} \\<br>x_i     &amp; \text{if}\; \theta\; \text{is}\; w_i \;\qquad \text{(线性项)} \\<br>x_i \sum_{j=1}^{n} v_{j,f} x_j - v_{i,f} x_i^2, &amp; \text{if}\; \theta\; \text{is}\; v_{i,f} \qquad \text{(交叉项)}<br>\end{array}<br>\right. \qquad\quad(ml.1.9.4)<br>$$</p>
+<p>其中， \(v_{j,f}\)是隐向量\(\mathbf{v}_j\)的第\(f\)个元素。</p>
+<p><strong>梯度法训练FM</strong></p>
+<p>给出伪代码</p>
+<p><strong>FM训练复杂度</strong></p>
+<p>由于\(\sum_{j=1}^{n} v_{j,f} x_j\)只与\(f\)有关，在参数迭代过程中，只需要计算第一次所有\(f\)的\(\sum_{j=1}^{n} v_{j,f} x_j\)，就能够方便地得到所有\(v_{i,f}\)的梯度。显然，计算所有\(f\)的\(\sum_{j=1}^{n} v_{j,f} x_j\)的复杂度是\(O(kn)\)；已知\(\sum_{j=1}^{n} v_{j,f} x_j\)时，计算每个参数梯度的复杂度是\(O(n)\)；得到梯度后，更新每个参数的复杂度是 \(O(1)\)；模型参数一共有\(nk + n + 1\)个。因此，FM参数训练的时间复杂度为\(O(kn)\)。</p>
+<p>综上可知，FM算法可以在线性时间内完成模型训练，以及对新样本做出预测，是一个非常高效地模型。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -472,7 +491,7 @@ FFM
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li></ol></li></ol>
  
   </div>
 
