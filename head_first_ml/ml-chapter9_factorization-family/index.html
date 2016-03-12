@@ -153,7 +153,7 @@ FFM
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM总结"><span class="toc-number">2.3.</span> <span class="toc-text">FM总结</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM总结"><span class="toc-number">2.3.</span> <span class="toc-text">FM总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#场感知分解机"><span class="toc-number">3.</span> <span class="toc-text">场感知分解机</span></a></li></ol>
 		
 		</div>
 		
@@ -478,6 +478,18 @@ FFM
 </tr>
 </tbody>
 </table>
+<p><br></p>
+<h3 id="场感知分解机">场感知分解机</h3><hr>
+<p>场感知分解机器（Field-aware Factorization Machine ，简称FFM）最初的概念来自于Yu-Chin Juan与其比赛队员，它们借鉴了辣子Michael Jahrer的论文中field概念，提出了FM的升级版模型。</p>
+<p>通过引入field的概念，FFM吧相同性质的特征归于同一个field。在FM开头one-hot编码中提到用于访问的channel，编码生成了10个数值型特征，这10个特征都是用于说明用户PV时对应的channel类别，因此可以将其放在同一个field中。那么，我们可以把同一个categorical特征经过one-hot编码生成的数值型特征都可以放在同一个field中。</p>
+<blockquote>
+<p>同一个categorical特征可以包括用户属性信息（年龄、性别、职业、收入、地域等），用户行为信息（兴趣、偏好、时间等），上下文信息（位置、内容等）以及其它信息（天气、交通等）。</p>
+</blockquote>
+<p>在FFM中，每一维特征\(x_i\)，针对其它特征的每一种”field” \(f_j\)，都会学习一个隐向量\(\mathbf{v}_{i,f_j}\)。因此，隐向量不仅与特征相关，也与field相关。</p>
+<p>假设每条样本的\(n\)个特征属于\(f\)个field，那么FFM的二次项有\(nf\)个隐向量。而在FM模型中，每一维特征的隐向量只有一个。因此可以吧FM看作是FFM的特例，即把所有的特征都归属到一个field是的FFM模型。根据FFM的field敏感特性，可以导出其模型表达式：</p>
+<p>$$<br>\hat{y}(\mathbf{x}) := w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle \mathbf{v}_{i,\,f_j}, \mathbf{v}_{j,\,f_i} \rangle x_i x_j \qquad(ml.1.9.5)<br>$$</p>
+<p>其中，\(f_j\)是第\(j\)个特征所属的field。如果隐向量的长度为\(k\)，那么FFM的二交叉项参数就有\(nfk\)个，远多于FM模型的\(nk\)个。此外，由于隐向量与field相关，FFM的交叉项并不能够像FM那样做化简，其预测复杂度为\(O(kn^2)\)。</p>
+<p>这里以<a href="http://www.csie.ntu.edu.tw/~r01922136/slides/ffm.pdf" target="_blank" rel="external">NTU_FFM.pdf</a>和<a href="http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html" target="_blank" rel="external">美团－深入FFM原理与实践</a>都提到的例子，给出FFM－Fields特征组合的工作过程。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -540,7 +552,7 @@ FFM
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM总结"><span class="toc-number">2.3.</span> <span class="toc-text">FM总结</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM总结"><span class="toc-number">2.3.</span> <span class="toc-text">FM总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#场感知分解机"><span class="toc-number">3.</span> <span class="toc-text">场感知分解机</span></a></li></ol>
  
   </div>
 
