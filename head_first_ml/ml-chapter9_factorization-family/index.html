@@ -55,6 +55,7 @@ FFM
 
 因子分解机
 因子分解机（Factorization Machine，简称FM），又称分解机器。是">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_9_2_1_fm_mf_example.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第09章：深入浅出ML之Factorization家族">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
@@ -152,7 +153,7 @@ FFM
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -337,6 +338,25 @@ FFM
 <p>\(x_i x_j\)表示特征\(x_i\)和\(x_j\)的组合，当\(x_i\)和\(x_j\)都非零时，组合特征\(x_i x_j\)才有意义。</p>
 </blockquote>
 <p>这里我们以二阶多项式模型（degree=2时FM模型）为例，来分析和探讨FM的公式表达和参数学习过程。</p>
+<p><br></p>
+<h4 id="FM模型表达">FM模型表达</h4><hr>
+<p>为了更好的介绍FM模型，我们先从多项式回归、交叉组合特征说起，然后自然地过度到FM模型。</p>
+<p><strong>二阶多项式回归模型</strong></p>
+<p>我们首先看二阶多项式模型的表达式：</p>
+<blockquote>
+<p>$$<br>\hat{y}(x) := \underbrace {w_0 + \sum_{i=1}^{n} w_i x_i }_{\text{线性回归}} + \underbrace {\sum_{i=1}^{n} \sum_{j=i+1}^{n} w_{ij} x_i x_j}_{\text{交叉项（组合特征）}} \qquad (n.ml.1.9.1)<br>$$</p>
+</blockquote>
+<p>其中，\(n\)表示样本特征维度，\(w_0 \in R,\; w ＝ \{w_1, w_2, \cdots, w_n\}\in R^n, w_{ij} \in R^{n \times n}\)为模型参数。</p>
+<p>从公式\(\text{(n.ml.1.9.1)}\)可知，交叉项中的组合特征参数总共有\(\frac{n(n-1)}{2}\)个，任意两个交叉项参数\(w_{ij}\)都是独立的。然而，在数据非常稀疏的实际应用场景中，交叉项参数的学习是很困难的。为什么呢？</p>
+<p>因为我们知道，<strong>回归模型的参数\(w\)的学习结果就是从训练样本中计算充分统计量（符合指数族分布的模型都具有此性质）</strong>，而在这里交叉项的每一个参数\(w_{ij}\)的学习过程需要大量的\(x_i、x_j\)同时非零的训练样本数据。由于样本数据本来就很稀疏，能够满足“\(x_i\)和\(x_j\)都非零”的样本数就会更少。训练样本不充分，学到的参数\(w_{ij}\)就不是充分统计量结果，导致参数\(w_{ij}\)不准确，而这会严重影响模型的性能和稳定性。How to do it ?</p>
+<p>如何解决二阶交叉项参数的学习问题呢？矩阵分解方法已经给出了解决思路。这里借用CMU讨论课中提到的<a href="http://www.cs.cmu.edu/~wcohen/10-605/2015-guest-lecture/FM.pdf" target="_blank" rel="external">FM课件</a>和<a href="http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html" target="_blank" rel="external">美团－深入FFM原理与实践</a>中提到的矩阵分解例子（美团技术团队的分享都很赞👍）。</p>
+<blockquote>
+<p>在基于Model-Based的协同过滤中，一个rating矩阵可以分解为user矩阵和item矩阵，每个user和item都可以采用一个隐向量表示。如下图所示。</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_9_2_1_fm_mf_example.png" width="700" height="400" alt="cf_mf"></p>
+<p>上图把每一个user表示成了一个二维向量，同时将item也表示成一个二维向量，两个向量的点积就是矩阵中user对item的打分。</p>
+</blockquote>
+<p>根据矩阵分解的启发，如果把多项式模型中二阶交叉项参数\(w_{ij}\)组成一个对称矩阵\(W\)（对角元素设为正实数），那么这个矩阵就可以分解为\(W = V \cdot V^T\)，\(V \in R^{n \times k}\)称为系数矩阵，其中第\(i\)行对应着第\(i\)维特征的隐向量 (这部分在FM公式解读中详细介绍)。</p>
+<p><strong>将每个交叉项参数\(w_{ij}\)用隐向量的点积\(\langle \mathbf{v}_i, \mathbf{v}_j\rangle\)表示，是FM模型的核心思想</strong>。下面对FM模型表达式和参数求解过程，给出详细说明。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -399,7 +419,7 @@ FFM
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li></ol></li></ol>
  
   </div>
 
