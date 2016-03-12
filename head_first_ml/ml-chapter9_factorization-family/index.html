@@ -55,7 +55,6 @@ FFM
 
 因子分解机
 因子分解机（Factorization Machine，简称FM），又称分解机器。是">
-<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_9_2_1_fm_mf_example.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第09章：深入浅出ML之Factorization家族">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
@@ -153,7 +152,7 @@ FFM
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM总结"><span class="toc-number">2.3.</span> <span class="toc-text">FM总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#域感知分解机"><span class="toc-number">3.</span> <span class="toc-text">域感知分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#应用场景"><span class="toc-number">3.1.</span> <span class="toc-text">应用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考资料"><span class="toc-number">3.2.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a></li></ol>
 		
 		</div>
 		
@@ -338,127 +337,6 @@ FFM
 <p>\(x_i x_j\)表示特征\(x_i\)和\(x_j\)的组合，当\(x_i\)和\(x_j\)都非零时，组合特征\(x_i x_j\)才有意义。</p>
 </blockquote>
 <p>这里我们以二阶多项式模型（degree=2时FM模型）为例，来分析和探讨FM的公式表达和参数学习过程。</p>
-<p><br></p>
-<h4 id="FM模型表达">FM模型表达</h4><hr>
-<p>为了更好的介绍FM模型，我们先从多项式回归、交叉组合特征说起，然后自然地过度到FM模型。</p>
-<p><strong>二阶多项式回归模型</strong></p>
-<p>我们首先看二阶多项式模型的表达式：</p>
-<blockquote>
-<p>$$<br>\hat{y}(x) := \underbrace {w_0 + \sum_{i=1}^{n} w_i x_i }_{\text{线性回归}} + \underbrace {\sum_{i=1}^{n} \sum_{j=i+1}^{n} w_{ij} x_i x_j}_{\text{交叉项（组合特征）}} \qquad (n.ml.1.9.1)<br>$$</p>
-</blockquote>
-<p>其中，\(n\)表示样本特征维度，\(w_0 \in R,\; w ＝ \{w_1, w_2, \cdots, w_n\}\in R^n, w_{ij} \in R^{n \times n}\)为模型参数。</p>
-<p>从公式\(\text{(n.ml.1.9.1)}\)可知，交叉项中的组合特征参数总共有\(\frac{n(n-1)}{2}\)个，任意两个交叉项参数\(w_{ij}\)都是独立的。然而，在数据非常稀疏的实际应用场景中，交叉项参数的学习是很困难的。为什么呢？</p>
-<p>因为我们知道，<strong>回归模型的参数\(w\)的学习结果就是从训练样本中计算充分统计量（符合指数族分布的模型都具有此性质）</strong>，而在这里交叉项的每一个参数\(w_{ij}\)的学习过程需要大量的\(x_i、x_j\)同时非零的训练样本数据。由于样本数据本来就很稀疏，能够满足“\(x_i\)和\(x_j\)都非零”的样本数就会更少。训练样本不充分，学到的参数\(w_{ij}\)就不是充分统计量结果，导致参数\(w_{ij}\)不准确，而这会严重影响模型的性能和稳定性。How to do it ?</p>
-<p>如何解决二阶交叉项参数的学习问题呢？矩阵分解方法已经给出了解决思路。这里借用CMU讨论课中提到的<a href="http://www.cs.cmu.edu/~wcohen/10-605/2015-guest-lecture/FM.pdf" target="_blank" rel="external">FM课件</a>和<a href="http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html" target="_blank" rel="external">美团－深入FFM原理与实践</a>中提到的矩阵分解例子（美团技术团队的分享都很赞👍）。</p>
-<blockquote>
-<p>在基于Model-Based的协同过滤中，一个rating矩阵可以分解为user矩阵和item矩阵，每个user和item都可以采用一个隐向量表示。如下图所示。</p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_9_2_1_fm_mf_example.png" width="700" height="400" alt="cf_mf"></p>
-<p>上图把每一个user表示成了一个二维向量，同时将item也表示成一个二维向量，两个向量的点积就是矩阵中user对item的打分。</p>
-</blockquote>
-<p>根据矩阵分解的启发，如果把多项式模型中二阶交叉项参数\(w_{ij}\)组成一个对称矩阵\(W\)（对角元素设为正实数），那么这个矩阵就可以分解为\(W = V \cdot V^T\)，\(V \in R^{n \times k}\)称为系数矩阵，其中第\(i\)行对应着第\(i\)维特征的隐向量 (这部分在FM公式解读中详细介绍)。</p>
-<p><strong>将每个交叉项参数\(w_{ij}\)用隐向量的点积\(\langle \mathbf{v}_i, \mathbf{v}_j\rangle\)表示，是FM模型的核心思想</strong>。下面对FM模型表达式和参数求解过程，给出详细说明。</p>
-<p><strong>1. FM模型</strong></p>
-<p>这里我们只讨论二阶FM模型（degree＝2），其表达式为：</p>
-<p>$$<br>\hat{y}(\mathbf{x}) := w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle \mathbf{v}_i, \mathbf{v}_j \rangle x_i x_j \qquad(ml.1.9.1)<br>$$  </p>
-<p>其中，\(v_i\)表示第\(i\)特征的隐向量，\(\langle \cdot, \cdot\rangle\)表示两个长度为\(k\)的向量的点积（即内积），计算公式为：</p>
-<p>$$<br>\langle \mathbf{v}_i, \mathbf{v}_j \rangle := \sum_{f=1}^{k} v_{i,f} \cdot v_{j,f} \qquad(ml.1.9.2)<br>$$</p>
-<blockquote>
-<p>公式解读：</p>
-<ul>
-<li><p><strong>线性模型＋交叉项</strong></p>
-<p> 直观地看FM模型表达式，前两项是<a href="http://www.52caml.com/head_first_ml/ml-chapter1-regression-family/#线性回归模型" target="_blank" rel="external">线性回归模型</a>的表达式，最后一项是二阶特征交叉项（又称组合特征项），表示模型将<strong>两个互异的特征分量</strong>之间的交互关系考虑进来。<strong>用交叉项表示组合特征，从而建立特征与结果之间的非线性关系</strong>。</p>
-</li>
-<li><p><strong>交叉项系数 \(\to\) 隐向量点积</strong></p>
-<p> 由于FM模型是在线性回归基础上加入了特征交叉项，模型求解时不直接求特征交叉项的系数\(w_{ij}\)（对应的组合特征稀疏，导致学习不充分），故而采用隐向量的点积\(\langle \mathbf{v}_i, \mathbf{v}_j\rangle\)表示\(w_{ij}\)。</p>
-<p>具体的，FM求解过程中的做法是：对每一个特征分量\(x_i\)引入**隐向量\(v_i ＝ (v_{i,1}, v_{i,2}, \cdots, v_{i,k})\)**，利用\(v_i v_j^T\)点积结果对交叉项的系数\(w_{ij}\)进行估计，公式表示：\(\hat{w_{ij}} := v_i v_j^T\).</p>
-</li>
-</ul>
-</blockquote>
-<p>隐向量的长度\(k\)称为超参数\((k \in N^+, k \ll n)\)，\(v_i = (v_{i,1}, v_{i,2}, \cdots, v_{i,k})\)的含义是用\(k\)个描述特征的因子来表示第\(i\)维特征。根据公式\((ml.1.9.1)\)，二阶交叉项的参数由\(n \cdot n\)个减少到\(n \cdot k\)个，远少于二阶多项式模型中的参数数量。</p>
-<p>此外，<strong>参数因子化表示后，使得\(x_h x_i\)的参数与\(x_i x_j\)的参数不再相互独立</strong>。这样，我们就可以在样本稀疏情况下相对合理的估计FM的二阶项参数。具体的</p>
-<blockquote>
-<p>$$<br>\begin{align}<br>\langle \mathbf{v}_h, \mathbf{v}_i \rangle &amp;:= \sum_{f=1}^{k} v_{h,f} \cdot v_{i,f}  \quad(1)\\<br>\langle \mathbf{v}_i, \mathbf{v}_j \rangle &amp;:= \sum_{f=1}^{k} v_{i,f} \cdot v_{j,f} \;\quad(2)<br>\end{align} \qquad (n.ml.1.9.2)<br>$$</p>
-</blockquote>
-<p>\(x_h x_i\)与\(x_i x_j\)的系数分别为\(\langle \mathbf{v}_h, \mathbf{v}_i \rangle\)和\(\langle \mathbf{v}_i, \mathbf{v}_j \rangle\)，他们之间有共同项\(\mathbf{v}_i\)。也就是说，所有包含\(x_i\)的非零组合特征（存在某个\(j \neq i\)，使得\(x_ix_j \neq 0\)）的样本都可以用来学习隐向量\(\mathbf{v}_i\)，这在很大程度上避免了数据稀疏行造成参数估计不准确的影响。</p>
-<blockquote>
-<p>在二阶多项式模型中，参数\(w_{hi}\)和\(w_{ij}\)的学习过程是相互独立的。</p>
-</blockquote>
-<p>论文中还提到FM模型的应用场景，并且说公式\((ml.1.9.1)\)作为一个通用的拟合模型（Generic Model），可以采用不同的损失函数来解决具体问题。比如：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">FM应用场景</th>
-<th style="text-align:center">损失函数</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">回归</td>
-<td style="text-align:center">均方误差（MSE）损失</td>
-<td style="text-align:center">Mean Square Error，与平方误差类似</td>
-</tr>
-<tr>
-<td style="text-align:center">二类分类</td>
-<td style="text-align:center">Hinge/Cross-Entopy损失</td>
-<td style="text-align:center">分类时，结果需要做sigmoid变换</td>
-</tr>
-<tr>
-<td style="text-align:center">排序</td>
-<td style="text-align:center">.</td>
-<td style="text-align:center">. </td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<h4 id="FM参数学习">FM参数学习</h4><hr>
-<p><strong>等式变换</strong></p>
-<p>公式\((ml.1.9.1)\)中直观地看，FM模型的复杂度为\(O(kn^2)\)，但是通过下面的等价转换，可以将FM的二次项化简，其复杂度可优化到\(O(kn)\)。即：</p>
-<p>$$<br>\sum_{i=1}^{n} \sum_{j=i+1}^{n} {\langle v_i, v_j \rangle} x_i x_j = \frac{1}{2} \sum_{f=1}^{k} {\left \lgroup \left(\sum_{i=1}^{n} v_{i,f} x_i \right)^2 - \sum_{i=1}^{n} v_{i,f}^2 x_i^2\right \rgroup} \qquad(ml.1.9.3)<br>$$</p>
-<p>下面给出详细推导：</p>
-<blockquote>
-<p>$$<br>\begin{align}<br>&amp; \sum_{i=1}^{n} \sum_{j=i+1}^{n} {\langle \mathbf{v}_i, \mathbf{v}_j \rangle} x_i x_j \qquad\qquad\qquad\qquad\qquad\qquad(1)\\<br>= &amp; \frac{1}{2} \sum_{i=1}^{n} \sum_{j=1}^{n} {\langle \mathbf{v}_i, \mathbf{v}_j \rangle} x_i x_j - \frac{1}{2} \sum_{i=1}^{n} {\langle \mathbf{v}_i, \mathbf{v}_i \rangle} x_i x_i \qquad\qquad\;\;(2)\\<br>= &amp; \frac{1}{2} \left(\sum_{i=1}^{n} \sum_{j=1}^{n} \sum_{f=1}^{k} v_{i,f} v_{j,f} x_i x_j - \sum_{i=1}^{n} \sum_{f=1}^{k} v_{i,f} v_{i,f} x_i x_i \right) \qquad\,(3) \\<br>= &amp; \frac{1}{2} \sum_{f=1}^{k} {\left \lgroup \left(\sum_{i=1}^{n} v_{i,f} x_i \right) \cdot \left(\sum_{j=1}^{n} v_{j,f} x_j \right) - \sum_{i=1}^{n} v_{i,f}^2 x_i^2 \right \rgroup} \quad\;\;\,(4) \\<br>= &amp; \frac{1}{2} \sum_{f=1}^{k}  {\left \lgroup \left(\sum_{i=1}^{n} v_{i,f} x_i \right)^2 - \sum_{i=1}^{n} v_{i,f}^2 x_i^2\right \rgroup} \qquad\qquad\qquad\;\;(5)<br>\end{align} \qquad(n.ml.1.9.3)<br>$$</p>
-<p>解读第（1）步到第（2）步，这里用\(A\)表示系数矩阵\(V\)的上三角元素，\(B\)表示对角线上的交叉项系数。由于系数矩阵\(V\)是一个对称阵，所以下三角与上三角相等，有下式成立：</p>
-<p>$$<br>A = \frac{1}{2} (2A+B) - \frac{1}{2} B.  \quad \underline{ A=\sum_{i=1}^{n} \sum_{j=i+1}^{n} {\langle \mathbf{v}_i, \mathbf{v}_j \rangle} x_i x_j } ; \quad \underline{ B = \frac{1}{2} \sum_{i=1}^{n} {\langle \mathbf{v}_i, \mathbf{v}_i \rangle} x_i x_i } \quad (n.ml.1.9.4)<br>$$</p>
-</blockquote>
-<p>如果用随机梯度下降（Stochastic Gradient Descent）法学习模型参数。那么，模型各个参数的梯度如下：</p>
-<p>$$<br>\frac{\partial}{\partial \theta} y(\mathbf{x}) =<br>\left \{<br>\begin{array}{ll}<br>1,         &amp; \text{if}\; \theta\; \text{is}\; w_0 \qquad \text{(常数项)} \\<br>x_i     &amp; \text{if}\; \theta\; \text{is}\; w_i \;\qquad \text{(线性项)} \\<br>x_i \sum_{j=1}^{n} v_{j,f} x_j - v_{i,f} x_i^2, &amp; \text{if}\; \theta\; \text{is}\; v_{i,f} \qquad \text{(交叉项)}<br>\end{array}<br>\right. \qquad\quad(ml.1.9.4)<br>$$</p>
-<p>其中， \(v_{j,f}\)是隐向量\(\mathbf{v}_j\)的第\(f\)个元素。</p>
-<p><strong>梯度法训练FM</strong></p>
-<p>给出伪代码</p>
-<p><strong>FM训练复杂度</strong></p>
-<p>由于\(\sum_{j=1}^{n} v_{j,f} x_j\)只与\(f\)有关，在参数迭代过程中，只需要计算第一次所有\(f\)的\(\sum_{j=1}^{n} v_{j,f} x_j\)，就能够方便地得到所有\(v_{i,f}\)的梯度。显然，计算所有\(f\)的\(\sum_{j=1}^{n} v_{j,f} x_j\)的复杂度是\(O(kn)\)；已知\(\sum_{j=1}^{n} v_{j,f} x_j\)时，计算每个参数梯度的复杂度是\(O(n)\)；得到梯度后，更新每个参数的复杂度是 \(O(1)\)；模型参数一共有\(nk + n + 1\)个。因此，FM参数训练的时间复杂度为\(O(kn)\)。</p>
-<p>综上可知，FM算法可以在线性时间内完成模型训练，以及对新样本做出预测，是一个非常高效地模型。</p>
-<p><br></p>
-<h4 id="FM总结">FM总结</h4><hr>
-<ul>
-<li>总结：在一些文章中把FM模型称为多项式的广义线性模型，也是恰如其分的。</li>
-<li>FM仅仅是一个可以表示特征之间交互关系的函数表法式，可以推广到高阶的形式，即将多个互异特征分量之间的关系考虑进来。例如在广告中如果考虑<code>user-ad-context</code>三维特征之间的关系，在FM模型中对应的degree=3.</li>
-<li>FM三大优势<ul>
-<li>针对稀疏数据进行参数估计</li>
-<li>线性复杂度</li>
-<li>通用的预估模型，可以工作着任何数据的特征数据上，稀疏or稠密</li>
-</ul>
-</li>
-<li>FM最大特点：对稀疏数据有很好的学习能力，通过交互项可以学习特征之间的相互关系。</li>
-</ul>
-<p><br></p>
-<h3 id="域感知分解机">域感知分解机</h3><hr>
-<p>场感知分解机器（Field-aware Factorization Machine ，简称FFM）最初的概念来自于Yu-Chin Juan与其比赛队员，它们借鉴了辣子Michael Jahrer的论文中field概念，提出了FM的升级版模型。</p>
-<p>通过引入field的概念，FFM吧相同性质的特征归于同一个field。在FM开头one-hot编码中提到用于访问的channel，编码生成了10个数值型特征，这10个特征都是用于说明用户PV时对应的channel类别，因此可以将其放在同一个field中。那么，我们可以把同一个categorical特征经过one-hot编码生成的数值型特征都可以放在同一个field中。</p>
-<blockquote>
-<p>同一个categorical特征可以包括用户属性信息（年龄、性别、职业、收入、地域等），用户行为信息（兴趣、偏好、时间等），上下文信息（位置、内容等）以及其它信息（天气、交通等）。</p>
-</blockquote>
-<p>在FFM中，每一维特征\(x_i\)，针对其它特征的每一种”field” \(f_j\)，都会学习一个隐向量\(\mathbf{v}_{i,f_j}\)。因此，隐向量不仅与特征相关，也与field相关。</p>
-<p>假设每条样本的\(n\)个特征属于\(f\)个field，那么FFM的二次项有\(nf\)个隐向量。而在FM模型中，每一维特征的隐向量只有一个。因此可以吧FM看作是FFM的特例，即把所有的特征都归属到一个field是的FFM模型。根据FFM的field敏感特性，可以导出其模型表达式：</p>
-<p>$$<br>\hat{y}(\mathbf{x}) := w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle \mathbf{v}_{i,\,f_j}, \mathbf{v}_{j,\,f_i} \rangle x_i x_j \qquad(ml.1.9.5)<br>$$</p>
-<p>其中，\(f_j\)是第\(j\)个特征所属的field。如果隐向量的长度为\(k\)，那么FFM的二交叉项参数就有\(nfk\)个，远多于FM模型的\(nk\)个。此外，由于隐向量与field相关，FFM的交叉项并不能够像FM那样做化简，其预测复杂度为\(O(kn^2)\)。</p>
-<h4 id="应用场景">应用场景</h4><p>回归、分类、排序等。推荐算法，预估模型（如CTR预估等）</p>
-<h4 id="参考资料">参考资料</h4><ul>
-<li><a href="http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html" target="_blank" rel="external">http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html</a></li>
-</ul>
-<hr>
-<p>更多信息请关注：<a href="http://www.52caml.com/" target="_blank" rel="external">计算广告与机器学习－CAML 技术共享平台</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -521,7 +399,7 @@ FFM
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM总结"><span class="toc-number">2.3.</span> <span class="toc-text">FM总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#域感知分解机"><span class="toc-number">3.</span> <span class="toc-text">域感知分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#应用场景"><span class="toc-number">3.1.</span> <span class="toc-text">应用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考资料"><span class="toc-number">3.2.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a></li></ol>
  
   </div>
 
