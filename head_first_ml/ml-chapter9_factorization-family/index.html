@@ -153,7 +153,7 @@ FFM
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM总结"><span class="toc-number">2.3.</span> <span class="toc-text">FM总结</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -429,6 +429,55 @@ FFM
 <p><strong>FM训练复杂度</strong></p>
 <p>由于\(\sum_{j=1}^{n} v_{j,f} x_j\)只与\(f\)有关，在参数迭代过程中，只需要计算第一次所有\(f\)的\(\sum_{j=1}^{n} v_{j,f} x_j\)，就能够方便地得到所有\(v_{i,f}\)的梯度。显然，计算所有\(f\)的\(\sum_{j=1}^{n} v_{j,f} x_j\)的复杂度是\(O(kn)\)；已知\(\sum_{j=1}^{n} v_{j,f} x_j\)时，计算每个参数梯度的复杂度是\(O(n)\)；得到梯度后，更新每个参数的复杂度是 \(O(1)\)；模型参数一共有\(nk + n + 1\)个。因此，FM参数训练的时间复杂度为\(O(kn)\)。</p>
 <p>综上可知，FM算法可以在线性时间内完成模型训练，以及对新样本做出预测，是一个非常高效地模型。</p>
+<p><br></p>
+<h4 id="FM总结">FM总结</h4><hr>
+<p>上面我们主要是从FM模型引入（从多项式开始）、模型表达和参数学习的角度介绍的FM模型，这里觉得有必要把FM最核心的精髓和价值提炼出来，与大家讨论。这里，将FM模型的核心作用概括为以下3个：</p>
+<ul>
+<li><p><strong>FM降低了交叉项参数学习不充分的影响</strong></p>
+<p>  One-Hot编码后的样本数据非常稀疏，交叉组合特征更是如此。为了解决交叉项参数学习不充分、导致模型有偏或不稳定的问题。作者借鉴矩阵分解的思路：每一维特征用\(k\)维的隐向量表示，交叉项的参数\(w_{ij}\)用对应特征隐向量的内积表示，即\(\langle \mathbf{v}_i, \mathbf{v}_j \rangle\)（也可以理解为平滑技术之一）。这样参数学习由之前需要交叉项参数的过程，转变为学习\(n\)个单特征对应\(k\)维隐向量的过程。</p>
+</li>
+</ul>
+<pre><code>很明显，单特征参数（\\(k\\)维隐向量\\(\mathbf{v}_i\\)）的学习要比交叉项参数\\(w_{ij}\\)学习得更充分。示例说明：
+
+&gt; 假如有<span class="number">10</span>w条训练样本，其中出现<span class="escape">``</span><span class="escape">`女</span>性<span class="escape">``</span><span class="escape">`特</span>征的样本数为<span class="number">3</span>w，出现<span class="escape">``</span><span class="escape">`男</span>性<span class="escape">``</span><span class="escape">`特</span>征的样本数为<span class="number">6</span>w，出现<span class="escape">``</span><span class="escape">`汽</span>车<span class="escape">``</span><span class="escape">`特</span>征的样本数为<span class="number">2000</span>，出现<span class="escape">``</span><span class="escape">`化</span>妆品<span class="escape">``</span><span class="escape">`的</span>样本数为<span class="number">1000</span>。特征共现的样本数如下：
+&gt;
+| 共现交叉特征 | 样本数 | 注 |
+<span class="label">| :--: | :--: | :--:</span> |
+| <span class="escape">``</span><span class="escape">`&lt;</span>女性，汽车&gt;<span class="escape">``</span><span class="escape">` </span>| <span class="number">500</span> | . |
+| <span class="escape">``</span><span class="escape">`&lt;</span>女性，化妆品&gt;<span class="escape">``</span><span class="escape">` </span>| <span class="number">1000</span> | . |
+| <span class="escape">``</span><span class="escape">`&lt;</span>男性，汽车&gt;<span class="escape">``</span><span class="escape">` </span>| <span class="number">1500</span> | . |
+| <span class="escape">``</span><span class="escape">`&lt;</span>男性，化妆品&gt;<span class="escape">``</span><span class="escape">` </span>| <span class="number">0</span> | 样本中无此特征组合项 |
+&gt;
+&gt;
+&gt; <span class="escape">``</span><span class="escape">`&lt;</span>女性，汽车&gt;<span class="escape">``</span><span class="escape">`的</span>含义是&lt;font color=<span class="string">"#EE0000"</span>&gt;女性看汽车广告&lt;/font&gt;。可以看到，单特征对应的样本数大于组合特征对应的样本数。训练时，单特征参数相比交叉项特征参数会学习的更加充分。 
+</code></pre><ul>
+<li><p><strong>FM提升了模型预估能力</strong>    </p>
+<p>  从上面的示例中发现，样本中没有<code>&lt;男性，化妆品&gt;</code>交叉特征，即没有<font color="#EE0000">男性看化妆品广告</font>的数据。如果用多项式模型来建模，对应的交叉项参数\(w_{\text{男性,化妆品}}\)是学不出来的，因为数据中没有对应的共现交叉特征。那么多项式模型就不能对<font color="#EE0000">男性看化妆品广告</font>的场景结果作出预估。</p>
+<p>  FM模型是否通过学习能得到交叉项参数\(w_{\text{男性,化妆品}}\)呢？答案是肯定的。由于FM模型是把交叉项参数用对应的特征隐向量内积表示，这里表示为\(w_{\text{男性,化妆品}} = \langle \mathbf{v}_{男性}, \mathbf{v}_{化妆品}\rangle\)。</p>
+<blockquote>
+<p>用<code>男性</code>特征隐向量\(\mathbf{v}_{男性}\)和<code>化妆品</code>特征隐向量\(\mathbf{v}_{化妆品}\)的内积表示交叉项参数\(w_{\text{男性,化妆品}}\).</p>
+</blockquote>
+<p>  由于FM学习的参数就是单特征的隐向量，那么<font color="#EE0000">男性看化妆品广告</font>的预估结果可以用\(\langle \mathbf{v}_{男性}, \mathbf{v}_{化妆品}\rangle\)得到。这样，即便训练集中没有出现<font color="#EE0000">男性看化妆品广告</font>的样本，FM模型仍然可以用来预估，提升了预估能力。</p>
+</li>
+<li><p><strong>FM提升了参数学习效率</strong></p>
+<p>  这个显而易见，参数个数由\((n^2 + n + 1)\)变为\((nk + n + 1)\)个，模型训练复杂度也由\(O(m n^2)\)变为\(O(m n k)\)。\(m\)为训练样本数。对于训练样本和特征数而言，都是线性复杂度。</p>
+</li>
+</ul>
+<p>此外，就FM模型本身而言，它是在多项式模型基础上对参数的计算做了改动，因此也有人<strong>把FM模型称为多项式的广义线性模型</strong>，也是恰如其分的。</p>
+<p>从交互项的角度看，FM仅仅是一个可以表示特征之间交互关系的函数表法式，可以推广到高阶的形式，即将多个互异特征分量之间的关系考虑进来。例如在广告中如果考虑<code>用户-广告-上下文</code>三个维度特征之间的关系，在FM模型中对应的degree为3。</p>
+<p>最后一句话总结，FM最大特点和优势就是</p>
+<table>
+<thead>
+<tr>
+<th><strong>FM模型对稀疏数据有很好的学习能力，通过交互项可以学习特征之间的关联信息，并且保证了学习效率和预估能力。</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -491,7 +540,7 @@ FFM
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#因子分解机"><span class="toc-number">2.</span> <span class="toc-text">因子分解机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型表达"><span class="toc-number">2.1.</span> <span class="toc-text">FM模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM参数学习"><span class="toc-number">2.2.</span> <span class="toc-text">FM参数学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM总结"><span class="toc-number">2.3.</span> <span class="toc-text">FM总结</span></a></li></ol></li></ol>
  
   </div>
 
