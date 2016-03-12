@@ -490,6 +490,55 @@ FFM
 <p>$$<br>\hat{y}(\mathbf{x}) := w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle \mathbf{v}_{i,\,f_j}, \mathbf{v}_{j,\,f_i} \rangle x_i x_j \qquad(ml.1.9.5)<br>$$</p>
 <p>其中，\(f_j\)是第\(j\)个特征所属的field。如果隐向量的长度为\(k\)，那么FFM的二交叉项参数就有\(nfk\)个，远多于FM模型的\(nk\)个。此外，由于隐向量与field相关，FFM的交叉项并不能够像FM那样做化简，其预测复杂度为\(O(kn^2)\)。</p>
 <p>这里以<a href="http://www.csie.ntu.edu.tw/~r01922136/slides/ffm.pdf" target="_blank" rel="external">NTU_FFM.pdf</a>和<a href="http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html" target="_blank" rel="external">美团－深入FFM原理与实践</a>都提到的例子，给出FFM－Fields特征组合的工作过程。</p>
+<blockquote>
+<p>给出一下输入数据：</p>
+<p>User | Movie | Genre | Price |<br>| :—: | :—: | :—: | :—: |<br>| YuChin | 3Idiots | Comedy, Drama | $9.99 |</p>
+<p>Price是数值型特征，实际应用中通常会把价格划分为若干个区间（即连续特征离散化），然后再one-hot编码，这里假设$9.99对应的离散化区间tag为”2”。当然不是所有的连续型特征都要做离散化，比如某广告位、某类广告／商品、抑或某类人群统计的历史CTR（pseudo－CTR）通常无需做离散化。</p>
+<p>该条记录可以编码为5个数值特征，即<code>User^YuChin</code>, <code>Movie^3Idiots</code>, <code>Genre^Comedy</code>, <code>Genre^Drama</code>, <code>Price^2</code>。其中<code>Genre^Comedy</code>, <code>Genre^Drama</code>属于同一个field。为了说明FFM的样本格式，我们把所有的特征和对应的field映射成整数编号。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Field Name</th>
+<th style="text-align:center">Field Index</th>
+<th style="text-align:center">Feature Name</th>
+<th style="text-align:center">Feature Index</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">User</td>
+<td style="text-align:center"><font color="#EE0000">1</font></td>
+<td style="text-align:center"><code>User^YuChin</code></td>
+<td style="text-align:center"><font color="#0000FF">1</font></td>
+</tr>
+<tr>
+<td style="text-align:center">Movie</td>
+<td style="text-align:center"><font color="#EE0000">2</font></td>
+<td style="text-align:center"><code>Movie^3Idiots</code></td>
+<td style="text-align:center"><font color="#0000FF">2</font></td>
+</tr>
+<tr>
+<td style="text-align:center">Genre</td>
+<td style="text-align:center"><font color="#EE0000">3</font></td>
+<td style="text-align:center"><code>Genre^Comedy</code></td>
+<td style="text-align:center"><font color="#0000FF">3</font></td>
+</tr>
+<tr>
+<td style="text-align:center">－</td>
+<td style="text-align:center">－</td>
+<td style="text-align:center"><code>Genre^Drama</code></td>
+<td style="text-align:center"><font color="#0000FF">4</font></td>
+</tr>
+<tr>
+<td style="text-align:center">Price</td>
+<td style="text-align:center"><font color="#EE0000">4</font></td>
+<td style="text-align:center"><code>Price^2</code></td>
+<td style="text-align:center"><font color="#0000FF">5</font></td>
+</tr>
+</tbody>
+</table>
+<p>那么，FFM所有的（二阶）组合特征共有10项（\(\mathbf{C}_{5}^{2} = \frac{5 \times 4}{ 2!}= 10\)），即为：</p>
+</blockquote>
   
 	</div>
 		<footer class="article-footer clearfix">
