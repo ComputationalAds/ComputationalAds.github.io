@@ -178,8 +178,8 @@ FFM
 </ul>
 <p><br></p>
 <h3 id="因子分解机">因子分解机</h3><hr>
-<p>因子分解机（Factorization Machine，简称FM），又称分解机器。是由是由Konstanz大学Steffen Rendle（现任职于Google）于2010年最早提出的，旨在解决大规模稀疏数据下的特征组合问题。介绍FM之前，先介绍一下在实际应用场景中稀疏数据是如何产生的？</p>
-<p>用于在网站上的行为数据会被Server端以日志的形式记录下来（这些数据通常会存在在多台服务器的硬盘上，以我浪为例，各业务线收集的日志会通过thrift等方式交给数据中心托管，它们负责把数据定时上传至HDFS上，或者由数据中心生成hive表）。我们会发现日志中大多数出现的特征是categorical类型的，这种特征类型的取值仅仅是一个标识，本身并没有实际意义，更不能用其取值比较大小。（比日志中记录了用户访问的频道，如”news”, “auto”, “finance”等）。</p>
+<p>因子分解机（Factorization Machine，简称FM），又称分解机器。是由是由Konstanz大学Steffen Rendle（现任职于Google）于2010年最早提出的，旨在解决大规模稀疏数据下的特征组合问题。介绍FM之前，我们先看一下在实际应用场景中稀疏数据是如何产生的？</p>
+<p>用户在网站上的行为数据会被Server端以日志的形式记录下来（这些数据通常会存在在多台服务器的硬盘上，以我浪为例，各业务线收集的日志会通过flume等日志收集工具交给数据中心托管，它们负责把数据定时上传至HDFS上，或者由数据中心生成表）。我们会发现日志中大多数出现的特征是categorical类型的，这种特征类型的取值仅仅是一个标识，本身并没有实际意义，更不能用其取值比较大小。（比日志中记录了用户访问的频道，如”news”, “auto”, “finance”等）。</p>
 <blockquote>
 <p>假设channel特征有10个取值，分别为\(\{\text{“auto”}, \text{“finance”}, \text{“ent”}, \text{“news”}, \text{“sports”}, \text{“mil”}, \text{“weather”}, \text{“house”}, \text{“edu”}, \text{“games”} \}\)。部分训练数据如下：</p>
 <table>
@@ -221,7 +221,7 @@ FFM
 </tbody>
 </table>
 </blockquote>
-<p>特征ETL过程中，需要对其进行one-hot编码操作（独热编码）将categorical型特征转化为数值型特征。上例转化后的结果如下：</p>
+<p><strong>特征ETL</strong>过程中，需要对其进行one-hot编码操作（独热编码）将categorical型特征转化为数值型特征。上例转化后的结果如下：</p>
 <blockquote>
 <table>
 <thead>
@@ -323,42 +323,42 @@ FFM
 </blockquote>
 <p>可以发现，由one-hot编码带来的数据稀疏性会导致特征空间变大。上面的例子中，一维categorical特征在经过one－hot编码后变成了10数值型特征。真实应用场景中，未编码前特征总维度可能仅有数十维或者到数百维的categorical型特征，经过one－hout编码后，达到数千万、数亿甚至更高维度的数值特征都是常有的。</p>
 <blockquote>
-<p>我们广告/推荐业务的点击预估系统，编码前是特征不到100维，编码后（包括特征哈希后）的维度达到300w量级。</p>
+<p>我们广告/推荐业务的点击预估系统，编码前是特征不到100维，编码后（包括特征哈希后）的维度达百万量级。</p>
 </blockquote>
-<p>此外也能返现，<strong>特征空间增长的维度取决于categorical型特征的取值个数。</strong>在数据稀疏性的现实情况下，我们还可以做些什么事情？我们还可以考虑特征之间的关联信息。下面要回答两个问题：1. 为什么要考虑特征之间的关联信息？2. 如何得到组合特征？</p>
+<p>此外也能发现，<strong>特征空间增长的维度取决于categorical型特征的取值个数</strong>。在数据稀疏性的现实情况下，我们如何去利用这些特征？或许还可以考虑特征之间的关联信息。那么下面讨论两个问题：1. 为什么要考虑特征之间的关联信息？2. 如何得到组合特征？</p>
 <ol>
-<li>为什么要考虑特征之间的关联信息？</li>
+<li><p>为什么要考虑特征之间的关联信息？</p>
+<p> 大量的研究和实际数据分析结果表明：某些特征之间的关联信息（相关度）对事件结果的的发生会产生很大的影响。</p>
+</li>
+<li><p>如何得到组合特征？</p>
+<p> 样本中特征之间的关联信息在one－hot编码和浅层学习模型（如LR、SVM）是做不到的。目前工业界主要有两种手段得到组合特征。1. 人工特征工程（数据分析，人工构造）；2. 特征模型做组合特征的学习（深度学习方法、FM方法）</p>
+</li>
 </ol>
-<p>大量的研究和实际数据分析结果表明：某些特征之间的关联信息（相关度）对事件结果的的发生会产生很大的影响。</p>
-<ol>
-<li>如何得到组合特征？</li>
-</ol>
-<p>样本中特征之间的关联信息在one－hot编码和浅层学习模型（如LR、SVM）是做不到的。目前工业界主要有两种手段得到组合特征。1. 人工特征工程（数据分析，人工构造）；2. 特征模型做组合特征的学习（深度学习方法、FM方法）</p>
-<p>我们在《第01章：多项式回归模型中》看到的<a href="">多项式回归模型</a>，其中的交叉因子项\(x_i x_j\)就是组合特征最直观的例子。</p>
+<p>我们在<a href="http://www.52caml.com/head_first_ml/ml-chapter1-regression-family/" target="_blank" rel="external">《第01章：深入浅出ML之Regression家族》</a>看到的<a href="">多项式回归模型</a>，其中的交叉因子项\(x_i x_j\)就是组合特征最直观的例子。</p>
 <blockquote>
 <p>\(x_i x_j\)表示特征\(x_i\)和\(x_j\)的组合，当\(x_i\)和\(x_j\)都非零时，组合特征\(x_i x_j\)才有意义。</p>
 </blockquote>
-<p>这里我们以二阶多项式模型（degree=2时FM模型）为例，来分析和探讨FM的公式表达和参数学习过程。</p>
+<p>这里我们以二阶多项式模型（degree=2时）为例，来分析和探讨FM原理和参数学习过程。</p>
 <p><br></p>
 <h4 id="FM模型表达">FM模型表达</h4><hr>
 <p>为了更好的介绍FM模型，我们先从多项式回归、交叉组合特征说起，然后自然地过度到FM模型。</p>
 <p><strong>二阶多项式回归模型</strong></p>
-<p>我们首先看二阶多项式模型的表达式：</p>
+<p>我们先看二阶多项式模型的表达式：</p>
 <blockquote>
 <p>$$<br>\hat{y}(x) := \underbrace {w_0 + \sum_{i=1}^{n} w_i x_i }_{\text{线性回归}} + \underbrace {\sum_{i=1}^{n} \sum_{j=i+1}^{n} w_{ij} x_i x_j}_{\text{交叉项（组合特征）}} \qquad (n.ml.1.9.1)<br>$$</p>
 </blockquote>
 <p>其中，\(n\)表示样本特征维度，\(w_0 \in R,\; w ＝ \{w_1, w_2, \cdots, w_n\}\in R^n, w_{ij} \in R^{n \times n}\)为模型参数。</p>
-<p>从公式\(\text{(n.ml.1.9.1)}\)可知，交叉项中的组合特征参数总共有\(\frac{n(n-1)}{2}\)个，任意两个交叉项参数\(w_{ij}\)都是独立的。然而，在数据非常稀疏的实际应用场景中，交叉项参数的学习是很困难的。为什么呢？</p>
+<p>从公式\(\text{(n.ml.1.9.1)}\)可知，交叉项中的组合特征参数总共有\(\frac{n(n-1)}{2}\)个，任意两个交叉项参数\(w_{ij}\)都是独立的。然而，在数据非常稀疏的实际应用场景中，交叉项参数的学习是很困难的。why？</p>
 <p>因为我们知道，<strong>回归模型的参数\(w\)的学习结果就是从训练样本中计算充分统计量（符合指数族分布的模型都具有此性质）</strong>，而在这里交叉项的每一个参数\(w_{ij}\)的学习过程需要大量的\(x_i、x_j\)同时非零的训练样本数据。由于样本数据本来就很稀疏，能够满足“\(x_i\)和\(x_j\)都非零”的样本数就会更少。训练样本不充分，学到的参数\(w_{ij}\)就不是充分统计量结果，导致参数\(w_{ij}\)不准确，而这会严重影响模型的性能和稳定性。How to do it ?</p>
-<p>如何解决二阶交叉项参数的学习问题呢？矩阵分解方法已经给出了解决思路。这里借用CMU讨论课中提到的<a href="http://www.cs.cmu.edu/~wcohen/10-605/2015-guest-lecture/FM.pdf" target="_blank" rel="external">FM课件</a>和<a href="http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html" target="_blank" rel="external">美团－深入FFM原理与实践</a>中提到的矩阵分解例子（美团技术团队的分享都很赞👍）。</p>
+<p>如何解决二阶交叉项参数的学习问题呢？矩阵分解方法已经给出了解决思路。这里借用CMU讨论课中提到的<a href="http://www.cs.cmu.edu/~wcohen/10-605/2015-guest-lecture/FM.pdf" target="_blank" rel="external">FM课件</a>和<a href="http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html" target="_blank" rel="external">美团－深入FFM原理与实践</a>中提到的矩阵分解例子（美团技术团队的分享很赞👍）。</p>
 <blockquote>
 <p>在基于Model-Based的协同过滤中，一个rating矩阵可以分解为user矩阵和item矩阵，每个user和item都可以采用一个隐向量表示。如下图所示。</p>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_9_2_1_fm_mf_example.png" width="700" height="400" alt="cf_mf"></p>
 <p>上图把每一个user表示成了一个二维向量，同时将item也表示成一个二维向量，两个向量的点积就是矩阵中user对item的打分。</p>
 </blockquote>
-<p>根据矩阵分解的启发，如果把多项式模型中二阶交叉项参数\(w_{ij}\)组成一个对称矩阵\(W\)（对角元素设为正实数），那么这个矩阵就可以分解为\(W = V \cdot V^T\)，\(V \in R^{n \times k}\)称为系数矩阵，其中第\(i\)行对应着第\(i\)维特征的隐向量 (这部分在FM公式解读中详细介绍)。</p>
+<p>根据矩阵分解的启发，如果把多项式模型中二阶交叉项参数\(w_{ij}\)组成一个对称矩阵\(W\)（对角元素设为正实数），那么这个矩阵就可以分解为\(W = V V^T\)，\(V \in R^{n \times k}\)称为系数矩阵，其中第\(i\)行对应着第\(i\)维特征的隐向量 (这部分在FM公式解读中详细介绍)。</p>
 <p><strong>将每个交叉项参数\(w_{ij}\)用隐向量的点积\(\langle \mathbf{v}_i, \mathbf{v}_j\rangle\)表示，是FM模型的核心思想</strong>。下面对FM模型表达式和参数求解过程，给出详细说明。</p>
-<p><strong>1. FM模型</strong></p>
+<p><strong>FM模型表达式</strong></p>
 <p>这里我们只讨论二阶FM模型（degree＝2），其表达式为：</p>
 <p>$$<br>\hat{y}(\mathbf{x}) := w_0 + \sum_{i=1}^{n} w_i x_i + \sum_{i=1}^{n} \sum_{j=i+1}^{n} \langle \mathbf{v}_i, \mathbf{v}_j \rangle x_i x_j \qquad(ml.1.9.1)<br>$$  </p>
 <p>其中，\(v_i\)表示第\(i\)特征的隐向量，\(\langle \cdot, \cdot\rangle\)表示两个长度为\(k\)的向量的点积（即内积），计算公式为：</p>
