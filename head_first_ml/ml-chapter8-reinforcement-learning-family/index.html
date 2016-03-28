@@ -4,58 +4,64 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>计算广告学-RoadMap | 计算广告与机器学习</title>
+    <title>第08章：深入浅出ML之Reinforcement Learning家族 | 计算广告与机器学习</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="ZhouYong">
     
 
     
-    <meta name="description" content="Author: zhouyongsdzh@foxmail.com 
-Date: 2015-05-09
+    <meta name="description" content="author: zhouyongsdzh@foxmail.com
+date: 2016-02-28
+sina weibo: @周永_52ML
 
-说明
-这里阐述了在线广告介绍以及产品形态、用户画像、大规模约束优化、CTR预估、流量预估、竞价机制设计、广告拍卖等计算广告学核心概念和技术进行总结与梳理
-第一部分：广告与计算
-第01章：在线广告介绍
-第02章：计算广告基础知识
-第03章：受众定向
 
-第二部分：合约广告系统
-第04章：流量预估
-第">
+内容列表
+
+写在前面
+马尔可夫决策过程
+\(\epsilon\)-贪心法
+…
+
+
+写在前面
+强化学习这个领域是我在接触机器学习一年多才开始真正关注的，虽然读书的时候修过《高级人工智能》这门课，里面提到了Q-Learning，但当时没怎么重视，也没学好。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="计算广告学-RoadMap">
-<meta property="og:url" content="http://www.52caml.com/computational_ads/ca_roadmap/index.html">
+<meta property="og:title" content="第08章：深入浅出ML之Reinforcement Learning家族">
+<meta property="og:url" content="http://www.52caml.com/head_first_ml/ml-chapter8-reinforcement-learning-family/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
-<meta property="og:description" content="Author: zhouyongsdzh@foxmail.com 
-Date: 2015-05-09
+<meta property="og:description" content="author: zhouyongsdzh@foxmail.com
+date: 2016-02-28
+sina weibo: @周永_52ML
 
-说明
-这里阐述了在线广告介绍以及产品形态、用户画像、大规模约束优化、CTR预估、流量预估、竞价机制设计、广告拍卖等计算广告学核心概念和技术进行总结与梳理
-第一部分：广告与计算
-第01章：在线广告介绍
-第02章：计算广告基础知识
-第03章：受众定向
 
-第二部分：合约广告系统
-第04章：流量预估
-第">
+内容列表
+
+写在前面
+马尔可夫决策过程
+\(\epsilon\)-贪心法
+…
+
+
+写在前面
+强化学习这个领域是我在接触机器学习一年多才开始真正关注的，虽然读书的时候修过《高级人工智能》这门课，里面提到了Q-Learning，但当时没怎么重视，也没学好。">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="计算广告学-RoadMap">
-<meta name="twitter:description" content="Author: zhouyongsdzh@foxmail.com 
-Date: 2015-05-09
+<meta name="twitter:title" content="第08章：深入浅出ML之Reinforcement Learning家族">
+<meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
+date: 2016-02-28
+sina weibo: @周永_52ML
 
-说明
-这里阐述了在线广告介绍以及产品形态、用户画像、大规模约束优化、CTR预估、流量预估、竞价机制设计、广告拍卖等计算广告学核心概念和技术进行总结与梳理
-第一部分：广告与计算
-第01章：在线广告介绍
-第02章：计算广告基础知识
-第03章：受众定向
 
-第二部分：合约广告系统
-第04章：流量预估
-第">
+内容列表
+
+写在前面
+马尔可夫决策过程
+\(\epsilon\)-贪心法
+…
+
+
+写在前面
+强化学习这个领域是我在接触机器学习一年多才开始真正关注的，虽然读书的时候修过《高级人工智能》这门课，里面提到了Q-Learning，但当时没怎么重视，也没学好。">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -115,14 +121,14 @@ Date: 2015-05-09
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/computational_ads/ca_roadmap/" title="计算广告学-RoadMap" itemprop="url">计算广告学-RoadMap</a>
+      <a href="/head_first_ml/ml-chapter8-reinforcement-learning-family/" title="第08章：深入浅出ML之Reinforcement Learning家族" itemprop="url">第08章：深入浅出ML之Reinforcement Learning家族</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2015-05-09T14:31:24.000Z" itemprop="datePublished"> 发表于 2015-05-09</time>
+    <time datetime="2015-02-28T13:31:36.000Z" itemprop="datePublished"> 发表于 2015-02-28</time>
     
   </p>
 </header>
@@ -131,51 +137,55 @@ Date: 2015-05-09
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一部分：广告与计算"><span class="toc-number">1.</span> <span class="toc-text">第一部分：广告与计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二部分：合约广告系统"><span class="toc-number">2.</span> <span class="toc-text">第二部分：合约广告系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三部分：竞价广告系统"><span class="toc-number">3.</span> <span class="toc-text">第三部分：竞价广告系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第四部分：广告交易系统"><span class="toc-number">4.</span> <span class="toc-text">第四部分：广告交易系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第五部分：广告智能推荐"><span class="toc-number">5.</span> <span class="toc-text">第五部分：广告智能推荐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第六部分：广告相关技术"><span class="toc-number">6.</span> <span class="toc-text">第六部分：广告相关技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第七部分：大数据与机器学习"><span class="toc-number">7.</span> <span class="toc-text">第七部分：大数据与机器学习</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#马尔可夫决策过程"><span class="toc-number">2.</span> <span class="toc-text">马尔可夫决策过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#\(\epsilon\)-贪心法"><span class="toc-number">3.</span> <span class="toc-text">\(\epsilon\)-贪心法</span></a></li></ol>
 		
 		</div>
 		
-		<blockquote>
-<p>Author: zhouyongsdzh@foxmail.com </p>
-<p>Date: 2015-05-09</p>
-</blockquote>
-<p>说明</p>
-<p>这里阐述了在线广告介绍以及产品形态、用户画像、大规模约束优化、CTR预估、流量预估、竞价机制设计、广告拍卖等计算广告学核心概念和技术进行总结与梳理</p>
-<h2 id="第一部分：广告与计算">第一部分：广告与计算</h2><ul>
-<li>第01章：在线广告介绍</li>
-<li>第02章：计算广告基础知识</li>
-<li>第03章：受众定向</li>
+		<ul>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 2016-02-28</li>
+<li>sina weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
 </ul>
-<h2 id="第二部分：合约广告系统">第二部分：合约广告系统</h2><ul>
-<li>第04章：流量预估</li>
-<li>第05章：在线分配</li>
+<hr>
+<p><strong>内容列表</strong></p>
+<ul>
+<li>写在前面</li>
+<li>马尔可夫决策过程</li>
+<li>\(\epsilon\)-贪心法</li>
+<li>…</li>
 </ul>
-<h2 id="第三部分：竞价广告系统">第三部分：竞价广告系统</h2><ul>
-<li>第06章：匹配与相关性计算</li>
-<li>第07章：广告检索</li>
-<li>第08章：点击率预估</li>
-<li>第09章：竞价机制设计</li>
-</ul>
-<h2 id="第四部分：广告交易系统">第四部分：广告交易系统</h2><ul>
-<li>第10章：交易与拍卖理论</li>
-<li>第11章：在线广告生态系统</li>
-<li>第12章：需求方平台</li>
-<li>第13章：供给方平台</li>
-<li>第14章：数据管理平台</li>
-</ul>
-<h2 id="第五部分：广告智能推荐">第五部分：广告智能推荐</h2><ul>
-<li>第15章：推荐与广告</li>
-<li>第16章：推荐系统与算法</li>
-</ul>
-<h2 id="第六部分：广告相关技术">第六部分：广告相关技术</h2><ul>
-<li>第17章：智能频次控制</li>
-<li>第18章：反作弊技术</li>
-<li>第19章：效果监控与可视化</li>
-<li>第20章：隐私保护与数据安全</li>
-</ul>
-<h2 id="第七部分：大数据与机器学习">第七部分：大数据与机器学习</h2><ul>
-<li>第21章：大数据框架在广告系统中的应用</li>
-<li>第22章：机器学习在广告系统中的应用</li>
+<p><br></p>
+<h3 id="写在前面">写在前面</h3><hr>
+<p>强化学习这个领域是我在接触机器学习一年多才开始真正关注的，虽然读书的时候修过《高级人工智能》这门课，里面提到了Q-Learning，但当时没怎么重视，也没学好。</p>
+<p>直到快毕业那年，接触了一个互联网广告中的一个问题：广告效果的归因分析。在查阅资料和寻求解决方案，发现其归因问题可以用强化学习的马尔可夫决策过程来建模。从此才关注和学习这部分。</p>
+<p>本章原定题目是：markov，之所以改为强化学习，是因为在广告和推荐策略，尤其是解决广告或商品的冷启动问题时，可以用强化学习的思想来建模。</p>
+<p><br></p>
+<h3 id="马尔可夫决策过程">马尔可夫决策过程</h3><hr>
+<p><br></p>
+<h3 id="\(\epsilon\)-贪心法">\(\epsilon\)-贪心法</h3><hr>
+<p>\(\epsilon\)-贪心法是通过概率对探索和利用进行折中:</p>
+<table>
+<thead>
+<tr>
+<th>每次尝试时，以\(\epsilon\)的概率进行探索，即以均匀挂了随机选取一个摇臂；以\(1-\epsilon\)的概率进行利用，即选择平均奖赏最多的摇臂（只选一个）。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>用\(Q(k)\)纪录摇臂\(k\)的平均奖赏。若摇臂\(k\)被尝试了\(n\)次，得到的奖赏分别为\(v_1, v_2, \cdots, v_n\)，那么平均奖赏为：</p>
+<p>$$<br>Q(k) = \frac{1}{n} \sum_{i=1}^{n} v_i<br>$$</p>
+<p>若直接根据上式计算平均奖赏，则需要记录\(n\)个奖赏值，\(n\)个值都需要保存，空间上不够高效。下面给出一个更高效的方法：对均值进行增量式的计算，即每尝试一次就立即更新\(Q(k)\)。</p>
+<p>用下标表示尝试的次数，初始时\(Q_0(k)＝0\)。对于任意的\(n \ge 1\)，若第\(n-1\)次尝试后的平均奖赏为\(Q_{n-1}(k)\)，则在经过第\(n\)次尝试获得\(v_n\)后，平均奖赏可更新为：</p>
+<p>$$<br>\begin{align}<br>Q_n(k) &amp;= \frac{1}{n-1} \left[ (n-1) \cdot Q_{n-1}(k) + v_n \right] \\<br>&amp;= Q_{n-1}(k) + \frac{1}{n} (v_n - Q_{n-1}(k))<br>\end{align}<br>$$</p>
+<p>这样，无论摇臂被尝试多少次，只需要记录两个值：已尝试次数\(n-1\)和最近平均奖赏\(Q_{n-1}(k)\)。</p>
+<p>…</p>
+<hr>
+<ul>
+<li>更多信息请关注：<a href="http://www.52caml.com/" target="_blank" rel="external">计算广告与机器学习－CAML 技术共享平台</a></li>
 </ul>
   
 	</div>
@@ -184,13 +194,13 @@ Date: 2015-05-09
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/计算广告学/">计算广告学</a>
+  <a class="article-category-link" href="/categories/深入浅出机器学习/">深入浅出机器学习</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/计算广告学/">计算广告学</a>
+  <span></span> <a href="/tags/epsilon-贪心法/">\\(\epsilon\\)-贪心法</a><a href="/tags/任务与奖赏/">任务与奖赏</a><a href="/tags/摇臂赌博机/">摇臂赌博机</a><a href="/tags/马尔可夫决策过程/">马尔可夫决策过程</a>
   </div>
 
 </div>
@@ -199,7 +209,7 @@ Date: 2015-05-09
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/computational_ads/ca_roadmap/" data-title="计算广告学-RoadMap | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/head_first_ml/ml-chapter8-reinforcement-learning-family/" data-title="第08章：深入浅出ML之Reinforcement Learning家族 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -213,21 +223,13 @@ Date: 2015-05-09
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/stats/prob-stats-chapter3-continuous-random-variable/" title="概率与统计-chapter3-连续随机变量">
+ <a href="/computational_ads/ca-chapter1.1-introduction/" title="Chapter1.1 网络广告的前世今生">
   <strong>上一篇：</strong><br/>
   <span>
-  概率与统计-chapter3-连续随机变量</span>
+  Chapter1.1 网络广告的前世今生</span>
 </a>
 </div>
 
-
-<div class="next">
-<a href="/computational_ads/ca-chapter1.1-introduction/"  title="Chapter1.1 网络广告的前世今生">
- <strong>下一篇：</strong><br/> 
- <span>Chapter1.1 网络广告的前世今生
-</span>
-</a>
-</div>
 
 </nav>
 
@@ -239,7 +241,7 @@ Date: 2015-05-09
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一部分：广告与计算"><span class="toc-number">1.</span> <span class="toc-text">第一部分：广告与计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二部分：合约广告系统"><span class="toc-number">2.</span> <span class="toc-text">第二部分：合约广告系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三部分：竞价广告系统"><span class="toc-number">3.</span> <span class="toc-text">第三部分：竞价广告系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第四部分：广告交易系统"><span class="toc-number">4.</span> <span class="toc-text">第四部分：广告交易系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第五部分：广告智能推荐"><span class="toc-number">5.</span> <span class="toc-text">第五部分：广告智能推荐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第六部分：广告相关技术"><span class="toc-number">6.</span> <span class="toc-text">第六部分：广告相关技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第七部分：大数据与机器学习"><span class="toc-number">7.</span> <span class="toc-text">第七部分：大数据与机器学习</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#马尔可夫决策过程"><span class="toc-number">2.</span> <span class="toc-text">马尔可夫决策过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#\(\epsilon\)-贪心法"><span class="toc-number">3.</span> <span class="toc-text">\(\epsilon\)-贪心法</span></a></li></ol>
  
   </div>
 

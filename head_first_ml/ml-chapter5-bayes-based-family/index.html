@@ -176,9 +176,20 @@ weibo: @周永_52ML
 <p>举例：</p>
 <p>比如要确定一只羊是山羊还是绵羊，用判别模型的方法是：先从历史数据中学习到模型，然后通过提取这只羊的特征来预测出这只羊是山羊的概率和绵羊的概率（即条件概率\(P(y|x)\)）。 </p>
 </blockquote>
-<p>  |常见的判别模型：|<br>  |—-|<br>  |线性回归、对数回归、线性判别分析、SVM、Boosting、CRF、神经网络等|</p>
 </li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>常见的判别模型：</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>线性回归、对数回归、线性判别分析、SVM、Boosting、CRF、神经网络等</td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li><p>生成模型</p>
 <p>  延续判别模型中的例子，换一种思路考虑：</p>
@@ -192,10 +203,22 @@ weibo: @周永_52ML
 <p>$$<br>  \begin{align}<br>  \arg \max_{y} P(y|x) &amp; = \arg \max_{y} \frac{P(x|y) P(y)}{P(x)} \quad(1) \\<br>  &amp; = \arg \max_{y} P(x|y) P(y)    \;\quad(2)<br>  \end{align} \qquad(n.ml.1.5.1)<br>  $$</p>
 <p>其中，\(P(y)\)称为先验概率，\(P(y|x)\)是后验概率，\(P(x|y)\)为似然函数。公式\((1)\)等价于\((2)\)是因为对于离散值\(y\)来说，\(P(x)\)都是一样的。</p>
 </blockquote>
-<p>  |常见的生成模型：|<br>  |—-|<br>  |隐马尔可夫模型、朴素贝叶斯模型、高斯混合模型、主题模型（LDA等）、受限波尔斯曼机等|</p>
 </li>
-<li><p>联系与区别</p>
+</ul>
+<table>
+<thead>
+<tr>
+<th>常见的生成模型：</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>隐马尔可夫模型、朴素贝叶斯模型、高斯混合模型、主题模型（LDA等）、受限波尔斯曼机等</td>
+</tr>
+</tbody>
+</table>
 <ul>
+<li>联系与区别<ul>
 <li>由于\(P(x,y) = P(x|y) \cdot P(y)\)，判别模型求的是条件概率，生成模型求的是联合概率。</li>
 </ul>
 </li>
@@ -464,7 +487,7 @@ weibo: @周永_52ML
 		  
 		
 		  
-			<li><a href="/categories/深入浅出机器学习/" title="深入浅出机器学习">深入浅出机器学习<sup>8</sup></a></li>
+			<li><a href="/categories/深入浅出机器学习/" title="深入浅出机器学习">深入浅出机器学习<sup>9</sup></a></li>
 		  
 		
 		  
@@ -525,6 +548,22 @@ weibo: @周永_52ML
 			
 		
 			
+				<li><a href="/tags/任务与奖赏/" title="任务与奖赏">任务与奖赏<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/马尔可夫决策过程/" title="马尔可夫决策过程">马尔可夫决策过程<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/epsilon-贪心法/" title="\\(\epsilon\\)-贪心法">\\(\epsilon\\)-贪心法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/摇臂赌博机/" title="摇臂赌博机">摇臂赌博机<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
 			
 		
@@ -542,22 +581,6 @@ weibo: @周永_52ML
 		
 			
 				<li><a href="/tags/XGBoost/" title="XGBoost">XGBoost<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Naive-Bayes/" title="Naive Bayes">Naive Bayes<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Gaussian-Discriminant-Analysis/" title="Gaussian Discriminant Analysis">Gaussian Discriminant Analysis<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Kernel/" title="Kernel">Kernel<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/对偶优化/" title="对偶优化">对偶优化<sup>1</sup></a></li>
 			
 		
 		</ul>
