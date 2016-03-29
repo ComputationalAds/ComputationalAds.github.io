@@ -258,7 +258,10 @@ Gradie">
 <li><p>前向分步算法</p>
 <p>  在给定训练数据及损失函数\(L(y,f(x))\)的条件下，学习加法模型\(f(x)\)成为经验风险极小化即损失函数极小化的问题：</p>
 <p>  $$<br>  \min_{\beta_k, \gamma_k} \quad \sum_{i=1}^{M} L \left[y^{(i)}, \sum_{k=1}^{K} \beta_k b(x^{(i)}; \gamma_k)\right] \qquad(ml.1.6.2)<br>  $$</p>
-<p>  通常这是一个复杂的优化问题。前向分布算法（forward stagwise algorithm）求解这一优化问题的思路是：<strong>因为学习的是加法模型，如果能够从前向后，每一步只学习一个基函数及其系数，逐步逼近优化目标函数式\((ml.1.6.1)\)，那么就可以简化优化的复杂度</strong>。具体地，每步只需优化如下损失函数：<br>&gt;<br>  $$<br>  \min_{\beta, \gamma} \quad \sum_{i=1}^{M} L(y^{(i)}, \beta b(x^{(i)}; \gamma)) \qquad(n.ml.1.6.1)<br>  $$</p>
+<p>  通常这是一个复杂的优化问题。前向分布算法（forward stagwise algorithm）求解这一优化问题的思路是：<strong>因为学习的是加法模型，如果能够从前向后，每一步只学习一个基函数及其系数，逐步逼近优化目标函数式\((ml.1.6.1)\)，那么就可以简化优化的复杂度</strong>。具体地，每步只需优化如下损失函数：</p>
+<blockquote>
+<p>$$<br>  \min_{\beta, \gamma} \quad \sum_{i=1}^{M} L(y^{(i)}, \beta b(x^{(i)}; \gamma)) \qquad(n.ml.1.6.1)<br>  $$</p>
+</blockquote>
 <p>  给定训练数据集\(D=\{(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \cdots, (x^{(M)}, y^{(M)})\}, x^{(i)} \in \mathcal{X} \subseteq R^n, y^{(i)} \in \mathcal{Y} = \)\(\{-1, +1\}\)。损失函数\(L(y, f(x))\)和基函数的集合\(\{b(x; \gamma)\}\)，学习加法模型\(f(x)\)的前向分步算法如下：</p>
 <blockquote>
 <p>\(<br>  \{ \\<br>  \quad 输入：训练数据集D=\{(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \cdots, (x^{(M)}, y^{(M)})\}; 损失函数L(y, f(x));\\<br>  \qquad\quad  基函数集\{b(x, \gamma)\}； \\<br>  \quad 输出：加法模型f(x)。 \\<br>  \quad 计算过程：\\<br>  \qquad (1). 初始化f_0(x) = 0 \\<br>  \qquad (2). 对于k=1,2,\cdots,K \\<br>  \qquad\qquad (a). 极小化损失函数 \\<br>  \qquad\qquad\qquad (\beta_k, \gamma_k) = \arg \min_{\beta, \gamma} \sum_{i=1}^{M} L(y^{(i)}, f_{k-1}(x^{(i)}) + \beta b(x; \gamma)) \quad(n.ml.1.6.2)\\<br>  \qquad\qquad 得到参数\beta_k, \gamma_k. \\<br>  \qquad\qquad (b). 更新 \\<br>  \qquad\qquad\qquad f_k(x) = f_{k-1}(x) + \beta_k b(x; \gamma_k) \qquad(n.ml.1.6.3) \\<br>  \qquad (3). 得到加法模型 \\<br>  \qquad\qquad\qquad f(x) = f_K(x) = \sum_{k=1}^{K} \beta_k b(x; \gamma_k) \qquad(n.ml.1.6.4) \\<br>  \}<br>  \)</p>
