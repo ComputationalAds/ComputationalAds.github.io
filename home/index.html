@@ -137,25 +137,38 @@ CAML平台致力于整理和分享互联网广告领域的核心问题和解决�
 </li>
 </ul>
 <hr>
-<h3 id="《分布式机器学习系统》_系列总结">《分布式机器学习系统》 系列总结</h3><hr>
-<p><strong>(笔记整理中，届时统一上传!!!)</strong></p>
-<p>分布式机器学习系统 (<strong>Di</strong>stribution <strong>M</strong>achine <strong>L</strong>earning <strong>Sys</strong>tem, 简称<strong>DiMLSys</strong>)，主要基于<a href="https://github.com/dmlc" target="_blank" rel="external">DMLC</a>基础组件（dmlc-core, rabit, ps-lite等）开发的分布式机器学习算法系统，以及在广告业务中的实践应用总结。欢迎大家review！！！</p>
+<h3 id="《机器智能工具组件》系列总结">《机器智能工具组件》系列总结</h3><hr>
+<p>开源机器智能工具组件 (Open-source Machine Intelligence Toolkits， 简称<strong>OpenMIT</strong>)主要为两大类智能学习问题提供“工具级”的解决方案。分别是:</p>
 <ul>
-<li><p><a href="">第01章：DiMLSys-概览</a></p>
+<li><p><strong>大数据智能</strong>：基于Parameter Server和MPI两套分布式计算框架为基础研发的超大规模机器学习训练工具，可以方便地在Yarn集群提交任务，同时也支持单机版（性能有保证）.</p>
+<blockquote>
+<p>其中，基于MPI的分布式算法是以ADMM作为算法框架，将一个大的任务分解成多个子任务进而求解。</p>
+</blockquote>
 </li>
-<li><p><a href="">第02章：DiMLSys-分布式文件系统</a></p>
+<li><p><strong>智能决策</strong>：以强化学习和深度学习为核心技术，基于TensorFlow和MxNet开发的智能决策算法工具组件，适用于交互场景的决策问题建模和序列化场景的预测建模，如广告auction机制、金融交易场景等。</p>
 </li>
-<li><p><a href="">第03章：DiMLSys-机器通信-同步机制</a></p>
+</ul>
+<p>OpenMIT主要基于<a href="https://github.com/dmlc" target="_blank" rel="external">DMLC</a>基础组件（dmlc-core, rabit, ps-lite等）和TensorFlow研发的机器智能工具组件，并且在广告业务得到大量应用并产出不错的效果。欢迎大家review！！！</p>
+<ul>
+<li><p><a href="">第01章：OpenMIT_先睹为快</a></p>
 </li>
-<li><p><a href="">第04章：DiMLSys-机器通信-异步机制</a></p>
+<li><p><a href="">第02章：OpenMIT-计算框架</a></p>
 </li>
-<li><p><a href="">第05章：DiMLSys-算法框架-ADMM</a></p>
+<li><p><a href="">第03章：OpenMIT-机器通信</a></p>
 </li>
-<li><p><a href="">第06章：DiMLSys-算法模型-学习器</a></p>
+<li><p><a href="">第04章：OpenMIT-算法框架</a></p>
 </li>
-<li><p><a href="">第07章：DiMLSys-算法模型-优化器</a></p>
+<li><p><a href="">第05章：OpenMIT-学习器</a></p>
 </li>
-<li><p><a href="">第08章：DiMLSys-业务应用实践</a></p>
+<li><p><a href="http://www.52caml.com/openmit/openmit-chapter6-optimizer/" target="_blank" rel="external">第06章：OpenMIT-优化器</a></p>
+</li>
+<li><p><a href="">第07章：OpenMIT-决策系统</a></p>
+</li>
+<li><p><a href="">第08章：OpenMIT-决策算法</a></p>
+</li>
+<li><p><a href="">第09章：OpenMIT-应用实践</a></p>
+</li>
+<li><p><a href="">第10章：OpenMIT-机器智能</a></p>
 </li>
 </ul>
 <hr>
@@ -221,7 +234,7 @@ CAML平台致力于整理和分享互联网广告领域的核心问题和解决�
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
 		
 		<a href="/about" target="_blank" title="ZhouYong">ZhouYong</a>
 		

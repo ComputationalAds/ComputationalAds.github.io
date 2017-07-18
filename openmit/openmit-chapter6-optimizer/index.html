@@ -1,0 +1,736 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>计算广告与机器学习</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ZhouYong">
+    
+
+    
+    <meta name="description" content="参数学习算法
+author: zhouyongsdzh@foxmail.com
+date: 20151027
+
+目录
+
+0. 写在前面
+1. 最优化问题求解
+1.1. Gradient Descent
+1.2. Adaptive Gradient Descent 
+1.3. AdaDelta
+1.4. Follow The Regularized Leader-Proximal
+
+
+2. 概率推理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算广告与机器学习">
+<meta property="og:url" content="http://www.52caml.com/openmit/openmit-chapter6-optimizer/index.html">
+<meta property="og:site_name" content="计算广告与机器学习">
+<meta property="og:description" content="参数学习算法
+author: zhouyongsdzh@foxmail.com
+date: 20151027
+
+目录
+
+0. 写在前面
+1. 最优化问题求解
+1.1. Gradient Descent
+1.2. Adaptive Gradient Descent 
+1.3. AdaDelta
+1.4. Follow The Regularized Leader-Proximal
+
+
+2. 概率推理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算广告与机器学习">
+<meta name="twitter:description" content="参数学习算法
+author: zhouyongsdzh@foxmail.com
+date: 20151027
+
+目录
+
+0. 写在前面
+1. 最优化问题求解
+1.1. Gradient Descent
+1.2. Adaptive Gradient Descent 
+1.3. AdaDelta
+1.4. Follow The Regularized Leader-Proximal
+
+
+2. 概率推理">
+
+    
+    <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="计算广告与机器学习" title="计算广告与机器学习"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="计算广告与机器学习">计算广告与机器学习</a></h1>
+				<h2 class="blog-motto">Computational Advertising and Machine Learning</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/home">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.52caml.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/openmit/openmit-chapter6-optimizer/" title="" itemprop="url"></a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-18T00:38:29.000Z" itemprop="datePublished"> 发表于 2017-07-18</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#参数学习算法"><span class="toc-number">1.</span> <span class="toc-text">参数学习算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">2.</span> <span class="toc-text">0. 写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.最优化问题求解"><span class="toc-number">3.</span> <span class="toc-text">1. 最优化问题求解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.Follow The Regularized Leader"><span class="toc-number">3.1.</span> <span class="toc-text">1.4. Follow The Regularized Leader-Proximal</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-1-_FTRL-Proximal演化进程"><span class="toc-number">3.1.1.</span> <span class="toc-text">1.4.1. FTRL-Proximal演化进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-2-_FTRL-Proximal工作原理"><span class="toc-number">3.1.2.</span> <span class="toc-text">1.4.2. FTRL-Proximal工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-3-_FTRL-Proximal伪代码"><span class="toc-number">3.1.3.</span> <span class="toc-text">1.4.3. FTRL-Proximal伪代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-3-_FTRL实验经验"><span class="toc-number">3.1.4.</span> <span class="toc-text">1.4.3. FTRL实验经验</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FM＋SGD"><span class="toc-number">3.2.</span> <span class="toc-text">FM＋SGD</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="参数学习算法">参数学习算法</h2><ul>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 20151027</li>
+</ul>
+<p><strong>目录</strong></p>
+<ul>
+<li><a href="#0.写在前面">0. 写在前面</a></li>
+<li><a href="#1.最优化问题求解">1. 最优化问题求解</a><ul>
+<li><a href="#1.1.Gradient Descent">1.1. Gradient Descent</a></li>
+<li><a href="#1.2.Adaptive Gradient Descent">1.2. Adaptive Gradient Descent</a> </li>
+<li><a href="#1.3.AdaDelta">1.3. AdaDelta</a></li>
+<li><a href="#1.4.Follow The Regularized Leader">1.4. Follow The Regularized Leader-Proximal</a></li>
+</ul>
+</li>
+<li><a href="#2.概率推理">2. 概率推理</a><ul>
+<li>MCMC  </li>
+</ul>
+</li>
+</ul>
+<h2 id="0.写在前面">0. 写在前面</h2>
+
+<h2 id="1.最优化问题求解">1. 最优化问题求解</h2> 
+
+<h3 id="1.4.Follow The Regularized Leader">1.4. Follow The Regularized Leader-Proximal</h3>
+
+<p>FTRL-Proximal算法是Google在2013年的一篇论文《Ad Click Prediction: a View from the Trenches》中提到的参数在线学习算法，论文中提到该算法用在了Google的搜索广告在线学习系统中。因为算法比较容易理解且工程实现不复杂，业内诸多公司都有尝试并取得了不错的收益。</p>
+<p>FTRL-Proximal算法不仅可用于在线学习（不要求数据IID，样本序列学习），同时也可以用于离线基于batch数据的参数求解。所以这里也把该算法作为“优化器”的一种，用于大规模机器学习任务的参数求解（该算法本身就是为了很好的求解大规模在线学习任务而提出的）。</p>
+<h4 id="1-4-1-_FTRL-Proximal演化进程">1.4.1. FTRL-Proximal演化进程</h4><ul>
+<li><p><strong>Online Gradient Descent (OGD, 在线梯度下降）</strong></p>
+<p>  可以有非常好的预估准确性，并且占用较少的资源。但是它不能得到有效的稀疏模型（非零参数），即便优化目标添加L1惩罚项也不能产生严格意义上的稀疏解（会使参数接近于0，而不是0）。</p>
+<blockquote>
+<p>这里OGD其实就是随机梯度下降，之所以强调Online是因为这里不适用于解决batch数据问题的，而是用于样本序列化问题求解的，后者不要求样本是独立同分布（IID））的。</p>
+</blockquote>
+</li>
+<li><p><strong>Truncated Gradient and FOBOS</strong><br>  参数\(w_j\)设定阈值，当参数小雨阈值时置为0，可得稀疏解。</p>
+</li>
+<li><p><strong>Regularized Dual Averaging（RDA, 正则化对偶平均）</strong><br>  RDA可以得到稀疏解，在预估准确性和模型稀疏性方面优于FOBOS算法。</p>
+</li>
+</ul>
+<p>有没有既能结合RDA获得模型稀疏性，同时又具备OGD的精度的学习算法呢？答案是肯定的，那就是：”Follow The (Proximal) Regularized Leader”算法。</p>
+<h4 id="1-4-2-_FTRL-Proximal工作原理">1.4.2. FTRL-Proximal工作原理</h4><p>为了更容易的理解FTRL的工作原理，这里以学习LR模型参数为例，看FTRL是如何求解的：</p>
+<ul>
+<li><p>首先，对于一个实例\(\mathbf{x}^{(i)} \in R^n\)预测其标签$y=1$的概率$p$（第$i$次迭代的模型参数\(\mathbf{w}^{(i)}\)）。公式\(p^{(i)} = \sigma(\mathbf{w}^{(i)} \cdot \mathbf{x}^{(i)}), \; \sigma(a) = \frac{1}{1 + \exp(-a)}\).</p>
+</li>
+<li><p>然后，观测标签\(y^{(i)} \in \{0,1\}\)，LR模型的损失函数（Logistic Loss）为：</p>
+<p>  $$<br>  \mathcal{l} \; (w^{(i)}) = -y^{(i)} \log p^{(i)} - (1 - y^{(i)}) \log (1- p^{(i)}) \qquad (1)<br>  $$</p>
+<p>  梯度方向：</p>
+<p>  $$<br>  \mathbf{g}_i = \nabla_i = \frac{\partial l \;(w)} {\partial w} = (\sigma(w \cdot x^{(i)}) - y^{(i)}) = (p^{(i)} - y^{(i)}) \cdot \mathbf{x}^{(i)} \qquad(2)<br>  $$</p>
+<p>  OGD算法迭代公式：</p>
+<p>  $$<br>  w_{i+1} = w_i - \eta_i \mathbf{g}_i \qquad(3)<br>  $$</p>
+<p>  其中\(\eta_i\)表示非递增的学习率，如\(\eta_i=\frac{1}{\sqrt{i}}\)，\(\mathbf{\nabla}_i\)表示当前梯度值。</p>
+</li>
+<li><p>FTRL-Proximal</p>
+<p>  $$<br>  \mathbf{w}_{i+1} = \text{arg} \min_w \left( \underline{ \sum_{s=1}^{i} \mathbf{g}_s} \cdot \mathbf{w} + \frac{1}{2} \sum_{s=1}^{i} \sigma_s {\Vert \mathbf{w} - \mathbf{w}_s \Vert}_2^2 + \lambda_1 {\Vert \mathbf{w} \Vert}_1 \right) \qquad(4)<br>  $$</p>
+<p>  \(\sigma_s\)为学习率参数，有\(\sigma_{1:i} = \frac{1}{\eta_i}\)。上式等价于：</p>
+<p>  $$<br>  \left( \sum_{s=1}^{i} \mathbf{g}_s  - \sum_{s=1}^{i} \sigma_s \mathbf{w}_s \right) \cdot \mathbf{w} + \frac{1}{\eta_i} {\Vert \mathbf{w} \Vert}_2^2 + \lambda_1 {\Vert \mathbf{w} \Vert}_1    + (\text{const})  \qquad(5)<br>  $$</p>
+<p>  如果我们存储\(\mathbf{z}_{i-1} = \sum_{s=1}^{i-1} \mathbf{g}_s  - \sum_{s=1}^{i-1} \sigma_s \mathbf{w}_s\)，在第\(i\)轮迭代时，\(\mathbf{z}_i = \mathbf{z}_{i-1} + \mathbf{g}_i + \left(\frac{1}{\eta_i} - \frac{1}{\eta_{i-1}} \right) \mathbf{w}_i\)。求\(\mathbf{w}_{i+1}\)每一维参数的闭式解为：</p>
+<p>  $$<br>  w_{i+1, j} =<br>  \left \{<br>  \begin{array}{ll}<br>  0, &amp; \text{if} \; |z_{i,j}| \le \lambda_1 \\\<br>  -\eta_i \left(z_{i,j} - \text{sgn}(z_{i,j}) \lambda_1 \right) &amp; \text{otherwise}.<br>  \end{array}<br>  \right.     \qquad(6)<br>  $$</p>
+<p>  每一维特征的学习率计算公式（与对应特征维度梯度累加和 &amp;&amp; 梯度平方和相关）：</p>
+<p>  $$<br>  \eta_{i,j} = \frac{\alpha}{\beta + \sqrt{\sum_{s=1}^{i} g_{s,j}^2}} = \frac{1}{\sqrt{n_{i+1,j}}}<br>  \qquad(7)<br>  $$</p>
+<p>  \(n_i = \sum_{s=1}^{i-1} g_{s}^2\)表示梯度平方累加和，参数\(\mathbf{z} \in R^n\)在内存存储。</p>
+</li>
+</ul>
+<h4 id="1-4-3-_FTRL-Proximal伪代码">1.4.3. FTRL-Proximal伪代码</h4><p>\(\{ \\\<br>    \quad01. \;\text{Per-Coordinate FTRL-Proximal with L}_1 \text{ and L}_2 \text{ Regularization for Logistic Regression. }  \\\<br>    \quad02. \;\text{// 支持} L_1 \text{与} L_2  \text{正则项的FTRL-Proximal算法. Per-Coordinate学习率为公式(7). } \\\<br>    \quad03. \;\text{Input: parameters } \alpha, \beta, \lambda_1, \lambda_2. 初始化z_i = 0 和n_i=0.\quad //  参数 \alpha, \beta 用于\text{Per-Coordinate}计算学习率 \\\<br>    \quad04. \;\mathbf{\text{for}} \; t=1 \; to \; T; do \\\<br>    \quad05. \quad 接受特征向量\mathbf{x}_t, \; I = \{i| x_i \neq 0 \}. \quad //取非0特征index集合。 \\\<br>    \quad06. \quad\text{For i} \in I, 计算  \\\<br>    \quad07. \quad\qquad w_{t, i} =<br>    \; \left \{<br>    \; \begin{array}{ll}<br>    0, &amp; \text{if} \; |z_{i}| \le \lambda_1 \\\<br>    -\left( \frac{\beta + \sqrt{n_i}}{\alpha} + \lambda_2 \right)^{-1} \cdot \left(z_{i} - \text{sign}(z_{i}) \lambda_1 \right) &amp; \text{otherwise}<br>    \end{array}<br>    \right.  。\\\<br>    \quad08. \quad 预测 p_t = \sigma(\mathbf{x}_t \cdot \mathbf{w}) 使用w_{t,i}计算。\\\<br>    \quad09. \quad \text{For} \; i \in I; 更新参数 \\\<br>    \quad10. \qquad g_i = (p_t - y_t) \cdot x_i \qquad // 第i维特征的梯度（libsvm格式数据，x_i多为1.）\\\<br>    \quad11. \qquad \sigma_i = \frac{1}{\alpha} \left(\sqrt{n_i + g_i^2} - \sqrt{n_i} \right) \qquad // n_i表示第i维梯度（前t-1次）的平方累加和 \\\<br>    \quad12. \qquad z_i \leftarrow z_{i-1} + g_i - \sigma_i w_{t,i} \qquad // 更新\text{FTRL}目标函数的梯度公式  \\\<br>    \quad13. \qquad n_i \leftarrow n_i + g_i^2  \qquad // 更新第i维梯度平方累加和值。\\\<br>    \}<br>    \)</p>
+<p>FTRL算法添加了per-coordinate学习率，目标函数支持L2正则。</p>
+<ul>
+<li><p>解释per-coordinate</p>
+<p>  FTRL学习过程是对参数向量\(\mathbf{w}\)每一维分开训练更新的，每一维使用不同的学习率。与\(n\)个特征维度使用统一的学习率相比，此种方法考虑到了训练样本本身在不同特征维度上分布不均匀的特点。</p>
+<blockquote>
+<p>如果包含\(w\)某一个维度特征的训练样本很少，每一个样本都很珍贵，那么该特征维度对应的训练速率可以独自保持比较大的值，每来一个包含该特征的样本，就可以在该样本的梯度上前进一大步，而不需要与其他特征维度的前进步调强行保持一致。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="1-4-3-_FTRL实验经验">1.4.3. FTRL实验经验</h4><table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">变化</th>
+<th style="text-align:center">$\mathcal{\sigma}$变化</th>
+<th style="text-align:center">$z$变化</th>
+<th style="text-align:center">$n$变化</th>
+<th style="text-align:center">lrate变化</th>
+<th style="text-align:center">$w$变化</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$\alpha$</td>
+<td style="text-align:center">$\uparrow$</td>
+<td style="text-align:center">$\downarrow$</td>
+<td style="text-align:center">振幅变小</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$\uparrow$</td>
+<td style="text-align:center">振幅不确定</td>
+</tr>
+<tr>
+<td style="text-align:center">$\beta$</td>
+<td style="text-align:center">$\uparrow$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$\downarrow$</td>
+<td style="text-align:center">振幅变大</td>
+<td>实践$\beta$从0.1调至2，效果正向</td>
+</tr>
+<tr>
+<td style="text-align:center">$\mathcal{l_1}$</td>
+<td style="text-align:center">$\uparrow$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">稀疏性增加，绝对值变小</td>
+<td>从0.5调到0.01效果正向</td>
+</tr>
+<tr>
+<td style="text-align:center">$\mathcal{l_2}$</td>
+</tr>
+<tr>
+<td style="text-align:center">$\nabla_g$</td>
+<td style="text-align:center">$\downarrow$</td>
+<td style="text-align:center">$\downarrow$</td>
+<td style="text-align:center">振幅变小</td>
+<td style="text-align:center">变小$\downarrow$</td>
+<td style="text-align:center">变大</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><p>alpha持续调大，训练集拟合越好越好，测试集表现变差，原因分析: </p>
+<blockquote>
+<p>alpha变大，sigma变小，z的振幅变小</p>
+</blockquote>
+</li>
+</ol>
+<ol>
+<li>数据</li>
+</ol>
+<p>非常赞：优化算法总结文档：<a href="http://sebastianruder.com/optimizing-gradient-descent/" target="_blank" rel="external">http://sebastianruder.com/optimizing-gradient-descent/</a><br>优化算法：<a href="http://www.cnblogs.com/neopenx/p/4768388.html" target="_blank" rel="external">http://www.cnblogs.com/neopenx/p/4768388.html</a></p>
+<h3 id="FM＋SGD"><a href="http://blog.csdn.net/itplus/article/details/40536025" target="_blank" rel="external">FM＋SGD</a></h3>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.52caml.com/openmit/openmit-chapter6-optimizer/" data-title="计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/head_first_ml/ml-chapter1-regression-family/"  title="第01章：深入浅出ML之Regression家族">
+ <strong>下一篇：</strong><br/> 
+ <span>第01章：深入浅出ML之Regression家族
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#参数学习算法"><span class="toc-number">1.</span> <span class="toc-text">参数学习算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">2.</span> <span class="toc-text">0. 写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.最优化问题求解"><span class="toc-number">3.</span> <span class="toc-text">1. 最优化问题求解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.Follow The Regularized Leader"><span class="toc-number">3.1.</span> <span class="toc-text">1.4. Follow The Regularized Leader-Proximal</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-1-_FTRL-Proximal演化进程"><span class="toc-number">3.1.1.</span> <span class="toc-text">1.4.1. FTRL-Proximal演化进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-2-_FTRL-Proximal工作原理"><span class="toc-number">3.1.2.</span> <span class="toc-text">1.4.2. FTRL-Proximal工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-3-_FTRL-Proximal伪代码"><span class="toc-number">3.1.3.</span> <span class="toc-text">1.4.3. FTRL-Proximal伪代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-3-_FTRL实验经验"><span class="toc-number">3.1.4.</span> <span class="toc-text">1.4.3. FTRL实验经验</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FM＋SGD"><span class="toc-number">3.2.</span> <span class="toc-text">FM＋SGD</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/概率与统计/" title="概率与统计">概率与统计<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/深入浅出机器学习/" title="深入浅出机器学习">深入浅出机器学习<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/连续随机变量/" title="连续随机变量">连续随机变量<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/分解机器/" title="分解机器">分解机器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/因子分解机/" title="因子分解机">因子分解机<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Factorization-Machine/" title="Factorization Machine">Factorization Machine<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FM/" title="FM">FM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FFM/" title="FFM">FFM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/场感知分解机器/" title="场感知分解机器">场感知分解机器<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Field-aware-FM/" title="Field-aware FM">Field-aware FM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/特征交叉/" title="特征交叉">特征交叉<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/组合特征/" title="组合特征">组合特征<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/任务与奖赏/" title="任务与奖赏">任务与奖赏<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/马尔可夫决策过程/" title="马尔可夫决策过程">马尔可夫决策过程<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/epsilon-贪心法/" title="epsilon-贪心法">epsilon-贪心法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/摇臂赌博机/" title="摇臂赌博机">摇臂赌博机<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AdaBoost/" title="AdaBoost">AdaBoost<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Gradient-Boosting/" title="Gradient Boosting">Gradient Boosting<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/BGDT/" title="BGDT">BGDT<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/XGBoost/" title="XGBoost">XGBoost<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, Welcome to CAML technology sharing platform.  <br/>
+			I&#39;m Zhou Yong, engaged in algorithms work on computational advertising and machine learning.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1707438033" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/ComputationalAds" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zhouyongsdzh@foxmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="ZhouYong">ZhouYong</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>
