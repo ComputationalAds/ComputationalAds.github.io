@@ -4,64 +4,58 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>计算广告与机器学习</title>
+    <title>第06章：OpenMIT-优化器 | 计算广告与机器学习</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="ZhouYong">
     
 
     
-    <meta name="description" content="参数学习算法
-author: zhouyongsdzh@foxmail.com
-date: 20151027
+    <meta name="description" content="author: zhouyongsdzh@foxmail.com
+date: 2016-11-29
+weibo: @周永_52ML
 
-目录
+
+内容列表
 
 0. 写在前面
 1. 最优化问题求解
 1.1. Gradient Descent
 1.2. Adaptive Gradient Descent 
 1.3. AdaDelta
-1.4. Follow The Regularized Leader-Proximal
-
-
-2. 概率推理">
+1.4. Follow The Regularized Leader-Prox">
 <meta property="og:type" content="article">
-<meta property="og:title" content="计算广告与机器学习">
+<meta property="og:title" content="第06章：OpenMIT-优化器">
 <meta property="og:url" content="http://www.52caml.com/openmit/openmit-chapter6-optimizer/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
-<meta property="og:description" content="参数学习算法
-author: zhouyongsdzh@foxmail.com
-date: 20151027
+<meta property="og:description" content="author: zhouyongsdzh@foxmail.com
+date: 2016-11-29
+weibo: @周永_52ML
 
-目录
+
+内容列表
 
 0. 写在前面
 1. 最优化问题求解
 1.1. Gradient Descent
 1.2. Adaptive Gradient Descent 
 1.3. AdaDelta
-1.4. Follow The Regularized Leader-Proximal
-
-
-2. 概率推理">
+1.4. Follow The Regularized Leader-Prox">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="计算广告与机器学习">
-<meta name="twitter:description" content="参数学习算法
-author: zhouyongsdzh@foxmail.com
-date: 20151027
+<meta name="twitter:title" content="第06章：OpenMIT-优化器">
+<meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
+date: 2016-11-29
+weibo: @周永_52ML
 
-目录
+
+内容列表
 
 0. 写在前面
 1. 最优化问题求解
 1.1. Gradient Descent
 1.2. Adaptive Gradient Descent 
 1.3. AdaDelta
-1.4. Follow The Regularized Leader-Proximal
-
-
-2. 概率推理">
+1.4. Follow The Regularized Leader-Prox">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -121,14 +115,14 @@ date: 20151027
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/openmit/openmit-chapter6-optimizer/" title="" itemprop="url"></a>
+      <a href="/openmit/openmit-chapter6-optimizer/" title="第06章：OpenMIT-优化器" itemprop="url">第06章：OpenMIT-优化器</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-18T00:38:29.000Z" itemprop="datePublished"> 发表于 2017-07-18</time>
+    <time datetime="2017-07-18T00:46:18.000Z" itemprop="datePublished"> 发表于 2017-07-18</time>
     
   </p>
 </header>
@@ -137,15 +131,17 @@ date: 20151027
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#参数学习算法"><span class="toc-number">1.</span> <span class="toc-text">参数学习算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">2.</span> <span class="toc-text">0. 写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.最优化问题求解"><span class="toc-number">3.</span> <span class="toc-text">1. 最优化问题求解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.Follow The Regularized Leader"><span class="toc-number">3.1.</span> <span class="toc-text">1.4. Follow The Regularized Leader-Proximal</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-1-_FTRL-Proximal演化进程"><span class="toc-number">3.1.1.</span> <span class="toc-text">1.4.1. FTRL-Proximal演化进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-2-_FTRL-Proximal工作原理"><span class="toc-number">3.1.2.</span> <span class="toc-text">1.4.2. FTRL-Proximal工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-3-_FTRL-Proximal伪代码"><span class="toc-number">3.1.3.</span> <span class="toc-text">1.4.3. FTRL-Proximal伪代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-3-_FTRL实验经验"><span class="toc-number">3.1.4.</span> <span class="toc-text">1.4.3. FTRL实验经验</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FM＋SGD"><span class="toc-number">3.2.</span> <span class="toc-text">FM＋SGD</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">0. 写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.最优化问题求解"><span class="toc-number">2.</span> <span class="toc-text">1. 最优化问题求解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.Follow The Regularized Leader"><span class="toc-number">2.1.</span> <span class="toc-text">1.4. Follow The Regularized Leader-Proximal</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-1-_FTRL-Proximal演化进程"><span class="toc-number">2.1.1.</span> <span class="toc-text">1.4.1. FTRL-Proximal演化进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-2-_FTRL-Proximal工作原理"><span class="toc-number">2.1.2.</span> <span class="toc-text">1.4.2. FTRL-Proximal工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-3-_FTRL-Proximal伪代码"><span class="toc-number">2.1.3.</span> <span class="toc-text">1.4.3. FTRL-Proximal伪代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-3-_FTRL实验经验"><span class="toc-number">2.1.4.</span> <span class="toc-text">1.4.3. FTRL实验经验</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FM＋SGD"><span class="toc-number">2.2.</span> <span class="toc-text">FM＋SGD</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="参数学习算法">参数学习算法</h2><ul>
+		<ul>
 <li>author: zhouyongsdzh@foxmail.com</li>
-<li>date: 20151027</li>
+<li>date: 2016-11-29</li>
+<li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
 </ul>
-<p><strong>目录</strong></p>
+<hr>
+<p><strong>内容列表</strong></p>
 <ul>
 <li><a href="#0.写在前面">0. 写在前面</a></li>
 <li><a href="#1.最优化问题求解">1. 最优化问题求解</a><ul>
@@ -286,6 +282,16 @@ date: 20151027
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/OpenMIT/">OpenMIT</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/ALS/">ALS</a><a href="/tags/AdaDelta/">AdaDelta</a><a href="/tags/AdaGrad/">AdaGrad</a><a href="/tags/FTRL/">FTRL</a><a href="/tags/GD/">GD</a><a href="/tags/MCMC/">MCMC</a><a href="/tags/adam/">adam</a>
+  </div>
 
 </div>
 
@@ -293,7 +299,7 @@ date: 20151027
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/openmit/openmit-chapter6-optimizer/" data-title="计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/openmit/openmit-chapter6-optimizer/" data-title="第06章：OpenMIT-优化器 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -325,7 +331,7 @@ date: 20151027
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#参数学习算法"><span class="toc-number">1.</span> <span class="toc-text">参数学习算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">2.</span> <span class="toc-text">0. 写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.最优化问题求解"><span class="toc-number">3.</span> <span class="toc-text">1. 最优化问题求解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.Follow The Regularized Leader"><span class="toc-number">3.1.</span> <span class="toc-text">1.4. Follow The Regularized Leader-Proximal</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-1-_FTRL-Proximal演化进程"><span class="toc-number">3.1.1.</span> <span class="toc-text">1.4.1. FTRL-Proximal演化进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-2-_FTRL-Proximal工作原理"><span class="toc-number">3.1.2.</span> <span class="toc-text">1.4.2. FTRL-Proximal工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-3-_FTRL-Proximal伪代码"><span class="toc-number">3.1.3.</span> <span class="toc-text">1.4.3. FTRL-Proximal伪代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-3-_FTRL实验经验"><span class="toc-number">3.1.4.</span> <span class="toc-text">1.4.3. FTRL实验经验</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FM＋SGD"><span class="toc-number">3.2.</span> <span class="toc-text">FM＋SGD</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">0. 写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.最优化问题求解"><span class="toc-number">2.</span> <span class="toc-text">1. 最优化问题求解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.Follow The Regularized Leader"><span class="toc-number">2.1.</span> <span class="toc-text">1.4. Follow The Regularized Leader-Proximal</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-1-_FTRL-Proximal演化进程"><span class="toc-number">2.1.1.</span> <span class="toc-text">1.4.1. FTRL-Proximal演化进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-2-_FTRL-Proximal工作原理"><span class="toc-number">2.1.2.</span> <span class="toc-text">1.4.2. FTRL-Proximal工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-3-_FTRL-Proximal伪代码"><span class="toc-number">2.1.3.</span> <span class="toc-text">1.4.3. FTRL-Proximal伪代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-3-_FTRL实验经验"><span class="toc-number">2.1.4.</span> <span class="toc-text">1.4.3. FTRL实验经验</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FM＋SGD"><span class="toc-number">2.2.</span> <span class="toc-text">FM＋SGD</span></a></li></ol></li></ol>
  
   </div>
 
@@ -337,6 +343,10 @@ date: 20151027
 <div class="categorieslist">
 	<p class="asidetitle">分类</p>
 		<ul>
+		
+		  
+			<li><a href="/categories/OpenMIT/" title="OpenMIT">OpenMIT<sup>1</sup></a></li>
+		  
 		
 		  
 			<li><a href="/categories/概率与统计/" title="概率与统计">概率与统计<sup>2</sup></a></li>
@@ -365,6 +375,34 @@ date: 20151027
 		
 			
 				<li><a href="/tags/连续随机变量/" title="连续随机变量">连续随机变量<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/GD/" title="GD">GD<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FTRL/" title="FTRL">FTRL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AdaGrad/" title="AdaGrad">AdaGrad<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AdaDelta/" title="AdaDelta">AdaDelta<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/adam/" title="adam">adam<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ALS/" title="ALS">ALS<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/MCMC/" title="MCMC">MCMC<sup>1</sup></a></li>
 			
 		
 			
@@ -409,34 +447,6 @@ date: 20151027
 		
 			
 				<li><a href="/tags/马尔可夫决策过程/" title="马尔可夫决策过程">马尔可夫决策过程<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/epsilon-贪心法/" title="epsilon-贪心法">epsilon-贪心法<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/摇臂赌博机/" title="摇臂赌博机">摇臂赌博机<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Boosting/" title="Boosting">Boosting<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/AdaBoost/" title="AdaBoost">AdaBoost<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Gradient-Boosting/" title="Gradient Boosting">Gradient Boosting<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/BGDT/" title="BGDT">BGDT<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/XGBoost/" title="XGBoost">XGBoost<sup>1</sup></a></li>
 			
 		
 		</ul>
