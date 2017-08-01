@@ -230,7 +230,7 @@ MCMC
 <p>其中$\eta$为学习率（又称步长）。</p>
 <h4 id="GD问题与挑战">GD问题与挑战</h4><hr>
 <p>虽然梯度下降算法效果很好，并且应用广告，但同时也存在一些问题待解决：</p>
-<ul>
+<ol>
 <li><p><strong>如何选择一个比较合理的学习率？</strong>如果学习速率过小，则会导致收敛速度很慢。如果学习速率过大，那么其会阻碍收敛，即在极值点附近会振荡。</p>
 </li>
 <li><p><strong>如何调整学习率？</strong> 可以尝试在每次更新过程中，改变学习速率。这种一般需要使用某种事先设定的策略抑或在每次迭代中衰减一个较小的阈值。无论如何调整，都需要事先进行固定设置，这边便无法自适应每次学习的数据集特点。</p>
@@ -239,8 +239,13 @@ MCMC
 </li>
 <li><p><strong>如何避免在求解非凸优化问题时，容易陷入到次优的局部极值点？</strong> 比如深度神经网路优化问题。</p>
 </li>
-</ul>
-<h2 id="Adaptive_Gradient_Descent"><h3 id="1.2.Adaptive Gradient Descent">Adaptive Gradient Descent</h3></h2><h2 id="AdaDelta"><h3 id="1.3.AdaDelta">AdaDelta</h3></h2><h2 id="Follow_The_Regularized_Leader-Proximal"><h3 id="1.4.Follow The Regularized Leader">Follow The Regularized Leader-Proximal</h3></h2><p>FTRL-Proximal算法是Google在2013年的一篇论文《Ad Click Prediction: a View from the Trenches》中提到的参数在线学习算法，论文中提到该算法用在了Google的搜索广告在线学习系统中。因为算法比较容易理解且工程实现不复杂，业内诸多公司都有尝试并取得了不错的收益。</p>
+</ol>
+<h2 id="Adaptive_Gradient_Descent"><h3 id="1.2.Adaptive Gradient Descent">Adaptive Gradient Descent</h3></h2><p>自适应梯度下降算法，简称AdaGrad。与GD不同的是，AdaGrad在更新参数时，学习率不在设定为固定值。每次迭代过程中，每个参数更新时使用不同的学习率。</p>
+<p>假设在第$k$轮迭代，$\nabla_{k,w_j}$表示目标函数对参数$w_j$的梯度。普通的GD算法，对于所有的$w_j$使用相同的学习率，因此在第$k$次迭代时，参数$w_j$的变化过程如上述公式<a href="">GD参数更新</a>.</p>
+<p>而AdaGrad更新参数的规则，学习率$\eta$会随着迭代过程并根据历史梯度的变化而变化。如下所示：</p>
+<p>$$<br>w_{j} \leftarrow w_j - \frac{\eta}{\sqrt{n_{k,w_j} + \epsilon}} \cdot \nabla_{k, w_j}<br>$$</p>
+<p>$n_{k,w_j}$表示参数$w_j$在第$k$次迭代时对应的梯度平方和。$\epsilon$用于平滑，一般取一个较小的值。</p>
+<h2 id="AdaDelta"><h3 id="1.3.AdaDelta">AdaDelta</h3></h2><h2 id="Follow_The_Regularized_Leader-Proximal"><h3 id="1.4.Follow The Regularized Leader">Follow The Regularized Leader-Proximal</h3></h2><p>FTRL-Proximal算法是Google在2013年的一篇论文《Ad Click Prediction: a View from the Trenches》中提到的参数在线学习算法，论文中提到该算法用在了Google的搜索广告在线学习系统中。因为算法比较容易理解且工程实现不复杂，业内诸多公司都有尝试并取得了不错的收益。</p>
 <p>FTRL-Proximal算法不仅可用于在线学习（不要求数据IID，样本序列学习），同时也可以用于离线基于batch数据的参数求解。所以这里也把该算法作为“优化器”的一种，用于大规模机器学习任务的参数求解（该算法本身就是为了很好的求解大规模在线学习任务而提出的）。</p>
 <h4 id="FTRL-Proximal演化进程">FTRL-Proximal演化进程</h4><ul>
 <li><p><strong>Online Gradient Descent (OGD, 在线梯度下降）</strong></p>
