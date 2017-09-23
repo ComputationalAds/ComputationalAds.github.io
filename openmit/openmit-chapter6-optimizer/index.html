@@ -19,7 +19,7 @@ weibo: @周永_52ML
 内容列表
 
 写在前面
-最优化问题求解
+随机优化算法
 Gradient Descent
 AdaGrad 
 RMSProp
@@ -41,10 +41,7 @@ MCMC
 写在前面
 
 
-最优化问题求解 
-
-
-Gradient D">
+随机优化算法（Stochastic Opti">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第06章：OpenMIT-优化器">
 <meta property="og:url" content="http://www.52caml.com/openmit/openmit-chapter6-optimizer/index.html">
@@ -57,7 +54,7 @@ weibo: @周永_52ML
 内容列表
 
 写在前面
-最优化问题求解
+随机优化算法
 Gradient Descent
 AdaGrad 
 RMSProp
@@ -79,10 +76,7 @@ MCMC
 写在前面
 
 
-最优化问题求解 
-
-
-Gradient D">
+随机优化算法（Stochastic Opti">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第06章：OpenMIT-优化器">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
@@ -93,7 +87,7 @@ weibo: @周永_52ML
 内容列表
 
 写在前面
-最优化问题求解
+随机优化算法
 Gradient Descent
 AdaGrad 
 RMSProp
@@ -115,10 +109,7 @@ MCMC
 写在前面
 
 
-最优化问题求解 
-
-
-Gradient D">
+随机优化算法（Stochastic Opti">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -194,7 +185,7 @@ Gradient D">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.最优化问题求解"><span class="toc-number">2.</span> <span class="toc-text">最优化问题求解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.Gradient Descent"><span class="toc-number">3.</span> <span class="toc-text">Gradient Descent</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Batch_Gradient_Descent"><span class="toc-number">3.1.</span> <span class="toc-text">Batch Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Stochastic_Gradient_Descent"><span class="toc-number">3.2.</span> <span class="toc-text">Stochastic Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mini-Batch_Gradient_Descent"><span class="toc-number">3.3.</span> <span class="toc-text">Mini-Batch Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Online_Gradient_Descent"><span class="toc-number">3.4.</span> <span class="toc-text">Online Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GD参数更新"><span class="toc-number">3.5.</span> <span class="toc-text">GD参数更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GD问题与挑战"><span class="toc-number">3.6.</span> <span class="toc-text">GD问题与挑战</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.Adaptive Gradient Descent"><span class="toc-number">4.</span> <span class="toc-text">Adaptive Gradient Descent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.RMSProp"><span class="toc-number">5.</span> <span class="toc-text">RMSProp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.AdaDelta"><span class="toc-number">6.</span> <span class="toc-text">AdaDelta</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.5.Adam"><span class="toc-number">7.</span> <span class="toc-text">Adam</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.6.Follow The Regularized Leader"><span class="toc-number">8.</span> <span class="toc-text">Follow The Regularized Leader-Proximal</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FTRL-Proximal演化进程"><span class="toc-number">8.1.</span> <span class="toc-text">FTRL-Proximal演化进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FTRL-Proximal工作原理"><span class="toc-number">8.2.</span> <span class="toc-text">FTRL-Proximal工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FTRL-Proximal伪代码"><span class="toc-number">8.3.</span> <span class="toc-text">FTRL-Proximal伪代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FTRL实验经验"><span class="toc-number">8.4.</span> <span class="toc-text">FTRL实验经验</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FM＋SGD"><span class="toc-number">9.</span> <span class="toc-text">FM＋SGD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">10.</span> <span class="toc-text">参考资料</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.随机优化算法"><span class="toc-number">2.</span> <span class="toc-text">随机优化算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.Gradient Descent"><span class="toc-number">3.</span> <span class="toc-text">Gradient Descent</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Batch_Gradient_Descent"><span class="toc-number">3.1.</span> <span class="toc-text">Batch Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Stochastic_Gradient_Descent"><span class="toc-number">3.2.</span> <span class="toc-text">Stochastic Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mini-Batch_Gradient_Descent"><span class="toc-number">3.3.</span> <span class="toc-text">Mini-Batch Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Online_Gradient_Descent"><span class="toc-number">3.4.</span> <span class="toc-text">Online Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GD参数更新"><span class="toc-number">3.5.</span> <span class="toc-text">GD参数更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GD问题与挑战"><span class="toc-number">3.6.</span> <span class="toc-text">GD问题与挑战</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.Adaptive Gradient Descent"><span class="toc-number">4.</span> <span class="toc-text">Adaptive Gradient Descent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.RMSProp"><span class="toc-number">5.</span> <span class="toc-text">RMSProp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.AdaDelta"><span class="toc-number">6.</span> <span class="toc-text">AdaDelta</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.5.Adam"><span class="toc-number">7.</span> <span class="toc-text">Adam</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.6.Follow The Regularized Leader"><span class="toc-number">8.</span> <span class="toc-text">Follow The Regularized Leader-Proximal</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FTRL-Proximal演化进程"><span class="toc-number">8.1.</span> <span class="toc-text">FTRL-Proximal演化进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FTRL-Proximal工作原理"><span class="toc-number">8.2.</span> <span class="toc-text">FTRL-Proximal工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FTRL-Proximal伪代码"><span class="toc-number">8.3.</span> <span class="toc-text">FTRL-Proximal伪代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FTRL实验经验"><span class="toc-number">8.4.</span> <span class="toc-text">FTRL实验经验</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.7.Follow the Moving Leader"><span class="toc-number">9.</span> <span class="toc-text">Follow the Moving Leader</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">10.</span> <span class="toc-text">参考资料</span></a></li></ol>
 		
 		</div>
 		
@@ -207,7 +198,7 @@ Gradient D">
 <p><strong>内容列表</strong></p>
 <ul>
 <li><a href="#0.写在前面">写在前面</a></li>
-<li><a href="#1.最优化问题求解">最优化问题求解</a><ul>
+<li><a href="#1.随机优化算法">随机优化算法</a><ul>
 <li><a href="#1.1.Gradient Descent">Gradient Descent</a></li>
 <li><a href="#1.2.Adaptive Gradient Descent">AdaGrad</a> </li>
 <li><a href="#1.3.RMSProp">RMSProp</a></li>
@@ -229,7 +220,14 @@ Gradient D">
 <h2 id="0.写在前面">写在前面</h2>
 
 
-<h2 id="1.最优化问题求解">最优化问题求解</h2> 
+<p>随机优化算法（Stochastic Optimization）是指每次随机采样一个或少量几个（Mini-batch）训练样本对模型更新的优化方法。因其有内存消耗低、单次迭代计算复杂度低等优点，被广泛应用于大规模机器学习模型训练中，包括绝大多数深度学习模型的训练。本章要介绍的优化器（Optimizer）涵盖了大规模机器学习和深度学习最常用的优化算法。大致可将其分为以下3类：</p>
+<ol>
+<li>一阶随机优化。如SGD，AdaGrad，RMSProp，AdaDelta，Adam，FTRL，FTML等；</li>
+<li>二阶随机优化。如LBFGS等；</li>
+<li>非凸随机优化。</li>
+</ol>
+<p>此外，针对机器学习中的无监督学习，很多无法转化为非优化问题，需要应用<strong>概率推理</strong>算法求解，比如MCMC，EM等，在本章的后面也会介绍。</p>
+<h2 id="1.随机优化算法">随机优化算法</h2> 
 
 
 <h2 id="1.1.Gradient Descent">Gradient Descent</h2>
@@ -450,14 +448,19 @@ Gradient D">
 </blockquote>
 </li>
 </ol>
-<ol>
-<li>数据</li>
-</ol>
-<h2 id="FM＋SGD"><a href="http://blog.csdn.net/itplus/article/details/40536025" target="_blank" rel="external">FM＋SGD</a></h2><h2 id="参考资料">参考资料</h2><ol>
-<li>paper: An overview of gradient descent optimization algorithms</li>
+<h2 id="1.7.Follow the Moving Leader">Follow the Moving Leader</h2>
+
+
+
+<p>FTML算法是2017年香港科技大学发表在ICML会议上的一篇论文《Follow the Moving Leader in Deep Learning》提到的。论文中主要为解决深度学习中参数学习收敛效率问题而出来的新算法。</p>
+<p>在深度学习中，参数以及数据分布都会随着迭代进行不断变化，这使得深度学习模型的训练一直是一个具有挑战性的问题。针对这一问题，本文提出了全新的 FTML 算法，具有更快收敛速度。与已有优化算法（如 FTRL）不同的是，本文的 FTML 算法迭代中，越新样本具有越大权重，这使算法更能适应数据分布变化，有更快收敛速度。论文的最后，通过在多个数据集上训练深度学习模型训练实验结果做对比，得出FTML 比其他已有算法收敛更快的结论。</p>
+<p>$<br>\{ \\\<br>\quad//\;\text{Follow the Moving Leader (FTML)}   \\\<br>\quad01. \;\text{Input: parameters } \eta; \; \beta_1,\beta_2 \in [0, 1); \epsilon &gt; 0;  \qquad //\; \eta:初始化学习率，\epsilon:防止分母为0，\\\<br>\quad02. \;\mathbf{w}; d \leftarrow 0; v \leftarrow 0; z \leftarrow 0; \qquad\qquad // 初始化中间变量和参数 \\\<br>\quad03. \;\mathbf{\text{for}} \; t=1 \; to \; T; do \\\<br>\quad04. \quad 特征向量\mathbf{x}_t, \; I = \{i| x_i \neq 0 \}. \quad //取非0特征index集合。 \\\<br>\quad05. \quad p_t = predict(\mathbf{w_t}, \mathbf{x_t}) \qquad // \;预测\\\<br>\quad06. \quad \text{for} \; i \in I; \; do \qquad\qquad\; //\; 更新参数 \\\<br>\quad07. \qquad g_i = (p_t - y_t) \cdot x_i \qquad\qquad\qquad // 计算梯度 \\\<br>\quad08. \qquad v_t \leftarrow \beta_2 \cdot v_{t-1} + (1-\beta_2) \cdot g_i^2 \qquad // 二阶距估计 \\\<br>\quad09. \qquad d_t \leftarrow \frac{1 - \beta_1^t} {\eta_t} \cdot \left(\sqrt{\frac{v_t} {1 - \beta_2^t}}  + \epsilon \cdot \mathbf{1} \right) \qquad // \\\<br>\quad10. \qquad \sigma_t \leftarrow d_t - \beta_1 \cdot d_{t-1}; \qquad // 中间变量 \\\<br>\quad11. \qquad z_t \leftarrow \beta_1 z_{t-1} + (1 - \beta_1) g_t - \sigma_t w_{t-1}; \qquad // \\\<br>\quad12. \qquad w \leftarrow \prod_{W}^{\text{diag} \left(\frac{d_t}{(1 - \beta_1^t)}\right)} \left(-\frac{z_t}{d_t}\right) \quad // \\\<br>\quad13. \quad \text{end for} \\\<br>\quad14.\; \mathbf{end \;for} \\\<br>\quad15.\; \mathbf{Output:\; w}. \\\<br>\}<br>$</p>
+<h2 id="参考资料">参考资料</h2><ol>
+<li>《An overview of gradient descent optimization algorithms》</li>
+<li>《Follow the Moving Leader in Deep Learning》</li>
 <li>验证梯度计算是否正确：<a href="http://cs231n.github.io/neural-networks-3/" target="_blank" rel="external">http://cs231n.github.io/neural-networks-3/</a></li>
 <li>技术博客：<a href="http://www.cnblogs.com/ranjiewen/p/5938944.html" target="_blank" rel="external">http://www.cnblogs.com/ranjiewen/p/5938944.html</a></li>
-<li>非常赞：优化算法总结文档：<a href="http://sebastianruder.com/optimizing-gradient-descent/" target="_blank" rel="external">http://sebastianruder.com/optimizing-gradient-descent/</a></li>
+<li>优化算法总结文档：<a href="http://sebastianruder.com/optimizing-gradient-descent/" target="_blank" rel="external">http://sebastianruder.com/optimizing-gradient-descent/</a></li>
 <li>优化算法：<a href="http://www.cnblogs.com/neopenx/p/4768388.html" target="_blank" rel="external">http://www.cnblogs.com/neopenx/p/4768388.html</a></li>
 </ol>
   
@@ -514,7 +517,7 @@ Gradient D">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.最优化问题求解"><span class="toc-number">2.</span> <span class="toc-text">最优化问题求解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.Gradient Descent"><span class="toc-number">3.</span> <span class="toc-text">Gradient Descent</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Batch_Gradient_Descent"><span class="toc-number">3.1.</span> <span class="toc-text">Batch Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Stochastic_Gradient_Descent"><span class="toc-number">3.2.</span> <span class="toc-text">Stochastic Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mini-Batch_Gradient_Descent"><span class="toc-number">3.3.</span> <span class="toc-text">Mini-Batch Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Online_Gradient_Descent"><span class="toc-number">3.4.</span> <span class="toc-text">Online Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GD参数更新"><span class="toc-number">3.5.</span> <span class="toc-text">GD参数更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GD问题与挑战"><span class="toc-number">3.6.</span> <span class="toc-text">GD问题与挑战</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.Adaptive Gradient Descent"><span class="toc-number">4.</span> <span class="toc-text">Adaptive Gradient Descent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.RMSProp"><span class="toc-number">5.</span> <span class="toc-text">RMSProp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.AdaDelta"><span class="toc-number">6.</span> <span class="toc-text">AdaDelta</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.5.Adam"><span class="toc-number">7.</span> <span class="toc-text">Adam</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.6.Follow The Regularized Leader"><span class="toc-number">8.</span> <span class="toc-text">Follow The Regularized Leader-Proximal</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FTRL-Proximal演化进程"><span class="toc-number">8.1.</span> <span class="toc-text">FTRL-Proximal演化进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FTRL-Proximal工作原理"><span class="toc-number">8.2.</span> <span class="toc-text">FTRL-Proximal工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FTRL-Proximal伪代码"><span class="toc-number">8.3.</span> <span class="toc-text">FTRL-Proximal伪代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FTRL实验经验"><span class="toc-number">8.4.</span> <span class="toc-text">FTRL实验经验</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FM＋SGD"><span class="toc-number">9.</span> <span class="toc-text">FM＋SGD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">10.</span> <span class="toc-text">参考资料</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.随机优化算法"><span class="toc-number">2.</span> <span class="toc-text">随机优化算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.Gradient Descent"><span class="toc-number">3.</span> <span class="toc-text">Gradient Descent</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Batch_Gradient_Descent"><span class="toc-number">3.1.</span> <span class="toc-text">Batch Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Stochastic_Gradient_Descent"><span class="toc-number">3.2.</span> <span class="toc-text">Stochastic Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mini-Batch_Gradient_Descent"><span class="toc-number">3.3.</span> <span class="toc-text">Mini-Batch Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Online_Gradient_Descent"><span class="toc-number">3.4.</span> <span class="toc-text">Online Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GD参数更新"><span class="toc-number">3.5.</span> <span class="toc-text">GD参数更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GD问题与挑战"><span class="toc-number">3.6.</span> <span class="toc-text">GD问题与挑战</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.Adaptive Gradient Descent"><span class="toc-number">4.</span> <span class="toc-text">Adaptive Gradient Descent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.RMSProp"><span class="toc-number">5.</span> <span class="toc-text">RMSProp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.AdaDelta"><span class="toc-number">6.</span> <span class="toc-text">AdaDelta</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.5.Adam"><span class="toc-number">7.</span> <span class="toc-text">Adam</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.6.Follow The Regularized Leader"><span class="toc-number">8.</span> <span class="toc-text">Follow The Regularized Leader-Proximal</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FTRL-Proximal演化进程"><span class="toc-number">8.1.</span> <span class="toc-text">FTRL-Proximal演化进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FTRL-Proximal工作原理"><span class="toc-number">8.2.</span> <span class="toc-text">FTRL-Proximal工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FTRL-Proximal伪代码"><span class="toc-number">8.3.</span> <span class="toc-text">FTRL-Proximal伪代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FTRL实验经验"><span class="toc-number">8.4.</span> <span class="toc-text">FTRL实验经验</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.7.Follow the Moving Leader"><span class="toc-number">9.</span> <span class="toc-text">Follow the Moving Leader</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">10.</span> <span class="toc-text">参考资料</span></a></li></ol>
  
   </div>
 
