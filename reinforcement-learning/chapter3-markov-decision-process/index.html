@@ -4,25 +4,62 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>测试Hexo功能 | 计算广告与机器学习</title>
+    <title>第02章：马尔可夫决策过程 | 计算广告与机器学习</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="ZhouYong">
     
 
     
-    <meta name="description" content="公式$$J_\alpha(x)=\sum_{m=0}^\infty \frac{(-1)^ m}{m! \, \Gamma (m + \alpha + 1)}{\left({\frac{x}{2}}\right)}^{2 m + \alpha }$$
-Welcome to Hexo! This is your very first post. Check documentation for mor">
+    <meta name="description" content="author: zhouyongsdzh@foxmail.com
+date: 2016-07-29
+weibo: @周永_52ML
+
+目录
+强化学习介绍
+马尔可夫决策过程
+
+1. 强化学习介绍
+
+
+
+强化学习与传统机器学习
+传统机器学习假设算法本身与环境无影响，强化学习破除了这一限制，考虑到了算法对于环境的影响，这使得强化学习特别适合解决多回合博弈or顺序决策问题（sequential decis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="测试Hexo功能">
-<meta property="og:url" content="http://www.52caml.com/hello-world/index.html">
+<meta property="og:title" content="第02章：马尔可夫决策过程">
+<meta property="og:url" content="http://www.52caml.com/reinforcement-learning/chapter3-markov-decision-process/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
-<meta property="og:description" content="公式$$J_\alpha(x)=\sum_{m=0}^\infty \frac{(-1)^ m}{m! \, \Gamma (m + \alpha + 1)}{\left({\frac{x}{2}}\right)}^{2 m + \alpha }$$
-Welcome to Hexo! This is your very first post. Check documentation for mor">
+<meta property="og:description" content="author: zhouyongsdzh@foxmail.com
+date: 2016-07-29
+weibo: @周永_52ML
+
+目录
+强化学习介绍
+马尔可夫决策过程
+
+1. 强化学习介绍
+
+
+
+强化学习与传统机器学习
+传统机器学习假设算法本身与环境无影响，强化学习破除了这一限制，考虑到了算法对于环境的影响，这使得强化学习特别适合解决多回合博弈or顺序决策问题（sequential decis">
+<meta property="og:image" content="https://github.com/ComputationalAds/caml-material/blob/master/picture/reinforcement-learning/chapter1-reinforcement-learning/chapter1-pic02-agent-envs-interaction.png?raw=true">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="测试Hexo功能">
-<meta name="twitter:description" content="公式$$J_\alpha(x)=\sum_{m=0}^\infty \frac{(-1)^ m}{m! \, \Gamma (m + \alpha + 1)}{\left({\frac{x}{2}}\right)}^{2 m + \alpha }$$
-Welcome to Hexo! This is your very first post. Check documentation for mor">
+<meta name="twitter:title" content="第02章：马尔可夫决策过程">
+<meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
+date: 2016-07-29
+weibo: @周永_52ML
+
+目录
+强化学习介绍
+马尔可夫决策过程
+
+1. 强化学习介绍
+
+
+
+强化学习与传统机器学习
+传统机器学习假设算法本身与环境无影响，强化学习破除了这一限制，考虑到了算法对于环境的影响，这使得强化学习特别适合解决多回合博弈or顺序决策问题（sequential decis">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -82,14 +119,14 @@ Welcome to Hexo! This is your very first post. Check documentation for mor">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/hello-world/" title="测试Hexo功能" itemprop="url">测试Hexo功能</a>
+      <a href="/reinforcement-learning/chapter3-markov-decision-process/" title="第02章：马尔可夫决策过程" itemprop="url">第02章：马尔可夫决策过程</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-13T03:21:55.000Z" itemprop="datePublished"> 发表于 2016-02-13</time>
+    <time datetime="2017-10-29T02:11:11.000Z" itemprop="datePublished"> 发表于 2017-10-29</time>
     
   </p>
 </header>
@@ -98,44 +135,82 @@ Welcome to Hexo! This is your very first post. Check documentation for mor">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#公式"><span class="toc-number">1.</span> <span class="toc-text">公式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1_线性回归模型"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.2.1 线性回归模型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">2.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">2.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">2.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">2.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">2.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1. 强化学习介绍"><span class="toc-number">2.</span> <span class="toc-text">1. 强化学习介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.马尔可夫决策过程"><span class="toc-number">3.</span> <span class="toc-text">2. 马尔可夫决策过程</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="公式">公式</h2><p>$$J_\alpha(x)=\sum_{m=0}^\infty \frac{(-1)^ m}{m! \, \Gamma (m + \alpha + 1)}{\left({\frac{x}{2}}\right)}^{2 m + \alpha }$$</p>
-<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h4 id="1-2-1_线性回归模型">1.2.1 线性回归模型</h4><ul>
-<li><p>模型表达</p>
-<p>  $$<br>  y(x, w) = w_0 + w_1 x_1 + \cdots + w_n x_n \quad (n \ge 1) \qquad (ml.1.1.1)<br>  $$ </p>
-<p>  其中，\(x_1,x_2,\cdots,x_n\)表示自变量（集合），\(y\)是因变量，\(w\)为参数向量，\(w_i\)表示对应自变量（特征）的权重，\(w_0\)是偏倚项（又称为截距）。</p>
-<blockquote>
-<p> 关于参数\(w\)： <br></p>
-<ol>
-<li>在物理上可以这样解释：<strong>在自变量（特征）之间相互独立的前提下</strong>，\(w_i\)反映自变量\(x_i\)对因变量影响程度，\(w_i\)越大，说明\(x_i\)对结果\(y\)的影响越大。<br></li>
-<li>通过每个字变量（特征）前面的参数，可以很直观的看出哪些特征分量对结果的影响比较大。<br></li>
-<li>在统计中，\(w_1,w_2,\cdots,w_n\)称为偏回归系数，\(w_0\)称为截距。</li>
-</ol>
-</blockquote>
-<p>  如果令\(x_0=1, y(x,w)=h_{w}(x)\), 可以将公式\((ml.1.1.1)\)写成向量形式，即：</p>
-<p>  $$<br>  h_{w}(x) = \sum_{i=0}^{n} w_i x_i = w^T x \qquad(ml.1.1.2)<br>  $$</p>
-<p>  其中，\(w=(w_0, w_1, \cdots, w_n)\)，\(x=(1, x_1, x_2, \cdots, x_n)\) 均为向量，\(w^T\)为\(w\)的转置。</p>
-</li>
+		<ul>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 2016-07-29</li>
+<li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
 </ul>
-<p>   上式是对一条样本进行建模的数据表达。对于多条样本，假设每条样本生成过程独立，在整个样本空间中（\(m\)个样本）的概率分布为：</p>
-<p>   $$P(Y|X; w) = \prod_{i=1}^{m} \left( (h_{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \right) \qquad(ml.1.8)$$</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+<h2 id="目录">目录</h2><ul>
+<li>强化学习介绍</li>
+<li>马尔可夫决策过程</li>
+</ul>
+<h2 id="1. 强化学习介绍">1. 强化学习介绍</h2>
+
+
+
+<p><strong>强化学习与传统机器学习</strong></p>
+<p>传统机器学习假设算法本身与环境无影响，强化学习破除了这一限制，考虑到了算法对于环境的影响，这使得强化学习特别适合解决<strong>多回合博弈or顺序决策问题</strong>（sequential decision making）。</p>
+<p>在强化学习中，数据是在运行过程中自主收集。这解决了机器学习中常见的训练数据难于获取的问题。<strong>强化学习的算法具有自主学习能力</strong>，这就是强化学习在机器人领域里面使用比较广泛的原因。但是要注意到的是，通常强化学习的速度限制并不是来自于算法的训练，而是来自于环境给予反馈的延时。</p>
+<p><strong>强化学习工作原理</strong></p>
+<p>强化学习问题不同于传统机器学习问题，它是一种在<strong>交互</strong>的过程中学习并实现目标的问题。这里把具有学习能力和决策能力的程序或系统称之为Agent（代理，智能体）；与之交互的对象统称为环境（Environment）。交互过程如下图所示：</p>
+<p></p><p style="text-align:center"><img src="https://github.com/ComputationalAds/caml-material/blob/master/picture/reinforcement-learning/chapter1-reinforcement-learning/chapter1-pic02-agent-envs-interaction.png?raw=true" width="550" height="200" alt="chapter1-pic02-agent-envs-interaction"></p>
+<p>智能体会针对当前状态通过执行一个动作$A_t$与环境交互，在动作$A_t$的作用下，环境会产生新的状态。同时环境也会给出一个回报。持续地交互过程中，Agent与Environment会产生大量的数据。智能体中的算法利用产生的数据调整自身的动作策略，在与环境交互，产生新的数据，并利用新的数据进一步优化自身策略。经过循环往复，智能体最终学到完成相应任务的最优策略。</p>
+<p>无数学者们经过几十年不断的努力和探索，提出了一套可以解决大部分强化学习问题的框架，这个框架就是<strong>马尔可夫决策过程（Markov Decision Process, 简称MDP）</strong>. 下面会循序渐进地介绍MDP过程。</p>
+<h2 id="2.马尔可夫决策过程">2. 马尔可夫决策过程</h2>
+
+
+<p>介绍MDP过程之前，我们先了解一些基本概念：状态、随机过程、马尔可夫性、马尔可夫过程。</p>
+<p>马尔可夫性：所谓马尔可夫性是指系统的下一个状态\(s_{t+1}\)仅与当前状态$s_t$有关，而与以前的状态无关。</p>
+<p>定义：<strong>状态$s_t$是马尔可夫的，当且仅当 $p(s_{t+1}|s_t) = p(s_{t+1}|s_t, s_{t-1}, \cdots,s_t)$</strong>。</p>
+<p>从定义中可以看到，当前状态$s_t$其实蕴含了所有相关的历史信息$s_1, \cdots, s_t$。 马尔可夫性描述的是每个状态的性质，但真正有用的是如何描述一个<strong>状态序列</strong>。数学中用来描述随机变量序列的学科叫随机过程（本科数学系or研究生数学课程）。所谓随机过程就是指<strong>随机变量序列</strong>。</p>
+<p>如果随机变量序列中的每个状态都满足马尔可夫性，那么此随机过程称为<strong>马尔可夫随机过程</strong>。</p>
+<p><strong>马尔可夫过程</strong></p>
+<p>定义：马尔可夫过程用一个二元组$(S, P)$表示，且满足：$S$是有限状态集合，$P$是状态转移概率集合。对应的状态转移概率矩阵为：</p>
+<p>$$<br>P = \begin{bmatrix} P_{11} &amp; \cdots &amp; P_{1n} \\\ \vdots &amp; \ddots &amp; \vdots \\\ P_{n1} &amp; \cdots &amp; P_{nn} \\\ \end{bmatrix}<br>$$</p>
+<p>下面用一个例子来直观地理解。</p>
+<p>//TODO 待补充</p>
+<p>以上状态序列称为马尔可夫链。当给定状态转移概率时，从某个状态出发存在多条马尔可夫链。</p>
+<p><strong>马尔可夫决策过程</strong></p>
+<p>对于智能体（可以是机器人）而言，马尔可夫过程不足以描述其特点，因为他们都是通过动作与环境进行交互，并从环境中获得奖励，而<strong>马尔可夫过程不存在动作和奖励</strong>。那么，</p>
+<p><strong>将动作（策略）和奖励（回报）考虑在内的马尔可夫过程称为马尔可夫决策过程。</strong></p>
+<p>马尔可夫决策过程可以用四元组$(S, A, P, R)$描述，其中：$S$为有限的状态集合，$A$为有限的动作集合，$P$为状态转移概率，$R$为回报函数。与马尔可夫过程不同的是，<strong>马尔可夫决策过程的状态转移概率是包含动作的</strong>，即：$P_{ss’}^{a} = P(S_{t+1}=s’ | S_t = s, A_t = a)$.</p>
+<p>强化学习的目标是<strong>给定一个马尔可夫决策过程，寻找最优策略</strong>。策略即是状态到动作的映射，这里用符号$\pi$表示，它是指给定状态$s$时，动作在动作集合中的分布。即：$\pi(a|s) = p(A_t = a | S_t = s)$。</p>
+<p>可以看到，策略的定义是用条件概率分布给出的。策略$\pi$在每个状态$s$指定一个动作概率。可以想象，如果给出的策略$\pi$是确定性的，那么策略$\pi$在每个状态$s$指定一个确定的动作。</p>
+<p><strong>累积回报</strong></p>
+<p>前面提到，智能体的目标是最大化长期受到的累积回报（cumulative reward）。如何定义累计回报呢？如果在时间$t$时刻之后，智能体接受到的回报序列表示成$R_{t+1}, R_{t+2}, \cdots, R_T$. 那么，我们寻求的是最大化期望回报（expected return），这里用$G_t$表示特定的回报序列函数。回报的表示方法之一是将回报累加，即：</p>
+<p>$$<br>G_t = R_{t+1} + R_{t+2} + \cdots + R_T<br>$$</p>
+<p>考虑到实际场景，在计算累积回报时都会引入一个折扣因子（用$\gamma$表示)。智能体尝试选择一个动作使得未来的折扣回报累积最大化。特别的，智能体会在时刻$t$选择动作$A_t$能最大化期望折扣回报（expected discounted return）。即：</p>
+<p>$$<br>G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \cdots + \gamma^{T-t} R_{t+k+1} = \sum_{k=0}^{T-t-1} \gamma^k R_{t+k+1}<br>$$</p>
+<p>上式包括$T=\infty$或者$\gamma=1$的可能（但是两者不能同时满足）。 由于策略$\pi$是随机的，所以累积回报也是随机的。为了评价状态$s$的价值，我们需要定义一个确定量来描述状态$s$的价值，很自然的想法是利用累积回报来衡量状态$s$的价值。然而，累积回报$G_t$是个随机变量，不是一个确定值，因此无法进行描述。但是<strong>累积回报的期望是个确定值</strong>，可以作为状态值函数的定义。</p>
+<p><strong>值函数</strong></p>
+<p>几乎所有的强化学习算法都涉及到评估值函数(<code>状态值函数</code>或者<code>状态-动作值函数</code>)，因为在<strong>强化学习中知识是存储在值函数</strong>中的。值函数用来评估智能体在给定状态下表现的会有“多好”。这里的“多好”被定义为未来期望的回报。</p>
+<blockquote>
+<p>深度强化学习就是利用深度神经网络来逼近值函数的一类强化学习方法。AlphaGo Zero使用了华人科学家何凯明等人提出的<strong>深度残差网络（ResNet）</strong>进行深度学习。</p>
+</blockquote>
+<p>这里我们用$\pi$表示策略，即状态到动作的映射。用$\pi(a|s)$表示当状态为$s$时，采取动作$a$的概率。在策略$\pi$下状态$s$的值函数(状态值函数)用$v_{\pi}(s)$表示。对于MDP过程，$v_{\pi}(s)$形式化表示为：</p>
+<p>$$<br>v_{\pi}(s) = E_{\pi}[G_t \,|\, S_t = s] = E_{\pi} \left[\sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \big| S_t = s \right]<br>$$</p>
+<p>这里$E_{\pi}[\cdot]$表示在盖顶策略$\pi$下状态的期望值（最终状态的值总是为0）。我们**称$v_{\pi}$为策略$\pi$对应的状态值函数（state-value function）**。</p>
+<p>类似的，在策略$\pi$下，状态为$s$时动作$a$对应值函数 我们称之为<strong>状态动作值函数（action-value function）</strong>，用$q_{\pi}(s,a)$表示为：</p>
+<p>$$<br>q_{\pi}(s, a) = E_{\pi}[G_t \,|\, S_t = s, A_t = a] = E_{\pi} \left[\sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \big| S_t = s, A_t = a\right]<br>$$</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/强化学习与智能决策/">强化学习与智能决策</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Agent/">Agent</a><a href="/tags/MDP/">MDP</a><a href="/tags/Markov-Decision-Process/">Markov Decision Process</a>
+  </div>
 
 </div>
 
@@ -143,7 +218,7 @@ Welcome to Hexo! This is your very first post. Check documentation for mor">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/hello-world/" data-title="测试Hexo功能 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/reinforcement-learning/chapter3-markov-decision-process/" data-title="第02章：马尔可夫决策过程 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -157,18 +232,18 @@ Welcome to Hexo! This is your very first post. Check documentation for mor">
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/head_first_ml/ml-chapter8-reinforcement-learning-family/" title="第08章：深入浅出ML之Reinforcement Learning家族">
+ <a href="/reinforcement-learning/chapter2-multi-arm-bandits/" title="">
   <strong>上一篇：</strong><br/>
   <span>
-  第08章：深入浅出ML之Reinforcement Learning家族</span>
+  (no title)</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/head_first_ml/ml-chapter9-factorization-family/"  title="第09章：深入浅出ML之Factorization家族">
+<a href="/openmit/openmit-chapter6-optimizer/"  title="第06章：OpenMIT-优化器">
  <strong>下一篇：</strong><br/> 
- <span>第09章：深入浅出ML之Factorization家族
+ <span>第06章：OpenMIT-优化器
 </span>
 </a>
 </div>
@@ -183,7 +258,7 @@ Welcome to Hexo! This is your very first post. Check documentation for mor">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#公式"><span class="toc-number">1.</span> <span class="toc-text">公式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1_线性回归模型"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.2.1 线性回归模型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">2.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">2.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">2.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">2.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">2.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1. 强化学习介绍"><span class="toc-number">2.</span> <span class="toc-text">1. 强化学习介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.马尔可夫决策过程"><span class="toc-number">3.</span> <span class="toc-text">2. 马尔可夫决策过程</span></a></li></ol>
  
   </div>
 
