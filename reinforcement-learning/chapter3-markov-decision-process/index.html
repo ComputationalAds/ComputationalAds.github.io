@@ -165,7 +165,7 @@ weibo: @周永_52ML
 
 <p>介绍MDP过程之前，我们先了解一些基本概念：状态、随机过程、马尔可夫性、马尔可夫过程。</p>
 <p>马尔可夫性：所谓马尔可夫性是指系统的下一个状态\(s_{t+1}\)仅与当前状态$s_t$有关，而与以前的状态无关。</p>
-<p>定义：<strong>状态$s_t$是马尔可夫的，当且仅当 $p(s_{t+1}|s_t) = p(s_{t+1}|s_t, s_{t-1}, \cdots,s_t)$</strong>。</p>
+<p>定义：<strong>状态$s_t$是马尔可夫的，当且仅当 $p(s_{t+1}|s_t) = p(s_{t+1}|s_t, s_{t-1}, \cdots,s_1)$</strong>。</p>
 <p>从定义中可以看到，当前状态$s_t$其实蕴含了所有相关的历史信息$s_1, \cdots, s_t$。 马尔可夫性描述的是每个状态的性质，但真正有用的是如何描述一个<strong>状态序列</strong>。数学中用来描述随机变量序列的学科叫随机过程（本科数学系or研究生数学课程）。所谓随机过程就是指<strong>随机变量序列</strong>。</p>
 <p>如果随机变量序列中的每个状态都满足马尔可夫性，那么此随机过程称为<strong>马尔可夫随机过程</strong>。</p>
 <p><strong>马尔可夫过程</strong></p>
@@ -193,7 +193,7 @@ weibo: @周永_52ML
 </blockquote>
 <p>这里我们用$\pi$表示策略，即状态到动作的映射。用$\pi(a|s)$表示当状态为$s$时，采取动作$a$的概率。在策略$\pi$下状态$s$的值函数(状态值函数)用$v_{\pi}(s)$表示。对于MDP过程，$v_{\pi}(s)$形式化表示为：</p>
 <p>$$<br>v_{\pi}(s) = E_{\pi}[G_t \,|\, S_t = s] = E_{\pi} \left[\sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \big| S_t = s \right]<br>$$</p>
-<p>这里$E_{\pi}[\cdot]$表示在盖顶策略$\pi$下状态的期望值（最终状态的值总是为0）。我们**称$v_{\pi}$为策略$\pi$对应的状态值函数（state-value function）**。</p>
+<p>这里$E_{\pi}[\cdot]$表示在给定策略$\pi$下状态的期望值（最终状态的值总是为0）。我们**称$v_{\pi}$为策略$\pi$对应的状态值函数（state-value function）**。</p>
 <p>类似的，在策略$\pi$下，状态为$s$时动作$a$对应值函数 我们称之为<strong>状态动作值函数（action-value function）</strong>，用$q_{\pi}(s,a)$表示为：</p>
 <p>$$<br>q_{\pi}(s, a) = E_{\pi}[G_t \,|\, S_t = s, A_t = a] = E_{\pi} \left[\sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \big| S_t = s, A_t = a\right]<br>$$</p>
   
@@ -448,7 +448,7 @@ weibo: @周永_52ML
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
 		
 		<a href="/about" target="_blank" title="ZhouYong">ZhouYong</a>
 		
