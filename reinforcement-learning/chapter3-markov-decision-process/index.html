@@ -12,54 +12,45 @@
 
     
     <meta name="description" content="author: zhouyongsdzh@foxmail.com
-date: 2016-07-29
+date: 2016-10-11
 weibo: @周永_52ML
 
 目录
-强化学习介绍
-马尔可夫决策过程
+智能体与环境
+马尔科夫决策过程
 
-1. 强化学习介绍
+1. 智能体与环境
 
-
-
-强化学习与传统机器学习
-传统机器学习假设算法本身与环境无影响，强化学习破除了这一限制，考虑到了算法对于环境的影响，这使得强化学习特别适合解决多回合博弈or顺序决策问题（sequential decis">
+强化学习问题不同于传统机器学习问题，它是一种在交互的过程中学习并实现目标的问题。这里把具有学习能力和决策能力的程序或系统称之为Agent（代理，智能体）；与之交互的对象统称为环境（Environment）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第03章：马尔可夫决策过程">
 <meta property="og:url" content="http://www.52caml.com/reinforcement-learning/chapter3-markov-decision-process/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
 <meta property="og:description" content="author: zhouyongsdzh@foxmail.com
-date: 2016-07-29
+date: 2016-10-11
 weibo: @周永_52ML
 
 目录
-强化学习介绍
-马尔可夫决策过程
+智能体与环境
+马尔科夫决策过程
 
-1. 强化学习介绍
+1. 智能体与环境
 
-
-
-强化学习与传统机器学习
-传统机器学习假设算法本身与环境无影响，强化学习破除了这一限制，考虑到了算法对于环境的影响，这使得强化学习特别适合解决多回合博弈or顺序决策问题（sequential decis">
+强化学习问题不同于传统机器学习问题，它是一种在交互的过程中学习并实现目标的问题。这里把具有学习能力和决策能力的程序或系统称之为Agent（代理，智能体）；与之交互的对象统称为环境（Environment）">
 <meta property="og:image" content="https://github.com/ComputationalAds/caml-material/blob/master/picture/reinforcement-learning/chapter1-reinforcement-learning/chapter1-pic02-agent-envs-interaction.png?raw=true">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第03章：马尔可夫决策过程">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
-date: 2016-07-29
+date: 2016-10-11
 weibo: @周永_52ML
 
 目录
-强化学习介绍
-马尔可夫决策过程
+智能体与环境
+马尔科夫决策过程
 
-1. 强化学习介绍
+1. 智能体与环境
 
-
-
-强化学习与传统机器学习
-传统机器学习假设算法本身与环境无影响，强化学习破除了这一限制，考虑到了算法对于环境的影响，这使得强化学习特别适合解决多回合博弈or顺序决策问题（sequential decis">
+强化学习问题不同于传统机器学习问题，它是一种在交互的过程中学习并实现目标的问题。这里把具有学习能力和决策能力的程序或系统称之为Agent（代理，智能体）；与之交互的对象统称为环境（Environment）">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -126,7 +117,7 @@ weibo: @周永_52ML
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-03T14:43:49.000Z" itemprop="datePublished"> 发表于 2017-06-03</time>
+    <time datetime="2017-10-25T04:47:41.000Z" itemprop="datePublished"> 发表于 2017-10-25</time>
     
   </p>
 </header>
@@ -135,67 +126,117 @@ weibo: @周永_52ML
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1. 强化学习介绍"><span class="toc-number">2.</span> <span class="toc-text">1. 强化学习介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.马尔可夫决策过程"><span class="toc-number">3.</span> <span class="toc-text">2. 马尔可夫决策过程</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.智能体与环境"><span class="toc-number">2.</span> <span class="toc-text">1. 智能体与环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.马尔科夫决策过程"><span class="toc-number">3.</span> <span class="toc-text">2. 马尔科夫决策过程</span></a></li></ol>
 		
 		</div>
 		
 		<ul>
 <li>author: zhouyongsdzh@foxmail.com</li>
-<li>date: 2016-07-29</li>
+<li>date: 2016-10-11</li>
 <li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
 </ul>
-<h2 id="目录">目录</h2><ul>
-<li>强化学习介绍</li>
-<li>马尔可夫决策过程</li>
+<h2 id="目录">目录</h2><ol>
+<li><a href="#1.智能体与环境">智能体与环境</a></li>
+<li><a href="#2.马尔科夫决策过程">马尔科夫决策过程</a></li>
+</ol>
+<h2 id="1.智能体与环境">1. 智能体与环境</h2>
+
+<p>强化学习问题不同于传统机器学习问题，它是一种在<strong>交互</strong>的过程中学习并实现目标的问题。这里把具有学习能力和决策能力的程序或系统称之为Agent（代理，智能体）；与之交互的对象统称为环境（Environment）。交互过程如下图所示：</p>
+<p></p><p style="text-align:center"><img src="https://github.com/ComputationalAds/caml-material/blob/master/picture/reinforcement-learning/chapter1-reinforcement-learning/chapter1-pic02-agent-envs-interaction.png?raw=true" width="550" height="200" alt="chapter1-pic02-agent-envs-interaction"></p>
+<p>智能体与环境的交互通常是在离散的“时间步长”（discrete time steps）中进行的，$t=0,1,2, \cdots$。 在时刻$t$，智能体会针对当前环境状态$S_t$，执行一个动作$A_t$，在下一时刻$t+1$, 环境在动作$A_t$的作用下会产生新的状态$S_{t+1}$。同时智能体也会接收到一个回报$R_{t+1}$。持续地交互过程中，Agent与Environment会产生大量的数据。智能体中的算法利用产生的数据调整自身的动作策略，再与环境交互，产生新的数据，并利用新的数据进一步优化自身策略。经过循环往复，智能体最终学习到相应任务整体收益最大化对应的最优策略。</p>
+<p>在每一步中，智能体都要完成从状态到选择每个可能动作的映射。这个映射过程称为智能体的<strong>决策（policy，用符号$\pi_t$表示）</strong>。那么$\pi_t(A_t = a|S_t = s)$表示状态为$S_t=s$时选择制定动态$A_t = a$的概率。</p>
+<p><strong>强化学习解决的是在交互过程中以目标为导向的学习问题，目标就是长期收益最大化</strong>。无论学习的场景是什么、目标是什么，<strong>以目标为导向的行为学习问题</strong>都可以归纳为3个主要的“信号”（signal）：</p>
+<ul>
+<li><strong>Action（动作）</strong>：智能体的选择集合；</li>
+<li><strong>State（状态）</strong>：智能体从环境接收到的信息，涉及到信息表示／描述问题；</li>
+<li><strong>Reward（奖赏）</strong>：智能体获得的奖赏。决定了优化目标和长期收益。</li>
 </ul>
-<h2 id="1. 强化学习介绍">1. 强化学习介绍</h2>
-
-
-
+<p>无数学者们经过几十年不断的努力和探索，提出了一套可以解决大部分强化学习问题的框架，这个框架就是<strong>马尔可夫决策过程（Markov Decision Process, 简称MDP）</strong>. 下面我们循序渐进地介绍MDP过程。</p>
+<p>在开始讲MDP之前，我们先花点时间看下强化学习与传统的监督学习、无监督学习问题在算法建模、数据方面的差异：</p>
+<blockquote>
 <p><strong>强化学习与传统机器学习</strong></p>
 <p>传统机器学习假设算法本身与环境无影响，强化学习破除了这一限制，考虑到了算法对于环境的影响，这使得强化学习特别适合解决<strong>多回合博弈or顺序决策问题</strong>（sequential decision making）。</p>
 <p>在强化学习中，数据是在运行过程中自主收集。这解决了机器学习中常见的训练数据难于获取的问题。<strong>强化学习的算法具有自主学习能力</strong>，这就是强化学习在机器人领域里面使用比较广泛的原因。但是要注意到的是，通常强化学习的速度限制并不是来自于算法的训练，而是来自于环境给予反馈的延时。</p>
-<p><strong>强化学习工作原理</strong></p>
-<p>强化学习问题不同于传统机器学习问题，它是一种在<strong>交互</strong>的过程中学习并实现目标的问题。这里把具有学习能力和决策能力的程序或系统称之为Agent（代理，智能体）；与之交互的对象统称为环境（Environment）。交互过程如下图所示：</p>
-<p></p><p style="text-align:center"><img src="https://github.com/ComputationalAds/caml-material/blob/master/picture/reinforcement-learning/chapter1-reinforcement-learning/chapter1-pic02-agent-envs-interaction.png?raw=true" width="550" height="200" alt="chapter1-pic02-agent-envs-interaction"></p>
-<p>智能体会针对当前状态通过执行一个动作$A_t$与环境交互，在动作$A_t$的作用下，环境会产生新的状态。同时环境也会给出一个回报。持续地交互过程中，Agent与Environment会产生大量的数据。智能体中的算法利用产生的数据调整自身的动作策略，在与环境交互，产生新的数据，并利用新的数据进一步优化自身策略。经过循环往复，智能体最终学到完成相应任务的最优策略。</p>
-<p>无数学者们经过几十年不断的努力和探索，提出了一套可以解决大部分强化学习问题的框架，这个框架就是<strong>马尔可夫决策过程（Markov Decision Process, 简称MDP）</strong>. 下面会循序渐进地介绍MDP过程。</p>
-<h2 id="2.马尔可夫决策过程">2. 马尔可夫决策过程</h2>
+</blockquote>
+<h2 id="2.马尔科夫决策过程">2. 马尔科夫决策过程</h2>
 
-
-<p>介绍MDP过程之前，我们先了解一些基本概念：状态、随机过程、马尔可夫性、马尔可夫过程。</p>
-<p>马尔可夫性：所谓马尔可夫性是指系统的下一个状态\(s_{t+1}\)仅与当前状态$s_t$有关，而与以前的状态无关。</p>
+<p>MDP依赖一些基本概念，比如状态、随机过程、马尔可夫性、马尔可夫过程等等这些到底是什么意思。我们先梳理下这部分知识：</p>
+<p>马尔可夫性：所谓马尔可夫性是指系统的下一个状态$s_{t+1}$仅与当前状态$s_t$有关，而与以前的状态无关。</p>
+<blockquote>
 <p>定义：<strong>状态$s_t$是马尔可夫的，当且仅当 $p(s_{t+1}|s_t) = p(s_{t+1}|s_t, s_{t-1}, \cdots,s_1)$</strong>。</p>
+</blockquote>
 <p>从定义中可以看到，当前状态$s_t$其实蕴含了所有相关的历史信息$s_1, \cdots, s_t$。 马尔可夫性描述的是每个状态的性质，但真正有用的是如何描述一个<strong>状态序列</strong>。数学中用来描述随机变量序列的学科叫随机过程（本科数学系or研究生数学课程）。所谓随机过程就是指<strong>随机变量序列</strong>。</p>
-<p>如果随机变量序列中的每个状态都满足马尔可夫性，那么此随机过程称为<strong>马尔可夫随机过程</strong>。</p>
+<p>如果随机变量序列中的每个状态都满足马尔可夫性，那么该随机过程称为<strong>马尔可夫随机过程</strong>。</p>
 <p><strong>马尔可夫过程</strong></p>
-<p>定义：马尔可夫过程用一个二元组$(S, P)$表示，且满足：$S$是有限状态集合，$P$是状态转移概率集合。对应的状态转移概率矩阵为：</p>
+<p>定义：马尔可夫过程用一个二元组$(\mathcal{S}, \mathcal{P})$表示，且满足：$\mathcal{S}$是有限状态集合，$\mathcal{P}$是状态转移概率集合。对应的状态转移概率矩阵为：</p>
 <p>$$<br>P = \begin{bmatrix} P_{11} &amp; \cdots &amp; P_{1n} \\\ \vdots &amp; \ddots &amp; \vdots \\\ P_{n1} &amp; \cdots &amp; P_{nn} \\\ \end{bmatrix}<br>$$</p>
 <p>下面用一个例子来直观地理解。</p>
 <p>//TODO 待补充</p>
 <p>以上状态序列称为马尔可夫链。当给定状态转移概率时，从某个状态出发存在多条马尔可夫链。</p>
 <p><strong>马尔可夫决策过程</strong></p>
-<p>对于智能体（可以是机器人）而言，马尔可夫过程不足以描述其特点，因为他们都是通过动作与环境进行交互，并从环境中获得奖励，而<strong>马尔可夫过程不存在动作和奖励</strong>。那么，</p>
-<p><strong>将动作（策略）和奖励（回报）考虑在内的马尔可夫过程称为马尔可夫决策过程。</strong></p>
-<p>马尔可夫决策过程可以用四元组$(S, A, P, R)$描述，其中：$S$为有限的状态集合，$A$为有限的动作集合，$P$为状态转移概率，$R$为回报函数。与马尔可夫过程不同的是，<strong>马尔可夫决策过程的状态转移概率是包含动作的</strong>，即：$P_{ss’}^{a} = P(S_{t+1}=s’ | S_t = s, A_t = a)$.</p>
+<p>对于智能体（可以是机器人）而言，马尔可夫过程不足以描述其特点，因为他们都是通过动作与环境进行交互，并从环境中获得奖励，而<strong>马尔可夫过程不存在动作和奖励</strong>。那么，<strong>将动作（策略）和奖励（回报）考虑在内的马尔可夫过程称为马尔可夫决策过程。</strong></p>
+<p>马尔可夫决策过程可以用四元组$(\mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R})$描述，其中：$\mathcal{S}$为有限的状态集合，$\mathcal{A}$为有限的动作集合，$\mathcal{P}$为状态转移概率集合，$\mathcal{R}$为回报函数。与马尔可夫过程不同的是，<strong>马尔可夫决策过程的状态转移概率是包含动作的</strong>，即：$P_{ss’}^{a} = P(S_{t+1}=s’ | S_t = s, A_t = a)$.</p>
 <p>强化学习的目标是<strong>给定一个马尔可夫决策过程，寻找最优策略</strong>。策略即是状态到动作的映射，这里用符号$\pi$表示，它是指给定状态$s$时，动作在动作集合中的分布。即：$\pi(a|s) = p(A_t = a | S_t = s)$。</p>
 <p>可以看到，策略的定义是用条件概率分布给出的。策略$\pi$在每个状态$s$指定一个动作概率。可以想象，如果给出的策略$\pi$是确定性的，那么策略$\pi$在每个状态$s$指定一个确定的动作。</p>
+<p>符合MDP过程强化学习问题的优化目标是什么？寻找最优策略。并且在给定策略下，可以评估<code>状态</code>或<code>状态－动作对</code>的值函数。</p>
 <p><strong>累积回报</strong></p>
 <p>前面提到，智能体的目标是最大化长期受到的累积回报（cumulative reward）。如何定义累计回报呢？如果在时间$t$时刻之后，智能体接受到的回报序列表示成$R_{t+1}, R_{t+2}, \cdots, R_T$. 那么，我们寻求的是最大化期望回报（expected return），这里用$G_t$表示特定的回报序列函数。回报的表示方法之一是将回报累加，即：</p>
 <p>$$<br>G_t = R_{t+1} + R_{t+2} + \cdots + R_T<br>$$</p>
 <p>考虑到实际场景，在计算累积回报时都会引入一个折扣因子（用$\gamma$表示)。智能体尝试选择一个动作使得未来的折扣回报累积最大化。特别的，智能体会在时刻$t$选择动作$A_t$能最大化期望折扣回报（expected discounted return）。即：</p>
 <p>$$<br>G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \cdots + \gamma^{T-t} R_{t+k+1} = \sum_{k=0}^{T-t-1} \gamma^k R_{t+k+1}<br>$$</p>
-<p>上式包括$T=\infty$或者$\gamma=1$的可能（但是两者不能同时满足）。 由于策略$\pi$是随机的，所以累积回报也是随机的。为了评价状态$s$的价值，我们需要定义一个确定量来描述状态$s$的价值，很自然的想法是利用累积回报来衡量状态$s$的价值。然而，累积回报$G_t$是个随机变量，不是一个确定值，因此无法进行描述。但是<strong>累积回报的期望是个确定值</strong>，可以作为状态值函数的定义。</p>
+<p>上式包括$T=\infty$或者$\gamma=1$的可能（但是两者不能同时满足）。 由于策略$\pi$是随机的，所以累积回报也是随机的。<strong>为了评价状态$s$的价值，我们需要定义一个确定量来描述状态$s$的价值，很自然的想法是利用累积回报来衡量状态$s$的价值</strong>。然而，累积回报$G_t$是个随机变量，不是一个确定值，因此无法进行描述。但是<strong>累积回报的期望是个确定值</strong>，可以作为状态值函数的定义。</p>
 <p><strong>值函数</strong></p>
-<p>几乎所有的强化学习算法都涉及到评估值函数(<code>状态值函数</code>或者<code>状态-动作值函数</code>)，因为在<strong>强化学习中知识是存储在值函数</strong>中的。值函数用来评估智能体在给定状态下表现的会有“多好”。这里的“多好”被定义为未来期望的回报。</p>
+<p>几乎所有的强化学习算法都涉及到评估值函数(<code>状态值函数</code>或者<code>状态-动作值函数</code>)，因为在<strong>强化学习中知识是存储在值函数</strong>中的。值函数用来评估智能体在给定<code>状态</code>或<code>状态－动作对</code>下表现的会有“多好”。这里的“多好”用累积回报的期望来衡量。因此，我们可以说：<strong>值函数=累积回报的期望，最优值函数是我们的寻找目标</strong>。</p>
 <blockquote>
-<p>深度强化学习就是利用深度神经网络来逼近值函数的一类强化学习方法。AlphaGo Zero使用了华人科学家何凯明等人提出的<strong>深度残差网络（ResNet）</strong>进行深度学习。</p>
+<p>所谓深度强化学习是利用深度神经网络来逼近值函数的一类强化学习方法。AlphaGo Zero使用了华人科学家何凯明等人提出的<strong>深度残差网络（ResNet）</strong>进行深度学习。</p>
 </blockquote>
-<p>这里我们用$\pi$表示策略，即状态到动作的映射。用$\pi(a|s)$表示当状态为$s$时，采取动作$a$的概率。在策略$\pi$下状态$s$的值函数(状态值函数)用$v_{\pi}(s)$表示。对于MDP过程，$v_{\pi}(s)$形式化表示为：</p>
+<p>这里用$\pi$表示策略，即状态到动作的映射。用$\pi(a|s)$表示当状态为$s$时，采取动作$a$的概率(条件概率分布)。在策略$\pi$下状态$s$的值函数(状态值函数)用$v_{\pi}(s)$表示。对于MDP过程，$v_{\pi}(s)$形式化表示为：</p>
 <p>$$<br>v_{\pi}(s) = E_{\pi}[G_t \,|\, S_t = s] = E_{\pi} \left[\sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \big| S_t = s \right]<br>$$</p>
-<p>这里$E_{\pi}[\cdot]$表示在给定策略$\pi$下状态的期望值（最终状态的值总是为0）。我们**称$v_{\pi}$为策略$\pi$对应的状态值函数（state-value function）**。</p>
+<p>这里$E_{\pi}[\cdot]$表示在策略$\pi$下状态$s$的期望值（最终状态的函数值总是为0）。我们**称$v_{\pi}$为策略$\pi$对应的状态值函数（state-value function）**。</p>
+<blockquote>
+<p>定义：所有策略中对应的最大状态值函数称为<strong>最优状态值函数</strong>，表示为$v_{*}(s) = \max_{\pi} v_{\pi}(s)$.</p>
+</blockquote>
 <p>类似的，在策略$\pi$下，状态为$s$时动作$a$对应值函数 我们称之为<strong>状态动作值函数（action-value function）</strong>，用$q_{\pi}(s,a)$表示为：</p>
 <p>$$<br>q_{\pi}(s, a) = E_{\pi}[G_t \,|\, S_t = s, A_t = a] = E_{\pi} \left[\sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \big| S_t = s, A_t = a\right]<br>$$</p>
+<blockquote>
+<p>定义：所有策略中对应的最大状态动作值函数称为<strong>最优状态动作值函数</strong>，表示为$q_{*}(s,a) = \max_{\pi} q_{\pi}(s,a)$.</p>
+</blockquote>
+<p>计算值函数的目的就是为了构建学习算法从数据中学到最优策略。<strong>策略与值函数一一对应</strong>，最优策略对应最优值函数。</p>
+<p><strong>贝尔曼方程</strong></p>
+<p>贝尔曼方程建立了当前状态值函数$v_{\pi}(S_{t})$与下一状态值函数$v_{\pi}(S_{t+1})$之间的关系，使得值函数可以被分解成子问题求解。以状态值函数为例：</p>
+<p>$$<br>\begin{align}<br>v_{\pi}(s) &amp; = E_{\pi} \left[G_t | S_t = s \right] \\\<br>&amp; = E_{\pi} \left[R_{t+1} + \gamma(R_{t+2} + \gamma R_{t+3} + \cdots) | S_t = s \right] \\\<br>&amp; = E_{\pi} \left[R_{t+1} + \gamma G_{t+1} | S_t = s\right] \\\<br>&amp; = E_{\pi} \left[R_{t+1} + \gamma v_{\pi}(S_{t+1}) | S_t = s\right]<br>\end{align}<br>$$</p>
+<p>可以看到，值函数可以被拆成两部分：<strong>立即奖赏$R_{t+1}$和下一状态折扣后的值函数$\gamma v_{\pi}(S_{t+1})$</strong>。</p>
+<p>类似的，状态动作值函数也满足贝尔曼方程，即：</p>
+<p>$$<br>q_{\pi}(s,a) = E_{\pi} \left[R_{t+1} + \gamma q_{\pi}(S_{t+1}, A_{t+1}) | S_t = s, A_t = a \right]<br>$$</p>
+<p>状态值函数与状态动作值函数的关系：</p>
+<p>$$<br>\begin{align}<br>v_{\pi}(s) &amp; = \sum_{a \in \mathcal{A}} \pi(a|s) \cdot q_{\pi}(s,a) \\\<br>q_{\pi}(s,a) &amp; = R(s,a) + \gamma \sum_{s’ \in \mathcal{S}} P(s’|s,a) v_{\pi}(s’)<br>\end{align}<br>$$</p>
+<p>因此，我们进一步可以得到：</p>
+<p>$$<br>\begin{align}<br>v_{\pi}(s) &amp; = \sum_{a \in \mathcal{A}} \pi(a|s) \left(R(s,a) + \gamma \sum_{s’ \in \mathcal{S}} P(s’|s,a) v_{\pi}(s’) \right) \\\<br>q_{\pi}(s,a) &amp;= R(s,a) + \gamma \sum_{s’ \in \mathcal{S}} P(s’|s,a) \sum_{a’ \in \mathcal{A}} \pi(a’|s’) \cdot q_{\pi}(s’, a’)<br>\end{align}<br>$$</p>
+<p>这里$\pi(a|s)$表示状态$s$对应不同的策略（动作集合的子集），$R(s,a)$表示状态$s$下执行动作$a$得到的立即奖赏；$P(s’|s,a)$表示执行动作$a$后下一步的状态概率。</p>
+<p>分别记最优策略$\pi_*$对应的状态值函数和状态动作值函数为$v__(s)$和$q__(s,a)$，它们之间的关系满足：$v_*(s) = \max_{a} q_*(s,a)$。因此，状态值函数对应的贝尔曼最优方程为： </p>
+<p>$$<br>v_*(s) = \max_{a} \left(R(s,a) + \gamma \sum_{s’ \in S} P(s’|s,a) v_*(s’) \right)<br>$$</p>
+<p>状态动作值函数对应的贝尔曼最优方程为：</p>
+<p>$$<br>q_*(s,a) = R(s,a) + \gamma \sum_{s’ \in \mathcal{S}} P(s’|s,a) \max_{a’ \in \mathcal{A}} q_*(s’, a’)<br>$$</p>
+<p><strong>最优策略（Optimal Policy）</strong></p>
+<p>先看最优策略的定义：<strong>如果策略$\pi$是最优的，当且仅当对于任意的状态$s$, 均存在策略$\pi$对应的值函数大于等于其它策略的值函数</strong>。用公式表示为：$\pi \ge \pi’, \text{if}\; v_{\pi}(s) \ge v_{\pi’}(s), \forall s$.</p>
+<blockquote>
+<p>所以很重要的一个结论：<strong>我们构造&amp;&amp;优化值函数，本质上是得到最优的策略。因为值函数最优与策略最优 在这里是等价的</strong>。</p>
+</blockquote>
+<p>对于任意的马尔科夫决策过程，以下条件均成立：</p>
+<ol>
+<li>最优策略$\pi_*$均不差于所有其他的策略，形式化表示：$\pi_* \ge \pi, \forall \pi$;</li>
+<li>所有的最优策略均对应着最优状态值函数，形式化表示：$v_{\pi__}(s) = v__(s)$;</li>
+<li>所有的最优策略均对应着最优状态动作值函数，形式化表示：$q_{\pi__}(s,a) = q__(s,a)$;</li>
+</ol>
+<p>以上3条就是<strong>策略最优定理</strong>。最优策略满足公式（状态值函数对应的贝尔曼最优方程），<strong>最优策略可以通过最大化动作状态值函数贝尔曼最优方程来求解</strong>。即：</p>
+<p>$$<br>\pi_*(a|s) = \left \{<br>\begin{array}{ll}<br>1, \quad \text{if a = arg} \max_{a \in \mathcal{A}} q_*(s,a) \\\<br>0, \quad otherwise. \\\<br>\end{array} \right.<br>$$</p>
+<p>这里系统地梳理下强化学习中关键概念之间的关系，即累积回报、状态值函数、最优策略等。</p>
+<blockquote>
+<p><strong>强化学习是解决交互过程中、以目标为导向的序列学习问题的一类机器学习算法。</strong> 这里的目标即为最大化累积回报，而累积回报受过程中的策略$\pi$影响，策略$\pi$是随机变量，所以累积回报也是一个随机变量。</p>
+<p>强化学习希望通过一个确定的函数－价值函数－能描述最大化的累积回报。因此就用了<strong>累积回报的期望来描述价值函数</strong>。 根据策略最优定理：价值函数最优所对应的策略即为最优策略，即最优策略的选择可以根据价值函数的最大值来确定。</p>
+<p>那么，<strong>强化学习求解问题最后就转化为如果获得最优的价值函数</strong>（状态值函数or状态动作值函数）.</p>
+</blockquote>
+<p>最后，一个重要的求解问题：<strong>如何通过贝尔曼最优方程求解最优策略？</strong> 我们在后面的章节，如《第04章：动态规划》，《第05章：蒙特卡洛算法》给出求解方案。 </p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -232,18 +273,18 @@ weibo: @周永_52ML
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/reinforcement-learning/chapter2-multi-arm-bandits/" title="">
+ <a href="/reinforcement-learning/chapter4-dynamic-programming/" title="第04章：动态规划">
   <strong>上一篇：</strong><br/>
   <span>
-  (no title)</span>
+  第04章：动态规划</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/openmit/openmit-chapter6-optimizer/"  title="第06章：OpenMIT-优化器">
+<a href="/openmit/openmit-chapter2-parameter-server/"  title="第02章：OpenMIT-系统架构">
  <strong>下一篇：</strong><br/> 
- <span>第06章：OpenMIT-优化器
+ <span>第02章：OpenMIT-系统架构
 </span>
 </a>
 </div>
@@ -258,7 +299,7 @@ weibo: @周永_52ML
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1. 强化学习介绍"><span class="toc-number">2.</span> <span class="toc-text">1. 强化学习介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.马尔可夫决策过程"><span class="toc-number">3.</span> <span class="toc-text">2. 马尔可夫决策过程</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.智能体与环境"><span class="toc-number">2.</span> <span class="toc-text">1. 智能体与环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.马尔科夫决策过程"><span class="toc-number">3.</span> <span class="toc-text">2. 马尔科夫决策过程</span></a></li></ol>
  
   </div>
 
@@ -272,11 +313,15 @@ weibo: @周永_52ML
 		<ul>
 		
 		  
-			<li><a href="/categories/OpenMIT/" title="OpenMIT">OpenMIT<sup>1</sup></a></li>
+			<li><a href="/categories/OpenMIT/" title="OpenMIT">OpenMIT<sup>3</sup></a></li>
 		  
 		
 		  
-			<li><a href="/categories/强化学习与智能决策/" title="强化学习与智能决策">强化学习与智能决策<sup>1</sup></a></li>
+			<li><a href="/categories/分布式机器学习/" title="分布式机器学习">分布式机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/强化学习与智能决策/" title="强化学习与智能决策">强化学习与智能决策<sup>4</sup></a></li>
 		  
 		
 		  
@@ -305,11 +350,43 @@ weibo: @周永_52ML
 			
 		
 			
-				<li><a href="/tags/连续随机变量/" title="连续随机变量">连续随机变量<sup>1</sup></a></li>
+				<li><a href="/tags/Agent/" title="Agent">Agent<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Agent/" title="Agent">Agent<sup>1</sup></a></li>
+				<li><a href="/tags/参数服务器/" title="参数服务器">参数服务器<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Dynamic-Programming/" title="Dynamic Programming">Dynamic Programming<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DP/" title="DP">DP<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Evalation/" title="Policy Evalation">Policy Evalation<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Improvement/" title="Policy Improvement">Policy Improvement<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Iteration/" title="Policy Iteration">Policy Iteration<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Value-Iteration/" title="Value Iteration">Value Iteration<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Greedy-Policy/" title="Greedy Policy">Greedy Policy<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/连续随机变量/" title="连续随机变量">连续随机变量<sup>1</sup></a></li>
 			
 		
 			
@@ -318,6 +395,14 @@ weibo: @周永_52ML
 		
 			
 				<li><a href="/tags/Markov-Decision-Process/" title="Markov Decision Process">Markov Decision Process<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RL/" title="RL">RL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Environments/" title="Environments">Environments<sup>1</sup></a></li>
 			
 		
 			
@@ -338,46 +423,6 @@ weibo: @周永_52ML
 		
 			
 				<li><a href="/tags/Adam/" title="Adam">Adam<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/LBFGS/" title="LBFGS">LBFGS<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/FTML/" title="FTML">FTML<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/ALS/" title="ALS">ALS<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/MCMC/" title="MCMC">MCMC<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/分解机器/" title="分解机器">分解机器<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/因子分解机/" title="因子分解机">因子分解机<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Factorization-Machine/" title="Factorization Machine">Factorization Machine<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/FM/" title="FM">FM<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/FFM/" title="FFM">FFM<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/场感知分解机器/" title="场感知分解机器">场感知分解机器<sup>1</sup></a></li>
 			
 		
 		</ul>

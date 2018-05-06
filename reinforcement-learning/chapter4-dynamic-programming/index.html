@@ -1,0 +1,703 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>第04章：动态规划 | 计算广告与机器学习</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ZhouYong">
+    
+
+    
+    <meta name="description" content="author: zhouyongsdzh@foxmail.com
+date: 2017-11-04
+weibo: @周永_52ML
+
+目录
+写在前面 
+策略评估
+策略改进
+策略迭代
+价值迭代
+
+0.写在前面
+
+上一节讲到马尔科夫决策过程，并把强化学习问题用MDP框架建模。并且介绍了强化学习的目标是寻找最优策略$\pi_*$使得累计回报$G_t$的期望最大，累计回报$G_t$是个随机变量，无法当成目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第04章：动态规划">
+<meta property="og:url" content="http://www.52caml.com/reinforcement-learning/chapter4-dynamic-programming/index.html">
+<meta property="og:site_name" content="计算广告与机器学习">
+<meta property="og:description" content="author: zhouyongsdzh@foxmail.com
+date: 2017-11-04
+weibo: @周永_52ML
+
+目录
+写在前面 
+策略评估
+策略改进
+策略迭代
+价值迭代
+
+0.写在前面
+
+上一节讲到马尔科夫决策过程，并把强化学习问题用MDP框架建模。并且介绍了强化学习的目标是寻找最优策略$\pi_*$使得累计回报$G_t$的期望最大，累计回报$G_t$是个随机变量，无法当成目">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第04章：动态规划">
+<meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
+date: 2017-11-04
+weibo: @周永_52ML
+
+目录
+写在前面 
+策略评估
+策略改进
+策略迭代
+价值迭代
+
+0.写在前面
+
+上一节讲到马尔科夫决策过程，并把强化学习问题用MDP框架建模。并且介绍了强化学习的目标是寻找最优策略$\pi_*$使得累计回报$G_t$的期望最大，累计回报$G_t$是个随机变量，无法当成目">
+
+    
+    <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="计算广告与机器学习" title="计算广告与机器学习"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="计算广告与机器学习">计算广告与机器学习</a></h1>
+				<h2 class="blog-motto">Computational Advertising and Machine Learning</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/home">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.52caml.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/reinforcement-learning/chapter4-dynamic-programming/" title="第04章：动态规划" itemprop="url">第04章：动态规划</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
+		
+  <p class="article-time">
+    <time datetime="2017-11-18T07:23:20.000Z" itemprop="datePublished"> 发表于 2017-11-18</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">2.</span> <span class="toc-text">0.写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.策略评估"><span class="toc-number">3.</span> <span class="toc-text">1. 策略评估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.策略改进"><span class="toc-number">4.</span> <span class="toc-text">2. 策略改进</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3.策略迭代"><span class="toc-number">5.</span> <span class="toc-text">3. 策略迭代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.值迭代"><span class="toc-number">6.</span> <span class="toc-text">4. 值迭代</span></a></li></ol>
+		
+		</div>
+		
+		<ul>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 2017-11-04</li>
+<li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
+</ul>
+<h2 id="目录">目录</h2><ul>
+<li><a href="#0.写在前面">写在前面</a> </li>
+<li><a href="#1.策略评估">策略评估</a></li>
+<li><a href="#2.策略改进">策略改进</a></li>
+<li><a href="#3.策略迭代">策略迭代</a></li>
+<li><a href="#4.价值迭代">价值迭代</a></li>
+</ul>
+<h2 id="0.写在前面">0.写在前面</h2>
+
+<p>上一节讲到马尔科夫决策过程，并把强化学习问题用MDP框架建模。并且介绍了强化学习的目标是<strong>寻找最优策略$\pi_*$使得累计回报$G_t$的期望最大</strong>，累计回报$G_t$是个随机变量，无法当成目标函数进行优化，因为把随机变量（$G_t$）的期望作为目标函数。</p>
+<p>这一节介绍基于模型的强化学习问题求解的一种算法－动态规划算法。动态规划算法是解决复杂问题的一类方法，算法通过把复杂问题分解成若干个子问题，通过求解子问题进一步得到全局问题的解。</p>
+<blockquote>
+<p>所谓基于模型的强化学习即马尔科夫决策过程已知（即状态转移概率已知）。如果MDP未知，称为无模型（model-free）的强化学习，仍有对应的求解算法（后面章节会详细介绍）。</p>
+</blockquote>
+<p>使用动态规划求解问题 需要满足以下条件：</p>
+<ul>
+<li>最优化原理：问题的最优解是由所包含的子问题的解组成，且子问题的解也是最优的；</li>
+<li>子问题重叠：即子问题之间不是独立的，一个子问题在下一阶段决策中可能被重复用到。</li>
+</ul>
+<p>马尔科夫决策过程满足上述两个条件，即<strong>贝尔曼方程把值函数的求解表示成递归地子问题求解过程</strong>，值函数相当于存储了一些子问题的解，可以复用。</p>
+<p>在强化学习中，<strong>动态规划是基于模型的求解最优策略和最优值函数的算法</strong>，即在已知模型的基础上判断一个策略的价值函数（策略评估过程），并在此基础上寻求最优的策略和最优价值函数（策略改进过程）。或者直接寻求最优策略和最优价值函数（价值迭代算法）。</p>
+<blockquote>
+<p>动态规划算法属于值表法（Tabular Methods）的一种（下一章的蒙特卡洛方法也属于这一类）。值表法即值函数用表格表示，值函数的参数为表格里的内容。</p>
+</blockquote>
+<p>思考：如何用动态规划算法在MDP基础上求解最优策略？动态规划包括两个主要过程：预测（predict）和控制（control）。</p>
+<ul>
+<li>预测：给定一个MDP和当前策略$\pi$，要求基于当前策略$\pi$计算价值函数$V_{\pi}$；</li>
+<li>控制：给定一个MDP，要 求计算最优价值函数$V_*$和最优策略$\pi_*$；</li>
+</ul>
+<h2 id="1.策略评估">1. 策略评估</h2>
+
+<p>上一节提到，强化学习问题可以用MDP描述，并根据贝尔曼最优性原理得到贝尔曼最优化方程，即：</p>
+<p>$$<br>\begin{align}<br>v_*(s) &amp; = \max_{a \in \mathcal{A}} R(s,a) + \gamma \sum_{s’ \in \mathcal{S}} P(s’ |s,a) v__(s’) \\\<br>q__(s,a) &amp; = R(s,a) + \sum_{s’ \in \mathcal{S}} P(s’|s,a) \max_{a’ \in \mathcal{A}} q_*(s’,a’)<br>\end{align}  \qquad (rl.4.1)<br>$$</p>
+<p>贝尔曼方程符合动态规划中的条件，在这里动态规划的核心是寻找最优值函数。一个关键的问题摆在面前：<strong>如何计算策略$\pi$下的值函数？</strong> 在第03章部分已经给出了计算公式：</p>
+<p>$$<br>\begin{align}<br>v_{\pi}(s) &amp; = \sum_{a \in \mathcal{A}} \pi(a|s) \left(R(s,a) + \gamma \sum_{s’ \in \mathcal{S}} P(s’|s,a) v_{\pi}(s’) \right) \\\<br>q_{\pi}(s,a) &amp;= R(s,a) + \gamma \sum_{s’ \in \mathcal{S}} P(s’|s,a) \sum_{a’ \in \mathcal{A}} \pi(a’|s’) \cdot q_{\pi}(s’, a’)<br>\end{align} \qquad (rl.4.2)<br>$$</p>
+<p>可以看到状态$s$的值函数$v_{\pi}(s)$可以利用后继状态的值函数$v_{\pi}(s’)$来表示。后继状态值函数$v_{\pi}(s’)$又该如何求解呢？貌似是个没完没了的过程~~~</p>
+<p>其实不然，<strong>对于模型已知的强化学习问题，公式$(rl.4.2)$中的$P(s’|s,a), \gamma$以及$R(s,a)$都是已知的，$\pi(a|s)$为要评估的策略是指定的，也是已知值。公式$(rl.4.2)$中唯一的未知数是值函数，那么可以把$(rl.4.2)$理解为关于值函数的线性方程组，未知数的个数为状态总数，用$\vert \mathcal{S} \vert$表示</strong>。</p>
+<p>考虑到状态值函数序列$v_0, v_1, v_2, \cdots $，初始到值函数$v_0$可以是任意的（除非为最终状状态值函数，值为0）。接下来的值函数都是根据贝尔曼方程得到，更新逻辑为：</p>
+<p>$$<br>\begin{align}<br>v_{k+1}(s) &amp; = E_{\pi} \left[R(s,t) + \gamma v_{k}(S_{t+1})| S_t = s \right] \\\<br>&amp; = \sum_{a \in \mathcal{A}} \left(R(s,a) + \gamma \sum_{s’ \in \mathcal{S}} P(s’|s,a) v_{k}(s’) \right)<br>\end{align}  \qquad (rl.4.3)<br>$$</p>
+<p>这里$v_k = v_{\pi}$，序列$\{v_k\}$最终将会收敛到$v_{\pi}$对应的值函数（稳定状态），这个算法称为<strong>迭代策略评估算法（Iterative Policy Evaluation）</strong>。下面给出策略评估算法的伪代码：</p>
+<p>这部分参考教材的伪代码</p>
+<p>$<br>\{ \;//\; \color{red} {迭代策略评估算法} \\\</p>
+<ol>
+<li>输入<br>\\\ \}<br>$</li>
+</ol>
+<blockquote>
+<p>[optional] 补充Gridworld示例。</p>
+</blockquote>
+<p>策略评估算法用于根据当前策略计算每个状态的值函数的，计算值函数的目的是为了寻求最优策略。那么，<strong>如何利用状态值函数改进策略，进而得到最优策略呢</strong>？ </p>
+<h2 id="2.策略改进">2. 策略改进</h2>
+
+<p>策略改进（policy improvement）采用了比较直接的做法：在已知当前策略的值函数时，在每个状态采用<strong>贪婪策略（greedy policy）</strong>对当前策略进行改进，形式化表示如下：</p>
+<p>$$<br>\begin{align}<br>\pi’ (s) &amp; =  \arg \max_{a \in \mathcal{A}} q_{\pi_{l}}(s,a) \\\<br>&amp; = \arg \max_{a \in \mathcal{A}} E_{\pi} \left[R_{t+1} + \gamma v_{\pi}(s’) | S_t = s, A_t = a \right] \\\<br>&amp; = \arg \max_{a \in \mathcal{A}} R(s,a) + \gamma \sum_{s’ \in \mathcal{S}} P(s’|s,a) v_{\pi}(s’)<br>\end{align}<br>$$</p>
+<p>这里$\pi$为当前策略，$\pi’$为改进后的策略。</p>
+<p>至此，我们介绍了策略评估（依据当前策略<strong>预测</strong>值函数）和策略改进（依据<strong>贪婪策略</strong>选择最大值函数对应的策略），将二者合起来即为策略迭代算法。</p>
+<h2 id="3.策略迭代">3. 策略迭代</h2>
+
+<p>策略迭代算法包括策略评估和策略改进两个步骤。</p>
+<ul>
+<li>策略评估：给定策略，通过数值迭代算法不断计算该策略下的值函数，<strong>直至收敛</strong>。</li>
+<li>策略改进：利用收敛的值函数和贪婪策略得到新的策略；</li>
+</ul>
+<p>如此循环下去，最终得到最优策略和最优值函数，是一个策略收敛的过程。策略迭代算法伪代码如下：</p>
+<p>这部分参考教材的伪代码</p>
+<p>$<br>\{ \;//\; \color{red} {策略迭代算法} \\\</p>
+<ol>
+<li>输入<br>\\\ \}<br>$</li>
+</ol>
+<h2 id="4.值迭代">4. 值迭代</h2>
+
+<p>从策略迭代算法的伪代码可以看到，每一轮迭代中，在进行策略改进之前都要得到收敛的值函数，收敛的值函数需要很多次循环才能得到。问题：<strong>进行策略改进之前一定要得到当前策略对应的收敛值函数吗？</strong></p>
+<p>示例：网格，迭代10次。</p>
+<p>我们发现，当前策略迭代10次与迭代无穷次所得到的贪婪策略都是一样的。因此，对于上面的问题，不一定非得等到策略评估算法完全收敛，才进行策略改进。如果在进行一次策略评估之后就进行策略改进，称之为<strong>值函数迭代算法</strong>。 值函数迭代算法的伪代码如下：</p>
+<p>&lt;伪代码&gt;</p>
+<p>可以看到，这里每次迭代过程在策略评估阶段只对状态空间扫描一次。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/强化学习与智能决策/">强化学习与智能决策</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/DP/">DP</a><a href="/tags/Dynamic-Programming/">Dynamic Programming</a><a href="/tags/Greedy-Policy/">Greedy Policy</a><a href="/tags/Policy-Evalation/">Policy Evalation</a><a href="/tags/Policy-Improvement/">Policy Improvement</a><a href="/tags/Policy-Iteration/">Policy Iteration</a><a href="/tags/Value-Iteration/">Value Iteration</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.52caml.com/reinforcement-learning/chapter4-dynamic-programming/" data-title="第04章：动态规划 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/reinforcement-learning/chapter5-monte-carlo-methods/" title="第05章：模型未知的MDP问题求解-蒙特卡罗算法">
+  <strong>上一篇：</strong><br/>
+  <span>
+  第05章：模型未知的MDP问题求解-蒙特卡罗算法</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/reinforcement-learning/chapter3-markov-decision-process/"  title="第03章：马尔可夫决策过程">
+ <strong>下一篇：</strong><br/> 
+ <span>第03章：马尔可夫决策过程
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">2.</span> <span class="toc-text">0.写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.策略评估"><span class="toc-number">3.</span> <span class="toc-text">1. 策略评估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.策略改进"><span class="toc-number">4.</span> <span class="toc-text">2. 策略改进</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3.策略迭代"><span class="toc-number">5.</span> <span class="toc-text">3. 策略迭代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.值迭代"><span class="toc-number">6.</span> <span class="toc-text">4. 值迭代</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/OpenMIT/" title="OpenMIT">OpenMIT<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式机器学习/" title="分布式机器学习">分布式机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/强化学习与智能决策/" title="强化学习与智能决策">强化学习与智能决策<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/概率与统计/" title="概率与统计">概率与统计<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/深入浅出机器学习/" title="深入浅出机器学习">深入浅出机器学习<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Agent/" title="Agent">Agent<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/参数服务器/" title="参数服务器">参数服务器<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Dynamic-Programming/" title="Dynamic Programming">Dynamic Programming<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DP/" title="DP">DP<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Evalation/" title="Policy Evalation">Policy Evalation<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Improvement/" title="Policy Improvement">Policy Improvement<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Iteration/" title="Policy Iteration">Policy Iteration<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Value-Iteration/" title="Value Iteration">Value Iteration<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Greedy-Policy/" title="Greedy Policy">Greedy Policy<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/连续随机变量/" title="连续随机变量">连续随机变量<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/MDP/" title="MDP">MDP<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Markov-Decision-Process/" title="Markov Decision Process">Markov Decision Process<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RL/" title="RL">RL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Environments/" title="Environments">Environments<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/GD/" title="GD">GD<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FTRL/" title="FTRL">FTRL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AdaGrad/" title="AdaGrad">AdaGrad<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AdaDelta/" title="AdaDelta">AdaDelta<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Adam/" title="Adam">Adam<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, Welcome to CAML technology sharing platform.  <br/>
+			I&#39;m Zhou Yong, engaged in algorithms work on computational advertising and machine learning.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1707438033" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/ComputationalAds" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zhouyongsdzh@foxmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="ZhouYong">ZhouYong</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>

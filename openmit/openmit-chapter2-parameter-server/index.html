@@ -1,0 +1,899 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>第02章：OpenMIT-系统架构 | 计算广告与机器学习</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ZhouYong">
+    
+
+    
+    <meta name="description" content="author: zhouyongsdzh@foxmail.com
+date: 2017-08-05
+weibo: @周永_52ML
+
+目录
+
+写在前面
+参数服务器架构 
+PS系统启动过程
+PS任务启动过程
+Scheduler节点启动过程
+Server节点启动过程   
+Worker节点启动过程   
+
+
+PS节点通信与消息处理
+Worker与Server通信
+Worker与Scheduler通信">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第02章：OpenMIT-系统架构">
+<meta property="og:url" content="http://www.52caml.com/openmit/openmit-chapter2-parameter-server/index.html">
+<meta property="og:site_name" content="计算广告与机器学习">
+<meta property="og:description" content="author: zhouyongsdzh@foxmail.com
+date: 2017-08-05
+weibo: @周永_52ML
+
+目录
+
+写在前面
+参数服务器架构 
+PS系统启动过程
+PS任务启动过程
+Scheduler节点启动过程
+Server节点启动过程   
+Worker节点启动过程   
+
+
+PS节点通信与消息处理
+Worker与Server通信
+Worker与Scheduler通信">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第02章：OpenMIT-系统架构">
+<meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
+date: 2017-08-05
+weibo: @周永_52ML
+
+目录
+
+写在前面
+参数服务器架构 
+PS系统启动过程
+PS任务启动过程
+Scheduler节点启动过程
+Server节点启动过程   
+Worker节点启动过程   
+
+
+PS节点通信与消息处理
+Worker与Server通信
+Worker与Scheduler通信">
+
+    
+    <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="计算广告与机器学习" title="计算广告与机器学习"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="计算广告与机器学习">计算广告与机器学习</a></h1>
+				<h2 class="blog-motto">Computational Advertising and Machine Learning</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/home">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.52caml.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/openmit/openmit-chapter2-parameter-server/" title="第02章：OpenMIT-系统架构" itemprop="url">第02章：OpenMIT-系统架构</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-26T02:23:31.000Z" itemprop="datePublished"> 发表于 2017-08-26</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">0. 写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.参数服务器架构"><span class="toc-number">2.</span> <span class="toc-text">1. 参数服务器架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.PS系统启动过程"><span class="toc-number">3.</span> <span class="toc-text">2. PS系统启动过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.PS任务启动过程"><span class="toc-number">4.</span> <span class="toc-text">3. PS任务启动过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3.1.Scheduler节点启动过程"><span class="toc-number">4.1.</span> <span class="toc-text">3.1. Scheduler节点启动过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.2.Server节点启动过程"><span class="toc-number">4.2.</span> <span class="toc-text">3.2. Server节点启动过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.3.Worker节点启动过程"><span class="toc-number">4.3.</span> <span class="toc-text">3.3. Worker节点启动过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.PS节点通信与消息处理"><span class="toc-number">5.</span> <span class="toc-text">4. PS节点通信与消息处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4.1.Worker与Server通信"><span class="toc-number">5.1.</span> <span class="toc-text">4.1. Worker与Server通信</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.2.Worker与Scheduler通信"><span class="toc-number">5.2.</span> <span class="toc-text">4.2. Worker与Scheduler通信</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.3.Server与Scheduler通信"><span class="toc-number">5.3.</span> <span class="toc-text">4.3. Server与Scheduler通信</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.PS系统结束过程"><span class="toc-number">6.</span> <span class="toc-text">5. PS系统结束过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6.PS心跳管理与系统容错"><span class="toc-number">7.</span> <span class="toc-text">6. PS心跳管理与系统容错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7.PS系统与Yarn环境交互"><span class="toc-number">8.</span> <span class="toc-text">7. PS系统与Yarn环境交互</span></a></li></ol>
+		
+		</div>
+		
+		<ul>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 2017-08-05</li>
+<li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
+</ul>
+<p>目录</p>
+<ul>
+<li><a href="#0.写在前面">写在前面</a></li>
+<li><a href="#1.参数服务器架构">参数服务器架构</a> </li>
+<li><a href="#2.PS系统启动过程">PS系统启动过程</a></li>
+<li><a href="#3.PS任务启动过程">PS任务启动过程</a><ul>
+<li><a href="#3.1.Scheduler节点启动过程">Scheduler节点启动过程</a></li>
+<li><a href="#3.2.Server节点启动过程">Server节点启动过程</a>   </li>
+<li><a href="#3.3.Worker节点启动过程">Worker节点启动过程</a>   </li>
+</ul>
+</li>
+<li><a href="#4.PS节点通信与消息处理">PS节点通信与消息处理</a><ul>
+<li><a href="#4.1.Worker与Server通信">Worker与Server通信</a></li>
+<li><a href="#4.2.Worker与Scheduler通信">Worker与Scheduler通信</a></li>
+<li><a href="#4.3.Server与Scheduler通信">Server与Scheduler通信</a> </li>
+</ul>
+</li>
+<li><a href="#5.PS系统结束过程">PS系统结束过程</a> </li>
+<li><a href="#6.PS心跳管理与系统容错">PS心跳管理与系统容错</a> </li>
+<li><a href="#7.PS系统与Yarn环境交互">PS系统与Yarn环境交互</a></li>
+</ul>
+<h3 id="0.写在前面">0. 写在前面</h3>
+
+<h3 id="1.参数服务器架构">1. 参数服务器架构</h3>
+
+<h3 id="2.PS系统启动过程">2. PS系统启动过程</h3>
+
+<p>前面了解到，PS任务集群由1个scheduler节点、m个server节点和n个worker节点组成。这些节点中，首先启动的是scheduler节点，然后启动worker和server节点，这些节点的资源分配是由tracker中的PSTracker完成。这里我们说的PS启动过程包括以下几个核心问题：</p>
+<ol>
+<li>scheduler节点如何管理worker／server节点的？</li>
+<li>scheduler节点如何做心跳管理和容错的？</li>
+</ol>
+<p>PS启动是从调用<code>PS::Start()</code>或<code>PS::StartAsync()</code>方法开始的，两个方法的区别在于前者启动是阻塞的，即启动完自身节点后会一直等待直至所有节点都启动完成；后者则不等待其它节点。对应的方法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This function will block until every nodes are started.</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Start</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* argv0 = <span class="keyword">nullptr</span>)</span> </span>&#123;</span><br><span class="line">  Postoffice::Get()-&gt;Start(argv0, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// This function will NOT block.</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">StartAsync</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* argv0 = <span class="keyword">nullptr</span>)</span> </span>&#123;</span><br><span class="line">  Postoffice::Get()-&gt;Start(argv0, <span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从代码可以看到，它们都是调用了<code>Postoffice</code>类中的<code>Start</code>方法。我们看这个方法的实现过程。 <code>Postoffice</code>是一个单例类，<code>Postoffice::Get()</code>生成一个单例对象。我们先看下<code>Get</code>过程发生了什么？核心是<code>Postoffice</code>的构造函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Postoffice::Postoffice() &#123;</span><br><span class="line">  van_ = Van::Create(<span class="string">"zmq"</span>);</span><br><span class="line">  env_ref_ = Environment::_GetSharedRef();</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span>* val = NULL;</span><br><span class="line">  val = CHECK_NOTNULL(Environment::Get()-&gt;find(<span class="string">"DMLC_NUM_WORKER"</span>));</span><br><span class="line">  num_workers_ = atoi(val);</span><br><span class="line">  val =  CHECK_NOTNULL(Environment::Get()-&gt;find(<span class="string">"DMLC_NUM_SERVER"</span>));</span><br><span class="line">  num_servers_ = atoi(val);</span><br><span class="line">  val = CHECK_NOTNULL(Environment::Get()-&gt;find(<span class="string">"DMLC_ROLE"</span>));</span><br><span class="line">  <span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">role</span><span class="params">(val)</span></span>;</span><br><span class="line">  is_worker_ = role == <span class="string">"worker"</span>;</span><br><span class="line">  is_server_ = role == <span class="string">"server"</span>;</span><br><span class="line">  is_scheduler_ = role == <span class="string">"scheduler"</span>;</span><br><span class="line">  verbose_ = GetEnv(<span class="string">"PS_VERBOSE"</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>邮局<code>Postoffice</code>构造函数比较简单，它首先创建自己的“货车”成员<code>van_</code>（用于传送接收消息用），然后获取环境变量，并从环境变量中知道了集群worker个数（<code>DMLC_NUM_WORKER</code>）、server个数（<code>DMLC_NUM_SERVER</code>）以及当前节点的角色（<code>DMLC_ROLE</code>，是”worker”或”server”或”scheduler”），最后初始化日志等级<code>verbose_</code>。</p>
+<p>在<code>Start</code>方法中做了哪些事情呢？ 初始化log没什么好说的，在初始化节点信息方面以worker为例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> Postoffice::Start(<span class="keyword">const</span> <span class="keyword">char</span>* argv0, <span class="keyword">const</span> <span class="keyword">bool</span> do_barrier) &#123;</span><br><span class="line">  <span class="comment">// init glog</span></span><br><span class="line">  <span class="keyword">if</span> (argv0) &#123;</span><br><span class="line">    dmlc::InitLogging(argv0);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    dmlc::InitLogging(<span class="string">"ps-lite\0"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// init node info.</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num_workers_; ++i) &#123;</span><br><span class="line">    <span class="keyword">int</span> id = WorkerRankToID(i);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> g : &#123;id, kWorkerGroup, kWorkerGroup + kServerGroup,</span><br><span class="line">            kWorkerGroup + kScheduler,</span><br><span class="line">            kWorkerGroup + kServerGroup + kScheduler&#125;) &#123;</span><br><span class="line">      node_ids_[g].push_back(id);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="comment">// do a barrier here</span></span><br><span class="line">  <span class="keyword">if</span> (do_barrier) Barrier(kWorkerGroup + kServerGroup + kScheduler);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>构造函数我们知道了worker的个数，那么这里每个worker节点的序号（rank）为<code>{0, .., num_worker-1}</code>。但是对于sever节点的序号来说也是从0开始的，从全局看rank＝0的节点分不清属于worker还是server。这里Postoffice对全局节点进行了统一的编号，对于worker和server节点分别根据<code>WorkerRankToID</code>和<code>ServerRankToID</code>方法进行节点编号转化。转化过程也比较简单：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">WorkerRankToID</span><span class="params">(<span class="keyword">int</span> rank)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> rank * <span class="number">2</span> + <span class="number">9</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">ServerRankToID</span><span class="params">(<span class="keyword">int</span> rank)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> rank * <span class="number">2</span> + <span class="number">8</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到转化后的worker ID都是奇数（从9开始），server ID都是偶数（从8开始）。那么问题来了：为什么从8开始而不是从1开始编号？1到7的ID干嘛用了？ 这些ID由专门的用途，具体见下表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">ID</th>
+<th>用途</th>
+<th style="text-align:center">ID</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td><code>kScheduler</code></td>
+<td style="text-align:center">3</td>
+<td><code>kScheduler + kServerGroup</code></td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td><code>kServerGroup</code></td>
+<td style="text-align:center">5</td>
+<td><code>kScheduler + kWorkerGroup</code></td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td><code>kWorkerGroup</code></td>
+<td style="text-align:center">6</td>
+<td><code>kServerGroup + kWorkerGroup</code></td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td>-</td>
+<td style="text-align:center">7</td>
+<td><code>kScheduler + kServerGroup + kWorkerGroup</code></td>
+</tr>
+</tbody>
+</table>
+<p>我们可以看到，1到7的ID用于表示scheduler节点、组节点以及跨组的组合ID了。初始化节点信息主要是在<strong>为不同的组ID对应的ID集合</strong>，成员变量<code>std::unordered_map&lt;int, std::vector&lt;int&gt;&gt; node_ids_;</code>存储的就是每个ID对应的与之相关的ID集合。</p>
+<p>注意：到这里为止，划分节点信息的归属，但是并没有将每个节点的信息（hostname/port等） 与ID“绑定”起来。怎么完成“绑定”过程？这时候需要启动“货车”<code>ZMQVan::Start</code>来完成。</p>
+<p>zmq的初始化比较简单，new一个zmq对象，并设置最大的sockets。 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ZMQVan::Start() override &#123;</span><br><span class="line">  <span class="keyword">void</span> * context_ = zqm_ctx_new();</span><br><span class="line">  zmq_ctx_set(context_, MAX_SOCKETS, <span class="number">65536</span>);</span><br><span class="line">  Van::Start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>“货车”<code>Van::Start()</code>启动会完成以下功能：</p>
+<ol>
+<li><p>获取scheduler信息和获取当前节点信息。主要是从环境变量中获取，包括hostname, port等，保存在<code>Node</code>对象中。</p>
+<blockquote>
+<p>之所以每个节点都要获取scheduler信息，是因为都需要与scheduler主动通信，第一次通信获取该节点对应的ID。</p>
+</blockquote>
+</li>
+<li><p>绑定端口，并与scheduler节点建立连接；</p>
+</li>
+<li>开一个线程用于接收消息。<code>new thread(&amp;Van::Receiving, this)</code>；</li>
+<li>向scheduler发送消息（scheduler除外）。主动向scheduler发送消息，让scheduler知道自己（当前节点）的存在.</li>
+<li>初始化消息重发功能（<code>resender_</code>）和建立（与scheduler的）心跳线程；</li>
+</ol>
+<p>下面的代码与上述5个功能是对应着的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> Van::Start() &#123;</span><br><span class="line">  <span class="comment">// get scheduler info</span></span><br><span class="line">  scheduler_.hostname = <span class="built_in">std</span>::<span class="built_in">string</span>(CHECK_NOTNULL(Environment::Get()-&gt;find(<span class="string">"DMLC_PS_ROOT_URI"</span>)));</span><br><span class="line">  scheduler_.port     = atoi(CHECK_NOTNULL(Environment::Get()-&gt;find(<span class="string">"DMLC_PS_ROOT_PORT"</span>)));</span><br><span class="line">  scheduler_.role     = Node::SCHEDULER;</span><br><span class="line">  scheduler_.id       = kScheduler;</span><br><span class="line">  is_scheduler_       = Postoffice::Get()-&gt;is_scheduler();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// get my node info</span></span><br><span class="line">  <span class="keyword">if</span> (is_scheduler_) &#123;</span><br><span class="line">    my_node_ = scheduler_;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">auto</span> role = is_scheduler_ ? Node::SCHEDULER :</span><br><span class="line">                (Postoffice::Get()-&gt;is_worker() ? Node::WORKER : Node::SERVER);</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* nhost = Environment::Get()-&gt;find(<span class="string">"DMLC_NODE_HOST"</span>);</span><br><span class="line">    <span class="comment">// 省略，ip，role，port从环境变量获取部分 ...</span></span><br><span class="line">    my_node_.hostname = ip;</span><br><span class="line">    my_node_.role     = role;</span><br><span class="line">    my_node_.port     = port;</span><br><span class="line">    <span class="comment">// cannot determine my id now, the scheduler will assign it later</span></span><br><span class="line">    <span class="comment">// set it explicitly to make re-register within a same process possible</span></span><br><span class="line">    my_node_.id = Node::kEmpty;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// bind.</span></span><br><span class="line">  my_node_.port = Bind(my_node_, is_scheduler_ ? <span class="number">0</span> : <span class="number">40</span>);</span><br><span class="line">  PS_VLOG(<span class="number">1</span>) &lt;&lt; <span class="string">"Bind to "</span> &lt;&lt; my_node_.DebugString();</span><br><span class="line">  CHECK_NE(my_node_.port, -<span class="number">1</span>) &lt;&lt; <span class="string">"bind failed"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// connect to the scheduler</span></span><br><span class="line">  Connect(scheduler_);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// for debug use</span></span><br><span class="line">  <span class="keyword">if</span> (Environment::Get()-&gt;find(<span class="string">"PS_DROP_MSG"</span>)) &#123;</span><br><span class="line">    drop_rate_ = atoi(Environment::Get()-&gt;find(<span class="string">"PS_DROP_MSG"</span>));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// start receiver</span></span><br><span class="line">  receiver_thread_ = <span class="built_in">std</span>::unique_ptr&lt;<span class="built_in">std</span>::thread&gt;(</span><br><span class="line">      <span class="keyword">new</span> <span class="built_in">std</span>::thread(&amp;Van::Receiving, <span class="keyword">this</span>));</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!is_scheduler_) &#123;</span><br><span class="line">    <span class="comment">// let the scheduler know myself</span></span><br><span class="line">    Message msg;</span><br><span class="line">    msg.meta.recver = kScheduler;</span><br><span class="line">    msg.meta.control.cmd = Control::ADD_NODE;</span><br><span class="line">    msg.meta.control.node.push_back(my_node_);</span><br><span class="line">    msg.meta.timestamp = timestamp_++;</span><br><span class="line">    Send(msg);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// wait until ready</span></span><br><span class="line">  <span class="keyword">while</span> (!ready_) &#123;</span><br><span class="line">    <span class="built_in">std</span>::this_thread::sleep_for(<span class="built_in">std</span>::chrono::milliseconds(<span class="number">1</span>));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// resender</span></span><br><span class="line">  <span class="keyword">if</span> (Environment::Get()-&gt;find(<span class="string">"PS_RESEND"</span>) &amp;&amp; atoi(Environment::Get()-&gt;find(<span class="string">"PS_RESEND"</span>)) != <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">int</span> timeout = <span class="number">1000</span>;</span><br><span class="line">    <span class="keyword">if</span> (Environment::Get()-&gt;find(<span class="string">"PS_RESEND_TIMEOUT"</span>)) &#123;</span><br><span class="line">      timeout = atoi(Environment::Get()-&gt;find(<span class="string">"PS_RESEND_TIMEOUT"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    resender_ = <span class="keyword">new</span> Resender(timeout, <span class="number">10</span>, <span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!is_scheduler_) &#123;</span><br><span class="line">    <span class="comment">// start heartbeat thread</span></span><br><span class="line">    heartbeat_thread_ = <span class="built_in">std</span>::unique_ptr&lt;<span class="built_in">std</span>::thread&gt;(</span><br><span class="line">      <span class="keyword">new</span> <span class="built_in">std</span>::thread(&amp;Van::Heartbeat, <span class="keyword">this</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里要注意的是，第22行，这时候当前节点的ID还不知道，等着后续scheduler分配，这里先赋值<code>Node::kEmpty</code>；第41行~49行，表示当前节点第一次向scheduler主动通信的过程，把自身的节点信息放在msg里，发送出去。其中，消息接收者recver=kScheduler; 控制命令为<strong>添加节点</strong>control.cmd=Control::ADD_NODE；而scheduler收到控制命令为<code>Control::ADD_NODE</code>时，会为收到的节点分配ID。这部分后面会详细介绍。</p>
+<p>至此，我们知道每个节点启动时要做的事情，现在回到”邮局”<code>Postoffice::Get()-&gt;Start</code>部分：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> Postoffice::Start(<span class="keyword">const</span> <span class="keyword">char</span>* argv0, <span class="keyword">const</span> <span class="keyword">bool</span> do_barrier) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="comment">// start van</span></span><br><span class="line">  van_-&gt;Start();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// record start time</span></span><br><span class="line">  start_time_ = time(NULL);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// do a barrier here</span></span><br><span class="line">  <span class="keyword">if</span> (do_barrier) Barrier(kWorkerGroup + kServerGroup + kScheduler);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后一步<code>Barrier</code>方法是阻塞操作，直至所有的节点都完成启动。下面分析下这个方法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> Postoffice::Barrier(<span class="keyword">int</span> node_group) &#123;</span><br><span class="line">  <span class="keyword">if</span> (GetNodeIDs(node_group).size() &lt;= <span class="number">1</span>) <span class="keyword">return</span>;</span><br><span class="line">  <span class="comment">// 省略check过程 .... </span></span><br><span class="line">  <span class="built_in">std</span>::unique_lock&lt;<span class="built_in">std</span>::mutex&gt; ulk(barrier_mu_);</span><br><span class="line">  barrier_done_ = <span class="keyword">false</span>;</span><br><span class="line">  Message req;</span><br><span class="line">  req.meta.recver = kScheduler;</span><br><span class="line">  req.meta.request = <span class="keyword">true</span>;</span><br><span class="line">  req.meta.control.cmd = Control::BARRIER;</span><br><span class="line">  req.meta.control.barrier_group = node_group;</span><br><span class="line">  req.meta.timestamp = van_-&gt;GetTimestamp();</span><br><span class="line">  CHECK_GT(van_-&gt;Send(req), <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  barrier_cond_.wait(ulk, [<span class="keyword">this</span>] &#123;</span><br><span class="line">      <span class="keyword">return</span> barrier_done_;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，Barrier函数里，当前节点向scheduler请求<code>Control::BARRIER</code>命令，等待kscheduler直到<code>barrier_done_</code>为true。这个过程用<code>ulk</code>互斥量将<code>barrier_mu_</code>锁住。</p>
+<p>scheduler收到各个节点命令为<code>Control::BARRIER</code>的请求时，它的处理过程如下(<code>src/van.cc Receiving方法</code>)：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Receiving其它功能 ...</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (ctrl.cmd == Control::BARRIER) &#123;</span><br><span class="line">  <span class="keyword">if</span> (msg.meta.request) &#123;   <span class="comment">// scheduler处理过程</span></span><br><span class="line">    <span class="keyword">if</span> (barrier_count_.empty()) &#123;</span><br><span class="line">      barrier_count_.resize(<span class="number">8</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> group = ctrl.barrier_group;</span><br><span class="line">    ++barrier_count_[group];</span><br><span class="line">    PS_VLOG(<span class="number">1</span>) &lt;&lt; <span class="string">"Barrier count for "</span> &lt;&lt; group &lt;&lt; <span class="string">" : "</span> &lt;&lt; barrier_count_[group];</span><br><span class="line">    <span class="keyword">if</span> (barrier_count_[group] ==</span><br><span class="line">        <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt;(Postoffice::Get()-&gt;GetNodeIDs(group).size())) &#123;</span><br><span class="line">      barrier_count_[group] = <span class="number">0</span>;</span><br><span class="line">      Message res;</span><br><span class="line">      res.meta.request = <span class="keyword">false</span>;</span><br><span class="line">      res.meta.control.cmd = Control::BARRIER;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> r : Postoffice::Get()-&gt;GetNodeIDs(group)) &#123;</span><br><span class="line">        res.meta.recver = r;</span><br><span class="line">        res.meta.timestamp = timestamp_++;</span><br><span class="line">        CHECK_GT(Send(res), <span class="number">0</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;  <span class="comment">// 当前节点收到scheduler后的处理</span></span><br><span class="line">    Postoffice::Get()-&gt;Manage(msg);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p><code>barrier_count_</code>是一个size为8的数组，存储每个group对应的node数量，scheduler每收到一个<code>Control::BARRIER</code>请求，都会在相应的group下标上累加<code>++barrier_count_[group]</code>。</p>
+<p>当收到的请求为group的数量等于全局初始化时每个group对应的节点数相同时（即所有的group相关的节点<code>Control::BARRIER</code>请求均已收到）：<code>barrier_count_[group]=static_cast&lt;int&gt;(Postoffice::Get()-&gt;GetNodeIDs(group).size())</code>，这时scheduler将<code>barrier_count_</code>归0，并向所有的请求节点发送<code>Control::BARRIER</code>命令收到信号<code>CHECK_GT(Send(res), 0)</code>。所谓的Barrier阻塞直至所有节点完成启动，核心在于所有计算节点都向scheduler发送<code>BARRIER</code>信号，由scheduler统一控制<strong>节奏</strong>。</p>
+<p>对于当前节点来说，收到scheduler发来的<code>Control::BARRIER</code>命令后（对应的<code>request=false</code>），就知道其它所有节点也完成启动了，此时会执行自己的Manage操作（调用<code>Postoffice::Get()-&gt;Manage(msg)</code>）。我们看Manage的处理逻辑：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> Postoffice::Manage(<span class="keyword">const</span> Message&amp; recv) &#123;</span><br><span class="line">  CHECK(!recv.meta.control.empty());</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">auto</span>&amp; ctrl = recv.meta.control;</span><br><span class="line">  <span class="keyword">if</span> (ctrl.cmd == Control::BARRIER &amp;&amp; !recv.meta.request) &#123;</span><br><span class="line">    barrier_mu_.lock();</span><br><span class="line">    barrier_done_ = <span class="keyword">true</span>;</span><br><span class="line">    barrier_mu_.unlock();</span><br><span class="line">    barrier_cond_.notify_all();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Manage处理逻辑比较简单，就是对变量<code>barrier_done</code>置为true，唤醒其它等待该变量（对象锁）的线程，在启动阶段对应<code>Postoffice::Barrier</code>里面的<code>barrier_cond_.wait(ulk, [this] {return barrier_done_; })</code>。这一步对于所有的非scheduler节点处理逻辑都一样。</p>
+<p>到这里为止，PS整体初始化过程就已经完成了，这里简要概括一下主要工作过程：</p>
+<ul>
+<li>首先，节点信息初始化，包括全局的组ID、节点ID等；</li>
+<li>其次，节点绑定全局ID，scheduler统一分配ID，<code>Control::ADD_NODE</code>信号；</li>
+<li>最后，阻塞过程，由scheduler控制节奏， <code>Control::BARRIER</code>信号；</li>
+</ul>
+<h3 id="3.PS任务启动过程">3. PS任务启动过程</h3>
+
+<p>PS机器学习任务计算过程需要scheduler、worker、server三方节点参与，这三方的计算任务均要启动。我们先看scheduler节点的启动过程。 </p>
+<h4 id="3.1.Scheduler节点启动过程">3.1. Scheduler节点启动过程</h4>
+
+<p>scheduler启动过程比较简单，首先创建一个<code>SimpleApp</code>对象，用于App层面的请求响应处理。具体的请求响应处理逻辑由对应的计算任务决定，与<code>SimpleApp</code>无关，开发者只需要按照约定接口实现自己的请求响应逻辑，然后注册给<code>SimpleApp</code>即可。</p>
+<p>请求响应约定接口：<code>using Handle = std::function&lt;void(const SimpleData&amp; recved, SimpleApp* app)&gt;;</code></p>
+<p>假如开发者实现的请求响应逻辑如下（仅用于示例，与具体项目无关）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> Scheduler::Handle(<span class="keyword">const</span> ps::SimpleData &amp; recved, ps::SimpleApp * app) &#123;</span><br><span class="line">  ps::Message msg;</span><br><span class="line">  msg.meta.head = recved.head;</span><br><span class="line">  msg.meta.body = recved.body;</span><br><span class="line">  msg.meta.timestamp = recved.timestamp;</span><br><span class="line">  msg.meta.request = <span class="keyword">false</span>;</span><br><span class="line">  msg.meta.simple_app = <span class="keyword">true</span>;</span><br><span class="line">  msg.meta.customer_id = scheduler_-&gt;get_customer()-&gt;id();</span><br><span class="line">  msg.meta.recver = recved.sender;</span><br><span class="line">  msg.meta.sender = ps::Postoffice::Get()-&gt;van()-&gt;my_node().id;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> cmd = recved.head;</span><br><span class="line">  <span class="keyword">switch</span>(cmd) &#123;</span><br><span class="line">    <span class="keyword">case</span> signal::METRIC:</span><br><span class="line">      &#123; <span class="comment">// 处理逻辑 ... &#125;</span></span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> signal::WORKER_FINISH:</span><br><span class="line">      &#123; <span class="comment">// 处理逻辑 ... &#125;</span></span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> signal::SERVER_FINISH:</span><br><span class="line">      &#123; <span class="comment">// 处理逻辑 ... &#125;</span></span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      LOG(FATAL) &lt;&lt; <span class="string">"can not recognize cmd."</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建一个<code>SimpleApp</code>对象，并将自定义的请求响应逻辑注册到<code>SimpleApp</code>中，示例如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scheduler_app_.reset(<span class="keyword">new</span> ps::SimpleApp(<span class="number">0</span>));</span><br><span class="line"><span class="comment">// register request processing func</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>::placeholders;</span><br><span class="line">scheduler_app_-&gt;set_request_handle(<span class="built_in">std</span>::bind(&amp;Scheduler::Handle, <span class="keyword">this</span>, _1, _2));</span><br><span class="line">scheduler_app_-&gt;set_response_handle(<span class="built_in">std</span>::bind(&amp;Scheduler::Handle, <span class="keyword">this</span>, _1, _2));</span><br></pre></td></tr></table></figure>
+<p>上述代码可以放在Scheduler任务的构造函数中，在启动Scheduler任务时，只需要创建一下Scheduler任务即可。如何保证Scheduler任务在整个计算过程常驻并能在任务结束时退出？这是可以借助互斥量和条件变量来控制。</p>
+<p>我们重点关注创建一个<code>SimpleApp</code>对象的过程中，需要做哪些事情？</p>
+<p>首先调用<code>SimpleApp</code>一个默认的构造函数，用于初始化请求和响应变量的默认执行逻辑。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="title">SimpleApp</span><span class="params">()</span> : <span class="title">obj_</span><span class="params">(<span class="keyword">nullptr</span>)</span> </span>&#123;</span><br><span class="line">  request_handle_ = [](<span class="keyword">const</span> SimpleData&amp; recved, SimpleApp* app) &#123;</span><br><span class="line">    app-&gt;Response(recved);</span><br><span class="line">  &#125;;</span><br><span class="line">  response_handle_ = [](<span class="keyword">const</span> SimpleData&amp; recved, SimpleApp* app) &#123; &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>obj_</code>变量是<code>SimpleApp</code>的成员变量，需要用“顾客”类－<code>Customer</code>－来创建，创建时需要绑定<code>SimpleApp</code>整体的处理逻辑。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> SimpleApp::SimpleApp(<span class="keyword">int</span> app_id) : SimpleApp() &#123;</span><br><span class="line">  <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>::placeholders;</span><br><span class="line">  obj_ = <span class="keyword">new</span> Customer(app_id, <span class="built_in">std</span>::bind(&amp;SimpleApp::Process, <span class="keyword">this</span>, _1));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中<code>SimpleApp::Process</code>逻辑是固定的，仅需要根据<code>msg.meta.request</code>字段判断是请求还是响应，然后执行开发者自定义的处理逻辑（如果开发者没有注册自定义处理逻辑，会调用默认逻辑）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="keyword">void</span> SimpleApp::Process(<span class="keyword">const</span> Message&amp; msg) &#123;</span><br><span class="line">  SimpleData recv;</span><br><span class="line">  recv.sender    = msg.meta.sender;</span><br><span class="line">  recv.head      = msg.meta.head;</span><br><span class="line">  recv.body      = msg.meta.body;</span><br><span class="line">  recv.timestamp = msg.meta.timestamp;</span><br><span class="line">  <span class="keyword">if</span> (msg.meta.request) &#123;</span><br><span class="line">    CHECK(request_handle_);</span><br><span class="line">    request_handle_(recv, <span class="keyword">this</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    CHECK(response_handle_);</span><br><span class="line">    response_handle_(recv, <span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此外，<code>SimpleApp</code>中还提供了<code>Request</code>和<code>Response</code>接口，供开发者用于节点之间的消息请求和响应反馈。接口格式为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="keyword">int</span> SimpleApp::Request(<span class="keyword">int</span> req_head, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; req_body, <span class="keyword">int</span> recv_id) &#123;</span><br><span class="line">  <span class="comment">// setup message</span></span><br><span class="line">  Message msg;</span><br><span class="line">  <span class="comment">// 省略封装message过程 ...</span></span><br><span class="line">  <span class="comment">// send</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> r : Postoffice::Get()-&gt;GetNodeIDs(recv_id)) &#123;</span><br><span class="line">    msg.meta.recver = r;</span><br><span class="line">    Postoffice::Get()-&gt;van()-&gt;Send(msg);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> ts;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">void</span> SimpleApp::Response(<span class="keyword">const</span> SimpleData&amp; req, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; res_body) &#123;</span><br><span class="line">  <span class="comment">// setup message</span></span><br><span class="line">  <span class="comment">// 省略封装message过程 ....</span></span><br><span class="line">  <span class="comment">// send</span></span><br><span class="line">  Postoffice::Get()-&gt;van()-&gt;Send(msg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面我们重点分析创建并绑定了<code>SimpleApp::Process</code>的顾客<code>Customer</code>对象<code>obj_</code>干什么用的？  </p>
+<p>我们先看<code>obj_</code>在<code>SimpleApp</code>类中都做了什么？</p>
+<ul>
+<li><code>int ts = obj_-&gt;NewRequest(recv_id);</code>：为新请求生成一个时间戳；</li>
+<li><code>msg.meta.customer_id = obj_-&gt;id();</code>：在Request／Response中填充<code>customer_id</code>信息；</li>
+<li><code>obj_-&gt;WaitRequest(timestamp);</code>：同步请求操作，以ts为key；</li>
+</ul>
+<p>一句话概括<code>Customer</code>类的功能：<strong>针对每一次请求／响应进行控制</strong>， 包括WaitRequest，NewRequest，NumResponse，Receiving等。Receiving方法的功能是等待取出消息队列<code>recv_queue_</code>中的消息供<code>Customer</code>中的<code>recv_handle_</code>“消费”，而<code>recv_handle_</code>是在创建<code>SimpleApp</code>或<code>KVWorker</code>或<code>KVServer</code>时传入<code>Customer</code>构造函数中的。</p>
+<p>尤其要说明的是：消息队列<code>recv_queue_</code>中的消息是由货车<code>Van</code>通过调用<code>Customer::Accept</code>函数“放到”队列中的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> Van::Receiving() &#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span>* heartbeat_timeout_val = Environment::Get()-&gt;find(<span class="string">"PS_HEARTBEAT_TIMEOUT"</span>);</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">int</span> heartbeat_timeout = heartbeat_timeout_val ? atoi(heartbeat_timeout_val) : kDefaultHeartbeatInterval;</span><br><span class="line">  Meta nodes;  <span class="comment">// for scheduler usage</span></span><br><span class="line">  <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">    Message msg;</span><br><span class="line">    <span class="keyword">int</span> recv_bytes = RecvMsg(&amp;msg);</span><br><span class="line">    <span class="comment">// 省略 ....</span></span><br><span class="line">    <span class="comment">// duplicated message</span></span><br><span class="line">    <span class="keyword">if</span> (resender_ &amp;&amp; resender_-&gt;AddIncomming(msg)) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!msg.meta.control.empty()) &#123;  <span class="comment">// Control信号</span></span><br><span class="line">      <span class="comment">// do some management</span></span><br><span class="line">      <span class="keyword">auto</span>&amp; ctrl = msg.meta.control;</span><br><span class="line">      <span class="comment">// 省略针对控制信号逻辑的处理 ...</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;   <span class="comment">// 非Control信息，即数据信号</span></span><br><span class="line">      CHECK_NE(msg.meta.sender, Meta::kEmpty);</span><br><span class="line">      CHECK_NE(msg.meta.recver, Meta::kEmpty);</span><br><span class="line">      CHECK_NE(msg.meta.customer_id, Meta::kEmpty);</span><br><span class="line">      <span class="keyword">int</span> id = msg.meta.customer_id;</span><br><span class="line">      <span class="keyword">auto</span>* obj = Postoffice::Get()-&gt;GetCustomer(id, <span class="number">5</span>);</span><br><span class="line">      CHECK(obj) &lt;&lt; <span class="string">"timeout (5 sec) to wait App "</span> &lt;&lt; id &lt;&lt; <span class="string">" ready"</span>;</span><br><span class="line">      obj-&gt;Accept(msg);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>至此，我们搞清了scheduler任务节点的工作。这里在梳理下思路：</p>
+<ul>
+<li>step1: 创建一个<code>SimpleApp</code>，过程包括用<code>SimpleApp::Process</code>方法创建一个<code>Customer</code>对象，<code>Process</code>会调用开发者自定义的请求／响应处理逻辑；</li>
+<li>step2: 当向其它节点发送等待请求时，<code>Customer::Receiving</code>方法会循环取出消息队列中的消息（message），该消息可能是Request类型或者Response类型，最后都会交由<code>recv_handler_</code>来处理（处理逻辑由用户注册）。</li>
+<li>step3: 消息队列中的消息是由<code>Van::Receiving</code>收到后直接给到指定顾客手里（调用<code>Customer::Accept</code>方法），由顾客调用用户自定义的Handle来进行进一步“消费”。</li>
+<li>step4: 消息处理完后，要向对方发送响应。该响应要么是ack消息（应答），要么是对方请求的数据消息。</li>
+</ul>
+<p>简单描述消息传输过程：</p>
+<p>$$<br>\text{Van::Receiving} \xrightarrow{\text{msg}} \text{Customer::Accept} \xrightarrow{\text{msg}} \text{recv_queue_.WaitAndPop} \xrightarrow{\text{msg}} \text{recv_handle_} \xrightarrow{\text{(updated) msg}} \text{Response/Send}<br>$$</p>
+<h4 id="3.2.Server节点启动过程">3.2. Server节点启动过程</h4>
+
+<p>Server节点启动过程与Scheduler节点启动非常类似，最大的区别在于后者用<code>SimpleApp</code>来创建对象，Server节点启动用的是<code>KVServer</code>来创建对象。从<code>KVServer</code>的实现可以看到，<code>KVServer</code>继承了<code>SimpleApp</code>，在子类中基础上添加Server节点的逻辑，主要是与Worker节点信息交互方面的处理逻辑（<code>pull/push</code>操作）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Val&gt;</span><br><span class="line"><span class="keyword">class</span> KVServer : <span class="keyword">public</span> SimpleApp &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">KVServer</span><span class="params">(<span class="keyword">int</span> app_id)</span> : <span class="title">SimpleApp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>::placeholders;</span><br><span class="line">    obj_ = <span class="keyword">new</span> Customer(app_id, <span class="built_in">std</span>::bind(&amp;KVServer&lt;Val&gt;::Process, <span class="keyword">this</span>, _1));</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">virtual</span> ~KVServer() &#123; <span class="keyword">delete</span> obj_; obj_ = <span class="keyword">nullptr</span>; &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">using</span> ReqHandle = <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(<span class="keyword">const</span> KVMeta&amp; req_meta,</span><br><span class="line">                                       <span class="keyword">const</span> KVPairs&lt;Val&gt;&amp; req_data,</span><br><span class="line">                                       KVServer* server)&gt;;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">set_request_handle</span><span class="params">(<span class="keyword">const</span> ReqHandle&amp; request_handle)</span> </span>&#123;</span><br><span class="line">    CHECK(request_handle) &lt;&lt; <span class="string">"invalid request handle"</span>;</span><br><span class="line">    request_handle_ = request_handle;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Response</span><span class="params">(<span class="keyword">const</span> KVMeta&amp; req, <span class="keyword">const</span> KVPairs&lt;Val&gt;&amp; res = KVPairs&lt;Val&gt;()</span>)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="comment">/** \brief internal receive handle */</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Process</span><span class="params">(<span class="keyword">const</span> Message&amp; msg)</span></span>;</span><br><span class="line">  <span class="comment">/** \brief request handle */</span></span><br><span class="line">  ReqHandle request_handle_;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，<code>KVServer</code>与<code>SimpleApp</code>很像，构造函数中都会创建一个<code>Customer</code>类，用于处理每一次的<code>pull</code>/<code>push</code>请求。<code>Server&lt;Val&gt;::Process</code>方法中的<code>request_handle_</code>仍由用户自定义并注册给<code>KVServer</code>。</p>
+<blockquote>
+<p>在<code>SimpleApp</code>中，<code>Customer</code>用于处理<code>request</code>/<code>response</code>请求。</p>
+</blockquote>
+<p><code>KVServer</code>中的<code>Customer</code>对象工作过程在Scheduler节点启动过程中已经详细介绍，这里不在赘述。</p>
+<p>值得注意的是，<code>KVServer</code>在整个任务中消息处理主要分两种：</p>
+<ol>
+<li><code>simple_app</code>类型消息，多是控制命令消息，用于系统中节点之间的协同工作，对应<code>Request/Response</code>操作；</li>
+<li>非<code>simple_app</code>类型消息，多是Server与Worker之间的数据通信，数据封装在<code>KVPairs</code>中，对应<code>Pull/Push</code>操作；</li>
+</ol>
+<h4 id="3.3.Worker节点启动过程">3.3. Worker节点启动过程</h4>
+
+<p>Worker节点的启动与Server的区别在于前者是调用<code>KVWorker</code>来完成初始化。<code>KVWorker</code>相比<code>SimpleApp</code>和<code>KVServer</code>，主要多了两个关键操作：<code>Pull</code>和<code>Push</code>.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Val&gt;</span><br><span class="line"><span class="keyword">class</span> KVWorker : <span class="keyword">public</span> SimpleApp &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="keyword">using</span> SimpleApp::obj_;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">KVWorker</span><span class="params">(<span class="keyword">int</span> app_id)</span> : <span class="title">SimpleApp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>::placeholders;</span><br><span class="line">    slicer_ = <span class="built_in">std</span>::bind(&amp;KVWorker&lt;Val&gt;::DefaultSlicer, <span class="keyword">this</span>, _1, _2, _3);</span><br><span class="line">    obj_ = <span class="keyword">new</span> Customer(app_id, <span class="built_in">std</span>::bind(&amp;KVWorker&lt;Val&gt;::Process, <span class="keyword">this</span>, _1));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">Push</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Key&gt;&amp; keys, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Val&gt;&amp; vals, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; lens = &#123;&#125;,</span><br><span class="line">           <span class="keyword">int</span> cmd = 0, <span class="keyword">const</span> Callback&amp; cb = <span class="keyword">nullptr</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ZPush(SArray&lt;Key&gt;(keys), SArray&lt;Val&gt;(vals), SArray&lt;<span class="keyword">int</span>&gt;(lens), cmd, cb);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">Pull</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Key&gt;&amp; keys, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Val&gt;* vals, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;* lens = <span class="keyword">nullptr</span>,</span><br><span class="line">           <span class="keyword">int</span> cmd = 0, <span class="keyword">const</span> Callback&amp; cb = <span class="keyword">nullptr</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Pull_(SArray&lt;Key&gt;(keys), vals, lens, cmd, cb);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 省略 ...</span></span><br></pre></td></tr></table></figure>
+<p>总结：scheduler、server、worker任务启动</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>角色</th>
+<th>初始化对象</th>
+<th>任务注册</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>scheduler</td>
+<td><code>SimpleApp</code></td>
+<td><code>Request/Response</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>server</td>
+<td><code>KVServer</code></td>
+<td><code>Request/Response</code>和<code>ReqHandle</code></td>
+<td><code>ReqHandle</code>用于Push/Pull处理</td>
+</tr>
+<tr>
+<td>3</td>
+<td>worrker</td>
+<td><code>KVWorker</code></td>
+<td><code>Request/Response</code></td>
+<td><code>KVWorker</code>提供了<code>Push/Pull操作</code></td>
+</tr>
+</tbody>
+</table>
+<p>Worker节点启动过程与Scheduler、Server一样。唯一的区别在于，Worker启动时不需要自定义请求处理逻辑。<strong>对于PS机器学习任务来讲，Worker端的行为都是主动行为，比如数据通信则主动向Server端执行Pull/Push请求，（控制）消息传输向Server端或Scheduler执行Request/Response请求。</strong> </p>
+<p>至此，我们把PS机器学习任务中的节点启动过程以及内部的消息传递过程介绍完毕。下面我们重点关注任务启动之后的计算过程，节点之间是如何“对话”的？</p>
+<h3 id="4.PS节点通信与消息处理">4. PS节点通信与消息处理</h3>
+
+<p>PS机器学习任务启动之后，计算过程中节点之间是如何协同工作的？协同工作主要依靠通信来完成。不同节点类型承载着不同的任务，分布式系统和计算逻辑要把相应的消息发送给相应的节点去执行。</p>
+<p>下面我们分别看Worker、Server、Scheduler两两之间的具体通信过程。</p>
+<h4 id="4.1.Worker与Server通信">4.1. Worker与Server通信</h4>
+
+<h4 id="4.2.Worker与Scheduler通信">4.2. Worker与Scheduler通信</h4>
+
+<h4 id="4.3.Server与Scheduler通信">4.3. Server与Scheduler通信</h4>
+
+<h3 id="5.PS系统结束过程">5. PS系统结束过程</h3>
+
+<p>上面我们详细介绍了参数服务器系统启动、节点任务启动以及计算过程中如何通信和处理消息的。当PS完成整个计算过程时，每个节点是如何结束并退出的呢？</p>
+<p>我们知道在节点任务启动时，里面用<code>ps::RegisterExitCallback()</code>方法来注册任务退出时用户自定义的方法（退出时的回调函数）。各个节点的退出回调函数注册如下（示例）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ps::RegisterExitCallback([scheduler]() &#123; <span class="keyword">delete</span> scheduler; &#125;);</span><br><span class="line">ps::RegisterExitCallback([server]() &#123; <span class="keyword">delete</span> server; &#125;);</span><br><span class="line">ps::RegisterExitCallback([worker]() &#123; <span class="keyword">delete</span> worker; &#125;);</span><br></pre></td></tr></table></figure>
+<p>在调用回调函数之前，PS还做了一些事情，我们还是从<code>PS::Finalize()</code>开始。<code>PS::Finalize()</code>调用了<code>Postoffice::Get()-&gt;Finalize(do_barrier)</code>，参数<code>do_barrier</code>指的是<strong>是否需要等待直至所有节点都结束（阻塞过程）。</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> Postoffice::Finalize(<span class="keyword">const</span> <span class="keyword">bool</span> do_barrier) &#123;</span><br><span class="line">  <span class="keyword">if</span> (do_barrier) Barrier(kWorkerGroup + kServerGroup + kScheduler);</span><br><span class="line">  van_-&gt;Stop();</span><br><span class="line">  <span class="keyword">if</span> (exit_callback_) exit_callback_();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果<code>do_barrier</code>为true，执行阻塞函数<code>Barrier</code>，等待全部节点完成计算，然后进入终止“货车”的功能。参数的含义是覆盖全部计算节点。该过程与<code>PS::Start</code>中的逻辑是一样的。</p>
+<p>终止“货车”的过程如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ZMQVan::Stop</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Stop</span><span class="params">()</span> override </span>&#123;</span><br><span class="line">    PS_VLOG(<span class="number">1</span>) &lt;&lt; my_node_.ShortDebugString() &lt;&lt; <span class="string">" is stopping"</span>;</span><br><span class="line">    Van::Stop();</span><br><span class="line">    <span class="comment">// close sockets</span></span><br><span class="line">    <span class="keyword">int</span> linger = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> rc = zmq_setsockopt(receiver_, ZMQ_LINGER, &amp;linger, <span class="keyword">sizeof</span>(linger));</span><br><span class="line">    CHECK(rc == <span class="number">0</span> || errno == ETERM);</span><br><span class="line">    CHECK_EQ(zmq_close(receiver_), <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; it : senders_) &#123;</span><br><span class="line">      <span class="keyword">int</span> rc = zmq_setsockopt(it.second, ZMQ_LINGER, &amp;linger, <span class="keyword">sizeof</span>(linger));</span><br><span class="line">      CHECK(rc == <span class="number">0</span> || errno == ETERM);</span><br><span class="line">      CHECK_EQ(zmq_close(it.second), <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    zmq_ctx_destroy(context_);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">void</span> Van::Stop() &#123;</span><br><span class="line">  <span class="comment">// stop threads</span></span><br><span class="line">  Message <span class="built_in">exit</span>;</span><br><span class="line">  <span class="built_in">exit</span>.meta.control.cmd = Control::TERMINATE;</span><br><span class="line">  <span class="built_in">exit</span>.meta.recver = my_node_.id;</span><br><span class="line">  SendMsg(<span class="built_in">exit</span>);</span><br><span class="line">  receiver_thread_-&gt;join();</span><br><span class="line">  <span class="keyword">if</span> (!is_scheduler_) heartbeat_thread_-&gt;join();</span><br><span class="line">  <span class="keyword">if</span> (resender_) <span class="keyword">delete</span> resender_;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于van默认由<code>zmq</code>初始化的，它首先调用父类的Stop方法，结束任务层面对象，然后结束自己的通信层面对象。父类Stop方法首先向自己发送命令为<code>Control::TERMINATE</code>的消息，目的是从<code>Van::Receiving</code>消息接收函数中的<code>while(true)</code>跳出来。然后释放接收线程，如果当前节点是scheduler节点的话，还要释放心跳线程<code>heartbeat_thread_</code>。Van中还有一个<code>resender</code>对象（消息重发和监控告警用），此时也要释放掉。</p>
+<p><code>Postoffice::Finalize</code>方法的最后一步是执行用户自定义的退出回调函数<code>exit_callback_()</code>。</p>
+<p>至此，PS系统的结束过程介绍完了。 </p>
+<h3 id="6.PS心跳管理与系统容错">6. PS心跳管理与系统容错</h3>
+
+<h3 id="7.PS系统与Yarn环境交互">7. PS系统与Yarn环境交互</h3>
+
+
+<table>
+<thead>
+<tr>
+<th>节点角色</th>
+<th>rank</th>
+<th>全局ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>worker</td>
+<td><code>0 ~ num_worker_</code></td>
+<td>从9开始的奇数</td>
+</tr>
+<tr>
+<td>server</td>
+<td><code>0 ~ num_server_</code></td>
+<td>从8开始的偶数</td>
+</tr>
+</tbody>
+</table>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/OpenMIT/">OpenMIT</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/PSScheduler/">PSScheduler</a><a href="/tags/PSServer/">PSServer</a><a href="/tags/PSWorker/">PSWorker</a><a href="/tags/Parameter-Server/">Parameter Server</a><a href="/tags/Pull/">Pull</a><a href="/tags/Push/">Push</a><a href="/tags/参数服务器/">参数服务器</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.52caml.com/openmit/openmit-chapter2-parameter-server/" data-title="第02章：OpenMIT-系统架构 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/reinforcement-learning/chapter3-markov-decision-process/" title="第03章：马尔可夫决策过程">
+  <strong>上一篇：</strong><br/>
+  <span>
+  第03章：马尔可夫决策过程</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/reinforcement-learning/chapter1-reinforcement-learning-introduction/"  title="第01章：强化学习介绍">
+ <strong>下一篇：</strong><br/> 
+ <span>第01章：强化学习介绍
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">0. 写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.参数服务器架构"><span class="toc-number">2.</span> <span class="toc-text">1. 参数服务器架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.PS系统启动过程"><span class="toc-number">3.</span> <span class="toc-text">2. PS系统启动过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.PS任务启动过程"><span class="toc-number">4.</span> <span class="toc-text">3. PS任务启动过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3.1.Scheduler节点启动过程"><span class="toc-number">4.1.</span> <span class="toc-text">3.1. Scheduler节点启动过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.2.Server节点启动过程"><span class="toc-number">4.2.</span> <span class="toc-text">3.2. Server节点启动过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.3.Worker节点启动过程"><span class="toc-number">4.3.</span> <span class="toc-text">3.3. Worker节点启动过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.PS节点通信与消息处理"><span class="toc-number">5.</span> <span class="toc-text">4. PS节点通信与消息处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4.1.Worker与Server通信"><span class="toc-number">5.1.</span> <span class="toc-text">4.1. Worker与Server通信</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.2.Worker与Scheduler通信"><span class="toc-number">5.2.</span> <span class="toc-text">4.2. Worker与Scheduler通信</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.3.Server与Scheduler通信"><span class="toc-number">5.3.</span> <span class="toc-text">4.3. Server与Scheduler通信</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.PS系统结束过程"><span class="toc-number">6.</span> <span class="toc-text">5. PS系统结束过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6.PS心跳管理与系统容错"><span class="toc-number">7.</span> <span class="toc-text">6. PS心跳管理与系统容错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7.PS系统与Yarn环境交互"><span class="toc-number">8.</span> <span class="toc-text">7. PS系统与Yarn环境交互</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/OpenMIT/" title="OpenMIT">OpenMIT<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式机器学习/" title="分布式机器学习">分布式机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/强化学习与智能决策/" title="强化学习与智能决策">强化学习与智能决策<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/概率与统计/" title="概率与统计">概率与统计<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/深入浅出机器学习/" title="深入浅出机器学习">深入浅出机器学习<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Agent/" title="Agent">Agent<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/参数服务器/" title="参数服务器">参数服务器<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Dynamic-Programming/" title="Dynamic Programming">Dynamic Programming<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DP/" title="DP">DP<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Evalation/" title="Policy Evalation">Policy Evalation<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Improvement/" title="Policy Improvement">Policy Improvement<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Iteration/" title="Policy Iteration">Policy Iteration<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Value-Iteration/" title="Value Iteration">Value Iteration<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Greedy-Policy/" title="Greedy Policy">Greedy Policy<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/连续随机变量/" title="连续随机变量">连续随机变量<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/MDP/" title="MDP">MDP<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Markov-Decision-Process/" title="Markov Decision Process">Markov Decision Process<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RL/" title="RL">RL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Environments/" title="Environments">Environments<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/GD/" title="GD">GD<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FTRL/" title="FTRL">FTRL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AdaGrad/" title="AdaGrad">AdaGrad<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AdaDelta/" title="AdaDelta">AdaDelta<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Adam/" title="Adam">Adam<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, Welcome to CAML technology sharing platform.  <br/>
+			I&#39;m Zhou Yong, engaged in algorithms work on computational advertising and machine learning.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1707438033" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/ComputationalAds" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zhouyongsdzh@foxmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="ZhouYong">ZhouYong</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>
