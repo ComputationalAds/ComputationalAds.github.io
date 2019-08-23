@@ -81,6 +81,322 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/head_first_ml/ml-chapter5-bayes-based-family/" title="第05章：深入浅出ML之Bayes-Based家族" itemprop="url">第05章：深入浅出ML之Bayes-Based家族</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-27T14:34:13.000Z" itemprop="datePublished"> 发表于 2015-11-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ul>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 2015-11-15</li>
+<li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
+</ul>
+<hr>
+<p><strong>内容列表</strong></p>
+<ul>
+<li>写在前面</li>
+<li>判别模型与生成模型</li>
+<li>高斯判别分析</li>
+<li>朴素贝叶斯算法</li>
+</ul>
+<p><br></p>
+<h3 id="写在前面">写在前面</h3><hr>
+<p>本章虽然是谈贝叶斯，但是先不从贝叶斯开始说起。先介绍有监督学习中两大类经典的模型：判别模型与生成模型。</p>
+<p><br></p>
+<h3 id="判别模型与生成模型">判别模型与生成模型</h3><hr>
+<p>实际上，机器学习的有监督学习的所有模型大体上可以划分为两大类：一类是判别模型，另一类是生成模型。</p>
+<ul>
+<li><p>判别模型</p>
+<p>  判别模型主要是根据特征值求结果的概率，形式化表示为\(P(y|x;w)\)（比如LR模型）。在参数\(w\)确定的情况下，求解<strong>条件概率\(P(y|x)\)</strong>。</p>
+<blockquote>
+<p>举例：</p>
+<p>比如要确定一只羊是山羊还是绵羊，用判别模型的方法是：先从历史数据中学习到模型，然后通过提取这只羊的特征来预测出这只羊是山羊的概率和绵羊的概率（即条件概率\(P(y|x)\)）。 </p>
+</blockquote>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>常见的判别模型：</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>线性回归、对数回归、线性判别分析、SVM、Boosting、CRF、神经网络等</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>生成模型</p>
+<p>  延续判别模型中的例子，换一种思路考虑：</p>
+<blockquote>
+<p>我们可以根据山羊的特征，首先学习出一个山羊模型；然后根据绵羊的特征学习出一个绵羊模型。然后从某一只羊中提取特征，放到山羊模型中看概率是多少，再放到绵羊模型中看概率是多少，哪个大就是哪个。</p>
+</blockquote>
+<p>  上面描述形式化表示为\(P(x|y)\)（包括\(P(y)\)），\(y\)是模型结果，\(x\)是特征（向量）。利用贝叶斯公式可以发现两个模型的关联性：</p>
+<p>  $$<br>  P(y|x) = \frac{P(x,y)}{P(x)} = \frac{P(x|y) \cdot P(y)}{P(x)} \qquad(ml.1.5.1)<br>  $$</p>
+<blockquote>
+<p>在生成模型里面，由于我们关系的是\(y\)的离散值结果中哪个概率大（比如山羊概率和绵羊概率哪个大），而不是关心具体的概率，因此上式可改写为：</p>
+<p>$$<br>  \begin{align}<br>  \arg \max_{y} P(y|x) &amp; = \arg \max_{y} \frac{P(x|y) P(y)}{P(x)} \quad(1) \\<br>  &amp; = \arg \max_{y} P(x|y) P(y)    \;\quad(2)<br>  \end{align} \qquad(n.ml.1.5.1)<br>  $$</p>
+<p>其中，\(P(y)\)称为先验概率，\(P(y|x)\)是后验概率，\(P(x|y)\)为似然函数。公式\((1)\)等价于\((2)\)是因为对于离散值\(y\)来说，\(P(x)\)都是一样的。</p>
+</blockquote>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>常见的生成模型：</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>隐马尔可夫模型、朴素贝叶斯模型、高斯混合模型、主题模型（LDA等）、受限波尔斯曼机等</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>联系与区别<ul>
+<li>由于\(P(x,y) = P(x|y) \cdot P(y)\)，判别模型求的是条件概率，生成模型求的是联合概率。</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>概率论的乘法法则</li>
+<li>流派之争：频率学派与贝叶斯学派</li>
+<li>先验概率与后验概率</li>
+</ol>
+<p><br></p>
+<h3 id="高斯判别分析">高斯判别分析</h3><hr>
+<p>这里在介绍朴素贝叶斯算法之前，先介绍一下高斯判别分析模型 (Gaussian Discriminant Analysis)。</p>
+<ul>
+<li><p>多变量正态分布</p>
+<p>  多变量正态分布（又称多值正态分布）描述的是\(n\)维随机变量的分布情况。单变量正态分布中的期望\(\mu\)在这里变成了向量，\(\sigma\)也变成了矩阵\(\Sigma\)，记作\(N(\mu,\Sigma)\)。</p>
+<p>  假设有\(n\)个随机变量\(X_1, X_2, \cdots, X_n\)。\(\mu\)的第\(i\)个分量是\(E(X_i)\)，其中\(\Sigma_{ii}=Var(X_i)\)，\(\Sigma_{ij} = Cov(X_i, X_j)\)。多变量概率分布对应的概率密度函数如下：</p>
+<p>  $$<br>  P(x; \mu, \Sigma) = \frac{1}{(2\pi)^{\frac{n}{2}} \cdot |\Sigma|^{\frac{1}{2}}} \exp \left(-\frac{1}{2} (x-\mu)^T \Sigma^{-1} (x-\mu) \right) \qquad(ml.1.5.2)<br>  $$ </p>
+<p>  其中\(|\Sigma|\)是\(\Sigma\)的行列式，\(\Sigma\)是协方差矩阵，并且是对称半正定的。</p>
+<p>  （二维空间示意图）</p>
+<blockquote>
+<p>注：\(\mu\)决定中心位置，\(\Sigma\)决定投影椭圆的朝向和大小。</p>
+</blockquote>
+</li>
+<li><p>高斯判别分析模型</p>
+<p>  如果输入特征\(x\)是连续性随机变量，那么可以使用高斯判别分析模型来确定\(P(x|y)\)。模型如下：</p>
+<p>  $$<br>  \begin{align}<br>  y &amp; \thicksim Bernoulli(\phi) \\<br>  x|y=0 &amp; \thicksim \mathcal{N}(\mu_0, \Sigma) \\<br>  x|y=1 &amp; \thicksim \mathcal{N}(\mu_1, \Sigma)<br>  \end{align}  \qquad\qquad(ml.1.5.3)<br>  $$</p>
+<p>  其中，输出结果\(y\)服从伯努利分布（\(\phi\)为参数）；在给定的模型下，特征（向量）符合多变量高斯分布。</p>
+<blockquote>
+<p>回到上面山羊与绵羊的例子，在山羊模型下，它的体征如胡须长度、角大小、毛长度等连续型变量符合高斯分布，他们组成的特征向量符合多变量高斯分布。</p>
+</blockquote>
+<p>  下面给出该模型中涉及到的概率密度函数：</p>
+<p>  $$<br>  \begin{align}<br>  P(y) &amp; = \phi^{y} (1-\phi)^{1-y} \\<br>  P(x|y=0) &amp; = \frac{1}{(2\pi)^{\frac{n}{2}} \cdot |\Sigma|^{\frac{1}{2}}} \exp \left( -\frac{1}{2} (x-\mu_0)^T \Sigma^{-1} (x-\mu_0) \right) \\<br>  P(x|y=1) &amp; = \frac{1}{(2\pi)^{\frac{n}{2}} \cdot |\Sigma|^{\frac{1}{2}}} \exp \left( -\frac{1}{2} (x-\mu_1)^T \Sigma^{-1} (x-\mu_1) \right) \\<br>  \end{align}  \quad(ml.1.5.4)<br>  $$</p>
+<p>  最大似然估计（对数似然）公式：</p>
+<p>  $$<br>  \begin{align}<br>  \ell(\phi, \mu_0, \mu_1, \Sigma) &amp; = \log \prod_{i=1}^{m} P(x^{(i)}, y^{(i)}; \phi, \mu_0, \mu_1, \Sigma) \\<br>  &amp; = \log \prod_{i=1}^{m} P(x^{(i)}|y^{(i)};\mu_0, \mu_1, \Sigma) \cdot P(y^{(i)}; \phi)<br>  \end{align} \qquad(ml.1.5.5)<br>  $$</p>
+<blockquote>
+<p>\(m\)表示样本数，这里有两个\(\mu\)，表示在不同的结果模型下，特征均值不同。但我们假设协方差相同。反映在图形上表现为：不同模型中心位置不同，但形状相同。这样就可以用直线来进行分隔判别。</p>
+</blockquote>
+<p>  将\((ml.1.5.4)\)带入\((ml.1.5.5)\)，求导后，得到参数估计公式：</p>
+<p>  $$<br>  \begin{align}<br>  \phi &amp; = \frac{1}{m} \sum_{i=1}^{m} 1\{y^{(i)}=1\} \qquad\qquad(1)\\<br>  \mu_0 &amp; = \frac{\sum_{i=1}^{m} 1\{y^{(i)}=0\}x^{(i)}} {\sum_{i=1}^{m} 1\{y^{(i)}=0\}} \quad\qquad(2) \\<br>  \mu_1 &amp; = \frac{\sum_{i=1}^{m} 1\{y^{(i)}=1\}x^{(i)}} {\sum_{i=1}^{m} 1\{y^{(i)}=1\}} \quad\qquad(3) \\<br>  \Sigma &amp; = \frac{1}{m} \sum_{i=1}^{m} (x^{(i)} - \mu_{y^{(i)}}) (x^{(i)} - \mu_{y^{(i)}})^T \quad(4)<br>  \end{align}  \qquad(ml.1.5.6)<br>  $$</p>
+<p>  其中，\(\phi\)是训练样本中结果\(y=1\)的样本占比；\(\mu_0\)和\(\mu_1\)分别表示\(y=0\)和\(y=1\)的样本中特征均值；\(\Sigma\)是样本特征方差均值。</p>
+<p>  （高斯判别分析模型 示意图）</p>
+</li>
+<li><p>高斯判别分析（GDA）与LR的关系</p>
+<blockquote>
+<p>如果将GDA用条件概率方式表示的话，可表示为：</p>
+<p>  $$<br>  P(y=1|x; \phi, \mu_0, \mu_1, \Sigma) \qquad\quad(n.ml.1.5.2)<br>  $$</p>
+<p>\(y\)是\(x\)的函数，其中\(\phi, \mu_0, \mu_1, \Sigma\)都是参数。我们进一步推导，可得：</p>
+<p>  $$<br>  P(y=1|x; \phi, \mu_0, \mu_1, \Sigma) = \frac{1}{1+\exp(-w^Tx)} \qquad(n.ml.1.5.3)<br>  $$</p>
+<p>这里\(w\)是\(\phi, \mu_0, \mu_1, \Sigma\)的函数。恰好公式\((n.ml.1.5.3)\)是LR模型的表达式。</p>
+</blockquote>
+<p>  总结如下：<strong>如果P(x|y)符合多变量高斯分布，那么P(y|x)符合Logisti回归模型</strong>。反之不成立，因为GDA有着更强的假设条件和约束。</p>
+<blockquote>
+<p>如果我们认定训练数据满足多变量高斯分布，那么GDA能够在训练集上是最好的模型。然而，我们往往事先并不知道训练数据满足什么样的分布，不能做很强的假设。<strong>Logistic回归的条件假设要弱于GDA，因此更多时候采用LR方法。</strong></p>
+<p>例如，训练数据满足泊松分布，\(x|y=0 \thicksim Poisson(\lambda_0); \; x|y=1 \thicksim Poisson(\lambda_1)\)。那么可以得到\(P(y|x)\)也是Logistic回归模型。（此时如果采用GDA，效果就会比较差，因此训练样本的特征分布是泊松分布，非多变量高斯分布。）</p>
+</blockquote>
+</li>
+</ul>
+<p><br></p>
+<h3 id="朴素贝叶斯">朴素贝叶斯</h3><hr>
+<p><br></p>
+<h4 id="朴素贝叶斯模型">朴素贝叶斯模型</h4><hr>
+<p>在高斯判别分析中，我们要求特征向量\(x\)是连续型的实数向量。如果\(x\)是离散型向量的话，可以考虑采用朴素贝叶斯的分类方法。</p>
+<ul>
+<li><p>多项式分布（Multinomial Distribution）</p>
+<blockquote>
+<p>这里以经典的邮件分类（文本分类的一种应用）为例，假如邮件要分为两类：垃圾邮件和正常邮件。采用最简单的特征描述方法，首先要找一个词库，然后将每封邮件中的内容表示成一个向量（根据词库进行过滤后），向量中每一维都是词库中的一个词的0/1值（1表示该词在词库中出现，0表示未出现）。</p>
+<p>比如一封邮件中出现了“的”和“打折”，没有出现“通知”，“提交”，“预约”等，那么形式化表示为：</p>
+<p>  $$<br>  \phi(x) =<br>  \begin{equation}<br>  \left[</p>
+<pre><code><span class="string">\begin{array}{cc}</span>
+    <span class="number">1</span><span class="string">\\</span>
+    <span class="number">0</span> <span class="string">\\</span>
+    <span class="string">\vdots</span> <span class="string">\\</span>
+    <span class="number">1</span> <span class="string">\\</span>
+    <span class="string">\vdots</span> <span class="string">\\</span>
+    <span class="number">0</span> <span class="string">\\</span>
+<span class="string">\end{array}</span>
+</code></pre><p>  \right] \; \leftarrow \;<br>  \left[</p>
+<pre><code><span class="string">\begin{array}{cc}</span>
+    的<span class="string">\\</span>
+    提交 <span class="string">\\</span>
+    <span class="string">\vdots</span> <span class="string">\\</span>
+    打折 <span class="string">\\</span>
+    <span class="string">\vdots</span> <span class="string">\\</span>
+    通知 <span class="string">\\</span>
+<span class="string">\end{array}</span>
+</code></pre><p>  \right]<br>  \end{equation} \qquad(exp.ml.1.5.1)<br>  $$</p>
+<p>假设词库中有10000个词，那么\(x\)是10000维的。</p>
+</blockquote>
+<p>  此时如果要建立多项式分布模型，对该问题来说，就是把每封邮件看作一次随机试验，那么结果的可能性就有\(x^{10000}\)种。(意味着参数\(p_i\)有\(x^{10000}\)个，参数太多，不可能直接用该思路建模。)</p>
+<blockquote>
+<p>多项式分布：</p>
+<p>假设某随机试验有\(k\)个可能结果\(X_1, X_2, \cdots, X_k\)，它们的概率分布分别是\(p_1, p_2, \cdots, p_k\)。在\(N\)次采样的总结果中，\(X_1, X_2, \cdots, X_k\)出现的次数分别为\(n_1, n_2, \cdots, n_k\)（\(N = \sum_{i=1}^{k} n_i\)）。那么这次事件出现的概率\(P\)可表示为（公式中\(x_i\)代表出现\(n_i\)次）：</p>
+<p>  $$<br>  P(X_1 = n_1, \cdots, X_k = n_k) =<br>  \begin{cases}<br>  \frac{N!}{n_1! n_2! \cdots n_k!} p_1^{n_1} p_2^{n_2} \cdots p_k^{n_k} &amp;     \; 当N = \sum_{i=1}^{k} n_i 时，\\<br>  \quad\qquad 0 &amp; \; 其它<br>  \end{cases}    \;(n.ml.1.5.4)<br>  $$</p>
+</blockquote>
+</li>
+<li><p>朴素贝叶斯假设</p>
+<p>  我们先换一种思路，我们要求的是\(P(y|x)\)，根据生成模型定义，可以求\(P(x|y)\)和\(P(y)\)。假设\(x\)中的特征都是独立的，这个作为朴素贝叶斯假设。</p>
+<blockquote>
+<p>特征之间相互条件独立是朴素贝叶斯模型的前提条件。如果一封邮件是垃圾邮件\(y=1\)，且这封邮件出现词”buy”与这封邮件是否出现”price”无关，那么”buy”和”price”之间是<strong>条件独立</strong>的。</p>
+<p>在给定\(Z\)的情况下，\(X\)和\(Y\)条件独立，形式化表示为：</p>
+<p>  $$<br>  P(X|Z) = P(X|Y,Z)    \qquad (n.ml.1.5.5)<br>  $$</p>
+<p>也可以表示为：</p>
+<p>  $$<br>  P(X,Y|Z) = P(X|Z) \cdot P(Y|Z)    \qquad(n.ml.1.5.6)<br>  $$</p>
+</blockquote>
+<p>  那么对于一条样本来说，有下式成立：</p>
+<p>  $$<br>  \begin{align}<br>  P(x_1, \cdots, x_{10000}) = &amp; P(x_1|y) P(x_2|y, x_1) P(y_3|y, x_1, x_2) \cdots P(x_{10000}|y, x_1, x_2, \cdots, x_{9999}) \\<br>  = &amp; P(x_1|y) P(x_2|y) \cdots P(x_{10000}|y) \\<br>  = &amp; \sum_{i=1}^{n} P(x_i|y)    \qquad\qquad\qquad(ml.1.5.7)<br>  \end{align}<br>  $$</p>
+<p>  公式\((ml.1.5.7)\)与NLP中的n-gram语言模型非常类似，这里相当于1-gram。同时也可以看出，朴素贝叶斯假设是约束性很强的假设。通常来说，”buy”与”price”是有关系的，而在NB这里，假设条件独立。</p>
+<blockquote>
+<p>注：条件独立与独立是两个不同的概念。</p>
+</blockquote>
+</li>
+<li><p><strong>朴素贝叶斯模型（Naive Bayes Model）</strong></p>
+<p>  建立朴素贝叶斯的形式化模型：</p>
+<p>  $$<br>  \begin{align}<br>  &amp; \phi_{j|y=1} = P(x_j=1 | y=1) \quad(1)\\<br>  &amp; \phi_{j|y=0} = P(x_j=1 | y=0) \quad(2)\\<br>  &amp; \phi_y = P(y=1) \qquad\qquad\;\;(3)<br>  \end{align}    \qquad (ml.1.5.8)<br>  $$</p>
+<p>  而我们想要的是模型在所有训练样本上的概率累积最大，即最大似然估计：</p>
+<p>  $$<br>  \mathcal{L}(\phi_y, \phi_{i|y=0}, \phi_{i|y=1}) = \prod_{i=1}^{m} P(x^{(i)}, y^{(i)})     \qquad(ml.1.5.9)<br>  $$</p>
+<blockquote>
+<p>注意：这里是联合概率分布积最大（非LR中的条件概率积），说明朴素贝叶斯是省城模型。</p>
+</blockquote>
+<p>  公式\((ml.1.5.9)\)求解，可得：</p>
+<p>  $$<br>  \begin{align}<br>  \phi_{j|y=1} &amp; = \frac{\sum_{i=1}^{m} 1\{x^{(i)}_j = 1 \wedge y^{(i)}=1 \}} {\sum_{i=1}^{m} 1\{y^{(i)}=1\}} \quad(1)\\<br>  \phi_{j|y=0} &amp; = \frac{\sum_{i=1}^{m} 1\{x^{(i)}_j = 1 \wedge y^{(i)}=0 \}} {\sum_{i=1}^{m} 1\{y^{(i)}=0\}} \quad(2)\\<br>  \phi_y &amp; = \frac{\sum_{i=1}^{m} 1\{y^{(i)}=0\}} {m} \;\;\,\qquad\qquad(3)<br>  \end{align}    \qquad(ml.1.5.10)<br>  $$</p>
+<blockquote>
+<p>(3)式表示y=1的样本数在全部样本中的占比。前两个分别表示在\(y=1\)和\(y=0\)的样本中，特征\(x_j=1\)的比例。</p>
+</blockquote>
+<p>  然而我们最终要求的是：</p>
+<p>  $$<br>  \begin{align}<br>  P(y=1|x) &amp; = \frac{P(x|y=1) P(y=1)}{P(x)} \\<br>  &amp; = \frac{\left(\prod_{j=1}^{n}P(x_j|y=1)\right) P(y=1)} {\left(\prod_{j=1}^{n}P(x_j|y=1)\right) P(y=1) + \left(\prod_{j=1}^{n}P(x_j|y=0)\right) P(y=0)}<br>  \end{align} \qquad(ml.1.5.11)<br>  $$</p>
+</li>
+</ul>
+<pre><code>&gt; 实际上，只需要求分子即可，分母对于<span class="command">\\</span>(y=1<span class="command">\\</span>)和<span class="command">\\</span>(y=0<span class="command">\\</span>)都一样。
+&gt;
+&gt; 朴素贝叶斯模型可以扩展到<span class="command">\\</span>(x<span class="command">\\</span>)和<span class="command">\\</span>(y<span class="command">\\</span>)都有多个值的情况。对于特征是连续的情况，可采用分段的方法将连续值转化为离散值。这涉及到了特征离散化的一些技术，比如等分、等差、信息增益、基尼指数等。（该部分在第11章：特征工程方法中会详细介绍。）
+</code></pre><p><br></p>
+<h4 id="拉普拉斯平滑">拉普拉斯平滑</h4><hr>
+<p>朴素贝叶斯方法有一个致命的缺点就是对数据的稀疏问题过于敏感。</p>
+<blockquote>
+<p>比如，5.2.1节中介绍的邮件分类，加入现在又来了一封邮件，邮件中出现”NIPS call for papers”。其中NIPS在现有的词典库中不存在（10000个词）。现在我们使用更大的词典库来分类（词的数目由10000变为50000），假设NIPS这个词在词典中的位置是50000。而这个词在训练数据中未曾出现过，那么此时算条件概率的结果是：</p>
+<p>$$<br>\begin{align}<br>\phi_{50000|y=1} = \frac {\sum_{i=1}^{m} 1\{x_{50000}^{(i)}=1 \wedge y^{(i)}=1\}} {\sum_{i=1}^{m} 1\{y^{(i)}=1\}} = 0 \\<br>\phi_{50000|y=0} = \frac {\sum_{i=1}^{m} 1\{x_{50000}^{(i)}=1 \wedge y^{(i)}=0\}} {\sum_{i=1}^{m} 1\{y^{(i)}=0\}} = 0<br>\end{align}  \qquad(exp.ml.1.5.2)<br>$$</p>
+<p>由于NIPS在以前的所有邮件中，故而其对应的条件概率为0。带入公式\((ml.1.5.11)\)，得到最终的条件概率也为0。</p>
+</blockquote>
+<p>上述导致条件概率为0的主要原因是朴素贝叶斯的假设－特征之间条件独立，而模型又实用相乘的方式得到结果。为解决此问题，也为训练样本中未出现的特征值，赋予一个较小的值（非0）。具体方法如下：</p>
+<blockquote>
+<p>假设离散随机变量\(x\)有\(\{1,2,\cdots, k\}\)个值，这里用\(\phi_i=P(x=i)\)来表示每个值的概率。在\(m\)个训练样本中，\(x\)的观察值表示为\(\{x^{(1)}, x^{(2)}, \cdots, x^{(k)} \}\)。其中每个观察值对应k个值中的一个，那么根据之前的方法可以得到：</p>
+<p>$$<br>\phi_j = \frac{\sum_{i=1}^{m} 1\{x^{(i)}=j\}}{m}  \qquad(exp.ml.1.5.3)<br>$$</p>
+<p>即\(x=j\)出现的比例。</p>
+</blockquote>
+<p>拉普拉斯平滑法(Laplace Smooth)将每个\(k\)值出现次数事先都加1，通俗地讲就是假设他们都出现过一次，那么修改后的表达式为：</p>
+<p>$$<br>\phi_j = \frac{\sum_{i=1}^{m} 1\{x^{(i)}=j\}+1} {m+k}  \qquad(ml.1.5.12)<br>$$</p>
+<blockquote>
+<p>每个\(x=j\)的分子都加1，分母加k。有\(\sum_{j=1}^{k}=1\)成立。那么在邮件分类问题中，修改后的公式为：</p>
+<p>$$<br>\begin{align}<br>\phi_{j|y=1} &amp; = \frac{\sum_{i=1}^{m} 1\{x^{(i)}_j = 1 \wedge y^{(i)}=1 \} + 1} {\sum_{i=1}^{m} 1\{y^{(i)}=1\}+2} \quad(1)\\<br>\phi_{j|y=0} &amp; = \frac{\sum_{i=1}^{m} 1\{x^{(i)}_j = 1 \wedge y^{(i)}=0 \} + 1} {\sum_{i=1}^{m} 1\{y^{(i)}=0\} + 2} \quad(2)<br>\end{align} \qquad(n.ml.1.5.7)<br>$$</p>
+</blockquote>
+<p><br></p>
+<h4 id="NB示例：文本分类">NB示例：文本分类</h4><hr>
+<p>上面介绍的邮件分类其实就是一个典型的文本分类的例子，用于该文本分类的朴素贝叶斯模型又称作多变量伯努利事件模型。</p>
+<blockquote>
+<p>邮件生成过程描述：</p>
+<p>（第1步）首先随机选定了邮件的类型（垃圾邮件与正常邮件，即\(P(y)\)），（第2步）然后观察词库中的每一个词，随机决定是否要出现在邮件中，出现则标记为1，否则标记为0。然后将出现的词组成一封邮件。决定一个词是否出现时根据概率\(P(x_i|y)\)，那么一封邮件的概率可表示为：</p>
+<p>$$<br>一封邮件的生成概率=P(x,y) = P(y) \cdot \prod_{i=1}^{n} P(x_i|y) \qquad(exp.ml.1.5.3)<br>$$</p>
+<p>注意：这里的\(n\)是词典中词的数目；\(x_i\)表示一个词是否出现，只有两个值0和1，概率之和为1；\(x\)向量是长度为\(n\)的0/1值。</p>
+</blockquote>
+<p>现在我么换一种思路，不先从词典入手，而是选择从邮件入手。让((i\)表示邮件中的第\(i\)个词，\(x_i\)表示这个词在词典中的位置，那么\(x_i\)的取值范围是\(\{1,2,\cdots,|V|\}\)（\(|V|\)是字典中词的数目）。这样，一封邮件可以表成\(n\)维向量\((x_1, x_2, \cdots, x_n)\)（\(n\)为邮件中词的个数，可以变化，因为每封邮件长度可不同）。</p>
+<blockquote>
+<p>这就相当于重复投掷\(|V|\)面的骰子，将观察值纪录下来就形成了一封邮件。当然每个面的概率服从\(P(x_i|y)\)，而且每次实验条件独立，这样我们得到的邮件概率为\(P(y) \prod_{i=1}^{n} P(x_i|y)\)。</p>
+<p>注意：这里的公式虽然与共公式\((exp.ml.1.5.3)\)相同，但符号意义完全不同。本式中的\(n\)表示邮件中词的数目；\(x_i\)表示\(|V|\)中的一个值；\(x\)向量中元素是词典中的位置。</p>
+</blockquote>
+<p>形式化表示如下：</p>
+<p>\(m\)个训练样本：\(\{(x^{(i)}, y^{(i)}); i=1,\cdots,m\}\)；第\(i\)条样本表示为：\(x^{(i)} = (x_1^{(i)}, x_2^{(i)}, \cdots, x_{n_i}^{(i)})\)，第\(i\)个样本有\(n_i\)个词。</p>
+<p>我们仍然按照朴素贝叶斯的方法求最大似然估计，似然函数表示为：</p>
+<blockquote>
+<p>$$<br>\begin{align}<br>\mathcal{L} (\phi, \phi_{i|y=0}, \phi_{i|y=1}) &amp; = \prod_{i=1}^{m} P(x^{(i)}, y^{(i)}) \\<br>&amp; = \prod_{i=1}^{m} \left(\prod_{j=1}^{n_i} P(x_j^{(i)}|y^{(i)}; \phi_{i|y=0}, \phi_{i|y=1}) \right) \cdot P(y^{(i)}; \phi_y)<br>\end{align} \qquad(n.ml.1.5.8)<br>$$</p>
+</blockquote>
+<p>求解结果为：</p>
+<p>$$<br>\begin{align}<br>\phi_{k|y=1} &amp;= \frac{\sum_{i=1}^{m} \sum_{j=1}^{n_i} 1\{x_j^{(i)} = k \wedge y^{(i)}=1\}} {\sum_{i=1}^{m} 1\{y^{(i)} = 1\} \cdot n_i} \\<br>\phi_{k|y=0} &amp;= \frac{\sum_{i=1}^{m} \sum_{j=1}^{n_i} 1\{x_j^{(i)} = k \wedge y^{(i)}=0\}} {\sum_{i=1}^{m} 1\{y^{(i)} = 0\} \cdot n_i} \\<br>\phi_y &amp; = \frac { \sum_{i=1}^{m} 1\{y^{(i)} = 1\} } {m}<br>\end{align}<br>$$</p>
+<p>与之前的分子相比，分母多了\(n_i\)，分子由\(0/1\)变成了\(k\).</p>
+<p><br></p>
+<h3 id="Next_…"><br><strong>Next …</strong></h3><hr>
+<ul>
+<li>贝叶斯网络</li>
+<li>概率图模型</li>
+</ul>
+<p><br></p>
+<h3 id="参考资料">参考资料</h3><hr>
+<ul>
+<li><a href="http://www.cnblogs.com/jerrylead/archive/2011/03/05/1971903.html" target="_blank" rel="external">判别模型、生成模型与朴素贝叶斯方法</a></li>
+<li>微博：<a href="http://weibo.com/p/1005051667005453/home?" target="_blank" rel="external">@JerryLead</a></li>
+</ul>
+<hr>
+<p>更多信息请关注：<a href="http://www.52caml.com/" target="_blank" rel="external">计算广告与机器学习－CAML 技术共享平台</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/深入浅出机器学习/">深入浅出机器学习</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Gaussian-Discriminant-Analysis/">Gaussian Discriminant Analysis</a><a href="/tags/Naive-Bayes/">Naive Bayes</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/head_first_ml/ml-chapter4-kernel-based-family/" title="第04章：深入浅出ML之Kernel-Based家族" itemprop="url">第04章：深入浅出ML之Kernel-Based家族</a>
   </h1>
   <p class="article-author">By
@@ -2981,6 +3297,10 @@ double <span class="function"><span class="keyword">val</span> =</span> <span cl
 		
 		  
 			<li><a href="/categories/深入浅出机器学习/" title="深入浅出机器学习">深入浅出机器学习<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>1</sup></a></li>
 		  
 		
 		  
