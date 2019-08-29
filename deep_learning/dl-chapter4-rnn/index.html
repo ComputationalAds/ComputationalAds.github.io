@@ -105,7 +105,7 @@ weibo: @周永_52ML
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2019-08-29T00:47:41.000Z" itemprop="datePublished"> 发表于 2019-08-29</time>
+    <time datetime="2017-09-27T13:43:20.000Z" itemprop="datePublished"> 发表于 2017-09-27</time>
     
   </p>
 </header>
@@ -222,7 +222,7 @@ weibo: @周永_52ML
 <p>$$<br>J^{(t)}(\theta) = CE(\hat{h}^{(t)}, h^{(t)}) = - \sum_{w \in W} y_w^{(t)} \text{log} \hat{y}_w^{(t)} = - \text{log} \hat{y}_{x^{(t+1)}}^{(t)}<br>$$</p>
 <p>那么对于整个训练预料来说，损失函数为：</p>
 <p>$$<br>J(\theta) = \frac{1}{T} \sum_{t=1}^{T} J^{(t)}(\theta) = - \frac{1}{T} \sum_{t=1}^{T} \text{log} \hat{y}_{x^{(t+1)}}^{(t)}<br>$$</p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_loss_function.png" width="550" height="400" alt="RNN损失函数"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_loss_function.png" width="600" height="400" alt="RNN损失函数"></p>
 <p>然而，如果在全局预料中计算损失和梯度时间成本太高。在实践中$x^{(1)}, \cdots, x^{(T)}$多表示为一个句子或一篇文档。可以在batch数据上计算损失函数并用梯度下降更新模型参数。</p>
   
 	</div>
@@ -259,11 +259,19 @@ weibo: @周永_52ML
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/reinforcement-learning/chapter3-markov-decision-process/" title="第03章：马尔可夫决策过程">
+  <strong>上一篇：</strong><br/>
+  <span>
+  第03章：马尔可夫决策过程</span>
+</a>
+</div>
+
 
 <div class="next">
-<a href="/reinforcement-learning/chapter2-multi-arm-bandits/"  title="">
+<a href="/openmit/openmit-chapter2-parameter-server/"  title="第02章：OpenMIT-系统架构">
  <strong>下一篇：</strong><br/> 
- <span>(no title)
+ <span>第02章：OpenMIT-系统架构
 </span>
 </a>
 </div>
