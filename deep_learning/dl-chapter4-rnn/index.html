@@ -32,6 +32,7 @@ weibo: @周永_52ML
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_loss_function.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_backprogation.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_generate_text.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_lstm_structure.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第04章：循环神经网络">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
@@ -116,7 +117,7 @@ weibo: @周永_52ML
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.N-Gram语言模型"><span class="toc-number">1.</span> <span class="toc-text">N-Gram语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.Neural语言模型"><span class="toc-number">2.</span> <span class="toc-text">Neural语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.3.Recurrent-Neural-Networks"><span class="toc-number">3.</span> <span class="toc-text">循环神经网络 (RNN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.1.RNN模型结构"><span class="toc-number">3.1.</span> <span class="toc-text">RNN结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.2.RNN模型参数学习"><span class="toc-number">3.2.</span> <span class="toc-text">RNN模型参数学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.3.RNN模型反向传播"><span class="toc-number">3.3.</span> <span class="toc-text">RNN模型反向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.4.RNN应用_文本生成"><span class="toc-number">3.4.</span> <span class="toc-text">RNN应用－文本生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.语言模型评估指标"><span class="toc-number">3.5.</span> <span class="toc-text">语言模型评估指标</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.N-Gram语言模型"><span class="toc-number">1.</span> <span class="toc-text">N-Gram语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.Neural语言模型"><span class="toc-number">2.</span> <span class="toc-text">Neural语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.3.Recurrent-Neural-Networks"><span class="toc-number">3.</span> <span class="toc-text">循环神经网络 (RNN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.1.RNN模型结构"><span class="toc-number">3.1.</span> <span class="toc-text">RNN结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.2.RNN模型参数学习"><span class="toc-number">3.2.</span> <span class="toc-text">RNN模型参数学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.3.RNN模型反向传播"><span class="toc-number">3.3.</span> <span class="toc-text">RNN模型反向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.4.RNN应用_文本生成"><span class="toc-number">3.4.</span> <span class="toc-text">RNN应用－文本生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.语言模型评估指标"><span class="toc-number">3.5.</span> <span class="toc-text">语言模型评估指标</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.4.LSTM"><span class="toc-number">4.</span> <span class="toc-text">LSTM</span></a></li></ol>
 		
 		</div>
 		
@@ -139,6 +140,7 @@ weibo: @周永_52ML
 <li><a href="#4.3.5.语言模型评估指标">语言模型评估指标</a></li>
 </ul>
 </li>
+<li><a href="#4.4.LSTM">LSTM</a></li>
 </ul>
 <h2 id="4.1.N-Gram语言模型">N-Gram语言模型</h2>
 
@@ -249,6 +251,9 @@ weibo: @周永_52ML
 <p>评估语言模型效果的方式是困惑度（perplexity）。公式表示为：</p>
 <p>$$<br>\begin{align}<br>perplexity &amp;= \prod_{t=1}^{T} \left(\frac{1} {P_{LM}(x^{(t+1)}|x^{(t)},\cdots,x^{(1)})}\right)^{\frac{1}{T}} \\\<br>&amp;= \prod_{t=1}^{T} \left(\frac{1} {\hat{y}_{x_{t+1}}^{(t)}}\right)^{\frac{1}{T}} = \exp \left(\frac{1}{T} \sum_{t=1}^T -\log \hat{y}_{x_{t+1}}^{(t)} \right) = \exp(J(\theta))<br>\end{align}<br>$$</p>
 <p>可以看到，表达式是语言模型概率公式的导数，指数$\frac{1}{T}$用于词数作归一化。上式等价于<strong>语言模型损失函数的指数</strong>。所以perlexity越小，说明语言模型效果越好。</p>
+<h2 id="4.4.LSTM">LSTM</h2>
+
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_lstm_structure.png" width="600" height="450" alt="LSTM结构图"></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -311,7 +316,7 @@ weibo: @周永_52ML
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.N-Gram语言模型"><span class="toc-number">1.</span> <span class="toc-text">N-Gram语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.Neural语言模型"><span class="toc-number">2.</span> <span class="toc-text">Neural语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.3.Recurrent-Neural-Networks"><span class="toc-number">3.</span> <span class="toc-text">循环神经网络 (RNN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.1.RNN模型结构"><span class="toc-number">3.1.</span> <span class="toc-text">RNN结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.2.RNN模型参数学习"><span class="toc-number">3.2.</span> <span class="toc-text">RNN模型参数学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.3.RNN模型反向传播"><span class="toc-number">3.3.</span> <span class="toc-text">RNN模型反向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.4.RNN应用_文本生成"><span class="toc-number">3.4.</span> <span class="toc-text">RNN应用－文本生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.语言模型评估指标"><span class="toc-number">3.5.</span> <span class="toc-text">语言模型评估指标</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.N-Gram语言模型"><span class="toc-number">1.</span> <span class="toc-text">N-Gram语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.Neural语言模型"><span class="toc-number">2.</span> <span class="toc-text">Neural语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.3.Recurrent-Neural-Networks"><span class="toc-number">3.</span> <span class="toc-text">循环神经网络 (RNN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.1.RNN模型结构"><span class="toc-number">3.1.</span> <span class="toc-text">RNN结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.2.RNN模型参数学习"><span class="toc-number">3.2.</span> <span class="toc-text">RNN模型参数学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.3.RNN模型反向传播"><span class="toc-number">3.3.</span> <span class="toc-text">RNN模型反向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.4.RNN应用_文本生成"><span class="toc-number">3.4.</span> <span class="toc-text">RNN应用－文本生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.语言模型评估指标"><span class="toc-number">3.5.</span> <span class="toc-text">语言模型评估指标</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.4.LSTM"><span class="toc-number">4.</span> <span class="toc-text">LSTM</span></a></li></ol>
  
   </div>
 
