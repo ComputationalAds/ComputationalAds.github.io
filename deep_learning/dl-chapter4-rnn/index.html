@@ -32,6 +32,7 @@ weibo: @周永_52ML
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_loss_function.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_backprogation.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_generate_text.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_lstm_structure.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第04章：循环神经网络">
@@ -245,7 +246,7 @@ weibo: @周永_52ML
 <h3 id="4.3.4.RNN应用_文本生成">RNN应用－文本生成</h3>
 
 <p>类似n-gram语言模型，RNN模型也可用于生成文本（对预测结果进行重复采样）。</p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_generate_text.png" width="500" height="500" alt="RNN文本生成"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_generate_text.png" width="500" height="350" alt="RNN文本生成"></p>
 <h3 id="4.3.5.语言模型评估指标">语言模型评估指标</h3>
 
 <p>评估语言模型效果的方式是困惑度（perplexity）。公式表示为：</p>
@@ -254,8 +255,15 @@ weibo: @周永_52ML
 <h3 id="4.3.6.RNN存在的问题">RNN存在的问题</h3>
 
 <p>RNN模型从参数学习的角度看，最大的问题是存在梯度消失的问题(gradient vanish)。根据链式法则，第$t$步的损失函数对第一个隐藏状态层$h^{(1)}$求导时，可以看到：</p>
-<p></p><p style="text-align:center">&lt;img src=”<a href="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish.png" target="_blank" rel="external">https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish.png</a>“</p>
-<p>RNN模型结构中提到$h^{(t-1)}$到$h^{(t)}$的函数表达式为$h^{(t)} = \sigma(W_h h^{(t-1)} + w_x x^{(t)} + b)$，根据链式法则可得$\frac{\partial h^{(t)}} {\partial h^{(t-1)}} = \text{diag} \left(\sigma^{,} W_h h^{(t-1)} + w_x x^{(t)} + b) \right) \cdot W_h$</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish.png" width="600" height="450" alt="RNN梯度消失"></p>
+<p>RNN模型结构中提到的$h^{(t-1)}$到$h^{(t)}$的函数表达式为$h^{(t)} = \sigma(W_h h^{(t-1)} + W_x x^{(t)} + b)$，根据链式法则可得$\frac{\partial h^{(t)}} {\partial h^{(t-1)}} = \text{diag} \left(\sigma^{‘} (W_h h^{(t-1)} + W_x x^{(t)} + b) \right) \cdot W_h$。</p>
+<p>如何$\frac{\partial h^{(t)}} {\partial h^{(t-1)}}$很小会怎样呢？就会导致梯度信号随着反向传播的过程越来越弱，出现梯度消失的问题。</p>
+<p>下面简要的给出梯度消失的证明过程：考虑第$i$步的损失函数$J^{(i)}(\theta)$，它对应的前面第$j$步的隐藏状态层为$h^{(j)}$，那么可得$J^{(i)}(\theta)$对$h^{(j)}$的导数为：</p>
+<p>$$<br>\begin{align}<br>\frac{\partial J^{(i)}(\theta)} {\partial h^{(j)}} &amp;= \frac{\partial J^{(i)}(\theta)} {\partial h^{(i)}} \prod_{j &lt; t \le i} \frac{\partial h^{(t)}} {\partial h^{(t-1)}} \\\<br>&amp;= \frac{\partial J^{(i)}(\theta)} {\partial h^{(i)}} \cdot W_{h}^{(i-j)} \cdot \prod_{j &lt; t \le i} \text{diag} \left(\sigma^{‘} (W_h h^{(t-1)} + W_x x^{(t)} + b) \right)<br>\end{align}<br>$$</p>
+<p>如果$W_h$比较小（如最大特征值小于1），那么随着$i$和$j$之间的距离越来越大，整体的梯度也就越来越小（指数衰减），最终趋于消失。如果$W_h$特征值大于1，那么梯度会指数级爆炸(exploding gradient)。</p>
+<p>考题：如何通过公式证明RNN会存在梯度消失的问题（随着距离越来越大）？</p>
+<p><strong>为什么梯度消失是一个问题？（Why is vanishing gradient a problem?）</strong></p>
+<p>todo</p>
 <h2 id="4.4.LSTM">LSTM</h2>
 
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_lstm_structure.png" width="600" height="450" alt="LSTM结构图"></p>
