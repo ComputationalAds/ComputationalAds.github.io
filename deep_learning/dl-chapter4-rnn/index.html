@@ -258,12 +258,14 @@ weibo: @周永_52ML
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish.png" width="600" height="450" alt="RNN梯度消失"></p>
 <p>RNN模型结构中提到的$h^{(t-1)}$到$h^{(t)}$的函数表达式为$h^{(t)} = \sigma(W_h h^{(t-1)} + W_x x^{(t)} + b)$，根据链式法则可得$\frac{\partial h^{(t)}} {\partial h^{(t-1)}} = \text{diag} \left(\sigma^{‘} (W_h h^{(t-1)} + W_x x^{(t)} + b) \right) \cdot W_h$。</p>
 <p>如何$\frac{\partial h^{(t)}} {\partial h^{(t-1)}}$很小会怎样呢？就会导致梯度信号随着反向传播的过程越来越弱，出现梯度消失的问题。</p>
-<p>下面简要的给出梯度消失的证明过程：考虑第$i$步的损失函数$J^{(i)}(\theta)$，它对应的前面第$j$步的隐藏状态层为$h^{(j)}$，那么可得$J^{(i)}(\theta)$对$h^{(j)}$的导数为：</p>
+<p>下面简要给出梯度消失的证明过程：考虑第$i$步的损失函数$J^{(i)}(\theta)$，它对应的前面第$j$步的隐藏状态层为$h^{(j)}$，那么可得$J^{(i)}(\theta)$对$h^{(j)}$的导数为：</p>
 <p>$$<br>\begin{align}<br>\frac{\partial J^{(i)}(\theta)} {\partial h^{(j)}} &amp;= \frac{\partial J^{(i)}(\theta)} {\partial h^{(i)}} \prod_{j &lt; t \le i} \frac{\partial h^{(t)}} {\partial h^{(t-1)}} \\\<br>&amp;= \frac{\partial J^{(i)}(\theta)} {\partial h^{(i)}} \cdot W_{h}^{(i-j)} \cdot \prod_{j &lt; t \le i} \text{diag} \left(\sigma^{‘} (W_h h^{(t-1)} + W_x x^{(t)} + b) \right)<br>\end{align}<br>$$</p>
 <p>如果$W_h$比较小（如最大特征值小于1），那么随着$i$和$j$之间的距离越来越大，整体的梯度也就越来越小（指数衰减），最终趋于消失。如果$W_h$特征值大于1，那么梯度会指数级爆炸(exploding gradient)。</p>
-<p>考题：如何通过公式证明RNN会存在梯度消失的问题（随着距离越来越大）？</p>
+<p>考察：如何通过公式证明RNN会存在梯度消失的问题（随着距离越来越大）？</p>
 <p><strong>为什么梯度消失是一个问题？（Why is vanishing gradient a problem?）</strong></p>
-<p>todo</p>
+<p>（图）</p>
+<p>从上图可以看到，从远处传递过来的梯度信号强度远弱于近处的梯度信号，那么模型参数$W_h$的更新主要受近处梯度的影响，与long-term无关。</p>
+<p>我们也可以从另一个角度解释，梯度是过去对将来影响的一种度量方式。如果</p>
 <h2 id="4.4.LSTM">LSTM</h2>
 
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_lstm_structure.png" width="600" height="450" alt="LSTM结构图"></p>
