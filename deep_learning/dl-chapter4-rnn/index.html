@@ -33,6 +33,7 @@ weibo: @周永_52ML
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_backprogation.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_generate_text.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish_is_problem.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_lstm_structure.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第04章：循环神经网络">
@@ -215,15 +216,11 @@ weibo: @周永_52ML
 <tbody>
 <tr>
 <td>RNN</td>
-<td>1. 能够处理任意长度的输入（相对fixed-window）且模型大小固定</td>
+<td>1. 能够处理任意长度的输入（相对fixed-window）且模型大小固定<br>2. 对于第$t$步的计算理论上可以使用前面很多步的信息<br>3. 对称性？Same weights applied on every timestep, so there is symmetry in how inputs are processed.</td>
+<td>1. 循环网络结构计算太慢；<br>2. 实际中，模型很难学到前面多步反馈的信息，存在因梯度消失导致的信息丢失问题；</td>
 </tr>
 </tbody>
 </table>
-<ol>
-<li>对于第$t$步的计算理论上可以使用前面很多步的信息</li>
-<li>对称性？Same weights applied on every timestep, so there is symmetry in how inputs are processed. | 1. 循环网络结构计算太慢；  </li>
-<li>实际中，模型很难学到前面多步反馈的信息，存在因梯度消失导致的信息丢失问题；|</li>
-</ol>
 <p>下面我们介绍RNN模型参数是如何学习和训练的？</p>
 <h3 id="4.3.2.RNN模型参数学习">RNN模型参数学习</h3>
 
@@ -263,9 +260,9 @@ weibo: @周永_52ML
 <p>如果$W_h$比较小（如最大特征值小于1），那么随着$i$和$j$之间的距离越来越大，整体的梯度也就越来越小（指数衰减），最终趋于消失。如果$W_h$特征值大于1，那么梯度会指数级爆炸(exploding gradient)。</p>
 <p>考察：如何通过公式证明RNN会存在梯度消失的问题（随着距离越来越大）？</p>
 <p><strong>为什么梯度消失是一个问题？（Why is vanishing gradient a problem?）</strong></p>
-<p>（图）</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish_is_problem.png" width="600" height="450" alt="LSTM结构图"></p>
 <p>从上图可以看到，从远处传递过来的梯度信号强度远弱于近处的梯度信号，那么模型参数$W_h$的更新主要受近处梯度的影响，与long-term无关。</p>
-<p>我们也可以从另一个角度解释，梯度是过去对将来影响的一种度量方式。如果</p>
+<p>我们也可以从另一个角度解释，梯度是过去对将来影响的一种度量方式。如果梯度因为距离过长导致消失为情况，我们无法</p>
 <h2 id="4.4.LSTM">LSTM</h2>
 
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_lstm_structure.png" width="600" height="450" alt="LSTM结构图"></p>
@@ -365,7 +362,7 @@ weibo: @周永_52ML
 		  
 		
 		  
-			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>1</sup></a></li>
+			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>2</sup></a></li>
 		  
 		
 		  

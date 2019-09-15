@@ -1,0 +1,780 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>第02章：深度神经网络 | 计算广告与机器学习</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ZhouYong">
+    
+
+    
+    <meta name="description" content="author: zhouyongsdzh@foxmail.com
+date: 2017-04-12
+weibo: @周永_52ML
+
+
+
+DNN符号定义
+神经网络的前向与反向
+Softmax
+softmax函数由来
+softmax函数概率模型
+softmax表达式与概率的关系
+SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
+
+
+
+本章关键词：多层感知机、全连接层">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第02章：深度神经网络">
+<meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter2-dnn/index.html">
+<meta property="og:site_name" content="计算广告与机器学习">
+<meta property="og:description" content="author: zhouyongsdzh@foxmail.com
+date: 2017-04-12
+weibo: @周永_52ML
+
+
+
+DNN符号定义
+神经网络的前向与反向
+Softmax
+softmax函数由来
+softmax函数概率模型
+softmax表达式与概率的关系
+SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
+
+
+
+本章关键词：多层感知机、全连接层">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter2_softmax_and_hardmax.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第02章：深度神经网络">
+<meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
+date: 2017-04-12
+weibo: @周永_52ML
+
+
+
+DNN符号定义
+神经网络的前向与反向
+Softmax
+softmax函数由来
+softmax函数概率模型
+softmax表达式与概率的关系
+SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
+
+
+
+本章关键词：多层感知机、全连接层">
+
+    
+    <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="计算广告与机器学习" title="计算广告与机器学习"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="计算广告与机器学习">计算广告与机器学习</a></h1>
+				<h2 class="blog-motto">Computational Advertising and Machine Learning</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/home">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.52caml.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/deep_learning/dl-chapter2-dnn/" title="第02章：深度神经网络" itemprop="url">第02章：深度神经网络</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-01T12:23:42.000Z" itemprop="datePublished"> 发表于 2017-05-01</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2.0.DNN符号定义"><span class="toc-number">1.</span> <span class="toc-text">DNN符号定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.神经网络的前向与反向"><span class="toc-number">2.</span> <span class="toc-text">神经网络的前向与反向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.2.softmax"><span class="toc-number">3.</span> <span class="toc-text">Softmax</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.1.softmax函数由来"><span class="toc-number">3.1.</span> <span class="toc-text">softmax函数由来</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.2.softmax函数概率模型"><span class="toc-number">3.2.</span> <span class="toc-text">softmax函数概率模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.3.softmax表达式与概率的关系"><span class="toc-number">3.3.</span> <span class="toc-text">softmax表达式与概率的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.4.SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp"><span class="toc-number">3.4.</span> <span class="toc-text">SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交叉熵损失（Cross_Entropy_Loss）"><span class="toc-number">4.</span> <span class="toc-text">交叉熵损失（Cross Entropy Loss）</span></a></li></ol>
+		
+		</div>
+		
+		<ul>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 2017-04-12</li>
+<li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
+</ul>
+<hr>
+<ul>
+<li><a href="#2.0.DNN符号定义">DNN符号定义</a></li>
+<li><a href="#2.1神经网络的前向与反向">神经网络的前向与反向</a></li>
+<li><a href="#2.2.softmax">Softmax</a><ul>
+<li><a href="#2.2.1.softmax函数由来">softmax函数由来</a></li>
+<li><a href="#2.2.2.softmax函数概率模型">softmax函数概率模型</a></li>
+<li><a href="#2.2.3.softmax表达式与概率的关系">softmax表达式与概率的关系</a></li>
+<li><a href="#2.2.4.SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp">SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp</a></li>
+</ul>
+</li>
+</ul>
+<p>本章关键词：多层感知机、全连接层、Softmax、激活函数、池化层、BatchNorm、注意力机制、Pooling、Embedding等</p>
+<h2 id="2.0.DNN符号定义">DNN符号定义</h2>
+
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$n^{[0]}$</td>
+<td style="text-align:left">表示NN输入层的神经元个数，为了符号统一，规定输入层为第0层</td>
+</tr>
+<tr>
+<td style="text-align:center">$n^{[l]}$</td>
+<td style="text-align:left">第$l$层神经元个数</td>
+</tr>
+<tr>
+<td style="text-align:center">$a^{[l]}$</td>
+<td style="text-align:left">表示NN第$l$层输入信息，一条样本的维度为$(1, n^{[l]})$</td>
+</tr>
+<tr>
+<td style="text-align:center">$W^{[l]}$</td>
+<td style="text-align:left">表示第$l$层与$l-1$层之间的连接矩阵，维度：($n^{[l]}$, $n^{[l-1]}$)，即：$W^{[1]} \in R^{n^{[1]} \times n^{[0]}}$</td>
+</tr>
+<tr>
+<td style="text-align:center">$b^{[l]}$</td>
+<td style="text-align:left">表示第$l$层的偏置项参数，维度：($n^{[l]}$, $1$)</td>
+</tr>
+<tr>
+<td style="text-align:center">$z^{[l]}$</td>
+<td style="text-align:left">表示第$l$层的线性表达$z^{[l]} = W^{[l]} \cdot a^{[l-1]} + b^{[l]}$, 维度：($n^{[l]}$, $1$)</td>
+</tr>
+<tr>
+<td style="text-align:center">$m$</td>
+<td style="text-align:left">表示Batch Size</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2.1.神经网络的前向与反向">神经网络的前向与反向</h2>
+
+
+<p>前向计算</p>
+<p>$$<br>z^{[1]} =  a^{[0]} \cdot {W^{[1]}}^T+ b^{[1]},  \\\<br>a^{[1]} = \sigma(z^{[1]}), \\\<br>z^{[2]} =  a^{[1]} \cdot {W^{[2]}}^T+ b^{[2]},  \\<br>a^{[2]} = \sigma(z^{[2]}), \\\<br>z^{[3]} =  a^{[2]} \cdot {W^{[3]}}^T+ b^{[3]},  \\<br>a^{[3]} = \sigma(z^{[3]}), \\\<br>\hat{y} = sigmoid(a^{[3]})<br>$$</p>
+<p>反向计算</p>
+<p>$$<br>\mathcal{L}(a^{[3]};W^{[1]},\; \cdots,\;b^{[3]}) = - y \cdot \log(\hat{y}) - (1 - y) \cdot \log(1-\hat{y}) \\\<br>\mathbf{d}a^{[3]} = \frac{\partial{\mathcal{L}}}{\partial a^{[3]}} = \frac{\partial{\mathcal{L}}}{\partial{\sigma(z^{[3]})}}  = (\hat{y} - y) \\\<br>\mathbf{d}z^{[3]} = \mathbf{d}a^{[3]} \cdot \frac{\partial{a^{[3]}}} {\partial z^{[3]}}, \\\<br>\quad  注：\frac{\partial{a^{[3]}}} {\partial z^{[3]}}是关于z^{[3]}的梯度公式，也是一个关于输入z^{[3]}和输出z^{[3]}的表达式。这里的z^{[3]}，a^{[3]}也是“变量” \\\<br>\mathbf{d}W^{[3]} = \frac{\partial{\mathcal{L}}}{\partial{W^{[3]}}} = \frac{\partial{\mathcal{L}}}{\partial a^{[3]}} \cdot \frac{\partial{a^{[3]}} }{\partial z^{[3]}} \cdot \frac{\partial{z^{[3]}} }{\partial W^{[3]}} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}} } {\partial W^{[3]}} = \mathbf{d}z^{[3]} \cdot a^{[2]} \\\<br>\qquad 注：可以看到，这里是矩阵相乘（前向的输入 * 反向的输入），写代码时⚠️矩阵转秩问题 \\\<br>\mathbf{d}a^{[2]} = \frac{\partial{\mathcal{L}}} {\partial{a^{[2]}}} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}}} {\partial{a^{[2]}}} = \mathbf{d}z^{[3]} \cdot W^{[3]} \\\<br>注：这里a^{[2]}也是中间变量，也存在自身前向信息（data)和反向信息(grad) \\\<br>\mathbf{d}b^{[3]} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}}} {\partial{b^{[3]}}} = \mathbf{d}z^{[3]} \\\<br>注：注意维度，这里需要按cols求和 \\\<br>…..<br>$$</p>
+<p>由此，总结NN前向计算和反向传播（梯度计算）的通用公式。变量如下：$a^{[l-1]} \in R^{k \times n^{[l-1]}}$, $\mathbf{d}a^{[l-1]} \in R^{k \times n^{l-1}}$, $W^{[l]} \in R^{n^{[l]} \times n^{[l-1]}}$, $b^{[l]} \in R^{1 \times n^{[l]}}$, $z^{[l]} \in R^{k \times n^{[l]}}$, $a^{[l]} \in R^{k \times n^{[l]}}$, $k$表示样本数，如此迭代下去….</p>
+<p>前向传播通用公式：</p>
+<p>$$<br>z^{[l]} = a^{[l-1]} \cdot {W^{[l]}}^{\mathrm{T}} + b^{[l]} \\\<br>a^{[l]} = \sigma(z^{[l]}) \\\<br>z^{[l+1]} = a^{[l]} \cdot {W^{[l+1]}}^{\mathrm{T}} + b^{[l+1]} \\\<br>…<br>$$</p>
+<p>伪代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Y.noalias() = (X * W.transpose()).rowwise() + b.row(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.cnblogs.com/southtonorth/archive/2018/08/21/9512559.html" target="_blank" rel="external">http://www.cnblogs.com/southtonorth/archive/2018/08/21/9512559.html</a></p>
+<h2 id="2.2.softmax">Softmax</h2>
+
+<p>softmax小节安排如下：首先从数学和概率的角度理解soft（软化的）max是如何来的？然后讲清楚它为何可以用在多分类问题上？最后给出它在深度学习框架（tensorflow、openmi）上的实现。</p>
+<h3 id="2.2.1.softmax函数由来">softmax函数由来</h3>
+
+<p>softmax函数表达式我想大家已经很清楚了，在此赘述：</p>
+<p>$$<br>\text{softmax}(a_i) = \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}<br>$$</p>
+<p>下面这个函数与上式“貌似”不相同，但是它们又及其相关：</p>
+<p>$$<br>g(x, y) = \text{log}_e(e^x + e^y)<br>$$</p>
+<p>两个表达式的相关性先不谈，先解释清楚$g(x,y)$函数的由来，要从hardmax说起。</p>
+<p><strong>hardmax函数</strong></p>
+<p>softmax函数其实是从hardmax演变而来的，hardmax其实是我们生活中很常见的函数，表达式为：</p>
+<p>$$<br>\text{hardmax} = max\{x, y\}<br>$$</p>
+<p>表达的意思很清楚，就是取x和y中较大的哪个值。如果y=0，可得表达式为$max\{x, 0\}$。画图可知，该函数在$x=0$处是连续不可导的，函数可导可以帮助我们做很多事情，那么有没有办法对其变形，找到一个连续可导的近似函数呢？此时就有了softmax函数$g(x,y) = \text{log}_e(e^x + e^y)$。</p>
+<p>我们先来看下这个函数的数学特性。指数函数有一个特点，就是变化率非常快。当$x &gt; y$时，通过指数的放大作用，使得二者的差距进一步变大，即$e^x \gg e^y$。所以有$e^x + e^y \approx e^x$，那么此时$g(x,y) = \text{log}_e(e^x + e^y) \approx \text{log}_e(e^x) = x$。根据推导过程，可以知道$g(x,y)$约等于$x,y$中较大的值，即$g(x,y) \approx \text{max}(x,y)$。</p>
+<p>所以我们得出一个结论：$g(x,y)$是$max(x,y)$的近似函数，两个函数有相似的数学特性。两个函数的图形如下：</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter2_softmax_and_hardmax.png" width="400" height="300" alt="softmax与hardmax"></p>
+<p>可以看出，当$x,y$的差别越大时，softmax和hardmax函数吻合度越高。同时也可以看出，softmax是一个连续且处处可导的函数，这时一个非常重要的特性：$g(x,y)$即具有与$\text{max}(x,y)$的相似性，又避免了$\text{max}(x,y)$函数不可导的特点。</p>
+<h3 id="2.2.2.softmax函数概率模型">softmax函数概率模型</h3>
+
+<p>上一节讲到的softmax与神经网络分类层的softmax函数有什么关系呢？</p>
+<p>假设我们要从a,b两个未知数中取一个较大的值，即$\text{max}(a,b)$，那么取到两个数字的概率分别是多少呢？我们可以构建一个概率模型：</p>
+<ul>
+<li>当a=b时，取任意一个数字都可以，所以各占50%，即$p(a)=p(b)=50\%$；</li>
+<li>当a=4,b=6时，b比a大，此时更倾向于b，取到b的概率应该会更大些，即$p(a)=40\%,p(b)=60\%$；</li>
+<li>当a=8,b=2时，a比b大，此时更倾向于a，取到a的概率应该会更大些，即$p(a)=80\%,p(b)=20\%$.</li>
+</ul>
+<p>当变量变多时，此时hardmax变成了$\text{max}(a_1, a_2, \cdots, a_K)$，根据假设的概率模型，取到每一个样本点的概率即为$p(a_i) = \frac{a_i}{\sum_{k=1}a_k}$</p>
+<p>上述表达式与softmax“貌似”很熟，其实对于机器学习多分类问题来说，训练过程中需要对参数求导用于更新参数，从上一节可知hardmax函数并不是处处可导的，那么此时就用hardmax的近似函数softmax来替代它，我们已知了二者之间的关系：</p>
+<p>$$<br>f(a_1, a_2, \cdots, a_K) = \text{max}(a_1, a_2, \cdots, a_K) \approx g(a_1, a_2, \cdots, a_K) = \text{log}_e(e^{a_1} + e^{a_2} + \cdots + e^{a_K})<br>$$</p>
+<p>因此，根据hardmax函数表达式，得出softmax的概率模型表达式为：</p>
+<p>$$<br>\text{softmax} = \frac{e^{a_i}} {\sum_{k=1}^K e^{a_k}}<br>$$</p>
+<p>以上就是softmax函数的由来。再次梳理下逻辑：softmax是hardmax的近似函数，也是对hardmax函数的优化（解决了hardmax不可导问题）。softmax函数＋概率模型得到了我们常见的softmax概率模型表达式。</p>
+<h3 id="2.2.3.softmax表达式与概率的关系">softmax表达式与概率的关系</h3>
+
+<p>根据概率的定义，一个事件发生的概率我们用$p\in [0,1]$表示，事件一定发生的概率是1，不会发生的概率是0，事件结果所有可能性的概率纸盒等于1。</p>
+<p>以神经网络最后一层输出为例，经过softmax层计算后的表达式为：</p>
+<p>$$<br>s_i = \frac{e^{z_i}} {e^{z_1} + e^{z_2} + \cdots + e^{z_K}}  \qquad s_i \in [0,1]<br>$$</p>
+<p>对所有神经元s求和，得到：</p>
+<p>$$<br>\sum_{i=1}^K s_i = \frac {e^{z_1} + e^{z_2} + \cdots + e^{z_K}} {e^{z_1} + e^{z_2} + \cdots + e^{z_K}} = 1<br>$$</p>
+<p>由此可知，神经网络输出层的数据，经过softmax层转换后的结果，即可满足概率表达式的特性。因此，输出层的数据转化为概率表达式后的输出值就有了新的意义。对应分类问题来说，不同大小的概率值表示，这个结果属于不同类别的可能性大小。</p>
+<h3 id="2.2.4.SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp">SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp</h3>
+
+
+<p>SoftmaxOp多用于多分类问题，假设为K类，那么属于第i类的概率为：</p>
+<p>$$<br>p_i = \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}<br>$$</p>
+<p><strong>softma计算优化</strong></p>
+<p>为了避免_指数越界出现NAN问题_，通常会分别对分子分母乘以一个常量C，即</p>
+<p>$$<br>p_i = \frac{\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k) } = \frac{C \exp(a_i)} { C  \sum_{k=1}^{K} \exp(a_k) } = \frac {\exp(a_i + \log(C))} {\sum_{k=1}^{K} \exp(a_k + \log(C))}<br>$$</p>
+<p>通常$\log(C)=-\max(a)$，如此相当于K维的向量a取值平移到[-, 0]之间，指数最大值是1而不是正无穷，避免了Nan问题。</p>
+<p><strong>Softmax梯度</strong></p>
+<p>$$<br>\frac {\partial p_i} {\partial a_j} = \frac {\partial \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}} {\partial a_j}<br>$$</p>
+<p>根据除法导数公式$f(x) = \frac {g(x)} {h(x)}$，存在$f’(x) = \frac {g’(x)h(x) - g(x)h’(x)} {h^2(x)}$。在这里$g(x) = \exp(a_i)$, $h(x) = \sum_{k=1}^K \exp(a_k)$。</p>
+<p>对于$\frac {\partial h(x)} {\partial a_j}$，它的导数总是$\exp(a_j)$；对于$\frac{g(x)}{\partial a_j}$，分两种情况如果$i=j$ 梯度为$\exp(a_j)$，否则梯度为0（对于$a_j$来说，$a_i$是常数）。</p>
+<p>所以Softmax梯度公式分两种情况:</p>
+<p>当$i=j$时，</p>
+<p>$$<br>\frac {\partial p_i} {\partial a_j} = \frac {\partial \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}} {\partial a_j} = \frac {\exp(a_i) \cdot \sum_{k=1}^{K} \exp(a_k) - \exp(a_i) \cdot \exp(a_j)} {\left(\sum_{k=1}^{K} \exp(a_k)\right)^2} \\\<br>= \frac {\exp(a_i) } {\sum_{k=1}^{K} \exp(a_k)} \cdot \frac {\left(\sum_{k=1}^{K} \exp(a_k) - \exp(a_j) \right)} {\sum_{k=1}^{K} \exp(a_k)} = p_i * (1- p_j)<br>$$</p>
+<p>当$i \neq j$时，</p>
+<p>$$<br>\frac {\partial p_i} {\partial a_j} = \frac {\partial \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}} {\partial a_j} = \frac {0 - \exp(a_i) \cdot \exp(a_j)} {\left(\sum_{k=1}^{K} \exp(a_k)\right)^2} = - p_i \cdot p_j<br>$$</p>
+<p>因此Softmax梯度公式为：</p>
+<p>$$<br>f(x) = \begin{cases} \displaystyle<br>p_i \cdot (1 - p_j) &amp; \text{if} \; i=j \\\<br>-p_i \cdot p_j &amp; \text{if} \; i \neq j<br>\end{cases}<br>\longrightarrow<br>\mathbf{\frac{\partial p_i} {\partial a_j} = p_i (\delta_{ij} - p_j)}, \;<br>\delta_{ij} = \begin{cases} \displaystyle<br>1 &amp; \text{if} \; i = j \\<br>0 &amp; \text{if} \; i \neq j<br>\end{cases}<br>$$</p>
+<h2 id="交叉熵损失（Cross_Entropy_Loss）">交叉熵损失（Cross Entropy Loss）</h2><p>交叉熵用来衡量<strong>相同事件空间里两个概率分布的差异</strong>。应用到分类问题里，就是实际label输出（概率）与期望输出（概率）之间的距离，交叉熵越小，说明两个概率分布越接近。这里假设概率分布Y为实际输出，P为期望输出，H(Y,P)为交叉熵，那么有：</p>
+<p>$$<br>H(Y,P) = L(P) = - \sum_{x \in X} Y(x) \cdot \log P(x)<br>$$</p>
+<p>具体含义和解释，详见<a href="http://www.52caml.com/head_first_ml/ml-chapter2-entropy-based-family/#%E7%9B%B8%E5%AF%B9%E7%86%B5%E3%80%81KL%E8%B7%9D%E7%A6%BB" target="_blank" rel="external">52CAML交叉熵</a>定义</p>
+<p><strong>Softmax交叉熵损失梯度 with Logits</strong></p>
+<blockquote>
+<p>注意：交叉熵损失函数对logits的梯度，而不是对softmax的梯度。</p>
+</blockquote>
+<p>$$<br>\frac {\partial L} {\partial a_i} = - \sum_{k=1}^{K} y_k \cdot \frac{\partial \log(p_k)} {\partial a_i} = - \sum_{k=1}^{K} y_k \cdot \frac{\partial \log(p_k)} {\partial p_k} \cdot \frac{\partial p_k} {\partial a_i} \\<br>= - \sum_{k=1}^K y_k \frac{1}{p_k} \cdot \frac{\partial p_k} {\partial a_i} \\<br>= - \sum_{k=1}^K y_k \frac{1}{p_k} \cdot \left(p_k (\delta_{ki} - p_i) \right) = - \sum_{k=1}^K y_k (\delta_{ki} - p_i) \\<br>= - y_i (1 - p_i) - \sum_{k \neq i} y_k p_i \\<br>= \sum_{k=1}^K y_k * p_i - y_i = \mathbf{p_i - y_i}<br>$$</p>
+<p>因为$\sum_{k=1}^K p_k = 1$。所以基于Softmax函数的交叉熵损失梯度（对于logits $a_i$）表达式为：</p>
+<p>$$<br>\mathbf{\frac{\partial L} {\partial a_i} = p_i - y_i}<br>$$</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/深度学习/">深度学习</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Attention/">Attention</a><a href="/tags/Pooling/">Pooling</a><a href="/tags/Softmax/">Softmax</a><a href="/tags/反向传播/">反向传播</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.52caml.com/deep_learning/dl-chapter2-dnn/" data-title="第02章：深度神经网络 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/openmit/openmit-chapter3-admm/" title="第03章：OpenMIT_算法框架">
+  <strong>上一篇：</strong><br/>
+  <span>
+  第03章：OpenMIT_算法框架</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/openmit/openmit-chapter6-optimizer/"  title="第06章：OpenMIT-优化器">
+ <strong>下一篇：</strong><br/> 
+ <span>第06章：OpenMIT-优化器
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2.0.DNN符号定义"><span class="toc-number">1.</span> <span class="toc-text">DNN符号定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.神经网络的前向与反向"><span class="toc-number">2.</span> <span class="toc-text">神经网络的前向与反向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.2.softmax"><span class="toc-number">3.</span> <span class="toc-text">Softmax</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.1.softmax函数由来"><span class="toc-number">3.1.</span> <span class="toc-text">softmax函数由来</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.2.softmax函数概率模型"><span class="toc-number">3.2.</span> <span class="toc-text">softmax函数概率模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.3.softmax表达式与概率的关系"><span class="toc-number">3.3.</span> <span class="toc-text">softmax表达式与概率的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.4.SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp"><span class="toc-number">3.4.</span> <span class="toc-text">SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交叉熵损失（Cross_Entropy_Loss）"><span class="toc-number">4.</span> <span class="toc-text">交叉熵损失（Cross Entropy Loss）</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/OpenMIT/" title="OpenMIT">OpenMIT<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式机器学习/" title="分布式机器学习">分布式机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/强化学习与智能决策/" title="强化学习与智能决策">强化学习与智能决策<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/概率与统计/" title="概率与统计">概率与统计<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/深入浅出机器学习/" title="深入浅出机器学习">深入浅出机器学习<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Agent/" title="Agent">Agent<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/参数服务器/" title="参数服务器">参数服务器<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Dynamic-Programming/" title="Dynamic Programming">Dynamic Programming<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DP/" title="DP">DP<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Evalation/" title="Policy Evalation">Policy Evalation<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Improvement/" title="Policy Improvement">Policy Improvement<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Iteration/" title="Policy Iteration">Policy Iteration<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Value-Iteration/" title="Value Iteration">Value Iteration<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Greedy-Policy/" title="Greedy Policy">Greedy Policy<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/连续随机变量/" title="连续随机变量">连续随机变量<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/MDP/" title="MDP">MDP<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Markov-Decision-Process/" title="Markov Decision Process">Markov Decision Process<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RL/" title="RL">RL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Environments/" title="Environments">Environments<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/GD/" title="GD">GD<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FTRL/" title="FTRL">FTRL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AdaGrad/" title="AdaGrad">AdaGrad<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AdaDelta/" title="AdaDelta">AdaDelta<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Adam/" title="Adam">Adam<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, Welcome to CAML technology sharing platform.  <br/>
+			I&#39;m Zhou Yong, engaged in algorithms work on computational advertising and machine learning.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1707438033" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/ComputationalAds" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zhouyongsdzh@foxmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2019 
+		
+		<a href="/about" target="_blank" title="ZhouYong">ZhouYong</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>
