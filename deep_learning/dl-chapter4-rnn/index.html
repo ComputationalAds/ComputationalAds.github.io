@@ -119,7 +119,7 @@ weibo: @周永_52ML
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.N-Gram语言模型"><span class="toc-number">1.</span> <span class="toc-text">N-Gram语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.Neural语言模型"><span class="toc-number">2.</span> <span class="toc-text">Neural语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.3.Recurrent-Neural-Networks"><span class="toc-number">3.</span> <span class="toc-text">循环神经网络 (RNN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.1.RNN模型结构"><span class="toc-number">3.1.</span> <span class="toc-text">RNN结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.2.RNN模型参数学习"><span class="toc-number">3.2.</span> <span class="toc-text">RNN模型参数学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.3.RNN模型反向传播"><span class="toc-number">3.3.</span> <span class="toc-text">RNN模型反向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.4.RNN应用_文本生成"><span class="toc-number">3.4.</span> <span class="toc-text">RNN应用－文本生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.语言模型评估指标"><span class="toc-number">3.5.</span> <span class="toc-text">语言模型评估指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.6.RNN存在的问题"><span class="toc-number">3.6.</span> <span class="toc-text">RNN存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.4.LSTM"><span class="toc-number">4.</span> <span class="toc-text">LSTM</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.N-Gram语言模型"><span class="toc-number">1.</span> <span class="toc-text">N-Gram语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.Neural语言模型"><span class="toc-number">2.</span> <span class="toc-text">Neural语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.3.Recurrent-Neural-Networks"><span class="toc-number">3.</span> <span class="toc-text">循环神经网络 (RNN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.1.RNN模型结构"><span class="toc-number">3.1.</span> <span class="toc-text">RNN结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.2.RNN模型参数学习"><span class="toc-number">3.2.</span> <span class="toc-text">RNN模型参数学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.3.RNN模型反向传播"><span class="toc-number">3.3.</span> <span class="toc-text">RNN模型反向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.4.RNN应用_文本生成"><span class="toc-number">3.4.</span> <span class="toc-text">RNN应用－文本生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.语言模型评估指标"><span class="toc-number">3.5.</span> <span class="toc-text">语言模型评估指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.RNN存在的问题"><span class="toc-number">3.6.</span> <span class="toc-text">RNN存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.4.LSTM"><span class="toc-number">4.</span> <span class="toc-text">LSTM</span></a></li></ol>
 		
 		</div>
 		
@@ -139,10 +139,13 @@ weibo: @周永_52ML
 <li><a href="#4.3.2.RNN模型参数学习">RNN参数学习</a></li>
 <li><a href="#4.3.3.RNN模型反向传播">RNN反向传播</a></li>
 <li><a href="#4.3.4.RNN应用_文本生成">RNN应用－文本生成</a></li>
+<li><a href="#4.3.5.RNN存在的问题">RNN存在的问题</a></li>
 <li><a href="#4.3.5.语言模型评估指标">语言模型评估指标</a></li>
 </ul>
 </li>
 <li><a href="#4.4.LSTM">LSTM</a></li>
+<li><a href="#4.5.GRU">GRU</a></li>
+<li><a href="#4.6.语言模型评估指标">语言模型评估指标</a></li>
 </ul>
 <h2 id="4.1.N-Gram语言模型">N-Gram语言模型</h2>
 
@@ -249,22 +252,40 @@ weibo: @周永_52ML
 <p>评估语言模型效果的方式是困惑度（perplexity）。公式表示为：</p>
 <p>$$<br>\begin{align}<br>perplexity &amp;= \prod_{t=1}^{T} \left(\frac{1} {P_{LM}(x^{(t+1)}|x^{(t)},\cdots,x^{(1)})}\right)^{\frac{1}{T}} \\\<br>&amp;= \prod_{t=1}^{T} \left(\frac{1} {\hat{y}_{x_{t+1}}^{(t)}}\right)^{\frac{1}{T}} = \exp \left(\frac{1}{T} \sum_{t=1}^T -\log \hat{y}_{x_{t+1}}^{(t)} \right) = \exp(J(\theta))<br>\end{align}<br>$$</p>
 <p>可以看到，表达式是语言模型概率公式的导数，指数$\frac{1}{T}$用于词数作归一化。上式等价于<strong>语言模型损失函数的指数</strong>。所以perlexity越小，说明语言模型效果越好。</p>
-<h3 id="4.3.6.RNN存在的问题">RNN存在的问题</h3>
+<h3 id="4.3.5.RNN存在的问题">RNN存在的问题</h3>
 
 <p>RNN模型从参数学习的角度看，最大的问题是存在梯度消失的问题(gradient vanish)。根据链式法则，第$t$步的损失函数对第一个隐藏状态层$h^{(1)}$求导时，可以看到：</p>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish.png" width="600" height="450" alt="RNN梯度消失"></p>
 <p>RNN模型结构中提到的$h^{(t-1)}$到$h^{(t)}$的函数表达式为$h^{(t)} = \sigma(W_h h^{(t-1)} + W_x x^{(t)} + b)$，根据链式法则可得$\frac{\partial h^{(t)}} {\partial h^{(t-1)}} = \text{diag} \left(\sigma^{‘} (W_h h^{(t-1)} + W_x x^{(t)} + b) \right) \cdot W_h$。</p>
-<p>如何$\frac{\partial h^{(t)}} {\partial h^{(t-1)}}$很小会怎样呢？就会导致梯度信号随着反向传播的过程越来越弱，出现梯度消失的问题。</p>
+<p>如果$\frac{\partial h^{(t)}} {\partial h^{(t-1)}}$很小会怎样呢？就会导致梯度信号随着反向传播的过程越来越弱，出现梯度消失的问题。</p>
 <p>下面简要给出梯度消失的证明过程：考虑第$i$步的损失函数$J^{(i)}(\theta)$，它对应的前面第$j$步的隐藏状态层为$h^{(j)}$，那么可得$J^{(i)}(\theta)$对$h^{(j)}$的导数为：</p>
 <p>$$<br>\begin{align}<br>\frac{\partial J^{(i)}(\theta)} {\partial h^{(j)}} &amp;= \frac{\partial J^{(i)}(\theta)} {\partial h^{(i)}} \prod_{j &lt; t \le i} \frac{\partial h^{(t)}} {\partial h^{(t-1)}} \\\<br>&amp;= \frac{\partial J^{(i)}(\theta)} {\partial h^{(i)}} \cdot W_{h}^{(i-j)} \cdot \prod_{j &lt; t \le i} \text{diag} \left(\sigma^{‘} (W_h h^{(t-1)} + W_x x^{(t)} + b) \right)<br>\end{align}<br>$$</p>
 <p>如果$W_h$比较小（如最大特征值小于1），那么随着$i$和$j$之间的距离越来越大，整体的梯度也就越来越小（指数衰减），最终趋于消失。如果$W_h$特征值大于1，那么梯度会指数级爆炸(exploding gradient)。</p>
-<p>考察：如何通过公式证明RNN会存在梯度消失的问题（随着距离越来越大）？</p>
+<p>考察问题：</p>
+<ol>
+<li>RNN训练时存在梯度消失的情况，是否存在梯度爆炸的情况？存在</li>
+<li>如何通过公式证明RNN会存在梯度消失（或梯度爆炸）的问题，随着term距离越来越大时？</li>
+</ol>
 <p><strong>为什么梯度消失是一个问题？（Why is vanishing gradient a problem?）</strong></p>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish_is_problem.png" width="600" height="450" alt="LSTM结构图"></p>
 <p>从上图可以看到，从远处传递过来的梯度信号强度远弱于近处的梯度信号，那么模型参数$W_h$的更新主要受近处梯度的影响，与long-term无关。</p>
-<p>我们也可以从另一个角度解释，梯度是过去对将来影响的一种度量方式。如果梯度因为距离过长导致消失为情况，我们无法</p>
+<p>我们也可以从另一个角度解释，梯度是过去对影响未来的一种度量方式，如果梯度因为距离过长导致消失的情况，我们无法得知：</p>
+<ol>
+<li>$t$与$t+n$步对应的term是否真的没有依赖关系；</li>
+<li>无法得到正确的参数（wrong parameters）来捕捉$t$与$t+n$步之间真实的依赖关系；</li>
+</ol>
+<p><strong>为什么梯度爆炸是一个问题？（Why is exploding gradient a problem?）</strong></p>
+<p>如果gradient很大，以SGD优化算法更新参数为例：</p>
+<p>$$<br>\theta_{new} \leftarrow \theta_{old} -  \overbrace{\alpha}^{\text{learning rate}} \cdot \underbrace{\nabla_{\theta} J(\theta)}_{\text{gradient}}<br>$$</p>
+<p>梯度过大可能导致：1. 跳过最优解；2. 更坏的情况是出现NaN或Inf，不得不重新训练；</p>
+<p>解决梯度爆炸的一种方法是梯度截断（Gradient Clipping），即当梯度大于阈值时，取该阈值。直观的理解就是参数更新时保持方向不变，但是减小更新参数的步幅。</p>
+<p>梯度爆炸有比较直观的解决方案，那么梯度消失问题如何解决呢？</p>
+<p>经典的RNN模型，学习很多步之前的信息是比较困难的，因为隐藏层的状态是一个递归的过程，无法保存长期信息。</p>
+<p>那么，是否可以将长短期信息分开存储并记忆呢？下面讲到的LSTM可以实现这种功能。</p>
 <h2 id="4.4.LSTM">LSTM</h2>
 
+<p>LSTM在对序列问题建模时，每一步用两个状态表示：隐藏态$h^{(t)}$（hidden status）和细胞态$c^{(t)}$（cell status）。它们都是长度为n的向量，cell status存储长期的信息，LSTM算法可以抹擦、写、读细胞态中的信息。</p>
+<p>cell status中哪些信息被抹擦、写、读是由相应的门（gate）来控制的，具体对应遗忘门、输入门、输出门。</p>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_lstm_structure.png" width="600" height="450" alt="LSTM结构图"></p>
   
 	</div>
@@ -328,7 +349,7 @@ weibo: @周永_52ML
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.N-Gram语言模型"><span class="toc-number">1.</span> <span class="toc-text">N-Gram语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.Neural语言模型"><span class="toc-number">2.</span> <span class="toc-text">Neural语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.3.Recurrent-Neural-Networks"><span class="toc-number">3.</span> <span class="toc-text">循环神经网络 (RNN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.1.RNN模型结构"><span class="toc-number">3.1.</span> <span class="toc-text">RNN结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.2.RNN模型参数学习"><span class="toc-number">3.2.</span> <span class="toc-text">RNN模型参数学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.3.RNN模型反向传播"><span class="toc-number">3.3.</span> <span class="toc-text">RNN模型反向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.4.RNN应用_文本生成"><span class="toc-number">3.4.</span> <span class="toc-text">RNN应用－文本生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.语言模型评估指标"><span class="toc-number">3.5.</span> <span class="toc-text">语言模型评估指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.6.RNN存在的问题"><span class="toc-number">3.6.</span> <span class="toc-text">RNN存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.4.LSTM"><span class="toc-number">4.</span> <span class="toc-text">LSTM</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.N-Gram语言模型"><span class="toc-number">1.</span> <span class="toc-text">N-Gram语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.Neural语言模型"><span class="toc-number">2.</span> <span class="toc-text">Neural语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.3.Recurrent-Neural-Networks"><span class="toc-number">3.</span> <span class="toc-text">循环神经网络 (RNN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.1.RNN模型结构"><span class="toc-number">3.1.</span> <span class="toc-text">RNN结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.2.RNN模型参数学习"><span class="toc-number">3.2.</span> <span class="toc-text">RNN模型参数学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.3.RNN模型反向传播"><span class="toc-number">3.3.</span> <span class="toc-text">RNN模型反向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.4.RNN应用_文本生成"><span class="toc-number">3.4.</span> <span class="toc-text">RNN应用－文本生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.语言模型评估指标"><span class="toc-number">3.5.</span> <span class="toc-text">语言模型评估指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.RNN存在的问题"><span class="toc-number">3.6.</span> <span class="toc-text">RNN存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.4.LSTM"><span class="toc-number">4.</span> <span class="toc-text">LSTM</span></a></li></ol>
  
   </div>
 
@@ -362,7 +383,7 @@ weibo: @周永_52ML
 		  
 		
 		  
-			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>2</sup></a></li>
+			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>3</sup></a></li>
 		  
 		
 		  
@@ -391,19 +412,19 @@ weibo: @周永_52ML
 			
 		
 			
-				<li><a href="/tags/Dynamic-Programming/" title="Dynamic Programming">Dynamic Programming<sup>1</sup></a></li>
+				<li><a href="/tags/反向传播/" title="反向传播">反向传播<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/DP/" title="DP">DP<sup>1</sup></a></li>
+				<li><a href="/tags/Softmax/" title="Softmax">Softmax<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Policy-Evalation/" title="Policy Evalation">Policy Evalation<sup>1</sup></a></li>
+				<li><a href="/tags/Pooling/" title="Pooling">Pooling<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Policy-Improvement/" title="Policy Improvement">Policy Improvement<sup>1</sup></a></li>
+				<li><a href="/tags/Attention/" title="Attention">Attention<sup>2</sup></a></li>
 			
 		
 			
