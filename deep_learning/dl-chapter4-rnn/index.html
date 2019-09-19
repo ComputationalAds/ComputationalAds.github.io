@@ -285,8 +285,13 @@ weibo: @周永_52ML
 <h2 id="4.4.LSTM">LSTM</h2>
 
 <p>LSTM在对序列问题建模时，每一步用两个状态表示：隐藏态$h^{(t)}$（hidden status）和细胞态$c^{(t)}$（cell status）。它们都是长度为n的向量，cell status存储长期的信息，LSTM算法可以抹擦、写、读细胞态中的信息。</p>
-<p>cell status中哪些信息被抹擦、写、读是由相应的门（gate）来控制的，具体对应遗忘门、输入门、输出门。</p>
+<p>cell status中哪些信息被抹擦、写、读是由相应的门（gate）来控制的，分别对应遗忘门、输入门、输出门。</p>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_lstm_structure.png" width="600" height="450" alt="LSTM结构图"></p>
+<p>LSTM结构用公式表示为：</p>
+<p>$$<br>\begin{align}<br>f_t &amp;= \sigma(W_f h^{(t-1)} + U_f x^{(t)} + b_f) \quad // 计算遗忘门（得到旧cell内容占比） \\\<br>i_t &amp;= \sigma(W_i h^{(t-1)} + U_i x^{(t)} + b_i) \quad // 计算输入门（得到新cell内容占比） \\\<br>\tilde{c_t} &amp;= \tanh(W_c h^{(t-1)} + W_c x^{(t)} + b_c) \quad // t状态的新细胞内容，取值[-1,1] \\\<br>c_t &amp;= f_t \circ c_{t-1} + i_t \circ \tilde{c_t} \quad // 更新细胞内容，得到新细胞状态（类似权重衰减）\\\<br>o_t &amp;= \sigma(W_o h^{(t-1)} + W_o x^{(t)} + b_o) \quad // 计算输出门（细胞状态权重） \\\<br>h_t &amp;= o_t \circ \tanh(c_t) \quad // 输出一些细胞内容作为隐藏态<br>\end{align}<br>$$</p>
+<blockquote>
+<p>考察：LSTM结构是怎样的？画结构图和给出表达式</p>
+</blockquote>
   
 	</div>
 		<footer class="article-footer clearfix">
