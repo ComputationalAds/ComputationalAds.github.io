@@ -149,35 +149,55 @@ weibo: @周永_52ML
 </ul>
 <h2 id="4.1.N-Gram语言模型">N-Gram语言模型</h2>
 
-<p>语言模型的任务是给定一个词序$x^{(1)}, x^{(2)}, \cdots, x^{(N-1)}，预测下一个词x^{(N)}的概率分布的问题。这里的N可以是$1,2,…$，对应的是1-Gram，2-Gram,…,N-Gram。</p>
+<p>语言模型是NLP技术中很重要的一环，它是所有NLP的基础，被广泛应用于分词、标注、信息检索、语音识别、机器翻译等任务。</p>
+<p>在机器翻译系统中，对于给定的一个英文句子English，需要找到一个使概率$p(Chinese|Englisg)$最大化的中文文本段Chinese，利用贝叶斯公式有：</p>
+<p>$$<br>p(Chinese|English) = \frac{p(English|Chinese) \cdot p(Chinese)} {p(English)}<br>$$</p>
+<p>其中$p(English|Chinese)$为翻译模型，而$p(Chinese)$为语言模型。</p>
+<p>语言模型的任务是给定一个词序$x^{(1)}, x^{(2)}, \cdots, x^{(N-1)}，预测下一个词x^{(N)}$的概率分布的问题。这里的N可以是1,2,…，分别对应1-Gram，2-Gram,…,N-Gram。</p>
 <p>通常地，n-gram语言模型给定一个词序$x^{(1)},x^{(2)},…x^{(t)}$，计算下一个词$x^{(t+1)}$的概率分布。用数学语言表示为：$P(x^{(t+1)} | x^{(t)},…,x^{(1)})$，其中$x^{(t+1)}$是词库集合$V$中任意一个词。</p>
 <blockquote>
 <p>词库集合：$V = \{w_1, w_2, …, w_{V}\}$</p>
 </blockquote>
-<p>我们也可以把语言模型理解为是一个赋予概率至每个词上的系统。通俗地讲，一句话（或一段话）它的生成过程是依据前面的词得到下一个词的过程。如果一段文本所有的词是$x^{(1)},x^{(2)},…x^{(T)}$，根据语言模型的定义，这段文本的概率就是：</p>
+<p>我们也可以把语言模型理解为是一个赋予概率至每个词上的系统。通俗地讲，一句话（或一段话）它的生成过程是依据前面的词得到下一个词的过程。如果一段文本所有的词的顺序是$x^{(1)},x^{(2)},…x^{(T)}$，根据语言模型的定义，这段文本的概率就是：</p>
 <p>$$<br>\begin{align}<br>P(x^{(1)},x^{(2)},…,x^{(T)}) \<br>&amp;= P(x^{(1)}) \times P(x^{(2)} | x^{(1)}) \times \cdots \times P(x^{(T)} | \; x^{(T-1)}, \cdots, x^{(1)}) \\\<br>&amp;= \prod_{t=1}^{T} P(x^{(t)} | \; x^{(t-1)}, \cdots, x^{(1)})<br>\end{align}<br>$$</p>
-<p>问题：如何学习语言模型？一个简单的假设：第词$x^{(t+1)}$仅仅有前n-1个词决定。即：</p>
+<p>等式右边是根据Bayes公式链式分解得到，其中的条件概率$p(x^{(1)}),P(x^{(2)} | x^{(1)}),\cdots$就是语言模型的参数，若这些参数已经全部算得，那么给定一个句子，就可以很快地算出相应的概率了。</p>
+<p>问题：如何学习语言模型？这些参数如何计算？常见的方法有n-gram模型、决策树、最大熵模型、最大熵马尔科夫模型、条件随机场、神经网络等。本节先讨论n-gram模型。</p>
+<p>直观地理解，一个词出现的概率与它前面的所有词都有关。如果<strong>假定一个词出现的概率只与它前面固定的词相关呢？这就是n-gram模型的基本思想，它做了一个n-1阶的Markov假设：一个词$x^{(t+1)}$出现的概率仅仅与它前面的n-1个词相关</strong>。即：</p>
 <p>$$<br>\begin{align}<br>P(x^{(t+1)} | \; x^{(t)}, \cdots, x^{(1)}) \<br>&amp;= P(x^{(t+1)} | \; \overbrace { x^{(t)}, \cdots, x^{(t-n+2)}}^{n-1个词}) = \frac{P(x^{(t+1)}, x^{(t)}, \cdots, x^{(x-n+2)})} {P(x^{(t)}, \cdots, x^{(x-n+2)})}<br>\end{align}<br>$$</p>
 <p>那么，如何获得n-gram和(n-1)-gram的的概率呢？我们可以基于统计假设，在整个文本预料整个统计得到上述公式中的概率。如此，上述公式近似于：</p>
 <p>$$<br>\begin{align}<br>P(x^{(t+1)} | \; x^{(t)}, \cdots, x^{(1)}) \<br>&amp;= P(x^{(t+1)} | \; \overbrace { x^{(t)}, \cdots, x^{(t-n+2)}}^{n-1个词}) = \frac{P(x^{(t+1)}, x^{(t)}, \cdots, x^{(x-n+2)})} {P(x^{(t)}, \cdots, x^{(x-n+2)})} \\\<br>&amp;\approx \frac{ \text{Count}(x^{(t+1)}, x^{(t)}, \cdots, x^{(x-n+2)}) } { \text{Count}(x^{(t)}, \cdots, x^{(x-n+2)}) }<br>\end{align}<br>$$</p>
-<p>N-Gram语言模型存在2大问题</p>
-<p>上述n-gram语言模型建模方式存在两个问题，一个是稀疏性问题，二是存储问题。</p>
-<p>稀疏性问题</p>
+<p>N-Gram模型存在2大问题：一个是稀疏性问题，另一个是存储问题。</p>
+<p><strong>稀疏性问题</strong></p>
 <ol>
 <li>如果$(x^{(t+1)}, x^{(t)}, \cdots, x^{(x-n+2)})$文本从未出现在数据集中呢？那么，上述公式分子为0，通常采用平滑（smoothing）方式；</li>
 <li>如果$(x^{(t)}, \cdots, x^{(x-n+2)})$为0，那么就采用会回退（backoff）方式，以$(x^{(t)}, \cdots, x^{(x-n+3)})$替代。</li>
 </ol>
 <p>从公式中也可以看出，如果n变大，那么这种稀疏性问题只会加剧，通常n不大于5。</p>
-<p>存储问题</p>
+<p>事实上，这里涉及到的是一个可靠性和可区别性的问题，参数越多，可区别性越好，但同时单个参数的实例变少从而降低了可靠性，因此需要在可靠性和可区别性之间进行折中。</p>
+<p><strong>存储问题</strong></p>
 <p>我们要统计训练语料中所有出现的n-gram，增大n或者增加训练预料都会使得模型变得更大。</p>
 <p>在介绍如何解决N-Gram语言模型的2大问题前，先介绍下N-Gram语言模型的一个应用。n-gram语言模型可以用于<strong>生成文本（generating text）</strong>，即给定前k个词，根据n-gram计算方式填充第k+1个词，然后填充第k+2个词，依次下去….。但是这种方式生成的文本可能会极为不通顺、毫无调理（incoherent）。</p>
+<p>总结起来，n-gram模型的主要工作是<strong>语料中统计各种词串出现的次数以及平滑处理，概率值算好之后存储起来，下次需要计算一个句子的概率时，只需要找到相关的概率参数，将它们连乘起来即可。</strong></p>
+<p>然而，机器学习领域通用的逻辑是：对所考虑的问题建模（即模型表达式）后，先为其构造一个目标函数，然后对目标函数进行优化，从而求得一组最优参数，最后利用这组最优参数对应的模型进行预测。</p>
+<p>统计模型的目标函数是<strong>概率最大似然函数</strong>（对应文本的联合概率公式），实际应用中常采用最大对数思然，即把目标函数设为：</p>
+<p>$$<br>\mathcal{L} = \sum_{t=1}^T \log p(x^{(t)}|context(x^{(t)}))<br>$$</p>
+<p>然后对这个目标函数进行最大化。从目标函数公式可见，<strong>概率$p(x|context(x))$已被视为关于$x$和$context(w)$的函数</strong>，即：</p>
+<p>$$<br>p(x|context(x)) = F(w, context(w), \theta)<br>$$</p>
+<p>其中$\theta$为待定参数集。如此一来，一旦对概率函数$F$进行优化得到最优参数集$\theta^{\star}$后，F也就唯一被确定了，以后任何概率$p(x|context(x))$旧可以通过函数$F(w, context(w), \theta^{\star})$来计算了。很明显，对于这种方法，最关键的地方在于函数$F$的构造了。</p>
 <h2 id="4.2.Neural语言模型">Neural语言模型</h2>
 
 <p>神经语言模型结构比较简单，它首先把每个word向量化表示，然后将输入的n个词concat，中间经过Fully Connect层，最后由Softmax输出下一个词的概率分布。</p>
 <blockquote>
 <p>简单总结神经语言模型结构：${word^{(i)}} \rightarrow emb^{(i)} \rightarrow concat(emb^{(1)}, emb^{(2)}, emb^{(n-1)}) \rightarrow fc \rightarrow softmax$</p>
 </blockquote>
-<p>与n-gram模型对应的是定长窗口（fixed-window）的神经语言模型，它可以解决n-gram模型中存在的稀疏性问题以及无需再存储庞大的参数。但是，fixed-window神经语言模型也存在几个问题，一是定长窗口通常太小，二是增大窗口fc层参数W同样会增大；三是窗口不能无限增大，最后$x^{(1)}$和$x^{(2)}$are multiplied by completely different weights in   . No symmetry in how the inputs are processed. </p>
+<p>与n-gram模型对应的是定长窗口（fixed-window）的神经语言模型，它可以解决n-gram模型中存在的稀疏性问题以及无需再存储庞大的参数。此外，最重要的是<strong>词语之间的相似性可以通过词向量来体现，有更好的泛化性</strong>。</p>
+<p>但是，fixed-window神经语言模型也存在几个问题，</p>
+<ul>
+<li>一是定长窗口通常太小；</li>
+<li>二是增大窗口fc层参数W同样会增大；</li>
+<li>三是窗口不能无限增大，</li>
+<li>最后$x^{(1)}$和$x^{(2)}$are multiplied by completely different weights in   . No symmetry in how the inputs are processed. </li>
+</ul>
 <p>因此，我们需要一个能<strong>处理任意长度的神经网络结构－Recurrent Neural Networks (RNN)</strong>。</p>
 <h2 id="4.3.Recurrent-Neural-Networks">循环神经网络 (RNN)</h2>
 

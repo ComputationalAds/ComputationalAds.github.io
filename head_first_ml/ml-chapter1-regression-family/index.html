@@ -19,7 +19,7 @@ weibo: @周永_52ML
 内容列表
 
 符号定义
-说明
+写在前面
 回归分析介绍
 线性回归模型
 回归模型与正则化
@@ -31,11 +31,8 @@ Group Lasso
 逻辑斯蒂回归
 
 符号定义
-这里定义《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：
 
-
-
-符号">
+这里定义《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第01章：深入浅出ML之Regression家族">
 <meta property="og:url" content="http://www.52caml.com/head_first_ml/ml-chapter1-regression-family/index.html">
@@ -48,7 +45,7 @@ weibo: @周永_52ML
 内容列表
 
 符号定义
-说明
+写在前面
 回归分析介绍
 线性回归模型
 回归模型与正则化
@@ -60,11 +57,8 @@ Group Lasso
 逻辑斯蒂回归
 
 符号定义
-这里定义《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：
 
-
-
-符号">
+这里定义《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_1_1_1_Regression_Line.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_1_2_1_regularization_p_values.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/spark_lr/master/img/ml_1_2_2_l1_l2_regularization.png">
@@ -78,7 +72,7 @@ weibo: @周永_52ML
 内容列表
 
 符号定义
-说明
+写在前面
 回归分析介绍
 线性回归模型
 回归模型与正则化
@@ -90,11 +84,8 @@ Group Lasso
 逻辑斯蒂回归
 
 符号定义
-这里定义《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：
 
-
-
-符号">
+这里定义《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -161,7 +152,7 @@ Group Lasso
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2016-10-06T09:09:53.000Z" itemprop="datePublished"> 发表于 2016-10-06</time>
+    <time datetime="2019-09-22T05:37:45.000Z" itemprop="datePublished"> 发表于 2019-09-22</time>
     
   </p>
 </header>
@@ -170,7 +161,7 @@ Group Lasso
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归分析介绍"><span class="toc-number">2.</span> <span class="toc-text">回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线性回归（Linear_Regression）"><span class="toc-number">3.</span> <span class="toc-text">线性回归（Linear Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线性回归模型"><span class="toc-number">3.1.</span> <span class="toc-text">线性回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数学习－线性回归目标函数"><span class="toc-number">3.2.</span> <span class="toc-text">参数学习－线性回归目标函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#概率解释－回归模型目标函数"><span class="toc-number">3.3.</span> <span class="toc-text">概率解释－回归模型目标函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归模型与正则化"><span class="toc-number">4.</span> <span class="toc-text">回归模型与正则化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">5.</span> <span class="toc-text">逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂分布"><span class="toc-number">5.1.</span> <span class="toc-text">逻辑斯蒂分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂回归模型"><span class="toc-number">5.2.</span> <span class="toc-text">逻辑斯蒂回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LR模型与广义线性模型、最大熵模型、指数族分布"><span class="toc-number">5.3.</span> <span class="toc-text">LR模型与广义线性模型、最大熵模型、指数族分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LR模型在工业界的应用"><span class="toc-number">5.4.</span> <span class="toc-text"> LR模型在工业界的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归问题相关解释"><span class="toc-number">6.</span> <span class="toc-text">回归问题相关解释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Next_…"><span class="toc-number">7.</span> <span class="toc-text">Next …</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#符号定义"><span class="toc-number">1.</span> <span class="toc-text">符号定义</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0.写在前面"><span class="toc-number"></span> <span class="toc-text">写在前面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#回归分析介绍"><span class="toc-number">1.</span> <span class="toc-text">回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线性回归（Linear_Regression）"><span class="toc-number">2.</span> <span class="toc-text">线性回归（Linear Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线性回归模型"><span class="toc-number">2.1.</span> <span class="toc-text">线性回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数学习－线性回归目标函数"><span class="toc-number">2.2.</span> <span class="toc-text">参数学习－线性回归目标函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#概率解释－回归模型目标函数"><span class="toc-number">2.3.</span> <span class="toc-text">概率解释－回归模型目标函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归模型与正则化"><span class="toc-number">3.</span> <span class="toc-text">回归模型与正则化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">4.</span> <span class="toc-text">逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂分布"><span class="toc-number">4.1.</span> <span class="toc-text">逻辑斯蒂分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂回归模型"><span class="toc-number">4.2.</span> <span class="toc-text">逻辑斯蒂回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LR模型与广义线性模型、最大熵模型、指数族分布"><span class="toc-number">4.3.</span> <span class="toc-text">LR模型与广义线性模型、最大熵模型、指数族分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LR模型在工业界的应用"><span class="toc-number">4.4.</span> <span class="toc-text"> LR模型在工业界的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归问题相关解释"><span class="toc-number">5.</span> <span class="toc-text">回归问题相关解释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Next_…"><span class="toc-number">6.</span> <span class="toc-text">Next …</span></a></li></ol>
 		
 		</div>
 		
@@ -182,9 +173,9 @@ Group Lasso
 <hr>
 <p><strong>内容列表</strong></p>
 <ul>
-<li>符号定义</li>
-<li>说明</li>
-<li>回归分析介绍</li>
+<li><a href="#符号定义">符号定义</a></li>
+<li><a href="#0.写在前面">写在前面</a></li>
+<li><a href="#1.回归分析介绍">回归分析介绍</a></li>
 <li>线性回归模型</li>
 <li>回归模型与正则化<ul>
 <li>L2－Ridge</li>
@@ -194,7 +185,8 @@ Group Lasso
 </li>
 <li>逻辑斯蒂回归</li>
 </ul>
-<p><strong>符号定义</strong></p>
+<h3 id="符号定义">符号定义</h3>
+
 <p>这里定义《深入浅出ML》系列中涉及到的公式符号，如无特殊说明，符号含义均按下述定义解释：</p>
 <table>
 <thead>
@@ -242,7 +234,9 @@ Group Lasso
 </tr>
 </tbody>
 </table>
-<h3 id="写在前面">写在前面</h3><p>回归技术在整个数据科学体系中占有非常重要的位置，回归分析是统计学中的<strong>相关分析知识体系</strong>中重要组成部分。在机器学习中，回归、分类和标注共同构成了监督学习技术。</p>
+<h1 id="0.写在前面">写在前面</h1>
+
+<p>回归技术在整个数据科学体系中占有非常重要的位置，回归分析是统计学中的<strong>相关分析知识体系</strong>中重要组成部分。在机器学习中，回归、分类和标注共同构成了监督学习技术。</p>
 <blockquote>
 <p>监督学习（supervised learning）是机器学习在工业界应用最广的一个领域分支。在学术界中也是研究最多的领域之一。大家都知道的数据挖掘十大经典算法中，监督学习技术占据6席。</p>
 </blockquote>
@@ -469,10 +463,16 @@ Group Lasso
 <p>而本节要介绍的逻辑斯蒂回归模型（Logistic Regression Model，简称LR模型）是一种可用来分类的模型。在这里，自变量\(X\)取值为连续值或离散值，因变量\(Y\)取值为1或0。</p>
 <ul>
 <li><p><strong>LR模型表达式</strong></p>
-<p>  <strong>LR模型表达式为参数化的逻辑斯蒂（累积）分布函数</strong>（默认参数\(\mu=0,s=1\)）即：</p>
+<p>  <strong>LR模型表达式为参数化的逻辑斯蒂（累积）分布函数</strong>（默认参数$(\mu=0,s=1$）即：</p>
 <p>  $$<br>  h_w(x) = \frac{1}{1+e^{-w^T \cdot x}} \qquad(ml.1.1.12)<br>  $$</p>
 <p>  \(h_w(x)\)作为事件结果\(y=1\)的概率取值。这里，\(x \in R^{n+1}, y \in \{1,0\}\)，\(w \in R^{n+1}\)是权值向量。其中权值向量\(w\)中包含偏置项，即\(w=(w_0, w_1, \cdots, w_n)\), \(x=(1, x_1, \cdots, x_n)\)。</p>
 </li>
+</ul>
+<blockquote>
+<p>_问题：LR输出结果是否可以是概率值？_</p>
+<p>当然是，因为连续随机变量$W^T x$服从逻辑斯蒂概率分布，LR表达式是逻辑斯蒂的累积分布函数（超参数为$\mu=0,s=1$）。</p>
+</blockquote>
+<ul>
 <li><p><strong>理解LR模型</strong></p>
 <ul>
 <li><p><strong>对数几率</strong></p>
@@ -482,7 +482,7 @@ Group Lasso
 <p>  $$<br>\log \frac{h_w(x)}{1-h_w(x)} = w^T x \qquad(ml.1.1.14)<br>$$</p>
 <p>  即在LR模型中，输出\(y=1\)的对数几率是输入实例\(x\)的线性函数。</p>
 </li>
-<li><p>函数映射</p>
+<li><p><strong>函数映射</strong></p>
 <p>  除了从对数几率的角度理解LR外，从函数映射也可以理解LR模型：</p>
 <p>  考虑对输入实例\(x\)进行分类的线性表达式\(w^Tx\)，其值域为实数域（\(x \in R^{n+1}\)，\(w \in R^{n+1}\)）。通过LR模型表达式\((ml.1.1.13)\)可以将线性函数\(w^T x\)的结果映射到\((0,1)\)区间，取值表示为结果为1的概率（在二分类场景中）。</p>
 <p>  线性函数的值愈接近正无穷\(\infty\)，概率值就越接近1；反之，其值越接近负无穷，概率值就越接近0。这样的模型就是LR模型。</p>
@@ -499,18 +499,27 @@ Group Lasso
 </blockquote>
 <p>  这里从事件、变量以及结果的角度给予解释。</p>
 <p>  我们所能拿到的训练数据统称为观测样本。问题：样本是如何生成的？</p>
-<p>  <strong>一个样本可以理解为发生的一次事件，样本生成的过程即事件发生的过程。对于0/1分类问题来讲，产生的结果有两种可能，符合伯努利试验的概率假设。因此，我们可以说样本的生成过程即为伯努利试验过程，产生的结果（0/1）服从伯努利分布。这里我们假设结果为1的概率为\(h_{w}(x)\)，结果为0的概率为\(1-h_{w}(x)\)</strong>。</p>
-<p>  那么，对于第\(i\)个样本，概率公式表示如下：</p>
+<p>  <strong>一个样本可以理解为发生的一次事件，样本生成的过程即事件发生的过程。对于0/1分类问题来讲，产生的结果有两种可能，这符合伯努利试验的概率假设。因此，我们可以说样本的生成过程即为伯努利试验过程，产生的结果（0/1）服从伯努利分布。这里我们假设结果为1的概率为\(h_{w}(x)\)，结果为0的概率为\(1-h_{w}(x)\)</strong>。</p>
+<p>  那么，对于第$i$个样本，概率公式表示如下：</p>
 <p>  $$P(y^{(i)}=1|x^{(i)}; w) = h_{w}(x^{(i)}) \qquad (ml.1.1.15)$$ </p>
 <p>  $$P(y^{(i)}=0|x^{(i)}; w) = 1 - h_{w}(x^{(i)}) \qquad (ml.1.1.16)$$</p>
-<p>  将公式\((ml.1.1.15)\)和\((ml.1.1.16)\)合并在一起，可得第\(i\)个样本正确预测的概率：</p>
+<p>  将公式$(ml.1.1.15)$和$(ml.1.1.16)$合并在一起，可得第$i$个样本正确预测的概率：</p>
 <p> $$<br> P(y^{(i)}|x^{(i)}; w) = (h_{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \qquad (ml.1.1.17)<br> $$</p>
 <p> 上式是对一条样本进行建模的数据表达。对于多条样本，假设每条样本生成过程独立，在整个样本空间中（\(m\)个样本）的概率分布为：</p>
 <p> $$P(Y|X; w) = \prod_{i=1}^{m} \left( (h_{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \right) \qquad(ml.1.1.18)$$</p>
 <p> 通过极大似然估计（Maximum Likelihood Evaluation，简称MLE）方法求概率参数。具体地，下面给出了通过随机梯度下降法（Stochastic Gradient Descent，简称SGD）求参数。</p>
+<blockquote>
+<p>_问题：公式$(ml.1.1.17)$是怎么得到的？_</p>
+<p>可以从概率建模的角度给出解释</p>
+</blockquote>
 </li>
+</ul>
+<blockquote>
+<p>sigmoid函数在深度学习模型中常用作激活函数。</p>
+</blockquote>
+<ul>
 <li><p><strong>参数学习算法</strong></p>
-<p>  公式\((ml.1.1.18)\)不仅可以理解为在已观测的样本空间中的概率分布表达式。如果从统计学的角度可以理解为参数\(w\)似然性的函数表达式（即似然函数表达式）。参数在整个样本空间中的似然函数可表示为：</p>
+<p>  公式\((ml.1.1.18)\)不仅可以理解为在已观测的样本空间中的概率分布表达式。如果从统计学的角度可以理解为<strong>参数\(w\)似然性的函数表达式（即似然函数表达式）</strong>。参数在整个样本空间中的似然函数可表示为：</p>
 <p>  $$<br>  \begin{align}<br>  L(w) &amp; = P(Y|X; w) \\\<br>  &amp; = \prod_{i=1}^{m} P(y^{(i)}|x^{(i)}; w) \\\<br>  &amp; = \prod_{i=1}^{m} \left( (h_{w}(x^{(i)}))^{y^{(i)}} \cdot (1 - h_{w}(x^{(i)}))^{1-y^{(i)}} \right)<br>  \end{align} \quad\qquad (ml.1.1.19)<br>  $$</p>
 <p>  为了方便参数求解，对公式\((ml.1.1.19)\)取对数，可得：</p>
 <p> $$<br>  \begin{align}<br>  l(w) &amp; = logL(w) \\\<br>  &amp; = \sum_{i=1}^{m} \left( y^{(i)} \cdot \log (h_{w}(x^{(i)})) + (1-y^{(i)}) \cdot \log(1- h_{w}(x^{(i)})) \right)<br>  \end{align} \qquad (ml.1.1.20)<br>  $$</p>
@@ -533,8 +542,9 @@ Group Lasso
 </blockquote>
 <p> Sigmoid函数性质：</p>
 <blockquote>
-<p>①. \(h_w(-x) = 1 - h_w(x)\) <br><br>②. \(h_w^{\prime}(x) = (1-h_w(x)) \cdot h_w(x)\) </p>
+<p>①. $h_w(-x) = 1 - h_w(x)$ <br><br>②. $h_w^{\prime}(x) = (1-h_w(x)) \cdot h_w(x)$ </p>
 <p>推导：<br><br>  \(<br>  \begin{align}<br>  h^{\prime}(x) &amp; = (\frac {1}{1+e^{-x}})^{\prime} = - \frac {1}{(1+e^{-x})^2} \cdot     (e^{-x})^{\prime} \\\<br>  &amp; = \frac {e^{-x}} {(1+e^{-x})^2} = \frac {e^{-x}} {1+e^{-x}} \cdot \frac{1}    {1+e^{-x}} \\\<br>  &amp; = (1-h(x)) \cdot h(x)<br>  \end{align}<br>  \)</p>
+<p>同时也可以得到$\frac{\partial \log h_w(x)}{\partial x} = (1-h_w(x))$，$\frac{\partial \log (1-h_w(x))}{\partial x} = -h_w(x)$</p>
 </blockquote>
 <p><strong>重要考察点</strong></p>
 <blockquote>
@@ -662,19 +672,11 @@ Group Lasso
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/openmit/openmit-chapter6-optimizer/" title="第06章：OpenMIT-优化器">
-  <strong>上一篇：</strong><br/>
-  <span>
-  第06章：OpenMIT-优化器</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/head_first_ml/ml-chapter8-reinforcement-learning-family/"  title="第08章：深入浅出ML之Reinforcement Learning家族">
+<a href="/reinforcement-learning/chapter2-multi-arm-bandits/"  title="">
  <strong>下一篇：</strong><br/> 
- <span>第08章：深入浅出ML之Reinforcement Learning家族
+ <span>(no title)
 </span>
 </a>
 </div>
@@ -689,7 +691,7 @@ Group Lasso
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归分析介绍"><span class="toc-number">2.</span> <span class="toc-text">回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线性回归（Linear_Regression）"><span class="toc-number">3.</span> <span class="toc-text">线性回归（Linear Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线性回归模型"><span class="toc-number">3.1.</span> <span class="toc-text">线性回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数学习－线性回归目标函数"><span class="toc-number">3.2.</span> <span class="toc-text">参数学习－线性回归目标函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#概率解释－回归模型目标函数"><span class="toc-number">3.3.</span> <span class="toc-text">概率解释－回归模型目标函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归模型与正则化"><span class="toc-number">4.</span> <span class="toc-text">回归模型与正则化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">5.</span> <span class="toc-text">逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂分布"><span class="toc-number">5.1.</span> <span class="toc-text">逻辑斯蒂分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂回归模型"><span class="toc-number">5.2.</span> <span class="toc-text">逻辑斯蒂回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LR模型与广义线性模型、最大熵模型、指数族分布"><span class="toc-number">5.3.</span> <span class="toc-text">LR模型与广义线性模型、最大熵模型、指数族分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LR模型在工业界的应用"><span class="toc-number">5.4.</span> <span class="toc-text"> LR模型在工业界的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归问题相关解释"><span class="toc-number">6.</span> <span class="toc-text">回归问题相关解释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Next_…"><span class="toc-number">7.</span> <span class="toc-text">Next …</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#符号定义"><span class="toc-number">1.</span> <span class="toc-text">符号定义</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0.写在前面"><span class="toc-number"></span> <span class="toc-text">写在前面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#回归分析介绍"><span class="toc-number">1.</span> <span class="toc-text">回归分析介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线性回归（Linear_Regression）"><span class="toc-number">2.</span> <span class="toc-text">线性回归（Linear Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线性回归模型"><span class="toc-number">2.1.</span> <span class="toc-text">线性回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数学习－线性回归目标函数"><span class="toc-number">2.2.</span> <span class="toc-text">参数学习－线性回归目标函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#概率解释－回归模型目标函数"><span class="toc-number">2.3.</span> <span class="toc-text">概率解释－回归模型目标函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归模型与正则化"><span class="toc-number">3.</span> <span class="toc-text">回归模型与正则化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑斯蒂回归（Logistic_Regression）"><span class="toc-number">4.</span> <span class="toc-text">逻辑斯蒂回归（Logistic Regression）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂分布"><span class="toc-number">4.1.</span> <span class="toc-text">逻辑斯蒂分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑斯蒂回归模型"><span class="toc-number">4.2.</span> <span class="toc-text">逻辑斯蒂回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LR模型与广义线性模型、最大熵模型、指数族分布"><span class="toc-number">4.3.</span> <span class="toc-text">LR模型与广义线性模型、最大熵模型、指数族分布</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LR模型在工业界的应用"><span class="toc-number">4.4.</span> <span class="toc-text"> LR模型在工业界的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回归问题相关解释"><span class="toc-number">5.</span> <span class="toc-text">回归问题相关解释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Next_…"><span class="toc-number">6.</span> <span class="toc-text">Next …</span></a></li></ol>
  
   </div>
 
