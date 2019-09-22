@@ -16,8 +16,8 @@ date: 2017-08-12
 weibo: @周永_52ML
 
 
-在斯坦福CS224课程中讲述RNN时，是从NLP中N-Gram语言模型引入的。RNN可以一定程度解决N-Gram语言模型的一些问题。
-本章的编排与CS224课程基本类似，先介绍N-Gram语言模型，然后根据语言模型存在的问题引入RNN，最后再根据RNN的问题引出L">
+在斯坦福CS224课程中讲述RNN时，是从NLP中统计语言模型引入的。RNN可以一定程度解决统计语言模型的一些问题。
+本章的编排与CS224课程基本类似，先介绍统计语言模型，然后根据语言模型存在的问题引入RNN，最后再根据RNN的问题引出LSTM、GRU等模型。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第04章：循环神经网络">
 <meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter4-rnn/index.html">
@@ -27,8 +27,8 @@ date: 2017-08-12
 weibo: @周永_52ML
 
 
-在斯坦福CS224课程中讲述RNN时，是从NLP中N-Gram语言模型引入的。RNN可以一定程度解决N-Gram语言模型的一些问题。
-本章的编排与CS224课程基本类似，先介绍N-Gram语言模型，然后根据语言模型存在的问题引入RNN，最后再根据RNN的问题引出L">
+在斯坦福CS224课程中讲述RNN时，是从NLP中统计语言模型引入的。RNN可以一定程度解决统计语言模型的一些问题。
+本章的编排与CS224课程基本类似，先介绍统计语言模型，然后根据语言模型存在的问题引入RNN，最后再根据RNN的问题引出LSTM、GRU等模型。">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_loss_function.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_backprogation.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_generate_text.png">
@@ -42,8 +42,8 @@ date: 2017-08-12
 weibo: @周永_52ML
 
 
-在斯坦福CS224课程中讲述RNN时，是从NLP中N-Gram语言模型引入的。RNN可以一定程度解决N-Gram语言模型的一些问题。
-本章的编排与CS224课程基本类似，先介绍N-Gram语言模型，然后根据语言模型存在的问题引入RNN，最后再根据RNN的问题引出L">
+在斯坦福CS224课程中讲述RNN时，是从NLP中统计语言模型引入的。RNN可以一定程度解决统计语言模型的一些问题。
+本章的编排与CS224课程基本类似，先介绍统计语言模型，然后根据语言模型存在的问题引入RNN，最后再根据RNN的问题引出LSTM、GRU等模型。">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -119,7 +119,7 @@ weibo: @周永_52ML
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.N-Gram语言模型"><span class="toc-number">1.</span> <span class="toc-text">N-Gram语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.Neural语言模型"><span class="toc-number">2.</span> <span class="toc-text">Neural语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.3.Recurrent-Neural-Networks"><span class="toc-number">3.</span> <span class="toc-text">循环神经网络 (RNN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.1.RNN模型结构"><span class="toc-number">3.1.</span> <span class="toc-text">RNN结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.2.RNN模型参数学习"><span class="toc-number">3.2.</span> <span class="toc-text">RNN模型参数学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.3.RNN模型反向传播"><span class="toc-number">3.3.</span> <span class="toc-text">RNN模型反向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.4.RNN应用_文本生成"><span class="toc-number">3.4.</span> <span class="toc-text">RNN应用－文本生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.语言模型评估指标"><span class="toc-number">3.5.</span> <span class="toc-text">语言模型评估指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.RNN存在的问题"><span class="toc-number">3.6.</span> <span class="toc-text">RNN存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.4.LSTM"><span class="toc-number">4.</span> <span class="toc-text">LSTM</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.统计语言模型"><span class="toc-number">1.</span> <span class="toc-text">统计语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.神经语言模型"><span class="toc-number">2.</span> <span class="toc-text">神经语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.3.Recurrent-Neural-Networks"><span class="toc-number">3.</span> <span class="toc-text">循环神经网络 (RNN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.1.RNN模型结构"><span class="toc-number">3.1.</span> <span class="toc-text">RNN结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.2.RNN模型参数学习"><span class="toc-number">3.2.</span> <span class="toc-text">RNN模型参数学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.3.RNN模型反向传播"><span class="toc-number">3.3.</span> <span class="toc-text">RNN模型反向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.4.RNN应用_文本生成"><span class="toc-number">3.4.</span> <span class="toc-text">RNN应用－文本生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.语言模型评估指标"><span class="toc-number">3.5.</span> <span class="toc-text">语言模型评估指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.RNN存在的问题"><span class="toc-number">3.6.</span> <span class="toc-text">RNN存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.4.LSTM"><span class="toc-number">4.</span> <span class="toc-text">LSTM</span></a></li></ol>
 		
 		</div>
 		
@@ -129,11 +129,11 @@ weibo: @周永_52ML
 <li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
 </ul>
 <hr>
-<p>在斯坦福CS224课程中讲述RNN时，是从NLP中N-Gram语言模型引入的。RNN可以一定程度解决N-Gram语言模型的一些问题。</p>
-<p>本章的编排与CS224课程基本类似，先介绍N-Gram语言模型，然后根据语言模型存在的问题引入RNN，最后再根据RNN的问题引出LSTM、GRU等模型。</p>
+<p>在斯坦福CS224课程中讲述RNN时，是从NLP中统计语言模型引入的。RNN可以一定程度解决统计语言模型的一些问题。</p>
+<p>本章的编排与CS224课程基本类似，先介绍统计语言模型，然后根据语言模型存在的问题引入RNN，最后再根据RNN的问题引出LSTM、GRU等模型。</p>
 <ul>
-<li><a href="#4.1.N-Gram语言模型">N-Gram语言模型</a></li>
-<li><a href="#4.2.Neural语言模型">Neural语言模型</a></li>
+<li><a href="#4.1.统计语言模型">统计语言模型</a></li>
+<li><a href="#4.2.神经语言模型">神经语言模型</a></li>
 <li><a href="#4.3.Recurrent-Neural-Networks">循环神经网络（RNN）</a><ul>
 <li><a href="#4.3.1.RNN模型结构">RNN结构</a></li>
 <li><a href="#4.3.2.RNN模型参数学习">RNN参数学习</a></li>
@@ -147,14 +147,14 @@ weibo: @周永_52ML
 <li><a href="#4.5.GRU">GRU</a></li>
 <li><a href="#4.6.语言模型评估指标">语言模型评估指标</a></li>
 </ul>
-<h2 id="4.1.N-Gram语言模型">N-Gram语言模型</h2>
+<h2 id="4.1.统计语言模型">统计语言模型</h2>
 
 <p>语言模型是NLP技术中很重要的一环，它是所有NLP的基础，被广泛应用于分词、标注、信息检索、语音识别、机器翻译等任务。</p>
 <p>在机器翻译系统中，对于给定的一个英文句子English，需要找到一个使概率$p(Chinese|Englisg)$最大化的中文文本段Chinese，利用贝叶斯公式有：</p>
 <p>$$<br>p(Chinese|English) = \frac{p(English|Chinese) \cdot p(Chinese)} {p(English)}<br>$$</p>
 <p>其中$p(English|Chinese)$为翻译模型，而$p(Chinese)$为语言模型。</p>
 <p>语言模型的任务是给定一个词序$x^{(1)}, x^{(2)}, \cdots, x^{(N-1)}，预测下一个词x^{(N)}$的概率分布的问题。这里的N可以是1,2,…，分别对应1-Gram，2-Gram,…,N-Gram。</p>
-<p>通常地，n-gram语言模型给定一个词序$x^{(1)},x^{(2)},…x^{(t)}$，计算下一个词$x^{(t+1)}$的概率分布。用数学语言表示为：$P(x^{(t+1)} | x^{(t)},…,x^{(1)})$，其中$x^{(t+1)}$是词库集合$V$中任意一个词。</p>
+<p>通常地，统计语言模型给定一个词序$x^{(1)},x^{(2)},…x^{(t)}$，计算下一个词$x^{(t+1)}$的概率分布。用数学语言表示为：$P(x^{(t+1)} | x^{(t)},…,x^{(1)})$，其中$x^{(t+1)}$是词库集合$V$中任意一个词。</p>
 <blockquote>
 <p>词库集合：$V = \{w_1, w_2, …, w_{V}\}$</p>
 </blockquote>
@@ -176,15 +176,15 @@ weibo: @周永_52ML
 <p>事实上，这里涉及到的是一个可靠性和可区别性的问题，参数越多，可区别性越好，但同时单个参数的实例变少从而降低了可靠性，因此需要在可靠性和可区别性之间进行折中。</p>
 <p><strong>存储问题</strong></p>
 <p>我们要统计训练语料中所有出现的n-gram，增大n或者增加训练预料都会使得模型变得更大。</p>
-<p>在介绍如何解决N-Gram语言模型的2大问题前，先介绍下N-Gram语言模型的一个应用。n-gram语言模型可以用于<strong>生成文本（generating text）</strong>，即给定前k个词，根据n-gram计算方式填充第k+1个词，然后填充第k+2个词，依次下去….。但是这种方式生成的文本可能会极为不通顺、毫无调理（incoherent）。</p>
+<p>在介绍如何解决统计语言模型的2大问题前，先介绍下统计语言模型的一个应用。统计语言模型可以用于<strong>生成文本（generating text）</strong>，即给定前k个词，根据n-gram计算方式填充第k+1个词，然后填充第k+2个词，依次下去….。但是这种方式生成的文本可能会极为不通顺、毫无调理（incoherent）。</p>
 <p>总结起来，n-gram模型的主要工作是<strong>语料中统计各种词串出现的次数以及平滑处理，概率值算好之后存储起来，下次需要计算一个句子的概率时，只需要找到相关的概率参数，将它们连乘起来即可。</strong></p>
 <p>然而，机器学习领域通用的逻辑是：对所考虑的问题建模（即模型表达式）后，先为其构造一个目标函数，然后对目标函数进行优化，从而求得一组最优参数，最后利用这组最优参数对应的模型进行预测。</p>
 <p>统计模型的目标函数是<strong>概率最大似然函数</strong>（对应文本的联合概率公式），实际应用中常采用最大对数思然，即把目标函数设为：</p>
 <p>$$<br>\mathcal{L} = \sum_{t=1}^T \log p(x^{(t)}|context(x^{(t)}))<br>$$</p>
 <p>然后对这个目标函数进行最大化。从目标函数公式可见，<strong>概率$p(x|context(x))$已被视为关于$x$和$context(w)$的函数</strong>，即：</p>
-<p>$$<br>p(x|context(x)) = F(w, context(w), \theta)<br>$$</p>
-<p>其中$\theta$为待定参数集。如此一来，一旦对概率函数$F$进行优化得到最优参数集$\theta^{\star}$后，F也就唯一被确定了，以后任何概率$p(x|context(x))$旧可以通过函数$F(w, context(w), \theta^{\star})$来计算了。很明显，对于这种方法，最关键的地方在于函数$F$的构造了。</p>
-<h2 id="4.2.Neural语言模型">Neural语言模型</h2>
+<p>$$<br>p(x|context(x)) = F(x, context(x), \theta)<br>$$</p>
+<p>其中$\theta$为待定参数集。如此一来，一旦对概率函数$F$进行优化得到最优参数集$\theta^{\star}$后，F也就唯一被确定了，以后任何概率$p(x|context(x))$旧可以通过函数$F(w, context(w), \theta^{\star})$来计算了。很明显，对于这种方法，<strong>最关键的地方在于函数$F$的构造了</strong>。</p>
+<h2 id="4.2.神经语言模型">神经语言模型</h2>
 
 <p>神经语言模型结构比较简单，它首先把每个word向量化表示，然后将输入的n个词concat，中间经过Fully Connect层，最后由Softmax输出下一个词的概率分布。</p>
 <blockquote>
@@ -265,7 +265,7 @@ weibo: @周永_52ML
 <p>我们可以看到，权重参数$W_h$的梯度对应的计算有$(1+2+\cdots+T)=\frac{1}{2}T(T+1)$次（$T$表示语料长度），梯度的计算复杂度是$O(T^2)$。</p>
 <h3 id="4.3.4.RNN应用_文本生成">RNN应用－文本生成</h3>
 
-<p>类似n-gram语言模型，RNN模型也可用于生成文本（对预测结果进行重复采样）。</p>
+<p>类似统计语言模型，RNN模型也可用于生成文本（对预测结果进行重复采样）。</p>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_generate_text.png" width="500" height="350" alt="RNN文本生成"></p>
 <h3 id="4.3.5.语言模型评估指标">语言模型评估指标</h3>
 
@@ -374,7 +374,7 @@ weibo: @周永_52ML
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.N-Gram语言模型"><span class="toc-number">1.</span> <span class="toc-text">N-Gram语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.Neural语言模型"><span class="toc-number">2.</span> <span class="toc-text">Neural语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.3.Recurrent-Neural-Networks"><span class="toc-number">3.</span> <span class="toc-text">循环神经网络 (RNN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.1.RNN模型结构"><span class="toc-number">3.1.</span> <span class="toc-text">RNN结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.2.RNN模型参数学习"><span class="toc-number">3.2.</span> <span class="toc-text">RNN模型参数学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.3.RNN模型反向传播"><span class="toc-number">3.3.</span> <span class="toc-text">RNN模型反向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.4.RNN应用_文本生成"><span class="toc-number">3.4.</span> <span class="toc-text">RNN应用－文本生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.语言模型评估指标"><span class="toc-number">3.5.</span> <span class="toc-text">语言模型评估指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.RNN存在的问题"><span class="toc-number">3.6.</span> <span class="toc-text">RNN存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.4.LSTM"><span class="toc-number">4.</span> <span class="toc-text">LSTM</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.统计语言模型"><span class="toc-number">1.</span> <span class="toc-text">统计语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.神经语言模型"><span class="toc-number">2.</span> <span class="toc-text">神经语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.3.Recurrent-Neural-Networks"><span class="toc-number">3.</span> <span class="toc-text">循环神经网络 (RNN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.1.RNN模型结构"><span class="toc-number">3.1.</span> <span class="toc-text">RNN结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.2.RNN模型参数学习"><span class="toc-number">3.2.</span> <span class="toc-text">RNN模型参数学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.3.RNN模型反向传播"><span class="toc-number">3.3.</span> <span class="toc-text">RNN模型反向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.4.RNN应用_文本生成"><span class="toc-number">3.4.</span> <span class="toc-text">RNN应用－文本生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.语言模型评估指标"><span class="toc-number">3.5.</span> <span class="toc-text">语言模型评估指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.RNN存在的问题"><span class="toc-number">3.6.</span> <span class="toc-text">RNN存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.4.LSTM"><span class="toc-number">4.</span> <span class="toc-text">LSTM</span></a></li></ol>
  
   </div>
 
@@ -408,7 +408,7 @@ weibo: @周永_52ML
 		  
 		
 		  
-			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>3</sup></a></li>
+			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>4</sup></a></li>
 		  
 		
 		  

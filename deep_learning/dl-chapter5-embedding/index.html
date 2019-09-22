@@ -4,34 +4,63 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Chapter1.1 网络广告的前世今生 | 计算广告与机器学习</title>
+    <title>第05章：Embedding学习方法 | 计算广告与机器学习</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="ZhouYong">
     
 
     
-    <meta name="description" content="Author: zhouyongsdzh@foxmail.com 
-Date: 2015-04-20
+    <meta name="description" content="author: zhouyongsdzh@foxmail.com
+date: 2017-04-08
+weibo: @周永_52ML
 
-写在前面计算广告学从字面上理解主要包括两个方面，一个是广告，另一个是计算。如果在20年甚至10年之前，人们也许想不到计算与广告也会发生关系。然而在互联网时代快速变迁的今天，以大数据和人工智能为核心的互联网时代，不仅加剧对传统行业的改造，同时也改变了互联网自身的商业变现模式与规则。
-我们先来看看广">
+
+目录
+
+写在前面
+词向量
+
+写在前面
+
+在第四章：循环神经网络一章中讲到了神经语言模型，神经语言模型第一层是embedding映射，然后走全连接。embedding映射就是将一个词（CTR预估模型中经常是ID型特征）映射为一个$k$维的实数值向量。
+在NLP任务中">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Chapter1.1 网络广告的前世今生">
-<meta property="og:url" content="http://www.52caml.com/computational_ads/ca-chapter1.1-introduction/index.html">
+<meta property="og:title" content="第05章：Embedding学习方法">
+<meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter5-embedding/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
-<meta property="og:description" content="Author: zhouyongsdzh@foxmail.com 
-Date: 2015-04-20
+<meta property="og:description" content="author: zhouyongsdzh@foxmail.com
+date: 2017-04-08
+weibo: @周永_52ML
 
-写在前面计算广告学从字面上理解主要包括两个方面，一个是广告，另一个是计算。如果在20年甚至10年之前，人们也许想不到计算与广告也会发生关系。然而在互联网时代快速变迁的今天，以大数据和人工智能为核心的互联网时代，不仅加剧对传统行业的改造，同时也改变了互联网自身的商业变现模式与规则。
-我们先来看看广">
+
+目录
+
+写在前面
+词向量
+
+写在前面
+
+在第四章：循环神经网络一章中讲到了神经语言模型，神经语言模型第一层是embedding映射，然后走全连接。embedding映射就是将一个词（CTR预估模型中经常是ID型特征）映射为一个$k$维的实数值向量。
+在NLP任务中">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter5_cbow_skip_gram.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter5_hs_cbow1.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter1.1 网络广告的前世今生">
-<meta name="twitter:description" content="Author: zhouyongsdzh@foxmail.com 
-Date: 2015-04-20
+<meta name="twitter:title" content="第05章：Embedding学习方法">
+<meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
+date: 2017-04-08
+weibo: @周永_52ML
 
-写在前面计算广告学从字面上理解主要包括两个方面，一个是广告，另一个是计算。如果在20年甚至10年之前，人们也许想不到计算与广告也会发生关系。然而在互联网时代快速变迁的今天，以大数据和人工智能为核心的互联网时代，不仅加剧对传统行业的改造，同时也改变了互联网自身的商业变现模式与规则。
-我们先来看看广">
+
+目录
+
+写在前面
+词向量
+
+写在前面
+
+在第四章：循环神经网络一章中讲到了神经语言模型，神经语言模型第一层是embedding映射，然后走全连接。embedding映射就是将一个词（CTR预估模型中经常是ID型特征）映射为一个$k$维的实数值向量。
+在NLP任务中">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -91,14 +120,14 @@ Date: 2015-04-20
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/computational_ads/ca-chapter1.1-introduction/" title="Chapter1.1 网络广告的前世今生" itemprop="url">Chapter1.1 网络广告的前世今生</a>
+      <a href="/deep_learning/dl-chapter5-embedding/" title="第05章：Embedding学习方法" itemprop="url">第05章：Embedding学习方法</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2015-04-20T14:54:37.000Z" itemprop="datePublished"> 发表于 2015-04-20</time>
+    <time datetime="2017-05-16T13:43:20.000Z" itemprop="datePublished"> 发表于 2017-05-16</time>
     
   </p>
 </header>
@@ -107,35 +136,108 @@ Date: 2015-04-20
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1_网络广告分类"><span class="toc-number">2.</span> <span class="toc-text">1.1 网络广告分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2_网络广告发展史"><span class="toc-number">3.</span> <span class="toc-text">1.2 网络广告发展史</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#5.0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.1.词向量"><span class="toc-number">2.</span> <span class="toc-text">词向量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.2.基于Hierarchical Softmax的CBOW模型"><span class="toc-number">3.</span> <span class="toc-text">基于Hierarchical Softmax的word2vec模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.1.cbow模型"><span class="toc-number">3.1.</span> <span class="toc-text">cbow模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.1.cbow模型结构"><span class="toc-number">3.1.1.</span> <span class="toc-text">cbow模型结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.2.梯度计算"><span class="toc-number">3.1.2.</span> <span class="toc-text">梯度计算</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
 		<ul>
-<li>Author: zhouyongsdzh@foxmail.com </li>
-<li>Date: 2015-04-20</li>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 2017-04-08</li>
+<li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
 </ul>
-<h3 id="写在前面"><strong>写在前面</strong></h3><p>计算广告学从字面上理解主要包括两个方面，一个是广告，另一个是计算。如果在20年甚至10年之前，人们也许想不到计算与广告也会发生关系。然而在互联网时代快速变迁的今天，以大数据和人工智能为核心的互联网时代，不仅加剧对传统行业的改造，同时也改变了互联网自身的商业变现模式与规则。</p>
-<p>我们先来看看广告是什么？有人说是市场营销的一种手段，是商业推广最给力的工具之一等等。 一言以蔽之，广告的背后是商业及其内在的规模。</p>
-<p>广告里的计算又是什么呢？包括哪些内容呢？这里的计算不仅包括大规模的数据处理、数据分析、数据存储、数据挖掘、机器学习、海量数据计算（离线计算、流式计算、内存计算），同时也涉及到博弈、竞价、拍卖、交易等经济学范畴的综合体。</p>
-<p>下面，我们分别介绍这两部分包含的内容。</p>
-<h3 id="1-1_网络广告分类">1.1 网络广告分类</h3><p>按计费方式、广告创意、投放方式、广告产品形态等分类</p>
-<h3 id="1-2_网络广告发展史">1.2 网络广告发展史</h3><p>1994年开始 -&gt; 展示、搜索 -&gt; 技术驱动 -&gt; 当前广告生态圈</p>
-<p>世界广告的发展史可以追溯至几千年前。而网络广告的媒介是互联网，互联网的发展从1969年至今还未到半个世纪，因此网络广告的历史就更短了。</p>
-<p>第一个网络广告何时、何地出现的呢？追本溯源，网络广告起源于美国。1994年10月27日是网络广告发展史上的里程碑，当时著名的商业网络杂志Hotwired推出了网络版的Hotwired（注：美国科技新闻评论网，现更名为Wired，2006年7月11日被Conde Nast Publishing收购），并首次在网站上推出了网络广告，在当时立即吸引了AT&amp;T等14个客户在其主页上发布广告，10月27日，AT&amp;T的一个468*60的Banner广告出现在页面上时，标志着网络广告正式诞生。更值得一提的是，该广告的点击率达到40%。</p>
-<p>像AT&amp;T这种在网站的页面上展示banner广告创意的产品形式，这种投放方式称为<strong>展示广告（Display Advertising）</strong>。虽然是在网络这个新媒介上展示，但基本延续了传统广告投放的那一套思路和逻辑。大致过程如下：4A广告代理公司（如奥美等）把网站上的HTML页面当作杂志的版面，在里面设置广告位，然后把广告的创意（图片方式）嵌入到广告位中。网站在广告代理商眼里就相当于一本本的杂志，采买的思路和逻辑与线下的报刊、杂志基本无异。</p>
-<p>还有一个非常重要的关键点，就是广告的售卖模式。想一下，广告主与传统的广告媒介（如电视、报刊、杂志等）是如何谈费用的？双方谈判的其中一个焦点就是广告投放位置、广告投放时间、每个时间单位（按天、周、月）的费用、广告投放的页面中是否可包括竞品的推广信息等，一切细节等谈妥后以合约的方式确定下来。像这种采用合同约定的方式确定某一广告位在某段时间内为某特定广告主所独占，确定广告创意允许范围以及同一页面上的广告排它策略等，这类售卖模式称为<strong>合约式广告（Agreement-based Advertising）</strong>。展示广告的发展在很长一段时间内都在采用传统广告的这一套售卖模式，至今为止这种售卖模式仍旧存在。</p>
-<p>该阶段的广告虽然是按照时间单位计费，但是不同流量规模的网站在相同的时间单位内的费用自然也不同。一个每天拥有10亿流量的网站和另一个每天只有1亿流量的网站，如果广告主分别在这两个网站都投放1个月的广告，前者应该支付更高的费用。那个到底该如何去计费呢？业内普遍采用一个指标：千人成本。即1千个人看到展示的广告后，广告主应该向网站支付的广告成本，称为<strong>CPM计费（Cost Per Mille）</strong>。计算公式如下：</p>
-<p>CPM =（广告费用/到达人数）×1000</p>
-<p>在网络广告发展初期，当时比较大的在线媒体，如AOL（美国在线）、雅虎等网站，已经有了不错的流量规模，它们采用展示广告＋合约售卖的方式，给自身带来了相当可观的营收和利润。那么，随着流量的增长和品牌认知度的提高，通过提高广告位报价的方式，可以保证这些互联网公司业绩的持续增长。但是当网站的流量规模和品牌认知度趋于稳定时，广告主很难再接受广告位的提价，那这些互联网企业又该如何保证业绩的增长呢？</p>
-<p>事情发展到此时，貌似出现了瓶颈。但是不久之后，互联网广告的运营者们经过探索，发现了在线广告不同于传统媒体广告的一个本质特点：<strong>同一个广告位可以对不同的受众（Audience）呈现不同的广告创意</strong>。</p>
+<hr>
+<p>目录</p>
+<ul>
+<li><a href="#5.0.写在前面">写在前面</a></li>
+<li><a href="#5.1.词向量">词向量</a></li>
+</ul>
+<h2 id="5.0.写在前面">写在前面</h2>
+
+<p>在第四章：循环神经网络一章中讲到了神经语言模型，神经语言模型第一层是embedding映射，然后走全连接。embedding映射就是将一个词（CTR预估模型中经常是ID型特征）映射为一个$k$维的实数值向量。</p>
+<p>在NLP任务中，我们将自然语言交给机器学习（或深度学习）算法来处理，但机器无法直接理解这些数据或语言，因此首先要做的事情是将语言数学化，如何对自然语言进行数学化呢？词向量是一种很好的方式。</p>
+<h2 id="5.1.词向量">词向量</h2>
+
+<p>通常词向量有两种表示方式，一种是One-hot representation，另一种是Distributed Representation。</p>
+<p>one-hot比较好理解，不过多赘述，它有一些缺点，如容易受维数灾难的困扰，尤其是将其用于深度学习场景时；还有它不能很好的刻画词与词之间的相似性。</p>
+<p>Distributed Representation最早是Hinton于1986年提出的，可以克服one hot表示的缺点，它的基本思想是：<strong>通过训练将某种语言中的每一个词映射成一个固定长度的向量</strong>，所有的向量构成词向量空间，而每一向量则可视为该空间中的一个点，在这个空间上引入“距离”，就可以根据词之间的距离来判断它们之间相似性了。</p>
+<p>为什么叫做Distributed Representation（分布式表示）？一个理解是：对于one hot 热 presentation，向量中只有一个非零值，非常集中；而对于Distributed Representation，向量中有大量非零值，相对分散，把词的信息分布到各个分量中去了。</p>
 <blockquote>
-<p>举例：两个广告A和B，A广告的定位人群是男性，B广告的定位人群是女性。广告位P每天touch的流量有100W，其中男女比例1:1，各50万。</p>
-<p>按照之前的方式，广告位P只能展示一种广告（非A即B），给广告主带来的收益为1W。但是不管P展示的A还是B，对于广告主而言只能得到50W的有效流量，另外50W对广告主没有意义。因为任何一个产品都有自己的受众人群，非受众人群对该产品很少带来转化。</p>
-<p>现在同一个广告位可以针对不同的人群展示不同的广告创意，判断如果该流量对应的用户是男性，给其展示A广告；如果是女性，展示B广告。</p>
-<p>此时对于A、B广告主而言，都获得了50W的有效流量。对于任意一个广告主而言，之前100W流量需要1W的费用，现在的流量虽然是50W，但有效流量的比重在提升，费用应该在(5K, 1W]之间，假设是6K。那么网站从广告主那里拿到的总费用为1.2W。</p>
-<p>对于网站而言，流量没有变化，但是通过计算用户性别（属于受众定向范畴，第3章详细介绍）的方式可以让收益从1W增加到1.2W。</p>
+<p>注意：词向量只是针对“词”来提的，事实上，我们也可以针对更细粒度或更粗粒度进行推广，如字向量（charactor-level），句子向量或文档向量等。</p>
 </blockquote>
+<p>下面正式开始介绍word2vector中两个重要的模型：CBOW模型和Skip-gram模型。</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter5_cbow_skip_gram.png" width="600" height="400" alt="CBOW和Skip-gram"></p>
+<p>由图可见，两个模型都包含3层结构：输入层、映射层和输出层。cbow模型是在已知当前词$w_t$的上下文$w_{t-2},w_{t-1},w_{t+1},w_{t+2}$的前提下预测当前词$w_t$；skip-gram模型恰恰相反，是在遗址当前词$w_t$的前提下，预测其上下文$w_{t-2},w_{t-1},w_{t+1},w_{t+2}$。</p>
+<p>对于这两个模型结构，word2vec提供了两套学习框架，分别是Herarchical Softmax和Negative Sampling来进行学习。</p>
+<h2 id="5.2.基于Hierarchical Softmax的CBOW模型">基于Hierarchical Softmax的word2vec模型</h2>
+
+<p>在第4章中我们提到，基于神经网络的语言模型的目标函数通常取为如下<strong>对数似然函数</strong>：</p>
+<p>$$<br>\mathcal{L} = \sum_{w \in C} \log p(w | context(w))<br>$$</p>
+<p>其中的关键是条件概率函数$p(w | context(w))$的构造，n-gram模型中给出了一种构造方法。对于word2vec中基于分层Softmax的cbow模型，优化的目标函数也行如上式，而对于基于分层softmax的Skip-gram模型，优化的目标函数则形如：</p>
+<p>$$<br>\mathcal{L} = \sum_{w \in C} \log p(context(w) | w)<br>$$</p>
+<p>因此，下面我们重点关注两个条件概率模型是如何构造的？</p>
+<h3 id="5.2.1.cbow模型">cbow模型</h3>
+
+<h4 id="5.2.1.1.cbow模型结构">cbow模型结构</h4>
+
+<p>基于HS的cbow模型的网络结构示意图如下：</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter5_hs_cbow1.png" width="500" height="450" alt="基于HS的CBOW模型"></p>
+<ul>
+<li>输入层</li>
+</ul>
+<p>包含context(w)中2c个词的词向量$v(context(w)_1),v(context(w)_2),\cdots,v(context(w)_{2c}) \in R^k$，这里$k$表示词向量的长度。</p>
+<ul>
+<li>映射层</li>
+</ul>
+<p>cbow投影层比较简单，将输入层的2c个词向量做求和累加，即$x_w = \sum_{i=1}^{2c} v(context(w)_i) \in R^k$</p>
+<ul>
+<li>输出层</li>
+</ul>
+<p>输出层对应一颗二叉树，它是以语料中出现过的词当叶子节点，以各词在预料中出现的次数当权重构造出来的Huffman树。这棵Huffman树中，叶子节点共有N个，分别对应词典$\mathcal{D}$中的词，非叶子节点N-1个。</p>
+<p>对于第4章的神经网络语言模型结构，基于cbow模型的结构有3点不同：1.输入层到映射层的操作，前者是concat，后者是sum；2. 前者有隐藏层，后者无隐藏层；3. 输出层方面，前者是线性模型，后者是树形结构（Huffmans树）。</p>
+<h4 id="5.2.1.2.梯度计算">梯度计算</h4>
+
+<p>Herarchical Softmax是提高word2vec模型训练性能的重要技术，为了描述方便，先定义一些符号，假设huffman树中的某个叶子节点对应词典$\mathcal{D}$中的词$w$，定义：</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$p^{w}$</td>
+<td>从根节点出发到达$w$叶子节点的对应路径</td>
+</tr>
+<tr>
+<td>$l^w$</td>
+<td>路径$p^w$中包含节点的个数</td>
+</tr>
+<tr>
+<td>$p_1^w,p_2^w,\cdots,p_{l^w}^{w}$</td>
+<td>路径$p^w$中的$l^w$个节点，其中$p_1^w$表示根节点，$p_{l^w}^w$表示词$w$对应的节点</td>
+</tr>
+<tr>
+<td>$d_2^w,d_3^w,\cdots,d_{l^w}^w \in \{0,1\}$</td>
+<td>词$w$的huffman编码，它由$l^w-1$位编码构成，$d_j^w$表示路径$p^w$中第$j$个节点对应的编码（根节点步对应编码）</td>
+</tr>
+<tr>
+<td>$\theta_1^w,\theta_2^w,\cdots,\theta_{l^w}^w \in R^k$</td>
+<td>路径$p^w$中<strong>非叶子节点</strong>对应的向量，$\theta_j^w$表示路径$p^w$中第$j$个非叶子节点对应的向量。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>word2vec模型最后要的是词典$\mathcal{D}$中每个词的向量，这里为什么还要为huffman树非叶子节点也定义个向量呢？这里它只是辅助向量。</p>
+</blockquote>
+<p>// TODO 补充</p>
+<p>基于HS的wbow模型的条件概率函数为： </p>
+<p>$$<br>p(w|context(w)) = \prod_{j=2}^{l^w} p(d_j^w | x_w, \theta_{j-1}^w)<br>$$</p>
+<p>其中</p>
+<p>$$<br>p(d_j^w | x_w, \theta_{j-1}^w) =<br>\begin{cases} \sigma(x_w^T \theta_{j-1}^w), \quad &amp; d_j^w = 0, \\\<br>1-\sigma(x_w^T \theta_{j-1}^w) \quad &amp; d_j^w=1<br>\end{cases}<br>$$</p>
+<p>写成整体的表达式为:</p>
+<p>$$<br>p(w|context(w)) = \prod_{j=2}^{l^w} \left[ \sigma(x_w^T \theta_{j-1}^w) \right]^{1-d_j^w} \cdot \left[ 1-\sigma(x_w^T \theta_{j-1}^w) \right]^{d_j^w}<br>$$</p>
+<p>todo</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -143,13 +245,13 @@ Date: 2015-04-20
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/计算广告学/">计算广告学</a>
+  <a class="article-category-link" href="/categories/深度学习/">深度学习</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/计算广告学/">计算广告学</a>
+  <span></span> <a href="/tags/CBow/">CBow</a><a href="/tags/Hierarchical-Softmax/">Hierarchical Softmax</a><a href="/tags/Negative-Sampling/">Negative Sampling</a><a href="/tags/Skip-Gram/">Skip Gram</a><a href="/tags/W2V/">W2V</a><a href="/tags/Word2Vec/">Word2Vec</a>
   </div>
 
 </div>
@@ -158,7 +260,7 @@ Date: 2015-04-20
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/computational_ads/ca-chapter1.1-introduction/" data-title="Chapter1.1 网络广告的前世今生 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/deep_learning/dl-chapter5-embedding/" data-title="第05章：Embedding学习方法 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -172,13 +274,21 @@ Date: 2015-04-20
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/computational_ads/ca_roadmap/" title="计算广告学-RoadMap">
+ <a href="/openmit/openmit-chapter3-admm/" title="第03章：OpenMIT_算法框架">
   <strong>上一篇：</strong><br/>
   <span>
-  计算广告学-RoadMap</span>
+  第03章：OpenMIT_算法框架</span>
 </a>
 </div>
 
+
+<div class="next">
+<a href="/deep_learning/dl-chapter2-dnn/"  title="第02章：深度神经网络">
+ <strong>下一篇：</strong><br/> 
+ <span>第02章：深度神经网络
+</span>
+</a>
+</div>
 
 </nav>
 
@@ -190,7 +300,7 @@ Date: 2015-04-20
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1_网络广告分类"><span class="toc-number">2.</span> <span class="toc-text">1.1 网络广告分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2_网络广告发展史"><span class="toc-number">3.</span> <span class="toc-text">1.2 网络广告发展史</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#5.0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.1.词向量"><span class="toc-number">2.</span> <span class="toc-text">词向量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.2.基于Hierarchical Softmax的CBOW模型"><span class="toc-number">3.</span> <span class="toc-text">基于Hierarchical Softmax的word2vec模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.1.cbow模型"><span class="toc-number">3.1.</span> <span class="toc-text">cbow模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.1.cbow模型结构"><span class="toc-number">3.1.1.</span> <span class="toc-text">cbow模型结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.2.梯度计算"><span class="toc-number">3.1.2.</span> <span class="toc-text">梯度计算</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
