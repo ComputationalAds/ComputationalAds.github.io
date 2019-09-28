@@ -35,6 +35,8 @@ weibo: @周永_52ML
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish_is_problem.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_lstm_structure.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_bidirectional_rnn.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_multi_layer_rnn.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第04章：循环神经网络">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
@@ -119,7 +121,7 @@ weibo: @周永_52ML
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.统计语言模型"><span class="toc-number">1.</span> <span class="toc-text">统计语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.神经语言模型"><span class="toc-number">2.</span> <span class="toc-text">神经语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.3.Recurrent-Neural-Networks"><span class="toc-number">3.</span> <span class="toc-text">循环神经网络 (RNN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.1.RNN模型结构"><span class="toc-number">3.1.</span> <span class="toc-text">RNN结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.2.RNN模型参数学习"><span class="toc-number">3.2.</span> <span class="toc-text">RNN模型参数学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.3.RNN模型反向传播"><span class="toc-number">3.3.</span> <span class="toc-text">RNN模型反向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.4.RNN应用_文本生成"><span class="toc-number">3.4.</span> <span class="toc-text">RNN应用－文本生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.语言模型评估指标"><span class="toc-number">3.5.</span> <span class="toc-text">语言模型评估指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.RNN存在的问题"><span class="toc-number">3.6.</span> <span class="toc-text">RNN存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.4.LSTM"><span class="toc-number">4.</span> <span class="toc-text">LSTM</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.统计语言模型"><span class="toc-number">1.</span> <span class="toc-text">统计语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.神经语言模型"><span class="toc-number">2.</span> <span class="toc-text">神经语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.3.Recurrent-Neural-Networks"><span class="toc-number">3.</span> <span class="toc-text">循环神经网络 (RNN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.1.RNN模型结构"><span class="toc-number">3.1.</span> <span class="toc-text">RNN结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.2.RNN模型参数学习"><span class="toc-number">3.2.</span> <span class="toc-text">RNN模型参数学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.3.RNN模型反向传播"><span class="toc-number">3.3.</span> <span class="toc-text">RNN模型反向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.4.RNN应用_文本生成"><span class="toc-number">3.4.</span> <span class="toc-text">RNN应用－文本生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.语言模型评估指标"><span class="toc-number">3.5.</span> <span class="toc-text">语言模型评估指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.RNN存在的问题"><span class="toc-number">3.6.</span> <span class="toc-text">RNN存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.4.Long_Short_Term_Memory"><span class="toc-number">4.</span> <span class="toc-text">Long Short-Term Memory（LSTM）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.5.Gated_Recurrent_Units"><span class="toc-number">5.</span> <span class="toc-text">Gated Recurrent Units (GRU)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.6.Bidirectional_RNNs"><span class="toc-number">6.</span> <span class="toc-text">Bidirectional RNNs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.7.Multi_layer_RNNs"><span class="toc-number">7.</span> <span class="toc-text">Multi-layer RNNs</span></a></li></ol>
 		
 		</div>
 		
@@ -143,8 +145,10 @@ weibo: @周永_52ML
 <li><a href="#4.3.5.语言模型评估指标">语言模型评估指标</a></li>
 </ul>
 </li>
-<li><a href="#4.4.LSTM">LSTM</a></li>
-<li><a href="#4.5.GRU">GRU</a></li>
+<li><a href="#4.4.Long_Short_Term_Memory">Long Short Term Memory(LSTM)</a></li>
+<li><a href="#4.5.Gated_Recurrent_Units">Gated Recurrent Units(GRU)</a></li>
+<li><a href="#4.6.Bidirectional_RNNs">Bidirectional RNNs</a></li>
+<li><a href="#4.7.Multi_layer_RNNs">Multi-layer RNNs</a></li>
 <li><a href="#4.6.语言模型评估指标">语言模型评估指标</a></li>
 </ul>
 <h2 id="4.1.统计语言模型">统计语言模型</h2>
@@ -302,16 +306,60 @@ weibo: @周永_52ML
 <p>梯度爆炸有比较直观的解决方案，那么梯度消失问题如何解决呢？</p>
 <p>经典的RNN模型，学习很多步之前的信息是比较困难的，因为隐藏层的状态是一个递归的过程，无法保存长期信息。</p>
 <p>那么，是否可以将长短期信息分开存储并记忆呢？下面讲到的LSTM可以实现这种功能。</p>
-<h2 id="4.4.LSTM">LSTM</h2>
+<h2 id="4.4.Long_Short_Term_Memory">Long Short-Term Memory（LSTM）</h2>
 
 <p>LSTM在对序列问题建模时，每一步用两个状态表示：隐藏态$h^{(t)}$（hidden status）和细胞态$c^{(t)}$（cell status）。它们都是长度为n的向量，cell status存储长期的信息，LSTM算法可以抹擦、写、读细胞态中的信息。</p>
 <p>cell status中哪些信息被抹擦、写、读是由相应的门（gate）来控制的，分别对应遗忘门、输入门、输出门。</p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_lstm_structure.png" width="600" height="450" alt="LSTM结构图"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_lstm_structure.png" width="600" height="400" alt="LSTM结构图"></p>
 <p>LSTM结构用公式表示为：</p>
 <p>$$<br>\begin{align}<br>f_t &amp;= \sigma(W_f h^{(t-1)} + U_f x^{(t)} + b_f) \quad // 计算遗忘门（得到旧cell内容占比） \\\<br>i_t &amp;= \sigma(W_i h^{(t-1)} + U_i x^{(t)} + b_i) \quad // 计算输入门（得到新cell内容占比） \\\<br>\tilde{c_t} &amp;= \tanh(W_c h^{(t-1)} + W_c x^{(t)} + b_c) \quad // t状态的新细胞内容，取值[-1,1] \\\<br>c_t &amp;= f_t \circ c_{t-1} + i_t \circ \tilde{c_t} \quad // 更新细胞内容，得到新细胞状态（类似权重衰减）\\\<br>o_t &amp;= \sigma(W_o h^{(t-1)} + W_o x^{(t)} + b_o) \quad // 计算输出门（细胞状态权重） \\\<br>h_t &amp;= o_t \circ \tanh(c_t) \quad // 输出一些细胞内容作为隐藏态<br>\end{align}<br>$$</p>
 <blockquote>
-<p>考察：LSTM结构是怎样的？画结构图和给出表达式</p>
+<p>考察：LSTM结构是怎样的？画结构图并给出表达式</p>
 </blockquote>
+<p>问题：LSTM是如何解决梯度消失问题的？</p>
+<p>相对于经典的RNN模型，LSTM更容易保留前面状态的信息。如果遗忘门（forget gate）设置为0，那么每一步全部的信息都被记忆，那么cell state就可以保留无限的信息。而RNN通过学习递归的权重矩阵$W_h$来实现这一功能还是较困难的。</p>
+<p>需要注意的是，LSTM也不能保证不出现梯度消失或梯度爆炸问题，它最大的优势就是在模型层面提供了一种比较容易的方式可以学习long-distance依赖信息。</p>
+<p>在2013~2015年间，LSTM算法在许多领域均取得了很大的成功，如手写字识别、语音识别、机器翻译、解析器、图像解读（image captioning）等。目前（2018年）Transformer在这些领域成为了主要的技术。</p>
+<h2 id="4.5.Gated_Recurrent_Units">Gated Recurrent Units (GRU)</h2>
+
+<p>GRU（门控递归单元）是2014年由Cho et al提出，它可以理解为是LSTM模型的简单实现。GRU在每一步$t$的输入只有$x^{(t)}$和$h^{(t)}$，没有细胞态（cell state）。GRU模型单元结构示意图如下：</p>
+<p>(GRU结构图)</p>
+<p>简述GRU模型</p>
+<ul>
+<li>更新门（Update Gate）</li>
+</ul>
+<p>更新门用来控制前隐层状态$h^{(t-1)}$被保留的比例。表达式为：$u^{(t)} = \sigma \left(W_u h^{(t-1)} + U_u x^{(t)} + b_u \right)$</p>
+<ul>
+<li>重置门（Reset）</li>
+</ul>
+<p>重置门用来控制前隐层状态$h^{(t)}$参与计算新内容的比例。表达式为：$r^{(t)} = \sigma \left(W_r h^{(t-1)} + U_r x^{(t)} + b_r\right)$</p>
+<ul>
+<li>新隐层状态内容（New hidden state content）</li>
+</ul>
+<p>重置门选择了前隐层状态中有用的信息，并结合当前输入$x^{(t)}$来计算新隐层状态内容。表达式为：$\tilde{h}^{(t)} = \tanh \left(W_h (r^{(t)} \cdot h^{(t-1)}) + U_h x^{(t)} + b_h\right)$</p>
+<ul>
+<li>隐层状态（Hidden state）</li>
+</ul>
+<p>最后，更新门控制哪些隐藏状态被保留，并且更新到隐层状态内容上。表达式为：$h^{(t)} = (1 - u^{(t)}) h^{(t-1)} + u^{(t)} \tilde{h}^{(t)}$</p>
+<blockquote>
+<p>问题：GRU是如何解决梯度消失问题的？</p>
+<p>类似LSTM，GRU通过控制update gate来保存long-term信息的（$u^{(t)}$。</p>
+</blockquote>
+<p>研究者们提出了很多门控RNN的变种，其中LSTM和GRU最为广泛使用。二者最大的区别是GRU计算更快且参数更少。如果有大量的训练数据或数据中存在长依赖的信息，LSTM是很好的选择。</p>
+<p>是否只有RNN存在梯度消失或爆炸问题呢？显然不是，前馈神经网络、卷积神经网络都可能存在，尤其是在一个维度方向增加层数。由于反向传播时非线性函数的链式反则，梯度可能逐渐变小甚至消失。可以在深度前馈或卷积结构中添加direct connections。比如ResNet, DenseNet, HighWayNet等结构都针对可能出现梯度消失的情况添加了一些操作。</p>
+<p>除了上述介绍的RNN、LSTM、GRU等模型结构外，下面介绍两个重要的RNN变种：Bi-directional RNNs和Multi-layer RNNs。</p>
+<h2 id="4.6.Bidirectional_RNNs">Bidirectional RNNs</h2>
+
+<p>双向RNN模型结构如下图所示：</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_bidirectional_rnn.png" width="500" height="450" alt="双向RNN"></p>
+<p>以情感分类问题为例，给定一个完整的句子或段落，情感表达不一定是词的单向表示，也可能是双向的。在$t$步时的模型结构表达式为：</p>
+<p>$$<br>\begin{align}<br>\overrightarrow{h}^{(t)} &amp;= \text{RNN}_\text{FW}(\overrightarrow{h}^{(t-1)}, x^{(t)})  \qquad   // 前向RNN \\\<br>\overleftarrow{h}^{(t)} &amp;= \text{RNN}_\text{BW}(\overleftarrow{h}^{(t-1)}, x^{(t)})  \qquad   // 反向RNN \\\<br>h^{(t)} &amp;= [\overrightarrow{h}^{(t)}, \overleftarrow{h}^{(t)}] \qquad //  concat<br>\end{align}<br>$$</p>
+<p>注意：双向RNN仅适合用于完整输入序列内容的场景，不适合单向序列任务的场景，如语言模型（LM仅知道左边的信息，不知道右边的信息）。当前BERT模型（基于Transformer的双向Encoder表示）效果好于双向RNN模型。</p>
+<h2 id="4.7.Multi_layer_RNNs">Multi-layer RNNs</h2>
+
+<p>经典的RNN模型是隐层单元沿着一个维度方向的深度模型，如果扩展到另外一个维度，那么得到的就是多层RNN模型。lower RNNs表示的是低阶特征信息，higher RNNs表示高阶特征信息。结构如下：</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_multi_layer_rnn.png" width="500" height="450" alt="多层RNN"></p>
+<p>效果好的RNN结构通常是多层的，2017年有人研究得出结论：神经机器翻译中，使用2～4层encoder RNN和4层decoder RNN效果最好。目前（2018年），基于Transformer的网络模型（如BERT）使用了24层结构。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -325,7 +373,7 @@ weibo: @周永_52ML
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Cell-Status/">Cell Status</a><a href="/tags/GRU/">GRU</a><a href="/tags/LSTM/">LSTM</a><a href="/tags/RNN/">RNN</a>
+  <span></span> <a href="/tags/Bidirectional-RNNs/">Bidirectional RNNs</a><a href="/tags/Cell-Status/">Cell Status</a><a href="/tags/GRU/">GRU</a><a href="/tags/LSTM/">LSTM</a><a href="/tags/Multi-Layer-RNNs/">Multi-Layer RNNs</a><a href="/tags/N-Gram/">N-Gram</a><a href="/tags/RNN/">RNN</a>
   </div>
 
 </div>
@@ -374,7 +422,7 @@ weibo: @周永_52ML
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.统计语言模型"><span class="toc-number">1.</span> <span class="toc-text">统计语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.神经语言模型"><span class="toc-number">2.</span> <span class="toc-text">神经语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.3.Recurrent-Neural-Networks"><span class="toc-number">3.</span> <span class="toc-text">循环神经网络 (RNN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.1.RNN模型结构"><span class="toc-number">3.1.</span> <span class="toc-text">RNN结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.2.RNN模型参数学习"><span class="toc-number">3.2.</span> <span class="toc-text">RNN模型参数学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.3.RNN模型反向传播"><span class="toc-number">3.3.</span> <span class="toc-text">RNN模型反向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.4.RNN应用_文本生成"><span class="toc-number">3.4.</span> <span class="toc-text">RNN应用－文本生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.语言模型评估指标"><span class="toc-number">3.5.</span> <span class="toc-text">语言模型评估指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.RNN存在的问题"><span class="toc-number">3.6.</span> <span class="toc-text">RNN存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.4.LSTM"><span class="toc-number">4.</span> <span class="toc-text">LSTM</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.统计语言模型"><span class="toc-number">1.</span> <span class="toc-text">统计语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.神经语言模型"><span class="toc-number">2.</span> <span class="toc-text">神经语言模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.3.Recurrent-Neural-Networks"><span class="toc-number">3.</span> <span class="toc-text">循环神经网络 (RNN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.1.RNN模型结构"><span class="toc-number">3.1.</span> <span class="toc-text">RNN结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.2.RNN模型参数学习"><span class="toc-number">3.2.</span> <span class="toc-text">RNN模型参数学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.3.RNN模型反向传播"><span class="toc-number">3.3.</span> <span class="toc-text">RNN模型反向传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.4.RNN应用_文本生成"><span class="toc-number">3.4.</span> <span class="toc-text">RNN应用－文本生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.语言模型评估指标"><span class="toc-number">3.5.</span> <span class="toc-text">语言模型评估指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.3.5.RNN存在的问题"><span class="toc-number">3.6.</span> <span class="toc-text">RNN存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.4.Long_Short_Term_Memory"><span class="toc-number">4.</span> <span class="toc-text">Long Short-Term Memory（LSTM）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.5.Gated_Recurrent_Units"><span class="toc-number">5.</span> <span class="toc-text">Gated Recurrent Units (GRU)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.6.Bidirectional_RNNs"><span class="toc-number">6.</span> <span class="toc-text">Bidirectional RNNs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.7.Multi_layer_RNNs"><span class="toc-number">7.</span> <span class="toc-text">Multi-layer RNNs</span></a></li></ol>
  
   </div>
 
