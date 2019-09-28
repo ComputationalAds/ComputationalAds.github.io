@@ -29,6 +29,8 @@ weibo: @周永_52ML
 
 在斯坦福CS224课程中讲述RNN时，是从NLP中统计语言模型引入的。RNN可以一定程度解决统计语言模型的一些问题。
 本章的编排与CS224课程基本类似，先介绍统计语言模型，然后根据语言模型存在的问题引入RNN，最后再根据RNN的问题引出LSTM、GRU等模型。">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_language_model.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_loss_function.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_backprogation.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_generate_text.png">
@@ -206,10 +208,10 @@ weibo: @周永_52ML
 <h2 id="4.3.Recurrent-Neural-Networks">循环神经网络 (RNN)</h2>
 
 <p>经典的RNN模型一个核心的出发点是重复运用同一个参数权重W（如此可使得模型参数较少，也不会随着inputs的变化而变化）。</p>
-<p>（补充图 lecture6-p22）</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn.png" width="500" height="350" alt="RNN模型"></p>
 <h3 id="4.3.1.RNN模型结构">RNN结构</h3>
 
-<p>（补充图 lecture6-p23）</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_language_model.png" width="500" height="450" alt="RNN语言模型"></p>
 <p>解读RNN模型结构</p>
 <ul>
 <li>输入层</li>
