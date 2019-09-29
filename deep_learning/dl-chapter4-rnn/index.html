@@ -37,6 +37,7 @@ weibo: @周永_52ML
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish_is_problem.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_lstm_structure.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_gru.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_bidirectional_rnn.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_multi_layer_rnn.png">
 <meta name="twitter:card" content="summary">
@@ -202,16 +203,16 @@ weibo: @周永_52ML
 <li>一是定长窗口通常太小；</li>
 <li>二是增大窗口fc层参数W同样会增大；</li>
 <li>三是窗口不能无限增大，</li>
-<li>最后$x^{(1)}$和$x^{(2)}$are multiplied by completely different weights in   . No symmetry in how the inputs are processed. </li>
+<li>最后$x^{(1)}$和$x^{(2)}$are multiplied by completely different weights in   . No symmetry in how the inputs are processed.</li>
 </ul>
 <p>因此，我们需要一个能<strong>处理任意长度的神经网络结构－Recurrent Neural Networks (RNN)</strong>。</p>
 <h2 id="4.3.Recurrent-Neural-Networks">循环神经网络 (RNN)</h2>
 
 <p>经典的RNN模型一个核心的出发点是重复运用同一个参数权重W（如此可使得模型参数较少，也不会随着inputs的变化而变化）。</p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn.png" width="500" height="350" alt="RNN模型"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn.png" ;="" width="500" height="350" alt="RNN模型"></p>
 <h3 id="4.3.1.RNN模型结构">RNN结构</h3>
 
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_language_model.png" width="500" height="450" alt="RNN语言模型"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_language_model.png" ;="" width="500" height="450" alt="RNN语言模型"></p>
 <p>解读RNN模型结构</p>
 <ul>
 <li>输入层</li>
@@ -245,11 +246,15 @@ weibo: @周永_52ML
 <tbody>
 <tr>
 <td>RNN</td>
-<td>1. 能够处理任意长度的输入（相对fixed-window）且模型大小固定<br>2. 对于第$t$步的计算理论上可以使用前面很多步的信息<br>3. 对称性？Same weights applied on every timestep, so there is symmetry in how inputs are processed.</td>
-<td>1. 循环网络结构计算太慢；<br>2. 实际中，模型很难学到前面多步反馈的信息，存在因梯度消失导致的信息丢失问题；</td>
+<td>1. 能够处理任意长度的输入（相对fixed-window）且模型大小固定</td>
 </tr>
 </tbody>
 </table>
+<ol>
+<li>对于第$t$步的计算理论上可以使用前面很多步的信息</li>
+<li>对称性？Same weights applied on every timestep, so there is symmetry in how inputs are processed. | 1. 循环网络结构计算太慢；</li>
+<li>实际中，模型很难学到前面多步反馈的信息，存在因梯度消失导致的信息丢失问题；|</li>
+</ol>
 <p>下面我们介绍RNN模型参数是如何学习和训练的？</p>
 <h3 id="4.3.2.RNN模型参数学习">RNN模型参数学习</h3>
 
@@ -257,7 +262,7 @@ weibo: @周永_52ML
 <p>$$<br>J^{(t)}(\theta) = CE(\hat{h}^{(t)}, h^{(t)}) = - \sum_{w \in W} y_w^{(t)} \text{log} \hat{y}_w^{(t)} = - \text{log} \hat{y}_{x^{(t+1)}}^{(t)}<br>$$</p>
 <p>那么对于整个训练预料来说，损失函数为：</p>
 <p>$$<br>J(\theta) = \frac{1}{T} \sum_{t=1}^{T} J^{(t)}(\theta) = - \frac{1}{T} \sum_{t=1}^{T} \text{log} \hat{y}_{x^{(t+1)}}^{(t)}<br>$$</p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_loss_function.png" width="600" height="400" alt="RNN损失函数"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_loss_function.png" ;="" width="600" height="400" alt="RNN损失函数"></p>
 <p>然而，如果在全局预料中计算损失和梯度时间成本太高。在实践中$x^{(1)}, \cdots, x^{(T)}$多表示为一个句子或一篇文档。可以在batch数据上计算损失函数并用梯度下降更新模型参数。</p>
 <h3 id="4.3.3.RNN模型反向传播">RNN模型反向传播</h3>
 
@@ -265,14 +270,14 @@ weibo: @周永_52ML
 <ul>
 <li>隐状态层的共享权重参数$W_h$的倒数如何求？如下图：</li>
 </ul>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_backprogation.png" width="500" height="300" alt="RNN反向传播"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_backprogation.png" ;="" width="500" height="300" alt="RNN反向传播"></p>
 <p>根据多变量链式法则，一个变量的梯度等于下游多个函数对其求导结果的累加和。公式表示为：</p>
 <p>$$<br>\frac{\partial J^{(t)}(\theta)} {\partial W_h } = \sum_{i=1}^{t} \frac{\partial J^{(t)} (\theta)} {\partial W_h} \vert_{(i)}<br>$$</p>
 <p>我们可以看到，权重参数$W_h$的梯度对应的计算有$(1+2+\cdots+T)=\frac{1}{2}T(T+1)$次（$T$表示语料长度），梯度的计算复杂度是$O(T^2)$。</p>
 <h3 id="4.3.4.RNN应用_文本生成">RNN应用－文本生成</h3>
 
 <p>类似统计语言模型，RNN模型也可用于生成文本（对预测结果进行重复采样）。</p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_generate_text.png" width="500" height="350" alt="RNN文本生成"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_generate_text.png" ;="" width="500" height="350" alt="RNN文本生成"></p>
 <h3 id="4.3.5.语言模型评估指标">语言模型评估指标</h3>
 
 <p>评估语言模型效果的方式是困惑度（perplexity）。公式表示为：</p>
@@ -281,7 +286,7 @@ weibo: @周永_52ML
 <h3 id="4.3.5.RNN存在的问题">RNN存在的问题</h3>
 
 <p>RNN模型从参数学习的角度看，最大的问题是存在梯度消失的问题(gradient vanish)。根据链式法则，第$t$步的损失函数对第一个隐藏状态层$h^{(1)}$求导时，可以看到：</p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish.png" width="600" height="450" alt="RNN梯度消失"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish.png" ;="" width="600" height="450" alt="RNN梯度消失"></p>
 <p>RNN模型结构中提到的$h^{(t-1)}$到$h^{(t)}$的函数表达式为$h^{(t)} = \sigma(W_h h^{(t-1)} + W_x x^{(t)} + b)$，根据链式法则可得$\frac{\partial h^{(t)}} {\partial h^{(t-1)}} = \text{diag} \left(\sigma^{‘} (W_h h^{(t-1)} + W_x x^{(t)} + b) \right) \cdot W_h$。</p>
 <p>如果$\frac{\partial h^{(t)}} {\partial h^{(t-1)}}$很小会怎样呢？就会导致梯度信号随着反向传播的过程越来越弱，出现梯度消失的问题。</p>
 <p>下面简要给出梯度消失的证明过程：考虑第$i$步的损失函数$J^{(i)}(\theta)$，它对应的前面第$j$步的隐藏状态层为$h^{(j)}$，那么可得$J^{(i)}(\theta)$对$h^{(j)}$的导数为：</p>
@@ -293,7 +298,7 @@ weibo: @周永_52ML
 <li>如何通过公式证明RNN会存在梯度消失（或梯度爆炸）的问题，随着term距离越来越大时？</li>
 </ol>
 <p><strong>为什么梯度消失是一个问题？（Why is vanishing gradient a problem?）</strong></p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish_is_problem.png" width="600" height="450" alt="LSTM结构图"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish_is_problem.png" ;="" width="600" height="450" alt="LSTM结构图"></p>
 <p>从上图可以看到，从远处传递过来的梯度信号强度远弱于近处的梯度信号，那么模型参数$W_h$的更新主要受近处梯度的影响，与long-term无关。</p>
 <p>我们也可以从另一个角度解释，梯度是过去对影响未来的一种度量方式，如果梯度因为距离过长导致消失的情况，我们无法得知：</p>
 <ol>
@@ -310,9 +315,9 @@ weibo: @周永_52ML
 <p>那么，是否可以将长短期信息分开存储并记忆呢？下面讲到的LSTM可以实现这种功能。</p>
 <h2 id="4.4.Long_Short_Term_Memory">Long Short-Term Memory（LSTM）</h2>
 
-<p>LSTM在对序列问题建模时，每一步用两个状态表示：隐藏态$h^{(t)}$（hidden status）和细胞态$c^{(t)}$（cell status）。它们都是长度为n的向量，cell status存储长期的信息，LSTM算法可以抹擦、写、读细胞态中的信息。</p>
+<p>LSTM（长短期记忆网络）在对序列问题建模时，每一步用两个状态表示：隐藏态$h^{(t)}$（hidden status）和细胞态$c^{(t)}$（cell status）。它们都是长度为n的向量，cell status存储长期的信息，LSTM算法可以抹擦、写、读细胞态中的信息。</p>
 <p>cell status中哪些信息被抹擦、写、读是由相应的门（gate）来控制的，分别对应遗忘门、输入门、输出门。</p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_lstm_structure.png" width="600" height="400" alt="LSTM结构图"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_lstm_structure.png" ;="" width="600" height="400" alt="LSTM结构图"></p>
 <p>LSTM结构用公式表示为：</p>
 <p>$$<br>\begin{align}<br>f_t &amp;= \sigma(W_f h^{(t-1)} + U_f x^{(t)} + b_f) \quad // 计算遗忘门（得到旧cell内容占比） \\\<br>i_t &amp;= \sigma(W_i h^{(t-1)} + U_i x^{(t)} + b_i) \quad // 计算输入门（得到新cell内容占比） \\\<br>\tilde{c_t} &amp;= \tanh(W_c h^{(t-1)} + W_c x^{(t)} + b_c) \quad // t状态的新细胞内容，取值[-1,1] \\\<br>c_t &amp;= f_t \circ c_{t-1} + i_t \circ \tilde{c_t} \quad // 更新细胞内容，得到新细胞状态（类似权重衰减）\\\<br>o_t &amp;= \sigma(W_o h^{(t-1)} + W_o x^{(t)} + b_o) \quad // 计算输出门（细胞状态权重） \\\<br>h_t &amp;= o_t \circ \tanh(c_t) \quad // 输出一些细胞内容作为隐藏态<br>\end{align}<br>$$</p>
 <blockquote>
@@ -322,19 +327,19 @@ weibo: @周永_52ML
 <p>相对于经典的RNN模型，LSTM更容易保留前面状态的信息。如果遗忘门（forget gate）设置为0，那么每一步全部的信息都被记忆，那么cell state就可以保留无限的信息。而RNN通过学习递归的权重矩阵$W_h$来实现这一功能还是较困难的。</p>
 <p>需要注意的是，LSTM也不能保证不出现梯度消失或梯度爆炸问题，它最大的优势就是在模型层面提供了一种比较容易的方式可以学习long-distance依赖信息。</p>
 <p>在2013~2015年间，LSTM算法在许多领域均取得了很大的成功，如手写字识别、语音识别、机器翻译、解析器、图像解读（image captioning）等。目前（2018年）Transformer在这些领域成为了主要的技术。</p>
+<p>一段话描述LSTM模型结构：<strong>LSTM模型是在RNN基础上引入了cell state用来保存长期信息，同时又引入3个门来实现信息的控制，即forget gate和input gate分别控制信息的保留和传入，output gate确定新cell中的哪些信息被输出。</strong></p>
 <h2 id="4.5.Gated_Recurrent_Units">Gated Recurrent Units (GRU)</h2>
 
 <p>GRU（门控递归单元）是2014年由Cho et al提出，它可以理解为是LSTM模型的简单实现。GRU在每一步$t$的输入只有$x^{(t)}$和$h^{(t)}$，没有细胞态（cell state）。GRU模型单元结构示意图如下：</p>
-<p>(GRU结构图)</p>
-<p>简述GRU模型</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_gru.png" ;="" width="300" height="200" alt="GRU"></p>
+<ul>
+<li>重置门（Reset）</li>
+</ul>
+<p>重置门用来控制前隐层状态$h^{(t)}$参与计算新内容的比例，相当于LSTM中遗忘门和输入门的结合。表达式为：$r^{(t)} = \sigma \left(W_r h^{(t-1)} + U_r x^{(t)} + b_r\right)$</p>
 <ul>
 <li>更新门（Update Gate）</li>
 </ul>
 <p>更新门用来控制前隐层状态$h^{(t-1)}$被保留的比例。表达式为：$u^{(t)} = \sigma \left(W_u h^{(t-1)} + U_u x^{(t)} + b_u \right)$</p>
-<ul>
-<li>重置门（Reset）</li>
-</ul>
-<p>重置门用来控制前隐层状态$h^{(t)}$参与计算新内容的比例。表达式为：$r^{(t)} = \sigma \left(W_r h^{(t-1)} + U_r x^{(t)} + b_r\right)$</p>
 <ul>
 <li>新隐层状态内容（New hidden state content）</li>
 </ul>
@@ -353,14 +358,16 @@ weibo: @周永_52ML
 <h2 id="4.6.Bidirectional_RNNs">Bidirectional RNNs</h2>
 
 <p>双向RNN模型结构如下图所示：</p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_bidirectional_rnn.png" width="500" height="450" alt="双向RNN"></p>
-<p>以情感分类问题为例，给定一个完整的句子或段落，情感表达不一定是词的单向表示，也可能是双向的。在$t$步时的模型结构表达式为：</p>
-<p>$$<br>\begin{align}<br>\overrightarrow{h}^{(t)} &amp;= \text{RNN}_\text{FW}(\overrightarrow{h}^{(t-1)}, x^{(t)})  \qquad   // 前向RNN \\\<br>\overleftarrow{h}^{(t)} &amp;= \text{RNN}_\text{BW}(\overleftarrow{h}^{(t-1)}, x^{(t)})  \qquad   // 反向RNN \\\<br>h^{(t)} &amp;= [\overrightarrow{h}^{(t)}, \overleftarrow{h}^{(t)}] \qquad //  concat<br>\end{align}<br>$$</p>
-<p>注意：双向RNN仅适合用于完整输入序列内容的场景，不适合单向序列任务的场景，如语言模型（LM仅知道左边的信息，不知道右边的信息）。当前BERT模型（基于Transformer的双向Encoder表示）效果好于双向RNN模型。</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_bidirectional_rnn.png" ;="" width="500" height="450" alt="双向RNN"></p>
+<p>以情感分类问题为例，给定一个完整的句子或段落，情感表达不一定是词的单向表示，也可能是双向的。在$t$步时的模型结构表达式为：<br>$$<br>\begin{align}<br>\overrightarrow{h}^{(t)} &amp;= \text{RNN}_\text{FW}(\overrightarrow{h}^{(t-1)}, x^{(t)})  \qquad   // 前向RNN \\\<br>\overleftarrow{h}^{(t)} &amp;= \text{RNN}_\text{BW}(\overleftarrow{h}^{(t-1)}, x^{(t)})  \qquad   // 反向RNN \\\<br>h^{(t)} &amp;= [\overrightarrow{h}^{(t)}, \overleftarrow{h}^{(t)}] \qquad //  concat<br>\end{align}<br>$$</p>
+<p>注意，双向RNN仅适合用于完整输入序列内容的场景，不适合单向序列任务的场景，如语言模型（LM仅知道左边的信息，不知道右边的信息）。当前BERT模型（基于Transformer的双向Encoder表示）效果好于双向RNN模型。</p>
+<blockquote>
+<p>这里的RNN单元也可以是LSTM或GRU等单元。</p>
+</blockquote>
 <h2 id="4.7.Multi_layer_RNNs">Multi-layer RNNs</h2>
 
 <p>经典的RNN模型是隐层单元沿着一个维度方向的深度模型，如果扩展到另外一个维度，那么得到的就是多层RNN模型。lower RNNs表示的是低阶特征信息，higher RNNs表示高阶特征信息。结构如下：</p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_multi_layer_rnn.png" width="500" height="450" alt="多层RNN"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_multi_layer_rnn.png" ;="" width="500" height="450" alt="多层RNN"></p>
 <p>效果好的RNN结构通常是多层的，2017年有人研究得出结论：神经机器翻译中，使用2～4层encoder RNN和4层decoder RNN效果最好。目前（2018年），基于Transformer的网络模型（如BERT）使用了24层结构。</p>
   
 	</div>
