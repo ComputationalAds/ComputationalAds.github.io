@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>第05章：Embedding学习方法 | 计算广告与机器学习</title>
+    <title>第05章：Word Embedding | 计算广告与机器学习</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="ZhouYong">
@@ -12,7 +12,7 @@
 
     
     <meta name="description" content="author: zhouyongsdzh@foxmail.com
-date: 2017-04-08
+date: 2017-06-08
 weibo: @周永_52ML
 
 
@@ -26,11 +26,11 @@ weibo: @周永_52ML
 在第四章：循环神经网络一章中讲到了神经语言模型，神经语言模型第一层是embedding映射，然后走全连接。embedding映射就是将一个词（CTR预估模型中经常是ID型特征）映射为一个$k$维的实数值向量。
 在NLP任务中">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第05章：Embedding学习方法">
-<meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter5-embedding/index.html">
+<meta property="og:title" content="第05章：Word Embedding">
+<meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter5-word-embedding/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
 <meta property="og:description" content="author: zhouyongsdzh@foxmail.com
-date: 2017-04-08
+date: 2017-06-08
 weibo: @周永_52ML
 
 
@@ -46,9 +46,9 @@ weibo: @周永_52ML
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter5_cbow_skip_gram.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter5_hs_cbow1.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第05章：Embedding学习方法">
+<meta name="twitter:title" content="第05章：Word Embedding">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
-date: 2017-04-08
+date: 2017-06-08
 weibo: @周永_52ML
 
 
@@ -120,14 +120,14 @@ weibo: @周永_52ML
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/deep_learning/dl-chapter5-embedding/" title="第05章：Embedding学习方法" itemprop="url">第05章：Embedding学习方法</a>
+      <a href="/deep_learning/dl-chapter5-word-embedding/" title="第05章：Word Embedding" itemprop="url">第05章：Word Embedding</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-16T13:43:20.000Z" itemprop="datePublished"> 发表于 2017-05-16</time>
+    <time datetime="2017-06-22T13:43:20.000Z" itemprop="datePublished"> 发表于 2017-06-22</time>
     
   </p>
 </header>
@@ -142,7 +142,7 @@ weibo: @周永_52ML
 		
 		<ul>
 <li>author: zhouyongsdzh@foxmail.com</li>
-<li>date: 2017-04-08</li>
+<li>date: 2017-06-08</li>
 <li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
 </ul>
 <hr>
@@ -164,7 +164,8 @@ weibo: @周永_52ML
 <blockquote>
 <p>注意：词向量只是针对“词”来提的，事实上，我们也可以针对更细粒度或更粗粒度进行推广，如字向量（charactor-level），句子向量或文档向量等。</p>
 </blockquote>
-<p>下面正式开始介绍word2vector中两个重要的模型：CBOW模型和Skip-gram模型。</p>
+<p>目前，<strong>词向量学习方法中比较主流有word2vec，glove，fasttext和elmo等</strong>。我们先从word2vec开始介绍。</p>
+<p>word2vec有两种不同的建模方式，分别称为CBOW模型和Skip-gram模型。</p>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter5_cbow_skip_gram.png" width="600" height="400" alt="CBOW和Skip-gram"></p>
 <p>由图可见，两个模型都包含3层结构：输入层、映射层和输出层。cbow模型是在已知当前词$w_t$的上下文$w_{t-2},w_{t-1},w_{t+1},w_{t+2}$的前提下预测当前词$w_t$；skip-gram模型恰恰相反，是在遗址当前词$w_t$的前提下，预测其上下文$w_{t-2},w_{t-1},w_{t+1},w_{t+2}$。</p>
 <p>对于这两个模型结构，word2vec提供了两套学习框架，分别是Herarchical Softmax和Negative Sampling来进行学习。</p>
@@ -251,7 +252,7 @@ weibo: @周永_52ML
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/CBow/">CBow</a><a href="/tags/Hierarchical-Softmax/">Hierarchical Softmax</a><a href="/tags/Negative-Sampling/">Negative Sampling</a><a href="/tags/Skip-Gram/">Skip Gram</a><a href="/tags/W2V/">W2V</a><a href="/tags/Word2Vec/">Word2Vec</a>
+  <span></span> <a href="/tags/CBow/">CBow</a><a href="/tags/ELMo/">ELMo</a><a href="/tags/FastText/">FastText</a><a href="/tags/GloVe/">GloVe</a><a href="/tags/Hierarchical-Softmax/">Hierarchical Softmax</a><a href="/tags/Negative-Sampling/">Negative Sampling</a><a href="/tags/Skip-Gram/">Skip Gram</a><a href="/tags/Word2Vec/">Word2Vec</a>
   </div>
 
 </div>
@@ -260,7 +261,7 @@ weibo: @周永_52ML
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/deep_learning/dl-chapter5-embedding/" data-title="第05章：Embedding学习方法 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/deep_learning/dl-chapter5-word-embedding/" data-title="第05章：Word Embedding | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -274,18 +275,18 @@ weibo: @周永_52ML
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/openmit/openmit-chapter3-admm/" title="第03章：OpenMIT_算法框架">
+ <a href="/openmit/openmit-chapter1-introduction/" title="第01章：OpenMIT-先睹为快">
   <strong>上一篇：</strong><br/>
   <span>
-  第03章：OpenMIT_算法框架</span>
+  第01章：OpenMIT-先睹为快</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/deep_learning/dl-chapter2-dnn/"  title="第02章：深度神经网络">
+<a href="/openmit/openmit-chapter3-admm/"  title="第03章：OpenMIT_算法框架">
  <strong>下一篇：</strong><br/> 
- <span>第02章：深度神经网络
+ <span>第03章：OpenMIT_算法框架
 </span>
 </a>
 </div>
