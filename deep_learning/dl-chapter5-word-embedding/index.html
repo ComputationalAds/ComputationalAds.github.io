@@ -164,7 +164,7 @@ weibo: @周永_52ML
 <blockquote>
 <p>注意：词向量只是针对“词”来提的，事实上，我们也可以针对更细粒度或更粗粒度进行推广，如字向量（charactor-level），句子向量或文档向量等。</p>
 </blockquote>
-<p>目前，<strong>词向量学习方法中比较主流有word2vec，glove，fasttext和elmo等</strong>。我们先从word2vec开始介绍。</p>
+<p>目前，<strong>词向量学习方法中比较主流有word2vec，glove，fasttext和elmo，还有基于char-level的Bi-LSTM方法、CNN＋Highway NN + LSTM等方法</strong>。我们先从word2vec开始介绍。</p>
 <p>word2vec有两种不同的建模方式，分别称为CBOW模型和Skip-gram模型。</p>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter5_cbow_skip_gram.png" width="600" height="400" alt="CBOW和Skip-gram"></p>
 <p>由图可见，两个模型都包含3层结构：输入层、映射层和输出层。cbow模型是在已知当前词$w_t$的上下文$w_{t-2},w_{t-1},w_{t+1},w_{t+2}$的前提下预测当前词$w_t$；skip-gram模型恰恰相反，是在遗址当前词$w_t$的前提下，预测其上下文$w_{t-2},w_{t-1},w_{t+1},w_{t+2}$。</p>
@@ -335,7 +335,7 @@ weibo: @周永_52ML
 		  
 		
 		  
-			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>4</sup></a></li>
+			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>5</sup></a></li>
 		  
 		
 		  

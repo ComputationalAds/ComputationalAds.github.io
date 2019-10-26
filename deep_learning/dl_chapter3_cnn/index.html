@@ -1,0 +1,704 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>第03章：卷积神经网络 | 计算广告与机器学习</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ZhouYong">
+    
+
+    
+    <meta name="description" content="author: zhouyongsdzh@foxmail.com
+date: 2017-09-18
+weibo: @周永_52ML
+
+
+卷积神经网络
+
+
+什么是卷积？
+
+关于卷积的理解参考博客最容易理解的对卷积(convolution)的解释，里面有很多的示例可以帮助理解卷积的物理意义。一句话归纳卷积的物理意义：一个函数（如：单位响应）在另一个函数（如：输入信号）上的加权叠加。四个字概括：加权叠加">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第03章：卷积神经网络">
+<meta property="og:url" content="http://www.52caml.com/deep_learning/dl_chapter3_cnn/index.html">
+<meta property="og:site_name" content="计算广告与机器学习">
+<meta property="og:description" content="author: zhouyongsdzh@foxmail.com
+date: 2017-09-18
+weibo: @周永_52ML
+
+
+卷积神经网络
+
+
+什么是卷积？
+
+关于卷积的理解参考博客最容易理解的对卷积(convolution)的解释，里面有很多的示例可以帮助理解卷积的物理意义。一句话归纳卷积的物理意义：一个函数（如：单位响应）在另一个函数（如：输入信号）上的加权叠加。四个字概括：加权叠加">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第03章：卷积神经网络">
+<meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
+date: 2017-09-18
+weibo: @周永_52ML
+
+
+卷积神经网络
+
+
+什么是卷积？
+
+关于卷积的理解参考博客最容易理解的对卷积(convolution)的解释，里面有很多的示例可以帮助理解卷积的物理意义。一句话归纳卷积的物理意义：一个函数（如：单位响应）在另一个函数（如：输入信号）上的加权叠加。四个字概括：加权叠加">
+
+    
+    <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="计算广告与机器学习" title="计算广告与机器学习"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="计算广告与机器学习">计算广告与机器学习</a></h1>
+				<h2 class="blog-motto">Computational Advertising and Machine Learning</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/home">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.52caml.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/deep_learning/dl_chapter3_cnn/" title="第03章：卷积神经网络" itemprop="url">第03章：卷积神经网络</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
+		
+  <p class="article-time">
+    <time datetime="2017-09-27T13:43:20.000Z" itemprop="datePublished"> 发表于 2017-09-27</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.卷积神经网络"><span class="toc-number">1.</span> <span class="toc-text">卷积神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.1.什么是卷积"><span class="toc-number">1.1.</span> <span class="toc-text">什么是卷积？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.2.卷积网络结构"><span class="toc-number">1.2.</span> <span class="toc-text">卷积网络结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.3.resnet"><span class="toc-number">2.</span> <span class="toc-text">ResNet</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.3.1.为什么会出现ResNet"><span class="toc-number">2.1.</span> <span class="toc-text">为什么会出现ResNet？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.3.2.ResNet思想"><span class="toc-number">2.2.</span> <span class="toc-text">ResNet思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.3.3.深度残差学习"><span class="toc-number">2.3.</span> <span class="toc-text">深度残差学习</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.4.Highway_NetWork"><span class="toc-number">3.</span> <span class="toc-text">Highway Network</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.4.1.Highway网络结构"><span class="toc-number">3.1.</span> <span class="toc-text">Highway网络结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.4.2.ResNet与HighwayNetwork比较"><span class="toc-number">3.2.</span> <span class="toc-text">ResNet与HighwayNetwork比较</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<ul>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 2017-09-18</li>
+<li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
+</ul>
+<hr>
+<h2 id="1.卷积神经网络">卷积神经网络</h2>
+
+
+<h3 id="1.1.什么是卷积">什么是卷积？</h3>
+
+<p>关于卷积的理解参考博客<a href="https://blog.csdn.net/bitcarmanlee/article/details/54729807" target="_blank" rel="external">最容易理解的对卷积(convolution)的解释</a>，里面有很多的示例可以帮助理解卷积的物理意义。<br>一句话归纳卷积的物理意义：<strong>一个函数（如：单位响应）在另一个函数（如：输入信号）上的加权叠加</strong>。四个字概括：<strong>加权叠加</strong>。</p>
+<p>卷积的数学定义：称$(f*g)(n)$为$f,g$的卷积。</p>
+<p>连续定义：<br>$$<br>(f_g)(n) = \int_{-\infty}^{\infty} f(\delta) g(n - \delta) \; d \delta<br>$$<br>离散定义：<br>$$<br>(f_g)(n) = \sum_{\delta=-\infty}^{\infty} f(\delta) g(n - \delta)<br>$$</p>
+<p>关于卷积概念这里有一个血腥的示例讲解，可以帮助我们很好的理解：</p>
+<blockquote>
+<p>比如说你的老板命令你干活，你却到楼下打台球去了，后来被老板发现，他非常气愤，扇了你一巴掌（注意，这就是<strong>输入信号</strong>，脉冲），于是你的脸上会渐渐地（贱贱地）鼓起来一个包，你的脸就是一个系统，而鼓起来的包就是你的脸对巴掌的响应（<strong>系统响应信号</strong>）。好，这样输入信号和信号系统就建立起来了意义对应的联系。下面还需要一些假设来保证论证的严谨：假定你的脸是_线性时不变系统_，也就是说，无论什么时候老板打你一巴掌，打在你脸的同一位置（这似乎要求你的脸足够光滑，如果你说你长了很多青春痘，甚至整个脸皮处处连续处处不可导，那难度太大了，我就无话可说了哈哈），你的脸上总是会在相同的时间间隔内鼓起来一个相同高度的包来，并且假定以鼓起来的包的大小作为系统输出。好了，那么，下面可以进入核心内容——卷积了！<br>如果你每天都到地下去打台球，那么老板每天都要扇你一巴掌，不过当老板打你一巴掌后，你5分钟就消肿了，所以时间长了，你甚至就适应这种生活了…… 如果有一天，老板忍无可忍，以0.5秒的间隔开始不间断的扇你的过程，这样问题就来了，第一次扇你鼓起来的包还没消肿，第二个巴掌就来了，你脸上的包就可能鼓起来两倍高，老板不断扇你，脉冲不断作用在你脸上，<strong>效果不断叠加，这样这些效果就可以求和了，结果就是你脸上的包的高度随时间变化的一个函数了（注意理解）</strong>；如果老板再狠一点，频率越来越高，以至于你都辨别不清时间间隔了，那么，求和就变成积分了。可以这样理解，在这个过程中的某一固定的时刻，你的脸上的包的鼓起程度和什么有关呢？和之前每次打你都有关！但是各次的贡献是不一样的，越早打的巴掌，贡献越小，所以这就是说，<strong>某一时刻的输出是之前某一点的输入乘以各自的衰减系数之后得到某一点的输出，然后再把不同时刻的输出点放在一起（积分or累加），形成一个函数，这就是卷积，卷积之后的函数就是你脸上的包的大小随时间变化的函数</strong>。本来你的包几分钟就可以消肿，可是如果连续打，几个小时也消不了肿了，这难道不是一种平滑过程么？反映到剑桥大学的公式上，f(a)就是第a个巴掌，g(x-a)就是第a个巴掌在x时刻的作用程度，乘起来再叠加就ok了，大家说是不是这个道理呢？我想这个例子已经非常形象了，你对卷积有了更加具体深刻的了解了吗？</p>
+<p>$f(a)$是a时刻的输入函数，$g(x-a)$是a时刻的输入信号在x时刻的响应程度。</p>
+</blockquote>
+<h3 id="1.2.卷积网络结构">卷积网络结构</h3>
+
+<p>// doing</p>
+<p>—</p>
+<h2 id="2.3.resnet">ResNet</h2>
+
+<p>何凯明等人在2015年提出的ResNet，帮助微软在ImageNet比赛分类任务上获得冠军，并获评CVPR2016最佳论文（《Deep Residual Learning for Image Recognition》）。因为它“简单与实用”并存，之后许多目标检测、图像分类任务都是建立在ResNet的基础上完成的，成为计算机视觉领域重要的基石结构。</p>
+<h3 id="2.3.1.为什么会出现ResNet">为什么会出现ResNet？</h3>
+
+<p><strong>写在前面：梳理ResNet的思路</strong></p>
+<p>_我们用深度学习的初衷是想用更深的网络去学习更丰富的不同level的特征，提升模型的performance。但是单纯的增加网络层数，会导致两个问题：1. 梯度消失or爆炸问题，可以通过Normalization解决；2. 退化问题，即error在train和test上均增加。那么核心问题来了，有没有办法既能加深网络深度（初衷是为了提升模型performance）又能解决退化问题？ResNet可以解决这个问题，采用Identity Mapping的思想（保证train error不增加），并且学习残差函数比学习恒等映射函数更容易。_</p>
+<p><strong>网络的深度为什么重要？</strong></p>
+<p>自从深度神经网络在ImageNet大放异彩之后，后来问世的深度神经网络就朝着网络层数越来越深的方向发展。我们知道：<strong>深度网络能够抽取不同level的特征信息，网络的层数越多，意味着能够提取到不同level的特征越丰富。并且，越深的网络提取的信息越抽象，越具有语义信息</strong>。</p>
+<p><strong>为什么不能简单的增加网络层数？</strong></p>
+<p>对于原网络，如果简单的增加深度，会导致<strong>梯度弥散或梯度爆炸</strong>的问题。在网络结构上对该问题的解决方法是采用<a href="">Normalization</a>的方法，根据问题场景采用BN或LN等，如此可训练几十层的网络。</p>
+<p>通过上述方法可以训练了，但是人们又发现另外一个问题，就是<strong>退化问题</strong>，即<strong>随着网络深度的增加，模型在训练集上的精度达到饱和甚至下降，这个问题显然不是由过拟合（overfitting）造成的，因为网络加深后不仅测试误差变高了，它的训练误差竟然也变高了</strong>。怎么解决这种加深网络深度但网络性能却下降的<strong>退化问题（degradation problem）</strong>呢？。</p>
+<p><strong>如何解决退化问题？</strong></p>
+<p>深度残差网络。作者首先论文里通过实验结进一步描述了这种退化问题：当传统神经网络的层数从20增加为56时，网络的训练误差和测试误差均出现了明显的增长，也就是说，网络的性能随着深度的增加出现了明显的退化。实验结果如下图所示：</p>
+<p>（ResNet 训练和测试误差）</p>
+<h3 id="2.3.2.ResNet思想">ResNet思想</h3>
+
+<p>如果深层网络的后面那些层是恒等映射，那么模型就退化为一个浅层网络，相对的train error就不会增加了，那现在要解决的就是学习恒等映射函数了。_（这里学习恒等映射是为了解决train error问题，之所以学习深层网络的恒等映射是为了抽取不同level的特征，提升模型性能）_。 </p>
+<p>但是<strong>直接让一些网络层去拟合一个潜在的恒等映射函数$H(x) = x$，比较困难，这可能就是深层网络难以训练的原因</strong>。如果把网络设计为$H(x) = F(x) + x$, 如下图。我们可以把问题转换为学习一个残差函数$F(x) = H(x) - x$. 只要$F(x)=0$，就构成了一个恒等映射$H(x) = x$。 而且，拟合残差肯定更加容易。<strong>注意：这里之所以要拟合恒等映射函数，是为了不增大train error，即保持与浅层网络一样的train error</strong>。</p>
+<blockquote>
+<p><strong>问题：为什么拟合残差会更加容易?</strong> 难道等价于拟合一个简单的函数，而不是像H(x)那样复杂的的函数？</p>
+</blockquote>
+<p>关于ResNet有效性的一个解释：F是求和前网络映射，H是从输入到求和后的网络映射。比如把x=5映射到5.1，那么引入残差前是F’(5)=5.1，引入残差后是H(5)=5.1, H(5)=F(5)+5, F(5)=0.1。这里的F’和F都表示网络参数映射，引入残差后的映射对输出的变化更敏感。比如s输出从5.1变到5.2，映射F’的输出增加了1/51=2%，而对于残差结构输出从5.1到5.2，映射F是从0.1到0.2，增加了100%。<strong>明显后者输出变化对权重的调整作用更大，所以效果更好。残差的思想都是去掉相同的主体部分，从而突出微小的变化，看到残差网络我第一反应就是差分放大器…（比较抽象，不好理解？）</strong></p>
+<blockquote>
+<p><strong>问题：如果x=-1要映射为1，进而是1.2，那么还是“差分放大器”吗？如何理解去掉相同的主体部分？</strong></p>
+<p>网络上的一段话：<br>“作者想到了构建<strong>恒等映射（Identity mapping）</strong>来解决这个问题，问题解决的标志是：增加网络层数，但训练误差不增加。为什么是恒等映射呢，一个可解释的思路：_20层的网络是56层网络的一个子集，56层网络的解空间包含着20层网络的解空间。如果我们将56层网络的最后36层全部短接，这些层进来是什么出来也是什么（也就是做一个恒等映射），那这个56层网络不就等效于20层网络了吗，至少效果不会相比原先的20层网络差吧。_同样是56层网络，不引入恒等映射为什么就不行呢？因为退化问题使得网络难以训练，虽然网络的深度加深了，但是实际上无法有效训练网络，训练不充分的网络不但无法提升性能，甚至降低了性能。”</p>
+<p>问题：这里博主把无法得到有效网络归因于梯度消失，是否合理？ 网络加深，train error增大，肯定是网络学习的不好，那么为什么学习的不好？梯度问题还是优化算法问题？ 不合理，因为不是梯度消失or爆炸问题，而是退化问题。</p>
+</blockquote>
+<p>之所以称其为“残差”网络，是因为假设网络要学习$H(x)$，那么由于图中identity x之间跨过了2层，那么其实相当于拟合的是$F(x)=H(x)-x$，这就是残差概念的来源。</p>
+<p><strong>核心问题探讨：退化问题的本质是什么？</strong></p>
+<p>论文《Skip connections eliminate singularities》给出了一个结论：<strong>深度神经网络难以训练的原因并非梯度消失或爆炸，而是神经网络权重$W$的退化</strong>。虽然梯度范数大，但是如果网络的可用自由度对这些范数的贡献非常不均衡，也就是<strong>每个层中只有少量的隐藏单元对不同的输入改变它们的激活值，而大部分隐藏单元对不同的输入都是相同的反应，此时整个权重矩阵的秩不高。并且随着网络层数的增加，连乘后使得整个秩变的更低</strong>。</p>
+<p>这也是我们常说的网络退化问题，虽然是一个很高维的矩阵，但是大部分维度却没有信息，表达能力没有看起来那么强大。</p>
+<blockquote>
+<p><strong>问题：为什么每层的隐层单元对不同的输入，其敏感度有如此大的差异？根源在哪里？初始化方法吗？</strong></p>
+</blockquote>
+<p><strong>skip connection可以改善梯度弥散问题</strong></p>
+<p>梯度弥散是因为反向传播过程的链式法则导致的梯度消失（趋于0），从而模型参数无法进一步更新导致停滞。skip connection可以改善这部分问题。用公式表示为：</p>
+<p>$$<br>\frac{\partial H(x)} {\partial x} = \frac{\partial \left(F(x) + x \right)} {\partial x} = \frac{\partial F(x)}{\partial x} + 1<br>$$</p>
+<p>无论$\frac{\partial F(x)}{\partial x}$如何小，那么输出$H(x)$对输入$x$都有了一定的梯度，误差仍然可以继续反向传播。</p>
+<h3 id="2.3.3.深度残差学习">深度残差学习</h3>
+
+
+
+<h2 id="2.4.Highway_NetWork">Highway Network</h2>
+
+<h3 id="2.4.1.Highway网络结构">Highway网络结构</h3>
+
+<p>所谓Highway网络，就是输入某一层网络的数据一部分经过非线性变换，另一部分直接从该网络跨过去不做任何转换，就想走在高速公路上一样，而多少的数据需要非线性变换，多少的数据可以直接跨过去，是由一个权值矩阵和输入数据共同决定的。专业术语称之为Skip Connection。</p>
+<p>定义输入层$x^{[l]} \in R^n$，Highway Network结构表达式为：</p>
+<p>$$<br>\begin{align}<br>h_{proj} &amp;= \text{Relu} \left( W_{proj} \cdot x^{[l]} + b_{proj} \right) \quad \in R^n \\\<br>h_{gate} &amp;= \sigma \left( W_{gate} \cdot x^{[l]} + b_{gate} \right) \quad \in R^n \\\<br>h_{highway} &amp;= h_{gate} \odot h_{proj} + (1 - h_{gate}) \odot x^{[l]} \quad\in R^n<br>\end{align}<br>$$</p>
+<p>如果我们想更改x的维度从A变成B的话，一种方法是采用zero-padding和下采样的方法，或者是引入一个维度为A*B的变换矩阵，使每次都乘上这个矩阵。</p>
+<h3 id="2.4.2.ResNet与HighwayNetwork比较">ResNet与HighwayNetwork比较</h3>
+
+<blockquote>
+<p>shortcut connection也叫skip connection，跳跃式传递。在ResNet中引入了一种叫residual network残差网络结构，与普通CNN的区别在于从输入源直接向输出源多连接了一条传递线，这是一种identity mapping（恒等映射），用来进行残差计算。其目的是为了防止网络层数增加而导致的梯度弥散问题与退化问题。</p>
+</blockquote>
+<p><strong>比较Residual Network与Highway Network在connection上的差异</strong></p>
+<ul>
+<li><strong>门函数与参数</strong>：Highway networks使用了带有<strong>门函数</strong>的shortcut。但是这些门函数需要参数，而ResNet的shortcut不需要参数；</li>
+<li><strong>连接有效性</strong>：当Highway networks的门函数的shortcut关闭时，相当于没有了残差函数，但是ResNet的shortcut一直保证学习残差函数；</li>
+<li><strong>效果</strong>：当Highway networks的层数急剧增加时，没有表现出准确率持续上升；</li>
+</ul>
+<p>总之，ResNet可以看成是Highway networks的特例，但是从效果上来看，要比Highway networks好。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/深度学习/">深度学习</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/CNN/">CNN</a><a href="/tags/Channel/">Channel</a><a href="/tags/Filters/">Filters</a><a href="/tags/Highway/">Highway</a><a href="/tags/Inception/">Inception</a><a href="/tags/ResNet/">ResNet</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.52caml.com/deep_learning/dl_chapter3_cnn/" data-title="第03章：卷积神经网络 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/reinforcement-learning/chapter3-markov-decision-process/" title="第03章：马尔可夫决策过程">
+  <strong>上一篇：</strong><br/>
+  <span>
+  第03章：马尔可夫决策过程</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/deep_learning/dl-chapter4-rnn/"  title="第04章：循环神经网络">
+ <strong>下一篇：</strong><br/> 
+ <span>第04章：循环神经网络
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.卷积神经网络"><span class="toc-number">1.</span> <span class="toc-text">卷积神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.1.什么是卷积"><span class="toc-number">1.1.</span> <span class="toc-text">什么是卷积？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.2.卷积网络结构"><span class="toc-number">1.2.</span> <span class="toc-text">卷积网络结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.3.resnet"><span class="toc-number">2.</span> <span class="toc-text">ResNet</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.3.1.为什么会出现ResNet"><span class="toc-number">2.1.</span> <span class="toc-text">为什么会出现ResNet？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.3.2.ResNet思想"><span class="toc-number">2.2.</span> <span class="toc-text">ResNet思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.3.3.深度残差学习"><span class="toc-number">2.3.</span> <span class="toc-text">深度残差学习</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.4.Highway_NetWork"><span class="toc-number">3.</span> <span class="toc-text">Highway Network</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.4.1.Highway网络结构"><span class="toc-number">3.1.</span> <span class="toc-text">Highway网络结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.4.2.ResNet与HighwayNetwork比较"><span class="toc-number">3.2.</span> <span class="toc-text">ResNet与HighwayNetwork比较</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/OpenMIT/" title="OpenMIT">OpenMIT<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式机器学习/" title="分布式机器学习">分布式机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/强化学习与智能决策/" title="强化学习与智能决策">强化学习与智能决策<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/概率与统计/" title="概率与统计">概率与统计<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/深入浅出机器学习/" title="深入浅出机器学习">深入浅出机器学习<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Agent/" title="Agent">Agent<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/参数服务器/" title="参数服务器">参数服务器<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/反向传播/" title="反向传播">反向传播<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Softmax/" title="Softmax">Softmax<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Pooling/" title="Pooling">Pooling<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Attention/" title="Attention">Attention<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Iteration/" title="Policy Iteration">Policy Iteration<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Value-Iteration/" title="Value Iteration">Value Iteration<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Greedy-Policy/" title="Greedy Policy">Greedy Policy<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/连续随机变量/" title="连续随机变量">连续随机变量<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/MDP/" title="MDP">MDP<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Markov-Decision-Process/" title="Markov Decision Process">Markov Decision Process<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RL/" title="RL">RL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Environments/" title="Environments">Environments<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/GD/" title="GD">GD<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FTRL/" title="FTRL">FTRL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AdaGrad/" title="AdaGrad">AdaGrad<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AdaDelta/" title="AdaDelta">AdaDelta<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Adam/" title="Adam">Adam<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, Welcome to CAML technology sharing platform.  <br/>
+			I&#39;m Zhou Yong, engaged in algorithms work on computational advertising and machine learning.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1707438033" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/ComputationalAds" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zhouyongsdzh@foxmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2019 
+		
+		<a href="/about" target="_blank" title="ZhouYong">ZhouYong</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>

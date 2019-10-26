@@ -81,6 +81,111 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/head_first_ml/ml-chapter8-reinforcement-learning-family/" title="第08章：深入浅出ML之Reinforcement Learning家族" itemprop="url">第08章：深入浅出ML之Reinforcement Learning家族</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-28T13:31:36.000Z" itemprop="datePublished"> 发表于 2016-02-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ul>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 2016-02-18</li>
+<li>sina weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
+</ul>
+<hr>
+<p><strong>内容列表</strong></p>
+<ul>
+<li>写在前面</li>
+<li>马尔可夫决策过程</li>
+<li>\(\epsilon\)-贪心法</li>
+<li>…</li>
+</ul>
+<p><br></p>
+<h3 id="写在前面">写在前面</h3><hr>
+<p>强化学习这个领域是我在接触机器学习一年多才开始真正关注的，虽然读书的时候修过《高级人工智能》这门课，里面提到了Q-Learning，但当时没怎么重视，也没学好。</p>
+<p>直到快毕业那年，接触了一个互联网广告中的一个问题：广告效果的归因分析。在查阅资料和寻求解决方案，发现其归因问题可以用强化学习的马尔可夫决策过程来建模。从此才关注和学习这部分。</p>
+<p>本章原定题目是：markov，之所以改为强化学习，是因为在广告和推荐策略，尤其是解决广告或商品的冷启动问题时，可以用强化学习的思想来建模。</p>
+<p><br></p>
+<h3 id="马尔可夫决策过程">马尔可夫决策过程</h3><hr>
+<p><br></p>
+<h3 id="\(\epsilon\)-贪心法">\(\epsilon\)-贪心法</h3><hr>
+<p>\(\epsilon\)-贪心法是通过概率对探索和利用进行折中:</p>
+<table>
+<thead>
+<tr>
+<th>每次尝试时，以\(\epsilon\)的概率进行探索，即以均匀挂了随机选取一个摇臂；以\(1-\epsilon\)的概率进行利用，即选择平均奖赏最多的摇臂（只选一个）。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>用\(Q(k)\)纪录摇臂\(k\)的平均奖赏。若摇臂\(k\)被尝试了\(n\)次，得到的奖赏分别为\(v_1, v_2, \cdots, v_n\)，那么平均奖赏为：</p>
+<p>$$<br>Q(k) = \frac{1}{n} \sum_{i=1}^{n} v_i<br>$$</p>
+<p>若直接根据上式计算平均奖赏，则需要记录\(n\)个奖赏值，\(n\)个值都需要保存，空间上不够高效。下面给出一个更高效的方法：对均值进行增量式的计算，即每尝试一次就立即更新\(Q(k)\)。</p>
+<p>用下标表示尝试的次数，初始时\(Q_0(k)＝0\)。对于任意的\(n \ge 1\)，若第\(n-1\)次尝试后的平均奖赏为\(Q_{n-1}(k)\)，则在经过第\(n\)次尝试获得\(v_n\)后，平均奖赏可更新为：</p>
+<p>$$<br>\begin{align}<br>Q_n(k) &amp;= \frac{1}{n-1} \left[ (n-1) \cdot Q_{n-1}(k) + v_n \right] \\<br>&amp;= Q_{n-1}(k) + \frac{1}{n} (v_n - Q_{n-1}(k))<br>\end{align}<br>$$</p>
+<p>这样，无论摇臂被尝试多少次，只需要记录两个值：已尝试次数\(n-1\)和最近平均奖赏\(Q_{n-1}(k)\)。</p>
+<p>…</p>
+<hr>
+<ul>
+<li>更多信息请关注：<a href="http://www.52caml.com/" target="_blank" rel="external">计算广告与机器学习－CAML 技术共享平台</a></li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/深入浅出机器学习/">深入浅出机器学习</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/epsilon-贪心法/">epsilon-贪心法</a><a href="/tags/任务与奖赏/">任务与奖赏</a><a href="/tags/摇臂赌博机/">摇臂赌博机</a><a href="/tags/马尔可夫决策过程/">马尔可夫决策过程</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/hello-world/" title="测试Hexo功能" itemprop="url">测试Hexo功能</a>
   </h1>
   <p class="article-author">By
@@ -4490,7 +4595,7 @@ double <span class="function"><span class="keyword">val</span> =</span> <span cl
 		  
 		
 		  
-			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>4</sup></a></li>
+			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>5</sup></a></li>
 		  
 		
 		  
