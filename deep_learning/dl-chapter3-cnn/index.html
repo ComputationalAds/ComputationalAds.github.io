@@ -196,7 +196,7 @@ weibo: @周永_52ML
 <p>$$<br>\frac{\partial H(x)} {\partial x} = \frac{\partial \left(F(x) + x \right)} {\partial x} = \frac{\partial F(x)}{\partial x} + 1<br>$$</p>
 <p>无论$\frac{\partial F(x)}{\partial x}$如何小，那么输出$H(x)$对输入$x$都有了一定的梯度，误差仍然可以继续反向传播。所以，<strong>残差网络效果好，很大程度上依赖于残差连接回传的梯度缓解了梯度消失等问题</strong>。</p>
 <p><strong>关于为什么是$x$不是$\frac{x}{2}$？</strong></p>
-<p>kaiming的paper<a href=""></a>里面就有提到了。大概意思是假如不是$x$而是$\lambda_i x$的话，梯度里会有一项$\prod^{L-1} \lambda_i$，就是从输出到当前层之间经过的shortcut上的所有相乘，假如$\lambda_i$都大于 1 那经过多层之后就会爆炸，都小于 1 就会趋向于 0 而变得和没有 shortcut一样了。</p>
+<p>kaiming的paper<a href="https://arxiv.org/pdf/1603.05027.pdf" target="_blank" rel="external">《Identity Mappings in Deep Residual Networks》</a>里面就有提到了。大概意思是假如不是$x$而是$\lambda_i x$的话，梯度里会有一项$\prod^{L-1} \lambda_i$，就是从输出到当前层之间经过的shortcut上的所有相乘，假如$\lambda_i$都大于 1 那经过多层之后就会爆炸，都小于 1 就会趋向于 0 而变得和没有 shortcut一样了。</p>
 <h3 id="2.3.3.深度残差学习">深度残差学习</h3>
 
 
