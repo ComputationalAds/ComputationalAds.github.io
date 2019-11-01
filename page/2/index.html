@@ -81,6 +81,339 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/openmit/openmit-chapter6-optimizer/" title="第06章：OpenMIT-优化器" itemprop="url">第06章：OpenMIT-优化器</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-22T14:20:31.000Z" itemprop="datePublished"> 发表于 2017-04-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ul>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 2017-04-08</li>
+<li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
+</ul>
+<hr>
+<p><strong>内容列表</strong></p>
+<ul>
+<li><a href="#0.写在前面">写在前面</a></li>
+<li><a href="#1.随机优化算法">随机优化算法</a><ul>
+<li><a href="#1.1.Gradient Descent">Gradient Descent</a></li>
+<li><a href="#1.2.Adaptive Gradient Descent">AdaGrad</a> </li>
+<li><a href="#1.3.RMSProp">RMSProp</a></li>
+<li><a href="#1.4.AdaDelta">AdaDelta</a></li>
+<li><a href="#1.5.Adam">Adam</a></li>
+<li><a href="#1.6.Follow The Regularized Leader">FTRL</a></li>
+<li><a href="#1.7.Follow the Moving Leader">FTML</a></li>
+<li><a href="#1.8.LBFGS">LBFGS</a></li>
+<li><a href="#1.9.Alternating Least Square">ALS</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="#2.概率推理">概率推理</a><ul>
+<li><a href="#2.1.MCMC">MCMC</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="0.写在前面">写在前面</h2>
+
+
+<p>随机优化算法（Stochastic Optimization）是指每次随机采样一个或少量几个（Mini-batch）训练样本对模型更新的优化方法。因其有内存消耗低、单次迭代计算复杂度低等优点，被广泛应用于大规模机器学习模型训练中，包括绝大多数深度学习模型的训练。本章要介绍的优化器（Optimizer）涵盖了大规模机器学习和深度学习最常用的优化算法。大致可将其分为以下3类：</p>
+<ol>
+<li>一阶随机优化。如SGD，AdaGrad，RMSProp，AdaDelta，Adam，FTRL，FTML等；</li>
+<li>二阶随机优化。如LBFGS等；</li>
+<li>非凸随机优化。</li>
+</ol>
+<p>此外，针对机器学习中的无监督学习，很多无法转化为非优化问题，需要应用<strong>概率推理</strong>算法求解，比如MCMC，EM等，在本章的后面也会介绍。</p>
+<h2 id="1.随机优化算法">随机优化算法</h2> 
+
+
+<h2 id="1.1.Gradient Descent">Gradient Descent</h2>
+
+
+<p>梯度下降算法（简称GD）是求解机器学习问题（尤其是凸优化问题）最常用的求解算法。其中，随机梯度下降和批量梯度下降时两种常见的迭代优化思路。</p>
+<p>假如优化目标是平方损失函数，以<a href="http://www.52caml.com/head_first_ml/ml-chapter1-regression-family/" target="_blank" rel="external">《第01章：深入浅出ML之Regression家族》</a>公式$(ml.1.1.3)$为例：</p>
+<p>$$<br>\min_{w} \quad J(w) = \frac{1}{2m} \sum_{i=1}^{m} \left(h_{w}(x^{(i)}) - y^{(i)} \right)^2<br>$$</p>
+<p>看几类梯度下降算法是如何求解的？</p>
+<h3 id="Batch_Gradient_Descent">Batch Gradient Descent</h3><hr>
+<p>参数的每一轮迭代是基于所有数据集，对目标函数$J(w)$求偏导，得到每个$w_i$对应的梯度：</p>
+<p>$$<br>\nabla_{w_j} = \frac{\partial{J(w)}}{\partial{w_j}} = \frac{1}{m} \sum_{i=1}^{m} \left(h_w(x^{(i)}) - y^{(i)}\right) \cdot x_{j}^{(i)}<br>$$</p>
+<p>BGD算法的特点很明显：每次学习都使用整个训练集，即先计算损失函数在<strong>整个训练集</strong>上的梯度方向，着该方向search下一个迭代点。</p>
+<ul>
+<li><p>优点：在于每次更新都会朝着正确的方向进行，最后能够保证收敛于极值点</p>
+<blockquote>
+<p>凸函数收敛于全局极值点，非凸函数可能会收敛于局部极值点</p>
+</blockquote>
+</li>
+<li><p>缺点：在于每次学习时间过长，并且如果训练集很大以至于需要消耗大量的内存，并且全量梯度下降不能用于Online模型参数更新。</p>
+</li>
+</ul>
+<h3 id="Stochastic_Gradient_Descent">Stochastic Gradient Descent</h3><hr>
+<p>区别于批量梯度下降，这里损失函数对应的训练集中每个样本的粒度，每个样本的损失函数如下：</p>
+<p>$$<br>J\left(w; (x^{(i)}, y^{(i)})\right) = \frac{1}{2} \left(y^{(i)} - h_w(x^{(i)}) \right)^2<br>$$</p>
+<p>求每个参数$w_j$的梯度：</p>
+<p>$$<br>\nabla_{w_j} = \frac{\partial J(w; (x^{(i)}, y^{(i)}))} {\partial w_j} = \left(h_w(x^{(i)}) - y^{(i)}\right) \cdot x_j^{(i)}<br>$$</p>
+<h3 id="Mini-Batch_Gradient_Descent">Mini-Batch Gradient Descent</h3><hr>
+<p>BGD的参数更新方式计算复杂度要比SGD高很多，大规模机器学习任务一般不采用BGD来训练模型（主要原因是效率低，以我们的CTR预估模型来说，每次训练时的样本量在10亿级别）；而SGD求解时带来的波动较大。这里的mini-batch方式综合了BGD和SGD之间的优点，在参数更新速度和更新次数之间取一个tradeoff。</p>
+<p>这里假设每个mini-batch有b个样本，训练集被划分为$K$个batch数据。对应的梯度计算公式与BGD相同，只是样本集有变化，即：</p>
+<p>$$<br>\nabla_{w_j} = \frac{\partial J(w)}{\partial w} = \frac{1}{b} \sum_{i=1}^{b} \left(h_w(x^{(i)}) - y^{(i)}\right) \cdot x_j^{(i)}<br>$$ </p>
+<p>   相对于随机梯度下降，mini-batch梯度下降降低了收敛波动性，即降低了参数更新的方差，使得更新更加稳定。相对于全量梯度下降，其提高了每次学习的速度。不用担心内存瓶颈从而可以利用矩阵运算进行高效计算。</p>
+<h3 id="Online_Gradient_Descent">Online Gradient Descent</h3><hr>
+<p>Online GD是把梯度下降算法应用到了在线学习（Online Learning）领域。互联网很多应用场景都是实时的，以我们的推荐广告业务系统来说，首先request和response是实时的，过程中不断的产生新数据。而Online Learning要解决的就是充分利用实时数据来更新模型，进而捕捉实时行为用于实时反馈，这也是Online Learning的优势。</p>
+<p>Online Learning是实时更新模型，因此训练数据只用一次，然后就丢弃。并且他与基于批量数据集训练模型不同，它不需要样本满足独立同分布（IID）的假设。</p>
+<p>Online GD参数更新方式与SGD相同，不再赘述。</p>
+<h3 id="GD参数更新">GD参数更新</h3><hr>
+<p>不管是BGD、BGD、mini-batch GD还是Online GD，最小化优化目标，都需要按照每个参数的<strong>梯度负方向</strong>来更新参数，即：</p>
+<p>$$<br>w_j \leftarrow w_j - \Delta{w_j}; \qquad  \Delta{w_j} = \eta \cdot \nabla_{w_j}<br>$$</p>
+<p>其中$\eta$为学习率（又称步长）。</p>
+<h3 id="GD问题与挑战">GD问题与挑战</h3><hr>
+<p>虽然梯度下降算法效果很好，并且应用广告，但同时也存在一些问题待解决：</p>
+<ol>
+<li><p><strong>如何选择一个比较合理的学习率？</strong>如果学习速率过小，则会导致收敛速度很慢。如果学习速率过大，那么其会阻碍收敛，即在极值点附近会振荡。</p>
+</li>
+<li><p><strong>如何调整学习率？</strong> 可以尝试在每次更新过程中，改变学习速率。这种一般需要使用某种事先设定的策略抑或在每次迭代中衰减一个较小的阈值。无论如何调整，都需要事先进行固定设置，这边便无法自适应每次学习的数据集特点。</p>
+</li>
+<li><p><strong>所有模型参数每次更新都是使用相同的学习率</strong>。如果数据特征是稀疏的或者每个特征的分布或统计特征有差异，那么就不能在更新时每个参数使用相同的学习速率，对于很少出现的特征应该使用一个相对较大的学习速率。</p>
+</li>
+<li><p><strong>如何避免在求解非凸优化问题时，容易陷入到次优的局部极值点？</strong> 比如深度神经网路优化问题。</p>
+</li>
+</ol>
+<h2 id="1.2.Adaptive Gradient Descent">Adaptive Gradient Descent</h2>
+
+
+<p>自适应梯度下降算法，简称AdaGrad。与GD不同的是，AdaGrad在更新参数时，学习率不在设定为固定值。每次迭代过程中，每个参数更新时使用不同的学习率。</p>
+<p>假设在第$k$轮迭代，$\nabla_{k,w_j}$表示目标函数对参数$w_j$的梯度。普通的GD算法，对于所有的$w_j$使用相同的学习率，因此在第$k$次迭代时，参数$w_j$的变化过程如上述公式<a href="">GD参数更新</a>.</p>
+<p>而AdaGrad更新参数的规则，学习率$\eta$会随着迭代过程并根据历史梯度的变化而变化。如下所示：</p>
+<p>$$<br>w_{j} \leftarrow w_j - \frac{\eta}{\sqrt{n_{k,w_j} + \epsilon}} \cdot \nabla_{k, w_j}<br>$$</p>
+<p>$n_{k,w_j} = \sum_{i=1}^{k} \nabla_{i,w_j}$表示参数$w_j$在1到第$k$次梯度平方的累加和。$\epsilon$用于平滑，保证分母不为0，一般取较小值（如1e-8）。</p>
+<p>AdaGrad算法总结如下：</p>
+<ol>
+<li><p>开始时$\sqrt{n_{k,w_j}}$较小，学习率较大，相当于放大梯度，加快寻找最优解的步伐；后期$\sqrt{n_{k,w_j}}$越来越大，学习率越来越小，能够约束梯度。</p>
+</li>
+<li><p>仍然需要依赖于人工设置的一个全局学习率$\eta$用于初始化。$\eta$如果初始过大，会使整个学习率变大，对梯度的调节也大；</p>
+</li>
+<li><p>随着迭代进行，分母上梯度平方累加和将会越来越大，使$w_j$的更新量$\rightarrow 0$，导致学习率急剧下降，训练提前结束。</p>
+</li>
+<li><p>更新$w_j$时，左右两边的单位不同一。</p>
+</li>
+</ol>
+<h2 id="1.3.RMSProp">RMSProp</h2>
+
+<p>均方根传播算法（Root Mean Square Propagationd，简称RMSProp）是由Hinton在2012年的文章<a href="">《RmsProp: divide the gradient by a running average of its recent magnitude》</a>中提出。他是针对AdaGrad算法在迭代后期学习率下降过快给出的改进版本。RMSProp通过引入一个衰减系数$\gamma$（又称遗忘因子，forgetting factor），每次计算的梯度平方都按照$\gamma$衰减一定比例来计算梯度累计量$n$。</p>
+<p>$$<br>n_{k,w_j} = \gamma \cdot n_{k-1,w_j} + (1 - \gamma) \cdot \nabla_{k, w_j} \cdot \nabla_{k,w_j}<br>$$</p>
+<p>参数的更新方式与AdaGrad算法相同。</p>
+<p>RMSProp算法总结如下：</p>
+<ol>
+<li>相比AdaGrad，该算法很好的解决了模型训练过早结束的问题（尤其在深度学习模型中较常见）；</li>
+<li>引入了新的超参数：衰减稀疏$\gamma$ (默认值可设置为0.95，但本人试验发现接近于1效果更好，比如0.99)；</li>
+<li>算法依然依赖于全局学习率；</li>
+</ol>
+<h2 id="1.4.AdaDelta">AdaDelta</h2>
+
+
+
+<p>Adadelta是对Adagrad的扩展，由Matthew D. Zeiler在2012年的论文<a href="https://arxiv.org/abs/1212.5701" target="_blank" rel="external">ADADELTA: An Adaptive Learning Rate Method</a>中提出，最初方案依然是对学习率进行自适应约束，但是进行了计算上的简化。 </p>
+<p>Adagrad会累加之前所有的梯度平方，而Adadelta只累加固定大小的项，并且也不直接存储这些项，仅仅是近似计算对应的平均值。即：</p>
+<p>$$<br>n_{k,w_j} = \rho \cdot n_{k-1,w_j} + (1 - \rho) \cdot \nabla_{k, w_j} \cdot \nabla_{k,w_j}<br>$$</p>
+<p>这里$\rho$是衰减系数，通过这个衰减系数，我们令每一个时刻的gt随之时间按照$\rho$指数衰减，这样就相当于我们仅使用离当前时刻比较近的梯度信息，从而使得还很长时间之后，参数仍然可以得到更新。参数更新如AdaGrad算法中的公式(???)。 </p>
+<p>针对AdaGrad算法的第4点总结，其实在GD方法中也存在单位不统一的问题：</p>
+<p>$$<br>\Delta{w} \propto \nabla_{w} \propto \frac{\partial J(w)}{\partial w} \propto \frac{1}{w}<br>$$</p>
+<blockquote>
+<p> 注意：这里$J(w)$无单位。</p>
+</blockquote>
+<p>类似的，AdaGrad算法用于更新$\Delta{w}$的单位也不是$w$的单位，而是1.</p>
+<p>续…</p>
+<h2 id="1.5.Adam">Adam</h2>
+
+<p>自适应矩估计算法（Adaptive Moment Estimation，简称Adam）是另外一种计算自适应学习率的随机优化算法，由Diederik P. Kingma发表在2015年ICLR会议的论文<a href="https://arxiv.org/abs/1412.6980" target="_blank" rel="external">《Adam: A Method for Stochastic Optimization》</a>中提出。除了像RMSProp和AdaDelta一样计算过去梯度平方的$v_k$指数衰减均值（二阶矩估计），也会计算过去梯度$m_k$的指数衰减均值（一阶矩估计）。算法更新过程如下：</p>
+<p>$$<br>m_k = \beta_1 \dot m_{k-1} + (1 - \beta_1) \cdot \nabla_k  \quad(1) \\\<br>v_k = \beta_2 \dot m_{k-1} + (1 - \beta_2) \cdot \nabla_k \cdot \nabla_k \quad(2) \\\<br>\hat{m_t} = \frac{m_k}{1 - \beta_1}  \quad(3) \\\<br>\hat{v_t} = \frac{v_t}{1 - \beta_2}    \quad(4)  \\\<br>w_k = w_{k-1} - \frac{\eta}{\sqrt{v_t + \epsilon}} \cdot m_k  \quad(5)<br>$$</p>
+<p>其中，$(3)$和$(4)$是为了做偏差校正：如果$m_k$和$v_k$被初始化为0向量，那它们就会向0偏置，这里通过计算偏差校正后的$m_k$和$v_k$来抵消这些偏差。$(5)$是参数更新规则。</p>
+<p>$(3), (4), (5)$步等价于：</p>
+<p>$$<br>\hat{\eta} = \eta \cdot \frac{\sqrt{1 - \beta_2}} {1 - \beta_1} \\\<br>\hat{\epsilon} = \epsilon \cdot \sqrt{1 - \beta_2} \\\<br>w_k = w_{k-1} - \frac{w_k} {\sqrt{v_t + \hat{\epsilon}}}<br>$$</p>
+<p>超参数取值：论文中给出了建议的超参数取值（$\beta_1 = 0.9, \; \beta_2=0.999, \; \epsilon=10e-8$）。在实验中发现$\beta_1$为0.99效果更好（仅仅是在我们的数据场景中的表现，不一定具有普世性）。</p>
+<h2 id="1.6.Follow The Regularized Leader">Follow The Regularized Leader-Proximal</h2>
+
+
+
+<p>FTRL-Proximal算法是Google在2013年的一篇论文《Ad Click Prediction: a View from the Trenches》中提到的参数在线学习算法，论文中提到该算法用在了Google的搜索广告在线学习系统中。因为算法比较容易理解且工程实现不复杂，业内诸多公司都有尝试并取得了不错的收益。</p>
+<p>FTRL-Proximal算法不仅可用于在线学习（不要求数据IID，样本序列学习），同时也可以用于离线基于batch数据的参数求解。所以这里也把该算法作为“优化器”的一种，用于大规模机器学习任务的参数求解（该算法本身就是为了很好的求解大规模在线学习任务而提出的）。</p>
+<h3 id="FTRL-Proximal演化进程">FTRL-Proximal演化进程</h3><ul>
+<li><p><strong>Online Gradient Descent (OGD, 在线梯度下降）</strong></p>
+<p>  可以有非常好的预估准确性，并且占用较少的资源。但是它不能得到有效的稀疏模型（非零参数），即便优化目标添加L1惩罚项也不能产生严格意义上的稀疏解（会使参数接近于0，而不是0）。</p>
+<blockquote>
+<p>这里OGD其实就是随机梯度下降，之所以强调Online是因为这里不适用于解决batch数据问题的，而是用于样本序列化问题求解的，后者不要求样本是独立同分布（IID））的。</p>
+</blockquote>
+</li>
+<li><p><strong>Truncated Gradient and FOBOS</strong><br>  参数\(w_j\)设定阈值，当参数小雨阈值时置为0，可得稀疏解。</p>
+</li>
+<li><p><strong>Regularized Dual Averaging（RDA, 正则化对偶平均）</strong><br>  RDA可以得到稀疏解，在预估准确性和模型稀疏性方面优于FOBOS算法。</p>
+</li>
+</ul>
+<p>有没有既能结合RDA获得模型稀疏性，同时又具备OGD的精度的学习算法呢？答案是肯定的，那就是：”Follow The (Proximal) Regularized Leader”算法。</p>
+<h3 id="FTRL-Proximal工作原理">FTRL-Proximal工作原理</h3><p>为了更容易的理解FTRL的工作原理，这里以学习LR模型参数为例，看FTRL是如何求解的：</p>
+<ul>
+<li><p>首先，对于一个实例\(\mathbf{x}^{(i)} \in R^n\)预测其标签$y=1$的概率$p$（第$i$次迭代的模型参数\(\mathbf{w}^{(i)}\)）。公式\(p^{(i)} = \sigma(\mathbf{w}^{(i)} \cdot \mathbf{x}^{(i)}), \; \sigma(a) = \frac{1}{1 + \exp(-a)}\).</p>
+</li>
+<li><p>然后，观测标签\(y^{(i)} \in \{0,1\}\)，LR模型的损失函数（Logistic Loss）为：</p>
+<p>  $$<br>  \mathcal{l} \; (w^{(i)}) = -y^{(i)} \log p^{(i)} - (1 - y^{(i)}) \log (1- p^{(i)}) \qquad (1)<br>  $$</p>
+<p>  梯度方向：</p>
+<p>  $$<br>  \mathbf{g}_i = \nabla_i = \frac{\partial l \;(w)} {\partial w} = (\sigma(w \cdot x^{(i)}) - y^{(i)}) = (p^{(i)} - y^{(i)}) \cdot \mathbf{x}^{(i)} \qquad(2)<br>  $$</p>
+<p>  OGD算法迭代公式：</p>
+<p>  $$<br>  w_{i+1} = w_i - \eta_i \mathbf{g}_i \qquad(3)<br>  $$</p>
+<p>  其中\(\eta_i\)表示非递增的学习率，如\(\eta_i=\frac{1}{\sqrt{i}}\)，\(\mathbf{\nabla}_i\)表示当前梯度值。</p>
+</li>
+<li><p>FTRL-Proximal</p>
+<p>  $$<br>  \mathbf{w}_{i+1} = \text{arg} \min_w \left( \underline{ \sum_{s=1}^{i} \mathbf{g}_s} \cdot \mathbf{w} + \frac{1}{2} \sum_{s=1}^{i} \sigma_s {\Vert \mathbf{w} - \mathbf{w}_s \Vert}_2^2 + \lambda_1 {\Vert \mathbf{w} \Vert}_1 \right) \qquad(4)<br>  $$</p>
+<p>  \(\sigma_s\)为学习率参数，有\(\sigma_{1:i} = \frac{1}{\eta_i}\)。上式等价于：</p>
+<p>  $$<br>  \left( \sum_{s=1}^{i} \mathbf{g}_s  - \sum_{s=1}^{i} \sigma_s \mathbf{w}_s \right) \cdot \mathbf{w} + \frac{1}{\eta_i} {\Vert \mathbf{w} \Vert}_2^2 + \lambda_1 {\Vert \mathbf{w} \Vert}_1    + (\text{const})  \qquad(5)<br>  $$</p>
+<p>  如果我们存储\(\mathbf{z}_{i-1} = \sum_{s=1}^{i-1} \mathbf{g}_s  - \sum_{s=1}^{i-1} \sigma_s \mathbf{w}_s\)，在第\(i\)轮迭代时，\(\mathbf{z}_i = \mathbf{z}_{i-1} + \mathbf{g}_i + \left(\frac{1}{\eta_i} - \frac{1}{\eta_{i-1}} \right) \mathbf{w}_i\)。求\(\mathbf{w}_{i+1}\)每一维参数的闭式解为：</p>
+<p>  $$<br>  w_{i+1, j} =<br>  \left \{<br>  \begin{array}{ll}<br>  0, &amp; \text{if} \; |z_{i,j}| \le \lambda_1 \\\<br>  -\eta_i \left(z_{i,j} - \text{sgn}(z_{i,j}) \lambda_1 \right) &amp; \text{otherwise}.<br>  \end{array}<br>  \right.     \qquad(6)<br>  $$</p>
+<p>  每一维特征的学习率计算公式（与对应特征维度梯度累加和 &amp;&amp; 梯度平方和相关）：</p>
+<p>  $$<br>  \eta_{i,j} = \frac{\alpha}{\beta + \sqrt{\sum_{s=1}^{i} g_{s,j}^2}} = \frac{1}{\sqrt{n_{i+1,j}}}<br>  \qquad(7)<br>  $$</p>
+<p>  \(n_i = \sum_{s=1}^{i-1} g_{s}^2\)表示梯度平方累加和，参数\(\mathbf{z} \in R^n\)在内存存储。</p>
+</li>
+</ul>
+<h3 id="FTRL-Proximal伪代码">FTRL-Proximal伪代码</h3><p>\(\{ \\\<br>    \quad01. \;\text{Per-Coordinate FTRL-Proximal with L}_1 \text{ and L}_2 \text{ Regularization for Logistic Regression. }  \\\<br>    \quad02. \;\text{// 支持} L_1 \text{与} L_2  \text{正则项的FTRL-Proximal算法. Per-Coordinate学习率为公式(7). } \\\<br>    \quad03. \;\text{Input: parameters } \alpha, \beta, \lambda_1, \lambda_2. 初始化z_i = 0 和n_i=0.\quad //  参数 \alpha, \beta 用于\text{Per-Coordinate}计算学习率 \\\<br>    \quad04. \;\mathbf{\text{for}} \; t=1 \; to \; T; do \\\<br>    \quad05. \quad 接受特征向量\mathbf{x}_t, \; I = \{i| x_i \neq 0 \}. \quad //取非0特征index集合。 \\\<br>    \quad06. \quad\text{For i} \in I, 计算  \\\<br>    \quad07. \quad\qquad w_{t, i} =<br>    \; \left \{<br>    \; \begin{array}{ll}<br>    0, &amp; \text{if} \; |z_{i}| \le \lambda_1 \\\<br>    -\left( \frac{\beta + \sqrt{n_i}}{\alpha} + \lambda_2 \right)^{-1} \cdot \left(z_{i} - \text{sign}(z_{i}) \lambda_1 \right) &amp; \text{otherwise}<br>    \end{array}<br>    \right.  。\\\<br>    \quad08. \quad 预测 p_t = \sigma(\mathbf{x}_t \cdot \mathbf{w}) 使用w_{t,i}计算。\\\<br>    \quad09. \quad \text{For} \; i \in I; 更新参数 \\\<br>    \quad10. \qquad g_i = (p_t - y_t) \cdot x_i \qquad // 第i维特征的梯度（libsvm格式数据，x_i多为1.）\\\<br>    \quad11. \qquad \sigma_i = \frac{1}{\alpha} \left(\sqrt{n_i + g_i^2} - \sqrt{n_i} \right) \qquad // n_i表示第i维梯度（前t-1次）的平方累加和 \\\<br>    \quad12. \qquad z_i \leftarrow z_{i-1} + g_i - \sigma_i w_{t,i} \qquad // 更新\text{FTRL}目标函数的梯度公式  \\\<br>    \quad13. \qquad n_i \leftarrow n_i + g_i^2  \qquad // 更新第i维梯度平方累加和值。\\\<br>    \}<br>    \)</p>
+<p>FTRL算法添加了per-coordinate学习率，目标函数支持L2正则。</p>
+<ul>
+<li><p>解释per-coordinate</p>
+<p>  FTRL学习过程是对参数向量\(\mathbf{w}\)每一维分开训练更新的，每一维使用不同的学习率。与\(n\)个特征维度使用统一的学习率相比，此种方法考虑到了训练样本本身在不同特征维度上分布不均匀的特点。</p>
+<blockquote>
+<p>如果包含\(w\)某一个维度特征的训练样本很少，每一个样本都很珍贵，那么该特征维度对应的训练速率可以独自保持比较大的值，每来一个包含该特征的样本，就可以在该样本的梯度上前进一大步，而不需要与其他特征维度的前进步调强行保持一致。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="FTRL实验经验">FTRL实验经验</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">变化</th>
+<th style="text-align:center">$\mathcal{\sigma}$变化</th>
+<th style="text-align:center">$z$变化</th>
+<th style="text-align:center">$n$变化</th>
+<th style="text-align:center">lrate变化</th>
+<th style="text-align:center">$w$变化</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$\alpha$</td>
+<td style="text-align:center">$\uparrow$</td>
+<td style="text-align:center">$\downarrow$</td>
+<td style="text-align:center">振幅变小</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$\uparrow$</td>
+<td style="text-align:center">振幅不确定</td>
+</tr>
+<tr>
+<td style="text-align:center">$\beta$</td>
+<td style="text-align:center">$\uparrow$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$\downarrow$</td>
+<td style="text-align:center">振幅变大</td>
+<td>实践$\beta$从0.1调至2，效果正向</td>
+</tr>
+<tr>
+<td style="text-align:center">$\mathcal{l_1}$</td>
+<td style="text-align:center">$\uparrow$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">稀疏性增加，绝对值变小</td>
+<td>从0.5调到0.01效果正向</td>
+</tr>
+<tr>
+<td style="text-align:center">$\mathcal{l_2}$</td>
+</tr>
+<tr>
+<td style="text-align:center">$\nabla_g$</td>
+<td style="text-align:center">$\downarrow$</td>
+<td style="text-align:center">$\downarrow$</td>
+<td style="text-align:center">振幅变小</td>
+<td style="text-align:center">变小$\downarrow$</td>
+<td style="text-align:center">变大</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><p>alpha持续调大，训练集拟合越好越好，测试集表现变差，原因分析: </p>
+<blockquote>
+<p>alpha变大，sigma变小，z的振幅变小</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="1.7.Follow the Moving Leader">Follow the Moving Leader</h2>
+
+
+
+<p>FTML算法是2017年香港科技大学发表在ICML会议上的一篇论文《Follow the Moving Leader in Deep Learning》提到的。论文中主要为解决深度学习中参数学习收敛效率问题而出来的新算法。</p>
+<p>在深度学习中，参数以及数据分布都会随着迭代进行不断变化，这使得深度学习模型的训练一直是一个具有挑战性的问题。针对这一问题，本文提出了全新的 FTML 算法，具有更快收敛速度。与已有优化算法（如 FTRL）不同的是，本文的 FTML 算法迭代中，越新样本具有越大权重，这使算法更能适应数据分布变化，有更快收敛速度。论文的最后，通过在多个数据集上训练深度学习模型训练实验结果做对比，得出FTML 比其他已有算法收敛更快的结论。</p>
+<p>$<br>\{ \\\<br>\quad//\;\text{Follow the Moving Leader (FTML)}   \\\<br>\quad01. \;\text{Input: parameters } \eta; \; \beta_1,\beta_2 \in [0, 1); \epsilon &gt; 0;  \qquad //\; \eta:初始化学习率，\epsilon:防止分母为0，\\\<br>\quad02. \;\mathbf{w}; d \leftarrow 0; v \leftarrow 0; z \leftarrow 0; \qquad\qquad // 初始化中间变量和参数 \\\<br>\quad03. \;\mathbf{\text{for}} \; t=1 \; to \; T; do \\\<br>\quad04. \quad 特征向量\mathbf{x}_t, \; I = \{i| x_i \neq 0 \}. \quad //取非0特征index集合。 \\\<br>\quad05. \quad p_t = predict(\mathbf{w_t}, \mathbf{x_t}) \qquad // \;预测\\\<br>\quad06. \quad \text{for} \; i \in I; \; do \qquad\qquad\; //\; 更新参数 \\\<br>\quad07. \qquad g_i = (p_t - y_t) \cdot x_i \qquad\qquad\qquad // 计算梯度 \\\<br>\quad08. \qquad v_t \leftarrow \beta_2 \cdot v_{t-1} + (1-\beta_2) \cdot g_i^2 \qquad // 二阶距估计 \\\<br>\quad09. \qquad d_t \leftarrow \frac{1 - \beta_1^t} {\eta_t} \cdot \left(\sqrt{\frac{v_t} {1 - \beta_2^t}}  + \epsilon \cdot \mathbf{1} \right) \qquad // \\\<br>\quad10. \qquad \sigma_t \leftarrow d_t - \beta_1 \cdot d_{t-1}; \qquad // 中间变量 \\\<br>\quad11. \qquad z_t \leftarrow \beta_1 z_{t-1} + (1 - \beta_1) g_t - \sigma_t w_{t-1}; \qquad // \\\<br>\quad12. \qquad w \leftarrow \prod_{W}^{\text{diag} \left(\frac{d_t}{(1 - \beta_1^t)}\right)} \left(-\frac{z_t}{d_t}\right) \quad // \\\<br>\quad13. \quad \text{end for} \\\<br>\quad14.\; \mathbf{end \;for} \\\<br>\quad15.\; \mathbf{Output:\; w}. \\\<br>\}<br>$</p>
+<h2 id="参考资料">参考资料</h2><ol>
+<li>《An overview of gradient descent optimization algorithms》</li>
+<li>《Follow the Moving Leader in Deep Learning》</li>
+<li>验证梯度计算是否正确：<a href="http://cs231n.github.io/neural-networks-3/" target="_blank" rel="external">http://cs231n.github.io/neural-networks-3/</a></li>
+<li>技术博客：<a href="http://www.cnblogs.com/ranjiewen/p/5938944.html" target="_blank" rel="external">http://www.cnblogs.com/ranjiewen/p/5938944.html</a></li>
+<li>优化算法总结文档：<a href="http://sebastianruder.com/optimizing-gradient-descent/" target="_blank" rel="external">http://sebastianruder.com/optimizing-gradient-descent/</a></li>
+<li>优化算法：<a href="http://www.cnblogs.com/neopenx/p/4768388.html" target="_blank" rel="external">http://www.cnblogs.com/neopenx/p/4768388.html</a></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/OpenMIT/">OpenMIT</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/ALS/">ALS</a><a href="/tags/AdaDelta/">AdaDelta</a><a href="/tags/AdaGrad/">AdaGrad</a><a href="/tags/Adam/">Adam</a><a href="/tags/FTML/">FTML</a><a href="/tags/FTRL/">FTRL</a><a href="/tags/GD/">GD</a><a href="/tags/LBFGS/">LBFGS</a><a href="/tags/MCMC/">MCMC</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/head_first_ml/ml-chapter8-reinforcement-learning-family/" title="第08章：深入浅出ML之Reinforcement Learning家族" itemprop="url">第08章：深入浅出ML之Reinforcement Learning家族</a>
   </h1>
   <p class="article-author">By
@@ -4595,7 +4928,7 @@ double <span class="function"><span class="keyword">val</span> =</span> <span cl
 		  
 		
 		  
-			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>5</sup></a></li>
+			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>6</sup></a></li>
 		  
 		
 		  
@@ -4610,6 +4943,10 @@ double <span class="function"><span class="keyword">val</span> =</span> <span cl
 <div class="tagslist">
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Attention/" title="Attention">Attention<sup>3</sup></a></li>
+			
 		
 			
 				<li><a href="/tags/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
@@ -4633,10 +4970,6 @@ double <span class="function"><span class="keyword">val</span> =</span> <span cl
 		
 			
 				<li><a href="/tags/Pooling/" title="Pooling">Pooling<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Attention/" title="Attention">Attention<sup>2</sup></a></li>
 			
 		
 			

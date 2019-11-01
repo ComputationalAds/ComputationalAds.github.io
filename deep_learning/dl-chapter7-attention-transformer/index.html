@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>第01章：强化学习介绍 | 计算广告与机器学习</title>
+    <title>第07章：Attention机制与Transformer | 计算广告与机器学习</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="ZhouYong">
@@ -12,104 +12,38 @@
 
     
     <meta name="description" content="author: zhouyongsdzh@foxmail.com
-date: 2016-08-12
+date: 2018-03-01
 weibo: @周永_52ML
 
-符号定义
 
+本章关键词：Attention、Feed-Forward NN, Encoder, Decoder, Transformer等
+写在前面
 
-符号
-物理意义
-
-
-
-
-$\mathcal{S}$
-（有限的）状态集合
-
-
-$\mathcal{A}$
-（有限的）动作集合
-
-
-$\mathcal{P}$
-状态转移概率
-
-
-$R$
-奖赏 Reward
-
-
-$\gamma$
-折扣因子，$\gamma \">
+Attention机制早在图像识别领域展露头脚，近些年来在机器翻译和文本分类领域也得到了广泛的应用，并且取得了很好的性能。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第01章：强化学习介绍">
-<meta property="og:url" content="http://www.52caml.com/reinforcement-learning/chapter1-reinforcement-learning-introduction/index.html">
+<meta property="og:title" content="第07章：Attention机制与Transformer">
+<meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter7-attention-transformer/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
 <meta property="og:description" content="author: zhouyongsdzh@foxmail.com
-date: 2016-08-12
+date: 2018-03-01
 weibo: @周永_52ML
 
-符号定义
 
+本章关键词：Attention、Feed-Forward NN, Encoder, Decoder, Transformer等
+写在前面
 
-符号
-物理意义
-
-
-
-
-$\mathcal{S}$
-（有限的）状态集合
-
-
-$\mathcal{A}$
-（有限的）动作集合
-
-
-$\mathcal{P}$
-状态转移概率
-
-
-$R$
-奖赏 Reward
-
-
-$\gamma$
-折扣因子，$\gamma \">
+Attention机制早在图像识别领域展露头脚，近些年来在机器翻译和文本分类领域也得到了广泛的应用，并且取得了很好的性能。">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第01章：强化学习介绍">
+<meta name="twitter:title" content="第07章：Attention机制与Transformer">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
-date: 2016-08-12
+date: 2018-03-01
 weibo: @周永_52ML
 
-符号定义
 
+本章关键词：Attention、Feed-Forward NN, Encoder, Decoder, Transformer等
+写在前面
 
-符号
-物理意义
-
-
-
-
-$\mathcal{S}$
-（有限的）状态集合
-
-
-$\mathcal{A}$
-（有限的）动作集合
-
-
-$\mathcal{P}$
-状态转移概率
-
-
-$R$
-奖赏 Reward
-
-
-$\gamma$
-折扣因子，$\gamma \">
+Attention机制早在图像识别领域展露头脚，近些年来在机器翻译和文本分类领域也得到了广泛的应用，并且取得了很好的性能。">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -169,14 +103,14 @@ $\gamma$
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/reinforcement-learning/chapter1-reinforcement-learning-introduction/" title="第01章：强化学习介绍" itemprop="url">第01章：强化学习介绍</a>
+      <a href="/deep_learning/dl-chapter7-attention-transformer/" title="第07章：Attention机制与Transformer" itemprop="url">第07章：Attention机制与Transformer</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2017-08-12T03:34:26.000Z" itemprop="datePublished"> 发表于 2017-08-12</time>
+    <time datetime="2018-02-23T13:31:46.000Z" itemprop="datePublished"> 发表于 2018-02-23</time>
     
   </p>
 </header>
@@ -185,70 +119,38 @@ $\gamma$
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#符号定义"><span class="toc-number">1.</span> <span class="toc-text">符号定义</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.Attention"><span class="toc-number">2.</span> <span class="toc-text">Attention</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.1.Self_Attention"><span class="toc-number">2.1.</span> <span class="toc-text">Self Attention</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.Transformer"><span class="toc-number">3.</span> <span class="toc-text">Transformer</span></a></li></ol>
 		
 		</div>
 		
 		<ul>
 <li>author: zhouyongsdzh@foxmail.com</li>
-<li>date: 2016-08-12</li>
+<li>date: 2018-03-01</li>
 <li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
 </ul>
-<h2 id="符号定义">符号定义</h2><table>
-<thead>
-<tr>
-<th>符号</th>
-<th style="text-align:left">物理意义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$\mathcal{S}$</td>
-<td style="text-align:left">（有限的）状态集合</td>
-</tr>
-<tr>
-<td>$\mathcal{A}$</td>
-<td style="text-align:left">（有限的）动作集合</td>
-</tr>
-<tr>
-<td>$\mathcal{P}$</td>
-<td style="text-align:left">状态转移概率</td>
-</tr>
-<tr>
-<td>$R$</td>
-<td style="text-align:left">奖赏 Reward</td>
-</tr>
-<tr>
-<td>$\gamma$</td>
-<td style="text-align:left">折扣因子，$\gamma \in [0,1]$</td>
-</tr>
-<tr>
-<td>$S_t$</td>
-<td style="text-align:left">$t$时刻的状态 ($S_t \in \mathcal{S}$)</td>
-</tr>
-<tr>
-<td>$A_t$</td>
-<td style="text-align:left">$t$时刻的动作 ($A_t \in \mathcal{A}$)</td>
-</tr>
-<tr>
-<td>$\pi(a\</td>
-<td style="text-align:left">s)$</td>
-<td>策略函数，状态到动作的映射</td>
-</tr>
-<tr>
-<td>$G_t$</td>
-<td style="text-align:left">$t$时刻开始回报序列，即$G_t=R_{t+1} + \gamma R_{t+2} + …$</td>
-</tr>
-<tr>
-<td>$v_{\pi}(s)$</td>
-<td style="text-align:left">状态值函数，在策略$\pi$下状态$s$的值函数</td>
-</tr>
-<tr>
-<td>$q_{\pi}(s,a)$</td>
-<td style="text-align:left">状态值函数，在策略$\pi$下状态$s$采取动作$a$值函数</td>
-</tr>
-</tbody>
-</table>
+<hr>
+<p>本章关键词：Attention、Feed-Forward NN, Encoder, Decoder, Transformer等</p>
+<h2 id="0.写在前面">写在前面</h2>
+
+<p>Attention机制早在图像识别领域展露头脚，近些年来在机器翻译和文本分类领域也得到了广泛的应用，并且取得了很好的性能。</p>
+<p>本章要讲的注意力机制和Transformer的内容，主要来自论文<a href="">《Attention is all you need》</a>，除了论文外，还有一篇总结很好的博客<a href="http://jalammar.github.io/illustrated-transformer/" target="_blank" rel="external">The Illustrated Transformer</a>，因此本章的内容主要参考以上论文和博客，并在此基础上进一步完善其内容。</p>
+<blockquote>
+<p>如果读英文资料不吃力的朋友，强烈建议读以上文章和博客。因此本章内容对细节的阐述不及上述资料。</p>
+</blockquote>
+<h2 id="1.Attention">Attention</h2>
+
+<p>Attention机制为什么有效果？其方法背后的物理意义是什么？</p>
+<p>以NLP机器翻译问题为例，机器翻译是以及Encoder-Decoder框架为主体的技术。Encoder阶段的输入是一个句子序列（each word in input sentence），每个word用一个embedding向量表示，因此输入是一个a list of embedding vector。</p>
+<p>self-attention的目的是<strong>学习输入句子中每个词的重要程度（权重），然后将其与每个词的value相乘，得到attention的输出。</strong></p>
+<h3 id="1.1.Self_Attention">Self Attention</h3> 
+
+
+
+<p>self attention就是计算句子中每个单词的重要程度。</p>
+<h2 id="2.Transformer">Transformer</h2>
+
+<p>Positional Encoding</p>
+<p>Positional Encoding的作用是保留输入序列中每个词的位置信息。 </p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -256,13 +158,13 @@ $\gamma$
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/强化学习与智能决策/">强化学习与智能决策</a>
+  <a class="article-category-link" href="/categories/深度学习/">深度学习</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Agent/">Agent</a><a href="/tags/Environments/">Environments</a><a href="/tags/RL/">RL</a>
+  <span></span> <a href="/tags/Attention/">Attention</a><a href="/tags/Transformer/">Transformer</a>
   </div>
 
 </div>
@@ -271,7 +173,7 @@ $\gamma$
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/reinforcement-learning/chapter1-reinforcement-learning-introduction/" data-title="第01章：强化学习介绍 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/deep_learning/dl-chapter7-attention-transformer/" data-title="第07章：Attention机制与Transformer | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -285,18 +187,18 @@ $\gamma$
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/openmit/openmit-chapter2-parameter-server/" title="第02章：OpenMIT-系统架构">
+ <a href="/reinforcement-learning/chapter2-multi-arm-bandits/" title="">
   <strong>上一篇：</strong><br/>
   <span>
-  第02章：OpenMIT-系统架构</span>
+  (no title)</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/openmit/openmit-chapter1-introduction/"  title="第01章：OpenMIT-先睹为快">
+<a href="/reinforcement-learning/chapter5-monte-carlo-methods/"  title="第05章：模型未知的MDP问题求解-蒙特卡罗算法">
  <strong>下一篇：</strong><br/> 
- <span>第01章：OpenMIT-先睹为快
+ <span>第05章：模型未知的MDP问题求解-蒙特卡罗算法
 </span>
 </a>
 </div>
@@ -311,7 +213,7 @@ $\gamma$
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#符号定义"><span class="toc-number">1.</span> <span class="toc-text">符号定义</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.Attention"><span class="toc-number">2.</span> <span class="toc-text">Attention</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.1.Self_Attention"><span class="toc-number">2.1.</span> <span class="toc-text">Self Attention</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.Transformer"><span class="toc-number">3.</span> <span class="toc-text">Transformer</span></a></li></ol>
  
   </div>
 
