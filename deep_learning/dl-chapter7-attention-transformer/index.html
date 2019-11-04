@@ -33,6 +33,7 @@ weibo: @周永_52ML
 写在前面
 
 Attention机制早在图像识别领域展露头脚，近些年来在机器翻译和文本分类领域也得到了广泛的应用，并且取得了很好的性能。">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter6_attention_7_multi_head_overview.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第07章：Attention机制与Transformer">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
@@ -119,7 +120,7 @@ Attention机制早在图像识别领域展露头脚，近些年来在机器翻�
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.Attention"><span class="toc-number">2.</span> <span class="toc-text">Attention</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.1.Self_Attention"><span class="toc-number">2.1.</span> <span class="toc-text">Self Attention</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.Transformer"><span class="toc-number">3.</span> <span class="toc-text">Transformer</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.Attention"><span class="toc-number">2.</span> <span class="toc-text">Attention</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.1.Self_Attention"><span class="toc-number">2.1.</span> <span class="toc-text">Self Attention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.2.Multi_head_Attention"><span class="toc-number">2.2.</span> <span class="toc-text">Multi-head Attention</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.Transformer"><span class="toc-number">3.</span> <span class="toc-text">Transformer</span></a></li></ol>
 		
 		</div>
 		
@@ -144,13 +145,17 @@ Attention机制早在图像识别领域展露头脚，近些年来在机器翻�
 <p>self-attention的目的是<strong>学习输入句子中每个词的重要程度（权重），然后将其与每个词的value相乘，得到attention的输出。</strong></p>
 <h3 id="1.1.Self_Attention">Self Attention</h3> 
 
-
-
 <p>self attention就是计算句子中每个单词的重要程度。</p>
+<h3 id="1.2.Multi_head_Attention">Multi-head Attention</h3> 
+
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter6_attention_7_multi_head_overview.png" ;="" width="400" height="300" alt="multi-head attention"></p>
 <h2 id="2.Transformer">Transformer</h2>
 
+<p>结构概览</p>
+<p>Encoder阶段</p>
 <p>Positional Encoding</p>
 <p>Positional Encoding的作用是保留输入序列中每个词的位置信息。 </p>
+<p>Decoder阶段</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -213,7 +218,7 @@ Attention机制早在图像识别领域展露头脚，近些年来在机器翻�
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.Attention"><span class="toc-number">2.</span> <span class="toc-text">Attention</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.1.Self_Attention"><span class="toc-number">2.1.</span> <span class="toc-text">Self Attention</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.Transformer"><span class="toc-number">3.</span> <span class="toc-text">Transformer</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.Attention"><span class="toc-number">2.</span> <span class="toc-text">Attention</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.1.Self_Attention"><span class="toc-number">2.1.</span> <span class="toc-text">Self Attention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.2.Multi_head_Attention"><span class="toc-number">2.2.</span> <span class="toc-text">Multi-head Attention</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.Transformer"><span class="toc-number">3.</span> <span class="toc-text">Transformer</span></a></li></ol>
  
   </div>
 
