@@ -173,10 +173,15 @@ Attention机制早在图像识别领域展露头脚，近些年来在机器翻�
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter7_transformer_encoding_sublayers.png" ;="" width="500" height="300" alt="multi-head attention"></p>
 <p>由多个sub-layers组成，每个sublayers结构是一样的，均包含self attention或multi-head attention，feed-forward neural network, residual connection, layer normalization四部分。</p>
 <p><strong>位置编码（Positional Encoding）</strong></p>
-<p>Positional Encoding的作用是保留输入序列中每个词的位置信息。 与输入每个词的embedding相互作用后（element wise add），作为第一个encoder sublayers的输入。</p>
+<p>Positional Encoding的作用是保留输入序列中词的位置信息，与输入每个词的embedding相互作用后（element wise add），作为第一个encoder sublayers的输入。这里其shape与Input Embedding矩阵一致。</p>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter_transformer_positional_encoding_vectors.png" ;="" width="500" height="300" alt="multi-head attention"></p>
 <p><strong>残差（The Residuals）</strong></p>
-<p><strong>层规范化（Layer Normalization）</strong></p>
+<p>在add&amp;norm这一步实际上是为了避免<a href="">梯度退化</a>，采用了<a href="">ResNet</a>解决办法：output=output+Q；<br>norm是标准化矫正一次，采用<a href="">Layer Norm</a>方法，即在output对最后一维计算均值和方差，用output减去均值除以方差+spsilon得值更新为output，然后变量gamma*output+变量beta。</p>
+<p><strong>前馈神经网络（Feed Forward NN）</strong></p>
+<ul>
+<li>对output进行两次卷积，第一次卷积核11，数目为词对应向量的维度。第二次卷积也是11，数目为N。</li>
+<li>两次卷积后得到的output和matEnc的shape相同，更新matEnc = output，进行上述循环，循环自定义次数，进入Decoder部分。</li>
+</ul>
 <h3 id="2.3.Decoder阶段">Decoder阶段</h3>
 
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter7_transformer_decoding_1.gif" ;="" width="500" height="300" alt="multi-head attention"></p>
