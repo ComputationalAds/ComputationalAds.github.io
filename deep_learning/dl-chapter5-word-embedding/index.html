@@ -23,8 +23,8 @@ weibo: @周永_52ML
 
 写在前面
 
-在第四章：循环神经网络一章中讲到了神经语言模型，神经语言模型第一层是embedding映射，然后走全连接。embedding映射就是将一个词（CTR预估模型中经常是ID型特征）映射为一个$k$维的实数值向量。
-在NLP任务中">
+在第四章：循环神经网络一章中讲到了神经语言模型，神经语言模型第一层是embedding映射，然后是全连接操作。embedding映射就是将一个词（CTR预估模型中经常是ID型特征）映射为一个$k$维的实数值向量。
+在NLP任">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第05章：Word Embedding">
 <meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter5-word-embedding/index.html">
@@ -41,8 +41,8 @@ weibo: @周永_52ML
 
 写在前面
 
-在第四章：循环神经网络一章中讲到了神经语言模型，神经语言模型第一层是embedding映射，然后走全连接。embedding映射就是将一个词（CTR预估模型中经常是ID型特征）映射为一个$k$维的实数值向量。
-在NLP任务中">
+在第四章：循环神经网络一章中讲到了神经语言模型，神经语言模型第一层是embedding映射，然后是全连接操作。embedding映射就是将一个词（CTR预估模型中经常是ID型特征）映射为一个$k$维的实数值向量。
+在NLP任">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter5_cbow_skip_gram.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter5_hs_cbow1.png">
 <meta name="twitter:card" content="summary">
@@ -59,8 +59,8 @@ weibo: @周永_52ML
 
 写在前面
 
-在第四章：循环神经网络一章中讲到了神经语言模型，神经语言模型第一层是embedding映射，然后走全连接。embedding映射就是将一个词（CTR预估模型中经常是ID型特征）映射为一个$k$维的实数值向量。
-在NLP任务中">
+在第四章：循环神经网络一章中讲到了神经语言模型，神经语言模型第一层是embedding映射，然后是全连接操作。embedding映射就是将一个词（CTR预估模型中经常是ID型特征）映射为一个$k$维的实数值向量。
+在NLP任">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -136,7 +136,7 @@ weibo: @周永_52ML
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#5.0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.1.词向量"><span class="toc-number">2.</span> <span class="toc-text">词向量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.2.基于Hierarchical Softmax的CBOW模型"><span class="toc-number">3.</span> <span class="toc-text">基于Hierarchical Softmax的word2vec模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.1.cbow模型"><span class="toc-number">3.1.</span> <span class="toc-text">cbow模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.1.cbow模型结构"><span class="toc-number">3.1.1.</span> <span class="toc-text">cbow模型结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.2.梯度计算"><span class="toc-number">3.1.2.</span> <span class="toc-text">梯度计算</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#5.0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.1.词向量"><span class="toc-number">2.</span> <span class="toc-text">词向量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.2.基于Hierarchical Softmax的CBOW模型"><span class="toc-number">3.</span> <span class="toc-text">基于Hierarchical Softmax的word2vec模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.1.cbow模型"><span class="toc-number">3.1.</span> <span class="toc-text">cbow模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.1.cbow模型结构"><span class="toc-number">3.1.1.</span> <span class="toc-text">cbow模型结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.2.模型表达"><span class="toc-number">3.1.2.</span> <span class="toc-text">模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.3.梯度计算"><span class="toc-number">3.1.3.</span> <span class="toc-text">梯度计算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.2.skip-gram模型"><span class="toc-number">3.2.</span> <span class="toc-text">skip-gram模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.2.1.skip-gram模型结构"><span class="toc-number">3.2.1.</span> <span class="toc-text">skip-gram模型结构</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
@@ -153,27 +153,28 @@ weibo: @周永_52ML
 </ul>
 <h2 id="5.0.写在前面">写在前面</h2>
 
-<p>在第四章：循环神经网络一章中讲到了神经语言模型，神经语言模型第一层是embedding映射，然后走全连接。embedding映射就是将一个词（CTR预估模型中经常是ID型特征）映射为一个$k$维的实数值向量。</p>
-<p>在NLP任务中，我们将自然语言交给机器学习（或深度学习）算法来处理，但机器无法直接理解这些数据或语言，因此首先要做的事情是将语言数学化，如何对自然语言进行数学化呢？词向量是一种很好的方式。</p>
+<p>在第四章：循环神经网络一章中讲到了神经语言模型，神经语言模型第一层是embedding映射，然后是全连接操作。embedding映射就是将一个词（CTR预估模型中经常是ID型特征）映射为一个$k$维的实数值向量。</p>
+<p>在NLP任务中，我们将自然语言交给机器学习（或深度学习）算法来处理，但机器无法直接理解这些数据或语言，因此首先要做的是<strong>将语言数学化</strong>，如何对自然语言进行数学化呢？词向量是一种很好的方式。</p>
 <h2 id="5.1.词向量">词向量</h2>
 
-<p>通常词向量有两种表示方式，一种是One-hot representation，另一种是Distributed Representation。</p>
-<p>one-hot比较好理解，不过多赘述，它有一些缺点，如容易受维数灾难的困扰，尤其是将其用于深度学习场景时；还有它不能很好的刻画词与词之间的相似性。</p>
-<p>Distributed Representation最早是Hinton于1986年提出的，可以克服one hot表示的缺点，它的基本思想是：<strong>通过训练将某种语言中的每一个词映射成一个固定长度的向量</strong>，所有的向量构成词向量空间，而每一向量则可视为该空间中的一个点，在这个空间上引入“距离”，就可以根据词之间的距离来判断它们之间相似性了。</p>
-<p>为什么叫做Distributed Representation（分布式表示）？一个理解是：对于one hot 热 presentation，向量中只有一个非零值，非常集中；而对于Distributed Representation，向量中有大量非零值，相对分散，把词的信息分布到各个分量中去了。</p>
+<p>通常词向量有两种表示方式，一种是One-hot Representation，另一种是Distributed Representation。</p>
+<p>One-hot比较好理解，不过多赘述，它有一些缺点，如容易受维数灾难的困扰，尤其是将其用于深度学习场景时；在NLP场景中，它还不能刻画词与词之间的相似性。</p>
+<p>Distributed Representation最早是Hinton于1986年提出的，它可以克服one hot表示的缺点，其基本思想：<strong>通过训练将某种语言中的每一个词映射成一个固定长度的向量</strong>，所有的向量构成词向量空间，而每一向量可视为该空间中的一个点，在这个空间上引入“距离”，就可以根据词之间的距离来判断它们之间相似性了。</p>
 <blockquote>
+<p>为什么叫Distributed Representation（分布式表示）呢？一个理解是：对于one-hot presentation，向量中只有一个非零值，非常集中；而对于Distributed Representation表示的向量有大量非零值，相对分散，把词的信息分布到各个分量中去了。</p>
 <p>注意：词向量只是针对“词”来提的，事实上，我们也可以针对更细粒度或更粗粒度进行推广，如字向量（charactor-level），句子向量或文档向量等。</p>
 </blockquote>
 <p>目前，<strong>词向量学习方法中比较主流有word2vec，glove，fasttext和elmo，还有基于char-level的Bi-LSTM方法、CNN＋Highway NN + LSTM等方法</strong>。我们先从word2vec开始介绍。</p>
 <p>word2vec有两种不同的建模方式，分别称为CBOW模型和Skip-gram模型。</p>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter5_cbow_skip_gram.png" width="600" height="400" alt="CBOW和Skip-gram"></p>
 <p>由图可见，两个模型都包含3层结构：输入层、映射层和输出层。cbow模型是在已知当前词$w_t$的上下文$w_{t-2},w_{t-1},w_{t+1},w_{t+2}$的前提下预测当前词$w_t$；skip-gram模型恰恰相反，是在遗址当前词$w_t$的前提下，预测其上下文$w_{t-2},w_{t-1},w_{t+1},w_{t+2}$。</p>
-<p>对于这两个模型结构，word2vec提供了两套学习框架，分别是Herarchical Softmax和Negative Sampling来进行学习。</p>
+<p>对于这两个模型结构，word2vec论文中提供了两套学习框架，分别是Herarchical Softmax和Negative Sampling来进行学习。</p>
+<p>小结：<strong>两种建模方式对应着两种不同的条件概率，学习框架具体地表示了条件概率函数</strong>。</p>
 <h2 id="5.2.基于Hierarchical Softmax的CBOW模型">基于Hierarchical Softmax的word2vec模型</h2>
 
-<p>在第4章中我们提到，基于神经网络的语言模型的目标函数通常取为如下<strong>对数似然函数</strong>：</p>
+<p>在第4章中我们提到，基于神经网络的语言模型的目标函数通常优化其<strong>对数似然函数</strong>：</p>
 <p>$$<br>\mathcal{L} = \sum_{w \in C} \log p(w | context(w))<br>$$</p>
-<p>其中的关键是条件概率函数$p(w | context(w))$的构造，n-gram模型中给出了一种构造方法。对于word2vec中基于分层Softmax的cbow模型，优化的目标函数也行如上式，而对于基于分层softmax的Skip-gram模型，优化的目标函数则形如：</p>
+<p>其中的关键是<strong>条件概率函数$p(w | context(w))$的构造</strong>，n-gram模型中给出了一种构造方法。对于word2vec中基于分层Softmax的cbow模型，优化的目标函数也如上式；而对于基于分层softmax的Skip-gram模型，优化的目标函数则形如：</p>
 <p>$$<br>\mathcal{L} = \sum_{w \in C} \log p(context(w) | w)<br>$$</p>
 <p>因此，下面我们重点关注两个条件概率模型是如何构造的？</p>
 <h3 id="5.2.1.cbow模型">cbow模型</h3>
@@ -193,9 +194,9 @@ weibo: @周永_52ML
 <ul>
 <li>输出层</li>
 </ul>
-<p>输出层对应一颗二叉树，它是以语料中出现过的词当叶子节点，以各词在预料中出现的次数当权重构造出来的Huffman树。这棵Huffman树中，叶子节点共有N个，分别对应词典$\mathcal{D}$中的词，非叶子节点N-1个。</p>
-<p>对于第4章的神经网络语言模型结构，基于cbow模型的结构有3点不同：1.输入层到映射层的操作，前者是concat，后者是sum；2. 前者有隐藏层，后者无隐藏层；3. 输出层方面，前者是线性模型，后者是树形结构（Huffmans树）。</p>
-<h4 id="5.2.1.2.梯度计算">梯度计算</h4>
+<p>输出层对应一颗二叉树，它是<strong>以语料中出现过的词当叶子节点，以各词在语料中出现的次数当权重构造出来的Huffman树</strong>。这棵Huffman树中，叶子节点共有N个，分别对应词典$\mathcal{D}$中的词，非叶子节点N-1个。</p>
+<p>相对于第4章的神经网络语言模型结构，基于cbow模型的结构有3点不同：1.输入层到映射层的操作，前者是concat，后者是sum；2. 前者有隐藏层，后者无隐藏层；3. 输出层方面，前者是线性模型，后者是树形结构（Huffmans树）。</p>
+<h4 id="5.2.1.2.模型表达">模型表达</h4>
 
 <p>Herarchical Softmax是提高word2vec模型训练性能的重要技术，为了描述方便，先定义一些符号，假设huffman树中的某个叶子节点对应词典$\mathcal{D}$中的词$w$，定义：</p>
 <table>
@@ -220,25 +221,47 @@ weibo: @周永_52ML
 </tr>
 <tr>
 <td>$d_2^w,d_3^w,\cdots,d_{l^w}^w \in \{0,1\}$</td>
-<td>词$w$的huffman编码，它由$l^w-1$位编码构成，$d_j^w$表示路径$p^w$中第$j$个节点对应的编码（根节点步对应编码）</td>
+<td>词$w$的huffman编码，它由$l^w-1$位编码构成，$d_j^w$表示路径$p^w$中第$j$个节点对应的编码（根节点不对应编码）</td>
 </tr>
 <tr>
-<td>$\theta_1^w,\theta_2^w,\cdots,\theta_{l^w}^w \in R^k$</td>
+<td>$\theta_1^w,\theta_2^w,\cdots,\theta_{l^w - 1}^w \in R^k$</td>
 <td>路径$p^w$中<strong>非叶子节点</strong>对应的向量，$\theta_j^w$表示路径$p^w$中第$j$个非叶子节点对应的向量。</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p>word2vec模型最后要的是词典$\mathcal{D}$中每个词的向量，这里为什么还要为huffman树非叶子节点也定义个向量呢？这里它只是辅助向量。</p>
+<p>word2vec模型最后得到的是词典$\mathcal{D}$中每个词的向量，这里为什么还要为huffman树非叶子节点也定义个向量呢？这里它只是辅助向量，相当于中间变量。</p>
 </blockquote>
 <p>// TODO 补充</p>
-<p>基于HS的wbow模型的条件概率函数为： </p>
+<p>基于HS的cbow模型的条件概率函数为： </p>
 <p>$$<br>p(w|context(w)) = \prod_{j=2}^{l^w} p(d_j^w | x_w, \theta_{j-1}^w)<br>$$</p>
 <p>其中</p>
 <p>$$<br>p(d_j^w | x_w, \theta_{j-1}^w) =<br>\begin{cases} \sigma(x_w^T \theta_{j-1}^w), \quad &amp; d_j^w = 0, \\\<br>1-\sigma(x_w^T \theta_{j-1}^w) \quad &amp; d_j^w=1<br>\end{cases}<br>$$</p>
 <p>写成整体的表达式为:</p>
 <p>$$<br>p(w|context(w)) = \prod_{j=2}^{l^w} \left[ \sigma(x_w^T \theta_{j-1}^w) \right]^{1-d_j^w} \cdot \left[ 1-\sigma(x_w^T \theta_{j-1}^w) \right]^{d_j^w}<br>$$</p>
-<p>todo</p>
+<blockquote>
+<p>注意：这里是基于HS的cbow模型表达式，笔者经常用该题目考察候选人对word2vec的理解程度，但仅有十之一二能给出正确答案。</p>
+</blockquote>
+<h4 id="5.2.1.3.梯度计算">梯度计算</h4>
+
+<p>那么<strong>基于HS的cbow模型的目标函数（似然函数的对数形式）</strong>整理为：</p>
+<p>$$<br>\begin{align}<br>\mathcal{L} &amp;= \sum_{w \in \mathcal{C}} \log p(w|context(w)) \\\<br>&amp;= \sum_{w \in \mathcal{C}} \sum_{j=2}^{l^w} \left\{ (1 - d_j^w) \log\left(\sigma(x_w^T \theta_{j-1}^w)\right) + d_j^w \log \left(1-\sigma(x_w^T \theta_{j-1}^w) \right) \right\}<br>\end{align}<br>$$</p>
+<p>优化目标中的参数有$x_w, \theta_{j-1}^w$。如何最大化目标函数，word2vec工具使用的是随机梯度提升法，前提先算法出优化目标对参数的梯度表达式。为公式推导方便，即花括号里的公式为$\mathcal{L}(w, j)$，分别对参数$x_w, \theta_{j-1}^w$求导：</p>
+<p>$$<br>\begin{align}<br>\frac{\partial \mathcal{L}(w,j)}{\partial \theta_{j-1}^w}<br>&amp;= \frac{\partial}{\partial \theta_{j-1}^w} \left\{ (1 - d_j^w) \log\left(\sigma(x_w^T \theta_{j-1}^w)\right) + d_j^w \log \left(1-\sigma(x_w^T \theta_{j-1}^w) \right) \right\} \\\<br>&amp;= (1-d_j^w) \left(1-\sigma(x_w^T \theta_{j-1}^w) \right)x_w - d_j^w \sigma(x_w^T \theta_{j-1}^w)x_w \\\<br>&amp;= \left(1 - \sigma(x_w^T \theta_{j-1}^w) - d_j^w \right) x_w<br>\end{align}<br>$$</p>
+<p>于是，参数$\theta_{j-1}^w$的更新公式为：</p>
+<p>$$<br>\theta_{j-1}^w \leftarrow \theta_{j-1}^w + \eta \left(1 - \sigma(x_w^T \theta_{j-1}^w) - d_j^w \right) x_w<br>$$</p>
+<p>对于参数$x_w$的梯度，可以根据变量的对称性（两者可交换位置）得到。即相应的梯度$\frac{\partial \mathcal{L}(w,j)}{\partial x_w}$只需在梯度$\frac{\partial \mathcal{L}(w,j)}{\partial \theta_{j-1}^w}$的基础上对两个参数交换位置就可以了，即</p>
+<p>$$<br>\frac{\partial \mathcal{L}(w,j)}{\partial x_w} = \left(1 - \sigma(x_w^T \theta_{j-1}^w) - d_j^w \right) \theta_{j-1}^w<br>$$</p>
+<p>参数$x_w$的更新公式类似$\theta_{j-1}^w$的公式，不再赘述。那么，对每个词的向量$v(\hat{w}), \hat{w} \in context(w)$，其更新公式为：</p>
+<p>$$<br>v(\hat{w}) \leftarrow v(\hat{w}) + \eta \sum_{j=2}^{l^w} \left(1 - \sigma(x_w^T \theta_{j-1}^w) - d_j^w \right) \theta_{j-1}^w<br>$$</p>
+<h3 id="5.2.2.skip-gram模型">skip-gram模型</h3>
+
+<h4 id="5.2.2.1.skip-gram模型结构">skip-gram模型结构</h4>
+
+<p>与cbow模型类似，基于hs的skip-gram输出层也是Huffman树。</p>
+<p>$$<br>\begin{align}<br>p(context(w)|w)<br>&amp;= \prod_{u \in context(w)} p(u|w) \\\<br>&amp;= \prod_{u \in context(w)} \prod_{j=2}^{l_w} p(d_j^u | v_w, \theta_{j-1}^u) \\\<br>&amp;= \prod_{u \in context(w)} \prod_{j=2}^{l_w} \left[\sigma(v_w \theta_{j-1}^u)\right]^{1-d_j^u} \cdot \left[1 - \sigma(v_w \theta_{j-1}^u)\right]^{d_j^u}<br>\end{align}<br>$$</p>
+<p>目标函数：</p>
+<p>$$<br>\mathcal{l} = \sum_{w \in C} \log \left\{ p(context(w)|w) \right\}<br>$$</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -301,7 +324,7 @@ weibo: @周永_52ML
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#5.0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.1.词向量"><span class="toc-number">2.</span> <span class="toc-text">词向量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.2.基于Hierarchical Softmax的CBOW模型"><span class="toc-number">3.</span> <span class="toc-text">基于Hierarchical Softmax的word2vec模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.1.cbow模型"><span class="toc-number">3.1.</span> <span class="toc-text">cbow模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.1.cbow模型结构"><span class="toc-number">3.1.1.</span> <span class="toc-text">cbow模型结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.2.梯度计算"><span class="toc-number">3.1.2.</span> <span class="toc-text">梯度计算</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#5.0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.1.词向量"><span class="toc-number">2.</span> <span class="toc-text">词向量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.2.基于Hierarchical Softmax的CBOW模型"><span class="toc-number">3.</span> <span class="toc-text">基于Hierarchical Softmax的word2vec模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.1.cbow模型"><span class="toc-number">3.1.</span> <span class="toc-text">cbow模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.1.cbow模型结构"><span class="toc-number">3.1.1.</span> <span class="toc-text">cbow模型结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.2.模型表达"><span class="toc-number">3.1.2.</span> <span class="toc-text">模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.3.梯度计算"><span class="toc-number">3.1.3.</span> <span class="toc-text">梯度计算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.2.skip-gram模型"><span class="toc-number">3.2.</span> <span class="toc-text">skip-gram模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.2.1.skip-gram模型结构"><span class="toc-number">3.2.1.</span> <span class="toc-text">skip-gram模型结构</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
