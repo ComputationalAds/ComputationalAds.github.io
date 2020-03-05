@@ -136,7 +136,7 @@ weibo: @周永_52ML
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#5.0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.1.词向量"><span class="toc-number">2.</span> <span class="toc-text">词向量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.2.基于Hierarchical Softmax的CBOW模型"><span class="toc-number">3.</span> <span class="toc-text">基于Hierarchical Softmax的word2vec模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.1.cbow模型"><span class="toc-number">3.1.</span> <span class="toc-text">cbow模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.1.cbow模型结构"><span class="toc-number">3.1.1.</span> <span class="toc-text">cbow模型结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.2.模型表达"><span class="toc-number">3.1.2.</span> <span class="toc-text">模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.3.梯度计算"><span class="toc-number">3.1.3.</span> <span class="toc-text">梯度计算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.2.skip-gram模型"><span class="toc-number">3.2.</span> <span class="toc-text">skip-gram模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.2.1.skip-gram模型结构"><span class="toc-number">3.2.1.</span> <span class="toc-text">skip-gram模型结构</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#5.0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.1.词向量"><span class="toc-number">2.</span> <span class="toc-text">词向量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.2.word2vec模型"><span class="toc-number">3.</span> <span class="toc-text">word2vec模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.1.基于Hierarchical Softmax算法的word2vec模型"><span class="toc-number">3.1.</span> <span class="toc-text">基于Hierarchical Softmax算法的word2vec模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.1.2.基于Hierarchical Softmax的skip-gram模型"><span class="toc-number">3.2.</span> <span class="toc-text">基于Hierarchical Softmax的skip-gram模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.2.基于Negative Sample算法的word2vec模型"><span class="toc-number">3.3.</span> <span class="toc-text">基于Negative Sample算法的word2vec模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.2.基于Negative Sample算法的word2vec模型"><span class="toc-number">3.4.</span> <span class="toc-text">基于Negative Sample算法的word2vec模型</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -170,17 +170,16 @@ weibo: @周永_52ML
 <p>由图可见，两个模型都包含3层结构：输入层、映射层和输出层。cbow模型是在已知当前词$w_t$的上下文$w_{t-2},w_{t-1},w_{t+1},w_{t+2}$的前提下预测当前词$w_t$；skip-gram模型恰恰相反，是在遗址当前词$w_t$的前提下，预测其上下文$w_{t-2},w_{t-1},w_{t+1},w_{t+2}$。</p>
 <p>对于这两个模型结构，word2vec论文中提供了两套学习框架，分别是Herarchical Softmax和Negative Sampling来进行学习。</p>
 <p>小结：<strong>两种建模方式对应着两种不同的条件概率，学习框架具体地表示了条件概率函数</strong>。</p>
-<h2 id="5.2.基于Hierarchical Softmax的CBOW模型">基于Hierarchical Softmax的word2vec模型</h2>
+<h2 id="5.2.word2vec模型">word2vec模型</h2>
+
+<h3 id="5.2.1.基于Hierarchical Softmax算法的word2vec模型">基于Hierarchical Softmax算法的word2vec模型</h3>
 
 <p>在第4章中我们提到，基于神经网络的语言模型的目标函数通常优化其<strong>对数似然函数</strong>：</p>
 <p>$$<br>\mathcal{L} = \sum_{w \in C} \log p(w | context(w))<br>$$</p>
 <p>其中的关键是<strong>条件概率函数$p(w | context(w))$的构造</strong>，n-gram模型中给出了一种构造方法。对于word2vec中基于分层Softmax的cbow模型，优化的目标函数也如上式；而对于基于分层softmax的Skip-gram模型，优化的目标函数则形如：</p>
 <p>$$<br>\mathcal{L} = \sum_{w \in C} \log p(context(w) | w)<br>$$</p>
 <p>因此，下面我们重点关注两个条件概率模型是如何构造的？</p>
-<h3 id="5.2.1.cbow模型">cbow模型</h3>
-
-<h4 id="5.2.1.1.cbow模型结构">cbow模型结构</h4>
-
+<p><strong>cbow模型结构</strong></p>
 <p>基于HS的cbow模型的网络结构示意图如下：</p>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter5_hs_cbow1.png" width="500" height="450" alt="基于HS的CBOW模型"></p>
 <ul>
@@ -196,8 +195,7 @@ weibo: @周永_52ML
 </ul>
 <p>输出层对应一颗二叉树，它是<strong>以语料中出现过的词当叶子节点，以各词在语料中出现的次数当权重构造出来的Huffman树</strong>。这棵Huffman树中，叶子节点共有N个，分别对应词典$\mathcal{D}$中的词，非叶子节点N-1个。</p>
 <p>相对于第4章的神经网络语言模型结构，基于cbow模型的结构有3点不同：1.输入层到映射层的操作，前者是concat，后者是sum；2. 前者有隐藏层，后者无隐藏层；3. 输出层方面，前者是线性模型，后者是树形结构（Huffmans树）。</p>
-<h4 id="5.2.1.2.模型表达">模型表达</h4>
-
+<p><strong>cbow模型表达</strong></p>
 <p>Herarchical Softmax是提高word2vec模型训练性能的重要技术，为了描述方便，先定义一些符号，假设huffman树中的某个叶子节点对应词典$\mathcal{D}$中的词$w$，定义：</p>
 <table>
 <thead>
@@ -242,8 +240,7 @@ weibo: @周永_52ML
 <blockquote>
 <p>注意：这里是基于HS的cbow模型表达式，笔者经常用该题目考察候选人对word2vec的理解程度，但仅有十之一二能给出正确答案。</p>
 </blockquote>
-<h4 id="5.2.1.3.梯度计算">梯度计算</h4>
-
+<p><strong>梯度计算</strong></p>
 <p>那么<strong>基于HS的cbow模型的目标函数（似然函数的对数形式）</strong>整理为：</p>
 <p>$$<br>\begin{align}<br>\mathcal{L} &amp;= \sum_{w \in \mathcal{C}} \log p(w|context(w)) \\\<br>&amp;= \sum_{w \in \mathcal{C}} \sum_{j=2}^{l^w} \left\{ (1 - d_j^w) \log\left(\sigma(x_w^T \theta_{j-1}^w)\right) + d_j^w \log \left(1-\sigma(x_w^T \theta_{j-1}^w) \right) \right\}<br>\end{align}<br>$$</p>
 <p>优化目标中的参数有$x_w, \theta_{j-1}^w$。如何最大化目标函数，word2vec工具使用的是随机梯度提升法，前提先算法出优化目标对参数的梯度表达式。为公式推导方便，即花括号里的公式为$\mathcal{L}(w, j)$，分别对参数$x_w, \theta_{j-1}^w$求导：</p>
@@ -254,14 +251,51 @@ weibo: @周永_52ML
 <p>$$<br>\frac{\partial \mathcal{L}(w,j)}{\partial x_w} = \left(1 - \sigma(x_w^T \theta_{j-1}^w) - d_j^w \right) \theta_{j-1}^w<br>$$</p>
 <p>参数$x_w$的更新公式类似$\theta_{j-1}^w$的公式，不再赘述。那么，对每个词的向量$v(\hat{w}), \hat{w} \in context(w)$，其更新公式为：</p>
 <p>$$<br>v(\hat{w}) \leftarrow v(\hat{w}) + \eta \sum_{j=2}^{l^w} \left(1 - \sigma(x_w^T \theta_{j-1}^w) - d_j^w \right) \theta_{j-1}^w<br>$$</p>
-<h3 id="5.2.2.skip-gram模型">skip-gram模型</h3>
+<h3 id="5.2.1.2.基于Hierarchical Softmax的skip-gram模型">基于Hierarchical Softmax的skip-gram模型</h3>
 
-<h4 id="5.2.2.1.skip-gram模型结构">skip-gram模型结构</h4>
 
-<p>与cbow模型类似，基于hs的skip-gram输出层也是Huffman树。</p>
-<p>$$<br>\begin{align}<br>p(context(w)|w)<br>&amp;= \prod_{u \in context(w)} p(u|w) \\\<br>&amp;= \prod_{u \in context(w)} \prod_{j=2}^{l_w} p(d_j^u | v_w, \theta_{j-1}^u) \\\<br>&amp;= \prod_{u \in context(w)} \prod_{j=2}^{l_w} \left[\sigma(v_w \theta_{j-1}^u)\right]^{1-d_j^u} \cdot \left[1 - \sigma(v_w \theta_{j-1}^u)\right]^{d_j^u}<br>\end{align}<br>$$</p>
+<p><strong>skip-gram模型结构</strong></p>
+<p>与cbow模型一样，基于hs的skip-gram输出层也是Huffman树。</p>
+<p>$$<br>\begin{align}<br>p(context(w)|w)<br>&amp;= \prod_{u \in context(w)} p(u|w) \\\<br>&amp;= \prod_{u \in context(w)} \prod_{j=2}^{l^w} p(d_j^u | v_w, \theta_{j-1}^u) \\\<br>&amp;= \prod_{u \in context(w)} \prod_{j=2}^{l^w} \left[\sigma(v_w \theta_{j-1}^u)\right]^{1-d_j^u} \cdot \left[1 - \sigma(v_w \theta_{j-1}^u)\right]^{d_j^u}<br>\end{align}<br>$$</p>
 <p>目标函数：</p>
-<p>$$<br>\mathcal{l} = \sum_{w \in C} \log \left\{ p(context(w)|w) \right\}<br>$$</p>
+<p>$$<br>\begin{align}<br>\mathcal{L}<br>&amp;= \sum_{w \in C} \log p(context(w)|w) \\\<br>&amp;= \sum_{w \in C} \sum_{u \in context(w)} \sum_{j=2}^{l^u} \left\{ (1 - d_j^u)  \log \left(\sigma(v_w\theta_{j-1}^u)\right) + d_j^u \log \left(1 - \sigma(v_w\theta_{j-1}^u)\right) \right\}<br>\end{align}<br>$$</p>
+<p>为了梯度公式推导方便，我们把三重花括号里的公式记为$\mathcal{L}(w,u,j)$，公式为：</p>
+<p>$$<br>\mathcal{L}(w,u,j) = (1 - d_j^u)  \log \left(\sigma(v_w\theta_{j-1}^u)\right) + d_j^u \log \left(1 - \sigma(v_w\theta_{j-1}^u)\right)<br>$$</p>
+<p>以上就是基于HS的skip-gram模型的优化目标。下面分别对参数$v_w, \theta_{j-1}^u$求导，</p>
+<p>$$<br>\frac{\partial \mathcal{L}(w,u,j)} {\partial v_w} = \left(1 - d_j^u - \sigma(v_w \theta_{j-1}^u) \right) \theta_{j-1}^u<br>$$</p>
+<p>因此，可得参数$v_w$的更新公式为：</p>
+<p>$$<br>v_w \leftarrow v_w + \eta \sum_{u \in context(w)} \sum_{j=2}^{l^u} \left(1 -d_j^u - \sigma(v_w \theta_{j-1}^u) \right) \theta_{j-1}^u<br>$$</p>
+<p>同样的，根据参数对称性，可得参数$\theta_{j-1}^u$的更新公式为：</p>
+<p>$$<br>\theta_{j-1}^u \leftarrow \theta_{j-1}^u + \eta \left(1 - d_j^u - \sigma(v_w \theta_{j-1}^u) \right) v_w<br>$$</p>
+<p>在Google word2vec源码对于$v_w$的更新并不是在两层for循环外才更新，而是每处理一个词后更新$v_w$参数。</p>
+<h3 id="5.2.2.基于Negative Sample算法的word2vec模型">基于Negative Sample算法的word2vec模型</h3>
+
+
+<p>cbow模型</p>
+<p>cbow模型是已知上下文$context(w)$预测中心词$w$。因此，对于给定的$context(w)$，词$w$就是一个<strong>正样本</strong>，其它词就是<strong>负样本</strong>了。</p>
+<blockquote>
+<p>负样本如此多，该如何选取呢？该问题相对独立，后面会单独介绍。</p>
+</blockquote>
+<p>假定现在已经选好了一个关于词$w$的负样本子集$NEG(w) \neq \emptyset$，且对于$\forall \hat{w} \in \mathcal{D}$，定义：</p>
+<p>$$<br>L^w(\hat{w}) = \begin{cases}<br>1, \quad \hat{w} = w; \\\<br>0, \quad \hat{w} \neq w<br>\end{cases}<br>$$</p>
+<p>$L^w(\hat{w})$表示词的标签，正样本标签为1，负样本标签为0.</p>
+<p>对于一个给定的正样本，我们希望最大化：</p>
+<p>$$<br>g(w) = \prod_{u \in {w} \cup NEG(w)} p(u | context(w))<br>$$</p>
+<p>概率公式为： </p>
+<p>$$<br>p(u|context(w)) =<br>\begin{cases}<br>\sigma(x_w^T \theta^u)  &amp; \quad L^w(u) = 1, \\\<br>1 - \sigma(x_w^T \theta^u)  &amp; \quad L^w(u) \neq 1<br>\end{cases}<br>$$</p>
+<p>这里$x_w$仍然表示上下文向量之和，<strong>$\theta^u \in R^m$是词u对应的一个辅助向量，待训练参数</strong>。把上式整理为一个完整的表达式为：</p>
+<p>$$<br>g(w) = \prod_{u \in w \cup NEG(w)} \left[\sigma(x_w^T \theta^u) \right]^{L^w(u)} \cdot \left[1 - \sigma(x_w^T \theta^u) \right]^{1 - L^w(u)}<br>$$</p>
+<p>那么，为什么要最大化$g(w)$呢？我们再整理一下上式：</p>
+<p>$$<br>g(w) = \sigma(x_w^T \theta^w) \prod_{u \in NEG(w)} \left[1- \sigma(x_w^T \theta^u) \right]<br>$$</p>
+<p>$\sigma(x_w^T \theta^w)$表示当上下文为context(w)时，预测中心词为w的概率。$\sigma(x_w^T \theta^u), u \in NEG(w)$表示当上下文为context(w)时，预测中心词为u的概率。<strong>从形式上看，最大化$g(w)$等价于最大化$\sigma(x_w^T \theta^w)$同时最小化所有的$\sigma(x_w^T \theta^u)$</strong>，这正是我们所希望的：<strong>最大化正样本的概率同时最小化负样本的概率</strong>。</p>
+<p>于是，对于给定的一个语料库$C$，优化目标为： </p>
+<p>$$<br>G = \prod_{w \in C} g(w)<br>$$</p>
+<h3 id="5.2.2.基于Negative Sample算法的word2vec模型">基于Negative Sample算法的word2vec模型</h3>
+
+
+
+
+
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -324,7 +358,7 @@ weibo: @周永_52ML
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#5.0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.1.词向量"><span class="toc-number">2.</span> <span class="toc-text">词向量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.2.基于Hierarchical Softmax的CBOW模型"><span class="toc-number">3.</span> <span class="toc-text">基于Hierarchical Softmax的word2vec模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.1.cbow模型"><span class="toc-number">3.1.</span> <span class="toc-text">cbow模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.1.cbow模型结构"><span class="toc-number">3.1.1.</span> <span class="toc-text">cbow模型结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.2.模型表达"><span class="toc-number">3.1.2.</span> <span class="toc-text">模型表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.1.3.梯度计算"><span class="toc-number">3.1.3.</span> <span class="toc-text">梯度计算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.2.skip-gram模型"><span class="toc-number">3.2.</span> <span class="toc-text">skip-gram模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2.2.1.skip-gram模型结构"><span class="toc-number">3.2.1.</span> <span class="toc-text">skip-gram模型结构</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#5.0.写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.1.词向量"><span class="toc-number">2.</span> <span class="toc-text">词向量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.2.word2vec模型"><span class="toc-number">3.</span> <span class="toc-text">word2vec模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.1.基于Hierarchical Softmax算法的word2vec模型"><span class="toc-number">3.1.</span> <span class="toc-text">基于Hierarchical Softmax算法的word2vec模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.1.2.基于Hierarchical Softmax的skip-gram模型"><span class="toc-number">3.2.</span> <span class="toc-text">基于Hierarchical Softmax的skip-gram模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.2.基于Negative Sample算法的word2vec模型"><span class="toc-number">3.3.</span> <span class="toc-text">基于Negative Sample算法的word2vec模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2.2.基于Negative Sample算法的word2vec模型"><span class="toc-number">3.4.</span> <span class="toc-text">基于Negative Sample算法的word2vec模型</span></a></li></ol></li></ol>
  
   </div>
 
@@ -522,7 +556,7 @@ weibo: @周永_52ML
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2019 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2020 
 		
 		<a href="/about" target="_blank" title="ZhouYong">ZhouYong</a>
 		

@@ -221,24 +221,36 @@ Normalizati">
 </table>
 <h2 id="2.1.神经网络的前向与反向">神经网络的前向与反向</h2>
 
-
+<p>以NN全连接层操作为例：</p>
 <p>前向计算</p>
-<p>$$<br>z^{[1]} =  a^{[0]} \cdot {W^{[1]}}^T+ b^{[1]},  \\\<br>a^{[1]} = \sigma(z^{[1]}), \\\<br>z^{[2]} =  a^{[1]} \cdot {W^{[2]}}^T+ b^{[2]},  \\<br>a^{[2]} = \sigma(z^{[2]}), \\\<br>z^{[3]} =  a^{[2]} \cdot {W^{[3]}}^T+ b^{[3]},  \\<br>a^{[3]} = \sigma(z^{[3]}), \\\<br>\hat{y} = sigmoid(a^{[3]})<br>$$</p>
+<p>$$<br>z^{[1]} =  a^{[0]} \cdot {W^{[1]}}^T+ b^{[1]},  \\<br>a^{[1]} = \sigma(z^{[1]}), \\\<br>z^{[2]} =  a^{[1]} \cdot {W^{[2]}}^T+ b^{[2]},  \\<br>a^{[2]} = \sigma(z^{[2]}), \\\<br>z^{[3]} =  a^{[2]} \cdot {W^{[3]}}^T+ b^{[3]},  \\<br>a^{[3]} = \sigma(z^{[3]}), \\\<br>\hat{y} = sigmoid(a^{[3]})<br>$$</p>
 <p>反向计算</p>
-<p>$$<br>\mathcal{L}(a^{[3]};W^{[1]},\; \cdots,\;b^{[3]}) = - y \cdot \log(\hat{y}) - (1 - y) \cdot \log(1-\hat{y}) \\\<br>\mathbf{d}a^{[3]} = \frac{\partial{\mathcal{L}}}{\partial a^{[3]}} = \frac{\partial{\mathcal{L}}}{\partial{\sigma(z^{[3]})}}  = (\hat{y} - y) \\\<br>\mathbf{d}z^{[3]} = \mathbf{d}a^{[3]} \cdot \frac{\partial{a^{[3]}}} {\partial z^{[3]}}, \\\<br>\quad  注：\frac{\partial{a^{[3]}}} {\partial z^{[3]}}是关于z^{[3]}的梯度公式，也是一个关于输入z^{[3]}和输出z^{[3]}的表达式。这里的z^{[3]}，a^{[3]}也是“变量” \\\<br>\mathbf{d}W^{[3]} = \frac{\partial{\mathcal{L}}}{\partial{W^{[3]}}} = \frac{\partial{\mathcal{L}}}{\partial a^{[3]}} \cdot \frac{\partial{a^{[3]}} }{\partial z^{[3]}} \cdot \frac{\partial{z^{[3]}} }{\partial W^{[3]}} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}} } {\partial W^{[3]}} = \mathbf{d}z^{[3]} \cdot a^{[2]} \\\<br>\qquad 注：可以看到，这里是矩阵相乘（前向的输入 * 反向的输入），写代码时⚠矩阵转秩问题 \\\<br>\mathbf{d}a^{[2]} = \frac{\partial{\mathcal{L}}} {\partial{a^{[2]}}} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}}} {\partial{a^{[2]}}} = \mathbf{d}z^{[3]} \cdot W^{[3]} \\\<br>注：这里a^{[2]}也是中间变量，也存在自身前向信息（data)和反向信息(grad) \\\<br>\mathbf{d}b^{[3]} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}}} {\partial{b^{[3]}}} = \mathbf{d}z^{[3]} \\\<br>注：注意维度，这里需要按cols求和 \\\<br>…..<br>$$</p>
-<p>由此，总结NN前向计算和反向传播（梯度计算）的通用公式。变量如下：$a^{[l-1]} \in R^{k \times n^{[l-1]}}$, $\mathbf{d}a^{[l-1]} \in R^{k \times n^{l-1}}$, $W^{[l]} \in R^{n^{[l]} \times n^{[l-1]}}$, $b^{[l]} \in R^{1 \times n^{[l]}}$, $z^{[l]} \in R^{k \times n^{[l]}}$, $a^{[l]} \in R^{k \times n^{[l]}}$, $k$表示样本数，如此迭代下去….</p>
-<p>前向传播通用公式：</p>
+<p>$$<br>\mathcal{L}(a^{[3]};W^{[1]},\; \cdots,\;b^{[3]}) = - y \cdot \log(\hat{y}) - (1 - y) \cdot \log(1-\hat{y}) \\\<br>\mathbf{d}a^{[3]} = \frac{\partial{\mathcal{L}}}{\partial a^{[3]}} = \frac{\partial{\mathcal{L}}}{\partial{\sigma(z^{[3]})}}  = (\hat{y} - y) \\\<br>\mathbf{d}z^{[3]} = \mathbf{d}a^{[3]} \cdot \frac{\partial{a^{[3]}}} {\partial z^{[3]}}, \\\<br>\quad  注：\frac{\partial{a^{[3]}}} {\partial z^{[3]}}是关于z^{[3]}的梯度公式，也是一个关于输入z^{[3]}和输出a^{[3]}的表达式。这里的z^{[3]}，a^{[3]}也是“变量” \\\<br>\mathbf{d}W^{[3]} = \frac{\partial{\mathcal{L}}}{\partial{W^{[3]}}} = \frac{\partial{\mathcal{L}}}{\partial a^{[3]}} \cdot \frac{\partial{a^{[3]}} }{\partial z^{[3]}} \cdot \frac{\partial{z^{[3]}} }{\partial W^{[3]}} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}} } {\partial W^{[3]}} = \mathbf{d}z^{[3]} \cdot a^{[2]} \\\<br>\qquad 注：可以看到，这里是矩阵相乘（前向的输入 * 反向的输入），写代码时⚠矩阵转秩问题 \\\<br>\mathbf{d}a^{[2]} = \frac{\partial{\mathcal{L}}} {\partial{a^{[2]}}} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}}} {\partial{a^{[2]}}} = \mathbf{d}z^{[3]} \cdot W^{[3]} \\\<br>注：这里a^{[2]}也是中间变量，也存在自身前向信息（data)和反向信息(grad) \\\<br>\mathbf{d}b^{[3]} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}}} {\partial{b^{[3]}}} = \mathbf{d}z^{[3]} \\\<br>注：注意维度，这里需要按cols求和 \\\<br>…..<br>$$</p>
+<p>由此，总结NN前向计算和反向传播（梯度计算）的通用公式。变量如下：$a^{[l-1]} \in R^{k \times n^{[l-1]}}$, $\mathbf{d}a^{[l-1]} \in R^{k \times n^{l-1}}$, $W^{[l]} \in R^{n^{[l]} \times n^{[l-1]}}$, $b^{[l]} \in R^{1 \times n^{[l]}}$, $z^{[l]} \in R^{k \times n^{[l]}}$, $a^{[l]} \in R^{k \times n^{[l]}}$, $k$表示样本数，如此下去….</p>
+<p><strong>FC前向传播通用公式</strong></p>
 <p>$$<br>z^{[l]} = a^{[l-1]} \cdot {W^{[l]}}^{\mathrm{T}} + b^{[l]} \\\<br>a^{[l]} = \sigma(z^{[l]}) \\\<br>z^{[l+1]} = a^{[l]} \cdot {W^{[l+1]}}^{\mathrm{T}} + b^{[l+1]} \\\<br>…<br>$$</p>
 <p>伪代码：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Y.noalias() = (X * W.transpose()).rowwise() + b.row(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<p><a href="http://www.cnblogs.com/southtonorth/archive/2018/08/21/9512559.html" target="_blank" rel="external">http://www.cnblogs.com/southtonorth/archive/2018/08/21/9512559.html</a></p>
+<blockquote>
+<p>这里<code>b.row(0)</code>的维度是(1,n[l])，使用了类似python中的广播机制 维度变为(k,n[l])</p>
+</blockquote>
+<p><strong>FC反向传播通用公式</strong></p>
+<p>$$<br>\mathbf{d}z^{[l]} = \mathbf{d}a^{[l]} \cdot \frac{\partial{a^{[l]}}}{\partial{z^{[l]}}} \\\<br>\mathbf{d}W^{[l]} = \mathbf{d}z^{[l]} \cdot \frac{\partial{z^{[l]}}}{\partial{W^{[l]}}} = {\mathbf{d}z^{[l]}}^{\mathrm{T}} \cdot a^{[l-1]} \\\<br>\mathbf{d}a^{[l-1]} = \mathbf{d}z^{[l]} \cdot W^{[l]}  \\\<br>\mathbf{d}b^{[l]} = \mathbf{d}z^{[l]}   \qquad // 注：需要按cols求和<br>$$</p>
+<p>针对NN的全连接$z^{[l]} = {a^{[l-1]}} \cdot {W^{[l]}}^{\mathrm{T}} + b^{[l]}$，反向伪代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dW.noalias() += dY.transpose() * X;</span><br><span class="line">dX.noalias() += dY * W;</span><br><span class="line">db.noalias() += dY.colwise().sum();</span><br></pre></td></tr></table></figure>
+<p>深度MLP 小结：</p>
+<ol>
+<li>前向传播由多层的矩阵运算、连接函数共同组成，分别对应两个Graph Op算子；</li>
+<li>反向传播从Loss出发，分别由多层的连接函数、矩阵运算的梯度计算组成；</li>
+<li>参与Op算子的变量均要保存当前变量数据（data）和对应的梯度信息（grad），二者shape一致；</li>
+</ol>
 <h2 id="2.2.softmax">Softmax</h2>
 
-<p>本节安排如下：</p>
+<p>softmax是深度学习模型中重要的操作之一，在分类监督学习、Attention机制中均离不开该操作。 本节的目标是对softmax函数的来龙去脉以及在分类场景的应用讲清楚，安排如下：</p>
 <ul>
 <li>首先，从数学和概率的角度理解soft（软化的）max的由来；</li>
 <li>然后，讲清楚softmax函数为什么可以用在多分类问题上；</li>
-<li>最后，给出它在开源深度学习框架tensorflow、pytorch、openmi（Open-sourced Machine Intelligence）上的实现。</li>
+<li>最后，给出它在开源深度学习框架tensorflow、openmi（Open-sourced Machine Intelligence）上的实现。</li>
 </ul>
 <h3 id="2.2.1.softmax函数由来">softmax函数由来</h3>
 
@@ -246,45 +258,49 @@ Normalizati">
 <p>$$<br>\text{softmax}(a_i) = \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}<br>$$</p>
 <p>下面这个函数与上式“貌似”不相同，但是它们又及其相关：</p>
 <p>$$<br>g(x, y) = \text{log}_e(e^x + e^y)<br>$$</p>
-<p>两个表达式的相关性先不谈，先解释清楚$g(x,y)$函数的由来，要从hardmax说起。</p>
+<p>两个表达式的关联性先不谈，我们先要解释清楚$g(x,y)$函数的由来，就要从hardmax说起。</p>
 <p><strong>hardmax函数</strong></p>
 <p>softmax函数其实是从hardmax演变而来的，hardmax其实是我们生活中很常见的函数，表达式为：</p>
 <p>$$<br>\text{hardmax} = max\{x, y\}<br>$$</p>
-<p>表达的意思很清楚，就是取x和y中较大的哪个值。如果y=0，可得表达式为$max\{x, 0\}$。画图可知，该函数在$x=0$处是连续不可导的，函数可导可以帮助我们做很多事情，那么有没有办法对其变形，找到一个连续可导的近似函数呢？此时就有了softmax函数$g(x,y) = \text{log}_e(e^x + e^y)$。</p>
-<p>我们先来看下这个函数的数学特性。指数函数有一个特点，就是变化率非常快。当$x &gt; y$时，通过指数的放大作用，使得二者的差距进一步变大，即$e^x \gg e^y$。所以有$e^x + e^y \approx e^x$，那么此时$g(x,y) = \text{log}_e(e^x + e^y) \approx \text{log}_e(e^x) = x$。根据推导过程，可以知道：<strong>$g(x,y)$约等于$x,y$中较大的值，即$g(x,y) \approx \text{max}(x,y)$</strong>。</p>
+<p>物理含义很清楚，就是取x和y中较大的哪个值。如果y=0，可得表达式为$max\{x, 0\}$。画图可知，该函数在$x=0$处是连续不可导的。函数可导可以帮助我们做很多事情，那么有没有办法对其变形，找到一个连续可导的近似函数呢？此时就有了softmax函数$g(x,y) = \text{log}_e(e^x + e^y)$。</p>
+<blockquote>
+<p>在基于梯度法求解机器学习模型最优解的过程中，函数可导是一个必要的前提条件。</p>
+</blockquote>
+<p>我们先来看$g(x,y)$函数的数学特性。指数函数有一个特点，就是变化率非常快。当$x &gt; y$时，通过指数的放大作用，使得二者的差距进一步变大，即$e^x \gg e^y$。所以有$e^x + e^y \approx e^x$，那么此时$g(x,y) = \text{log}_e(e^x + e^y) \approx \text{log}_e(e^x) = x$。根据推导过程，可以知道：<strong>$g(x,y)$约等于$x,y$中较大的值，即$g(x,y) \approx \text{max}(x,y)$</strong>。</p>
 <p>所以我们得出一个结论：$g(x,y)$是$max(x,y)$的近似函数，两个函数有相似的数学特性。两个函数的图形如下：</p>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter2_softmax_and_hardmax.png" ;="" width="400" height="300" alt="softmax与hardmax"></p>
-<p>可以看出，当$x,y$的差别越大时，softmax和hardmax函数吻合度越高。同时也可以看出，softmax是一个连续且处处可导的函数，这时一个非常重要的特性：$g(x,y)$即具有与$\text{max}(x,y)$的相似性，又避免了$\text{max}(x,y)$函数会出现连续不可导的情况。</p>
+<p>可以看出，当$x,y$的差别越大时，$g(x,y)$和hardmax函数吻合度越高。同时也可以看出，softmax是一个连续且处处可导的函数，这时一个非常重要的特性：<strong>$g(x,y)$即具有与$\text{max}(x,y)$的相似性，又避免了$\text{max}(x,y)$函数会出现连续不可导的情况</strong>。</p>
 <h3 id="2.2.2.softmax函数概率模型">softmax函数概率模型</h3>
 
-<p>本节我们回答一个问题：上面提到的hardmax近似函数softmax与神经网络分类层的softmax函数是什么关系？</p>
-<p>假设我们要从a,b两个未知数中取一个较大的值，即$\text{max}(a,b)$，那么取到两个数字的概率分别是多少呢？我们可以构建一个概率模型：</p>
+<p>本节我们回答一个问题：上面提到的hardmax近似函数$g(x,y)$与神经网络分类层的softmax函数是什么关系？</p>
+<p>假设我们要从a,b两个未知数中取一个较大的值，即$\text{max}(a,b)$，那么<strong>取到两个数字的概率分别是多少</strong>呢？我们可以构建一个概率模型：</p>
 <ul>
 <li>当a=b时，取任意一个数字都可以，所以各占50%，即$p(a)=p(b)=50\%$；</li>
 <li>当a=4,b=6时，b比a大，此时更倾向于b，取到b的概率应该会更大些，即$p(a)=40\%,p(b)=60\%$；</li>
 <li>当a=8,b=2时，a比b大，此时更倾向于a，取到a的概率应该会更大些，即$p(a)=80\%,p(b)=20\%$.</li>
 </ul>
 <p>当变量变多时，此时hardmax变成了$\text{max}(a_1, a_2, \cdots, a_K)$，根据假设的概率模型，取到每一个样本点的概率即为$p(a_i) = \frac{a_i}{\sum_{k=1}a_k}$</p>
-<p>上述表达式与softmax“貌似”很熟，其实对于机器学习多分类问题来说，训练过程中需要对参数求导用于更新参数，从上一节可知hardmax函数并不是处处可导的，那么此时就用hardmax的近似函数softmax来替代它，我们已知了二者之间的关系：</p>
+<p>上述表达式与softmax“貌似”很熟，其实对于机器学习多分类问题来说，训练过程中需要对参数求导得到其梯度信息再用来更新参数，从上一节可知hardmax函数并不是处处可导的，那么此时就用hardmax的近似函数softmax来替代它，我们已知了二者之间的关系：</p>
 <p>$$<br>f(a_1, a_2, \cdots, a_K) = \text{max}(a_1, a_2, \cdots, a_K) \approx g(a_1, a_2, \cdots, a_K) = \text{log}_e(e^{a_1} + e^{a_2} + \cdots + e^{a_K})<br>$$</p>
 <p>因此，根据hardmax函数表达式，得出softmax的概率模型表达式为：</p>
 <p>$$<br>\text{softmax}_{(i)} = \frac{e^{a_i}} {\sum_{k=1}^K e^{a_k}}<br>$$</p>
 <p>以上就是softmax函数的由来。再次梳理下逻辑：softmax是hardmax的近似函数，也是对hardmax函数的优化（解决了hardmax不可导问题）。<strong>softmax函数＋概率模型</strong>得到了深度学习结构中常见的softmax概率模型表达式。</p>
+<p>$$<br>\text{softmax}函数＋概率模型 \longrightarrow \text{softmax}概率模型表达式<br>$$</p>
 <h3 id="2.2.3.softmax表达式与概率的关系">softmax表达式与概率的关系</h3>
 
-<p>根据概率的定义，一个事件发生的概率我们用$p\in [0,1]$表示，事件一定发生的概率是1，不会发生的概率是0，事件结果所有可能性的概率纸盒等于1。</p>
+<p>根据概率的定义，一个事件发生的概率这里用$p\in [0,1]$表示，事件一定发生的概率是1，不会发生的概率是0，事件结果所有可能性的概率之和等于1。</p>
 <p>以神经网络最后一层输出为例，经过softmax层计算后的表达式为：</p>
 <p>$$<br>s_i = \frac{e^{z_i}} {e^{z_1} + e^{z_2} + \cdots + e^{z_K}}  \qquad s_i \in [0,1]<br>$$</p>
 <p>对所有神经元s求和，得到：</p>
 <p>$$<br>\sum_{i=1}^K s_i = \frac {e^{z_1} + e^{z_2} + \cdots + e^{z_K}} {e^{z_1} + e^{z_2} + \cdots + e^{z_K}} = 1<br>$$</p>
-<p>由此可知，神经网络输出层的数据，经过softmax层转换后的结果，即可满足概率表达式的特性。因此，输出层的数据转化为概率表达式后的输出值就有了新的意义。对应分类问题来说，不同大小的概率值表示，这个结果属于不同类别的可能性大小。</p>
+<p>由此可知，神经网络输出层的数据，经过softmax层转换后的结果，即可满足概率的特性。因此，FC输出层的数据转化为概率表达式后的输出值就有了新的意义。对应分类问题来说，输出值表示这个结果属于不同类别的可能性大小。</p>
 <h3 id="2.2.4.SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp">SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp</h3>
 
 
 <p>SoftmaxOp多用于多分类问题，假设为K类，那么属于第i类的概率为：</p>
 <p>$$<br>p_i = \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}<br>$$</p>
-<p><strong>softma计算优化</strong></p>
-<p>为了避免_指数越界出现NAN问题_，通常会分别对分子分母乘以一个常量C，即</p>
+<p><strong>Softmax计算优化</strong></p>
+<p>因为是指数计算，为了避免_指数越界出现NAN问题_，通常会分别对分子分母乘以一个常量C，即</p>
 <p>$$<br>p_i = \frac{\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k) } = \frac{C \exp(a_i)} { C  \sum_{k=1}^{K} \exp(a_k) } = \frac {\exp(a_i + \log(C))} {\sum_{k=1}^{K} \exp(a_k + \log(C))}<br>$$</p>
 <p>通常$\log(C)=-\max(a)$，如此相当于K维的向量a取值平移到[-, 0]之间，指数最大值是1而不是正无穷，避免了Nan问题。</p>
 <p><strong>Softmax梯度</strong></p>
@@ -321,7 +337,7 @@ Normalizati">
 <li>使得所有特征具有相同的均值和方差$\rightarrow$同分布；</li>
 </ul>
 <blockquote>
-<p>白化最典型的方法是PCA（主成分分析）。</p>
+<p>白化最典型的方法是PCA（主成分分析）。whitening的目的是获得独立同分布的数据，让模型更容易训练。</p>
 </blockquote>
 <p><strong>深度学习中的Internal Covariate Shift</strong></p>
 <p>深度学习网络模型的训练为什么比较困难？其中一个重要原因是：深度神经网络涉及多层的叠加，而每一层的参数更新会导致上一层的输入数据分布发生变化，通过层层叠加，高层的数据分布变化会非常剧烈，这就使得高层需要不断去重新适应底层的参数更新。为了训练好模型，我们需要非常谨慎的设定学习率、初始化权重以及尽可能细致的参数更新策略。</p>
@@ -335,15 +351,15 @@ Normalizati">
 <p><strong>Internal Covariate Shift会导致什么问题？</strong></p>
 <p>深度神经网络，每个神经元的输入数据不再是“独立同分布”。具体表现在：</p>
 <ul>
-<li>上层参数需要不断适应新的输入数据分布，降低学习速度；</li>
-<li>下层输入的变化问题趋向于变大或变小，导致上层落入饱和区，使得学习过早停止；</li>
-<li>每层的更新都会影响到其它层，因此每层的参数更新策略需要尽可能的谨慎。</li>
+<li>上层参数需要不断<strong>适应</strong>新的输入数据分布，降低学习速度；</li>
+<li>下层输入的变化问题趋向于变大或变小，导致上层落入<strong>饱和区</strong>，使得学习过早停止；</li>
+<li>每层的更新都会影响到其它层，因此每层的<strong>参数更新</strong>策略需要尽可能的谨慎。</li>
 </ul>
 <h3 id="2.4.2.Normalization的通用框架">Normalization的通用框架</h3>
 
 <p>这里我们以神经网络中的一个神经元为例，神经元接收一组输入向量$\mathbf{x}=(x_1, x_2, \cdots, x_d)$，通过中间运算后，输出一个标量值$y=f(\mathbf{x})$。</p>
-<p>由于ICS问题的存在，$\mathbf{x}$的分布可能相差很大，要解决独立同分布的问题，“理论正确”的方法就是对每一层的数据都进行whitening操作。然而标准的白化操作代码很大，特别是我们还希望白化操作时可微的，保证白化操作可以通过反向传播来更新梯度。</p>
-<p>因此，以Batch Normalization为代表的Normalization方法退而求其次，进行了简化的白化操作。基本思想是：在将$\mathbf{x}$送给神经元之前，先对其做<strong>平移和伸缩变换</strong>，将$\mathbf{x}$的分布规范化成在固定区间范围的标准分布。</p>
+<p>由于ICS问题的存在，$\mathbf{x}$的分布可能相差很大，要解决独立同分布的问题，“理论正确”的方法就是对每一层的数据都进行whitening操作。然而标准的白化操作代价很大，特别是我们还希望白化操作是可微的，保证白化操作可以通过反向传播来更新梯度。</p>
+<p>因此，以Batch Normalization为代表的Normalization方法退而求其次，进行了简化的白化操作。基本思想是：在将$\mathbf{x}$送给神经元之前，先对其做<strong>平移和伸缩变换</strong>，将$\mathbf{x}$的分布规范化成在<strong>固定区间范围的标准分布</strong>。</p>
 <p>通用变换框架如下所示：</p>
 <p>$$<br>h = f \left( \mathbf{g} \cdot \frac{x-\mu}{\sigma} + \mathbf{b} \right)<br>$$</p>
 <p>参数解释：</p>
@@ -470,18 +486,18 @@ Normalizati">
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/openmit/openmit-chapter3-admm/" title="第03章：OpenMIT_算法框架">
+ <a href="/deep_learning/dl-chapter11-graphnn/" title="第02章：深度神经网络">
   <strong>上一篇：</strong><br/>
   <span>
-  第03章：OpenMIT_算法框架</span>
+  第02章：深度神经网络</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/deep_learning/dl-chapter11-graphnn/"  title="第02章：深度神经网络">
+<a href="/openmit/openmit-chapter6-optimizer/"  title="第06章：OpenMIT-优化器">
  <strong>下一篇：</strong><br/> 
- <span>第02章：深度神经网络
+ <span>第06章：OpenMIT-优化器
 </span>
 </a>
 </div>
@@ -694,7 +710,7 @@ Normalizati">
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2019 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2020 
 		
 		<a href="/about" target="_blank" title="ZhouYong">ZhouYong</a>
 		
