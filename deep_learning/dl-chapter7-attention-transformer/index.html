@@ -153,10 +153,11 @@ Attention机制早在图像识别领域展露头脚，近些年来在机器翻�
 </blockquote>
 <h3 id="1.1.Self_Attention">Self Attention</h3> 
 
-
-<p>attention的表达式可以理解为一种映射：query在key-value pairs中的映射。也可以理解为一种soft的key找value 。表达式如下：</p>
-<p>$$<br>\textbf{attention}(Q,K,V) = \text{Softmax} \left(\frac{QK^T}{\sqrt{d_k}} \right) V<br>$$</p>
-<p>也有人把attention公式表述为：</p>
+<p>self-attention的输入输出维度可以不一样吗？</p>
+<p>可以不一样。</p>
+<p>假设输入有n个embedding，embedding长度为$d_k$，那么输入用矩阵可表示为$X \in R^{n \times d_k}$，3个中间变量$W^Q, W^K, W^V \in R^{d_k \times d_{k’}}$，$d_{k’}$为attention输出维度。self attention表达式如下：</p>
+<p>$$<br>\begin{align}<br>Q &amp;= X \cdot W^Q \\\<br>K &amp;= X \cdot W^K \\\<br>V &amp;= X \cdot W^V \\\<br>\textbf{attention}(Q,K,V) &amp;= \text{Softmax} \left(\frac{QK^T}{\sqrt{d_k}} \right) \cdot V<br>\end{align}<br>$$</p>
+<p>attention的表达式可以理解为一种映射：query在key-value pairs中的映射。也可以理解为一种soft的key找value，因此也有人把attention公式表述为：</p>
 <p>$$<br>\textbf{Attention(Query, Sources)} = \sum_{k=1}^K \textbf{Similarity}(Query, Key_i) \cdot Value_i<br>$$</p>
 <h3 id="1.2.Multi_head_Attention">Multi-head Attention</h3> 
 

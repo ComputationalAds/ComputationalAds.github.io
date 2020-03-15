@@ -81,6 +81,208 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/deep_learning/dl-chapter11-graphnn/" title="第02章：深度神经网络" itemprop="url">第02章：深度神经网络</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-01T12:23:42.000Z" itemprop="datePublished"> 发表于 2017-05-01</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ul>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 2017-04-12</li>
+<li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
+</ul>
+<hr>
+<ul>
+<li><a href="#2.0.DNN符号定义">DNN符号定义</a></li>
+<li><a href="#2.1神经网络的前向与反向">神经网络的前向与反向</a></li>
+<li><a href="#2.2.softmax">Softmax</a><ul>
+<li><a href="#2.2.1.softmax函数由来">softmax函数由来</a></li>
+<li><a href="#2.2.2.softmax函数概率模型">softmax函数概率模型</a></li>
+<li><a href="#2.2.3.softmax表达式与概率的关系">softmax表达式与概率的关系</a></li>
+<li><a href="#2.2.4.SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp">SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp</a></li>
+</ul>
+</li>
+</ul>
+<p>本章关键词：多层感知机、全连接层、Softmax、激活函数、池化层、BatchNorm、注意力机制、Pooling、Embedding等</p>
+<h2 id="2.0.DNN符号定义">DNN符号定义</h2>
+
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$n^{[0]}$</td>
+<td style="text-align:left">表示NN输入层的神经元个数，为了符号统一，规定输入层为第0层</td>
+</tr>
+<tr>
+<td style="text-align:center">$n^{[l]}$</td>
+<td style="text-align:left">第$l$层神经元个数</td>
+</tr>
+<tr>
+<td style="text-align:center">$a^{[l]}$</td>
+<td style="text-align:left">表示NN第$l$层输入信息，一条样本的维度为$(1, n^{[l]})$</td>
+</tr>
+<tr>
+<td style="text-align:center">$W^{[l]}$</td>
+<td style="text-align:left">表示第$l$层与$l-1$层之间的连接矩阵，维度：($n^{[l]}$, $n^{[l-1]}$)，即：$W^{[1]} \in R^{n^{[1]} \times n^{[0]}}$</td>
+</tr>
+<tr>
+<td style="text-align:center">$b^{[l]}$</td>
+<td style="text-align:left">表示第$l$层的偏置项参数，维度：($n^{[l]}$, $1$)</td>
+</tr>
+<tr>
+<td style="text-align:center">$z^{[l]}$</td>
+<td style="text-align:left">表示第$l$层的线性表达$z^{[l]} = W^{[l]} \cdot a^{[l-1]} + b^{[l]}$, 维度：($n^{[l]}$, $1$)</td>
+</tr>
+<tr>
+<td style="text-align:center">$m$</td>
+<td style="text-align:left">表示Batch Size</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2.1.神经网络的前向与反向">神经网络的前向与反向</h2>
+
+
+<p>前向计算</p>
+<p>$$<br>z^{[1]} =  a^{[0]} \cdot {W^{[1]}}^T+ b^{[1]},  \\\<br>a^{[1]} = \sigma(z^{[1]}), \\\<br>z^{[2]} =  a^{[1]} \cdot {W^{[2]}}^T+ b^{[2]},  \\<br>a^{[2]} = \sigma(z^{[2]}), \\\<br>z^{[3]} =  a^{[2]} \cdot {W^{[3]}}^T+ b^{[3]},  \\<br>a^{[3]} = \sigma(z^{[3]}), \\\<br>\hat{y} = sigmoid(a^{[3]})<br>$$</p>
+<p>反向计算</p>
+<p>$$<br>\mathcal{L}(a^{[3]};W^{[1]},\; \cdots,\;b^{[3]}) = - y \cdot \log(\hat{y}) - (1 - y) \cdot \log(1-\hat{y}) \\\<br>\mathbf{d}a^{[3]} = \frac{\partial{\mathcal{L}}}{\partial a^{[3]}} = \frac{\partial{\mathcal{L}}}{\partial{\sigma(z^{[3]})}}  = (\hat{y} - y) \\\<br>\mathbf{d}z^{[3]} = \mathbf{d}a^{[3]} \cdot \frac{\partial{a^{[3]}}} {\partial z^{[3]}}, \\\<br>\quad  注：\frac{\partial{a^{[3]}}} {\partial z^{[3]}}是关于z^{[3]}的梯度公式，也是一个关于输入z^{[3]}和输出z^{[3]}的表达式。这里的z^{[3]}，a^{[3]}也是“变量” \\\<br>\mathbf{d}W^{[3]} = \frac{\partial{\mathcal{L}}}{\partial{W^{[3]}}} = \frac{\partial{\mathcal{L}}}{\partial a^{[3]}} \cdot \frac{\partial{a^{[3]}} }{\partial z^{[3]}} \cdot \frac{\partial{z^{[3]}} }{\partial W^{[3]}} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}} } {\partial W^{[3]}} = \mathbf{d}z^{[3]} \cdot a^{[2]} \\\<br>\qquad 注：可以看到，这里是矩阵相乘（前向的输入 * 反向的输入），写代码时⚠️矩阵转秩问题 \\\<br>\mathbf{d}a^{[2]} = \frac{\partial{\mathcal{L}}} {\partial{a^{[2]}}} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}}} {\partial{a^{[2]}}} = \mathbf{d}z^{[3]} \cdot W^{[3]} \\\<br>注：这里a^{[2]}也是中间变量，也存在自身前向信息（data)和反向信息(grad) \\\<br>\mathbf{d}b^{[3]} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}}} {\partial{b^{[3]}}} = \mathbf{d}z^{[3]} \\\<br>注：注意维度，这里需要按cols求和 \\\<br>…..<br>$$</p>
+<p>由此，总结NN前向计算和反向传播（梯度计算）的通用公式。变量如下：$a^{[l-1]} \in R^{k \times n^{[l-1]}}$, $\mathbf{d}a^{[l-1]} \in R^{k \times n^{l-1}}$, $W^{[l]} \in R^{n^{[l]} \times n^{[l-1]}}$, $b^{[l]} \in R^{1 \times n^{[l]}}$, $z^{[l]} \in R^{k \times n^{[l]}}$, $a^{[l]} \in R^{k \times n^{[l]}}$, $k$表示样本数，如此迭代下去….</p>
+<p>前向传播通用公式：</p>
+<p>$$<br>z^{[l]} = a^{[l-1]} \cdot {W^{[l]}}^{\mathrm{T}} + b^{[l]} \\\<br>a^{[l]} = \sigma(z^{[l]}) \\\<br>z^{[l+1]} = a^{[l]} \cdot {W^{[l+1]}}^{\mathrm{T}} + b^{[l+1]} \\\<br>…<br>$$</p>
+<p>伪代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Y.noalias() = (X * W.transpose()).rowwise() + b.row(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.cnblogs.com/southtonorth/archive/2018/08/21/9512559.html" target="_blank" rel="external">http://www.cnblogs.com/southtonorth/archive/2018/08/21/9512559.html</a></p>
+<h2 id="2.2.softmax">Softmax</h2>
+
+<p>softmax小节安排如下：首先从数学和概率的角度理解soft（软化的）max是如何来的？然后讲清楚它为何可以用在多分类问题上？最后给出它在深度学习框架（tensorflow、openmi）上的实现。</p>
+<h3 id="2.2.1.softmax函数由来">softmax函数由来</h3>
+
+<p>softmax函数表达式我想大家已经很清楚了，在此赘述：</p>
+<p>$$<br>\text{softmax}(a_i) = \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}<br>$$</p>
+<p>下面这个函数与上式“貌似”不相同，但是它们又及其相关：</p>
+<p>$$<br>g(x, y) = \text{log}_e(e^x + e^y)<br>$$</p>
+<p>两个表达式的相关性先不谈，先解释清楚$g(x,y)$函数的由来，要从hardmax说起。</p>
+<p><strong>hardmax函数</strong></p>
+<p>softmax函数其实是从hardmax演变而来的，hardmax其实是我们生活中很常见的函数，表达式为：</p>
+<p>$$<br>\text{hardmax} = max\{x, y\}<br>$$</p>
+<p>表达的意思很清楚，就是取x和y中较大的哪个值。如果y=0，可得表达式为$max\{x, 0\}$。画图可知，该函数在$x=0$处是连续不可导的，函数可导可以帮助我们做很多事情，那么有没有办法对其变形，找到一个连续可导的近似函数呢？此时就有了softmax函数$g(x,y) = \text{log}_e(e^x + e^y)$。</p>
+<p>我们先来看下这个函数的数学特性。指数函数有一个特点，就是变化率非常快。当$x &gt; y$时，通过指数的放大作用，使得二者的差距进一步变大，即$e^x \gg e^y$。所以有$e^x + e^y \approx e^x$，那么此时$g(x,y) = \text{log}_e(e^x + e^y) \approx \text{log}_e(e^x) = x$。根据推导过程，可以知道$g(x,y)$约等于$x,y$中较大的值，即$g(x,y) \approx \text{max}(x,y)$。</p>
+<p>所以我们得出一个结论：$g(x,y)$是$max(x,y)$的近似函数，两个函数有相似的数学特性。两个函数的图形如下：</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter2_softmax_and_hardmax.png" width="400" height="300" alt="softmax与hardmax"></p>
+<p>可以看出，当$x,y$的差别越大时，softmax和hardmax函数吻合度越高。同时也可以看出，softmax是一个连续且处处可导的函数，这时一个非常重要的特性：$g(x,y)$即具有与$\text{max}(x,y)$的相似性，又避免了$\text{max}(x,y)$函数不可导的特点。</p>
+<h3 id="2.2.2.softmax函数概率模型">softmax函数概率模型</h3>
+
+<p>上一节讲到的softmax与神经网络分类层的softmax函数有什么关系呢？</p>
+<p>假设我们要从a,b两个未知数中取一个较大的值，即$\text{max}(a,b)$，那么取到两个数字的概率分别是多少呢？我们可以构建一个概率模型：</p>
+<ul>
+<li>当a=b时，取任意一个数字都可以，所以各占50%，即$p(a)=p(b)=50\%$；</li>
+<li>当a=4,b=6时，b比a大，此时更倾向于b，取到b的概率应该会更大些，即$p(a)=40\%,p(b)=60\%$；</li>
+<li>当a=8,b=2时，a比b大，此时更倾向于a，取到a的概率应该会更大些，即$p(a)=80\%,p(b)=20\%$.</li>
+</ul>
+<p>当变量变多时，此时hardmax变成了$\text{max}(a_1, a_2, \cdots, a_K)$，根据假设的概率模型，取到每一个样本点的概率即为$p(a_i) = \frac{a_i}{\sum_{k=1}a_k}$</p>
+<p>上述表达式与softmax“貌似”很熟，其实对于机器学习多分类问题来说，训练过程中需要对参数求导用于更新参数，从上一节可知hardmax函数并不是处处可导的，那么此时就用hardmax的近似函数softmax来替代它，我们已知了二者之间的关系：</p>
+<p>$$<br>f(a_1, a_2, \cdots, a_K) = \text{max}(a_1, a_2, \cdots, a_K) \approx g(a_1, a_2, \cdots, a_K) = \text{log}_e(e^{a_1} + e^{a_2} + \cdots + e^{a_K})<br>$$</p>
+<p>因此，根据hardmax函数表达式，得出softmax的概率模型表达式为：</p>
+<p>$$<br>\text{softmax} = \frac{e^{a_i}} {\sum_{k=1}^K e^{a_k}}<br>$$</p>
+<p>以上就是softmax函数的由来。再次梳理下逻辑：softmax是hardmax的近似函数，也是对hardmax函数的优化（解决了hardmax不可导问题）。softmax函数＋概率模型得到了我们常见的softmax概率模型表达式。</p>
+<h3 id="2.2.3.softmax表达式与概率的关系">softmax表达式与概率的关系</h3>
+
+<p>根据概率的定义，一个事件发生的概率我们用$p\in [0,1]$表示，事件一定发生的概率是1，不会发生的概率是0，事件结果所有可能性的概率纸盒等于1。</p>
+<p>以神经网络最后一层输出为例，经过softmax层计算后的表达式为：</p>
+<p>$$<br>s_i = \frac{e^{z_i}} {e^{z_1} + e^{z_2} + \cdots + e^{z_K}}  \qquad s_i \in [0,1]<br>$$</p>
+<p>对所有神经元s求和，得到：</p>
+<p>$$<br>\sum_{i=1}^K s_i = \frac {e^{z_1} + e^{z_2} + \cdots + e^{z_K}} {e^{z_1} + e^{z_2} + \cdots + e^{z_K}} = 1<br>$$</p>
+<p>由此可知，神经网络输出层的数据，经过softmax层转换后的结果，即可满足概率表达式的特性。因此，输出层的数据转化为概率表达式后的输出值就有了新的意义。对应分类问题来说，不同大小的概率值表示，这个结果属于不同类别的可能性大小。</p>
+<h3 id="2.2.4.SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp">SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp</h3>
+
+
+<p>SoftmaxOp多用于多分类问题，假设为K类，那么属于第i类的概率为：</p>
+<p>$$<br>p_i = \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}<br>$$</p>
+<p><strong>softma计算优化</strong></p>
+<p>为了避免_指数越界出现NAN问题_，通常会分别对分子分母乘以一个常量C，即</p>
+<p>$$<br>p_i = \frac{\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k) } = \frac{C \exp(a_i)} { C  \sum_{k=1}^{K} \exp(a_k) } = \frac {\exp(a_i + \log(C))} {\sum_{k=1}^{K} \exp(a_k + \log(C))}<br>$$</p>
+<p>通常$\log(C)=-\max(a)$，如此相当于K维的向量a取值平移到[-, 0]之间，指数最大值是1而不是正无穷，避免了Nan问题。</p>
+<p><strong>Softmax梯度</strong></p>
+<p>$$<br>\frac {\partial p_i} {\partial a_j} = \frac {\partial \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}} {\partial a_j}<br>$$</p>
+<p>根据除法导数公式$f(x) = \frac {g(x)} {h(x)}$，存在$f’(x) = \frac {g’(x)h(x) - g(x)h’(x)} {h^2(x)}$。在这里$g(x) = \exp(a_i)$, $h(x) = \sum_{k=1}^K \exp(a_k)$。</p>
+<p>对于$\frac {\partial h(x)} {\partial a_j}$，它的导数总是$\exp(a_j)$；对于$\frac{g(x)}{\partial a_j}$，分两种情况如果$i=j$ 梯度为$\exp(a_j)$，否则梯度为0（对于$a_j$来说，$a_i$是常数）。</p>
+<p>所以Softmax梯度公式分两种情况:</p>
+<p>当$i=j$时，</p>
+<p>$$<br>\frac {\partial p_i} {\partial a_j} = \frac {\partial \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}} {\partial a_j} = \frac {\exp(a_i) \cdot \sum_{k=1}^{K} \exp(a_k) - \exp(a_i) \cdot \exp(a_j)} {\left(\sum_{k=1}^{K} \exp(a_k)\right)^2} \\\<br>= \frac {\exp(a_i) } {\sum_{k=1}^{K} \exp(a_k)} \cdot \frac {\left(\sum_{k=1}^{K} \exp(a_k) - \exp(a_j) \right)} {\sum_{k=1}^{K} \exp(a_k)} = p_i * (1- p_j)<br>$$</p>
+<p>当$i \neq j$时，</p>
+<p>$$<br>\frac {\partial p_i} {\partial a_j} = \frac {\partial \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}} {\partial a_j} = \frac {0 - \exp(a_i) \cdot \exp(a_j)} {\left(\sum_{k=1}^{K} \exp(a_k)\right)^2} = - p_i \cdot p_j<br>$$</p>
+<p>因此Softmax梯度公式为：</p>
+<p>$$<br>f(x) = \begin{cases} \displaystyle<br>p_i \cdot (1 - p_j) &amp; \text{if} \; i=j \\\<br>-p_i \cdot p_j &amp; \text{if} \; i \neq j<br>\end{cases}<br>\longrightarrow<br>\mathbf{\frac{\partial p_i} {\partial a_j} = p_i (\delta_{ij} - p_j)}, \;<br>\delta_{ij} = \begin{cases} \displaystyle<br>1 &amp; \text{if} \; i = j \\<br>0 &amp; \text{if} \; i \neq j<br>\end{cases}<br>$$</p>
+<h2 id="交叉熵损失（Cross_Entropy_Loss）">交叉熵损失（Cross Entropy Loss）</h2><p>交叉熵用来衡量<strong>相同事件空间里两个概率分布的差异</strong>。应用到分类问题里，就是实际label输出（概率）与期望输出（概率）之间的距离，交叉熵越小，说明两个概率分布越接近。这里假设概率分布Y为实际输出，P为期望输出，H(Y,P)为交叉熵，那么有：</p>
+<p>$$<br>H(Y,P) = L(P) = - \sum_{x \in X} Y(x) \cdot \log P(x)<br>$$</p>
+<p>具体含义和解释，详见<a href="http://www.52caml.com/head_first_ml/ml-chapter2-entropy-based-family/#%E7%9B%B8%E5%AF%B9%E7%86%B5%E3%80%81KL%E8%B7%9D%E7%A6%BB" target="_blank" rel="external">52CAML交叉熵</a>定义</p>
+<p><strong>Softmax交叉熵损失梯度 with Logits</strong></p>
+<blockquote>
+<p>注意：交叉熵损失函数对logits的梯度，而不是对softmax的梯度。</p>
+</blockquote>
+<p>$$<br>\frac {\partial L} {\partial a_i} = - \sum_{k=1}^{K} y_k \cdot \frac{\partial \log(p_k)} {\partial a_i} = - \sum_{k=1}^{K} y_k \cdot \frac{\partial \log(p_k)} {\partial p_k} \cdot \frac{\partial p_k} {\partial a_i} \\<br>= - \sum_{k=1}^K y_k \frac{1}{p_k} \cdot \frac{\partial p_k} {\partial a_i} \\<br>= - \sum_{k=1}^K y_k \frac{1}{p_k} \cdot \left(p_k (\delta_{ki} - p_i) \right) = - \sum_{k=1}^K y_k (\delta_{ki} - p_i) \\<br>= - y_i (1 - p_i) - \sum_{k \neq i} y_k p_i \\<br>= \sum_{k=1}^K y_k * p_i - y_i = \mathbf{p_i - y_i}<br>$$</p>
+<p>因为$\sum_{k=1}^K p_k = 1$。所以基于Softmax函数的交叉熵损失梯度（对于logits $a_i$）表达式为：</p>
+<p>$$<br>\mathbf{\frac{\partial L} {\partial a_i} = p_i - y_i}<br>$$</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/深度学习/">深度学习</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Attention/">Attention</a><a href="/tags/Pooling/">Pooling</a><a href="/tags/Softmax/">Softmax</a><a href="/tags/反向传播/">反向传播</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/deep_learning/dl-chapter2-dnn/" title="第02章：深度神经网络" itemprop="url">第02章：深度神经网络</a>
   </h1>
   <p class="article-author">By
@@ -5166,93 +5368,9 @@ double <span class="function"><span class="keyword">val</span> =</span> <span cl
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/computational_ads/ca-chapter1.1-introduction/" title="Chapter1.1 网络广告的前世今生" itemprop="url">Chapter1.1 网络广告的前世今生</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
-		
-  <p class="article-time">
-    <time datetime="2015-04-20T14:54:37.000Z" itemprop="datePublished"> 发表于 2015-04-20</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <ul>
-<li>Author: zhouyongsdzh@foxmail.com </li>
-<li>Date: 2015-04-20</li>
-</ul>
-<h3 id="写在前面"><strong>写在前面</strong></h3><p>计算广告学从字面上理解主要包括两个方面，一个是广告，另一个是计算。如果在20年甚至10年之前，人们也许想不到计算与广告也会发生关系。然而在互联网时代快速变迁的今天，以大数据和人工智能为核心的互联网时代，不仅加剧对传统行业的改造，同时也改变了互联网自身的商业变现模式与规则。</p>
-<p>我们先来看看广告是什么？有人说是市场营销的一种手段，是商业推广最给力的工具之一等等。 一言以蔽之，广告的背后是商业及其内在的规模。</p>
-<p>广告里的计算又是什么呢？包括哪些内容呢？这里的计算不仅包括大规模的数据处理、数据分析、数据存储、数据挖掘、机器学习、海量数据计算（离线计算、流式计算、内存计算），同时也涉及到博弈、竞价、拍卖、交易等经济学范畴的综合体。</p>
-<p>下面，我们分别介绍这两部分包含的内容。</p>
-<h3 id="1-1_网络广告分类">1.1 网络广告分类</h3><p>按计费方式、广告创意、投放方式、广告产品形态等分类</p>
-<h3 id="1-2_网络广告发展史">1.2 网络广告发展史</h3><p>1994年开始 -&gt; 展示、搜索 -&gt; 技术驱动 -&gt; 当前广告生态圈</p>
-<p>世界广告的发展史可以追溯至几千年前。而网络广告的媒介是互联网，互联网的发展从1969年至今还未到半个世纪，因此网络广告的历史就更短了。</p>
-<p>第一个网络广告何时、何地出现的呢？追本溯源，网络广告起源于美国。1994年10月27日是网络广告发展史上的里程碑，当时著名的商业网络杂志Hotwired推出了网络版的Hotwired（注：美国科技新闻评论网，现更名为Wired，2006年7月11日被Conde Nast Publishing收购），并首次在网站上推出了网络广告，在当时立即吸引了AT&amp;T等14个客户在其主页上发布广告，10月27日，AT&amp;T的一个468*60的Banner广告出现在页面上时，标志着网络广告正式诞生。更值得一提的是，该广告的点击率达到40%。</p>
-<p>像AT&amp;T这种在网站的页面上展示banner广告创意的产品形式，这种投放方式称为<strong>展示广告（Display Advertising）</strong>。虽然是在网络这个新媒介上展示，但基本延续了传统广告投放的那一套思路和逻辑。大致过程如下：4A广告代理公司（如奥美等）把网站上的HTML页面当作杂志的版面，在里面设置广告位，然后把广告的创意（图片方式）嵌入到广告位中。网站在广告代理商眼里就相当于一本本的杂志，采买的思路和逻辑与线下的报刊、杂志基本无异。</p>
-<p>还有一个非常重要的关键点，就是广告的售卖模式。想一下，广告主与传统的广告媒介（如电视、报刊、杂志等）是如何谈费用的？双方谈判的其中一个焦点就是广告投放位置、广告投放时间、每个时间单位（按天、周、月）的费用、广告投放的页面中是否可包括竞品的推广信息等，一切细节等谈妥后以合约的方式确定下来。像这种采用合同约定的方式确定某一广告位在某段时间内为某特定广告主所独占，确定广告创意允许范围以及同一页面上的广告排它策略等，这类售卖模式称为<strong>合约式广告（Agreement-based Advertising）</strong>。展示广告的发展在很长一段时间内都在采用传统广告的这一套售卖模式，至今为止这种售卖模式仍旧存在。</p>
-<p>该阶段的广告虽然是按照时间单位计费，但是不同流量规模的网站在相同的时间单位内的费用自然也不同。一个每天拥有10亿流量的网站和另一个每天只有1亿流量的网站，如果广告主分别在这两个网站都投放1个月的广告，前者应该支付更高的费用。那个到底该如何去计费呢？业内普遍采用一个指标：千人成本。即1千个人看到展示的广告后，广告主应该向网站支付的广告成本，称为<strong>CPM计费（Cost Per Mille）</strong>。计算公式如下：</p>
-<p>CPM =（广告费用/到达人数）×1000</p>
-<p>在网络广告发展初期，当时比较大的在线媒体，如AOL（美国在线）、雅虎等网站，已经有了不错的流量规模，它们采用展示广告＋合约售卖的方式，给自身带来了相当可观的营收和利润。那么，随着流量的增长和品牌认知度的提高，通过提高广告位报价的方式，可以保证这些互联网公司业绩的持续增长。但是当网站的流量规模和品牌认知度趋于稳定时，广告主很难再接受广告位的提价，那这些互联网企业又该如何保证业绩的增长呢？</p>
-<p>事情发展到此时，貌似出现了瓶颈。但是不久之后，互联网广告的运营者们经过探索，发现了在线广告不同于传统媒体广告的一个本质特点：<strong>同一个广告位可以对不同的受众（Audience）呈现不同的广告创意</strong>。</p>
-<blockquote>
-<p>举例：两个广告A和B，A广告的定位人群是男性，B广告的定位人群是女性。广告位P每天touch的流量有100W，其中男女比例1:1，各50万。</p>
-<p>按照之前的方式，广告位P只能展示一种广告（非A即B），给广告主带来的收益为1W。但是不管P展示的A还是B，对于广告主而言只能得到50W的有效流量，另外50W对广告主没有意义。因为任何一个产品都有自己的受众人群，非受众人群对该产品很少带来转化。</p>
-<p>现在同一个广告位可以针对不同的人群展示不同的广告创意，判断如果该流量对应的用户是男性，给其展示A广告；如果是女性，展示B广告。</p>
-<p>此时对于A、B广告主而言，都获得了50W的有效流量。对于任意一个广告主而言，之前100W流量需要1W的费用，现在的流量虽然是50W，但有效流量的比重在提升，费用应该在(5K, 1W]之间，假设是6K。那么网站从广告主那里拿到的总费用为1.2W。</p>
-<p>对于网站而言，流量没有变化，但是通过计算用户性别（属于受众定向范畴，第3章详细介绍）的方式可以让收益从1W增加到1.2W。</p>
-</blockquote>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/计算广告学/">计算广告学</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/计算广告学/">计算广告学</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
   </nav>
 
 </div>

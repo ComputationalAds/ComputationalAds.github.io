@@ -11,72 +11,105 @@
     
 
     
-    <meta name="description" content="基于关键词的召回算法与系统重要技术方向
+    <meta name="description" content="机器学习预估系统与算法模型以CTR预估为例
 
-
-
-方向
-目标
-主要工作
-相关指标
+预估算法系统综述
+预估系统架构 
+广告算法预估模块
+CTR, CVR, 交易额，ROI等 
 
 
 
 
-查询理解
-理解用户查询意图，优化召回与排序结果的相关性
-1. Query分析：分词、词权重、纠错、成分分析；2. Query理解：意图识别、类目识别、地址识别
-1. 离线指标：在测试集上的准召率、F12. 线上指标：CTR 3. 关注指标：覆盖率、密度、RPS等；
+预估算法模型
+大规模稀疏模型
+Boosting模型
+Embedding+NN模型
+Wide&amp;amp;Deep
+DeepFM
+DIN
 
 
-召回模型
-在保证相关性的前提下，提升召回结果">
+DNN+用户行为序列
+
+
+预估算法工程
+大数据处理框架
+特征抽取框架 
+离线训练框架
+在线预估服务
+
+
+
+预估算法模型">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算广告与机器学习">
-<meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter9-recall-algorithm/index.html">
+<meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter10-ctrcvr/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
-<meta property="og:description" content="基于关键词的召回算法与系统重要技术方向
+<meta property="og:description" content="机器学习预估系统与算法模型以CTR预估为例
 
-
-
-方向
-目标
-主要工作
-相关指标
+预估算法系统综述
+预估系统架构 
+广告算法预估模块
+CTR, CVR, 交易额，ROI等 
 
 
 
 
-查询理解
-理解用户查询意图，优化召回与排序结果的相关性
-1. Query分析：分词、词权重、纠错、成分分析；2. Query理解：意图识别、类目识别、地址识别
-1. 离线指标：在测试集上的准召率、F12. 线上指标：CTR 3. 关注指标：覆盖率、密度、RPS等；
+预估算法模型
+大规模稀疏模型
+Boosting模型
+Embedding+NN模型
+Wide&amp;amp;Deep
+DeepFM
+DIN
 
 
-召回模型
-在保证相关性的前提下，提升召回结果">
+DNN+用户行为序列
+
+
+预估算法工程
+大数据处理框架
+特征抽取框架 
+离线训练框架
+在线预估服务
+
+
+
+预估算法模型">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算广告与机器学习">
-<meta name="twitter:description" content="基于关键词的召回算法与系统重要技术方向
+<meta name="twitter:description" content="机器学习预估系统与算法模型以CTR预估为例
 
-
-
-方向
-目标
-主要工作
-相关指标
+预估算法系统综述
+预估系统架构 
+广告算法预估模块
+CTR, CVR, 交易额，ROI等 
 
 
 
 
-查询理解
-理解用户查询意图，优化召回与排序结果的相关性
-1. Query分析：分词、词权重、纠错、成分分析；2. Query理解：意图识别、类目识别、地址识别
-1. 离线指标：在测试集上的准召率、F12. 线上指标：CTR 3. 关注指标：覆盖率、密度、RPS等；
+预估算法模型
+大规模稀疏模型
+Boosting模型
+Embedding+NN模型
+Wide&amp;amp;Deep
+DeepFM
+DIN
 
 
-召回模型
-在保证相关性的前提下，提升召回结果">
+DNN+用户行为序列
+
+
+预估算法工程
+大数据处理框架
+特征抽取框架 
+离线训练框架
+在线预估服务
+
+
+
+预估算法模型">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -136,14 +169,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/deep_learning/dl-chapter9-recall-algorithm/" title="" itemprop="url"></a>
+      <a href="/deep_learning/dl-chapter10-ctrcvr/" title="" itemprop="url"></a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2020-03-04T23:56:38.000Z" itemprop="datePublished"> 发表于 2020-03-05</time>
+    <time datetime="2020-03-15T07:38:15.000Z" itemprop="datePublished"> 发表于 2020-03-15</time>
     
   </p>
 </header>
@@ -152,87 +185,130 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基于关键词的召回算法与系统"><span class="toc-number">1.</span> <span class="toc-text">基于关键词的召回算法与系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0.召回算法系统综述"><span class="toc-number">2.</span> <span class="toc-text">召回算法系统综述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2.召回工作方向"><span class="toc-number">3.</span> <span class="toc-text">召回工作方向</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.查询理解"><span class="toc-number">3.1.</span> <span class="toc-text">查询理解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.1.1.Query分析"><span class="toc-number">3.1.1.</span> <span class="toc-text">Query分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.1.2.意图识别"><span class="toc-number">3.1.2.</span> <span class="toc-text">Query理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.1.3.查询改写"><span class="toc-number">3.1.3.</span> <span class="toc-text">查询改写</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.2.召回算法"><span class="toc-number">3.2.</span> <span class="toc-text">召回算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.1.传统召回算法"><span class="toc-number">3.2.1.</span> <span class="toc-text">传统召回算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.2.传统召回算法"><span class="toc-number">3.2.2.</span> <span class="toc-text">传统召回算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.3.向量召回"><span class="toc-number">3.2.3.</span> <span class="toc-text">向量召回</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.3.知识图谱"><span class="toc-number">3.3.</span> <span class="toc-text">知识图谱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.4.工程建设"><span class="toc-number">3.4.</span> <span class="toc-text">工程建设</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.4.1.索引系统"><span class="toc-number">3.4.1.</span> <span class="toc-text">索引系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.5.1.工具积累"><span class="toc-number">3.4.2.</span> <span class="toc-text">工具积累</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#机器学习预估系统与算法模型"><span class="toc-number">1.</span> <span class="toc-text">机器学习预估系统与算法模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法模型"><span class="toc-number">2.</span> <span class="toc-text">预估算法模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.Embedding+NN模型"><span class="toc-number">2.1.</span> <span class="toc-text">Embedding+NN模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.1.WideAndDeep"><span class="toc-number">2.1.1.</span> <span class="toc-text">Wide&Deep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.2.DeepFM"><span class="toc-number">2.1.2.</span> <span class="toc-text">DeepFM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.3.DIN"><span class="toc-number">2.1.3.</span> <span class="toc-text">DIN</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-		<h1 id="基于关键词的召回算法与系统">基于关键词的召回算法与系统</h1><p>重要技术方向</p>
-<table>
-<thead>
-<tr>
-<th>方向</th>
-<th>目标</th>
-<th>主要工作</th>
-<th>相关指标</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>查询理解</td>
-<td>理解用户查询意图，优化召回与排序结果的相关性</td>
-<td>1. Query分析：分词、词权重、纠错、成分分析；<br>2. Query理解：意图识别、类目识别、地址识别</td>
-<td>1. 离线指标：在测试集上的准召率、F1<br>2. 线上指标：CTR <br>3. 关注指标：覆盖率、密度、RPS等；</td>
-</tr>
-<tr>
-<td>召回模型</td>
-<td>在保证相关性的前提下，提升召回结果</td>
-<td>1. 查询改写：改写词召回；<br>2. 相关性校验：改写词排序；<br>3. 向量召回：双塔、Graph Embedding等；<br>4. 粗排：Q-P相关性</td>
-<td>1. 离线指标：AUC；<br>2. 线上指标：召回率、覆盖率、密度；<br>3. 关注指标：CTR、RPS、访购率；</td>
-</tr>
-<tr>
-<td>知识图谱</td>
-<td>1. 保证准确的前提下，扩充广告node数量；<br>2. 保证相关性的前提下，提升召回结果</td>
-<td>1. 实体词、标签词挖掘；<br>2. 同义、上下位关系挖掘</td>
-<td>1. 离线指标：在测试集上的准召率、F1；<br>2. 线上指标：召回率、覆盖率、密度；<br>3. 线上指标：CTR、RPS、访购率；</td>
-</tr>
-<tr>
-<td>创意优化</td>
-<td>1. 通过优化图像、文本的质量，提升CTR</td>
-<td>1. 图片召回：数据源、图片候选模型(pairwise、end2end)；<br>2. 图片排序：图片特征挖掘；<br>3. 按搜出图文：类目、标签体系与图文的关系挖掘；<br>4. </td>
-</tr>
-</tbody>
-</table>
-<h1 id="0.召回算法系统综述">召回算法系统综述</h1>
-
-
-
-<h1 id="2.召回工作方向">召回工作方向</h1>
-
-
-<h2 id="2.1.查询理解">查询理解</h2>
-
-<h3 id="2.1.1.Query分析">Query分析</h3>
-
-<h3 id="2.1.2.意图识别">Query理解</h3>
-
-<p>各种识别，多分类模型；</p>
-<h3 id="2.1.3.查询改写">查询改写</h3>
-
-<h2 id="2.2.召回算法">召回算法</h2>
-
-<h3 id="2.2.1.传统召回算法">传统召回算法</h3>
-
-<h3 id="2.2.2.传统召回算法">传统召回算法</h3>
-
-<h3 id="2.2.3.向量召回">向量召回</h3>
-
-<p>基于Graph Embedding方法</p>
-<h2 id="2.3.知识图谱">知识图谱</h2>
-
-<p>各种关系挖掘，建立实体、标签等关系，挖掘知识；</p>
-<h2 id="2.4.工程建设">工程建设</h2>
-
-<h3 id="2.4.1.索引系统">索引系统</h3>
-
-<p>高性能索引系统（支持实时增删功能），相似度搜索，召回服务；</p>
-<h3 id="2.5.1.工具积累">工具积累</h3>
-
-
+		<h1 id="机器学习预估系统与算法模型">机器学习预估系统与算法模型</h1><p>以CTR预估为例</p>
 <ul>
-<li>可视化工具，如query画像；</li>
-<li>case追踪工具；</li>
-<li>指标监控工具：实时与天级别；</li>
+<li><a href="#0.预估算法系统综述">预估算法系统综述</a><ul>
+<li><a href="#0.2.预估系统架构">预估系统架构</a> </li>
+<li><a href="#0.3.广告算法预估模块">广告算法预估模块</a><ul>
+<li>CTR, CVR, 交易额，ROI等 </li>
 </ul>
+</li>
+</ul>
+</li>
+<li><a href="#1.预估算法模型">预估算法模型</a><ul>
+<li><a href="#1.1">大规模稀疏模型</a></li>
+<li><a href="#1.2">Boosting模型</a></li>
+<li><a href="#1.3.Embedding+NN模型">Embedding+NN模型</a><ul>
+<li><a href="#1.3.1.WideAndDeep">Wide&amp;Deep</a></li>
+<li><a href="#1.3.2.DeepFM">DeepFM</a></li>
+<li><a href="#1.3.3.DIN">DIN</a></li>
+</ul>
+</li>
+<li><a href="#1.4.">DNN+用户行为序列</a></li>
+</ul>
+</li>
+<li><a href="#2.预估算法工程">预估算法工程</a><ul>
+<li><a href="#2.1.大数据处理框架">大数据处理框架</a></li>
+<li><a href="#2.2.特征抽取框架">特征抽取框架</a> </li>
+<li><a href="#2.3.离线训练框架">离线训练框架</a></li>
+<li><a href="#2.4.在线预估服务">在线预估服务</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="1.预估算法模型">预估算法模型</h1>
+
+
+<h2 id="1.3.Embedding+NN模型">Embedding+NN模型</h2>
+
+<p>TODO，介绍该类模型特点</p>
+<h3 id="1.3.1.WideAndDeep">Wide&amp;Deep</h3>
+
+<p>Wide&amp;Deep模型是Google于2016年在DLRS会议上发表的文章《Wide&amp;Deep Learning for Recommender System》。文中设计了一种<strong>融合浅层模型（wide）和深层模型（deep）进行联合训练的框架，综合浅层模型的记忆能力（wide）和DNN模型的泛化能力，从而提升模型整体性能</strong>。</p>
+<blockquote>
+<p>该模型成功应用在Google Play的app推荐业务中，并取得下载率3.9%的提升。线上性能通过batch size分包，多线程并行调用（处理）达到提升效率的目的，单次响应耗时由31ms降至14ms。 </p>
+</blockquote>
+<p>从用户体验的角度讲，搜索、推荐、广告都存在的一个挑战是如何通过获得返回结果的准确性和扩展性。更多时候，最好的状态是二者兼顾，不可偏废。</p>
+<blockquote>
+<ol>
+<li>如果返回结果都是精准内容（与用户历史强相关），那么易造成用户兴趣收敛，无新鲜感，不利于用户长久留存，同时浪费了流量价值；</li>
+<li>如果返回结果内容过于泛化，用户的精准兴趣无法得到满足，用户体验欠佳，流失风险较大。</li>
+</ol>
+</blockquote>
+<p>因此，相对于准确性，扩展性倾向于改善返回结果的多样性。</p>
+<p>另外，从机器学习模型能力的角度讲，模型能力的核心就是其表达能力，而表达能力可以从两个方面解读，即模型的记忆能力和泛化能力。更多时候，表达能力也需要在二者之间平衡。</p>
+<blockquote>
+<ol>
+<li>过度追求模型的记忆能力，易造成模型过拟合。因为我们可以用很复杂的模型或设计复杂的特征来拟合训练样本，但是在测试数据上表现不一定好；</li>
+<li>过度追求模型泛化能力，会出现模型表达能力不够，使得模型区分性差。在推荐场景下可能无法真正做法个性化推荐；在广告CTR预估场景，过于泛化的模型影响预估的精准度，继而影响计费等；</li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>记忆能力（Memorization）</strong></li>
+</ul>
+<p>超大规模稀疏机器学习模型的特征体系通常离不开人工设计的组合特征（又叫交叉特征，cross-product）。通过设计二阶或高阶组合特征可以描述稀疏特征之间的关联性（这里特指共现性），基于此训练得到的模型可以很好的记忆历史数据中曾经共现过的组合特征信息。</p>
+<p>传统超大规模稀疏模型如LR、FFM等，特征工程两个主要思路：</p>
+<ol>
+<li>离散特征：基于原始离散特征，设计2阶或高阶组合特征，如<code>user-item</code>, <code>request-item</code>, <code>user-request-item</code>等；</li>
+<li>连续特征：做特征离散化，之后当作离散特征训练大规模稀疏模型。</li>
+</ol>
+<p>以上方法的优点是实现快速高效、特征重要性易分析、模型可解释性高等，在我们广告CTR预估系统证明非常有效（以FFM模型为例，亿级别特征，10GB+模型）</p>
+<blockquote>
+<p>模型效果比较：高维稀疏特征+LR模型 &amp;&amp; 低维连续特征+GBDT模型，在广告CTR核心广告位，auc／rps指标前者好于后者均在5%以上；</p>
+</blockquote>
+<p>人工设计特征这一点不能作为传统大规模稀疏模型的缺点，因为特征工程方面的工作本身就包涵了特征设计本身，这一点与具体模型关系不大。另外，个人经验，相对传统预估模型，DNN模型对特征工程的要求更高（因为特征种类更复杂，特征尺度要保持一致，如连续特征归一化等）。</p>
+<p><strong>记忆能力的缺点：易出现过拟合</strong>。设计更加稀疏or更复杂的模型理论上可以无限拟合训练样本，但是也易出现模型的泛化能力较差在测试集表现不好。解决该问题的方法通常有：</p>
+<ol>
+<li>稀疏特征频次过滤（通过设定阈值），训练样本不包含小于阈值的稀疏特征；</li>
+<li>模型训练时，优化目标加上L1惩罚项或使用FTRL优化算法等，得到模型的稀疏表示。</li>
+</ol>
+<ul>
+<li><strong>泛化能力（Generialization）</strong></li>
+</ul>
+<p>在WDL文章中，对于泛化能力的理解是：为sparse特征学习低维的dense embedding用来表示特征相关性（Deep层的输入可以包含sparse特征和dense特征）。</p>
+<p>泛化能力的优点是可以减少人工组合特征，对历史上没有出现的特征组合有一定的泛化性（类似FM）。但是物极必反，当<code>&lt;user,item&gt;</code>非常稀疏时，例如有和独特偏好的users以及很小众的items，DNN很难为users和items学习到有效的embedding。这种情况下，大部分<code>&lt;user,item&gt;</code>应该是没有关联的，但dense embedding 的方法还是可以得到对所有<code>&lt;user,item&gt;</code> pair 的非零预测，因此导致 过于泛化（over-generalize）并推荐无相关性的内容，准确性得不到保证。此时Memorization就展示了优势，它可以“记住”这些特殊的特征组合。</p>
+<p>Memorization根据历史行为数据，返回的结果通常和用户已有行为的直接相关的item。而Generalization会学习新的特征模式，提高推荐item的多样性。 论文作者结合两者的优点，提出了一个新的学习算法——Wide&amp;Deep Learning，其中Wide、Deep分别对应Memorization、Generalization。</p>
+<ul>
+<li><strong>模型结构</strong></li>
+</ul>
+<p><strong>TODO 用DL工具画图</strong></p>
+<p>模型表达式为：</p>
+<p>$$<br>P(y=1|x) = \sigma\left(W_{wide}^T [x, \phi(x)] + W_{deep}^T \mathcal{a}^{(l_f)} + b \right) = \sigma\left(y_{\text{LR}} + y_{\text{DNN}} \right)<br>$$</p>
+<p>其中，$\mathcal{a}^{(l_f)} = f(W^{(l-1)} \mathcal{a}^{(l-1)} + b^{(l-1)})$</p>
+<ol>
+<li>Wide部分：广义线性模型；</li>
+<li>Deep部分：sparse特征输入学习低维embedding（embedding层），之后多层全连接，如果有dense特征，在全连接前与embedding输出concat在一起；</li>
+<li>损失函数：交叉熵损失；</li>
+<li>模型训练：论文中wide部分FTRL，deep部分AdaGrad算法；</li>
+</ol>
+<h3 id="1.3.2.DeepFM">DeepFM</h3>
+
+<p>DeepFM是2017年华为发表在IJCAI会议上的一篇文章《DeepFM: A Factorization-Machine based Neural Network for CTR Prediction》提出的模型。</p>
+<p>DeepFM模型的初衷同样是强化特征之间的交互关系，比如<code>&lt;饭点儿，外卖&gt;</code>反映了时间特征与item类别之间的关系。除此之外，还有其它的特征组合关系，有些很容易想到，有些因为不符合我们平时的认知不容易想出来。怎么办呢？当然是希望机器可以帮助我们自动学到很多特征之间的关系。</p>
+<p>DeepFM模型结构融合了FM和DNN两部分，前者负责二阶组合特征的学习，后者侧重于高阶特征的学习。这两部分共享embedding层。因此DeepFM模型结构可以理解为：</p>
+<p>$$<br>P(y=1|x) = \sigma \left(y_{\text{FM}} + y_{\text{DNN}} \right)<br>$$</p>
+<blockquote>
+<p>关于FM／FFM模型在<a href="http://www.52caml.com/head_first_ml/ml-chapter9-factorization-family/" target="_blank" rel="external">第09章：深入浅出ML之Factorization家族</a>中有详细的解读。</p>
+</blockquote>
+<p><strong>DeepFM vs FNN vs PNN</strong></p>
+<ol>
+<li>DeepFM: FM+DNN并行结构；</li>
+<li>FNN: FN,DNN串行结构。FM模型先训练好embedding，然后作为DNN的输入；</li>
+<li>PNN: 在embedding层与FC层添加了product操作（内积或外积），之后与原始的embedding层concat后作为FC的输入；</li>
+</ol>
+<p>总结DeepFM：FM和DNN共享embedding，同时学习模型二阶和高阶信息。</p>
+<h3 id="1.3.3.DIN">DIN</h3>
+
+<p>结合下述问题，先睹为快：</p>
+<ol>
+<li>DIN激活单元是如何工作的？是self-attention的实现吗？</li>
+<li>用户行为A,B,C分别点击了3次、1次、2次，那么广告D如何与用户行为作attention操作，是与ABC做attention，还是A,A,A,B,C,C做attention？</li>
+<li>dice激活函数在tf中的实现？</li>
+<li>自适应正则在tf中的实现？</li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -245,7 +321,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/deep_learning/dl-chapter9-recall-algorithm/" data-title="计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/deep_learning/dl-chapter10-ctrcvr/" data-title="计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -258,19 +334,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/deep_learning/dl-chapter10-ctrcvr/" title="">
-  <strong>上一篇：</strong><br/>
-  <span>
-  (no title)</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/head_first_ml/ml-chapter1-regression-family/"  title="第01章：深入浅出ML之Regression家族">
+<a href="/deep_learning/dl-chapter9-recall-algorithm/"  title="">
  <strong>下一篇：</strong><br/> 
- <span>第01章：深入浅出ML之Regression家族
+ <span>(no title)
 </span>
 </a>
 </div>
@@ -285,7 +353,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基于关键词的召回算法与系统"><span class="toc-number">1.</span> <span class="toc-text">基于关键词的召回算法与系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0.召回算法系统综述"><span class="toc-number">2.</span> <span class="toc-text">召回算法系统综述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2.召回工作方向"><span class="toc-number">3.</span> <span class="toc-text">召回工作方向</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.查询理解"><span class="toc-number">3.1.</span> <span class="toc-text">查询理解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.1.1.Query分析"><span class="toc-number">3.1.1.</span> <span class="toc-text">Query分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.1.2.意图识别"><span class="toc-number">3.1.2.</span> <span class="toc-text">Query理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.1.3.查询改写"><span class="toc-number">3.1.3.</span> <span class="toc-text">查询改写</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.2.召回算法"><span class="toc-number">3.2.</span> <span class="toc-text">召回算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.1.传统召回算法"><span class="toc-number">3.2.1.</span> <span class="toc-text">传统召回算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.2.传统召回算法"><span class="toc-number">3.2.2.</span> <span class="toc-text">传统召回算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.3.向量召回"><span class="toc-number">3.2.3.</span> <span class="toc-text">向量召回</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.3.知识图谱"><span class="toc-number">3.3.</span> <span class="toc-text">知识图谱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.4.工程建设"><span class="toc-number">3.4.</span> <span class="toc-text">工程建设</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.4.1.索引系统"><span class="toc-number">3.4.1.</span> <span class="toc-text">索引系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.5.1.工具积累"><span class="toc-number">3.4.2.</span> <span class="toc-text">工具积累</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#机器学习预估系统与算法模型"><span class="toc-number">1.</span> <span class="toc-text">机器学习预估系统与算法模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法模型"><span class="toc-number">2.</span> <span class="toc-text">预估算法模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.Embedding+NN模型"><span class="toc-number">2.1.</span> <span class="toc-text">Embedding+NN模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.1.WideAndDeep"><span class="toc-number">2.1.1.</span> <span class="toc-text">Wide&Deep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.2.DeepFM"><span class="toc-number">2.1.2.</span> <span class="toc-text">DeepFM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.3.DIN"><span class="toc-number">2.1.3.</span> <span class="toc-text">DIN</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
