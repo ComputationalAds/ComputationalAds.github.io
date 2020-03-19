@@ -228,10 +228,10 @@ weibo: @周永_52ML
 <ul>
 <li>隐藏状态层（Hidden Status）</li>
 </ul>
-<p>RNN的隐层要从两个维度看：1. 真对每一个词的embedding，$e^{(t)}$有对应的共享参数$W_e$和$b_1$；2. 词序方向，有对应的共享参数$W_h$。那么，<strong>每一个词的隐层输出$h^{(t)}$既与该词的$e^{(t)}$有关，也与前一个词的隐层输出$h^{(t-1)}$有关</strong>。公式表示如下：</p>
-<p>$$<br>h^{(t)} = \sigma(W_h h^{(t-1)} + W_e e^{(t)} + b_e)<br>$$</p>
-<p>其中$h^{(0)}$为初始隐层状态（需要初始化），$\sigma$是激活函数？</p>
-<p><strong>疑问：$h^{(t)}$等各维度shape通常是多大？$h^{(0)}$如何初始化？</strong></p>
+<p>RNN的隐层要从两个维度看：1. 针对每一个词的embedding，$e^{(t)}$有对应的共享参数$W_e$和$b_1$；2. 词序方向，有对应的共享参数$W_h$。那么，<strong>每一个词的隐层输出$h^{(t)}$既与该词的$e^{(t)}$有关，也与前一个词的隐层输出$h^{(t-1)}$有关</strong>。公式表示如下：</p>
+<p>$$<br>h^{(t)} = \sigma(W_h h^{(t-1)} + W_e e^{(t)} + b_1)<br>$$</p>
+<p>其中$h^{(0)}$为初始隐层状态（需要初始化），$\sigma$是激活函数。</p>
+<p><strong>疑问：$h^{(t)}$等各维度shape通常是多大？$h^{(0)}$如何初始化？$\sigma$表达式？</strong></p>
 <ul>
 <li>输出层</li>
 </ul>
@@ -249,20 +249,16 @@ weibo: @周永_52ML
 <tbody>
 <tr>
 <td>RNN</td>
-<td>1. 能够处理任意长度的输入（相对fixed-window）且模型大小固定</td>
+<td>1. 能够处理任意长度的输入（相对fixed-window）且模型大小固定<br>2. 对于第$t$步的计算理论上可以使用前面很多步的信息<br>3. 对称性？Same weights applied on every timestep, so there is symmetry in how inputs are processed.</td>
+<td>1. 循环网络结构计算太慢；<br>2. 实际中，模型很难学到前面多步反馈的信息，<strong>存在因梯度消失导致的信息丢失</strong>问题；</td>
 </tr>
 </tbody>
 </table>
-<ol>
-<li>对于第$t$步的计算理论上可以使用前面很多步的信息</li>
-<li>对称性？Same weights applied on every timestep, so there is symmetry in how inputs are processed. | 1. 循环网络结构计算太慢；</li>
-<li>实际中，模型很难学到前面多步反馈的信息，存在因梯度消失导致的信息丢失问题；|</li>
-</ol>
 <p>下面我们介绍RNN模型参数是如何学习和训练的？</p>
 <h3 id="4.3.2.RNN模型参数学习">RNN模型参数学习</h3>
 
 <p>训练RNN模型的文本语料数据表示为一个很长的词序列$x^{(1)}, \cdots, x^{(T)}$ ($T$为文本长度)。依次喂给RNN模型并计算第$t$步的输出概率分布（$t=1,\cdots,T$），每一步的损失函数为交叉熵损失。公式表示如下：</p>
-<p>$$<br>J^{(t)}(\theta) = CE(\hat{h}^{(t)}, h^{(t)}) = - \sum_{w \in W} y_w^{(t)} \text{log} \hat{y}_w^{(t)} = - \text{log} \hat{y}_{x^{(t+1)}}^{(t)}<br>$$</p>
+<p>$$<br>J^{(t)}(\theta) = CE(\hat{y}^{(t)}, h^{(t)}) = - \sum_{w \in W} y_w^{(t)} \text{log} \hat{y}_w^{(t)} = - \text{log} \hat{y}_{x^{(t+1)}}^{(t)}<br>$$</p>
 <p>那么对于整个训练预料来说，损失函数为：</p>
 <p>$$<br>J(\theta) = \frac{1}{T} \sum_{t=1}^{T} J^{(t)}(\theta) = - \frac{1}{T} \sum_{t=1}^{T} \text{log} \hat{y}_{x^{(t+1)}}^{(t)}<br>$$</p>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_loss_function.png" ;="" width="600" height="400" alt="RNN损失函数"></p>
@@ -274,7 +270,7 @@ weibo: @周永_52ML
 <li>隐状态层的共享权重参数$W_h$的倒数如何求？如下图：</li>
 </ul>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_backprogation.png" ;="" width="500" height="300" alt="RNN反向传播"></p>
-<p>根据多变量链式法则，一个变量的梯度等于下游多个函数对其求导结果的累加和。公式表示为：</p>
+<p>根据<strong>多变量链式法则</strong>，一个变量的梯度等于下游多个函数对其求导结果的累加和。公式表示为：</p>
 <p>$$<br>\frac{\partial J^{(t)}(\theta)} {\partial W_h } = \sum_{i=1}^{t} \frac{\partial J^{(t)} (\theta)} {\partial W_h} \vert_{(i)}<br>$$</p>
 <p>我们可以看到，权重参数$W_h$的梯度对应的计算有$(1+2+\cdots+T)=\frac{1}{2}T(T+1)$次（$T$表示语料长度），梯度的计算复杂度是$O(T^2)$。</p>
 <h3 id="4.3.4.RNN应用_文本生成">RNN应用－文本生成</h3>
@@ -285,13 +281,13 @@ weibo: @周永_52ML
 
 <p>评估语言模型效果的方式是困惑度（perplexity）。公式表示为：</p>
 <p>$$<br>\begin{align}<br>perplexity &amp;= \prod_{t=1}^{T} \left(\frac{1} {P_{LM}(x^{(t+1)}|x^{(t)},\cdots,x^{(1)})}\right)^{\frac{1}{T}} \\\<br>&amp;= \prod_{t=1}^{T} \left(\frac{1} {\hat{y}_{x_{t+1}}^{(t)}}\right)^{\frac{1}{T}} = \exp \left(\frac{1}{T} \sum_{t=1}^T -\log \hat{y}_{x_{t+1}}^{(t)} \right) = \exp(J(\theta))<br>\end{align}<br>$$</p>
-<p>可以看到，表达式是语言模型概率公式的导数，指数$\frac{1}{T}$用于词数作归一化。上式等价于<strong>语言模型损失函数的指数</strong>。所以perlexity越小，说明语言模型效果越好。</p>
+<p>可以看到，表达式是语言模型概率公式的倒数，指数$\frac{1}{T}$作用是词数作归一化。上式等价于<strong>语言模型损失函数的指数</strong>。所以perlexity越小，说明语言模型效果越好。</p>
 <h3 id="4.3.5.RNN存在的问题">RNN存在的问题</h3>
 
 <p>RNN模型从参数学习的角度看，最大的问题是存在梯度消失的问题(gradient vanish)。根据链式法则，第$t$步的损失函数对第一个隐藏状态层$h^{(1)}$求导时，可以看到：</p>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter4_rnn_gradient_vanish.png" ;="" width="600" height="450" alt="RNN梯度消失"></p>
 <p>RNN模型结构中提到的$h^{(t-1)}$到$h^{(t)}$的函数表达式为$h^{(t)} = \sigma(W_h h^{(t-1)} + W_x x^{(t)} + b)$，根据链式法则可得$\frac{\partial h^{(t)}} {\partial h^{(t-1)}} = \text{diag} \left(\sigma^{‘} (W_h h^{(t-1)} + W_x x^{(t)} + b) \right) \cdot W_h$。</p>
-<p>如果$\frac{\partial h^{(t)}} {\partial h^{(t-1)}}$很小会怎样呢？就会导致梯度信号随着反向传播的过程越来越弱，出现梯度消失的问题。</p>
+<p>如果$\frac{\partial h^{(t)}} {\partial h^{(t-1)}}$很小会怎样呢？就会导致梯度信号随着反向传播的过程越来越弱，直至出现梯度消失。</p>
 <p>下面简要给出梯度消失的证明过程：考虑第$i$步的损失函数$J^{(i)}(\theta)$，它对应的前面第$j$步的隐藏状态层为$h^{(j)}$，那么可得$J^{(i)}(\theta)$对$h^{(j)}$的导数为：</p>
 <p>$$<br>\begin{align}<br>\frac{\partial J^{(i)}(\theta)} {\partial h^{(j)}} &amp;= \frac{\partial J^{(i)}(\theta)} {\partial h^{(i)}} \prod_{j &lt; t \le i} \frac{\partial h^{(t)}} {\partial h^{(t-1)}} \\\<br>&amp;= \frac{\partial J^{(i)}(\theta)} {\partial h^{(i)}} \cdot W_{h}^{(i-j)} \cdot \prod_{j &lt; t \le i} \text{diag} \left(\sigma^{‘} (W_h h^{(t-1)} + W_x x^{(t)} + b) \right)<br>\end{align}<br>$$</p>
 <p>如果$W_h$比较小（如最大特征值小于1），那么随着$i$和$j$之间的距离越来越大，整体的梯度也就越来越小（指数衰减），最终趋于消失。如果$W_h$特征值大于1，那么梯度会指数级爆炸(exploding gradient)。</p>
@@ -314,8 +310,8 @@ weibo: @周永_52ML
 <p>梯度过大可能导致：1. 跳过最优解；2. 更坏的情况是出现NaN或Inf，不得不重新训练；</p>
 <p>解决梯度爆炸的一种方法是梯度截断（Gradient Clipping），即当梯度大于阈值时，取该阈值。直观的理解就是参数更新时保持方向不变，但是减小更新参数的步幅。</p>
 <p>梯度爆炸有比较直观的解决方案，那么梯度消失问题如何解决呢？</p>
-<p>经典的RNN模型，学习很多步之前的信息是比较困难的，因为隐藏层的状态是一个递归的过程，无法保存长期信息。</p>
-<p>那么，是否可以将长短期信息分开存储并记忆呢？下面讲到的LSTM可以实现这种功能。</p>
+<p>经典的RNN模型，学习很多步之前的信息是比较困难的，因为<strong>隐层的状态是一个递归的过程，无法保存长期信息</strong>。</p>
+<p>那么，是否可以<strong>将长短期信息分开存储并记忆</strong>呢？下面讲到的LSTM可以实现这种功能。</p>
 <h2 id="4.4.Long_Short_Term_Memory">Long Short-Term Memory（LSTM）</h2>
 
 <p>LSTM（长短期记忆网络）在对序列问题建模时，每一步用两个状态表示：隐藏态$h^{(t)}$（hidden status）和细胞态$c^{(t)}$（cell status）。它们都是长度为n的向量，cell status存储长期的信息，LSTM算法可以抹擦、写、读细胞态中的信息。</p>
@@ -353,10 +349,10 @@ weibo: @周永_52ML
 <p>最后，更新门控制哪些隐藏状态被保留，并且更新到隐层状态内容上。表达式为：$h^{(t)} = (1 - u^{(t)}) h^{(t-1)} + u^{(t)} \tilde{h}^{(t)}$</p>
 <blockquote>
 <p>问题：GRU是如何解决梯度消失问题的？</p>
-<p>类似LSTM，GRU通过控制update gate来保存long-term信息的（$u^{(t)}$。</p>
+<p>类似LSTM，GRU通过控制update gate来保存long-term信息的（$u^{(t)}）$。</p>
 </blockquote>
 <p>研究者们提出了很多门控RNN的变种，其中LSTM和GRU最为广泛使用。二者最大的区别是GRU计算更快且参数更少。如果有大量的训练数据或数据中存在长依赖的信息，LSTM是很好的选择。</p>
-<p>是否只有RNN存在梯度消失或爆炸问题呢？显然不是，前馈神经网络、卷积神经网络都可能存在，尤其是在一个维度方向增加层数。由于反向传播时非线性函数的链式反则，梯度可能逐渐变小甚至消失。可以在深度前馈或卷积结构中添加direct connections。比如ResNet, DenseNet, HighWayNet等结构都针对可能出现梯度消失的情况添加了一些操作。</p>
+<p>是否只有RNN存在梯度消失或爆炸问题呢？显然不是，前馈神经网络、卷积神经网络都可能存在，尤其是在一个维度方向增加层数。由于反向传播时非线性函数的链式反则，梯度可能逐渐变小甚至消失。<strong>可以在深度前馈或卷积结构中添加direct connections，比如ResNet, DenseNet, HighWayNet等结构都针对可能出现梯度消失的情况添加了一些操作</strong>。</p>
 <p>除了上述介绍的RNN、LSTM、GRU等模型结构外，下面介绍两个重要的RNN变种：Bi-directional RNNs和Multi-layer RNNs。</p>
 <h2 id="4.6.Bidirectional_RNNs">Bidirectional RNNs</h2>
 

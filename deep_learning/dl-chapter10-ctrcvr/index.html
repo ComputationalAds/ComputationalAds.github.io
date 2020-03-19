@@ -31,17 +31,17 @@ DIN
 
 
 DNN+用户行为序列
+DIEN
+DSIN
+
+
 
 
 预估算法工程
 大数据处理框架
 特征抽取框架 
 离线训练框架
-在线预估服务
-
-
-
-预估算法模型">
+在线预估">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算广告与机器学习">
 <meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter10-ctrcvr/index.html">
@@ -66,17 +66,17 @@ DIN
 
 
 DNN+用户行为序列
+DIEN
+DSIN
+
+
 
 
 预估算法工程
 大数据处理框架
 特征抽取框架 
 离线训练框架
-在线预估服务
-
-
-
-预估算法模型">
+在线预估">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算广告与机器学习">
 <meta name="twitter:description" content="机器学习预估系统与算法模型以CTR预估为例
@@ -99,17 +99,17 @@ DIN
 
 
 DNN+用户行为序列
+DIEN
+DSIN
+
+
 
 
 预估算法工程
 大数据处理框架
 特征抽取框架 
 离线训练框架
-在线预估服务
-
-
-
-预估算法模型">
+在线预估">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -176,7 +176,7 @@ DNN+用户行为序列
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2020-03-15T07:38:15.000Z" itemprop="datePublished"> 发表于 2020-03-15</time>
+    <time datetime="2020-03-19T01:36:17.000Z" itemprop="datePublished"> 发表于 2020-03-19</time>
     
   </p>
 </header>
@@ -185,7 +185,7 @@ DNN+用户行为序列
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#机器学习预估系统与算法模型"><span class="toc-number">1.</span> <span class="toc-text">机器学习预估系统与算法模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法模型"><span class="toc-number">2.</span> <span class="toc-text">预估算法模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.Embedding+NN模型"><span class="toc-number">2.1.</span> <span class="toc-text">Embedding+NN模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.1.WideAndDeep"><span class="toc-number">2.1.1.</span> <span class="toc-text">Wide&Deep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.2.DeepFM"><span class="toc-number">2.1.2.</span> <span class="toc-text">DeepFM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.3.DIN"><span class="toc-number">2.1.3.</span> <span class="toc-text">DIN</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#机器学习预估系统与算法模型"><span class="toc-number">1.</span> <span class="toc-text">机器学习预估系统与算法模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法模型"><span class="toc-number">2.</span> <span class="toc-text">预估算法模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.Embedding+NN模型"><span class="toc-number">2.1.</span> <span class="toc-text">Embedding+NN模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.1.WideAndDeep"><span class="toc-number">2.1.1.</span> <span class="toc-text">Wide&Deep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.2.DeepFM"><span class="toc-number">2.1.2.</span> <span class="toc-text">DeepFM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.3.DIN"><span class="toc-number">2.1.3.</span> <span class="toc-text">DIN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.4.DIEN"><span class="toc-number">2.1.4.</span> <span class="toc-text">DIEN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.5.DSIN"><span class="toc-number">2.1.5.</span> <span class="toc-text">DSIN</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
@@ -208,7 +208,11 @@ DNN+用户行为序列
 <li><a href="#1.3.3.DIN">DIN</a></li>
 </ul>
 </li>
-<li><a href="#1.4.">DNN+用户行为序列</a></li>
+<li><a href="#1.4.DNN+用户行为序列">DNN+用户行为序列</a><ul>
+<li><a href="#1.4.1.DIEN">DIEN</a></li>
+<li><a href="#1.4.2.DSIN">DSIN</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#2.预估算法工程">预估算法工程</a><ul>
@@ -304,11 +308,93 @@ DNN+用户行为序列
 
 <p>结合下述问题，先睹为快：</p>
 <ol>
-<li>DIN激活单元是如何工作的？是self-attention的实现吗？</li>
-<li>用户行为A,B,C分别点击了3次、1次、2次，那么广告D如何与用户行为作attention操作，是与ABC做attention，还是A,A,A,B,C,C做attention？</li>
-<li>dice激活函数在tf中的实现？</li>
+<li>DIN激活单元是如何工作的？是self-attention的实现吗？ 答：不是self-attention，<code>&lt;item, ad&gt;</code>向量作为输入，计算外积之后与两个原向量concat后进入一层FC，使用dice作为激活函数，输出1维值作为激活权重；</li>
+<li>用户行为A,B,C分别点击了3次、1次、2次，那么广告D如何与用户行为作attention操作，是与ABC做attention，还是A,A,A,B,C,C做attention？文章没有提到，不过可以获取A、B、C次数作为权重，在item embedding后给予加权。</li>
+<li>dice激活函数在tf中的实现？对PRelu的改进，</li>
 <li>自适应正则在tf中的实现？</li>
 </ol>
+<p>DIN模型关键词：<strong>兴趣多样性（diversity interests），局部激活单元（local activation unit），mini-batch aware正则，自适应损失函数（Dice）</strong></p>
+<ul>
+<li><strong>局部激活单元（local activation unit）</strong></li>
+</ul>
+<p>用户兴趣是多样的，传统DNN模型用户兴趣特征表示为一个定长的向量，与具体的候选ad无关。但实际上，不同的ad与用户兴趣中某些部分是相关的，与另外一些兴趣可能不相关，“只有与ad相关的那部分兴趣”才是有意义的。因此文章主要针对不同的ad，动态地表示用户兴趣。做法是对不同的ad计算用户兴趣中的item的权重，从而实现用户兴趣特征的差异性表达。用户兴趣表达式如下：<br>$$<br>V_U(A) = f(V_A, e_1, e_2, \cdots, e_H) = \sum_{j=1}^H a(e_j, V_A) e_j = \sum_{j=1}^H w_j e_j<br>$$</p>
+<p>公式中$a(e_j, V_A)$是一个前馈网络，输出对应的激活权重，其计算过程如下：</p>
+<ol>
+<li>Out Product：$<e_j, v_a="">$计算外积，得到等长的向量$V_p$。外积操作有利于relevance modeling；</e_j,></li>
+<li>Concat：tf.concat([$e_j, V_A, V_P$], axis=1, keepdims=false)</li>
+<li>PRelu或Dice：激活函数，这里有一层FC参数（W,b）?</li>
+<li>Linear：转化为1维作为activation weight；</li>
+</ol>
+<p>这里的局部激活单元计算方法有别于传统attention，它放宽了权重累加和等于1（$\sum w_j = 1$）的限制条件，$w_j$有利于表达用户兴趣的差异化强度。因此无需对$a(e_j, V_A)$使用softmax归一化。</p>
+<ul>
+<li><strong>自适应激活函数（Dice）</strong></li>
+</ul>
+<p>PRelu函数的rectified point（校正点）是固定的0，这在每一层的输入分布发生变化时是不适用的，所以文章对该激活函数进行了改进，提出Dice激活函数，平滑了rectified point附近曲线的同时，<strong>Dice会根据每层输入数据的分布来自适应调整rectified point的位置</strong>。</p>
+<p>PRelu激活函数表达式：</p>
+<p>$$<br>f(x) =<br>\begin{cases}<br>\displaystyle<br>x &amp; \text{if x &gt; 0}, \\\<br>\alpha x &amp; \text{if x } \leq 0<br>\end{cases}<br>\longrightarrow<br>f(x)  = p(x) \cdot x + (1 - p(x)) \cdot \alpha x \quad<br>p(x) = I(x)   \quad // p(x) 是指示函数<br>$$<br>Dice函数的$p(x)$表达式不是指示函数，而是：<br>$$<br>p(x) = \frac{1} { 1 + \exp{ \left(- \frac{x - E(x)} {\sqrt{Var(x) + \epsilon} } \right) } }<br>$$</p>
+<p>计算输入x的均值和方差，动态调整，$\epsilon=1e^{-8}$。</p>
+<blockquote>
+<p>Dice函数对模型效果的影响。列表：auc+0.1%；搜索：无提升</p>
+</blockquote>
+<ul>
+<li><strong>mini-batch aware正则方法</strong></li>
+</ul>
+<p>// TODO</p>
+<p><strong>DIN总结</strong></p>
+<p>Base模型相比，DIN建模思想反映在模型结构上，差别主要体现在<strong>如何聚合多个用户行为Embedding向量</strong>，DIN建模考虑了用户兴趣的多样性，以及针对不同目标item，用户历史行为发挥的作用（weight）也是有差异的（局部激活）。</p>
+<ol>
+<li>Base模型中直接对多个Embedding向量进行等权的sum-pooling，这种方法肯定会带来信息的丢失，而且相对重要的Embedding向量也无法完全突出自己所包含的信息。DIN采取了一个比较直观的方式，就是weighted-sum pooling，而且Attention的本质也可以认为是weighted-sum，让模型更加关注有用的信息（有用信息的权重会更大一些）；</li>
+<li>DIN不足：DIN仍然是直接把“用户行为”直接作为“兴趣”特征feed给模型，没有考虑<strong>兴趣具有动态性及演化漂移</strong>的特点，所以<strong>DIN抽取的兴趣之间是独立无关联的，不能捕获到兴趣的动态演进性</strong>。</li>
+</ol>
+<p>基于DIN存在的不足，DIN团队又提出了升级版模型－DIEN模型。</p>
+<h3 id="1.3.4.DIEN">DIEN</h3>
+
+<ol>
+<li>如何表示输入？ID和属性类结合？</li>
+<li></li>
+</ol>
+<p>DIEN关键词：兴趣动态性；兴趣漂移；兴趣抽取层（Interest Extractor）；兴趣演化层（Interest Evolution）；</p>
+<p><strong>背景</strong></p>
+<p>深度兴趣演进网络（Deep Interest Evolution Network，简称DIEN）的提出主要是为了解决非搜索场景下，如果通过设计模型来更好的捕获用户的动态变化的兴趣。</p>
+<p><strong>DIEN模型特点</strong></p>
+<ol>
+<li>提出一个新的网络结构对<strong>用户兴趣演化过程</strong>进行建模，提升兴趣表达能力。</li>
+<li><strong>兴趣抽取层</strong>。与直接把行为序列作为兴趣特征喂给模型不同，DIEN设计了特征抽取层，针对GRU的兴趣状态在表达用户兴趣时缺少指导目标，作者提出了<strong>辅助Loss</strong>的方法，辅助Loss利用连续的行为在每一步去监督学习隐含兴趣状态，从而让<strong>隐含兴趣状态更好的表达隐含兴趣</strong>。</li>
+<li><strong>兴趣演进层</strong>。将GRU升级为AUGRU（Attention Update GRU）加强了兴趣与目标之间的相关性，目的是<strong>克服由兴趣漂移带来的预估不准的问题</strong>。</li>
+</ol>
+<p><strong>DIEN模型结构</strong></p>
+<p>DIN与DIEN底层都是Embedding层，基础特征的处理方式是一致的。不同的是，DIEN将用户行为组织成了序列数据的形式，并把简单的使用out product完成的activation unit变成了attention-based GRU网路。</p>
+<p>_兴趣抽取层（Interest Extractor Layer）_</p>
+<p>兴趣抽取层的目标是<strong>从embedding数据中提取出兴趣状态信息</strong>。但是一个用户在某一时间的兴趣不仅与当前的behavior有关，也与之前的behavior相关，所以作者使用GRU单元提取一系列兴趣状态。</p>
+<blockquote>
+<p>GRU克服了RNN梯度消失问题，同时快于LSTM，综合考量选择GRU。</p>
+</blockquote>
+<p>GRU表达式为：</p>
+<p>TODO </p>
+<blockquote>
+<p>更详细的GRU解读参考系列总结<a href="">sss</a></p>
+</blockquote>
+<p>如何评估GRU提取出的用户兴趣是否合理，是否准确？文中引入了辅助loss，通过监督学习来提升兴趣表达的准确性。</p>
+<p>这里，作者设计了一个二分类模型来计算兴趣抽取的准确性，将用户下一时刻真实的行为$e_{t+1}$作为正例，负采样得到的行为作为负例，用$e_{t+1}^{’}$表示，分别与抽取出来的兴趣$h_t$结合输入到辅助网络中，得到预测结果，并通过logloss计算一个辅助损失。公式如下：</p>
+<blockquote>
+<p><strong>问题</strong>：特征抽取层引入GRU的目的是认为兴趣与当前行为有关，与之前行为也有关；引入辅助loss是为了监督学习兴趣的状态表达。那么既然这里的GRU和辅助loss都是为了更准确的学习兴趣表示，并且建模过程中已经用了当前行为的前后信息，为啥还要有下文_兴趣进化层_的必要性呢？</p>
+</blockquote>
+<p>TODO</p>
+<p>_兴趣进化层（Interest Evolution Layer）_</p>
+<p>兴趣进化层的目标是刻画用户兴趣的进化过程，该层结构是AUGRU。建模用户兴趣进化过程有两方面好处：</p>
+<ol>
+<li>追踪用户的interest可以使我们学习final interest的表达时包含更多的历史信息；</li>
+<li>可以根据interest的变化趋势更好的进行CTR预测。（怎么证明？？）</li>
+</ol>
+<p>兴趣变化过程中有两点规律： </p>
+<ol>
+<li>兴趣漂移（interest shift）：用户在某一段时间的interest有一定的集中性，兴趣之间有一定的跳跃；</li>
+<li>兴趣独立（interest individual）：不同种类的interest之间很少相互影响；</li>
+</ol>
+<p>参考：对比传统作业，直接把行为序列作为兴趣特征喂给模型；</p>
+<h3 id="1.3.5.DSIN">DSIN</h3>
+
+<p>深度会话兴趣网络（Deep Session Interest Network）</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -353,7 +439,7 @@ DNN+用户行为序列
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#机器学习预估系统与算法模型"><span class="toc-number">1.</span> <span class="toc-text">机器学习预估系统与算法模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法模型"><span class="toc-number">2.</span> <span class="toc-text">预估算法模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.Embedding+NN模型"><span class="toc-number">2.1.</span> <span class="toc-text">Embedding+NN模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.1.WideAndDeep"><span class="toc-number">2.1.1.</span> <span class="toc-text">Wide&Deep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.2.DeepFM"><span class="toc-number">2.1.2.</span> <span class="toc-text">DeepFM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.3.DIN"><span class="toc-number">2.1.3.</span> <span class="toc-text">DIN</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#机器学习预估系统与算法模型"><span class="toc-number">1.</span> <span class="toc-text">机器学习预估系统与算法模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法模型"><span class="toc-number">2.</span> <span class="toc-text">预估算法模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.Embedding+NN模型"><span class="toc-number">2.1.</span> <span class="toc-text">Embedding+NN模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.1.WideAndDeep"><span class="toc-number">2.1.1.</span> <span class="toc-text">Wide&Deep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.2.DeepFM"><span class="toc-number">2.1.2.</span> <span class="toc-text">DeepFM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.3.DIN"><span class="toc-number">2.1.3.</span> <span class="toc-text">DIN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.4.DIEN"><span class="toc-number">2.1.4.</span> <span class="toc-text">DIEN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.5.DSIN"><span class="toc-number">2.1.5.</span> <span class="toc-text">DSIN</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
