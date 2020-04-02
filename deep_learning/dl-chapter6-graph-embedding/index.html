@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>第02章：深度神经网络 | 计算广告与机器学习</title>
+    <title>第06章：Graph Embedding学习与应用 | 计算广告与机器学习</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="ZhouYong">
@@ -12,7 +12,7 @@
 
     
     <meta name="description" content="author: zhouyongsdzh@foxmail.com
-date: 2017-04-12
+date: 2018-12-01
 weibo: @周永_52ML
 
 
@@ -29,11 +29,11 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 
 本章关键词：多层感知机、全连接层">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第02章：深度神经网络">
-<meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter11-graphnn/index.html">
+<meta property="og:title" content="第06章：Graph Embedding学习与应用">
+<meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter6-graph-embedding/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
 <meta property="og:description" content="author: zhouyongsdzh@foxmail.com
-date: 2017-04-12
+date: 2018-12-01
 weibo: @周永_52ML
 
 
@@ -51,9 +51,9 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 本章关键词：多层感知机、全连接层">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter2_softmax_and_hardmax.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第02章：深度神经网络">
+<meta name="twitter:title" content="第06章：Graph Embedding学习与应用">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
-date: 2017-04-12
+date: 2018-12-01
 weibo: @周永_52ML
 
 
@@ -128,14 +128,14 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/deep_learning/dl-chapter11-graphnn/" title="第02章：深度神经网络" itemprop="url">第02章：深度神经网络</a>
+      <a href="/deep_learning/dl-chapter6-graph-embedding/" title="第06章：Graph Embedding学习与应用" itemprop="url">第06章：Graph Embedding学习与应用</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-01T12:23:42.000Z" itemprop="datePublished"> 发表于 2017-05-01</time>
+    <time datetime="2018-12-07T12:23:42.000Z" itemprop="datePublished"> 发表于 2018-12-07</time>
     
   </p>
 </header>
@@ -144,13 +144,13 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2.0.DNN符号定义"><span class="toc-number">1.</span> <span class="toc-text">DNN符号定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.神经网络的前向与反向"><span class="toc-number">2.</span> <span class="toc-text">神经网络的前向与反向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.2.softmax"><span class="toc-number">3.</span> <span class="toc-text">Softmax</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.1.softmax函数由来"><span class="toc-number">3.1.</span> <span class="toc-text">softmax函数由来</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.2.softmax函数概率模型"><span class="toc-number">3.2.</span> <span class="toc-text">softmax函数概率模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.3.softmax表达式与概率的关系"><span class="toc-number">3.3.</span> <span class="toc-text">softmax表达式与概率的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.4.SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp"><span class="toc-number">3.4.</span> <span class="toc-text">SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交叉熵损失（Cross_Entropy_Loss）"><span class="toc-number">4.</span> <span class="toc-text">交叉熵损失（Cross Entropy Loss）</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#6.0.图网络介绍"><span class="toc-number">1.</span> <span class="toc-text">图网络介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.1.图网络符号定义"><span class="toc-number">1.1.</span> <span class="toc-text">图网络符号定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.2.图类型划分"><span class="toc-number">1.2.</span> <span class="toc-text">图类型划分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.3.图神经网络与图嵌入学习"><span class="toc-number">1.3.</span> <span class="toc-text">图神经网络与图嵌入学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.4.Graph Embedding学习框架"><span class="toc-number">1.4.</span> <span class="toc-text">Graph Embedding学习框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.神经网络的前向与反向"><span class="toc-number">1.5.</span> <span class="toc-text">神经网络的前向与反向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.2.softmax"><span class="toc-number">1.6.</span> <span class="toc-text">Softmax</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.1.softmax函数由来"><span class="toc-number">1.6.1.</span> <span class="toc-text">softmax函数由来</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.2.softmax函数概率模型"><span class="toc-number">1.6.2.</span> <span class="toc-text">softmax函数概率模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.3.softmax表达式与概率的关系"><span class="toc-number">1.6.3.</span> <span class="toc-text">softmax表达式与概率的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.4.SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp"><span class="toc-number">1.6.4.</span> <span class="toc-text">SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交叉熵损失（Cross_Entropy_Loss）"><span class="toc-number">1.7.</span> <span class="toc-text">交叉熵损失（Cross Entropy Loss）</span></a></li></ol></li></ol>
 		
 		</div>
 		
 		<ul>
 <li>author: zhouyongsdzh@foxmail.com</li>
-<li>date: 2017-04-12</li>
+<li>date: 2018-12-01</li>
 <li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
 </ul>
 <hr>
@@ -166,7 +166,9 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 </li>
 </ul>
 <p>本章关键词：多层感知机、全连接层、Softmax、激活函数、池化层、BatchNorm、注意力机制、Pooling、Embedding等</p>
-<h2 id="2.0.DNN符号定义">DNN符号定义</h2>
+<h1 id="6.0.图网络介绍">图网络介绍</h1>
+
+<h2 id="6.0.1.图网络符号定义">图网络符号定义</h2>
 
 
 <table>
@@ -178,35 +180,148 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">$n^{[0]}$</td>
-<td style="text-align:left">表示NN输入层的神经元个数，为了符号统一，规定输入层为第0层</td>
+<td style="text-align:center">$G$</td>
+<td style="text-align:left">输入的图网络</td>
 </tr>
 <tr>
-<td style="text-align:center">$n^{[l]}$</td>
-<td style="text-align:left">第$l$层神经元个数</td>
+<td style="text-align:center">$\mathcal{V}, \mathcal{E}$</td>
+<td style="text-align:left">分别表示图$G$的节点集合和边集合</td>
 </tr>
 <tr>
-<td style="text-align:center">$a^{[l]}$</td>
-<td style="text-align:left">表示NN第$l$层输入信息，一条样本的维度为$(1, n^{[l]})$</td>
+<td style="text-align:center">$\mathcal{O}, \mathcal{R}$</td>
+<td style="text-align:left">分别表示图$G$的_节点类型_集合和_边类型_集合</td>
 </tr>
 <tr>
-<td style="text-align:center">$W^{[l]}$</td>
-<td style="text-align:left">表示第$l$层与$l-1$层之间的连接矩阵，维度：($n^{[l]}$, $n^{[l-1]}$)，即：$W^{[1]} \in R^{n^{[1]} \times n^{[0]}}$</td>
+<td style="text-align:center">$\mathcal{A}$</td>
+<td style="text-align:left">图$G$的属性集合</td>
 </tr>
 <tr>
-<td style="text-align:center">$b^{[l]}$</td>
-<td style="text-align:left">表示第$l$层的偏置项参数，维度：($n^{[l]}$, $1$)</td>
+<td style="text-align:center">$n, m$</td>
+<td style="text-align:left">分别表示图$G$的节点数、边数</td>
 </tr>
 <tr>
-<td style="text-align:center">$z^{[l]}$</td>
-<td style="text-align:left">表示第$l$层的线性表达$z^{[l]} = W^{[l]} \cdot a^{[l-1]} + b^{[l]}$, 维度：($n^{[l]}$, $1$)</td>
+<td style="text-align:center">$r$</td>
+<td style="text-align:left">一条边的类型</td>
 </tr>
 <tr>
-<td style="text-align:center">$m$</td>
-<td style="text-align:left">表示Batch Size</td>
+<td style="text-align:center">$\mathcal{v}$</td>
+<td style="text-align:left">图中一个节点</td>
+</tr>
+<tr>
+<td style="text-align:center">$\mathcal{N}$</td>
+<td style="text-align:left">一个节点相同边类型下的邻居集合</td>
+</tr>
+<tr>
+<td style="text-align:center">$h, g$</td>
+<td style="text-align:left">表示转换函数</td>
+</tr>
+<tr>
+<td style="text-align:center">$x$</td>
+<td style="text-align:left">一个节点的属性</td>
 </tr>
 </tbody>
 </table>
+<h2 id="6.0.2.图类型划分">图类型划分</h2>
+
+<p>从图节点的类型和边的类型角度，可以将图划分为如下几类：</p>
+<table>
+<thead>
+<tr>
+<th>图类型</th>
+<th>物理意义</th>
+<th>数学定义</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>同构图<br>（Homogeneous Network）</td>
+<td>节点和边均是一种类型</td>
+<td>$G=\{\mathcal{V}, \mathcal{E}\}$<br>$\</td>
+<td>\mathcal{O} \</td>
+<td>+ \</td>
+<td>\mathcal{R} \</td>
+<td>= 2$</td>
+<td></td>
+</tr>
+<tr>
+<td>异构图<br>（Heterogeneous Network）</td>
+<td>节点或边的类型大于一种</td>
+<td>$G=\{\mathcal{V}, \mathcal{E}\}$<br>$\</td>
+<td>\mathcal{O} \</td>
+<td>+ \</td>
+<td>\mathcal{R} \</td>
+<td>&gt; 2$</td>
+<td></td>
+</tr>
+<tr>
+<td>多路异构图<br>（Multiplex Heterogeneous Network）</td>
+<td>节点类型多于1类&amp;&amp;边的类型大于1类</td>
+<td>$G=\{\mathcal{V}, \mathcal{E}\}$<br>$\</td>
+<td>\mathcal{O} \</td>
+<td>\ge 2, \</td>
+<td>\mathcal{R} \</td>
+<td>\ge 2$</td>
+<td></td>
+</tr>
+<tr>
+<td>节点带属性的图<br>（Attributed Network）</td>
+<td>节点带属性特征</td>
+<td>$G=\{\mathcal{V}, \mathcal{E}, \mathcal{A} \}$<br>$A = \{x_i \vert v_i \in \mathcal{V} \}$</td>
+</tr>
+<tr>
+<td>节点带属性的多路异构图<br>（Attributed Multiplex Heterogeneous Network, AMHN）</td>
+<td>节点带属性&amp;&amp;节点类型多于1类&amp;&amp;边的类型大于1类</td>
+<td>$G=\{\mathcal{V}, \mathcal{E}, \mathcal{A}\}$<br>$\</td>
+<td>\mathcal{O} \</td>
+<td>\ge 2, \</td>
+<td>\mathcal{R} \</td>
+<td>\ge 2$<br>$A = \{x_i \vert v_i \in \mathcal{V} \}$</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>AMHN的场景如推荐系统： 节点类型：user, item; 边类型：点击，收藏，下单等；user属性：性别，年龄，职业等；item属性：类型，标题，评分等；</p>
+</blockquote>
+<p><strong>问题：从图节点和边的类型角度，图网络可以划分为哪些类型？</strong></p>
+<h2 id="6.0.3.图神经网络与图嵌入学习">图神经网络与图嵌入学习</h2>
+
+<p>图神经网络与图嵌入学习</p>
+<p>表示学习目标是学习一个mapping函数，将图中节点映射到同一个<strong>嵌入空间</strong>得到向量表示，并且能保留在原图空间中节点之间的相关性。学习到的向量用于下游任务。</p>
+<p>图$G = \{\mathcal{V}, \mathcal{E}, \mathcal{A} \}$包含三类信息：</p>
+<ul>
+<li>节点信息：欧式结构，可以用矩阵$X$表示，维度$n \times d$，$n$表示节点数，$d$表示特征长度；</li>
+<li>结构信息：非欧结构，图特征的边特征，一般用邻接矩阵$A$表示；</li>
+<li>属性信息：节点带的属性特征（Graph也可以没有该部分信息）；</li>
+</ul>
+<p>图嵌入（Graph Embedding）学习的目标是：把$X$和$A$中包含的节点或子图信息映射到$d$维空间$z \in R^d$，并且$d \ll n$。</p>
+<p>传统方法都是把mapping当作pre-processing任务，而基于深度学习的图表示学习是把mapping当作任务的一部分，采用data-driven的方法来encode图结构信息。</p>
+<p>本章我我们主要讨论Graph Embedding。</p>
+<h2 id="6.0.4.Graph Embedding学习框架">Graph Embedding学习框架</h2>
+
+<p><strong>Encoder-Decoder Framework</strong></p>
+<p>将图节点映射到低维嵌入向量空间，可以使用<strong>Encoder-Decoder Framework</strong>来建模。</p>
+<ul>
+<li>Encoder阶段：把node编码到低维embedding向量，即$\text{ENC}: \mathcal{V} \rightarrow R^{d}$</li>
+<li>Decoder阶段：根据实际任务解码embedding到高维表示，即从向量化的信息中重建(reconstruction)图网络结构和节点属性，常用的是pairwise decoder. 即$\text{DEC}: R^d \times R^d \rightarrow R^{+}$</li>
+</ul>
+<p>pairwise decoder对于embeddings $(z_i, z_j)$可以计算相似度，如果和原节点$(v_i, v_j)$相似度一样，那么说明我们重建了原图（只不过是在embedding空间中实现了原图的表示），数学表示为：</p>
+<p>$$<br>\text{DEC} (\text{ENC}(v_i), \text{ENC}(v_i)) = \text{DEC}(z_i, z_j) \approx \mathcal{S}_{\mathcal{G}} (v_i, v_j)<br>$$</p>
+<p>其中，$\mathcal{S}_{\mathcal{G}}$是人为设置的一种节点间相关性度量函数，比如：</p>
+<ol>
+<li>使用邻接矩阵，采用矩阵分解的方法；</li>
+<li>使用Random Walk的固定长度序列计算相似度，如node2vec方法；</li>
+</ol>
+<p><strong>优化目标</strong></p>
+<p>最小化embeddings与原节点相似度差异，即</p>
+<p>$$<br>\mathcal{L} = \sum_{(v_i, v_j) \in \mathcal{D}} \mathcal{l} \left(\text{DEC}(z_i, z_j), \mathcal{S}_{\mathcal{G}}(v_i, v_j) \right)<br>$$</p>
+<p>以上4个组件构成了Encoder-Decoder学习框架，即：</p>
+<ul>
+<li>pairwise similarity function: 节点间相似度度量函数$\mathcal{S}_{\mathcal{G}}$；</li>
+<li>encoder function: 训练节点embedding，包含训练参数；</li>
+<li>decoder function: 根据embedding重建pairwise相似度，一般不包含训练参数（如何实现？？？）</li>
+<li>loss function: 损失函数；</li>
+</ul>
 <h2 id="2.1.神经网络的前向与反向">神经网络的前向与反向</h2>
 
 
@@ -298,13 +413,13 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/深度学习/">深度学习</a>
+  <a class="article-category-link" href="/categories/深度学习/">深度学习</a>►<a class="article-category-link" href="/categories/深度学习/图网络/">图网络</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Attention/">Attention</a><a href="/tags/Pooling/">Pooling</a><a href="/tags/Softmax/">Softmax</a><a href="/tags/反向传播/">反向传播</a>
+  <span></span> <a href="/tags/GraphEmbedding/">GraphEmbedding</a><a href="/tags/GraphSage/">GraphSage</a><a href="/tags/LINE/">LINE</a><a href="/tags/Node2Vec/">Node2Vec</a><a href="/tags/RandomWalk/">RandomWalk</a>
   </div>
 
 </div>
@@ -313,7 +428,7 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/deep_learning/dl-chapter11-graphnn/" data-title="第02章：深度神经网络 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/deep_learning/dl-chapter6-graph-embedding/" data-title="第06章：Graph Embedding学习与应用 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -327,18 +442,18 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/openmit/openmit-chapter3-admm/" title="第03章：OpenMIT_算法框架">
+ <a href="/head_first_ml/ml-chapter1-regression-family/" title="第01章：深入浅出ML之Regression家族">
   <strong>上一篇：</strong><br/>
   <span>
-  第03章：OpenMIT_算法框架</span>
+  第01章：深入浅出ML之Regression家族</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/deep_learning/dl-chapter2-dnn/"  title="第02章：深度神经网络">
+<a href="/reinforcement-learning/chapter2-multi-arm-bandits/"  title="">
  <strong>下一篇：</strong><br/> 
- <span>第02章：深度神经网络
+ <span>(no title)
 </span>
 </a>
 </div>
@@ -353,7 +468,7 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2.0.DNN符号定义"><span class="toc-number">1.</span> <span class="toc-text">DNN符号定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.神经网络的前向与反向"><span class="toc-number">2.</span> <span class="toc-text">神经网络的前向与反向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.2.softmax"><span class="toc-number">3.</span> <span class="toc-text">Softmax</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.1.softmax函数由来"><span class="toc-number">3.1.</span> <span class="toc-text">softmax函数由来</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.2.softmax函数概率模型"><span class="toc-number">3.2.</span> <span class="toc-text">softmax函数概率模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.3.softmax表达式与概率的关系"><span class="toc-number">3.3.</span> <span class="toc-text">softmax表达式与概率的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.4.SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp"><span class="toc-number">3.4.</span> <span class="toc-text">SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交叉熵损失（Cross_Entropy_Loss）"><span class="toc-number">4.</span> <span class="toc-text">交叉熵损失（Cross Entropy Loss）</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#6.0.图网络介绍"><span class="toc-number">1.</span> <span class="toc-text">图网络介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.1.图网络符号定义"><span class="toc-number">1.1.</span> <span class="toc-text">图网络符号定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.2.图类型划分"><span class="toc-number">1.2.</span> <span class="toc-text">图类型划分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.3.图神经网络与图嵌入学习"><span class="toc-number">1.3.</span> <span class="toc-text">图神经网络与图嵌入学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.4.Graph Embedding学习框架"><span class="toc-number">1.4.</span> <span class="toc-text">Graph Embedding学习框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.神经网络的前向与反向"><span class="toc-number">1.5.</span> <span class="toc-text">神经网络的前向与反向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.2.softmax"><span class="toc-number">1.6.</span> <span class="toc-text">Softmax</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.1.softmax函数由来"><span class="toc-number">1.6.1.</span> <span class="toc-text">softmax函数由来</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.2.softmax函数概率模型"><span class="toc-number">1.6.2.</span> <span class="toc-text">softmax函数概率模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.3.softmax表达式与概率的关系"><span class="toc-number">1.6.3.</span> <span class="toc-text">softmax表达式与概率的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.4.SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp"><span class="toc-number">1.6.4.</span> <span class="toc-text">SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交叉熵损失（Cross_Entropy_Loss）"><span class="toc-number">1.7.</span> <span class="toc-text">交叉熵损失（Cross Entropy Loss）</span></a></li></ol></li></ol>
  
   </div>
 
@@ -372,6 +487,10 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 		
 		  
 			<li><a href="/categories/分布式机器学习/" title="分布式机器学习">分布式机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/深度学习/图网络/" title="图网络">图网络<sup>1</sup></a></li>
 		  
 		
 		  
@@ -404,10 +523,6 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Attention/" title="Attention">Attention<sup>3</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
 			
 		
@@ -420,15 +535,19 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 			
 		
 			
-				<li><a href="/tags/反向传播/" title="反向传播">反向传播<sup>2</sup></a></li>
+				<li><a href="/tags/Attention/" title="Attention">Attention<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Softmax/" title="Softmax">Softmax<sup>2</sup></a></li>
+				<li><a href="/tags/DP/" title="DP">DP<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Pooling/" title="Pooling">Pooling<sup>2</sup></a></li>
+				<li><a href="/tags/Policy-Evalation/" title="Policy Evalation">Policy Evalation<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Improvement/" title="Policy Improvement">Policy Improvement<sup>1</sup></a></li>
 			
 		
 			

@@ -81,14 +81,14 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/deep_learning/dl-chapter11-graphnn/" title="第02章：深度神经网络" itemprop="url">第02章：深度神经网络</a>
+      <a href="/openmit/openmit-chapter3-admm/" title="第03章：OpenMIT_算法框架" itemprop="url">第03章：OpenMIT_算法框架</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-01T12:23:42.000Z" itemprop="datePublished"> 发表于 2017-05-01</time>
+    <time datetime="2017-05-20T03:30:31.000Z" itemprop="datePublished"> 发表于 2017-05-20</time>
     
   </p>
 </header>
@@ -96,147 +96,269 @@
         
         <ul>
 <li>author: zhouyongsdzh@foxmail.com</li>
-<li>date: 2017-04-12</li>
+<li>date: 2017-04-30</li>
 <li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
 </ul>
-<hr>
+<p><strong>内容列表</strong></p>
 <ul>
-<li><a href="#2.0.DNN符号定义">DNN符号定义</a></li>
-<li><a href="#2.1神经网络的前向与反向">神经网络的前向与反向</a></li>
-<li><a href="#2.2.softmax">Softmax</a><ul>
-<li><a href="#2.2.1.softmax函数由来">softmax函数由来</a></li>
-<li><a href="#2.2.2.softmax函数概率模型">softmax函数概率模型</a></li>
-<li><a href="#2.2.3.softmax表达式与概率的关系">softmax表达式与概率的关系</a></li>
-<li><a href="#2.2.4.SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp">SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp</a></li>
+<li><a href="#0.写在前面">0. 写在前面</a></li>
+<li><a href="#1.大规模机器学习的本质">1. 大规模机器学习的本质</a></li>
+<li><a href="#2.约束优化问题">2. 约束优化问题</a><ul>
+<li><a href="#2.1.对偶提升">2.1. 对偶提升</a></li>
+<li><a href="#2.2.对偶分解">2.2. 对偶分解</a></li>
+<li><a href="#2.3.增强拉格朗日乘子法">2.3. 增强拉格朗日乘子法</a></li>
 </ul>
 </li>
+<li><a href="#3.交替方向乘子法">3. 交替方向乘子法</a><ul>
+<li><a href="#3.1.算法框架">3.1. 算法框架</a></li>
+<li><a href="#3.2.算法性质与评价">3.2. 算法性质与评价</a></li>
 </ul>
-<p>本章关键词：多层感知机、全连接层、Softmax、激活函数、池化层、BatchNorm、注意力机制、Pooling、Embedding等</p>
-<h2 id="2.0.DNN符号定义">DNN符号定义</h2>
+</li>
+<li><a href="#4.一致性优化与均分优化">4. 一致性优化与均分优化</a><ul>
+<li><a href="#4.1.全局变量一致性优化（consensus）">4.1. 全局变量一致性优化（consensus）</a></li>
+<li><a href="#4.2.均分优化（sharing）">4.2. 均分优化（sharing）</a></li>
+</ul>
+</li>
+<li><a href="#5.ADMM在优化领域的具体应用">5. ADMM在优化领域的具体应用</a><ul>
+<li><a href="#5.1.$\ell_1\text{norm}$问题">5.1. $\ell_1－\text{norm}$问题</a></li>
+<li><a href="#5.2.等式约束的凸优化问题">5.2. 等式约束的凸优化问题</a></li>
+</ul>
+</li>
+<li><a href="#6.ADMM与统计机器学习">6. ADMM与统计机器学习</a></li>
+<li><a href="#7.ADMM与机器通信">7. ADMM与机器通信</a></li>
+<li><a href="#8.ADMM应用场景">8. ADMM应用场景</a></li>
+<li><a href="#9.基于MPI的ADMM框架实现">9. 基于MPI的ADMM框架实现</a></li>
+<li><a href="#参考资料">参考资料</a> </li>
+</ul>
+<h3 id="0.写在前面">0. 写在前面</h3>
 
+<p>分布式优化算法是分布式机器学习算法方向的核心，本章主要想介绍一个算法框架－ADMM算法－来实现这一功能。ADMM算法并不是一个很新的算法，他只是整合许多不少经典优化思路，然后结合现代统计学习所遇到的问题，提出了一个比较一般的比较好实施的<strong>分布式算法框架</strong>。</p>
+<p>ADMM算法结构天然地适用于分布式环境下具体任务的求解。在详细介绍ADMM分布式算法之前，我们先了解狭下一个大学习问题的如何在分布式环境下拆分成多个子任务学习问题的。然后通过《约束优化问题一般的解决方案》来阐述ADMM算法的演化过程，过渡到ADMM。最后详细阐述ADMM算法结构、理论可行性证明、分布式环境下如何保证一致性以及信息共享，适用的学习问题。</p>
+<h3 id="1.大规模机器学习的本质">1. 大规模机器学习的本质</h3>
 
+<p>大规模机器学习问题（large-scale machine learning）必须要解决“三大”问题：1. 大数据学习能力；2. 大模型学习能力；3. 产生更大的效果。</p>
+<p>毫无疑问，大规模机器学习对比单机版机器学习任务，它要有更大的数据吞吐、处理和学习能力（远超出单机版能处理的数据范围）；由于存储和计算资源的增加，它必然得具体单机学习不了的复杂模型的能力，比如10亿级别以上的LR模型，更复杂的树模型等；在具备前两项能力的同时，必须要产生更大更好的效果（improve performance），否则大规模机器学习的存储毫无疑义，</p>
+<blockquote>
+<p>业内其他的叫法，比如distributed machine learning，cloud machine learning，要表达的意思差不多.</p>
+</blockquote>
+<p>因为是基于海量数据的学习任务，因此大规模机器学习解决方案基本上都需要将一个大的学习任务拆解成多个子任务并行（或分布式）进行：海量数据切分为若干块，每个子任务学习仅用一块数据进行训练，最后整合学习结果，得到最终参数解。公式化表示如下：</p>
+<p>$$<br>\min_{w} \; \sum_{(x, y) \in \mathcal{D}} L(w^T x, y) + \lambda {\Vert w \Vert}_1<br>\; \overset{\text{任务分解}}{\Longrightarrow}<br>\min_{w_1, \cdots, w_T; w} \sum_{t=1}^{T} \left( \sum_{(x,y) \in \mathcal{D}_t} L(w_t^T x, y) \right) + \lambda {\Vert w \Vert}_1 \qquad(diml.2.5.0)<br>$$</p>
+<p>$$<br>\min_{w} \; \sum_{(x, y) \in \mathcal{D}} L(w^T x, y) + \lambda {\Vert w \Vert}_1<br>\xrightarrow[\text{ADMM结构}]{任务分解}<br>\begin{align}<br>\min_{w_1, w_2, \cdots, w_T} &amp; \; \sum_{t=1}^{T} \left( \sum_{(x,y) \in \mathcal{D}_t} L(w_t^T x, y) \right) + \lambda{\Vert \theta \Vert}_1  \\\<br>s.b. \quad &amp; \; w_t=\theta \;(t=1,\cdots,T)<br>\end{align}<br>$$</p>
+<p>公式$(diml.2.5.0)$是一个带正则项的模型优化目标（<code>&quot;损失函数＋正则项&quot;</code>），损失函数用\(L(w^T x, y)\)表示。其中，$\mathcal{D}$表示训练集，把$\mathcal{D}$切分为$T$个子数据集，每一块用$\mathcal{D_t}$表示；模型参数$w \in R^n，n$为特征维度，$\lambda$为正则项系数。箭头右边是改写为多任务形式的优化目标，其中参数$w$起到了连接不同子任务的作用，$\lambda$控制了多个子任务连接的强度，$\lambda$越大说明连接强度越强。当$\lambda = 0$时，等价于$T$个子任务独立学习，子任务之间没有关联。</p>
+<p>毫无例外地，任何一个大规模机器学习的任务都会用到“分而治之”的思想，即把大的机器学习任务拆分成多个子任务（大规模机器学习之间的差异主要在于拆分手段的不同）。不管如何拆分最后都会转化到一个本质问题上来，即多任务的联合学习。因此，可以把<strong>大规模机器学习问题的本质是多任务的联合学习</strong>。那么，接下来我们要思考的是如何求解该问题。</p>
+<p><strong>问题1: 如何在分布式环境下求解多任务联合学习问题？</strong> </p>
+<p>本章要讲述的ADMM算法就是解决这类学习问题不错的解决方案。严格意义上来讲，ADMM不同于梯度法、共轭梯度法、牛顿法、拟牛顿法等具体的参数学习算法，，把它称为<strong>分布式计算框架</strong>更合理。</p>
+<p>在介绍ADMM算法之前，我们先来看下它的前身（precursors）是谁？是如何演化过来的？</p>
+<h3 id="2.约束优化问题">2. 约束优化问题</h3>
+
+<p>说到ADMM算法的演化历程，要从等式约束优化问题说起。一个典型的等式约束优化问题，形式化表示如下：</p>
+<p>$$<br>\begin{align}<br>&amp; \; \min_{x} \;\; f(x) \\\<br>&amp; s.t. \; Ax = b<br>\end{align}     \qquad\qquad(diml.2.5.1)<br>$$</p>
+<p>其中，<strong>目标函数</strong>\(f(x): R^n \rightarrow R\)，\(Ax=b\)为<strong>约束条件</strong>，参数\(x \in R^n, A \in R^{m \times n}, b \in R^m\)。\(s.t\)是英文<code>subject to</code>的缩写。如何求解等式约束优化问题？</p>
+<h4 id="2.1.对偶提升">2.1. 对偶提升</h4>
+
+<p>等式约束优化问题一般是要用到拉格朗日乘子法。通过引入拉格朗日乘子，构造拉格朗日函数，分别对原参数和乘子求偏导（偏导数等于0），通过<strong>交替优化</strong>，使其最终收敛到最优解。其中，拉格朗日乘子又称算子、对偶变量。</p>
+<p>公式\((diml.2.5.1)\)引入对偶变量（用\(\beta \in R^m \)表示），得到拉格朗日函数\(\mathcal{L}: R^{m \times n} \rightarrow R \) 为</p>
+<p>$$<br>\begin{array}{lc}<br>&amp; \; \min_{x} \;\; f(x) \\\<br>&amp; s.t. \; Ax = b<br>\end{array}<br>\overset{拉格朗日函数}{\Longrightarrow}<br>\mathcal{L}(x, \beta) = f(x) + \beta^T (Ax-b)    \qquad\qquad(diml.2.5.2)<br>$$</p>
+<p>把原问题的对偶问题表示为\(\max \; g(\beta)\)。对偶提升法的思想：在<strong>强对偶性</strong>假设下，通过最大化对偶函数，使得原函数和对偶函数会同时达到最优。求得最优解的过程是对参数的交替更新，参数更新的迭代公式如下：</p>
+<p>$$<br>\begin{array}{lc}<br>&amp; \; \min_{x} \;\; f(x) \\\<br>&amp; s.t. \; Ax = b<br>\end{array}<br>\overset{拉格朗日函数}{\Longrightarrow}<br>\mathcal{L}(x, \beta) = f(x) + \beta^T (Ax-b)<br>\overset{对偶提升法}{\Longrightarrow}<br>\begin{align}<br>x^{k+1} &amp; := \arg \min_{x} \mathcal{L}(x, \beta^{k})  \qquad\;(\text{step1}) \\\<br>\beta^{k+1} &amp; := \beta^k + \alpha^{k}(A x^{k+1} - b) \\quad(\text{step2})<br>\end{align} \qquad(diml.2.5.3)<br>$$</p>
+<p>收敛后得到原参数的最优解：</p>
+<p>$$<br>x^{_} = \arg \min_{x} \mathcal{L}(x, \beta^{_})   \qquad\qquad\quad(diml.2.5.4)<br>$$</p>
+<blockquote>
+<p>公式\((diml.2.5.3)\)解释：</p>
+<p>step1: 求拉格朗日函数极小化时对应的参数\(x\)，具体实现时，需要对参数\(x\)求偏导，令\(\frac{\partial}{\partial{x}} L(x, \beta^k) = 0\).</p>
+<p>step2: 公式\((diml.2.5.3)\)对\(\beta\)求偏导得到梯度，使用梯度提升法得到对偶变量\(\beta\)的迭代公式，\(\alpha^k\)为迭代步长。这一步称为<strong>对偶提升(Dual Ascent)</strong>。</p>
+</blockquote>
+<p><strong>要想用对偶提升法求得最优解有一个前提假设：原目标函数必须是强凸函数</strong>。否则得不到最优解，这也是对偶提升法的局限之处。</p>
+<p><strong>问题2: 为什么对偶提升法对目标函数有强约束？</strong></p>
+<p>参考<a href="https://en.wikipedia.org/wiki/Lagrange_multiplier" target="_blank" rel="external">维基百科</a>Figure2. 假设目标函数\(y=f(x), x\)是向量。\(y\)取不同的值，在\(x\)构成的平面（或曲面）上构成等高线。约束条件假设为\(g(x) = c, x\)是向量，在\(x\)构成的平面或去面上是一条曲线。</p>
+<p>假设\(g(x)\)与等高线相交，交点就是同时满足等式约束条件和目标函数的可行域的值。但可以确定交点不是最优值，因为相交意味着肯定还存在其它的等高线在该条等高线的内侧或外侧，使得新的等高线与目标函数的交点的值更大或更小。只有当等高线与目标函数的曲线相切的时候，即目标函数的梯度方向与约束条件的梯度方向平行时缺德最优值，此时必须满足：\(\nabla_{x} f(x) = \alpha \cdot \nabla_{x} g(x) \)。而该式即为Lagrange函数\(\mathcal{L}(x, \beta)\)对参数\(x\)求偏导后的结果。</p>
+<p>最优化领域的一些核心概念，如凸函数、对偶函数、共轭函数、强对偶性等，这里简单的说明如下：</p>
+<blockquote>
+<p>(1). 强凸函数</p>
+<p>在<a href="http://www.52caml.com/head_first_ml/ml-chapter10-clustering-family/" target="_blank" rel="external">《深入浅出机器学习》系列 第10章：深入浅出ML之cluster家族</a> 中的EM算法有提到.<br>强凸函数需满足：\(E[f(x)] &gt; f(E(x)) \)</p>
+<p>函数\(f: I \rightarrow R\)成为强凸的，若\(\exists\alpha &gt; 0\)，使\(\forall(x, y) \in I \times I, \forall t \in [0, 1]\)，恒有：</p>
+<p>$$<br>f[tx+(1-t)y] \le tf(x) + (1-t) f(y) - t(1-t) \alpha (x-y)^2 \qquad(n.diml.2.5.1)<br>$$</p>
+<p>(2). 对偶函数</p>
+<p>以公式$(diml.2.5.1)$等式约束优化问题为例，定义对偶函数\(g(\beta): R^m \rightarrow R \) 为Lagrange函数关于 \(x\)取得的最小值，即对\(\beta \in R^m \)有<br>$$<br>\begin{align}<br>g(\beta) &amp; = \inf_{x} \mathcal{L}(x, \beta) = \inf_{x} \left(f(x) + \beta^T(Ax-b) \right) \\\<br>&amp; = -\beta^T b + \inf_{x} \left(f(x) + \beta^TAx \right) = -\beta^T b - f^{_}(-A^T\beta)<br>\end{align} \qquad\\qquad(n.diml.2.5.2)<br>$$<br>其中\(f^{_}\)是\(f\)的<a href="参考wiki">共轭函数</a>。</p>
+<p>(3). 共轭函数</p>
+<p>设函数\(f: R^n \rightarrow R\)，定义函数\(f^{_}: R^n \rightarrow R\)为<br>$<br>f^{_} = \inf_{x \in dom \, f} \left(f(x) - y^T x \right)<br>$<br>。此函数称为函数\(f\)的共轭函数。（参考《Convex Optimization》3.3节 共轭函数定义.）</p>
+<p>(4). 强对偶性</p>
+<p>在约束优化问题中，如果最小化<strong>原凸函数</strong>等价于最大化<strong>对偶函数</strong>时，称为强对偶性。即\(\min f(x) = \max g(\beta)\)</p>
+<p>对偶提升法在满足强对偶性假设下可以证明公式\((diml.2.5.3)\)能达到收敛。即要求目标函数\(f(x)\)为强凸函数。</p>
+</blockquote>
+<p>对偶提升法虽然对目标函数有严格的约束，使得很多优化目标不能用其求解。但是它具体一个很好的性质，详细的见下面要提到的对偶分解。</p>
+<h4 id="2.2对偶分解">2.2. 对偶分解</h4>
+
+<p>对偶提升法虽然对目标函数有严格的要求，但是它还有一个非常好的性质：</p>
+<p><strong>如果目标函数\(f(x)\)是可分的，整个优化问题可以拆分成多个子优化问题，分块优化后得到局部分数，然后汇集起来 整体更新全局参数，有利于问题的并行化处理。这个过程称为对偶分解（Dual Decomposition）。</strong></p>
+<p>如果目标函数\(f(x)\)和约束条件是可分解的，那么原问题\((diml.2.5.1)\)对应的分解形式为：</p>
+<p>$$<br>\begin{array}{lc}<br>&amp; \; \min_{x} \;\; f(x) \\\<br>&amp; s.t. \; Ax = b<br>\end{array}<br>\overset{分解原问题}{\Longrightarrow}<br>\begin{align}<br>&amp; \min_{x} \; f(x) = \sum_{t=1}^{T} f_t(x_t) \\\<br>&amp; s.t. \; Ax = \sum_{t=1}^{T} A_t x_t = b<br>\end{align}   \qquad\qquad(diml.2.5.5)<br>$$</p>
+<p>拉格朗日函数 与 参数更新公式：</p>
+<p>$$<br>\mathcal{L}(x, \beta) = \sum_{t=1}^{T} \mathcal{L_t}(x_t, \beta) = \sum_{t=1}^{T} \left(f_t(x_t) + \beta^T A_t x_t - \frac{1}{T}\beta^T b \right)<br>\Longrightarrow<br>\begin{array}{lc}<br>x_{t}^{k+1} := \arg \min_{x} \mathcal{L}_t(x_t,\beta^{k}) \qquad\qquad\qquad\quad(\text{1})\\\<br>\beta^{k+1} := \beta^{k} + \alpha^k \nabla g(\beta) = y^k + \alpha^k(A x^{k+1} -b)  \;\;\,(\text{2})<br>\end{array} \;(diml.2.5.7)<br>$$</p>
+<blockquote>
+<p>公式$(diml.2.5.7)$解读：</p>
+<p>step1: 并行化求解多个子目标函数</p>
+<p>step2: 汇总\(x_{i}^{k+1}\)（论证是否求平均可否？），更新对偶变量.</p>
+</blockquote>
+<p>如何在目标函数不满足强凸函数约束时，求解对应的优化问题呢？下面要提到的增广拉格朗日乘子法可以解决。</p>
+<h4 id="2.3.增强拉格朗日乘子法">2.3. 增强拉格朗日乘子法</h4>
+
+<p>前面提到，对偶提升方法求解优化问题时，目标函数必须满足强凸函数的条件，限制过于严格。为了增加对偶提升法的鲁棒性和放松对目标函数\(f\)强凸的约束条件，人们提出了<a href="https://en.wikipedia.org/wiki/Augmented_Lagrangian_method" target="_blank" rel="external">增广拉格朗日乘子法</a>（Augmented Lagrangians）用于解决这类问题。</p>
+<p>Argumented Lagrangians方法的思想：<strong>在目标函数基础上引入惩罚函数项（二次项），放松对目标函数\(f(x)\)严格凸的限制，同时使得算法更加稳健。</strong></p>
+<p>最优化问题从\((diml.2.5.1)\)变为：</p>
+<p>$$<br>\begin{array}{lc}<br>&amp; \; \min_{x} \;\; f(x) \\\<br>&amp; s.t. \; Ax = b<br>\end{array}<br>\overset{惩罚函数项}{\Longrightarrow}<br>\begin{align}<br>&amp; \; \min_{x} \;\; f(x) + \frac{\rho}{2} {\Vert Ax-b \Vert}_2^2 \\\<br>&amp; \quad s.t. \; Ax = b<br>\end{align}     \qquad\qquad(diml.2.5.8)<br>$$</p>
+<p>在约束条件\(Ax-b=0\)下，目标函数定义为\(f(x) + \frac{\rho}{2} {\Vert Ax-b \Vert}_2^2\) 与\(f(x)\)是等价的，因为最优解在满足约束条件的前提下优化目标的后一项等于0，这一项称为<strong>惩罚函数项</strong>（或二次惩罚项）。</p>
+<p>对应的拉格朗日函数：</p>
+<p>$$<br>\mathcal{L}_{\rho}(x, \beta) = f(x) + \frac{\rho}{2} {\Vert Ax-b \Vert}_2^2 + \beta^T (Ax-b)    \qquad\quad(diml.2.5.9)<br>$$</p>
+<blockquote>
+<p>公式解读：</p>
+<p>$$<br>\mathcal{L}_{\rho}(x, \beta) = \overbrace{f(x)}^{原优化目标} + \overbrace{\underbrace{\frac{\rho}{2} {\Vert Ax-b \Vert}_2^2}_{二次惩罚项} + \underbrace{\beta^T(Ax-b)}_{拉格朗日乘子项} }^{增广拉格朗日乘子项}  \qquad (n.diml.2.5.3)<br>$$</p>
+</blockquote>
+<p><strong>问题3：为什么添加二次惩罚项就可以“解除对目标函数\(f(x)\)强凸性质”的限制, 进而可得最优解了呢？</strong></p>
+<p>原因在于如果<strong>原优化目标\(f(x)\)是非凸的，那意味着拉格朗日函数在对\(x\)求偏导时 结果可能不可导，无法进行参数交替迭代优化。添加了二次项惩罚项之后，可以保证即便\(f(x)\)不满足强凸条件，在对x求偏导时 仍然可导，因为二次惩罚项部分可以保证这一点</strong>。</p>
+<p>因此，添加二次惩罚项的好处是可以保证增广的对偶函数一定是可微的。迭代公式如下：</p>
+<p>$$<br>\mathcal{L}_{\rho}(x, \beta) = f(x) + \frac{\rho}{2} {\Vert Ax-b \Vert}_2^2 + \beta^T (Ax-b)<br>\Longrightarrow<br>\begin{align}<br>x^{k+1} &amp; := \arg \min_{x} \mathcal{L}_{\rho} (x, \beta^k) \qquad (step1) \\\<br>\beta^{k+1} &amp; := \beta^k + \rho(Ax^{k+1}-b)  \quad\;\;(step2)<br>\end{align}  \qquad(diml.2.5.10)<br>$$</p>
+<p>上式即为增广拉格朗日乘子法的交替迭代公式。与标准的对偶提升法类似，但有两点不同：</p>
+<ol>
+<li>$\text{step1}$. \(\mathcal{L}(x, \beta)\)对\(x\)求偏导得到最小值时用的是增广拉格朗日函数；</li>
+<li>$\text{step2}$. 惩罚项参数\(\rho\)在这里作为对偶变量更新时的步长（step size）。</li>
+</ol>
+<p><strong>问题4：为什么选择\(\rho\)作为对偶变量更新的迭代的step size？</strong></p>
+<p>为了推导方便，这里假设\(f\)是可微的（尽管在Augmented拉格朗日法中不是必须的），\((x^{\star}, \beta^{\star})\)是优化问题的最优解。此时应该满足以下条件：</p>
+<p>$$<br>Ax^{\star} - b = 0,\; \nabla f(x^{\star}) + A^T\beta^{\star} = 0 \qquad (diml.2.5.11)<br>$$</p>
+<p>根据参数交替迭代公式的\(step1\)，第\(k+1\)的迭代结果\(x^{k+1}\)是由最小化函数\(\mathcal{L}_{\rho}(x, \beta^k)\)得来（具体做法：对参数\(x\)求偏导，令偏导数等于0），所以\(x^{k+1}\)满足下式成立</p>
+<p>$$<br>\begin{align}<br>0 &amp; = \nabla_{x} \mathcal{L}_{\rho}(x^{k+1}, \beta^k) = \nabla_{x} f(x^{k+1}) + \beta^k A + \rho( A^T Ax - A^T b) \\\<br>&amp; = \nabla_{x}f(x^{k+1}) + A^T \left(\underline {\beta^k + \rho(Ax^{k+1} - b) } \right) \\\<br>&amp; = \nabla_{x}f(x^{k+1}) + A^T \beta^{k+1}<br>\end{align} \qquad(diml.2.5.12)<br>$$</p>
+<p>因此可以得到，\(\rho\)为对偶变量参数更新的步长，并得到了第\(k+1\)次迭代的最优解\((x^{k+1}, \beta^{k+1})\)。随着迭代的进行，原函数的残差\(Ax^{k+1}-b\)逐步收敛到0，得到最优解。</p>
+<p>相比对偶提升法，增广拉格朗日乘子法有更好的收敛性质，并且拥有对目标\(f(x)\)不做强凸条件的限制，但是这些好处总是要付出一定的代价的：<strong>如果目标函数是\(f(x)\)是可分的，此时增广拉格朗日函数\(\mathcal{L}_{\rho}(x, \beta)\)是不可分的（因为惩罚函数项部分涉及到矩阵相乘计算，无法用分块形式进行并行化求解），因此公式\((diml.2.5.10)\)的\(step1\)没有办法在分布式环境下并行优化</strong>。</p>
+<p>如果能结合Dual Ascent的并行求解的优势 和 Augmented Lagrangians Methods of Multipliers鲁棒性和不错的收敛性质，那么就可以使大多数目标函数求解都能在分布式环境下并行实现，岂不美哉！！！</p>
+<p>果然在2010年由Stephen Boyd大师等人系统性的整理了交替方向乘子法（ADMM算法），可以解决上述的问题。为此它们长篇论述了ADMM算法的演化过程，参考论文：<a href="http://web.stanford.edu/~boyd/papers/pdf/admm_distr_stats.pdf" target="_blank" rel="external">Distributed Optimization and Statistical Learning via the Alternating Direction Method of Multipliers</a> 该文被《Foundations and Trends in Machine Learning》录入。</p>
+<h3 id="3.交替方向乘子法">3. 交替方向乘子法</h3>
+
+<p>交替方向乘子法（Alternating Direction Method of Multipliers，简称ADMM）<strong>适用于大规模统计学习在分布式环境下的优化求解问题</strong>。可以理解为增广拉格朗日乘子法的变种，旨在整合对偶提升法的可分解性和增广拉格朗日乘子法优秀的收敛性质，进一步提出的新算法。</p>
+<h4 id="3.1.算法框架">3.1. 算法框架</h4>
+
+<p>我们修改下公式\((diml.2.5.1)\)，这样更符合统计学习目标函数的形式. 重新定义的优化问题和Lagrange函数：</p>
+<p>$$<br>\begin{array}{lc}<br>\min_{x} \;\; f(x) \\\<br>s.t. \; Ax = b<br>\end{array}<br>\overset{目标函数分解}{\Longrightarrow}<br>\begin{array}{lc}<br>\min &amp; f(x) + g(z) \\\<br>s.t. &amp; Ax + Bz = C<br>\end{array}  \qquad\quad \quad (diml.2.5.13)<br>$$</p>
+<p>其中\(x \in R^n, z \in R^m; A \in R^{p \times n}, B \in R^{p \times m}, C \in R^p\)。</p>
+<p>拉格朗日函数：</p>
+<p>$$<br>\mathcal{L}_{\rho}(x, z, \beta) = f(x) + g(z) +\underline{ \frac{\rho}{2} {\Vert Ax+Bz-C \Vert}_2^2 + \beta^T(Ax+Bz-C) } \quad (diml.2.5.14)<br>$$</p>
+<p>按照乘子法的思路，参数交替更新迭代：</p>
+<p>$$<br>\begin{align}<br>(x^{k+1}, z^{k+1}) &amp; := \arg \min_{x,z} \mathcal{L}_{\rho}(x,z,\beta^k) \qquad\qquad(\text{step1}) \\\<br>\beta^{k+1} &amp; := \beta^k + \rho (Ax^{k+1} + Bz^{k+1} - C) \quad(\text{step2})<br>\end{align}  \qquad(diml.2.5.15)<br>$$</p>
+<p>上式中的\(step1\)要求对两个原始变量联合最小化，也就是说\(x,z\)是融合在一起优化的，暂且不说联合优化是否容易求解，可以确定的这一步优化不可分解。</p>
+<p>ADMM采用了拆分思想，最初就把\(x\)和\(z\)分别看作两个不同的变量，约束条件也是如此。采用交替方式迭代（序贯式迭代），称为<strong>交替方向</strong>(alternating direction)。</p>
+<p>$$<br>\begin{align}<br>x_t^{k+1} &amp; := \arg \min_x \mathcal{L}_{\rho}(x, z^{k}, \beta^k) \qquad\qquad (\text{step1, 局部更新}) \\\<br>z^{k+1} &amp; := \arg \min_z \mathcal{L}_{\rho}(x^{k+1}, z, \beta^k) \qquad\quad\; (\text{step2, 全局更新}) \\\<br>\beta_t^{k+1} &amp; := \beta^{k} + \rho(Ax^{k+1} + Bz^{k+1} - C) \quad\;\; (\text{step3, 局部更新})<br>\end{align}  \qquad\qquad(diml.2.5.16)<br>$$</p>
+<p>ADMM算法拆分参数\(x\)和\(z\)两步迭代最大的好处是：<strong>当\(f\)可分时，参数可以并行求解。</strong></p>
+<p>在<a href=""><code>chapter6_DiML_算法框架_学习器</code></a>中可以看到，ADMM这种参数和目标函数的拆分非常适合机器学习中的\(\ell_1 \text{-norm}\)优化问题，即：<code>loss function + regularization</code>目标函数的分布式求解。</p>
+<h4 id="3.2.算法性质与评价">3.2. 算法性质与评价</h4>
+
+<p><strong>1). 收敛性</strong></p>
+<p>论文中对收敛性的证明，提到了两个假设条件：</p>
+<ul>
+<li>$f(x)$和$g(z)$分别是扩展的实质函数：\(R^{n}(R^{m}) \rightarrow R \; \cup {+\infty} \), 并且是closed、proper和convex的；</li>
+<li>增广拉格朗日函数\(\mathcal{L}_0\)有一个鞍点（saddle point）；对于约束中的矩阵$A,B$都不需要满秩。</li>
+</ul>
+<p>满足两个假设条件下，可以保证残差、目标函数、对偶变量的收敛性。（详细证明过程参考paper Appendix A）.</p>
+<blockquote>
+<p>实际应用表明，ADMM算法收敛速度是很慢的，类似于共轭梯度法。迭代数十次可以得到一个可接受的结果，与快速的高精度算法（牛顿法、拟牛顿法、内点法等）相比收敛就满多了。因此实际应用中ADMM会与其它高精度算法结合其俩，这样从一个可接受的结果变得在预期时间内可以达到较高的收敛精度。</p>
+<p>在大规模问题求解中，高精度的参数解对于预测的泛化效果没有很大的提高。因此实际应用中，预期时间内得到的一个可接受的结果就可以直接应用预测了。</p>
+</blockquote>
+<p><strong>2). 最优条件和停止准则</strong></p>
+<p>最优条件先省略。放在公式(diml.2.5.17)中</p>
+<p>从最优条件中可以得到初始残差（primal residuals）和对偶残差（dual residuals）的表达式：</p>
+<p>$$<br>\begin{align}<br>r^{k+1} &amp; := Ax^{k+1} + Bz^{k+1} - C \qquad(初始残差) \\\<br>s^{k+1} &amp; := \rho A^T B(z^{k+1} - z^{k}) \qquad\quad(对偶残差)<br>\end{align}  \qquad\qquad(diml.2.5.18)<br>$$</p>
+<p>迭代停止准则比较难以把握，因为受收敛速度问题，要想获得一个不错的参数解，判断迭代停止条件还是比较重要的。实际应用中，一般都根据初始残差和对偶残差足够小来停止迭代。阈值包含了绝对容忍度（absolute tolerance）和相对容忍度（relative tolerance），阈值设置难以把握，具体形式如下：</p>
+<p>$$<br>\begin{align}<br>{\Vert s^k \Vert} \leq \epsilon^{\text{dual}} &amp; = \sqrt{n} \epsilon^{\text{abs}} + \epsilon^{\text{rel}} {\Vert A^T y^k \Vert}_2 \\\<br>{\Vert r^k \Vert}_2 \leq &amp; = \sqrt{p} \epsilon^{\text{abs}} + \epsilon^{\text{rel}} \; \text{max} \{ {\Vert Ax^k \Vert}_2, {\Vert Bz^k \Vert} _2, {\Vert C \Vert}_2 \}<br>\end{align}  \qquad\quad (diml.2.5.19)<br>$$</p>
+<p>上面的$\sqrt{p}$和$\sqrt{n}$分别是维度和样本量。一般而言，相对停止阈值$\epsilon^{\text{rel}} = 10^{-1}$或$10^{-4}$，绝对阈值的选取要根据变量的取值范围来选取。</p>
+<p>此外，在对偶变量更新的惩罚参数\(\rho\)原来是不变的。有一些文章做了可变的惩罚参数，目的是为了降低惩罚参数对初始值的依赖。而证明变动的$\rho$给ADMM的收敛性证明比较困难，因此实际中开设经过一系列迭代后$\rho$也稳定，直接用固定的惩罚参数$\rho$了。</p>
+<h3 id="4.一致性优化与均分优化">4. 一致性优化与均分优化</h3>
+
+<p>分布式优化有两个很重要的问题，即一致性优化问题和共享优化问题，这也是ADMM算法通往并行和分布式计算的途径。下面以机器学习问题的参数优化为例解释这两个重要的概念。</p>
+<p><strong>全局变量一致性优化（global consensus）</strong></p>
+<p>所谓全局变量一致性优化问题，说白了就是<strong>切割大样本数据，并行化计算</strong>。即整体优化求解任务根据目标函数分解成$T$个子任务，每个子任务和子数据都可以获得一个参数解$x_i$，但是整体优化任务的解只有一个$z$。机器学习中的优化目标通常是“损失函数＋正则项”的结构形式，问题就转化为<strong>带正则项的全局一致性问题</strong>，优化问题可以写成如下形式：</p>
+<p>$$<br>\begin{array}{lc}<br>\min \quad \sum_{i=1}^{T} \; f_i(x_i) + g(z)\\\<br>s.t. \quad x_i = z, \; x_i \in R^n, i=1,\cdots,T<br>\end{array}<br>\overset{参数迭代}{\Longrightarrow }<br>\begin{align}<br>x_i^{k+1} &amp; := \arg \min_{x_i} \left(f_i(x_i) + (\beta_i^{k})^T (x_i - z^k) + \frac{\rho}{2} {\Vert x_i - z \Vert}_2^2 \right) \\\<br>z^{k+1} &amp; := \arg \min_{z} \left(g(z) - \sum_{t=1}^{T} (\beta_t^k)^T \theta + \frac{\rho}{2} {\Vert x_i - z \Vert}_2^2 \right) \\\<br>\beta_i^{k+1} &amp; := \beta_i^k + \rho (x_i^{k+1} - z^{k+1})<br>\end{align}<br>$$</p>
+<p>注意，此时$f_i : R^n \rightarrow R \, \cup {+\infty}$仍然是凸函数，而局部参数$x_i$并不是对参数空间进行划分，而是把数据集合$\mathcal{D}$划分为$T$个子集，对数据划分。下文提到的ADMM在$\ell_{1}\text{-norm}$问题中具体应用会详细推导这部分。</p>
+<p><strong>均分优化问题（sharing）</strong></p>
+<p>在统计学习优化问题中，所谓均分优化问题说白了就是<strong>切分特征维度，并行化求解</strong>。它更侧重于高维数据并行化求解的应用场景，通过切分特征维度得到并行化处理。同样假设数据矩阵$A \in R^{m \times n}$和$b \in R^m$，此时满足$n \gg m$，也就是说样本特征维度远大于样本数。shareing的做法是对数据矩阵$A$按照特征空间切分（竖着切分），</p>
+<p>$$<br>\begin{array}{lc}<br>A = [A_1, A_2, \cdots, A_T], A_i \in R^{m \times n_i} \\\<br>x = (x_1, x_2, \cdots, x_T), x_i \in R^{n_i}<br>\end{array}<br>\overset{数据和特征按列切分}{\Longrightarrow}<br>\begin{array}{lc}<br>Ax = \sum_{i=1}^{T} A_i x_i ; \\\<br>g(x) = \sum_{i=1}^{T} g_i(x_i)<br>\end{array}<br>\Longrightarrow<br>\min \; L \left(\sum_{i=1}^{T} A_i x_i - b \right) + \sum_{i=1}^{T} g_i(x_i)  \quad(diml.2.5.21)<br>$$</p>
+<p>我们把公式$(diml.2.5.21)$改成ADMM sharing形式：</p>
+<p>$$<br>\begin{array}{lc}<br>\min \; L(\sum_{i=1}^{T} z_i - b) + \sum_{i=1}^{T} g_i(x_i) \\\<br>s.t. \quad A_i x_i - z_i = 0, \; z_i \in R^m<br>\end{array}<br>\Longrightarrow<br>\begin{align}<br>x_i^{k+1} &amp; := \arg \min_{x_i} \left(g_i(x_i) + \frac{\rho}{2} {\Vert A_i x_i - A_i x_i^k + \overline{Ax}^k - \overline{z}^k + \mu^k \Vert}_2^2 \right) \\\<br>z^{k+1} &amp; := \arg \min_{z} \left(L(N\overline{z} - b) + T \frac{\rho}{2} {\Vert \overline{z} - \overline{Ax}^{k+1} - \mu^k \Vert}_2^2 \right) \\\<br>\mu_{k+1} &amp; := \mu_i^k + \overline{Ax}^{k+1} - \overline{z}^{k+1}<br>\end{align}<br>$$</p>
+<h3 id="5.ADMM在优化领域的具体应用">5. ADMM在优化领域的具体应用</h3>
+
+<h4 id="5.1.$\ell_1\text{norm}$问题">5.1. l1-norm问题</h4>  
+
+<p> 这里的$\ell_{1}\text{-norm}$问题不仅仅是指称为[Lasso](<a href="https://en.wikipedia.org/wiki/Lasso" target="_blank" rel="external">https://en.wikipedia.org/wiki/Lasso</a>_(statistics))问题，而是包含了多种$\ell_{1}\text{-norm}$类型问题。 它的初衷是通过特征选择（自变量选择）来提高模型的预测精度和解释性，具体做法是在优化目标上添加$\ell_{1}$正则项。</p>
+<blockquote>
+<p>Lasso 的基本思想是在回归系数的绝对值之和小于一个常数的约束条件下，使残差平方和最小化，从而能够产生某些严格等于0 的回归系数，得到可以解释的模型。</p>
+</blockquote>
+<p>如果要大规模部署$\ell_{1}\text{-norm}$问题的解决方案，ADMM算法可能是首选。它非常适合机器学习和统计学习的优化问题，因为机器学习问题的优化目标大部分都是<strong>“损失函数＋正则项”</strong>形式. 这种表达形式切好饿意套用ADMM算法框架$f(x) + g(z)$。因此机器学习问题结合ADMM算法框架基本可以在分布式环境下求解很多已由的问题。</p>
+<p>本系列我们用ADMM算法框架主要解决分布式机器学习任务的参数优化问题，所以我们直接关注<strong>一般化的损失函数＋$\ell_{1}正则项问题$</strong>。这类问题通用框架：</p>
+<p>以平方损失函数为例，定义损失函数\(L(y^{(i)}, w^Tx^{(i)}) = \left(y^{(i)} - w^Tx^{(i)} \right)^2\). 优化目标：</p>
+<p>$$<br>\begin{array}{lc}<br>\min_{w} \quad \frac{1}{m} \sum_{i=1}^{m} \left(y^{(i)} - w^Tx^{(i)} \right)^2 + \lambda {\Vert w \Vert}_1<br>\end{array} \qquad\qquad\qquad\qquad\quad (整体优化目标)\\\ . \\\<br>\overset{\text{ADMM}形式} {\Longrightarrow } \quad<br>\begin{array}{lc}<br>\min_{w_1, w_2, \cdots, w_T} \quad \sum_{t=1}^{T} \left( \frac{1}{m_t} \sum_{i=1}^{m_t} \left(y_t^{(i)} - w_t^T x_t^{(i)} \right)^2 \right) + \lambda{\Vert \theta \Vert}_1  \\\<br>s.b \qquad\; w_t=\theta \;(t=1,\cdots,T)<br>\end{array} \quad (分布式优化目标表达式)<br>$$</p>
+<p>令\(\frac{1}{m_t} \sum_{i=1}^{m_t} \left(y_t^{(i)} - w_t^T x_t^{(i)} \right)^2 = L(\mathbf{y}_t, \mathbf{x}_t w_t), \; \)，增广拉格朗日函数：</p>
+<p>$$<br>\mathcal{L}(w_t, \theta, \beta_t) = \sum_{t=1}^{T} \; L(\mathbf{y}_t, \mathbf{x}_t w_t) + \lambda {\Vert \theta \Vert}_1 + \sum_{t=1}^{T} \beta_t^T(w_t - \theta) + \frac{\rho}{2} \sum_{t=1}^{T} {\Vert w_t - \theta \Vert}_2^2<br>$$</p>
+<p><strong>参数迭代过程</strong></p>
+<ul>
+<li>局部参数更新（worker节点）</li>
+</ul>
+<p>$$<br>\begin{align}<br>w_t^{k+1}  \longleftarrow \; &amp; \arg\min_{w_t} \; \frac{1}{m_t}\; L(\mathbf{y}_t, \mathbf{x}_t w_t) + (\beta_t^k)^T w_t + \frac{\rho}{2} {\Vert w_t - \theta^k \Vert}_2^2 \qquad\qquad\quad(1) \\\<br>\; &amp; \arg\min_{w_t} \; \frac{1}{m_t}\; L(\mathbf{y}_t, \mathbf{x}_t w_t) + \frac{\rho}{2} {\Vert w_t - \theta^k + \frac{1}{\rho} \beta_t^k \Vert}_2^2<br>\end{align}<br>$$</p>
+<ul>
+<li><p>全局参数更新（master节点）</p>
+<p>  $$<br>\theta^{k+1} \longleftarrow \arg\min_{\theta} \; \lambda {\Vert \theta \Vert}_1 - \sum_{t=1}^{T} (\beta_t^k)^T \theta + \frac{\rho}{2} \sum_{t=1}^{T} {\Vert w_t^{k+1} - \theta \Vert}_2^2 \qquad\qquad(2)<br>  $$</p>
+</li>
+<li><p>对偶变量更新（worker节点）</p>
+<p>  $$<br>\begin{align}<br>\beta_t^{k+1} \longleftarrow &amp; \beta_t^k + \rho(w_t^{k+1} - \theta^{k+1}) \qquad\qquad\qquad\qquad\qquad\qquad\qquad\;\,(3)<br>\end{align}<br>$$</p>
+</li>
+</ul>
+<p>迭代公式说明：</p>
+<ul>
+<li>第1步：局部参数更新。目标函数可以看作是<strong><code>损失函数+L2正则项</code></strong>(\({\Vert w_t - const \Vert}_2^2\))，涉及参数：$(\theta, \beta_t, w_t)$；</li>
+<li>第2步：全局参数更新。需要详细推到，涉及到软阈值. 涉及参数：\((w_1,\cdots,w_T, \rho, \beta_1,\cdots,\beta_T,\lambda)\)</li>
+<li>第3步：局部对偶变量更新。涉及参数：\((\theta, \lambda, w_1,\cdots,w_T, \rho)\)</li>
+</ul>
+<p>这里涉及到一个worker节点参数与master节点参数通信问题，以及<strong>master节点是如何利用worker局部参数更新全局参数的？</strong>我们先看master节点参数更新推导过程。</p>
+<p>拉格朗日函数，对\(\theta\)求偏导：</p>
+<p>$$<br>\begin{align}<br>\frac{\partial \, \mathcal{L}(w_t, \theta, \beta_t)} {\partial{\theta}} &amp; ＝ \frac{\partial \; \left({\lambda {\vert \theta \vert}_1} - \sum_{t=1}^{T}(\beta_t)^T \theta + \frac{\rho}{2} \sum_{t=1}^{T} {\Vert w_t - \theta \Vert}_2^2 \right)} {\partial {\theta}} \\\<br>&amp; = \mathbf{sign}(\theta) \cdot \lambda - \sum_{t=1}^{T} \beta_t + {\rho} \sum_{t=1}^{T} \left(\theta - w_t \right) \\\<br>&amp; = \mathbf{sign}({\vert \theta \vert}_1) \cdot \frac{\lambda}{\rho} - \sum_{t=1}^{T} \left( \frac{\beta_t}{\rho} + w_t\right) + \sum_{t=1}^{T} \theta = 0 \\\<br>\end{align}<br>$$</p>
+<p>$$<br>全局参数\theta更新公式整理得到：\underline{\color{blue}{ \theta } = \frac{1}{T} \left(\sum_{t=1}^{T}<br>\left(\color{red} { \frac{\beta_t}{\rho} + w_t } \right)  - sign({\vert \theta \vert}_1) \cdot \frac{\lambda}{\rho} \right) }<br>$$</p>
+<p>说明：全局参数更新时，$\ell_{1}\text{-norm}$项需要求导。虽然在0处不可导，但仍有解析解，这里使用<strong><a href="http://blog.csdn.net/jbb0523/article/details/52103257" target="_blank" rel="external">软阈值</a></strong>的方法得到解析解：</p>
+<p>$$<br>\color{blue}{\theta} =<br>\begin{cases}<br>\frac{1}{T} \left( \sum_{t=1}^{T} \left( \color{red}{\frac{\beta_t}{\rho} + w_t}\right) + \frac{\lambda}{\rho}  \right) &amp; \qquad \text{if} \; {\vert \theta \vert}_1 &lt; 0, 若：\sum_{t=1}^{T} \left( \frac{\beta_t}{\rho} + w_t\right) + \frac{\lambda}{\rho} &lt; 0 ; \\\<br>\frac{1}{T}\left(\sum_{t=1}^{T}\left(\color{red}{\frac{\beta_t}{\rho} + w_t} \right) - \frac{\lambda}{\rho} \right) &amp; \qquad \text{if} \; {\vert \theta \vert}_1 &gt; 0, 若：\sum_{t=1}^{T} \left( \frac{\beta_t}{\rho} + w_t\right) - \frac{\lambda}{\rho} &gt; 0 ; \\\<br>\; 0  &amp; \qquad \text{otherwise}.<br>\end{cases}<br>$$</p>
+<p>参数：\(\lambda\) 为$L_1$正则项系数；\(\beta_t\)对偶变量（拉格朗日乘子）; \(\theta\)全局参数; \(w_t\)局部参数;</p>
+<p>公式中的红色区域是worker向master传递的传递参数，这一步称为merge过程（在MPI对应allreduce操作，Hadoop对应reduce过程）；蓝色区域（全局参数）是master向所有</p>
+<blockquote>
+<p><a href="">软阈值（Soft-Thresholding）</a>又称压缩算子（shrinkage operator）</p>
+</blockquote>
+<h4 id="5.2.等式约束的凸优化问题">5.2. 等式约束的凸优化问题</h4>
+
+<h3 id="6.ADMM与统计机器学习">6. ADMM与统计机器学习</h3>
+
+<p>generalized lasso, group lasso, 高斯图模型，Tensor型图模型等问题的求解，都可以在ADMM算法框架上直接应用和实施，这正是ADMM算法的一个优势所在，便于大规模分布式部署。</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">符号</th>
-<th style="text-align:left">含义</th>
+<th>算法框架</th>
+<th style="text-align:left">模型</th>
+<th>参数学习方法</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">$n^{[0]}$</td>
-<td style="text-align:left">表示NN输入层的神经元个数，为了符号统一，规定输入层为第0层</td>
-</tr>
-<tr>
-<td style="text-align:center">$n^{[l]}$</td>
-<td style="text-align:left">第$l$层神经元个数</td>
-</tr>
-<tr>
-<td style="text-align:center">$a^{[l]}$</td>
-<td style="text-align:left">表示NN第$l$层输入信息，一条样本的维度为$(1, n^{[l]})$</td>
-</tr>
-<tr>
-<td style="text-align:center">$W^{[l]}$</td>
-<td style="text-align:left">表示第$l$层与$l-1$层之间的连接矩阵，维度：($n^{[l]}$, $n^{[l-1]}$)，即：$W^{[1]} \in R^{n^{[1]} \times n^{[0]}}$</td>
-</tr>
-<tr>
-<td style="text-align:center">$b^{[l]}$</td>
-<td style="text-align:left">表示第$l$层的偏置项参数，维度：($n^{[l]}$, $1$)</td>
-</tr>
-<tr>
-<td style="text-align:center">$z^{[l]}$</td>
-<td style="text-align:left">表示第$l$层的线性表达$z^{[l]} = W^{[l]} \cdot a^{[l-1]} + b^{[l]}$, 维度：($n^{[l]}$, $1$)</td>
-</tr>
-<tr>
-<td style="text-align:center">$m$</td>
-<td style="text-align:left">表示Batch Size</td>
+<td>admm</td>
+<td style="text-align:left">Lasso (Group Lasso) <br> Logistic Regression <br> Factorization Machine <br> Filed-awared Factorization Machine</td>
+<td>sgd <br> adaptive sgd <br> ftrl <br> lbfgs <br> mcmc <br> …</td>
 </tr>
 </tbody>
 </table>
-<h2 id="2.1.神经网络的前向与反向">神经网络的前向与反向</h2>
-
-
-<p>前向计算</p>
-<p>$$<br>z^{[1]} =  a^{[0]} \cdot {W^{[1]}}^T+ b^{[1]},  \\\<br>a^{[1]} = \sigma(z^{[1]}), \\\<br>z^{[2]} =  a^{[1]} \cdot {W^{[2]}}^T+ b^{[2]},  \\<br>a^{[2]} = \sigma(z^{[2]}), \\\<br>z^{[3]} =  a^{[2]} \cdot {W^{[3]}}^T+ b^{[3]},  \\<br>a^{[3]} = \sigma(z^{[3]}), \\\<br>\hat{y} = sigmoid(a^{[3]})<br>$$</p>
-<p>反向计算</p>
-<p>$$<br>\mathcal{L}(a^{[3]};W^{[1]},\; \cdots,\;b^{[3]}) = - y \cdot \log(\hat{y}) - (1 - y) \cdot \log(1-\hat{y}) \\\<br>\mathbf{d}a^{[3]} = \frac{\partial{\mathcal{L}}}{\partial a^{[3]}} = \frac{\partial{\mathcal{L}}}{\partial{\sigma(z^{[3]})}}  = (\hat{y} - y) \\\<br>\mathbf{d}z^{[3]} = \mathbf{d}a^{[3]} \cdot \frac{\partial{a^{[3]}}} {\partial z^{[3]}}, \\\<br>\quad  注：\frac{\partial{a^{[3]}}} {\partial z^{[3]}}是关于z^{[3]}的梯度公式，也是一个关于输入z^{[3]}和输出z^{[3]}的表达式。这里的z^{[3]}，a^{[3]}也是“变量” \\\<br>\mathbf{d}W^{[3]} = \frac{\partial{\mathcal{L}}}{\partial{W^{[3]}}} = \frac{\partial{\mathcal{L}}}{\partial a^{[3]}} \cdot \frac{\partial{a^{[3]}} }{\partial z^{[3]}} \cdot \frac{\partial{z^{[3]}} }{\partial W^{[3]}} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}} } {\partial W^{[3]}} = \mathbf{d}z^{[3]} \cdot a^{[2]} \\\<br>\qquad 注：可以看到，这里是矩阵相乘（前向的输入 * 反向的输入），写代码时⚠️矩阵转秩问题 \\\<br>\mathbf{d}a^{[2]} = \frac{\partial{\mathcal{L}}} {\partial{a^{[2]}}} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}}} {\partial{a^{[2]}}} = \mathbf{d}z^{[3]} \cdot W^{[3]} \\\<br>注：这里a^{[2]}也是中间变量，也存在自身前向信息（data)和反向信息(grad) \\\<br>\mathbf{d}b^{[3]} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}}} {\partial{b^{[3]}}} = \mathbf{d}z^{[3]} \\\<br>注：注意维度，这里需要按cols求和 \\\<br>…..<br>$$</p>
-<p>由此，总结NN前向计算和反向传播（梯度计算）的通用公式。变量如下：$a^{[l-1]} \in R^{k \times n^{[l-1]}}$, $\mathbf{d}a^{[l-1]} \in R^{k \times n^{l-1}}$, $W^{[l]} \in R^{n^{[l]} \times n^{[l-1]}}$, $b^{[l]} \in R^{1 \times n^{[l]}}$, $z^{[l]} \in R^{k \times n^{[l]}}$, $a^{[l]} \in R^{k \times n^{[l]}}$, $k$表示样本数，如此迭代下去….</p>
-<p>前向传播通用公式：</p>
-<p>$$<br>z^{[l]} = a^{[l-1]} \cdot {W^{[l]}}^{\mathrm{T}} + b^{[l]} \\\<br>a^{[l]} = \sigma(z^{[l]}) \\\<br>z^{[l+1]} = a^{[l]} \cdot {W^{[l+1]}}^{\mathrm{T}} + b^{[l+1]} \\\<br>…<br>$$</p>
-<p>伪代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Y.noalias() = (X * W.transpose()).rowwise() + b.row(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<p><a href="http://www.cnblogs.com/southtonorth/archive/2018/08/21/9512559.html" target="_blank" rel="external">http://www.cnblogs.com/southtonorth/archive/2018/08/21/9512559.html</a></p>
-<h2 id="2.2.softmax">Softmax</h2>
-
-<p>softmax小节安排如下：首先从数学和概率的角度理解soft（软化的）max是如何来的？然后讲清楚它为何可以用在多分类问题上？最后给出它在深度学习框架（tensorflow、openmi）上的实现。</p>
-<h3 id="2.2.1.softmax函数由来">softmax函数由来</h3>
-
-<p>softmax函数表达式我想大家已经很清楚了，在此赘述：</p>
-<p>$$<br>\text{softmax}(a_i) = \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}<br>$$</p>
-<p>下面这个函数与上式“貌似”不相同，但是它们又及其相关：</p>
-<p>$$<br>g(x, y) = \text{log}_e(e^x + e^y)<br>$$</p>
-<p>两个表达式的相关性先不谈，先解释清楚$g(x,y)$函数的由来，要从hardmax说起。</p>
-<p><strong>hardmax函数</strong></p>
-<p>softmax函数其实是从hardmax演变而来的，hardmax其实是我们生活中很常见的函数，表达式为：</p>
-<p>$$<br>\text{hardmax} = max\{x, y\}<br>$$</p>
-<p>表达的意思很清楚，就是取x和y中较大的哪个值。如果y=0，可得表达式为$max\{x, 0\}$。画图可知，该函数在$x=0$处是连续不可导的，函数可导可以帮助我们做很多事情，那么有没有办法对其变形，找到一个连续可导的近似函数呢？此时就有了softmax函数$g(x,y) = \text{log}_e(e^x + e^y)$。</p>
-<p>我们先来看下这个函数的数学特性。指数函数有一个特点，就是变化率非常快。当$x &gt; y$时，通过指数的放大作用，使得二者的差距进一步变大，即$e^x \gg e^y$。所以有$e^x + e^y \approx e^x$，那么此时$g(x,y) = \text{log}_e(e^x + e^y) \approx \text{log}_e(e^x) = x$。根据推导过程，可以知道$g(x,y)$约等于$x,y$中较大的值，即$g(x,y) \approx \text{max}(x,y)$。</p>
-<p>所以我们得出一个结论：$g(x,y)$是$max(x,y)$的近似函数，两个函数有相似的数学特性。两个函数的图形如下：</p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter2_softmax_and_hardmax.png" width="400" height="300" alt="softmax与hardmax"></p>
-<p>可以看出，当$x,y$的差别越大时，softmax和hardmax函数吻合度越高。同时也可以看出，softmax是一个连续且处处可导的函数，这时一个非常重要的特性：$g(x,y)$即具有与$\text{max}(x,y)$的相似性，又避免了$\text{max}(x,y)$函数不可导的特点。</p>
-<h3 id="2.2.2.softmax函数概率模型">softmax函数概率模型</h3>
-
-<p>上一节讲到的softmax与神经网络分类层的softmax函数有什么关系呢？</p>
-<p>假设我们要从a,b两个未知数中取一个较大的值，即$\text{max}(a,b)$，那么取到两个数字的概率分别是多少呢？我们可以构建一个概率模型：</p>
-<ul>
-<li>当a=b时，取任意一个数字都可以，所以各占50%，即$p(a)=p(b)=50\%$；</li>
-<li>当a=4,b=6时，b比a大，此时更倾向于b，取到b的概率应该会更大些，即$p(a)=40\%,p(b)=60\%$；</li>
-<li>当a=8,b=2时，a比b大，此时更倾向于a，取到a的概率应该会更大些，即$p(a)=80\%,p(b)=20\%$.</li>
+<h3 id="8-_ADMM应用场景"><h3 id="8.ADMM应用场景">8. ADMM应用场景</h3></h3><ul>
+<li>Big-Data Learning </li>
+<li>Multi-Task Learning </li>
 </ul>
-<p>当变量变多时，此时hardmax变成了$\text{max}(a_1, a_2, \cdots, a_K)$，根据假设的概率模型，取到每一个样本点的概率即为$p(a_i) = \frac{a_i}{\sum_{k=1}a_k}$</p>
-<p>上述表达式与softmax“貌似”很熟，其实对于机器学习多分类问题来说，训练过程中需要对参数求导用于更新参数，从上一节可知hardmax函数并不是处处可导的，那么此时就用hardmax的近似函数softmax来替代它，我们已知了二者之间的关系：</p>
-<p>$$<br>f(a_1, a_2, \cdots, a_K) = \text{max}(a_1, a_2, \cdots, a_K) \approx g(a_1, a_2, \cdots, a_K) = \text{log}_e(e^{a_1} + e^{a_2} + \cdots + e^{a_K})<br>$$</p>
-<p>因此，根据hardmax函数表达式，得出softmax的概率模型表达式为：</p>
-<p>$$<br>\text{softmax} = \frac{e^{a_i}} {\sum_{k=1}^K e^{a_k}}<br>$$</p>
-<p>以上就是softmax函数的由来。再次梳理下逻辑：softmax是hardmax的近似函数，也是对hardmax函数的优化（解决了hardmax不可导问题）。softmax函数＋概率模型得到了我们常见的softmax概率模型表达式。</p>
-<h3 id="2.2.3.softmax表达式与概率的关系">softmax表达式与概率的关系</h3>
+<h3 id="9-_基于MPI的ADMM框架实现"><h3 id="9.基于MPI的ADMM框架实现">9. 基于MPI的ADMM框架实现</h3></h3><h4 id="数据节点">数据节点</h4><h4 id="模型节点">模型节点</h4><h3 id="参考资料">参考资料</h3>
 
-<p>根据概率的定义，一个事件发生的概率我们用$p\in [0,1]$表示，事件一定发生的概率是1，不会发生的概率是0，事件结果所有可能性的概率纸盒等于1。</p>
-<p>以神经网络最后一层输出为例，经过softmax层计算后的表达式为：</p>
-<p>$$<br>s_i = \frac{e^{z_i}} {e^{z_1} + e^{z_2} + \cdots + e^{z_K}}  \qquad s_i \in [0,1]<br>$$</p>
-<p>对所有神经元s求和，得到：</p>
-<p>$$<br>\sum_{i=1}^K s_i = \frac {e^{z_1} + e^{z_2} + \cdots + e^{z_K}} {e^{z_1} + e^{z_2} + \cdots + e^{z_K}} = 1<br>$$</p>
-<p>由此可知，神经网络输出层的数据，经过softmax层转换后的结果，即可满足概率表达式的特性。因此，输出层的数据转化为概率表达式后的输出值就有了新的意义。对应分类问题来说，不同大小的概率值表示，这个结果属于不同类别的可能性大小。</p>
-<h3 id="2.2.4.SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp">SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp</h3>
-
-
-<p>SoftmaxOp多用于多分类问题，假设为K类，那么属于第i类的概率为：</p>
-<p>$$<br>p_i = \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}<br>$$</p>
-<p><strong>softma计算优化</strong></p>
-<p>为了避免_指数越界出现NAN问题_，通常会分别对分子分母乘以一个常量C，即</p>
-<p>$$<br>p_i = \frac{\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k) } = \frac{C \exp(a_i)} { C  \sum_{k=1}^{K} \exp(a_k) } = \frac {\exp(a_i + \log(C))} {\sum_{k=1}^{K} \exp(a_k + \log(C))}<br>$$</p>
-<p>通常$\log(C)=-\max(a)$，如此相当于K维的向量a取值平移到[-, 0]之间，指数最大值是1而不是正无穷，避免了Nan问题。</p>
-<p><strong>Softmax梯度</strong></p>
-<p>$$<br>\frac {\partial p_i} {\partial a_j} = \frac {\partial \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}} {\partial a_j}<br>$$</p>
-<p>根据除法导数公式$f(x) = \frac {g(x)} {h(x)}$，存在$f’(x) = \frac {g’(x)h(x) - g(x)h’(x)} {h^2(x)}$。在这里$g(x) = \exp(a_i)$, $h(x) = \sum_{k=1}^K \exp(a_k)$。</p>
-<p>对于$\frac {\partial h(x)} {\partial a_j}$，它的导数总是$\exp(a_j)$；对于$\frac{g(x)}{\partial a_j}$，分两种情况如果$i=j$ 梯度为$\exp(a_j)$，否则梯度为0（对于$a_j$来说，$a_i$是常数）。</p>
-<p>所以Softmax梯度公式分两种情况:</p>
-<p>当$i=j$时，</p>
-<p>$$<br>\frac {\partial p_i} {\partial a_j} = \frac {\partial \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}} {\partial a_j} = \frac {\exp(a_i) \cdot \sum_{k=1}^{K} \exp(a_k) - \exp(a_i) \cdot \exp(a_j)} {\left(\sum_{k=1}^{K} \exp(a_k)\right)^2} \\\<br>= \frac {\exp(a_i) } {\sum_{k=1}^{K} \exp(a_k)} \cdot \frac {\left(\sum_{k=1}^{K} \exp(a_k) - \exp(a_j) \right)} {\sum_{k=1}^{K} \exp(a_k)} = p_i * (1- p_j)<br>$$</p>
-<p>当$i \neq j$时，</p>
-<p>$$<br>\frac {\partial p_i} {\partial a_j} = \frac {\partial \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}} {\partial a_j} = \frac {0 - \exp(a_i) \cdot \exp(a_j)} {\left(\sum_{k=1}^{K} \exp(a_k)\right)^2} = - p_i \cdot p_j<br>$$</p>
-<p>因此Softmax梯度公式为：</p>
-<p>$$<br>f(x) = \begin{cases} \displaystyle<br>p_i \cdot (1 - p_j) &amp; \text{if} \; i=j \\\<br>-p_i \cdot p_j &amp; \text{if} \; i \neq j<br>\end{cases}<br>\longrightarrow<br>\mathbf{\frac{\partial p_i} {\partial a_j} = p_i (\delta_{ij} - p_j)}, \;<br>\delta_{ij} = \begin{cases} \displaystyle<br>1 &amp; \text{if} \; i = j \\<br>0 &amp; \text{if} \; i \neq j<br>\end{cases}<br>$$</p>
-<h2 id="交叉熵损失（Cross_Entropy_Loss）">交叉熵损失（Cross Entropy Loss）</h2><p>交叉熵用来衡量<strong>相同事件空间里两个概率分布的差异</strong>。应用到分类问题里，就是实际label输出（概率）与期望输出（概率）之间的距离，交叉熵越小，说明两个概率分布越接近。这里假设概率分布Y为实际输出，P为期望输出，H(Y,P)为交叉熵，那么有：</p>
-<p>$$<br>H(Y,P) = L(P) = - \sum_{x \in X} Y(x) \cdot \log P(x)<br>$$</p>
-<p>具体含义和解释，详见<a href="http://www.52caml.com/head_first_ml/ml-chapter2-entropy-based-family/#%E7%9B%B8%E5%AF%B9%E7%86%B5%E3%80%81KL%E8%B7%9D%E7%A6%BB" target="_blank" rel="external">52CAML交叉熵</a>定义</p>
-<p><strong>Softmax交叉熵损失梯度 with Logits</strong></p>
-<blockquote>
-<p>注意：交叉熵损失函数对logits的梯度，而不是对softmax的梯度。</p>
-</blockquote>
-<p>$$<br>\frac {\partial L} {\partial a_i} = - \sum_{k=1}^{K} y_k \cdot \frac{\partial \log(p_k)} {\partial a_i} = - \sum_{k=1}^{K} y_k \cdot \frac{\partial \log(p_k)} {\partial p_k} \cdot \frac{\partial p_k} {\partial a_i} \\<br>= - \sum_{k=1}^K y_k \frac{1}{p_k} \cdot \frac{\partial p_k} {\partial a_i} \\<br>= - \sum_{k=1}^K y_k \frac{1}{p_k} \cdot \left(p_k (\delta_{ki} - p_i) \right) = - \sum_{k=1}^K y_k (\delta_{ki} - p_i) \\<br>= - y_i (1 - p_i) - \sum_{k \neq i} y_k p_i \\<br>= \sum_{k=1}^K y_k * p_i - y_i = \mathbf{p_i - y_i}<br>$$</p>
-<p>因为$\sum_{k=1}^K p_k = 1$。所以基于Softmax函数的交叉熵损失梯度（对于logits $a_i$）表达式为：</p>
-<p>$$<br>\mathbf{\frac{\partial L} {\partial a_i} = p_i - y_i}<br>$$</p>
+<ul>
+<li>论文：Boyd S, Parikh N, Chu E, et al. Distributed optimization and statistical learning via the alternating direction method of multipliers[J]. Foundations and Trends® in Machine Learning, 2011, 3(1): 1-122.</li>
+<li><a href="http://web.stanford.edu/~boyd/admm.html" target="_blank" rel="external">斯坦福大学－ADMM网址</a></li>
+<li><a href="http://joegaotao.github.io/cn/2014/02/admm/" target="_blank" rel="external">分布式计算、统计学习与ADMM算法</a></li>
+</ul>
+<p>非常赞：优化算法总结文档：<a href="http://sebastianruder.com/optimizing-gradient-descent/" target="_blank" rel="external">http://sebastianruder.com/optimizing-gradient-descent/</a><br>优化算法：<a href="http://www.cnblogs.com/neopenx/p/4768388.html" target="_blank" rel="external">http://www.cnblogs.com/neopenx/p/4768388.html</a><br>优化算法；Coupled Group Lasso<br>点击率预估模型经典简介：<a href="http://blog.csdn.net/starzhou/article/details/51769561" target="_blank" rel="external">http://blog.csdn.net/starzhou/article/details/51769561</a><br>论文： Coupled group lasso for web-scale ctr prediction in display advertising</p>
 
         
         
@@ -249,13 +371,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/深度学习/">深度学习</a>
+  <a class="article-category-link" href="/categories/分布式机器学习/">分布式机器学习</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Attention/">Attention</a><a href="/tags/Pooling/">Pooling</a><a href="/tags/Softmax/">Softmax</a><a href="/tags/反向传播/">反向传播</a>
+  <span></span> <a href="/tags/ADMM/">ADMM</a><a href="/tags/交替方向乘子法/">交替方向乘子法</a><a href="/tags/受限约束优化/">受限约束优化</a><a href="/tags/梯度提升法/">梯度提升法</a>
   </div>
 
 </div>
@@ -5394,6 +5516,10 @@ double <span class="function"><span class="keyword">val</span> =</span> <span cl
 		  
 		
 		  
+			<li><a href="/categories/深度学习/图网络/" title="图网络">图网络<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/强化学习与智能决策/" title="强化学习与智能决策">强化学习与智能决策<sup>4</sup></a></li>
 		  
 		
@@ -5423,10 +5549,6 @@ double <span class="function"><span class="keyword">val</span> =</span> <span cl
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Attention/" title="Attention">Attention<sup>3</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
 			
 		
@@ -5439,15 +5561,19 @@ double <span class="function"><span class="keyword">val</span> =</span> <span cl
 			
 		
 			
-				<li><a href="/tags/反向传播/" title="反向传播">反向传播<sup>2</sup></a></li>
+				<li><a href="/tags/Attention/" title="Attention">Attention<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Softmax/" title="Softmax">Softmax<sup>2</sup></a></li>
+				<li><a href="/tags/DP/" title="DP">DP<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Pooling/" title="Pooling">Pooling<sup>2</sup></a></li>
+				<li><a href="/tags/Policy-Evalation/" title="Policy Evalation">Policy Evalation<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Improvement/" title="Policy Improvement">Policy Improvement<sup>1</sup></a></li>
 			
 		
 			
