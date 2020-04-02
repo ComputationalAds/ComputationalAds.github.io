@@ -30,7 +30,7 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 本章关键词：多层感知机、全连接层">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第06章：Graph Embedding学习与应用">
-<meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter6-graph-embedding/index.html">
+<meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter6-graph-embedding-dev/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
 <meta property="og:description" content="author: zhouyongsdzh@foxmail.com
 date: 2018-12-01
@@ -49,7 +49,6 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 
 
 本章关键词：多层感知机、全连接层">
-<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter2_softmax_and_hardmax.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第06章：Graph Embedding学习与应用">
 <meta name="twitter:description" content="author: zhouyongsdzh@foxmail.com
@@ -128,7 +127,7 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/deep_learning/dl-chapter6-graph-embedding/" title="第06章：Graph Embedding学习与应用" itemprop="url">第06章：Graph Embedding学习与应用</a>
+      <a href="/deep_learning/dl-chapter6-graph-embedding-dev/" title="第06章：Graph Embedding学习与应用" itemprop="url">第06章：Graph Embedding学习与应用</a>
   </h1>
   <p class="article-author">By
        
@@ -144,7 +143,7 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#6.0.图网络介绍"><span class="toc-number">1.</span> <span class="toc-text">图网络介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.1.图网络符号定义"><span class="toc-number">1.1.</span> <span class="toc-text">图网络符号定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.2.图类型划分"><span class="toc-number">1.2.</span> <span class="toc-text">图类型划分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.3.图神经网络与图嵌入学习"><span class="toc-number">1.3.</span> <span class="toc-text">图神经网络与图嵌入学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.4.Graph Embedding学习框架"><span class="toc-number">1.4.</span> <span class="toc-text">Graph Embedding学习框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.神经网络的前向与反向"><span class="toc-number">1.5.</span> <span class="toc-text">神经网络的前向与反向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.2.softmax"><span class="toc-number">1.6.</span> <span class="toc-text">Softmax</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.1.softmax函数由来"><span class="toc-number">1.6.1.</span> <span class="toc-text">softmax函数由来</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.2.softmax函数概率模型"><span class="toc-number">1.6.2.</span> <span class="toc-text">softmax函数概率模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.3.softmax表达式与概率的关系"><span class="toc-number">1.6.3.</span> <span class="toc-text">softmax表达式与概率的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.4.SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp"><span class="toc-number">1.6.4.</span> <span class="toc-text">SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交叉熵损失（Cross_Entropy_Loss）"><span class="toc-number">1.7.</span> <span class="toc-text">交叉熵损失（Cross Entropy Loss）</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#6.0.图网络介绍"><span class="toc-number">1.</span> <span class="toc-text">图网络介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.1.图网络符号定义"><span class="toc-number">1.1.</span> <span class="toc-text">图网络符号定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.2.图类型划分"><span class="toc-number">1.2.</span> <span class="toc-text">图类型划分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.3.图神经网络与图嵌入学习"><span class="toc-number">1.3.</span> <span class="toc-text">图神经网络与图嵌入学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.4.Graph Embedding学习框架"><span class="toc-number">1.4.</span> <span class="toc-text">Graph Embedding学习框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.5.Graph Embedding方法汇总"><span class="toc-number">1.5.</span> <span class="toc-text">Graph Embedding方法汇总</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6.1.图表示学习算法"><span class="toc-number">2.</span> <span class="toc-text">图表示学习算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6.1.1.Shallow-Embedding"><span class="toc-number">2.1.</span> <span class="toc-text">Shallow Embedding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.1.2.Deep-Embedding"><span class="toc-number">2.2.</span> <span class="toc-text">Deep Embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6.1.2.1.neighborhood-autoencoder-methods"><span class="toc-number">2.2.1.</span> <span class="toc-text">Neighborhood autoencoder methods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6.1.2.2.neighborhood-aggregation-and-convolutional-encoders"><span class="toc-number">2.2.2.</span> <span class="toc-text">Neighborhood aggregation and convolutional encoders</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.1.3.metapath2vec"><span class="toc-number">2.3.</span> <span class="toc-text">metapath2vec</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6.2.图表示学习应用"><span class="toc-number">3.</span> <span class="toc-text">图表示学习应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6.2.1.向量召回"><span class="toc-number">3.1.</span> <span class="toc-text">向量召回</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -315,97 +314,197 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 <p><strong>优化目标</strong></p>
 <p>最小化embeddings与原节点相似度差异，即</p>
 <p>$$<br>\mathcal{L} = \sum_{(v_i, v_j) \in \mathcal{D}} \mathcal{l} \left(\text{DEC}(z_i, z_j), \mathcal{S}_{\mathcal{G}}(v_i, v_j) \right)<br>$$</p>
-<p>以上4个组件构成了Encoder-Decoder学习框架，即：</p>
+<p>Encoder-Decoder学习框架主要有以下4个组件构成，即：</p>
 <ul>
 <li>pairwise similarity function: 节点间相似度度量函数$\mathcal{S}_{\mathcal{G}}$；</li>
 <li>encoder function: 训练节点embedding，包含训练参数；</li>
 <li>decoder function: 根据embedding重建pairwise相似度，一般不包含训练参数（如何实现？？？）</li>
 <li>loss function: 损失函数；</li>
 </ul>
-<h2 id="2.1.神经网络的前向与反向">神经网络的前向与反向</h2>
+<p>总结：图节点embedding向量学习的具体方法都遵循Encoder-Decoder学习框架，原空间到映射空间再重构原空间，decoder都是基于pairwise。不同的图表示学习方法主要体现在以上4个组件的实现差异。</p>
+<h2 id="6.0.5.Graph Embedding方法汇总">Graph Embedding方法汇总</h2>
 
-
-<p>前向计算</p>
-<p>$$<br>z^{[1]} =  a^{[0]} \cdot {W^{[1]}}^T+ b^{[1]},  \\\<br>a^{[1]} = \sigma(z^{[1]}), \\\<br>z^{[2]} =  a^{[1]} \cdot {W^{[2]}}^T+ b^{[2]},  \\<br>a^{[2]} = \sigma(z^{[2]}), \\\<br>z^{[3]} =  a^{[2]} \cdot {W^{[3]}}^T+ b^{[3]},  \\<br>a^{[3]} = \sigma(z^{[3]}), \\\<br>\hat{y} = sigmoid(a^{[3]})<br>$$</p>
-<p>反向计算</p>
-<p>$$<br>\mathcal{L}(a^{[3]};W^{[1]},\; \cdots,\;b^{[3]}) = - y \cdot \log(\hat{y}) - (1 - y) \cdot \log(1-\hat{y}) \\\<br>\mathbf{d}a^{[3]} = \frac{\partial{\mathcal{L}}}{\partial a^{[3]}} = \frac{\partial{\mathcal{L}}}{\partial{\sigma(z^{[3]})}}  = (\hat{y} - y) \\\<br>\mathbf{d}z^{[3]} = \mathbf{d}a^{[3]} \cdot \frac{\partial{a^{[3]}}} {\partial z^{[3]}}, \\\<br>\quad  注：\frac{\partial{a^{[3]}}} {\partial z^{[3]}}是关于z^{[3]}的梯度公式，也是一个关于输入z^{[3]}和输出z^{[3]}的表达式。这里的z^{[3]}，a^{[3]}也是“变量” \\\<br>\mathbf{d}W^{[3]} = \frac{\partial{\mathcal{L}}}{\partial{W^{[3]}}} = \frac{\partial{\mathcal{L}}}{\partial a^{[3]}} \cdot \frac{\partial{a^{[3]}} }{\partial z^{[3]}} \cdot \frac{\partial{z^{[3]}} }{\partial W^{[3]}} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}} } {\partial W^{[3]}} = \mathbf{d}z^{[3]} \cdot a^{[2]} \\\<br>\qquad 注：可以看到，这里是矩阵相乘（前向的输入 * 反向的输入），写代码时⚠️矩阵转秩问题 \\\<br>\mathbf{d}a^{[2]} = \frac{\partial{\mathcal{L}}} {\partial{a^{[2]}}} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}}} {\partial{a^{[2]}}} = \mathbf{d}z^{[3]} \cdot W^{[3]} \\\<br>注：这里a^{[2]}也是中间变量，也存在自身前向信息（data)和反向信息(grad) \\\<br>\mathbf{d}b^{[3]} = \mathbf{d}z^{[3]} \cdot \frac{\partial{z^{[3]}}} {\partial{b^{[3]}}} = \mathbf{d}z^{[3]} \\\<br>注：注意维度，这里需要按cols求和 \\\<br>…..<br>$$</p>
-<p>由此，总结NN前向计算和反向传播（梯度计算）的通用公式。变量如下：$a^{[l-1]} \in R^{k \times n^{[l-1]}}$, $\mathbf{d}a^{[l-1]} \in R^{k \times n^{l-1}}$, $W^{[l]} \in R^{n^{[l]} \times n^{[l-1]}}$, $b^{[l]} \in R^{1 \times n^{[l]}}$, $z^{[l]} \in R^{k \times n^{[l]}}$, $a^{[l]} \in R^{k \times n^{[l]}}$, $k$表示样本数，如此迭代下去….</p>
-<p>前向传播通用公式：</p>
-<p>$$<br>z^{[l]} = a^{[l-1]} \cdot {W^{[l]}}^{\mathrm{T}} + b^{[l]} \\\<br>a^{[l]} = \sigma(z^{[l]}) \\\<br>z^{[l+1]} = a^{[l]} \cdot {W^{[l+1]}}^{\mathrm{T}} + b^{[l+1]} \\\<br>…<br>$$</p>
-<p>伪代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Y.noalias() = (X * W.transpose()).rowwise() + b.row(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<p><a href="http://www.cnblogs.com/southtonorth/archive/2018/08/21/9512559.html" target="_blank" rel="external">http://www.cnblogs.com/southtonorth/archive/2018/08/21/9512559.html</a></p>
-<h2 id="2.2.softmax">Softmax</h2>
-
-<p>softmax小节安排如下：首先从数学和概率的角度理解soft（软化的）max是如何来的？然后讲清楚它为何可以用在多分类问题上？最后给出它在深度学习框架（tensorflow、openmi）上的实现。</p>
-<h3 id="2.2.1.softmax函数由来">softmax函数由来</h3>
-
-<p>softmax函数表达式我想大家已经很清楚了，在此赘述：</p>
-<p>$$<br>\text{softmax}(a_i) = \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}<br>$$</p>
-<p>下面这个函数与上式“貌似”不相同，但是它们又及其相关：</p>
-<p>$$<br>g(x, y) = \text{log}_e(e^x + e^y)<br>$$</p>
-<p>两个表达式的相关性先不谈，先解释清楚$g(x,y)$函数的由来，要从hardmax说起。</p>
-<p><strong>hardmax函数</strong></p>
-<p>softmax函数其实是从hardmax演变而来的，hardmax其实是我们生活中很常见的函数，表达式为：</p>
-<p>$$<br>\text{hardmax} = max\{x, y\}<br>$$</p>
-<p>表达的意思很清楚，就是取x和y中较大的哪个值。如果y=0，可得表达式为$max\{x, 0\}$。画图可知，该函数在$x=0$处是连续不可导的，函数可导可以帮助我们做很多事情，那么有没有办法对其变形，找到一个连续可导的近似函数呢？此时就有了softmax函数$g(x,y) = \text{log}_e(e^x + e^y)$。</p>
-<p>我们先来看下这个函数的数学特性。指数函数有一个特点，就是变化率非常快。当$x &gt; y$时，通过指数的放大作用，使得二者的差距进一步变大，即$e^x \gg e^y$。所以有$e^x + e^y \approx e^x$，那么此时$g(x,y) = \text{log}_e(e^x + e^y) \approx \text{log}_e(e^x) = x$。根据推导过程，可以知道$g(x,y)$约等于$x,y$中较大的值，即$g(x,y) \approx \text{max}(x,y)$。</p>
-<p>所以我们得出一个结论：$g(x,y)$是$max(x,y)$的近似函数，两个函数有相似的数学特性。两个函数的图形如下：</p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter2_softmax_and_hardmax.png" width="400" height="300" alt="softmax与hardmax"></p>
-<p>可以看出，当$x,y$的差别越大时，softmax和hardmax函数吻合度越高。同时也可以看出，softmax是一个连续且处处可导的函数，这时一个非常重要的特性：$g(x,y)$即具有与$\text{max}(x,y)$的相似性，又避免了$\text{max}(x,y)$函数不可导的特点。</p>
-<h3 id="2.2.2.softmax函数概率模型">softmax函数概率模型</h3>
-
-<p>上一节讲到的softmax与神经网络分类层的softmax函数有什么关系呢？</p>
-<p>假设我们要从a,b两个未知数中取一个较大的值，即$\text{max}(a,b)$，那么取到两个数字的概率分别是多少呢？我们可以构建一个概率模型：</p>
 <ul>
-<li>当a=b时，取任意一个数字都可以，所以各占50%，即$p(a)=p(b)=50\%$；</li>
-<li>当a=4,b=6时，b比a大，此时更倾向于b，取到b的概率应该会更大些，即$p(a)=40\%,p(b)=60\%$；</li>
-<li>当a=8,b=2时，a比b大，此时更倾向于a，取到a的概率应该会更大些，即$p(a)=80\%,p(b)=20\%$.</li>
+<li>Shallow Embedding </li>
 </ul>
-<p>当变量变多时，此时hardmax变成了$\text{max}(a_1, a_2, \cdots, a_K)$，根据假设的概率模型，取到每一个样本点的概率即为$p(a_i) = \frac{a_i}{\sum_{k=1}a_k}$</p>
-<p>上述表达式与softmax“貌似”很熟，其实对于机器学习多分类问题来说，训练过程中需要对参数求导用于更新参数，从上一节可知hardmax函数并不是处处可导的，那么此时就用hardmax的近似函数softmax来替代它，我们已知了二者之间的关系：</p>
-<p>$$<br>f(a_1, a_2, \cdots, a_K) = \text{max}(a_1, a_2, \cdots, a_K) \approx g(a_1, a_2, \cdots, a_K) = \text{log}_e(e^{a_1} + e^{a_2} + \cdots + e^{a_K})<br>$$</p>
-<p>因此，根据hardmax函数表达式，得出softmax的概率模型表达式为：</p>
-<p>$$<br>\text{softmax} = \frac{e^{a_i}} {\sum_{k=1}^K e^{a_k}}<br>$$</p>
-<p>以上就是softmax函数的由来。再次梳理下逻辑：softmax是hardmax的近似函数，也是对hardmax函数的优化（解决了hardmax不可导问题）。softmax函数＋概率模型得到了我们常见的softmax概率模型表达式。</p>
-<h3 id="2.2.3.softmax表达式与概率的关系">softmax表达式与概率的关系</h3>
+<ul>
+<li>Deep Embedding</li>
+</ul>
+<h1 id="6.1.图表示学习算法">图表示学习算法</h1>
 
-<p>根据概率的定义，一个事件发生的概率我们用$p\in [0,1]$表示，事件一定发生的概率是1，不会发生的概率是0，事件结果所有可能性的概率纸盒等于1。</p>
-<p>以神经网络最后一层输出为例，经过softmax层计算后的表达式为：</p>
-<p>$$<br>s_i = \frac{e^{z_i}} {e^{z_1} + e^{z_2} + \cdots + e^{z_K}}  \qquad s_i \in [0,1]<br>$$</p>
-<p>对所有神经元s求和，得到：</p>
-<p>$$<br>\sum_{i=1}^K s_i = \frac {e^{z_1} + e^{z_2} + \cdots + e^{z_K}} {e^{z_1} + e^{z_2} + \cdots + e^{z_K}} = 1<br>$$</p>
-<p>由此可知，神经网络输出层的数据，经过softmax层转换后的结果，即可满足概率表达式的特性。因此，输出层的数据转化为概率表达式后的输出值就有了新的意义。对应分类问题来说，不同大小的概率值表示，这个结果属于不同类别的可能性大小。</p>
-<h3 id="2.2.4.SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp">SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp</h3>
+<h2 id="6.1.1.Shallow-Embedding">Shallow Embedding</h2>
 
+<p>shallow embedding方法有2个共同的特点：</p>
+<ol>
+<li>encoder非常简单，就是一层<code>embedding_lookup</code>；</li>
+<li>decoder都是基于pairwise的方法，区别于deep embedding的decoder实现；</li>
+</ol>
+<p>shallow embedding算法之间的差异主要体现在decoder，similarity function以及相应的loss function。</p>
+<p>根据similarity function是确定性方法还是概率性方法，可以Shallow embedding进一步分为基于矩阵分解的算法（Factorization based）和基于随机游走的算法（Random walk）。</p>
+<p><strong>Shallow Embedding方法的缺点</strong></p>
+<ul>
+<li>encoder只是基于node id简单的embedding lookup，没有共享参数（？？），复杂度和图节点规模相关（$O(\vert V \vert)$）；</li>
+<li>encoder没办法利用<strong>节点属性信息</strong>；</li>
+<li>transductive－－直推式，泛化能力不行，无法得到未出现过node的embedding；</li>
+</ul>
+<h2 id="6.1.2.Deep-Embedding">Deep Embedding</h2>
 
-<p>SoftmaxOp多用于多分类问题，假设为K类，那么属于第i类的概率为：</p>
-<p>$$<br>p_i = \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}<br>$$</p>
-<p><strong>softma计算优化</strong></p>
-<p>为了避免_指数越界出现NAN问题_，通常会分别对分子分母乘以一个常量C，即</p>
-<p>$$<br>p_i = \frac{\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k) } = \frac{C \exp(a_i)} { C  \sum_{k=1}^{K} \exp(a_k) } = \frac {\exp(a_i + \log(C))} {\sum_{k=1}^{K} \exp(a_k + \log(C))}<br>$$</p>
-<p>通常$\log(C)=-\max(a)$，如此相当于K维的向量a取值平移到[-, 0]之间，指数最大值是1而不是正无穷，避免了Nan问题。</p>
-<p><strong>Softmax梯度</strong></p>
-<p>$$<br>\frac {\partial p_i} {\partial a_j} = \frac {\partial \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}} {\partial a_j}<br>$$</p>
-<p>根据除法导数公式$f(x) = \frac {g(x)} {h(x)}$，存在$f’(x) = \frac {g’(x)h(x) - g(x)h’(x)} {h^2(x)}$。在这里$g(x) = \exp(a_i)$, $h(x) = \sum_{k=1}^K \exp(a_k)$。</p>
-<p>对于$\frac {\partial h(x)} {\partial a_j}$，它的导数总是$\exp(a_j)$；对于$\frac{g(x)}{\partial a_j}$，分两种情况如果$i=j$ 梯度为$\exp(a_j)$，否则梯度为0（对于$a_j$来说，$a_i$是常数）。</p>
-<p>所以Softmax梯度公式分两种情况:</p>
-<p>当$i=j$时，</p>
-<p>$$<br>\frac {\partial p_i} {\partial a_j} = \frac {\partial \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}} {\partial a_j} = \frac {\exp(a_i) \cdot \sum_{k=1}^{K} \exp(a_k) - \exp(a_i) \cdot \exp(a_j)} {\left(\sum_{k=1}^{K} \exp(a_k)\right)^2} \\\<br>= \frac {\exp(a_i) } {\sum_{k=1}^{K} \exp(a_k)} \cdot \frac {\left(\sum_{k=1}^{K} \exp(a_k) - \exp(a_j) \right)} {\sum_{k=1}^{K} \exp(a_k)} = p_i * (1- p_j)<br>$$</p>
-<p>当$i \neq j$时，</p>
-<p>$$<br>\frac {\partial p_i} {\partial a_j} = \frac {\partial \frac {\exp(a_i)} {\sum_{k=1}^{K} \exp(a_k)}} {\partial a_j} = \frac {0 - \exp(a_i) \cdot \exp(a_j)} {\left(\sum_{k=1}^{K} \exp(a_k)\right)^2} = - p_i \cdot p_j<br>$$</p>
-<p>因此Softmax梯度公式为：</p>
-<p>$$<br>f(x) = \begin{cases} \displaystyle<br>p_i \cdot (1 - p_j) &amp; \text{if} \; i=j \\\<br>-p_i \cdot p_j &amp; \text{if} \; i \neq j<br>\end{cases}<br>\longrightarrow<br>\mathbf{\frac{\partial p_i} {\partial a_j} = p_i (\delta_{ij} - p_j)}, \;<br>\delta_{ij} = \begin{cases} \displaystyle<br>1 &amp; \text{if} \; i = j \\<br>0 &amp; \text{if} \; i \neq j<br>\end{cases}<br>$$</p>
-<h2 id="交叉熵损失（Cross_Entropy_Loss）">交叉熵损失（Cross Entropy Loss）</h2><p>交叉熵用来衡量<strong>相同事件空间里两个概率分布的差异</strong>。应用到分类问题里，就是实际label输出（概率）与期望输出（概率）之间的距离，交叉熵越小，说明两个概率分布越接近。这里假设概率分布Y为实际输出，P为期望输出，H(Y,P)为交叉熵，那么有：</p>
-<p>$$<br>H(Y,P) = L(P) = - \sum_{x \in X} Y(x) \cdot \log P(x)<br>$$</p>
-<p>具体含义和解释，详见<a href="http://www.52caml.com/head_first_ml/ml-chapter2-entropy-based-family/#%E7%9B%B8%E5%AF%B9%E7%86%B5%E3%80%81KL%E8%B7%9D%E7%A6%BB" target="_blank" rel="external">52CAML交叉熵</a>定义</p>
-<p><strong>Softmax交叉熵损失梯度 with Logits</strong></p>
+<p>Deep Embedding的主要特点是encoder使用DL方法，而不是简单的embedding lookup。</p>
+<h3 id="6.1.2.1.neighborhood-autoencoder-methods">Neighborhood autoencoder methods</h3>
+
+<p>代表方法：DNGR, SDNE</p>
+<p>Deep Neural Graph Representations(DNGR)，Structural Deep Network Embeddings(SDNE)主要解决shallow embedding第1个缺点；</p>
+<p>思路：利用DL中经典的autoencoder来学习图自身的特征，使用_Unary Decoder_（注：区别于shallow方法的pairwise decoder）。</p>
+<p>$$<br>\text{DEC}(\text{ENC}(s_i)) = \text{DEC}(z_i) \approx s_i<br>$$</p>
+<p>// TODO 插图</p>
+<h3 id="6.1.2.2.neighborhood-aggregation-and-convolutional-encoders">Neighborhood aggregation and convolutional encoders</h3>
+
+<p>代表方法：GraphSage, GCN</p>
+<p>思路：<strong>聚合</strong>节点本地邻居的信息来产生节点embedding。</p>
+<p>// TODO  aggregate插图</p>
+<p>Aggregation方法能够利用节点属性信息（side information），可以解决第2个缺点；</p>
 <blockquote>
-<p>注意：交叉熵损失函数对logits的梯度，而不是对softmax的梯度。</p>
+<p>因为能利用局部邻居的信息来表达节点embedding，所以也称之为convolutional方法。</p>
 </blockquote>
-<p>$$<br>\frac {\partial L} {\partial a_i} = - \sum_{k=1}^{K} y_k \cdot \frac{\partial \log(p_k)} {\partial a_i} = - \sum_{k=1}^{K} y_k \cdot \frac{\partial \log(p_k)} {\partial p_k} \cdot \frac{\partial p_k} {\partial a_i} \\<br>= - \sum_{k=1}^K y_k \frac{1}{p_k} \cdot \frac{\partial p_k} {\partial a_i} \\<br>= - \sum_{k=1}^K y_k \frac{1}{p_k} \cdot \left(p_k (\delta_{ki} - p_i) \right) = - \sum_{k=1}^K y_k (\delta_{ki} - p_i) \\<br>= - y_i (1 - p_i) - \sum_{k \neq i} y_k p_i \\<br>= \sum_{k=1}^K y_k * p_i - y_i = \mathbf{p_i - y_i}<br>$$</p>
-<p>因为$\sum_{k=1}^K p_k = 1$。所以基于Softmax函数的交叉熵损失梯度（对于logits $a_i$）表达式为：</p>
-<p>$$<br>\mathbf{\frac{\partial L} {\partial a_i} = p_i - y_i}<br>$$</p>
+<table>
+<thead>
+<tr>
+<th>Encoder</th>
+<th>Convolutional方法的重点，包括aggregate和combine方法，详见algorithm1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Decoder&amp;Loss</td>
+<td>可以使用shallow方法提到的任意decoder和loss；</td>
+</tr>
+</tbody>
+</table>
+<p>// TODO algorithm1算法为代码</p>
+<p>Encoder算法解读：求节点$v$第$k$层的表示$h_v^k$：</p>
+<ul>
+<li>先求节点$v$邻居的第k层表示$h_{\mathcal{N}(v)}^k$，即aggregate所有第k-1层邻居u的表示$h_{u}^{k-1}$；</li>
+<li>再combine节点$v$邻居的第k层表示$h_{\mathcal{N}(v)}^k$和节点$v$第k-1层表示$h_v^{k-1}$。</li>
+</ul>
+<p>整体是一个K轮迭代，每轮迭代，节点从他们的局部邻居聚合信息，并且随着多轮迭代，节点会从越来越远的地方获得信息。</p>
+<p>因为aggregate函数和参数矩阵在生成所有节点的embedding中都是共享的，随意aggregation方法对节点的泛化性更好，可以解决shallow方法第3个缺点。</p>
+<p>不同方法的区别主要在于algorithm1中的aggregate和combine方法的改进。</p>
+<p><strong>GraphSage</strong></p>
+<p>// TODO </p>
+<h2 id="6.1.3.metapath2vec">metapath2vec</h2>
+
+<p>对异构图来说，常见的处理策略是：</p>
+<ul>
+<li>对不同类型的边使用不同的encoder；</li>
+<li>decoder对不同类型的边 学习各自的参数；</li>
+</ul>
+<p>$$<br>\text{DEC}_{\eta})(z_i, z_j) = z_i^T A_{\eta} z_j<br>$$</p>
+<p>其中，$\eta$表示不同的边类型，$A_{\eta}$表示根据不同的边类型学习不同的参数。</p>
+<p>另一种处理策略是metapath， 可以简单复用很多同构图的算法。</p>
+<blockquote>
+<p>metapath是数据挖掘韩家炜团队提出的一种<strong>异构图挖掘方法</strong>，metapath根据节点类型定义了一条采样路径，节点类型A到节点类型B的跳转概率由连接B的数量的倒数决定。见论文《》</p>
+</blockquote>
+<p>metapath2vec是Deepwalk的扩展，适用于异构网络。为了构建随机漫游，metapath2vec使用<strong>基于元数据的漫游</strong>来捕获不同类型节点之间的关系。对于来自随机游走序列的学习表示，他们提出异构skip－gram，其在模型优化期间考虑节点类型信息。</p>
+<blockquote>
+<p>问题：metapath对比randomwalk的优势是什么？</p>
+<p>答：随机游走从局部上一定程度保持了节点与它邻居之间的连接性，即网络皆哦股信息；然而对于异构信息网络来说，由于节点与连接的异质性的存在，所以异构network embedding最大的那么在于<strong>如何有效地在多种类型节点之间保存“节点上下文”的概念</strong>。</p>
+<p>metapath<strong>基于预先指定的元路径进行随机游走</strong>，构造路径，从而能够保持“节点上下文”的概念。</p>
+<p>问题：metapath2vec和metapath2vec++的区别？</p>
+<p>在得到随机游走路径后，就可以进行skip-gram建模。metapath2vec与metapath2vec++唯一的不同是skip-gram不同。在metapath2vec中，softmax值是在所有节点无论什么类型上进行归一化；而metapath2vec++，softmax值是在相同类型节点上进行归一化。</p>
+</blockquote>
+<h1 id="6.2.图表示学习应用">图表示学习应用</h1>
+
+<h2 id="6.2.1.向量召回">向量召回</h2>
+
+<p><strong>图数据准备</strong></p>
+<blockquote>
+<p><strong>注意⚠：poi node必须要添加品类、店名等属性特征，否则各种关系学不出来，被假定为模型无效。</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>节点类型</th>
+<th>量级</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POI_NODE</code></td>
+<td>3100W</td>
+<td>必需加属性特征</td>
+</tr>
+<tr>
+<td><code>QUERY_NODE</code></td>
+<td>2800W</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>节点类型</th>
+<th>量级</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POI_POI_EDGE</code>(coclick)</td>
+<td>2亿</td>
+</tr>
+<tr>
+<td><code>QUERY_POI_EDGE</code></td>
+<td>2.2亿(首页曝光)</td>
+<td>仅考虑点击，只有4200W</td>
+</tr>
+<tr>
+<td><code>QUERY_QUERY_EDGE</code>(session)</td>
+<td>2.2亿</td>
+<td>session query cnt &lt; 2过滤后，剩余5000W；</td>
+</tr>
+</tbody>
+</table>
+<p>图数据采样参数以及样本量：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">query_query_sample_num: <span class="number">20</span>,</span><br><span class="line">query_poi_sample_num: <span class="number">2000</span>,</span><br><span class="line">poi_poi_sample_num: <span class="number">20</span>,</span><br><span class="line">num_epochs = <span class="number">1</span>,</span><br><span class="line">样本量：<span class="number">172</span>亿</span><br></pre></td></tr></table></figure>
+<p>训练情况：参数量180亿，资源50worker，20ps；耗时10小时；</p>
+<p><strong>LsHNE模型</strong></p>
+<p>模型效果：</p>
+<ul>
+<li><code>poi-poi</code>关系非常好，成簇分布；（使用TF向量检索可视化）；</li>
+<li><code>query-query</code>关系大部分可以，由少量case，session query cnt过滤后，效果略好；</li>
+<li><code>query-poi</code> 综合整体较好，跨品类case少，美食三级品类效果不佳；</li>
+</ul>
+<p>基于GraphSage的向量召回</p>
+<p><strong>基于多任务联合学习的向量召回</strong></p>
+<ul>
+<li><strong>图模型</strong>特点</li>
+</ul>
+<p>多路异构图，多种相关性定义；但是样本丢失context信息（Query时间，城市等）；很好的刻画与context无关的静态相关性；</p>
+<ul>
+<li><strong>双塔模型</strong>特点</li>
+</ul>
+<p>曝光点击数据，相关性单一；偏向学习CTR，相关性较差；样本包含context信息；可以学到context动态相关性；</p>
+<ul>
+<li><p><strong>联合学习</strong>：综合图模型与双塔模型的优点</p>
+<ul>
+<li>异构图学习context无关的多种静态相关性；</li>
+<li>双塔模型基于图的静态相关性，继续finetune，学习context下的动态相关性；</li>
+</ul>
+</li>
+<li><p><strong>联合训练</strong></p>
+<ul>
+<li>图模型预训练＋双塔模型微调。问题：双塔模型容易微调过度，导致最终更偏向于CTR学习；</li>
+<li>同时训练：MTL任务，需要考虑优化目标是否兼容，loss设计等；</li>
+</ul>
+</li>
+</ul>
+<p><strong>向量召回有效补充已有召回策略</strong></p>
+<ul>
+<li>曝光请求+10.5%；</li>
+<li>曝光广告量＋4.9%；</li>
+<li>所有请求密度2.2，有向量召回策略的请求密度2.58；</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -428,7 +527,7 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/deep_learning/dl-chapter6-graph-embedding/" data-title="第06章：Graph Embedding学习与应用 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/deep_learning/dl-chapter6-graph-embedding-dev/" data-title="第06章：Graph Embedding学习与应用 | 计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -468,7 +567,7 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#6.0.图网络介绍"><span class="toc-number">1.</span> <span class="toc-text">图网络介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.1.图网络符号定义"><span class="toc-number">1.1.</span> <span class="toc-text">图网络符号定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.2.图类型划分"><span class="toc-number">1.2.</span> <span class="toc-text">图类型划分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.3.图神经网络与图嵌入学习"><span class="toc-number">1.3.</span> <span class="toc-text">图神经网络与图嵌入学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.4.Graph Embedding学习框架"><span class="toc-number">1.4.</span> <span class="toc-text">Graph Embedding学习框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.神经网络的前向与反向"><span class="toc-number">1.5.</span> <span class="toc-text">神经网络的前向与反向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.2.softmax"><span class="toc-number">1.6.</span> <span class="toc-text">Softmax</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.1.softmax函数由来"><span class="toc-number">1.6.1.</span> <span class="toc-text">softmax函数由来</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.2.softmax函数概率模型"><span class="toc-number">1.6.2.</span> <span class="toc-text">softmax函数概率模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.3.softmax表达式与概率的关系"><span class="toc-number">1.6.3.</span> <span class="toc-text">softmax表达式与概率的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.4.SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp"><span class="toc-number">1.6.4.</span> <span class="toc-text">SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交叉熵损失（Cross_Entropy_Loss）"><span class="toc-number">1.7.</span> <span class="toc-text">交叉熵损失（Cross Entropy Loss）</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#6.0.图网络介绍"><span class="toc-number">1.</span> <span class="toc-text">图网络介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.1.图网络符号定义"><span class="toc-number">1.1.</span> <span class="toc-text">图网络符号定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.2.图类型划分"><span class="toc-number">1.2.</span> <span class="toc-text">图类型划分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.3.图神经网络与图嵌入学习"><span class="toc-number">1.3.</span> <span class="toc-text">图神经网络与图嵌入学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.4.Graph Embedding学习框架"><span class="toc-number">1.4.</span> <span class="toc-text">Graph Embedding学习框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.0.5.Graph Embedding方法汇总"><span class="toc-number">1.5.</span> <span class="toc-text">Graph Embedding方法汇总</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6.1.图表示学习算法"><span class="toc-number">2.</span> <span class="toc-text">图表示学习算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6.1.1.Shallow-Embedding"><span class="toc-number">2.1.</span> <span class="toc-text">Shallow Embedding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.1.2.Deep-Embedding"><span class="toc-number">2.2.</span> <span class="toc-text">Deep Embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6.1.2.1.neighborhood-autoencoder-methods"><span class="toc-number">2.2.1.</span> <span class="toc-text">Neighborhood autoencoder methods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6.1.2.2.neighborhood-aggregation-and-convolutional-encoders"><span class="toc-number">2.2.2.</span> <span class="toc-text">Neighborhood aggregation and convolutional encoders</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.1.3.metapath2vec"><span class="toc-number">2.3.</span> <span class="toc-text">metapath2vec</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6.2.图表示学习应用"><span class="toc-number">3.</span> <span class="toc-text">图表示学习应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6.2.1.向量召回"><span class="toc-number">3.1.</span> <span class="toc-text">向量召回</span></a></li></ol></li></ol>
  
   </div>
 
