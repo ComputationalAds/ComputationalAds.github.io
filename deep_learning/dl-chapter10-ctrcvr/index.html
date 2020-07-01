@@ -13,12 +13,9 @@
     
     <meta name="description" content="机器学习预估系统-算法模型与算法工程以CTR预估为例
 
-预估算法系统综述
-预估系统架构 
+预估算法系统综述 
 广告算法预估模块
-CTR, CVR, 交易额，ROI等 
-
-
+预估系统架构
 
 
 预估算法模型
@@ -35,23 +32,19 @@ DIEN
 DSIN
 
 
-
-
-预估算法工程
-大数据处理框架-solar2
-特征抽取框架-">
+DNN+多任务学习
+A Multitask Ranking System
+ESMM 
+MMOE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算广告与机器学习">
 <meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter10-ctrcvr/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
 <meta property="og:description" content="机器学习预估系统-算法模型与算法工程以CTR预估为例
 
-预估算法系统综述
-预估系统架构 
+预估算法系统综述 
 广告算法预估模块
-CTR, CVR, 交易额，ROI等 
-
-
+预估系统架构
 
 
 预估算法模型
@@ -68,21 +61,17 @@ DIEN
 DSIN
 
 
-
-
-预估算法工程
-大数据处理框架-solar2
-特征抽取框架-">
+DNN+多任务学习
+A Multitask Ranking System
+ESMM 
+MMOE">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算广告与机器学习">
 <meta name="twitter:description" content="机器学习预估系统-算法模型与算法工程以CTR预估为例
 
-预估算法系统综述
-预估系统架构 
+预估算法系统综述 
 广告算法预估模块
-CTR, CVR, 交易额，ROI等 
-
-
+预估系统架构
 
 
 预估算法模型
@@ -99,11 +88,10 @@ DIEN
 DSIN
 
 
-
-
-预估算法工程
-大数据处理框架-solar2
-特征抽取框架-">
+DNN+多任务学习
+A Multitask Ranking System
+ESMM 
+MMOE">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -170,7 +158,7 @@ DSIN
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2020-04-02T15:28:19.000Z" itemprop="datePublished"> 发表于 2020-04-02</time>
+    <time datetime="2020-05-06T00:43:09.000Z" itemprop="datePublished"> 发表于 2020-05-06</time>
     
   </p>
 </header>
@@ -179,18 +167,15 @@ DSIN
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#机器学习预估系统-算法模型与算法工程"><span class="toc-number">1.</span> <span class="toc-text">机器学习预估系统-算法模型与算法工程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法模型"><span class="toc-number">2.</span> <span class="toc-text">预估算法模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.Embedding+NN模型"><span class="toc-number">2.1.</span> <span class="toc-text">Embedding+NN模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.1.WideAndDeep"><span class="toc-number">2.1.1.</span> <span class="toc-text">Wide&Deep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.2.DeepFM"><span class="toc-number">2.1.2.</span> <span class="toc-text">DeepFM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.3.DIN"><span class="toc-number">2.1.3.</span> <span class="toc-text">DIN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.DNN+用户行为序列"><span class="toc-number">2.2.</span> <span class="toc-text">DNN+用户行为序列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.1.DIEN"><span class="toc-number">2.2.1.</span> <span class="toc-text">DIEN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.2.DSIN"><span class="toc-number">2.2.2.</span> <span class="toc-text">DSIN</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法工程"><span class="toc-number">3.</span> <span class="toc-text">预估算法工程</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#机器学习预估系统-算法模型与算法工程"><span class="toc-number">1.</span> <span class="toc-text">机器学习预估系统-算法模型与算法工程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0.预估算法系统综述"><span class="toc-number">2.</span> <span class="toc-text">预估算法系统综述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#点击率预估"><span class="toc-number">2.1.</span> <span class="toc-text">点击率预估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#转化率预估"><span class="toc-number">2.2.</span> <span class="toc-text">转化率预估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交易额预估"><span class="toc-number">2.3.</span> <span class="toc-text">交易额预估</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法模型"><span class="toc-number">3.</span> <span class="toc-text">预估算法模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.Embedding+NN模型"><span class="toc-number">3.1.</span> <span class="toc-text">Embedding+NN模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.1.WideAndDeep"><span class="toc-number">3.1.1.</span> <span class="toc-text">Wide&Deep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.2.DeepFM"><span class="toc-number">3.1.2.</span> <span class="toc-text">DeepFM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.3.DIN"><span class="toc-number">3.1.3.</span> <span class="toc-text">DIN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.DNN+用户行为序列"><span class="toc-number">3.2.</span> <span class="toc-text">DNN+用户行为序列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.1.DIEN"><span class="toc-number">3.2.1.</span> <span class="toc-text">DIEN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.2.DSIN"><span class="toc-number">3.2.2.</span> <span class="toc-text">DSIN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.5.DNN+多任务学习"><span class="toc-number">3.3.</span> <span class="toc-text">DNN+多任务学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.1.A-Multitask-Ranking-System"><span class="toc-number">3.3.1.</span> <span class="toc-text">A Multitask Ranking System</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.2.ESMM"><span class="toc-number">3.3.2.</span> <span class="toc-text">ESMM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.2.MMOE"><span class="toc-number">3.3.3.</span> <span class="toc-text">MMOE</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法工程"><span class="toc-number">4.</span> <span class="toc-text">预估算法工程</span></a></li></ol>
 		
 		</div>
 		
 		<h1 id="机器学习预估系统-算法模型与算法工程">机器学习预估系统-算法模型与算法工程</h1><p>以CTR预估为例</p>
 <ul>
-<li><a href="#0.预估算法系统综述">预估算法系统综述</a><ul>
-<li><a href="#0.2.预估系统架构">预估系统架构</a> </li>
-<li><a href="#0.3.广告算法预估模块">广告算法预估模块</a><ul>
-<li>CTR, CVR, 交易额，ROI等 </li>
-</ul>
-</li>
+<li><a href="#0.预估算法系统综述">预估算法系统综述</a> <ul>
+<li><a href="#0.1.广告算法预估模块">广告算法预估模块</a></li>
+<li><a href="#0.2.预估系统架构">预估系统架构</a></li>
 </ul>
 </li>
 <li><a href="#1.预估算法模型">预估算法模型</a><ul>
@@ -207,6 +192,12 @@ DSIN
 <li><a href="#1.4.2.DSIN">DSIN</a></li>
 </ul>
 </li>
+<li><a href="#1.5.DNN+多任务学习">DNN+多任务学习</a><ul>
+<li><a href="#1.5.1.A-Multitask-Ranking-System">A Multitask Ranking System</a></li>
+<li><a href="#1.5.1.ESMM">ESMM</a> </li>
+<li><a href="#1.5.2.MMOE">MMOE</a> </li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#2.预估算法工程">预估算法工程</a><ul>
@@ -217,6 +208,40 @@ DSIN
 </ul>
 </li>
 </ul>
+<h1 id="0.预估算法系统综述">预估算法系统综述</h1>
+
+
+<p>从业务角度看，预估问题主要包括点击率预估、转化率预估、交易额预估、ROI预估等。</p>
+<h2 id="点击率预估">点击率预估</h2>
+
+<h2 id="转化率预估">转化率预估</h2>
+
+
+<p>CVR模型最大的问题是因延迟反馈导致的<strong>转化归因问题</strong>，影响了训练样本，进一步影响模型训练效果和偏差问题。</p>
+<p>很早之前Google Adwords将归因模型分为以下几种：first click，last click，time delay等。</p>
+<p>转化率预估问题的挑战</p>
+<p>个人从优化CVR模型的实践经验来看，CVR预估问题最主要的问题是数据相关问题，具体包括：</p>
+<ol>
+<li>无法获取准确且全面的转化数据，主要针对非电商业务场景，如搜索引擎、社交网络、新闻资讯等；</li>
+<li>转化数据正负样本如何归因。负样本如何定义？post-click如何定义以及系数？归因逻辑和权重系数的不同直接影响样本分布，进而对线上指标造成很大的“冲击”。</li>
+</ol>
+<h2 id="交易额预估">交易额预估</h2>
+
+<p>因为label是成交的金额，是数值类型，因此这是一个回归问题。可以使用MSE或MAE作为loss function。</p>
+<blockquote>
+<p>loss function可以加log，或rmse等作为loss都可以尝试。</p>
+</blockquote>
+<p>交易额预估问题的挑战</p>
+<ol>
+<li>样本稀疏，与（强）转化正样本量级一致。此时，可以考虑其它业务的交易数据，如广告场景利用自然交易数据作为扩充解决样本稀疏问题（不过跨部门拿敏感数据，沟通成本可能很大）；</li>
+<li>loss function值波动可能较大，一方面取决于label存在异常点（回归问题的通病，可能需要做截断），另一方面取决于loss的设计。经实践，mae比mse略稳定些。</li>
+<li>交易额特征设计，不同于CTR场景，因为样本稀疏，应该多考虑<strong>泛化特征</strong>以及分析影响交易额的重要因素有哪些，比如就餐人数与餐费强相关等；</li>
+</ol>
+<p>关于多任务联合学习，几点结论：</p>
+<ol>
+<li>单交易额模型 效果差于<code>&lt;转化率，交易额&gt;</code>联合学习的效果 $$loss=tf.group(loss_{转化率ESMM}, mae_{交易额})$$</li>
+</ol>
+<p><strong>问题：交易额与ESMM联合训练，前者因为没有负样本的概念，其label如何定义？如果与esmm的label shape保持一致？</strong></p>
 <h1 id="1.预估算法模型">预估算法模型</h1>
 
 
@@ -413,9 +438,91 @@ DSIN
 <h3 id="1.4.2.DSIN">DSIN</h3>
 
 <p>深度会话兴趣网络（Deep Session Interest Network）</p>
+<h2 id="1.5.DNN+多任务学习">DNN+多任务学习</h2>
+
+<h3 id="1.5.1.A-Multitask-Ranking-System">A Multitask Ranking System</h3>
+
+<p>TODO</p>
+<p>参考YouTube论文：《Recommending What Video to Watch Next: A Multitask Ranking System》</p>
+<h3 id="1.5.2.ESMM">ESMM</h3>
+
+<p>全空间多任务模型（Entire Space Multi-Task Model, 简称ESMM）是阿里妈妈在2018年提出的一篇关于CVR建模场景的模型。</p>
+<table>
+<thead>
+<tr>
+<th>CVR建模对比</th>
+<th>数据</th>
+<th>模型</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>传统CVR建模</td>
+<td>点击－转化样本</td>
+<td>二分类模型</td>
+<td>1. 样本选择偏差：训练基于clk样本空间，而预测基于imp空间，样本有偏，违背了数据IID前提；<br>2. 数据稀疏：点击样本占整体样本空间比例低，因稀疏导致训练不充分；</td>
+</tr>
+<tr>
+<td>ESMM</td>
+<td>曝光－点击－转化样本</td>
+<td>多任务模型</td>
+<td>1. 完整样本空间学习pCTR,pCTCVR两个任务</td>
+</tr>
+</tbody>
+</table>
+<p>ESMM建模思想</p>
+<p>预估条件概率，用y表示点击label，z表示转化label，那么有：</p>
+<p>$$<br>\underbrace{p(y=1,z=1 | x)}_{\text{pCTCVR}}<br>= \underbrace{p(y=1|x)}_{\text{pCTR}} \cdot<br>\underbrace{p(z=1|y=1,x)}_{\text{pCVR}}<br>$$</p>
+<p>ESMM借鉴了多任务学习（迁移学习）的思想，引入了两个辅助任务，分别拟合pCTR和pCTCVR，把pCVR作为一个中间变量，从而减弱传统CVR模型建模的两个弊端。该模型的几个特点总结如下：</p>
+<ul>
+<li>两个子网络，分别对pCVR和pCTR建模；</li>
+<li>共享embedding：两个子网络的输入特征（CVR-task features和CTR-task features）共享embedding；</li>
+<li>两个子任务的loss function均是交叉熵损失，对应的label数据有两组，分别是$label_{ctr}和$label_{cvr}$；</li>
+</ul>
+<p>注意：<strong>共享embedding的好处是CVR子网络能够从只曝光没点击的样本中学习特征表示，有利于缓解CVR训练数据稀疏的问题(迁移学习思想)。</strong></p>
+<blockquote>
+<p>问题：从工程实现上看，两个网络的输入特征是有差异的，特征工程上如何区分一条样本哪些属于cvr特征，哪些属于ctr特征？ 还是不予区分？</p>
+</blockquote>
+<h3 id="1.5.2.MMOE">MMOE</h3>
+
+<p>上面的ESMM对CVR建模是通过学习pCTCVR和pCTR两个辅助任务，以及它们之间的关系得到主任务pCVR的结果。ESMM多任务学习是为了解决单一目标（CVR预估）学习问题而建模的。</p>
+<p>那么，针对多个优化目标任务时，同样可以使用多任务建模。但是，在实践中多任务学习模型并不总比单任务模型效果更突出，这是因为<strong>不同任务之间的相关性低（如数据的分布不同等）导致的。</strong></p>
+<p>2018年由谷歌内容推荐团队发表的MMOE模型，针对多任务学习场景充分考虑了任务之间的相关性而提出了MMOE模型（Multi-gate Multi-task of ）</p>
+<p>具体介绍MMOE模型之前，我们先看一下。</p>
+<p><strong>任务相关性</strong></p>
+<p>一般的多任务学习模型框架是<strong>Shared-bottom结构</strong>。针对不同的任务，底层参数和网络结构是共享的，然后上层经过不同的神经网络得到对应任务的输出。假设shared-bottom输出是$f(x)$，那么第$k$个任务的输出$y_k = h^k(f(x))$，$h^k$为第k个任务的网络结构；</p>
+<p>任务相关性和多任务学习效果之间的关系是怎样的呢？论文中通过模拟给出了结论：利用皮尔逊相关系数计算label之间的相关性 vs 任务权重cosine相似度（任务相关性），发现二者呈现正相关关系。</p>
+<p>因此MMOE使用参数的cosine距离来近似表示任务之间的相关性。</p>
+<p><strong>MoE模型</strong></p>
+<p>MoE（One-gate Mixture-of-Experts）模型的特点是：_多个任务共享gating network_，结构如下：</p>
+<ol>
+<li>Shared-bottom层：由n个Export Network组成，得到n个Export输出（向量），ensemble model思想，有助于提升模型效果；</li>
+<li>一个Gate network：使不同的数据可以多样化的使用共享层。</li>
+<li>多目标层：与shared-bottom结构一致；</li>
+</ol>
+<p>共享层输出，相当于<strong>weighted-sum of all experts</strong>：</p>
+<p>$$<br>y = \sum_{i=1}^n g(x)_i f_i(x)<br>$$</p>
+<p>其中$f_i$表示第i个expert的输出，$\sum_{i=1}^n g(x)_i = 1, g_i$表示第i个expert对应的权重（标量），是基于输入数据得到的，计算公式为$g(x)=softmax(W_g x)$。</p>
+<p><strong>问题：如何设计gate network？n个expert网络的输入是一致的？如何区分n个expert的参数？？</strong></p>
+<p>答：gate network输出unit size＝n，网络结构可以是fc；</p>
+<p><strong>MMoE模型</strong></p>
+<p>相对于MoE模型，Multi-gate Mixture-of-Experts模型<strong>为每个task设置一个gate</strong>，使不同的任务和不同的数据可以多样化的使用共享层。</p>
+<blockquote>
+<p>MMoE模型：任务数与gating network数量一致；</p>
+</blockquote>
+<p>此时每个任务的共享层输出不同，第k个任务的共享层输出计算公司如下：</p>
+<p>$$<br>f^k(x) = \sum_{i=1}^k g^k(x)_i f_i(x) \\\<br>g^k(x) = \text{softmax}(W_{gk} x)<br>$$</p>
+<p>经过多层FC得到每个任务的输出：</p>
+<p>$$<br>y_k = h^k(f^k(x))<br>$$</p>
+<p>直观上考虑，如果两个任务并不十分相关，那么经过gate后，二者得到的权重系数会差别比较大，从而可以利用部分expert网络输出的信息，近似于多个单任务学习模型。如果两个任务紧密相关，那么经过gate得到的权重分布应该相差不多，类似于一般的多任务学习框架。</p>
+<p>总结MMOE：</p>
+<ul>
+<li>共享层</li>
+</ul>
 <h1 id="1.预估算法工程">预估算法工程</h1>
 
-<p>在个人wiki：《AiTools-算法能力沉淀》有记录，可以先在wiki里总结，后续迁移出来；</p>
+<p>在个人总结：《AiTools-算法能力沉淀》有记录，可以先总结，后迁；</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -443,7 +550,7 @@ DSIN
  
 
 <div class="next">
-<a href="/deep_learning/dl-chapter9-recall-algorithm/"  title="">
+<a href="/deep_learning/dl-chapter11-ad-ranking/"  title="">
  <strong>下一篇：</strong><br/> 
  <span>(no title)
 </span>
@@ -460,7 +567,7 @@ DSIN
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#机器学习预估系统-算法模型与算法工程"><span class="toc-number">1.</span> <span class="toc-text">机器学习预估系统-算法模型与算法工程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法模型"><span class="toc-number">2.</span> <span class="toc-text">预估算法模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.Embedding+NN模型"><span class="toc-number">2.1.</span> <span class="toc-text">Embedding+NN模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.1.WideAndDeep"><span class="toc-number">2.1.1.</span> <span class="toc-text">Wide&Deep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.2.DeepFM"><span class="toc-number">2.1.2.</span> <span class="toc-text">DeepFM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.3.DIN"><span class="toc-number">2.1.3.</span> <span class="toc-text">DIN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.DNN+用户行为序列"><span class="toc-number">2.2.</span> <span class="toc-text">DNN+用户行为序列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.1.DIEN"><span class="toc-number">2.2.1.</span> <span class="toc-text">DIEN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.2.DSIN"><span class="toc-number">2.2.2.</span> <span class="toc-text">DSIN</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法工程"><span class="toc-number">3.</span> <span class="toc-text">预估算法工程</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#机器学习预估系统-算法模型与算法工程"><span class="toc-number">1.</span> <span class="toc-text">机器学习预估系统-算法模型与算法工程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0.预估算法系统综述"><span class="toc-number">2.</span> <span class="toc-text">预估算法系统综述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#点击率预估"><span class="toc-number">2.1.</span> <span class="toc-text">点击率预估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#转化率预估"><span class="toc-number">2.2.</span> <span class="toc-text">转化率预估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交易额预估"><span class="toc-number">2.3.</span> <span class="toc-text">交易额预估</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法模型"><span class="toc-number">3.</span> <span class="toc-text">预估算法模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.Embedding+NN模型"><span class="toc-number">3.1.</span> <span class="toc-text">Embedding+NN模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.1.WideAndDeep"><span class="toc-number">3.1.1.</span> <span class="toc-text">Wide&Deep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.2.DeepFM"><span class="toc-number">3.1.2.</span> <span class="toc-text">DeepFM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.3.DIN"><span class="toc-number">3.1.3.</span> <span class="toc-text">DIN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.DNN+用户行为序列"><span class="toc-number">3.2.</span> <span class="toc-text">DNN+用户行为序列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.1.DIEN"><span class="toc-number">3.2.1.</span> <span class="toc-text">DIEN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.2.DSIN"><span class="toc-number">3.2.2.</span> <span class="toc-text">DSIN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.5.DNN+多任务学习"><span class="toc-number">3.3.</span> <span class="toc-text">DNN+多任务学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.1.A-Multitask-Ranking-System"><span class="toc-number">3.3.1.</span> <span class="toc-text">A Multitask Ranking System</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.2.ESMM"><span class="toc-number">3.3.2.</span> <span class="toc-text">ESMM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.2.MMOE"><span class="toc-number">3.3.3.</span> <span class="toc-text">MMOE</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法工程"><span class="toc-number">4.</span> <span class="toc-text">预估算法工程</span></a></li></ol>
  
   </div>
 

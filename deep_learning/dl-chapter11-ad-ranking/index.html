@@ -1,0 +1,807 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>计算广告与机器学习</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ZhouYong">
+    
+
+    
+    <meta name="description" content="第11章：广告排序与机制设计
+
+广告排序综述
+广告排序公式
+质量分因子
+出价因子
+超参数学习
+
+
+质量分预估
+智能出价系统
+排序优化
+
+广告排序综述
+
+
+广告排序公式
+
+$$cpm = ctr \cdot bid \\\cpm = 质量分 \cdot bid = Q(ctr, cvr, gmv, roi) \cdot bid$$
+排序公式设计
+质量分因子
+
+出价因子
+
+传统出价
+传统出价就是按照点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算广告与机器学习">
+<meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter11-ad-ranking/index.html">
+<meta property="og:site_name" content="计算广告与机器学习">
+<meta property="og:description" content="第11章：广告排序与机制设计
+
+广告排序综述
+广告排序公式
+质量分因子
+出价因子
+超参数学习
+
+
+质量分预估
+智能出价系统
+排序优化
+
+广告排序综述
+
+
+广告排序公式
+
+$$cpm = ctr \cdot bid \\\cpm = 质量分 \cdot bid = Q(ctr, cvr, gmv, roi) \cdot bid$$
+排序公式设计
+质量分因子
+
+出价因子
+
+传统出价
+传统出价就是按照点">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算广告与机器学习">
+<meta name="twitter:description" content="第11章：广告排序与机制设计
+
+广告排序综述
+广告排序公式
+质量分因子
+出价因子
+超参数学习
+
+
+质量分预估
+智能出价系统
+排序优化
+
+广告排序综述
+
+
+广告排序公式
+
+$$cpm = ctr \cdot bid \\\cpm = 质量分 \cdot bid = Q(ctr, cvr, gmv, roi) \cdot bid$$
+排序公式设计
+质量分因子
+
+出价因子
+
+传统出价
+传统出价就是按照点">
+
+    
+    <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="计算广告与机器学习" title="计算广告与机器学习"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="计算广告与机器学习">计算广告与机器学习</a></h1>
+				<h2 class="blog-motto">Computational Advertising and Machine Learning</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/home">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.52caml.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/deep_learning/dl-chapter11-ad-ranking/" title="" itemprop="url"></a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
+		
+  <p class="article-time">
+    <time datetime="2020-04-06T15:45:23.000Z" itemprop="datePublished"> 发表于 2020-04-06</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1.广告排序综述"><span class="toc-number">1.</span> <span class="toc-text">广告排序综述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.广告排序公式"><span class="toc-number">1.1.</span> <span class="toc-text">广告排序公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.质量分因子"><span class="toc-number">1.2.</span> <span class="toc-text">质量分因子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.出价因子"><span class="toc-number">1.3.</span> <span class="toc-text">出价因子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.超参数学习与优化"><span class="toc-number">1.4.</span> <span class="toc-text">超参数学习与优化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2.质量分预估"><span class="toc-number">2.</span> <span class="toc-text">质量分预估</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3.智能出价"><span class="toc-number">3.</span> <span class="toc-text">智能出价</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3.1.OCPC算法"><span class="toc-number">3.1.</span> <span class="toc-text">OCPC算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3.1.OCPC算法分步推导"><span class="toc-number">3.1.1.</span> <span class="toc-text">OCPC算法分步推导</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3.2.OCPM算法"><span class="toc-number">3.2.</span> <span class="toc-text">OCPM算法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4.排序优化"><span class="toc-number">4.</span> <span class="toc-text">排序优化</span></a></li></ol>
+		
+		</div>
+		
+		<p>第11章：广告排序与机制设计</p>
+<ul>
+<li>广告排序综述<ul>
+<li>广告排序公式</li>
+<li>质量分因子</li>
+<li>出价因子</li>
+<li>超参数学习</li>
+</ul>
+</li>
+<li>质量分预估</li>
+<li>智能出价系统</li>
+<li>排序优化</li>
+</ul>
+<h1 id="1.广告排序综述">广告排序综述</h1>
+
+
+<h2 id="1.1.广告排序公式">广告排序公式</h2>
+
+<p>$$<br>cpm = ctr \cdot bid \\\<br>cpm = 质量分 \cdot bid = Q(ctr, cvr, gmv, roi) \cdot bid<br>$$</p>
+<p>排序公式设计</p>
+<h2 id="1.2.质量分因子">质量分因子</h2>
+
+<h2 id="1.3.出价因子">出价因子</h2>
+
+<p><strong>传统出价</strong></p>
+<p>传统出价就是按照点击（CPC）或展现（CPM）出价，针对定向人群来讲，出价不变。</p>
+<p><strong>智能出价</strong></p>
+<p>智能出价统称为ocpx，可以是ocpc, ocpm, ocpa, cpa等。</p>
+<p>以cpc与ocpc举例，比如1,2,3,4,5 有5个访客：</p>
+<ul>
+<li>cpc不考虑访客因素，出同样的bid，无论哪个访客转化好；</li>
+<li>ocpc的逻辑是：如果2，3转化了，ocpc会根据2，3人群的标签帮广告主找到类似人群（相似人群挖掘），对该部分高转化访客提高出价，而对1，4，5低转化访客人群降低出价。</li>
+</ul>
+<p>所以，智能出价是按照转化（或广告主ROI）出价，系统利用转化学习对不同人群（或访客）分别出价。</p>
+<p>因此，智能出价通常需要两个阶段：</p>
+<ul>
+<li>阶段1：数据收集阶段。按照cpc/cpm投放获取足够的转化数据；</li>
+<li>阶段2：智能投放阶段。即根据对访客的转化率（或ROI）预估进行动态出价，大的原则是高CVR则出价高，低CVR则出价低。</li>
+</ul>
+<p>_智能出价的优势_</p>
+<ul>
+<li>广告系统自动为广告主寻找转化人群；</li>
+<li>广告系统对不同的转化人群合理出价；</li>
+<li>广告系统根据转化情况，展现最优质的物料（？？？创意）</li>
+</ul>
+<p>_智能出价的劣势_</p>
+<ul>
+<li>前期成本较高（需要收集转化数据，对电商类是否不存在该问题？）</li>
+<li>对预算要求较高；</li>
+<li>实验成本较高，需要不断测试智能出价模型；</li>
+</ul>
+<h2 id="1.4.超参数学习与优化">超参数学习与优化</h2>
+
+<h1 id="2.质量分预估">质量分预估</h1>
+
+<h1 id="3.智能出价">智能出价</h1>
+
+<p><strong>背景－流量的差异化</strong></p>
+<p>传统的出价是针对特定人群或广告产品（关键词／推荐列表页）设定一个固定的出价，是一种粗粒度的方式。如果能有更细粒度的方式来匹配出价和流量质量，根据<strong>流量质量动态地调整出价</strong>，那么可以有效地提升广告主ROI（预算花费更高效或带来更高的GMV）。</p>
+<h2 id="3.1.OCPC算法">OCPC算法</h2>
+
+<p>问题引导</p>
+<ol>
+<li>排序公式的超参优化与智能出价的关系是什么？</li>
+<li>论文的目标是保ROI的情况下，优化GMV和RPS。那么，ocpc框架怎么迁移至其它业务优化上？</li>
+</ol>
+<p>如果选择最优bid？</p>
+<p>OCPC全称是Optimized Cost Per Click是一种优化站内广告投放效果的智能出价技术，它能自动动态调整广告对流量的竞价bid，控制ROI的同时提高GMV。在淘宝移动端列表页广告和banner广告场景中展开。</p>
+<blockquote>
+<p>优化目标与具体业务有关，不可照搬。</p>
+</blockquote>
+<p>从第一节中举cpc与ocpc的栗子可以看出，OCPC算法的工作原理是：</p>
+<p><strong>对每次广告请求都动态的设置与该流量质量相匹配的bid</strong>，同时综合优化用户体验、广告主和平台的三方诉求，并保持使用eCPM排序机制不变。</p>
+<h3 id="3.1.OCPC算法分步推导">OCPC算法分步推导</h3>
+
+<p><strong>优化范围－ROI约束</strong></p>
+<p>假设用户u点击率广告a，产生交易的概率为$p(c|u,a)$，并且定义交易额（pay-per-buy，简称PPB，也就是商家设定的商品价格price）为$v_a$。因为一次点击广告主需要付的费用为$b_a$（此处暂不考虑CSP计费），那么可知：</p>
+<p>$$<br>\text{GMV}_{click-and-buy} = p(c|u,a) \cdot v_a \\\<br>roi_{(u,a)} = \frac{\text{GMV}_{click-and-buy}}{b_a} = \frac{p(c|u,a) \cdot v_a}{b_a}<br>$$</p>
+<p>假设$n_u$是某个用户$u$在过去一段时间对广告$a$的总点击数，认为$E_u[p(c|u,a)]$是pCVR的预估均值，那么有：</p>
+<p>$$<br>roi_a = \sum_u roi_{(u,a)} = \frac{v_a \cdot \left(\sum_u n_u \cdot p(c|u,a) \right)}{b_a \cdot \sum_u n_u} = v_a \cdot \frac{E_u[p(c|u,a)]}{b_a}<br>$$</p>
+<p>上式$roi_a$就是ocpc优化问题中的约束条件，即$roi_a$不降低活着有上涨。在阿里论文中，为了防止异常值和离群点，对pCVR进行了截断，即$E_u[p(c|u,a)] = Average(Trim(pCVR, [10\%,90\%]))$。</p>
+<p>（这里$p(c|u,a)$表示从曝光到交易的概率，pCVR表示从点击到交易的概率）</p>
+<blockquote>
+<ol>
+<li>ROI约束是广告系统 广告主诉求，ROI是与业务相关的指标。应用在其它场景，也可以是其他约束条件。</li>
+<li>如果我们优化的不是bid出价，而是商品价格，那么目标也就发生了变化。</li>
+</ol>
+</blockquote>
+<p><strong>Bid优化上下界</strong></p>
+<p>假定$b_a^*$是某一次广告出价${bid}_{click}$，那么只需要满足以下公式就可以保证roi不降低。</p>
+<p>$$<br>\frac{b_a^*}{b_a} \le \frac{p(c|u,a)}{E_u[p(c|u,a)]}<br>$$</p>
+<p>但是，商业竞价环境中并不能保证每次的出价$b_a^_$都能保证roi不降低。于是，论文给出了经验公式，并划定了_可行域*。其中$r_a$是一个调节系数，用来衡量广告位偏差，流量质量低的情况下，对用户点击意愿的妥协程度系数。</p>
+<p>$$<br>\begin{align}<br>\text{LowerBound:} \quad l(b_a^_) &amp;=<br>\begin{cases}<br>\displaystyle<br>b_a \cdot (1 - r_a) , &amp;\quad \frac{p(c|u,a)}{E_u[p(c|u,a)]} &lt; 1; \\\<br>b_a , &amp;\quad \frac{p(c|u,a)}{E_u[p(c|u,a)]} \ge 1 \\\<br>\end{cases} \\\<br>\text{UpperBound:} \quad u(b_a^_) &amp;=<br>\begin{cases}<br>\displaystyle<br>b_a , &amp;\quad \frac{p(c|u,a)}{E_u[p(c|u,a)]} &lt; 1; \\\<br>b_a \cdot \min(1 + r_a, \frac{p(c|u,a)}{E_u[p(c|u,a)]}) , &amp;\quad \frac{p(c|u,a)}{E_u[p(c|u,a)]} \ge 1<br>\end{cases}<br>\end{align}<br>$$</p>
+<p>从上式可以看出，可行域如下图所示：</p>
+<p>// TODO给出可行域空间图</p>
+<p>可以看到bid优化的区间范围是$[(1-r_a) \cdot b_a, (1 + r_a) \cdot b_a]$。</p>
+<p><strong>排序公式</strong></p>
+<p>在可行域中选取不同的$b_a^*$，会导致目前以eCPM作为排序机制的排序结果的改变。假设我们想要在eCPM的机制下展示一条广告$k$，并且希望$k$能够最大化我们的排序目标公式$f(\cdot)$。</p>
+<p>$f(\cdot)$最原始形式是指考虑$pctr$，故$f(k, b_k^_) = pctr_k \cdot b_k^_$，那么排序公式等价于带约束的优化问题：</p>
+<p>$$<br>\max_{b_1^_, b_2^_, \cdots, b_n^_} f(k, b_k^_) \\\<br>s.t. \quad k = \arg \max_{i} pctr_i \cdot b_i^_ \\\<br>l(b_i^_) &lt; b_i^_ &lt; u(b_i^_), \forall{i} \in A<br>$$</p>
+<p>接下来，我们分别考虑两种排序公式：</p>
+<p>$$<br>\begin{align}<br>\text{consider GMV:} \quad f_1(k, b_k^_) &amp;= pctr_k \cdot pcvr_k \cdot v_k \\\<br>\text{consider GMV + eCPM:} \quad f_2(k, b_k^_) &amp;= pctr_k \cdot pcvr_k \cdot v_k + \alpha \cdot pctr_k \cdot b_k^*<br>\end{align}<br>$$</p>
+<p>假设</p>
+<p>$$<br>s_a^_ = pctr_a \cdot b_a^_ \rightarrow<br>\begin{cases}<br>l(s_a^_) = pctr_a^_ \cdot l(b_a^_) \quad \text{LowerBound} \\\<br>u(s_a^_) = pctr_a^_ \cdot u(b_a^_) \quad \text{UpperBound} \\\<br>\end{cases}<br>$$</p>
+<p>由于pctr、pcvr等指标非负，并且一般意义下，$b_k^_$高将会持续导致与其相关的pctr等指标提升，会在一定程度上保证了$f(k, b_k^_)$函数对$b_k^*$单调不减。</p>
+<blockquote>
+<p>这里有个比较弱的假设：可以认为广告系统近似等于一个增强学习环境，会导致样本出现受出价引导的bias现象。</p>
+</blockquote>
+<p>由以上假设可以认为，我们只需要将所有的$f(k, u(b_k^*))$按照降序排列，并且按顺序找出来排在第一位的广告$k$，就是我们要找的广告（因为单调不减），并且满足以下条件：</p>
+<p>$$<br>u(s_k^_) \ge l(s_i^_) \qquad \forall i \neq k \\\<br>b_k^_ = u(b_k^_)<br>$$</p>
+<p>刚刚是在假设一次性只展示一条广告的情况，若一次需要展示$N$条广告的话，文中给出了一个贪心策略来实现广告排序。假设一次展示$n$条广告$k_1,k_2,\cdots,k_n$。如何保证$Position_i$的广告恰好对应$k_i$。</p>
+<p>// TODO ocpc raning伪代码</p>
+<p>结合论文中的事例，解读ocpc算法排序过程：</p>
+<ul>
+<li>算法第3-5步：按照排序公式对降序排序（$f_2$公式） ；选择lowerBound最大的广告（这里是a3）；从上到下选择第1个upperBound大于lowerBound的广告并输出（这里是a1）</li>
+</ul>
+<p>// TODO 插图ocpc table1</p>
+<ul>
+<li>算法第6-11步：剔除广告ad1，重新计算剩余广告的bid*(公式9-10)，同时更新其它指标的上下边界。第二轮（3-5步）：选择在下边界最大的广告（这里是a3），自顶向下选择第一条upperBound大于lowerBound的广告屏输出（这里是a3）。</li>
+</ul>
+<p>// TODO table2</p>
+<ul>
+<li>如果一次清楚广告返回数量为N。</li>
+</ul>
+<p>// TODO table3</p>
+<p><strong>其它算法细节</strong></p>
+<p>_校正_</p>
+<p>从历史经验看，oCPC中的pCVR预估值存在偏低的现象，作者提出了一个经验校正公式：</p>
+<p>$$<br>p(c|u,a) =<br>\begin{align}<br>\begin{cases}<br>\displaystyle<br>p(c|u,a),  &amp;\quad p(c|u,a) &lt; tc; \\\<br>p(c|u,a) \cdot (1 + \log(\frac{p(c|u,a)}{tc})), &amp;\quad p(c|u,a) \ge tc<br>\end{cases}<br>\end{align}<br>\quad tc = 0.012 (与业务相关参数)<br>$$</p>
+<p>_oCPC算法复杂度_</p>
+<p>整个oCPC算法包含两部分：Ranking和Calibration，总起来算法复杂度为$O(N \times \Vert A \Vert \times \log \Vert A \Vert)$。与$N$成线性关系，通常A和N不是太大，可以提供online serving。</p>
+<p>_模型评估指标－GAUC_</p>
+<p>文中对广告位置p和用户u进行组合后分组，并在计算auc时进行加权$w(u,p)$</p>
+<p>$$<br>GAUC = \frac{\sum_{(u,p)} w_{(u,p)} \times AUC_{(u,p)}} {\sum_{(u,p)} w_{(u,p)}}<br>$$</p>
+<p><strong>OCPC算法实现细节</strong></p>
+<ul>
+<li>客单价$v_a$：按照shopid粒度区分，计算过去一段时间（周or月）的消费均价来使用。若为空，使用门店均价来代替。实现方式：实现方式：类似ctr统计特征，加载resource，每日推送新数据。</li>
+<li>CVR期望$E[p(c|u,a)]$，按照slot＋广告launchid维度区分，计算过去一段时间（周or月）转化数据（如果转化数不超过100，则epcvr计为0，epcvr=0的shop不对其进行ocpc算法处理）。实现方式：统计点击转化率cvr，类似ctr统计特征，加载resource，每日推送；</li>
+<li>rank极端需要对所有的广告位进行一次处理。加入新的OcpcHandler：setup方法负责加载epcvr和客单价等数据以及docs；handle方法负责计算bound；cleanup方法负责rerank和回填数据。</li>
+<li>排序公式f函数暂定论文中f2；</li>
+<li>需要修改result，加入修改后的bid，透传给下游计费模块；</li>
+<li>cvr因为数据稀疏，可以考虑校准。</li>
+</ul>
+<h2 id="3.2.OCPM算法">OCPM算法</h2>
+
+<p>Facebook提出的ocpm算法，算法逻辑是：<strong>广告主按点击出价而按展现量计费，适合SNS网络广告。</strong></p>
+<p>头条已经用oCPM替换了之前的ocpc，与ocpc在排序和转化出价上没有区别，区别在于opc中的初始化阶段以及按曝光计费。</p>
+<h1 id="4.排序优化">排序优化</h1>
+
+
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://www.52caml.com/deep_learning/dl-chapter11-ad-ranking/" data-title="计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/deep_learning/dl-chapter10-ctrcvr/" title="">
+  <strong>上一篇：</strong><br/>
+  <span>
+  (no title)</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/deep_learning/dl-chapter9-recall-algorithm/"  title="">
+ <strong>下一篇：</strong><br/> 
+ <span>(no title)
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1.广告排序综述"><span class="toc-number">1.</span> <span class="toc-text">广告排序综述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.广告排序公式"><span class="toc-number">1.1.</span> <span class="toc-text">广告排序公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.质量分因子"><span class="toc-number">1.2.</span> <span class="toc-text">质量分因子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.出价因子"><span class="toc-number">1.3.</span> <span class="toc-text">出价因子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.超参数学习与优化"><span class="toc-number">1.4.</span> <span class="toc-text">超参数学习与优化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2.质量分预估"><span class="toc-number">2.</span> <span class="toc-text">质量分预估</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3.智能出价"><span class="toc-number">3.</span> <span class="toc-text">智能出价</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3.1.OCPC算法"><span class="toc-number">3.1.</span> <span class="toc-text">OCPC算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3.1.OCPC算法分步推导"><span class="toc-number">3.1.1.</span> <span class="toc-text">OCPC算法分步推导</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3.2.OCPM算法"><span class="toc-number">3.2.</span> <span class="toc-text">OCPM算法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4.排序优化"><span class="toc-number">4.</span> <span class="toc-text">排序优化</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/OpenMIT/" title="OpenMIT">OpenMIT<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/分布式机器学习/" title="分布式机器学习">分布式机器学习<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/深度学习/图网络/" title="图网络">图网络<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/强化学习与智能决策/" title="强化学习与智能决策">强化学习与智能决策<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/概率与统计/" title="概率与统计">概率与统计<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/深入浅出机器学习/" title="深入浅出机器学习">深入浅出机器学习<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/计算广告学/" title="计算广告学">计算广告学<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Agent/" title="Agent">Agent<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/参数服务器/" title="参数服务器">参数服务器<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Attention/" title="Attention">Attention<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DP/" title="DP">DP<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Evalation/" title="Policy Evalation">Policy Evalation<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Improvement/" title="Policy Improvement">Policy Improvement<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Policy-Iteration/" title="Policy Iteration">Policy Iteration<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Value-Iteration/" title="Value Iteration">Value Iteration<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Greedy-Policy/" title="Greedy Policy">Greedy Policy<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/连续随机变量/" title="连续随机变量">连续随机变量<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/MDP/" title="MDP">MDP<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Markov-Decision-Process/" title="Markov Decision Process">Markov Decision Process<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RL/" title="RL">RL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Environments/" title="Environments">Environments<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/GD/" title="GD">GD<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FTRL/" title="FTRL">FTRL<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AdaGrad/" title="AdaGrad">AdaGrad<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/AdaDelta/" title="AdaDelta">AdaDelta<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Adam/" title="Adam">Adam<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, Welcome to CAML technology sharing platform.  <br/>
+			I&#39;m Zhou Yong, engaged in algorithms work on computational advertising and machine learning.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1707438033" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/ComputationalAds" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zhouyongsdzh@foxmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2020 
+		
+		<a href="/about" target="_blank" title="ZhouYong">ZhouYong</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+</html>

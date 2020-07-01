@@ -287,23 +287,23 @@ weibo: @周永_52ML
 <p>这里以经典的邮件分类（文本分类的一种应用）为例，假如邮件要分为两类：垃圾邮件和正常邮件。采用最简单的特征描述方法，首先要找一个词库，然后将每封邮件中的内容表示成一个向量（根据词库进行过滤后），向量中每一维都是词库中的一个词的0/1值（1表示该词在词库中出现，0表示未出现）。</p>
 <p>比如一封邮件中出现了“的”和“打折”，没有出现“通知”，“提交”，“预约”等，那么形式化表示为：</p>
 <p>  $$<br>  \phi(x) =<br>  \begin{equation}<br>  \left[</p>
-<pre><code><span class="string">\begin{array}{cc}</span>
-    <span class="number">1</span><span class="string">\\</span>
-    <span class="number">0</span> <span class="string">\\</span>
-    <span class="string">\vdots</span> <span class="string">\\</span>
-    <span class="number">1</span> <span class="string">\\</span>
-    <span class="string">\vdots</span> <span class="string">\\</span>
-    <span class="number">0</span> <span class="string">\\</span>
-<span class="string">\end{array}</span>
+<pre><code><span class="command">\begin</span><span class="special">{</span>array<span class="special">}</span><span class="special">{</span>cc<span class="special">}</span>
+    1 <span class="command">\\</span><span class="command">\
+</span>    0 <span class="command">\\</span><span class="command">\
+</span>    <span class="command">\vdots</span> <span class="command">\\</span><span class="command">\
+</span>    1 <span class="command">\\</span><span class="command">\
+</span>    <span class="command">\vdots</span> <span class="command">\\</span><span class="command">\
+</span>    0 <span class="command">\\</span><span class="command">\
+</span><span class="command">\end</span><span class="special">{</span>array<span class="special">}</span>
 </code></pre><p>  \right] \; \leftarrow \;<br>  \left[</p>
-<pre><code><span class="string">\begin{array}{cc}</span>
-    的<span class="string">\\</span>
-    提交 <span class="string">\\</span>
-    <span class="string">\vdots</span> <span class="string">\\</span>
-    打折 <span class="string">\\</span>
-    <span class="string">\vdots</span> <span class="string">\\</span>
-    通知 <span class="string">\\</span>
-<span class="string">\end{array}</span>
+<pre><code><span class="command">\begin</span><span class="special">{</span>array<span class="special">}</span><span class="special">{</span>cc<span class="special">}</span>
+    的 <span class="command">\\</span><span class="command">\
+</span>    提交 <span class="command">\\</span><span class="command">\
+</span>    <span class="command">\vdots</span> <span class="command">\\</span><span class="command">\
+</span>    打折 <span class="command">\\</span><span class="command">\
+</span>    <span class="command">\vdots</span> <span class="command">\\</span><span class="command">\
+</span>    通知 <span class="command">\\</span><span class="command">\
+</span><span class="command">\end</span><span class="special">{</span>array<span class="special">}</span>
 </code></pre><p>  \right]<br>  \end{equation} \qquad(exp.ml.1.5.1)<br>  $$</p>
 <p>假设词库中有10000个词，那么\(x\)是10000维的。</p>
 </blockquote>

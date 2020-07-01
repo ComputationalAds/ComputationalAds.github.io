@@ -81,6 +81,221 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/deep_learning/dl-chapter5-word-embedding/" title="第05章：Word Embedding" itemprop="url">第05章：Word Embedding</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-22T13:43:20.000Z" itemprop="datePublished"> 发表于 2017-06-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ul>
+<li>author: zhouyongsdzh@foxmail.com</li>
+<li>date: 2017-06-08</li>
+<li>weibo: <a href="http://weibo.com/p/1005051707438033/home?" target="_blank" rel="external">@周永_52ML</a></li>
+</ul>
+<hr>
+<p>目录</p>
+<ul>
+<li><a href="#5.0.写在前面">写在前面</a></li>
+<li><a href="#5.1.词向量">词向量</a></li>
+</ul>
+<h2 id="5.0.写在前面">写在前面</h2>
+
+<p>在第四章：循环神经网络一章中讲到了神经语言模型，神经语言模型第一层是embedding映射，然后是全连接操作。embedding映射就是将一个词（CTR预估模型中经常是ID型特征）映射为一个$k$维的实数值向量。</p>
+<p>在NLP任务中，我们将自然语言交给机器学习（或深度学习）算法来处理，但机器无法直接理解这些数据或语言，因此首先要做的是<strong>将语言数学化</strong>，如何对自然语言进行数学化呢？词向量是一种很好的方式。</p>
+<h2 id="5.1.词向量">词向量</h2>
+
+<p>通常词向量有两种表示方式，一种是One-hot Representation，另一种是Distributed Representation。</p>
+<p>One-hot比较好理解，不过多赘述，它有一些缺点，如容易受维数灾难的困扰，尤其是将其用于深度学习场景时；在NLP场景中，它还不能刻画词与词之间的相似性。</p>
+<p>Distributed Representation最早是Hinton于1986年提出的，它可以克服one hot表示的缺点，其基本思想：<strong>通过训练将某种语言中的每一个词映射成一个固定长度的向量</strong>，所有的向量构成词向量空间，而每一向量可视为该空间中的一个点，在这个空间上引入“距离”，就可以根据词之间的距离来判断它们之间相似性了。</p>
+<blockquote>
+<p>为什么叫Distributed Representation（分布式表示）呢？一个理解是：对于one-hot presentation，向量中只有一个非零值，非常集中；而对于Distributed Representation表示的向量有大量非零值，相对分散，把词的信息分布到各个分量中去了。</p>
+<p>注意：词向量只是针对“词”来提的，事实上，我们也可以针对更细粒度或更粗粒度进行推广，如字向量（charactor-level），句子向量或文档向量等。</p>
+</blockquote>
+<p>目前，<strong>词向量学习方法中比较主流有word2vec，glove，fasttext和elmo，还有基于char-level的Bi-LSTM方法、CNN＋Highway NN + LSTM等方法</strong>。我们先从word2vec开始介绍。</p>
+<p>word2vec有两种不同的建模方式，分别称为CBOW模型和Skip-gram模型。</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter5_cbow_skip_gram.png" width="600" height="400" alt="CBOW和Skip-gram"></p>
+<p>由图可见，两个模型都包含3层结构：输入层、映射层和输出层。cbow模型是在已知当前词$w_t$的上下文$w_{t-2},w_{t-1},w_{t+1},w_{t+2}$的前提下预测当前词$w_t$；skip-gram模型恰恰相反，是在遗址当前词$w_t$的前提下，预测其上下文$w_{t-2},w_{t-1},w_{t+1},w_{t+2}$。</p>
+<p>对于这两个模型结构，word2vec论文中提供了两套学习框架，分别是Herarchical Softmax和Negative Sampling来进行学习。</p>
+<p>小结：<strong>两种建模方式对应着两种不同的条件概率，学习框架具体地表示了条件概率函数</strong>。</p>
+<h2 id="5.2.word2vec模型">word2vec模型</h2>
+
+<h3 id="5.2.1.基于Hierarchical Softmax算法的word2vec模型">基于Hierarchical Softmax算法的word2vec模型</h3>
+
+<p>在第4章中我们提到，基于神经网络的语言模型的目标函数通常优化其<strong>对数似然函数</strong>：</p>
+<p>$$<br>\mathcal{L} = \sum_{w \in C} \log p(w | context(w))<br>$$</p>
+<p>其中的关键是<strong>条件概率函数$p(w | context(w))$的构造</strong>，n-gram模型中给出了一种构造方法。对于word2vec中基于分层Softmax的cbow模型，优化的目标函数也如上式；而对于基于分层softmax的Skip-gram模型，优化的目标函数则形如：</p>
+<p>$$<br>\mathcal{L} = \sum_{w \in C} \log p(context(w) | w)<br>$$</p>
+<p>因此，下面我们重点关注两个条件概率模型是如何构造的？</p>
+<p><strong>cbow模型结构</strong></p>
+<p>基于HS的cbow模型的网络结构示意图如下：</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter5_hs_cbow1.png" width="500" height="450" alt="基于HS的CBOW模型"></p>
+<ul>
+<li>输入层</li>
+</ul>
+<p>包含context(w)中2c个词的词向量$v(context(w)_1),v(context(w)_2),\cdots,v(context(w)_{2c}) \in R^k$，这里$k$表示词向量的长度。</p>
+<ul>
+<li>映射层</li>
+</ul>
+<p>cbow投影层比较简单，将输入层的2c个词向量做求和累加，即$x_w = \sum_{i=1}^{2c} v(context(w)_i) \in R^k$</p>
+<ul>
+<li>输出层</li>
+</ul>
+<p>输出层对应一颗二叉树，它是<strong>以语料中出现过的词当叶子节点，以各词在语料中出现的次数当权重构造出来的Huffman树</strong>。这棵Huffman树中，叶子节点共有N个，分别对应词典$\mathcal{D}$中的词，非叶子节点N-1个。</p>
+<p>相对于第4章的神经网络语言模型结构，基于cbow模型的结构有3点不同：1.输入层到映射层的操作，前者是concat，后者是sum；2. 前者有隐藏层，后者无隐藏层；3. 输出层方面，前者是线性模型，后者是树形结构（Huffmans树）。</p>
+<p><strong>cbow模型表达</strong></p>
+<p>Herarchical Softmax是提高word2vec模型训练性能的重要技术，为了描述方便，先定义一些符号，假设huffman树中的某个叶子节点对应词典$\mathcal{D}$中的词$w$，定义：</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$p^{w}$</td>
+<td>从根节点出发到达$w$叶子节点的对应路径</td>
+</tr>
+<tr>
+<td>$l^w$</td>
+<td>路径$p^w$中包含节点的个数</td>
+</tr>
+<tr>
+<td>$p_1^w,p_2^w,\cdots,p_{l^w}^{w}$</td>
+<td>路径$p^w$中的$l^w$个节点，其中$p_1^w$表示根节点，$p_{l^w}^w$表示词$w$对应的节点</td>
+</tr>
+<tr>
+<td>$d_2^w,d_3^w,\cdots,d_{l^w}^w \in \{0,1\}$</td>
+<td>词$w$的huffman编码，它由$l^w-1$位编码构成，$d_j^w$表示路径$p^w$中第$j$个节点对应的编码（根节点不对应编码）</td>
+</tr>
+<tr>
+<td>$\theta_1^w,\theta_2^w,\cdots,\theta_{l^w - 1}^w \in R^k$</td>
+<td>路径$p^w$中<strong>非叶子节点</strong>对应的向量，$\theta_j^w$表示路径$p^w$中第$j$个非叶子节点对应的向量。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>word2vec模型最后得到的是词典$\mathcal{D}$中每个词的向量，这里为什么还要为huffman树非叶子节点也定义个向量呢？这里它只是辅助向量，相当于中间变量。</p>
+</blockquote>
+<p>// TODO 补充</p>
+<p>基于HS的cbow模型的条件概率函数为： </p>
+<p>$$<br>p(w|context(w)) = \prod_{j=2}^{l^w} p(d_j^w | x_w, \theta_{j-1}^w)<br>$$</p>
+<p>其中</p>
+<p>$$<br>p(d_j^w | x_w, \theta_{j-1}^w) =<br>\begin{cases} \sigma(x_w^T \theta_{j-1}^w), \quad &amp; d_j^w = 0, \\\<br>1-\sigma(x_w^T \theta_{j-1}^w) \quad &amp; d_j^w=1<br>\end{cases}<br>$$</p>
+<p>写成整体的表达式为:</p>
+<p>$$<br>p(w|context(w)) = \prod_{j=2}^{l^w} \left[ \sigma(x_w^T \theta_{j-1}^w) \right]^{1-d_j^w} \cdot \left[ 1-\sigma(x_w^T \theta_{j-1}^w) \right]^{d_j^w}<br>$$</p>
+<blockquote>
+<p>注意：这里是基于HS的cbow模型表达式，笔者经常用该题目考察候选人对word2vec的理解程度，但仅有十之一二能给出正确答案。</p>
+</blockquote>
+<p><strong>梯度计算</strong></p>
+<p>那么<strong>基于HS的cbow模型的目标函数（似然函数的对数形式）</strong>整理为：</p>
+<p>$$<br>\begin{align}<br>\mathcal{L} &amp;= \sum_{w \in \mathcal{C}} \log p(w|context(w)) \\\<br>&amp;= \sum_{w \in \mathcal{C}} \sum_{j=2}^{l^w} \left\{ (1 - d_j^w) \log\left(\sigma(x_w^T \theta_{j-1}^w)\right) + d_j^w \log \left(1-\sigma(x_w^T \theta_{j-1}^w) \right) \right\}<br>\end{align}<br>$$</p>
+<p>优化目标中的参数有$x_w, \theta_{j-1}^w$。如何最大化目标函数，word2vec工具使用的是随机梯度提升法，前提先算法出优化目标对参数的梯度表达式。为公式推导方便，即花括号里的公式为$\mathcal{L}(w, j)$，分别对参数$x_w, \theta_{j-1}^w$求导：</p>
+<p>$$<br>\begin{align}<br>\frac{\partial \mathcal{L}(w,j)}{\partial \theta_{j-1}^w}<br>&amp;= \frac{\partial}{\partial \theta_{j-1}^w} \left\{ (1 - d_j^w) \log\left(\sigma(x_w^T \theta_{j-1}^w)\right) + d_j^w \log \left(1-\sigma(x_w^T \theta_{j-1}^w) \right) \right\} \\\<br>&amp;= (1-d_j^w) \left(1-\sigma(x_w^T \theta_{j-1}^w) \right)x_w - d_j^w \sigma(x_w^T \theta_{j-1}^w)x_w \\\<br>&amp;= \left(1 - \sigma(x_w^T \theta_{j-1}^w) - d_j^w \right) x_w<br>\end{align}<br>$$</p>
+<p>于是，参数$\theta_{j-1}^w$的更新公式为：</p>
+<p>$$<br>\theta_{j-1}^w \leftarrow \theta_{j-1}^w + \eta \left(1 - \sigma(x_w^T \theta_{j-1}^w) - d_j^w \right) x_w<br>$$</p>
+<p>对于参数$x_w$的梯度，可以根据变量的对称性（两者可交换位置）得到。即相应的梯度$\frac{\partial \mathcal{L}(w,j)}{\partial x_w}$只需在梯度$\frac{\partial \mathcal{L}(w,j)}{\partial \theta_{j-1}^w}$的基础上对两个参数交换位置就可以了，即</p>
+<p>$$<br>\frac{\partial \mathcal{L}(w,j)}{\partial x_w} = \left(1 - \sigma(x_w^T \theta_{j-1}^w) - d_j^w \right) \theta_{j-1}^w<br>$$</p>
+<p>参数$x_w$的更新公式类似$\theta_{j-1}^w$的公式，不再赘述。那么，对每个词的向量$v(\hat{w}), \hat{w} \in context(w)$，其更新公式为：</p>
+<p>$$<br>v(\hat{w}) \leftarrow v(\hat{w}) + \eta \sum_{j=2}^{l^w} \left(1 - \sigma(x_w^T \theta_{j-1}^w) - d_j^w \right) \theta_{j-1}^w<br>$$</p>
+<h3 id="5.2.1.2.基于Hierarchical Softmax的skip-gram模型">基于Hierarchical Softmax的skip-gram模型</h3>
+
+
+<p><strong>skip-gram模型结构</strong></p>
+<p>与cbow模型一样，基于hs的skip-gram输出层也是Huffman树。</p>
+<p>$$<br>\begin{align}<br>p(context(w)|w)<br>&amp;= \prod_{u \in context(w)} p(u|w) \\\<br>&amp;= \prod_{u \in context(w)} \prod_{j=2}^{l^w} p(d_j^u | v_w, \theta_{j-1}^u) \\\<br>&amp;= \prod_{u \in context(w)} \prod_{j=2}^{l^w} \left[\sigma(v_w \theta_{j-1}^u)\right]^{1-d_j^u} \cdot \left[1 - \sigma(v_w \theta_{j-1}^u)\right]^{d_j^u}<br>\end{align}<br>$$</p>
+<p>目标函数：</p>
+<p>$$<br>\begin{align}<br>\mathcal{L}<br>&amp;= \sum_{w \in C} \log p(context(w)|w) \\\<br>&amp;= \sum_{w \in C} \sum_{u \in context(w)} \sum_{j=2}^{l^u} \left\{ (1 - d_j^u)  \log \left(\sigma(v_w\theta_{j-1}^u)\right) + d_j^u \log \left(1 - \sigma(v_w\theta_{j-1}^u)\right) \right\}<br>\end{align}<br>$$</p>
+<p>为了梯度公式推导方便，我们把三重花括号里的公式记为$\mathcal{L}(w,u,j)$，公式为：</p>
+<p>$$<br>\mathcal{L}(w,u,j) = (1 - d_j^u)  \log \left(\sigma(v_w\theta_{j-1}^u)\right) + d_j^u \log \left(1 - \sigma(v_w\theta_{j-1}^u)\right)<br>$$</p>
+<p>以上就是基于HS的skip-gram模型的优化目标。下面分别对参数$v_w, \theta_{j-1}^u$求导，</p>
+<p>$$<br>\frac{\partial \mathcal{L}(w,u,j)} {\partial v_w} = \left(1 - d_j^u - \sigma(v_w \theta_{j-1}^u) \right) \theta_{j-1}^u<br>$$</p>
+<p>因此，可得参数$v_w$的更新公式为：</p>
+<p>$$<br>v_w \leftarrow v_w + \eta \sum_{u \in context(w)} \sum_{j=2}^{l^u} \left(1 -d_j^u - \sigma(v_w \theta_{j-1}^u) \right) \theta_{j-1}^u<br>$$</p>
+<p>同样的，根据参数对称性，可得参数$\theta_{j-1}^u$的更新公式为：</p>
+<p>$$<br>\theta_{j-1}^u \leftarrow \theta_{j-1}^u + \eta \left(1 - d_j^u - \sigma(v_w \theta_{j-1}^u) \right) v_w<br>$$</p>
+<p>在Google word2vec源码对于$v_w$的更新并不是在两层for循环外才更新，而是每处理一个词后更新$v_w$参数。</p>
+<h3 id="5.2.2.基于Negative Sample算法的word2vec模型">基于Negative Sample算法的word2vec模型</h3>
+
+
+<p>cbow模型</p>
+<p>cbow模型是已知上下文$context(w)$预测中心词$w$。因此，对于给定的$context(w)$，词$w$就是一个<strong>正样本</strong>，其它词就是<strong>负样本</strong>了。</p>
+<blockquote>
+<p>负样本如此多，该如何选取呢？该问题相对独立，后面会单独介绍。</p>
+</blockquote>
+<p>假定现在已经选好了一个关于词$w$的负样本子集$NEG(w) \neq \emptyset$，且对于$\forall \hat{w} \in \mathcal{D}$，定义：</p>
+<p>$$<br>L^w(\hat{w}) = \begin{cases}<br>1, \quad \hat{w} = w; \\\<br>0, \quad \hat{w} \neq w<br>\end{cases}<br>$$</p>
+<p>$L^w(\hat{w})$表示词的标签，正样本标签为1，负样本标签为0.</p>
+<p>对于一个给定的正样本，我们希望最大化：</p>
+<p>$$<br>g(w) = \prod_{u \in {w} \cup NEG(w)} p(u | context(w))<br>$$</p>
+<p>概率公式为： </p>
+<p>$$<br>p(u|context(w)) =<br>\begin{cases}<br>\sigma(x_w^T \theta^u)  &amp; \quad L^w(u) = 1, \\\<br>1 - \sigma(x_w^T \theta^u)  &amp; \quad L^w(u) \neq 1<br>\end{cases}<br>$$</p>
+<p>这里$x_w$仍然表示上下文向量之和，<strong>$\theta^u \in R^m$是词u对应的一个辅助向量，待训练参数</strong>。把上式整理为一个完整的表达式为：</p>
+<p>$$<br>g(w) = \prod_{u \in w \cup NEG(w)} \left[\sigma(x_w^T \theta^u) \right]^{L^w(u)} \cdot \left[1 - \sigma(x_w^T \theta^u) \right]^{1 - L^w(u)}<br>$$</p>
+<p>那么，为什么要最大化$g(w)$呢？我们再整理一下上式：</p>
+<p>$$<br>g(w) = \sigma(x_w^T \theta^w) \prod_{u \in NEG(w)} \left[1- \sigma(x_w^T \theta^u) \right]<br>$$</p>
+<p>$\sigma(x_w^T \theta^w)$表示当上下文为context(w)时，预测中心词为w的概率。$\sigma(x_w^T \theta^u), u \in NEG(w)$表示当上下文为context(w)时，预测中心词为u的概率。<strong>从形式上看，最大化$g(w)$等价于最大化$\sigma(x_w^T \theta^w)$同时最小化所有的$\sigma(x_w^T \theta^u)$</strong>，这正是我们所希望的：<strong>最大化正样本的概率同时最小化负样本的概率</strong>。</p>
+<p>于是，对于给定的一个语料库$C$，优化目标为： </p>
+<p>$$<br>G = \prod_{w \in C} g(w)<br>$$</p>
+<h3 id="5.2.2.基于Negative Sample算法的word2vec模型">基于Negative Sample算法的word2vec模型</h3>
+
+
+
+
+
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/深度学习/">深度学习</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/CBow/">CBow</a><a href="/tags/ELMo/">ELMo</a><a href="/tags/FastText/">FastText</a><a href="/tags/GloVe/">GloVe</a><a href="/tags/Hierarchical-Softmax/">Hierarchical Softmax</a><a href="/tags/Negative-Sampling/">Negative Sampling</a><a href="/tags/Skip-Gram/">Skip Gram</a><a href="/tags/Word2Vec/">Word2Vec</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/openmit/openmit-chapter3-admm/" title="第03章：OpenMIT_算法框架" itemprop="url">第03章：OpenMIT_算法框架</a>
   </h1>
   <p class="article-author">By
@@ -2543,23 +2758,23 @@
 <p>这里以经典的邮件分类（文本分类的一种应用）为例，假如邮件要分为两类：垃圾邮件和正常邮件。采用最简单的特征描述方法，首先要找一个词库，然后将每封邮件中的内容表示成一个向量（根据词库进行过滤后），向量中每一维都是词库中的一个词的0/1值（1表示该词在词库中出现，0表示未出现）。</p>
 <p>比如一封邮件中出现了“的”和“打折”，没有出现“通知”，“提交”，“预约”等，那么形式化表示为：</p>
 <p>  $$<br>  \phi(x) =<br>  \begin{equation}<br>  \left[</p>
-<pre><code><span class="string">\begin{array}{cc}</span>
-    <span class="number">1</span><span class="string">\\</span>
-    <span class="number">0</span> <span class="string">\\</span>
-    <span class="string">\vdots</span> <span class="string">\\</span>
-    <span class="number">1</span> <span class="string">\\</span>
-    <span class="string">\vdots</span> <span class="string">\\</span>
-    <span class="number">0</span> <span class="string">\\</span>
-<span class="string">\end{array}</span>
+<pre><code><span class="command">\begin</span><span class="special">{</span>array<span class="special">}</span><span class="special">{</span>cc<span class="special">}</span>
+    1 <span class="command">\\</span><span class="command">\
+</span>    0 <span class="command">\\</span><span class="command">\
+</span>    <span class="command">\vdots</span> <span class="command">\\</span><span class="command">\
+</span>    1 <span class="command">\\</span><span class="command">\
+</span>    <span class="command">\vdots</span> <span class="command">\\</span><span class="command">\
+</span>    0 <span class="command">\\</span><span class="command">\
+</span><span class="command">\end</span><span class="special">{</span>array<span class="special">}</span>
 </code></pre><p>  \right] \; \leftarrow \;<br>  \left[</p>
-<pre><code><span class="string">\begin{array}{cc}</span>
-    的<span class="string">\\</span>
-    提交 <span class="string">\\</span>
-    <span class="string">\vdots</span> <span class="string">\\</span>
-    打折 <span class="string">\\</span>
-    <span class="string">\vdots</span> <span class="string">\\</span>
-    通知 <span class="string">\\</span>
-<span class="string">\end{array}</span>
+<pre><code><span class="command">\begin</span><span class="special">{</span>array<span class="special">}</span><span class="special">{</span>cc<span class="special">}</span>
+    的 <span class="command">\\</span><span class="command">\
+</span>    提交 <span class="command">\\</span><span class="command">\
+</span>    <span class="command">\vdots</span> <span class="command">\\</span><span class="command">\
+</span>    打折 <span class="command">\\</span><span class="command">\
+</span>    <span class="command">\vdots</span> <span class="command">\\</span><span class="command">\
+</span>    通知 <span class="command">\\</span><span class="command">\
+</span><span class="command">\end</span><span class="special">{</span>array<span class="special">}</span>
 </code></pre><p>  \right]<br>  \end{equation} \qquad(exp.ml.1.5.1)<br>  $$</p>
 <p>假设词库中有10000个词，那么\(x\)是10000维的。</p>
 </blockquote>
@@ -5368,107 +5583,6 @@ double <span class="function"><span class="keyword">val</span> =</span> <span cl
   <div class="article-tags">
   
   <span></span> <a href="/tags/连续随机变量/">连续随机变量</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/computational_ads/ca_roadmap/" title="计算广告学-RoadMap" itemprop="url">计算广告学-RoadMap</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
-		
-  <p class="article-time">
-    <time datetime="2015-05-09T14:31:24.000Z" itemprop="datePublished"> 发表于 2015-05-09</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <blockquote>
-<p>Author: zhouyongsdzh@foxmail.com </p>
-<p>Date: 2015-05-09</p>
-</blockquote>
-<p>说明</p>
-<p>这里阐述了在线广告介绍以及产品形态、用户画像、大规模约束优化、CTR预估、流量预估、竞价机制设计、广告拍卖等计算广告学核心概念和技术进行总结与梳理</p>
-<h2 id="第一部分：广告与计算">第一部分：广告与计算</h2><ul>
-<li>第01章：在线广告介绍</li>
-<li>第02章：计算广告基础知识</li>
-<li>第03章：受众定向</li>
-</ul>
-<h2 id="第二部分：合约广告系统">第二部分：合约广告系统</h2><ul>
-<li>第04章：流量预估</li>
-<li>第05章：在线分配</li>
-</ul>
-<h2 id="第三部分：竞价广告系统">第三部分：竞价广告系统</h2><ul>
-<li>第06章：匹配与相关性计算</li>
-<li>第07章：广告检索</li>
-<li>第08章：点击率预估</li>
-<li>第09章：竞价机制设计</li>
-</ul>
-<h2 id="第四部分：广告交易系统">第四部分：广告交易系统</h2><ul>
-<li>第10章：交易与拍卖理论</li>
-<li>第11章：在线广告生态系统</li>
-<li>第12章：需求方平台</li>
-<li>第13章：供给方平台</li>
-<li>第14章：数据管理平台</li>
-</ul>
-<h2 id="第五部分：广告智能推荐">第五部分：广告智能推荐</h2><ul>
-<li>第15章：推荐与广告</li>
-<li>第16章：推荐系统与算法</li>
-</ul>
-<h2 id="第六部分：广告相关技术">第六部分：广告相关技术</h2><ul>
-<li>第17章：智能频次控制</li>
-<li>第18章：反作弊技术</li>
-<li>第19章：效果监控与可视化</li>
-<li>第20章：隐私保护与数据安全</li>
-</ul>
-<h2 id="第七部分：大数据与机器学习">第七部分：大数据与机器学习</h2><ul>
-<li>第21章：大数据框架在广告系统中的应用</li>
-<li>第22章：机器学习在广告系统中的应用</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/计算广告学/">计算广告学</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/计算广告学/">计算广告学</a>
   </div>
 
 </div>
