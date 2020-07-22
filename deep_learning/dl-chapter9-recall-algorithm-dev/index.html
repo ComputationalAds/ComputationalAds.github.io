@@ -25,15 +25,17 @@
 
 查询理解
 理解用户查询意图，优化召回与排序结果的相关性
-1. Query分析：分词、词权重、纠错、成分分析；2. Query理解：意图识别、类目识别、地址识别
-1. 离线指标：在测试集上的准召率、F12. 线上指标：CTR 3. 关注指标：覆盖率、密度、RPS等；
+1. Query分析：分词、词权重、纠错、成分分析；
 
 
-召回模型
-在保证相关性的前提下，提升召回结果">
+
+
+Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在测试集上的准召率、F1
+线上指标：CTR 
+关注指标：覆盖率、密度、RPS等；|| 召回模型 | 在保证相关性的前提下，提升召回">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算广告与机器学习">
-<meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter9-recall-algorithm/index.html">
+<meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter9-recall-algorithm-dev/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
 <meta property="og:description" content="基于关键词的召回算法与系统重要技术方向
 
@@ -49,12 +51,14 @@
 
 查询理解
 理解用户查询意图，优化召回与排序结果的相关性
-1. Query分析：分词、词权重、纠错、成分分析；2. Query理解：意图识别、类目识别、地址识别
-1. 离线指标：在测试集上的准召率、F12. 线上指标：CTR 3. 关注指标：覆盖率、密度、RPS等；
+1. Query分析：分词、词权重、纠错、成分分析；
 
 
-召回模型
-在保证相关性的前提下，提升召回结果">
+
+
+Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在测试集上的准召率、F1
+线上指标：CTR 
+关注指标：覆盖率、密度、RPS等；|| 召回模型 | 在保证相关性的前提下，提升召回">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算广告与机器学习">
 <meta name="twitter:description" content="基于关键词的召回算法与系统重要技术方向
@@ -71,12 +75,14 @@
 
 查询理解
 理解用户查询意图，优化召回与排序结果的相关性
-1. Query分析：分词、词权重、纠错、成分分析；2. Query理解：意图识别、类目识别、地址识别
-1. 离线指标：在测试集上的准召率、F12. 线上指标：CTR 3. 关注指标：覆盖率、密度、RPS等；
+1. Query分析：分词、词权重、纠错、成分分析；
 
 
-召回模型
-在保证相关性的前提下，提升召回结果">
+
+
+Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在测试集上的准召率、F1
+线上指标：CTR 
+关注指标：覆盖率、密度、RPS等；|| 召回模型 | 在保证相关性的前提下，提升召回">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -136,14 +142,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/deep_learning/dl-chapter9-recall-algorithm/" title="" itemprop="url"></a>
+      <a href="/deep_learning/dl-chapter9-recall-algorithm-dev/" title="" itemprop="url"></a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2020-04-04T14:15:40.000Z" itemprop="datePublished"> 发表于 2020-04-04</time>
+    <time datetime="2020-07-20T13:56:33.000Z" itemprop="datePublished"> 发表于 2020-07-20</time>
     
   </p>
 </header>
@@ -152,7 +158,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基于关键词的召回算法与系统"><span class="toc-number">1.</span> <span class="toc-text">基于关键词的召回算法与系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0.召回算法系统综述"><span class="toc-number">2.</span> <span class="toc-text">召回算法系统综述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0.1.召回的数学模型"><span class="toc-number">2.1.</span> <span class="toc-text">召回的数学模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0.2.召回算法逻辑思路"><span class="toc-number">2.2.</span> <span class="toc-text">召回算法逻辑思路</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2.召回工作方向"><span class="toc-number">3.</span> <span class="toc-text">召回工作方向</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.查询理解"><span class="toc-number">3.1.</span> <span class="toc-text">查询理解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.1.1.Query分析"><span class="toc-number">3.1.1.</span> <span class="toc-text">Query分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.1.2.意图识别"><span class="toc-number">3.1.2.</span> <span class="toc-text">Query理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.1.3.查询改写"><span class="toc-number">3.1.3.</span> <span class="toc-text">查询改写</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.2.召回算法"><span class="toc-number">3.2.</span> <span class="toc-text">召回算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.1.传统召回算法"><span class="toc-number">3.2.1.</span> <span class="toc-text">传统召回算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.2.索引词Node召回"><span class="toc-number">3.2.2.</span> <span class="toc-text">索引词Node召回</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.3.向量召回"><span class="toc-number">3.2.3.</span> <span class="toc-text">向量召回</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.3.知识图谱"><span class="toc-number">3.3.</span> <span class="toc-text">知识图谱</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.3.4.知识图谱应用"><span class="toc-number">3.3.1.</span> <span class="toc-text">知识图谱应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.4.相关性模型"><span class="toc-number">3.4.</span> <span class="toc-text">相关性模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.4.1.文本及语义相关性"><span class="toc-number">3.4.1.</span> <span class="toc-text">文本及语义相关性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.4.2.业务相关性"><span class="toc-number">3.4.2.</span> <span class="toc-text">业务相关性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.4.3.相关性模型"><span class="toc-number">3.4.3.</span> <span class="toc-text">相关性模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.5.召回粗排模块"><span class="toc-number">3.5.</span> <span class="toc-text">召回粗排模块</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3.工程建设"><span class="toc-number">4.</span> <span class="toc-text">工程建设</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3.1.索引系统"><span class="toc-number">4.1.</span> <span class="toc-text">索引系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.5.2.工具积累"><span class="toc-number">4.1.1.</span> <span class="toc-text">工具积累</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基于关键词的召回算法与系统"><span class="toc-number">1.</span> <span class="toc-text">基于关键词的召回算法与系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0.召回算法系统综述"><span class="toc-number">2.</span> <span class="toc-text">召回算法系统综述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0.1.召回的数学模型"><span class="toc-number">2.1.</span> <span class="toc-text">召回的数学模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0.2.召回算法逻辑思路"><span class="toc-number">2.2.</span> <span class="toc-text">召回算法逻辑思路</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.查询理解"><span class="toc-number">3.</span> <span class="toc-text">查询理解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.Query分析"><span class="toc-number">3.1.</span> <span class="toc-text">Query分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.意图识别"><span class="toc-number">3.2.</span> <span class="toc-text">Query理解</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2.查询改写"><span class="toc-number">4.</span> <span class="toc-text">查询改写</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2.9.改写词全局优化"><span class="toc-number">4.1.</span> <span class="toc-text">改写词全局优化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3.索引挖掘"><span class="toc-number">5.</span> <span class="toc-text">索引挖掘</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3.1.知识图谱"><span class="toc-number">5.1.</span> <span class="toc-text">知识图谱</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3.1.1.知识图谱应用"><span class="toc-number">5.1.1.</span> <span class="toc-text">知识图谱应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3.2.索引词优化"><span class="toc-number">5.2.</span> <span class="toc-text">索引词优化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4.召回匹配"><span class="toc-number">6.</span> <span class="toc-text">召回匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.精确匹配"><span class="toc-number">6.1.</span> <span class="toc-text">精确匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.相关性匹配"><span class="toc-number">6.2.</span> <span class="toc-text">相关性匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.2.向量召回"><span class="toc-number">6.3.</span> <span class="toc-text">向量召回</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6.相关性与粗排"><span class="toc-number">7.</span> <span class="toc-text">相关性与粗排</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6.1.相关性模型"><span class="toc-number">7.1.</span> <span class="toc-text">相关性模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6.1.1.文本及语义相关性"><span class="toc-number">7.1.1.</span> <span class="toc-text">文本及语义相关性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6.1.2.业务相关性"><span class="toc-number">7.1.2.</span> <span class="toc-text">业务相关性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6.1.3.相关性模型"><span class="toc-number">7.1.3.</span> <span class="toc-text">相关性模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.2.粗排模块"><span class="toc-number">7.2.</span> <span class="toc-text">粗排模块</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9.工程建设"><span class="toc-number">8.</span> <span class="toc-text">工程建设</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#9.1.索引系统"><span class="toc-number">8.1.</span> <span class="toc-text">索引系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9.2.工具积累"><span class="toc-number">8.1.1.</span> <span class="toc-text">工具积累</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
@@ -170,28 +176,61 @@
 <tr>
 <td>查询理解</td>
 <td>理解用户查询意图，优化召回与排序结果的相关性</td>
-<td>1. Query分析：分词、词权重、纠错、成分分析；<br>2. Query理解：意图识别、类目识别、地址识别</td>
-<td>1. 离线指标：在测试集上的准召率、F1<br>2. 线上指标：CTR <br>3. 关注指标：覆盖率、密度、RPS等；</td>
-</tr>
-<tr>
-<td>召回模型</td>
-<td>在保证相关性的前提下，提升召回结果</td>
-<td>1. 查询改写：改写词召回；<br>2. 相关性校验：改写词排序；<br>3. 向量召回：双塔、Graph Embedding等；<br>4. 粗排：Q-P相关性</td>
-<td>1. 离线指标：AUC；<br>2. 线上指标：召回率、覆盖率、密度；<br>3. 关注指标：CTR、RPS、访购率；</td>
-</tr>
-<tr>
-<td>知识图谱</td>
-<td>1. 保证准确的前提下，扩充广告node数量；<br>2. 保证相关性的前提下，提升召回结果</td>
-<td>1. 实体词、标签词挖掘；<br>2. 同义、上下位关系挖掘</td>
-<td>1. 离线指标：在测试集上的准召率、F1；<br>2. 线上指标：召回率、覆盖率、密度；<br>3. 线上指标：CTR、RPS、访购率；</td>
-</tr>
-<tr>
-<td>创意优化</td>
-<td>1. 通过优化图像、文本的质量，提升CTR</td>
-<td>1. 图片召回：数据源、图片候选模型(pairwise、end2end)；<br>2. 图片排序：图片特征挖掘；<br>3. 按搜出图文：类目、标签体系与图文的关系挖掘；<br>4. </td>
+<td>1. Query分析：分词、词权重、纠错、成分分析；</td>
 </tr>
 </tbody>
 </table>
+<ol>
+<li>Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在测试集上的准召率、F1<ol>
+<li>线上指标：CTR </li>
+<li>关注指标：覆盖率、密度、RPS等；|<br>| 召回模型 | 在保证相关性的前提下，提升召回结果 | 1. 查询改写：改写词召回；</li>
+<li>相关性校验：改写词排序；</li>
+<li>向量召回：双塔、Graph Embedding等；</li>
+<li>粗排：Q-P相关性 | 1. 离线指标：AUC；</li>
+<li>线上指标：召回率、覆盖率、密度；</li>
+<li>关注指标：CTR、RPS、访购率；|<br>| 知识图谱 | 1. 保证准确的前提下，扩充广告node数量；</li>
+<li>保证相关性的前提下，提升召回结果 | 1. 实体词、标签词挖掘；</li>
+<li>同义、上下位关系挖掘 | 1. 离线指标：在测试集上的准召率、F1；</li>
+<li>线上指标：召回率、覆盖率、密度；</li>
+<li>线上指标：CTR、RPS、访购率；|<br>| 创意优化 | 1. 通过优化图像、文本的质量，提升CTR | 1. 图片召回：数据源、图片候选模型(pairwise、end2end)；</li>
+<li>图片排序：图片特征挖掘；</li>
+<li>按搜出图文：类目、标签体系与图文的关系挖掘；</li>
+<li>|</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li><a href="#0.召回算法系统综述">召回算法系统综述</a><ul>
+<li><a href="#0.1.召回的数学模型">召回的数学模型</a></li>
+<li><a href="#0.2.召回算法逻辑思路">召回算法逻辑思路</a></li>
+</ul>
+</li>
+<li><a href="#1.查询理解">查询理解</a></li>
+<li><a href="#2.查询改写">查询改写</a><ul>
+<li><a href="#2.9.改写词全局优化">改写词全局优化</a></li>
+</ul>
+</li>
+<li><a href="#3.索引挖掘">索引挖掘</a><ul>
+<li><a href="#3.1.知识图谱">知识图谱</a><ul>
+<li><a href="#3.2.索引词优化">索引词优化</a> </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#4.召回匹配">召回匹配</a></li>
+<li><a href="#5.向量召回">向量召回</a></li>
+<li><a href="#6.相关性与粗排">相关性与粗排</a><ul>
+<li><a href="#6.1.相关性模型">相关性模型</a> </li>
+<li><a href="#6.2.粗排模块">粗排模块</a></li>
+</ul>
+</li>
+<li><a href="#9.工程建设">工程建设</a><ul>
+<li>[索引建设]</li>
+<li>[向量索引]</li>
+<li>[case分析链路]</li>
+</ul>
+</li>
+</ul>
 <h1 id="0.召回算法系统综述">召回算法系统综述</h1>
 
 <h2 id="0.1.召回的数学模型">召回的数学模型</h2>
@@ -200,7 +239,7 @@
 <p>如果假设索引词node能表示广告（node-item相关性），给定query能召回某个node词（query-node相关性），则该过程可以用条件概率公式描述如下：</p>
 <p>$$<br>P(i|q) = \sum_{k} P(n_k | q) \cdot P(i | n_k, q)<br>$$</p>
 <p>如果概率分布已知，就可以进行参数估计。不过实际该过程会进行若干近似，以应对常见的<strong>分段式召回</strong>流程，即简单认为最大化$P(n_k|q)$相应的$P(i|n_k)$来最大化$P(i|q)$。分段式召回流程表示如下：</p>
-<p>$$<br>\text{Query} \rightarrow<br>\underbrace{<br>\color{red}{\text{Query Rewrite}}<br>}_{\text{Matching过程}\; P(n_k | q)}<br>\rightarrow \text{Nodes} \rightarrow<br>\underbrace{<br>\overbrace{<br>\text{Node-Items}<br>}^{\color{red}{\text{Node挖掘}\; P(i|n_k)}}<br>\rightarrow \text{Items Candidates} \rightarrow 粗排<br>}_{\color{red}{\text{Recall Service}\; P(i|q)}}<br>\quad \rightarrow \text{召回的Items}<br>$$</p>
+<p>$$<br>\text{Query} \rightarrow<br>\underbrace{<br>\color{red}{Query Rewrite}<br>}_{\text{Matching过程}\; P(n_k | q)}<br>\rightarrow \text{Nodes} \rightarrow<br>\underbrace{<br>\overbrace{<br>\text{Node-Items}<br>}^{\color{red}{\text{Node挖掘}\; P(i|n_k)}}<br>\rightarrow \text{Items Candidates} \rightarrow 粗排<br>}_{\color{red}{\text{Recall Service}\; P(i|q)}}<br>\quad \rightarrow \text{召回的Items}<br>$$</p>
 <p>这里涉及到召回算法两个重要的工作方向：查询改写和索引构建。</p>
 <p><strong>查询改写（Query Rewrite）</strong></p>
 <p>SMT（统计翻译模型）的原理如下：</p>
@@ -296,22 +335,94 @@
 <blockquote>
 <p>这个过程中，我们可以在向量建模方式、大规模训练工具、异构图构建、模型结构以及线上算法工程等方面进行探索和实践，并且争取较好的平衡召回率和相关性。</p>
 </blockquote>
-<h1 id="2.召回工作方向">召回工作方向</h1>
+<h1 id="1.查询理解">查询理解</h1>
 
 <p><strong>参考：《高质量博客总结》广告召回技术梳理</strong></p>
-<h2 id="2.1.查询理解">查询理解</h2>
-
-<p><strong>参考：《高质量博客总结》广告召回技术梳理</strong></p>
-<h3 id="2.1.1.Query分析">Query分析</h3>
+<h2 id="1.1.Query分析">Query分析</h2>
 
 <p>分析什么？目标是什么？怎么做？</p>
-<h3 id="2.1.2.意图识别">Query理解</h3>
+<h2 id="1.2.意图识别">Query理解</h2>
 
 <p>如何定义意图？</p>
 <p>各种识别，多分类模型；</p>
-<h3 id="2.1.3.查询改写">查询改写</h3>
+<h1 id="2.查询改写">查询改写</h1>
 
-<h2 id="2.2.召回算法">召回算法</h2>
+<h2 id="2.9.改写词全局优化">改写词全局优化</h2>
+
+<p>通常，Query线上改写主要依赖于混合simrank++、word2vec、graphSage等多种改写策略的<strong>同义词表</strong>，改写词之间的优先级需要人工指定（MatchLevel），缺乏统一的排序准则。并且，随着改写策略的不断迭代，一个query对应的改写词也越来越多。</p>
+<blockquote>
+<p>经统计，超过40% 的搜索请求，其改写词数量触发了截断策略。目前截断形式过于简单，直接取Top 20的改写词用于召回广告，在没有全局排序的情况下容易导致优质改写词被丢弃的现象。</p>
+</blockquote>
+<p>为此，我们使用<code>&lt;Query, 索引词&gt;</code>相关性模型(同<code>相关性匹配</code>章节中的树模型)，对线上的改写词进行统一排序， 以优化目前改写词截断策略，确保优质改写词优先召回广告。</p>
+<ol>
+<li><p>根据业务特点，比如对应LBS场景，优先<strong>本地</strong>有召回的改写词（city粒度或商圈粒度）；</p>
+</li>
+<li><p>构建<code>&lt;Query, 索引词&gt;</code>相关性模型，优先选择高相关性的改写词。</p>
+</li>
+</ol>
+<p>用<code>&lt;Query, 索引词&gt;</code>相关性模型，对线上改写词统一排序，替换掉人工指定的优先级， 确保高相关的改写词优先召回广告。</p>
+<p>需要展开训练数据生成与模型训练，评估数据与离线auc/acc等指标具体工作。</p>
+<p>Query=”画室体验”，通过相关性排序，实验组将低相关改写词（“体验”）排在后面，以确保高相关改写词（“绘画培训”）优先召回广告。</p>
+<ol>
+<li>可以在改写词全局排序时，加入<strong>相关性控制</strong>，仅保留满足相关性要求的改写词，保证CTR。</li>
+</ol>
+<p>要求相关性控制模型，不仅支持文本相关性判定，还要具体语义相关的改写词识别能力。</p>
+<blockquote>
+<p>项目：《改写词全局排序优化》。可以放在Query改写策略线上落地后再推动该项目</p>
+</blockquote>
+<h1 id="3.索引挖掘">索引挖掘</h1>
+
+<h2 id="3.1.知识图谱">知识图谱</h2>
+
+<p>各种关系挖掘，建立实体、标签等关系，挖掘知识；</p>
+<h3 id="3.1.1.知识图谱应用">知识图谱应用</h3>
+
+<p><strong>生成个性化推荐理由</strong></p>
+<p>在推荐结果中添加_个性化推荐理由_，可以增加搜索／推荐结果的解释性，提升用户体验，凸显Item亮点。可以用在创意模块。</p>
+<p>推荐理由通常有两种做法：</p>
+<ol>
+<li>UGC推荐理由：基于用户评论的抽取式理由；</li>
+<li>图谱推荐理由：是一种基于业务图谱数据的路径推理（如增加“快驴智能助理”）；</li>
+</ol>
+<blockquote>
+<p>前端展示的内容都需要“文字模版”，如“亮马桥／三元桥 [职场人士]想打卡的火锅店”，对应文字模版为：<code>{user_worker_region} [${上班族}]想打卡的${modify}店</code></p>
+</blockquote>
+<p><strong>Query推荐：相似Query挖掘</strong></p>
+<p>某些品类场景属于低频业务，针对比较稀疏的Query挖掘一批相似的Query，试图修正因稀疏Query导致特征计算不准确的问题（如统计特征），同时可以起到降低case的目的。</p>
+<p>_Query向量产生_：</p>
+<p>用用户点击的POI构图，然后从图中采样序列，使用skipgram训练得到POI向量，有了POI向量后，针对每个具体的Query，找到被点击的POI集合，采样avg pooling的方式映射得到Query向量；</p>
+<p>_Query聚类和特征挖掘_</p>
+<p>相似Quuery聚类，不一定要用kmeans聚类方法，可以考虑使用局部敏感哈希（LSH）等离线计算好，输出每个query对应的topK相似Query的集合；</p>
+<p>_输出_：</p>
+<ol>
+<li>基于POI点击反馈的Query向量；</li>
+<li>基于点击序列学习到的POI向量；</li>
+</ol>
+<h2 id="3.2.索引词优化">索引词优化</h2>
+
+<p><strong>优化1：索引词相关性过滤</strong></p>
+<p>背景：</p>
+<p>已有的索引挖掘流程中，对于<strong>不同索引源产生的索引词</strong>缺乏统一的相关性计算和过滤方式，导致部分相关性较差的索引词被保留，而部分强相关的索引词被错误过滤。目前的相关性过滤方法存在以下不足：</p>
+<ul>
+<li>根据三级品类过滤时，对于提供<strong>跨品类服务的商家</strong>，其跨品类服务的相关索引可能被过滤；</li>
+<li>基于点击统计进行过滤时，长尾数据过滤不准确，会有badcase引入。</li>
+</ul>
+<p>本次实验主要<strong>优化索引词的相关性计算及过滤方法</strong>，期望达到以下目标：</p>
+<ul>
+<li>给Doc下挂的索引词赋予<strong>统一且合理的相关性分数</strong>，比如对于“ 痘博士潍坊·全国连锁祛痘机构（胜利西街店）”商家，“祛痘”（0.99）具有较高的相关性分数，“美容美体”（0.90）次之，“修护”（0.32）分数较低，“水疗”（0.04）、“美容减肥”（0.02）等不相关的node分数最低；</li>
+</ul>
+<p>利用相关性分数进行索引词过滤，替代目前的过滤规则，整体上达到减少不相关索引词，扩充相关索引词的效果。</p>
+<p>Doc-索引词相关性模型：</p>
+<p>doc索引词可能包含多种类型，如品类词、品牌词、地址词、修饰词、商品词等。对于某个特定索引词，在判断其与doc的相关性时，对于doc各个特征的关注程度是不同的，比如商品词和修饰词更关注商品信息，品牌词更关注商家名称。</p>
+<p>模型选用了类似阿里<strong>DIN（Deep Interest Network）的attention结构</strong>。DIN的主要思想为，对于推荐给用户的某一个商品，用户是否点击仅仅取决于历史行为数据中的一小部分，并且具有多峰分布的特性，即点击率预估模型更应该关注众多历史行为中的某一个或某几个。<strong>在doc-索引词相关性任务中，可以理解为，对于某一个索引词，相关性模型更应该关注doc众多特征中的某些部分</strong>。</p>
+<blockquote>
+<p>可以给出一个attention分布的示例，即某个索引词在doc各个特征上的attention scorer。</p>
+</blockquote>
+<p>Doc下挂索引词过滤：</p>
+<p>使用相关性分数（设定阈值）和历史点击统计进行过滤</p>
+<p>离线效果评估：</p>
+<p>对每个一级类目下的doc采样K个，评估实验组相对于基线删除的索引词和新增的索引词的相关性。分别对两部分进行相关/不相关/无新增 进行打分，最后汇总。</p>
+<h1 id="4.召回匹配">召回匹配</h1>
 
 <p><strong>TODO 召回匹配不同的分类方法：可以画一个二维表格图：横向为显性隐性方法，纵向为召回方式。</strong></p>
 <p>搜索（或广告）一般的召回触发方式有如下几种：</p>
@@ -342,20 +453,77 @@
 <tr>
 <td>向量召回</td>
 <td>扩展召回边界，从全局item中直接检索</td>
-<td>embedding学习（如双塔模型，类DSSM模型，Graph Embedding等）<br> end2end架构与向量索引建设（如FAISS)</td>
+<td>embedding学习（如双塔模型，类DSSM模型，Graph Embedding等）</td>
 </tr>
 </tbody>
 </table>
+<p> end2end架构与向量索引建设（如FAISS) |</p>
 <p>线上召回架构：</p>
 <ul>
 <li>召回策略优先级通过matchLevel配置；</li>
 </ul>
-<h3 id="2.2.1.传统召回算法">传统召回算法</h3>
+<p>召回匹配的目标是建立Query（或其改写词）与索引词之间的联系。按照精准度划分，可分为精准匹配和相关性匹配。</p>
+<ul>
+<li>精准匹配：可以保证召回的精准度，但是匹配率可能不高，同时对Query改写有了更高的要求（要求改写词精准命中索引词）;</li>
+<li>相关性匹配：在Query（或其该写词）与索引词建立相关性模型（可以构造特征训练二分类模型），召回TopK个索引词。这样可以提升匹配率以及缓解Query改写的压力。</li>
+</ul>
+<p>以上两种都是为了根据Query得到索引词，都属于索引匹配。</p>
+<h2 id="4.1.精确匹配">精确匹配</h2>
 
-<h3 id="2.2.2.索引词Node召回">索引词Node召回</h3>
+<p>使用query的分词／同义词／纠错词／改写词等集合与索引词集合的求交集，交集即为精确匹配的结果。</p>
+<h2 id="4.2.相关性匹配">相关性匹配</h2>
 
-<p>Query维度的召回策略：使用query的分词／同义词／纠错词／改写词进行召回；</p>
-<h3 id="2.2.3.向量召回">向量召回</h3>
+<p>搜索系统一般的触发方式，主要是通过Query的改写词与索引词进行精确匹配从而召回广告。这种方式保证了改写词对索引词召回的准确率，但要求改写词和索引词完全精确匹配也给Matching侧改写带来巨大压力。</p>
+<p>为此，我们<strong>引入Term粒度</strong>的索引词检索方式提升召回效率，并通过Query-索引词相关性模型来保证Query和召回索引词之间的相关性。有这样一些优势：</p>
+<ul>
+<li><p>解耦改写词和索引词的精确匹配，有效减轻Query改写压力，提升索引词的召回率。比如索引词是“上门美甲”，但Query是“美甲 上门”，那现在无需改写就能匹配出相应索引词。</p>
+</li>
+<li><p>把目前零散的改写相关性问题转化为<code>&lt;Query,索引词&gt;</code>排序问题，后续可以统一优化召回索引词的相关性。比如目前线上混合了simrank++、word2vec等多种来源<strong>同义词表</strong>，各自均需要调整相关性，但后续可以统一排序，以优化MatchUnit截断。</p>
+<blockquote>
+<p>Query的同义词表的目的是为了扩招回，是Query改写技术模块的输出。</p>
+</blockquote>
+</li>
+<li><p>对RS检索逻辑没有变动，RS继续使用索引词粒度的索引，后续可以很方便的对倒排链按照某种规则（比如广告的ecpm)进行排序剪枝，保障检索系统的性能。</p>
+</li>
+</ul>
+<p>我们把<code>&lt;Query, 索引词&gt;</code>相关性排序问题称之为相关性匹配。</p>
+<p>算法流程见：<code>桌面/zy/搜索广告/召回算法/相关性匹配_索引词检索与召回算法流程</code></p>
+<p><strong>Term权重的应用</strong></p>
+<p>索引词的索引构建目前依赖BM25算法，但是传统的BM25没有考虑各term之间的重要性，容易将相关性较差的索引词排在前列。</p>
+<p>为此，我们将term权重加入到BM25中进行优化， 调整后的公式为：</p>
+<p>$$<br>score(D,Q)=\sum_{i=1}^{n} {\color{red}{tw(q_i)}} \cdot IDF(q_i)\cdot\frac{f(q_i, D) \cdot (k_1 + 1)}{f(q_i, D) + k_1 \cdot (1 - b + b \cdot \frac{\left|D\right|}{avgdl})}<br>$$</p>
+<p>$\color{red}{tw(q_i)}$为$q_i$的Term权重，一般$k1=2,b=0.75$。</p>
+<p>此外，为了保障召回相关性，我们利用term权重识别关键词中的常见搭配，对多term组合的核心词此次不做索引词检索，避免语义漂移。</p>
+<p>例如Query=“婚纱摄影”，如果通过“婚纱”或“摄影”两个term做索引词检索，容易导致跨类目问题。</p>
+<blockquote>
+<p>两个问题需要解决：BM25如何计算？Term Weight如何计算？</p>
+</blockquote>
+<p><strong>Node词相关性排序与截断</strong></p>
+<p>检索出索引词之后，需要根据Query-索引词之间的相关性对索引词进行排序截断。</p>
+<p>目前，线上使用树模型（xgboost）对<code>&lt;Query, 索引词&gt;</code>之间的相关性进行打分：</p>
+<ul>
+<li>建模： 二分类模型，使模型尽可能的拟合伯努利分布，以降低截断时阈值选择的影响。</li>
+<li>样本构建：多粒度样本构造（到综业务，需要使用三级类目信息去构造负样本），以满足不同bu对相关性的不同需求。</li>
+<li>特征建设：主要以统计特征（pv、ctr、点击类目分布等）、NLP特征为主，构建交叉特征（类目分布的交叉、成分属性的交叉等）。</li>
+</ul>
+<blockquote>
+<p>这里需要提供稳定的模型服务，支持xgboost树模型！！！（对应openmi-serving项目）</p>
+</blockquote>
+<p>可能还存在以下问题待优化：</p>
+<ol>
+<li>没有稳定的test集用于评估模型效果，需要人工标注得到test集；</li>
+<li>检索模块：为<strong>索引词的倒排链</strong>进行排序（如按照ecpm），方便截断和剪枝，提升检索性能；</li>
+<li>相关性排序模块：样本构建部分，上位词可能会召回不相关doc，需要优化上位词的排序效果；</li>
+</ol>
+<blockquote>
+<p>项目：《基于Term粒度的索引词检索与召回》</p>
+<p>⚠️：</p>
+<ol>
+<li>在工程上需要对索引词建立倒排索引，那么召回整体上实现了两级索引架构：索引词索引（以改写词为key）和doc索引（以索引词为key）；</li>
+<li>同时，考虑业务特点，可以对<code>索引词索引</code>按照city维度进行拆分，提升索引词集合的质量，降低倒排链长度，提升检索性能(全国索引词集合45w+，按city拆分后不足10w)。</li>
+</ol>
+</blockquote>
+<h2 id="5.2.向量召回">向量召回</h2>
 
 <p><strong>向量召回的特点</strong></p>
 <ul>
@@ -382,33 +550,9 @@
 <li>线上架构（向量索引，Query向量计算，相似度检索）；</li>
 </ul>
 <p>参考资料见：印象笔记－学习－召回链接</p>
-<h2 id="2.3.知识图谱">知识图谱</h2>
+<h1 id="6.相关性与粗排">相关性与粗排</h1>
 
-<p>各种关系挖掘，建立实体、标签等关系，挖掘知识；</p>
-<h3 id="2.3.4.知识图谱应用">知识图谱应用</h3>
-
-<p><strong>生成个性化推荐理由</strong></p>
-<p>在推荐结果中添加_个性化推荐理由_，可以增加搜索／推荐结果的解释性，提升用户体验，凸显Item亮点。可以用在创意模块。</p>
-<p>推荐理由通常有两种做法：</p>
-<ol>
-<li>UGC推荐理由：基于用户评论的抽取式理由；</li>
-<li>图谱推荐理由：是一种基于业务图谱数据的路径推理（如增加“快驴智能助理”）；</li>
-</ol>
-<blockquote>
-<p>前端展示的内容都需要“文字模版”，如“亮马桥／三元桥 [职场人士]想打卡的火锅店”，对应文字模版为：<code>{user_worker_region} [${上班族}]想打卡的${modify}店</code></p>
-</blockquote>
-<p><strong>Query推荐：相似Query挖掘</strong></p>
-<p>某些品类场景属于低频业务，针对比较稀疏的Query挖掘一批相似的Query，试图修正因稀疏Query导致特征计算不准确的问题（如统计特征），同时可以起到降低case的目的。</p>
-<p>_Query向量产生_：</p>
-<p>用用户点击的POI构图，然后从图中采样序列，使用skipgram训练得到POI向量，有了POI向量后，针对每个具体的Query，找到被点击的POI集合，采样avg pooling的方式映射得到Query向量；</p>
-<p>_Query聚类和特征挖掘_</p>
-<p>相似Quuery聚类，不一定要用kmeans聚类方法，可以考虑使用局部敏感哈希（LSH）等离线计算好，输出每个query对应的topK相似Query的集合；</p>
-<p>_输出_：</p>
-<ol>
-<li>基于POI点击反馈的Query向量；</li>
-<li>基于点击序列学习到的POI向量；</li>
-</ol>
-<h2 id="2.4.相关性模型">相关性模型</h2>
+<h2 id="6.1.相关性模型">相关性模型</h2>
 
 <blockquote>
 <p>需要关注以下问题：</p>
@@ -425,7 +569,7 @@
 </ol>
 <p>相关性大致可以分为以下几类：文本（语义）相关性，业务相关性；</p>
 <p>这里先梳理特征相关性特征体系与特征计算逻辑，后续介绍相关性模型。</p>
-<h3 id="2.4.1.文本及语义相关性">文本及语义相关性</h3>
+<h3 id="6.1.1.文本及语义相关性">文本及语义相关性</h3>
 
 <p><strong>字符串相关性</strong></p>
 <ol>
@@ -448,14 +592,14 @@
 <li>Query意图标签：如brand, cate, food, hotel, product, travel等；</li>
 <li>Query分类标签：如item类别分类与权重；</li>
 </ol>
-<h3 id="2.4.2.业务相关性">业务相关性</h3>
+<h3 id="6.1.2.业务相关性">业务相关性</h3>
 
 <ol>
 <li>比如LBS场景下，不同城市／不同品类下对距离的敏感度不同，可以将距离做的更佳细化作为相关性特征；</li>
 <li>分析前端展示内容，也是最重要的用户决策信息。如POI店名、POI tag，商圈、销量、价格、折扣、距离等；</li>
 <li>&lt;用户历史行为各个维度，POI各个维度算&gt;算diff，如item星级，价格差异，品类差异等；</li>
 </ol>
-<h3 id="2.4.3.相关性模型">相关性模型</h3>
+<h3 id="6.1.3.相关性模型">相关性模型</h3>
 
 <p>训练相关性模型最重要的前提之一就是训练样本的构造。是用用户反馈日志（click／order／时长）作为label，还是有人工标注的数据作为训练样本；</p>
 <p>相关性模块可以在召回层＋精排层（预估层）同时做。主要的模型思路总结为：</p>
@@ -506,24 +650,14 @@
 <tbody>
 <tr>
 <td>输入层</td>
-<td>1. 英文：letter-trigram<br>2. 中文：单字</td>
-<td>1. 英文：先word-trigram后letter-trigram<br>2. 中文：单字</td>
-<td>同CNN_DSSM</td>
-</tr>
-<tr>
-<td>表示层</td>
-<td>pooling + fc(tanh)</td>
-<td>卷积层＋Max pooling ＋ fc(tanh)</td>
-<td>LSTM-引入了peep hole(f,i,o)计算时添加细胞态$C_{t-1},C_t$信息</td>
-</tr>
-<tr>
-<td>匹配层</td>
-<td>cosine + sigmoid + 极大似然估计</td>
-<td>同DSSM</td>
-<td>同DSSM</td>
+<td>1. 英文：letter-trigram</td>
 </tr>
 </tbody>
 </table>
+<ol>
+<li>中文：单字 | 1. 英文：先word-trigram后letter-trigram</li>
+<li>中文：单字 | 同CNN_DSSM |<br>| 表示层 | pooling + fc(tanh) | 卷积层＋Max pooling ＋ fc(tanh) | LSTM-引入了peep hole(f,i,o)计算时添加细胞态$C_{t-1},C_t$信息 |<br>| 匹配层 | cosine + sigmoid + 极大似然估计 | 同DSSM | 同DSSM |</li>
+</ol>
 <blockquote>
 <p>DSSM模型应用场景：《基于层次化品类图谱的文本语义相关性模型（KG-DSSM）》</p>
 <p>分析Query抽取品类词 -&gt; 对抽取的候选node词找到品类图谱节点，正样本：基于品类树扩展所有上位词为正例，负样本根据同位词随机采样，得到<code>&lt;Query, Positive_Node, Negative_Node&gt;</code> 然后交给CLSM模型学习；</p>
@@ -535,21 +669,24 @@
 <li>FeatureX需要对相关性模型的支持有：字符串匹配op，字符串相似度计算op；</li>
 <li>DSSM模型实现；</li>
 </ul>
-<h2 id="2.5.召回粗排模块">召回粗排模块</h2>
+<h2 id="6.2.粗排模块">粗排模块</h2>
 
+<p>粗排作为召回截断的主要排序手段，直接影响到召回的质量以及召回内容的相关性，作为rerank的上游也对rerank整体的排序效果产生影响。因此，粗排的优化要考虑以下因素：</p>
 <ul>
-<li>目标：在保证相关性的基础上，解决召回截断问题；</li>
-<li>原则：特征与模型要尽可能简单直接，粗排公式要考虑业务因素，如强化距离，添加bid等；</li>
+<li>性能：因为召回数量很大，因此不能向做精排模型的思路一样去做粗排模型，特征模型均要求简单有效；</li>
+<li>目标：既然是排序，一定要考虑到平台收益和用户体验，可以以$score^{power} \times bid$为主作为排序公式；</li>
+<li>业务：结合业务特点，需要对排序公式做一些修正，比如强化距离因素等。</li>
 </ul>
+<p>建模思路同精排模型，训练样本同样可以用点击曝光日志。</p>
 <p>结合一个case聊粗排排序公式设计：粗排模型上线后，发现覆盖率下降，原因是机制距离门槛限制，此时可以在排序公式中添加_距离因子_，即：</p>
 <p>$$<br>score = distScore^{distPower} \cdot ctr^{ctrPower} \cdot bid<br>$$</p>
 <p>排序超参可以灵活配置（如ctrPower=1.2, distPower=1.1）</p>
-<h1 id="3.工程建设">工程建设</h1>
+<h1 id="9.工程建设">工程建设</h1>
 
-<h2 id="3.1.索引系统">索引系统</h2>
+<h2 id="9.1.索引系统">索引系统</h2>
 
 <p>高性能索引系统（支持实时增删功能），相似度搜索，召回服务；</p>
-<h3 id="2.5.2.工具积累">工具积累</h3>
+<h3 id="9.2.工具积累">工具积累</h3>
 
 
 <ul>
@@ -557,6 +694,10 @@
 <li>case追踪工具；</li>
 <li>指标监控工具：实时与天级别；</li>
 </ul>
+<p>召回算法</p>
+<p>Query $\xrightarrow[Query-索引相关性]{Query分析与改写;改写优化;索引召回;}$ 索引词 $\xrightarrow[索引-Doc相关性]{Retrivel服务}$  Doc</p>
+<p>召回工程</p>
+<p>Query $\xrightarrow{Matching服务}$ 索引词 $\xrightarrow{Retrivel服务}$  Doc</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -569,7 +710,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/deep_learning/dl-chapter9-recall-algorithm/" data-title="计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/deep_learning/dl-chapter9-recall-algorithm-dev/" data-title="计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -583,7 +724,7 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/deep_learning/dl-chapter11-ad-ranking/" title="">
+ <a href="/deep_learning/dl-chapter11-ad-ranking-dev/" title="">
   <strong>上一篇：</strong><br/>
   <span>
   (no title)</span>
@@ -592,9 +733,9 @@
 
 
 <div class="next">
-<a href="/head_first_ml/ml-chapter1-regression-family/"  title="第01章：深入浅出ML之Regression家族">
+<a href="/deep_learning/dl-chapter10-ctrcvr-dev/"  title="">
  <strong>下一篇：</strong><br/> 
- <span>第01章：深入浅出ML之Regression家族
+ <span>(no title)
 </span>
 </a>
 </div>
@@ -609,7 +750,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基于关键词的召回算法与系统"><span class="toc-number">1.</span> <span class="toc-text">基于关键词的召回算法与系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0.召回算法系统综述"><span class="toc-number">2.</span> <span class="toc-text">召回算法系统综述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0.1.召回的数学模型"><span class="toc-number">2.1.</span> <span class="toc-text">召回的数学模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0.2.召回算法逻辑思路"><span class="toc-number">2.2.</span> <span class="toc-text">召回算法逻辑思路</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2.召回工作方向"><span class="toc-number">3.</span> <span class="toc-text">召回工作方向</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.查询理解"><span class="toc-number">3.1.</span> <span class="toc-text">查询理解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.1.1.Query分析"><span class="toc-number">3.1.1.</span> <span class="toc-text">Query分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.1.2.意图识别"><span class="toc-number">3.1.2.</span> <span class="toc-text">Query理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.1.3.查询改写"><span class="toc-number">3.1.3.</span> <span class="toc-text">查询改写</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.2.召回算法"><span class="toc-number">3.2.</span> <span class="toc-text">召回算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.1.传统召回算法"><span class="toc-number">3.2.1.</span> <span class="toc-text">传统召回算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.2.索引词Node召回"><span class="toc-number">3.2.2.</span> <span class="toc-text">索引词Node召回</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2.3.向量召回"><span class="toc-number">3.2.3.</span> <span class="toc-text">向量召回</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.3.知识图谱"><span class="toc-number">3.3.</span> <span class="toc-text">知识图谱</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.3.4.知识图谱应用"><span class="toc-number">3.3.1.</span> <span class="toc-text">知识图谱应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.4.相关性模型"><span class="toc-number">3.4.</span> <span class="toc-text">相关性模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.4.1.文本及语义相关性"><span class="toc-number">3.4.1.</span> <span class="toc-text">文本及语义相关性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.4.2.业务相关性"><span class="toc-number">3.4.2.</span> <span class="toc-text">业务相关性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.4.3.相关性模型"><span class="toc-number">3.4.3.</span> <span class="toc-text">相关性模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.5.召回粗排模块"><span class="toc-number">3.5.</span> <span class="toc-text">召回粗排模块</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3.工程建设"><span class="toc-number">4.</span> <span class="toc-text">工程建设</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3.1.索引系统"><span class="toc-number">4.1.</span> <span class="toc-text">索引系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.5.2.工具积累"><span class="toc-number">4.1.1.</span> <span class="toc-text">工具积累</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基于关键词的召回算法与系统"><span class="toc-number">1.</span> <span class="toc-text">基于关键词的召回算法与系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0.召回算法系统综述"><span class="toc-number">2.</span> <span class="toc-text">召回算法系统综述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0.1.召回的数学模型"><span class="toc-number">2.1.</span> <span class="toc-text">召回的数学模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0.2.召回算法逻辑思路"><span class="toc-number">2.2.</span> <span class="toc-text">召回算法逻辑思路</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.查询理解"><span class="toc-number">3.</span> <span class="toc-text">查询理解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.Query分析"><span class="toc-number">3.1.</span> <span class="toc-text">Query分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.意图识别"><span class="toc-number">3.2.</span> <span class="toc-text">Query理解</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2.查询改写"><span class="toc-number">4.</span> <span class="toc-text">查询改写</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2.9.改写词全局优化"><span class="toc-number">4.1.</span> <span class="toc-text">改写词全局优化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3.索引挖掘"><span class="toc-number">5.</span> <span class="toc-text">索引挖掘</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3.1.知识图谱"><span class="toc-number">5.1.</span> <span class="toc-text">知识图谱</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3.1.1.知识图谱应用"><span class="toc-number">5.1.1.</span> <span class="toc-text">知识图谱应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3.2.索引词优化"><span class="toc-number">5.2.</span> <span class="toc-text">索引词优化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4.召回匹配"><span class="toc-number">6.</span> <span class="toc-text">召回匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4.1.精确匹配"><span class="toc-number">6.1.</span> <span class="toc-text">精确匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4.2.相关性匹配"><span class="toc-number">6.2.</span> <span class="toc-text">相关性匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5.2.向量召回"><span class="toc-number">6.3.</span> <span class="toc-text">向量召回</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6.相关性与粗排"><span class="toc-number">7.</span> <span class="toc-text">相关性与粗排</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6.1.相关性模型"><span class="toc-number">7.1.</span> <span class="toc-text">相关性模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6.1.1.文本及语义相关性"><span class="toc-number">7.1.1.</span> <span class="toc-text">文本及语义相关性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6.1.2.业务相关性"><span class="toc-number">7.1.2.</span> <span class="toc-text">业务相关性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6.1.3.相关性模型"><span class="toc-number">7.1.3.</span> <span class="toc-text">相关性模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6.2.粗排模块"><span class="toc-number">7.2.</span> <span class="toc-text">粗排模块</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9.工程建设"><span class="toc-number">8.</span> <span class="toc-text">工程建设</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#9.1.索引系统"><span class="toc-number">8.1.</span> <span class="toc-text">索引系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9.2.工具积累"><span class="toc-number">8.1.1.</span> <span class="toc-text">工具积累</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
@@ -648,6 +789,10 @@
 		
 		  
 			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程语言与技术/" title="编程语言与技术">编程语言与技术<sup>1</sup></a></li>
 		  
 		
 		  

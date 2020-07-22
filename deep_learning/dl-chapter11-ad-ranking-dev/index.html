@@ -13,88 +13,73 @@
     
     <meta name="description" content="第11章：广告排序与机制设计
 
-广告排序综述
-广告排序公式
-质量分因子
-出价因子
-超参数学习
+广告排序
+工作方向
+技术方向
+准入门槛优化 
+排序公式
+参数学习
+智能出价
+OCPC算法
 
 
-质量分预估
-智能出价系统
-排序优化
 
-广告排序综述
+广告排序
 
 
-广告排序公式
+工作方向
 
-$$cpm = ctr \cdot bid \\\cpm = 质量分 \cdot bid = Q(ctr, cvr, gmv, roi) \cdot bid$$
-排序公式设计
-质量分因子
 
-出价因子
-
-传统出价
-传统出价就是按照点">
+准入门槛：满足业务需求（平台方红线、各BU差异化出ad条件），保证用户体验。主要从距离、Item质量（星级）和pctr三个条件设定（优先级依次降低）；
+机制排序：最大化三方收益。排序公式设计（考虑业务差异），超参数学习与优化，多目标优化，智能出">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算广告与机器学习">
-<meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter11-ad-ranking/index.html">
+<meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter11-ad-ranking-dev/index.html">
 <meta property="og:site_name" content="计算广告与机器学习">
 <meta property="og:description" content="第11章：广告排序与机制设计
 
-广告排序综述
-广告排序公式
-质量分因子
-出价因子
-超参数学习
+广告排序
+工作方向
+技术方向
+准入门槛优化 
+排序公式
+参数学习
+智能出价
+OCPC算法
 
 
-质量分预估
-智能出价系统
-排序优化
 
-广告排序综述
+广告排序
 
 
-广告排序公式
+工作方向
 
-$$cpm = ctr \cdot bid \\\cpm = 质量分 \cdot bid = Q(ctr, cvr, gmv, roi) \cdot bid$$
-排序公式设计
-质量分因子
 
-出价因子
-
-传统出价
-传统出价就是按照点">
+准入门槛：满足业务需求（平台方红线、各BU差异化出ad条件），保证用户体验。主要从距离、Item质量（星级）和pctr三个条件设定（优先级依次降低）；
+机制排序：最大化三方收益。排序公式设计（考虑业务差异），超参数学习与优化，多目标优化，智能出">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算广告与机器学习">
 <meta name="twitter:description" content="第11章：广告排序与机制设计
 
-广告排序综述
-广告排序公式
-质量分因子
-出价因子
-超参数学习
+广告排序
+工作方向
+技术方向
+准入门槛优化 
+排序公式
+参数学习
+智能出价
+OCPC算法
 
 
-质量分预估
-智能出价系统
-排序优化
 
-广告排序综述
+广告排序
 
 
-广告排序公式
+工作方向
 
-$$cpm = ctr \cdot bid \\\cpm = 质量分 \cdot bid = Q(ctr, cvr, gmv, roi) \cdot bid$$
-排序公式设计
-质量分因子
 
-出价因子
-
-传统出价
-传统出价就是按照点">
+准入门槛：满足业务需求（平台方红线、各BU差异化出ad条件），保证用户体验。主要从距离、Item质量（星级）和pctr三个条件设定（优先级依次降低）；
+机制排序：最大化三方收益。排序公式设计（考虑业务差异），超参数学习与优化，多目标优化，智能出">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -154,14 +139,14 @@ $$cpm = ctr \cdot bid \\\cpm = 质量分 \cdot bid = Q(ctr, cvr, gmv, roi) \cdot
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/deep_learning/dl-chapter11-ad-ranking/" title="" itemprop="url"></a>
+      <a href="/deep_learning/dl-chapter11-ad-ranking-dev/" title="" itemprop="url"></a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2020-04-06T15:45:23.000Z" itemprop="datePublished"> 发表于 2020-04-06</time>
+    <time datetime="2020-07-22T00:57:37.000Z" itemprop="datePublished"> 发表于 2020-07-22</time>
     
   </p>
 </header>
@@ -170,48 +155,128 @@ $$cpm = ctr \cdot bid \\\cpm = 质量分 \cdot bid = Q(ctr, cvr, gmv, roi) \cdot
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1.广告排序综述"><span class="toc-number">1.</span> <span class="toc-text">广告排序综述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.广告排序公式"><span class="toc-number">1.1.</span> <span class="toc-text">广告排序公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.质量分因子"><span class="toc-number">1.2.</span> <span class="toc-text">质量分因子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.出价因子"><span class="toc-number">1.3.</span> <span class="toc-text">出价因子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.超参数学习与优化"><span class="toc-number">1.4.</span> <span class="toc-text">超参数学习与优化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2.质量分预估"><span class="toc-number">2.</span> <span class="toc-text">质量分预估</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3.智能出价"><span class="toc-number">3.</span> <span class="toc-text">智能出价</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3.1.OCPC算法"><span class="toc-number">3.1.</span> <span class="toc-text">OCPC算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3.1.OCPC算法分步推导"><span class="toc-number">3.1.1.</span> <span class="toc-text">OCPC算法分步推导</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3.2.OCPM算法"><span class="toc-number">3.2.</span> <span class="toc-text">OCPM算法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4.排序优化"><span class="toc-number">4.</span> <span class="toc-text">排序优化</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0.广告排序"><span class="toc-number">1.</span> <span class="toc-text">广告排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.工作方向"><span class="toc-number">2.</span> <span class="toc-text">工作方向</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2.技术方向"><span class="toc-number">3.</span> <span class="toc-text">技术方向</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.准入门槛优化"><span class="toc-number">3.1.</span> <span class="toc-text">准入门槛优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.排序公式"><span class="toc-number">3.2.</span> <span class="toc-text">排序公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.3.参数学习"><span class="toc-number">3.3.</span> <span class="toc-text">参数学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.4.智能出价"><span class="toc-number">3.4.</span> <span class="toc-text">智能出价</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.5.OCPC算法"><span class="toc-number">3.5.</span> <span class="toc-text">OCPC算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3.1.OCPC算法分步推导"><span class="toc-number">3.5.1.</span> <span class="toc-text">OCPC算法分步推导</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3.2.OCPM算法"><span class="toc-number">3.6.</span> <span class="toc-text">OCPM算法</span></a></li></ol></li></ol>
 		
 		</div>
 		
 		<p>第11章：广告排序与机制设计</p>
 <ul>
-<li>广告排序综述<ul>
-<li>广告排序公式</li>
-<li>质量分因子</li>
-<li>出价因子</li>
-<li>超参数学习</li>
+<li><a href="#0.广告排序">广告排序</a></li>
+<li><a href="#1.工作方向">工作方向</a></li>
+<li><a href="#2.技术方向">技术方向</a><ul>
+<li><a href="#2.1.准入门槛优化">准入门槛优化</a> </li>
+<li><a href="#2.2.排序公式">排序公式</a></li>
+<li><a href="#2.3.参数学习">参数学习</a></li>
+<li><a href="#2.4.智能出价">智能出价</a></li>
+<li><a href="#2.5.OCPC算法">OCPC算法</a></li>
 </ul>
 </li>
-<li>质量分预估</li>
-<li>智能出价系统</li>
-<li>排序优化</li>
 </ul>
-<h1 id="1.广告排序综述">广告排序综述</h1>
+<h1 id="0.广告排序">广告排序</h1>
 
 
-<h2 id="1.1.广告排序公式">广告排序公式</h2>
+<h1 id="1.工作方向">工作方向</h1>
 
-<p>$$<br>cpm = ctr \cdot bid \\\<br>cpm = 质量分 \cdot bid = Q(ctr, cvr, gmv, roi) \cdot bid<br>$$</p>
-<p>排序公式设计</p>
-<h2 id="1.2.质量分因子">质量分因子</h2>
+<ul>
+<li>准入门槛：满足业务需求（平台方红线、各BU差异化出ad条件），保证用户体验。主要从距离、Item质量（星级）和pctr三个条件设定（优先级依次降低）；</li>
+<li>机制排序：最大化三方收益。排序公式设计（考虑业务差异），超参数学习与优化，多目标优化，智能出价等；</li>
+</ul>
+<h1 id="2.技术方向">技术方向</h1>
 
-<h2 id="1.3.出价因子">出价因子</h2>
+<h2 id="2.1.准入门槛优化">准入门槛优化</h2>
 
-<p><strong>传统出价</strong></p>
-<p>传统出价就是按照点击（CPC）或展现（CPM）出价，针对定向人群来讲，出价不变。</p>
-<p><strong>智能出价</strong></p>
+<ul>
+<li>目标：通过门槛设计与优化，实现：既满足业务需要，保证用户体验的同时，最大化平台收益（RPS）；</li>
+<li>主要手段：<ul>
+<li>距离：food、生活服务、酒店等对距离相对敏感；结婚对距离不敏感，可以不设置；</li>
+<li>item质量分：比如item星级，但要考虑新门店，该权重可以放宽；</li>
+<li>pCTR，pCVR等：静态门槛 $\rightarrow$ 动态门槛；$\color{red}{动态门槛如何实现？}$</li>
+</ul>
+</li>
+</ul>
+<h2 id="2.1.排序公式">排序公式</h2>
+
+<p>已有排序公式如下：</p>
+<p>$$<br>\text{RankScore} = \text{Bid}^{\alpha} \cdot  \text{Qualtiy}^{\beta}<br>$$</p>
+<p>$$<br>\text{Qualtiy} =  \underbrace{a_3 \cdot CTR}_{用户体验} + \underbrace{a_4 \cdot CTR^{a_6} \cdot CVR}_{访购率} + \underbrace{a_5 \cdot CTR \cdot CVR \cdot Price_{order}}_{GMV}<br>$$</p>
+<p>公式设计的出发点：在质量分中考虑多目标优化。参数解读：</p>
+<ul>
+<li>$\alpha$：调控出价因子（默认为1）</li>
+<li>$\beta$: 调控质量分因子（默认为1）</li>
+<li>$a_3$: 点击率权重</li>
+<li>$a_4$: 访购率权重 (下单人数/浏览人数，$a_6$：不考虑CTR时，置为0)</li>
+<li>$a_5$: GMV权重(销售额，考虑商户利益)</li>
+</ul>
+<p><strong>以上排序公式的主要问题是，bid跟访购率、GMV存在乘积关系，不太合理，可能不一定能得到帕累托最优解。所以，考虑从多目标优化的角度，重新设计排序公式。</strong></p>
+<p>新公式设计如下：</p>
+<p>$$<br>\text{RankScore} = a_1 \cdot Bid \cdot CTR^{a_{11}} + a_2 \cdot CTR \cdot CVR^{a_{21}} + a_3 \cdot CTR^{a_{31}} \cdot CVR \cdot Price^{a_{32}}<br>$$</p>
+<p>公式解读：</p>
+<ul>
+<li>$a_1$：广告收入权重<ul>
+<li>$a_{11}$: CPC广告，值为1；CPM广告，值为0;</li>
+</ul>
+</li>
+<li>$a_2$：用户体验权重<ul>
+<li>$a_{21}$：用户体验指标是访购率，值为1；用户体验指标是点击率；值为0;</li>
+</ul>
+</li>
+<li>$a_3$：广告主收益权重<ul>
+<li>$a_{31}$：考虑CTR，值为1；不考虑CTR，值为0;</li>
+<li>$a_{32}$：考虑订单价，值为1；不考虑订单价，值为0;</li>
+</ul>
+</li>
+<li>非0/1值：排序结果、计费价格都受影响</li>
+</ul>
+<blockquote>
+<p>参数的设定基于人工经验、数据分析及线上实验效果。由于场景的复杂性，一套参数并不能实现利益最大化，不同场景上采用不同的参数，可以提高整体收益，因此就有了<strong>动态调参</strong>。</p>
+</blockquote>
+<p>动态调参本质上是在人工选择排序公式中的一个参数基础上，进行一定范围的搜索，计算不同参数下的收益（奖励），选择出最优参数。因此，奖励设计是动态调参的关键。</p>
+<p>奖励公式如下所示：</p>
+<p>$$<br>Reward = bid \cdot ctr + b_1 \cdot ctr^{b_{11}} \cdot cvr^{b_{12}}  + b_2 \cdot ctr^{b_{21}} \cdot cvr \cdot \frac{price_{order}}{bid}<br>$$</p>
+<p>说明</p>
+<p>出发点：多目标加权和，分别是广告收入、用户体验、广告主ROI；</p>
+<ul>
+<li>$b_1$：用户体验权重（如果不考虑CVR，可将$b_{12}$置为0）</li>
+<li>$b_2$：ROI权重</li>
+<li>$b_{21}$：如果不考虑CTR对ROI的影响，设置为0</li>
+</ul>
+<p>上面的公式是广告位上的计算逻辑。通常，整个请求的Reward，会累加多个广告位的Reward，而且广告位存在位置偏倚。</p>
+<p>存在的问题：整体ROI的计算，不能累加多个广告位的ROI，所以计算ROI有问题。<br>解决办法：计算各个广告位上的广告收入、用户体验指标、GMV，再算整体的广告收入、用户体验指标、ROI。$\color{red}{算整体时，不区分广告位?}$</p>
+<p>不同流量上，动态参数和奖励设置不同。</p>
+<p><strong>静态与动态的关系</strong></p>
+<p>静态排序公式，考虑了多目标优化，动态的Reward也考虑了多目标优化，它们是什么关系？</p>
+<ul>
+<li>还没有动态调参算法时，静态排序公式体现了我们多目标优化的权衡。根据rankScore排序插入，是一种贪婪算法。</li>
+<li>有动态调参算法后，Reward体现了我们多目标优化的权衡。排序公式中的参数变成了决策变量。</li>
+</ul>
+<blockquote>
+<p>不考虑计费，不同排序结果的数量是有限的。我们的目标是对比这些不同排序结果的优劣。不同的排序公式，决策变量与排序结果的对应关系不同，可能会影响找到最优解的效率。因此需要设计出更快更方便找到【帕累托最优】的决策变量。$\color{red}{帕累托最优是什么鬼？}$</p>
+</blockquote>
+<p>注意：动态调参方法 通常是采用网格搜索的方式，在一定的区间以一定的步长进行。以关键词搜索为例，ctr权重系数区间：[0.007, 0.012]，步长：0.001</p>
+<h2 id="2.3.参数学习">参数学习</h2>
+
+<h2 id="2.4.智能出价">智能出价</h2>
+
+
+<p><strong>背景－流量的差异化</strong></p>
+<p>传统的出价是针对特定人群或广告产品（关键词／推荐列表页）设定一个固定的出价，是一种粗粒度的方式。如果能有更细粒度的方式来匹配出价和流量质量，根据<strong>流量质量动态地调整出价</strong>，那么可以有效地提升广告主ROI（预算花费更高效或带来更高的GMV），因此就有了<strong>智能出价</strong>策略。</p>
+<ul>
+<li>线性出价算法</li>
+<li>非线性出价算法</li>
+<li>强化学习</li>
+</ul>
+<p>$\color{red}{线性出价算法与OCPX的关系是什么？}$</p>
 <p>智能出价统称为ocpx，可以是ocpc, ocpm, ocpa, cpa等。</p>
 <p>以cpc与ocpc举例，比如1,2,3,4,5 有5个访客：</p>
 <ul>
 <li>cpc不考虑访客因素，出同样的bid，无论哪个访客转化好；</li>
-<li>ocpc的逻辑是：如果2，3转化了，ocpc会根据2，3人群的标签帮广告主找到类似人群（相似人群挖掘），对该部分高转化访客提高出价，而对1，4，5低转化访客人群降低出价。</li>
+<li>ocpc的逻辑是：如果2，3转化了，ocpc会根据2，3人群的标签帮广告主找到类似人群（looalike挖掘），对该部分高转化访客提高出价，而对1，4，5低转化访客人群降低出价。</li>
 </ul>
 <p>所以，智能出价是按照转化（或广告主ROI）出价，系统利用转化学习对不同人群（或访客）分别出价。</p>
 <p>因此，智能出价通常需要两个阶段：</p>
 <ul>
 <li>阶段1：数据收集阶段。按照cpc/cpm投放获取足够的转化数据；</li>
-<li>阶段2：智能投放阶段。即根据对访客的转化率（或ROI）预估进行动态出价，大的原则是高CVR则出价高，低CVR则出价低。</li>
+<li>阶段2：智能投放阶段。即根据对访客的转化率（或ROI）预估进行动态出价，大的原则是<strong>高CVR则出价高，低CVR则出价低</strong>。</li>
 </ul>
 <p>_智能出价的优势_</p>
 <ul>
@@ -225,22 +290,14 @@ $$cpm = ctr \cdot bid \\\cpm = 质量分 \cdot bid = Q(ctr, cvr, gmv, roi) \cdot
 <li>对预算要求较高；</li>
 <li>实验成本较高，需要不断测试智能出价模型；</li>
 </ul>
-<h2 id="1.4.超参数学习与优化">超参数学习与优化</h2>
-
-<h1 id="2.质量分预估">质量分预估</h1>
-
-<h1 id="3.智能出价">智能出价</h1>
-
-<p><strong>背景－流量的差异化</strong></p>
-<p>传统的出价是针对特定人群或广告产品（关键词／推荐列表页）设定一个固定的出价，是一种粗粒度的方式。如果能有更细粒度的方式来匹配出价和流量质量，根据<strong>流量质量动态地调整出价</strong>，那么可以有效地提升广告主ROI（预算花费更高效或带来更高的GMV）。</p>
-<h2 id="3.1.OCPC算法">OCPC算法</h2>
+<h2 id="2.5.OCPC算法">OCPC算法</h2>
 
 <p>问题引导</p>
 <ol>
 <li>排序公式的超参优化与智能出价的关系是什么？</li>
 <li>论文的目标是保ROI的情况下，优化GMV和RPS。那么，ocpc框架怎么迁移至其它业务优化上？</li>
 </ol>
-<p>如果选择最优bid？</p>
+<p>如何选择最优bid？</p>
 <p>OCPC全称是Optimized Cost Per Click是一种优化站内广告投放效果的智能出价技术，它能自动动态调整广告对流量的竞价bid，控制ROI的同时提高GMV。在淘宝移动端列表页广告和banner广告场景中展开。</p>
 <blockquote>
 <p>优化目标与具体业务有关，不可照搬。</p>
@@ -321,9 +378,6 @@ $$cpm = ctr \cdot bid \\\cpm = 质量分 \cdot bid = Q(ctr, cvr, gmv, roi) \cdot
 
 <p>Facebook提出的ocpm算法，算法逻辑是：<strong>广告主按点击出价而按展现量计费，适合SNS网络广告。</strong></p>
 <p>头条已经用oCPM替换了之前的ocpc，与ocpc在排序和转化出价上没有区别，区别在于opc中的初始化阶段以及按曝光计费。</p>
-<h1 id="4.排序优化">排序优化</h1>
-
-
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -336,7 +390,7 @@ $$cpm = ctr \cdot bid \\\cpm = 质量分 \cdot bid = Q(ctr, cvr, gmv, roi) \cdot
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://www.52caml.com/deep_learning/dl-chapter11-ad-ranking/" data-title="计算广告与机器学习" data-tsina="null" class="share clearfix">
+	  <div data-url="http://www.52caml.com/deep_learning/dl-chapter11-ad-ranking-dev/" data-title="计算广告与机器学习" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -349,17 +403,9 @@ $$cpm = ctr \cdot bid \\\cpm = 质量分 \cdot bid = Q(ctr, cvr, gmv, roi) \cdot
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/deep_learning/dl-chapter10-ctrcvr/" title="">
-  <strong>上一篇：</strong><br/>
-  <span>
-  (no title)</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/deep_learning/dl-chapter9-recall-algorithm/"  title="">
+<a href="/deep_learning/dl-chapter9-recall-algorithm-dev/"  title="">
  <strong>下一篇：</strong><br/> 
  <span>(no title)
 </span>
@@ -376,7 +422,7 @@ $$cpm = ctr \cdot bid \\\cpm = 质量分 \cdot bid = Q(ctr, cvr, gmv, roi) \cdot
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1.广告排序综述"><span class="toc-number">1.</span> <span class="toc-text">广告排序综述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.1.广告排序公式"><span class="toc-number">1.1.</span> <span class="toc-text">广告排序公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.2.质量分因子"><span class="toc-number">1.2.</span> <span class="toc-text">质量分因子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.出价因子"><span class="toc-number">1.3.</span> <span class="toc-text">出价因子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.超参数学习与优化"><span class="toc-number">1.4.</span> <span class="toc-text">超参数学习与优化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2.质量分预估"><span class="toc-number">2.</span> <span class="toc-text">质量分预估</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3.智能出价"><span class="toc-number">3.</span> <span class="toc-text">智能出价</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3.1.OCPC算法"><span class="toc-number">3.1.</span> <span class="toc-text">OCPC算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3.1.OCPC算法分步推导"><span class="toc-number">3.1.1.</span> <span class="toc-text">OCPC算法分步推导</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3.2.OCPM算法"><span class="toc-number">3.2.</span> <span class="toc-text">OCPM算法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4.排序优化"><span class="toc-number">4.</span> <span class="toc-text">排序优化</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0.广告排序"><span class="toc-number">1.</span> <span class="toc-text">广告排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.工作方向"><span class="toc-number">2.</span> <span class="toc-text">工作方向</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2.技术方向"><span class="toc-number">3.</span> <span class="toc-text">技术方向</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.准入门槛优化"><span class="toc-number">3.1.</span> <span class="toc-text">准入门槛优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.排序公式"><span class="toc-number">3.2.</span> <span class="toc-text">排序公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.3.参数学习"><span class="toc-number">3.3.</span> <span class="toc-text">参数学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.4.智能出价"><span class="toc-number">3.4.</span> <span class="toc-text">智能出价</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.5.OCPC算法"><span class="toc-number">3.5.</span> <span class="toc-text">OCPC算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3.1.OCPC算法分步推导"><span class="toc-number">3.5.1.</span> <span class="toc-text">OCPC算法分步推导</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3.2.OCPM算法"><span class="toc-number">3.6.</span> <span class="toc-text">OCPM算法</span></a></li></ol></li></ol>
  
   </div>
 
@@ -415,6 +461,10 @@ $$cpm = ctr \cdot bid \\\cpm = 质量分 \cdot bid = Q(ctr, cvr, gmv, roi) \cdot
 		
 		  
 			<li><a href="/categories/深度学习/" title="深度学习">深度学习<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/编程语言与技术/" title="编程语言与技术">编程语言与技术<sup>1</sup></a></li>
 		  
 		
 		  
