@@ -161,13 +161,17 @@ Attention机制早在图像识别领域展露头脚，近些年来在机器翻�
 <p>$$<br>\textbf{Attention(Query, Sources)} = \sum_{k=1}^K \textbf{Similarity}(Query, Key_i) \cdot Value_i<br>$$</p>
 <h3 id="1.2.Multi_head_Attention">Multi-head Attention</h3> 
 
+<blockquote>
 <p>Multi-head attention的作用是什么？与self attention的优势比较 优势在哪儿？</p>
+<p>类似于CNN中同一个卷积层使用多个卷积核的思想一样，原文在同一multi-head attention层中使用8个scaled dot-product attention，输入同时是QKV, 进行注意力的计算，彼此之间参数不共享，最终concat到一起。这样就<strong>允许模型在不同的子空间中学习相关的信息，主要目的是抽取更加丰富的特征信息。</strong></p>
+<p>此外，有资料显示，不同层下的多头 分布有一定的差异。初始时差异较大，随着层数增加，多头的方差变小，最终收敛；<br>解释参考：<a href="https://www.zhihu.com/question/341222779" target="_blank" rel="external">multi head attention解读</a></p>
+</blockquote>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter7_attention_7_multi_head_overview.png" ;="" width="500" height="300" alt="multi-head attention"></p>
 <h2 id="2.Transformer">Transformer</h2>
 
 <h3 id="2.1.Transformer结构">Transformer结构</h3>
 
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter7_transformer_1_overview.png" ;="" width="500" height="300" alt="multi-head attention"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter7_transformer_1_overview.png" ;="" width="500" height="300" alt="transformer"></p>
 <h3 id="2.2.Encoder阶段">Encoder阶段</h3>
 
 
@@ -185,8 +189,8 @@ Attention机制早在图像识别领域展露头脚，近些年来在机器翻�
 </ul>
 <h3 id="2.3.Decoder阶段">Decoder阶段</h3>
 
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter7_transformer_decoding_1.gif" ;="" width="500" height="300" alt="multi-head attention"></p>
-<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter7_transformer_decoding_2.gif" ;="" width="500" height="300" alt="multi-head attention"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter7_transformer_decoding_1.gif" ;="" width="500" height="300" alt="transformer_decoder1"></p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter7_transformer_decoding_2.gif" ;="" width="500" height="300" alt="transformer_decoder2"></p>
   
 	</div>
 		<footer class="article-footer clearfix">
