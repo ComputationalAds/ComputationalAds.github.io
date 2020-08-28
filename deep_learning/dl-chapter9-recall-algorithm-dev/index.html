@@ -149,7 +149,7 @@ Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2020-08-28T14:02:13.000Z" itemprop="datePublished"> 发表于 2020-08-28</time>
+    <time datetime="2020-08-28T14:04:36.000Z" itemprop="datePublished"> 发表于 2020-08-28</time>
     
   </p>
 </header>
@@ -240,7 +240,7 @@ Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在
 <p>$$<br>P(i|q) = \sum_{k} P(n_k | q) \cdot P(i | n_k, q)<br>$$</p>
 <p>如果概率分布已知，就可以进行参数估计。不过实际该过程会进行若干近似，以应对常见的<strong>分段式召回</strong>流程，即简单认为最大化$P(n_k|q)$相应的$P(i|n_k)$来最大化$P(i|q)$。分段式召回流程表示如下：</p>
 <p>$$<br>\text{Query} \rightarrow<br>\underbrace{<br>\color{red}{Query Rewrite}<br>}_{\text{Matching过程}\; P(n_k | q)}<br>\rightarrow \text{Nodes} \rightarrow<br>\underbrace{<br>\overbrace{<br>\text{Node-Items}<br>}^{\color{red}{\text{Node挖掘}\; P(i|n_k)}}<br>\rightarrow \text{Items Candidates} \rightarrow 粗排<br>}_{\color{red}{\text{Recall Service}\; P(i|q)}}<br>\quad \rightarrow \text{召回的Items}<br>$$</p>
-<p>$$<br>\text{Query} \rightarrow<br>\underbrace{ \boxed{Query \; Rewrite}<br>}_{\text{Matching过程}\; P(n_k | q)}<br>\rightarrow \text{Nodes} \rightarrow<br>\underbrace{<br>\overbrace{<br>\boxed{Node-Ads} }^{\color{red}{\text{Node挖掘}\; P(i|n_k)}}<br>\rightarrow \text{Ads Candidates} \rightarrow \boxed{粗排}<br>}_{\color{red}{\text{Recall Service}\; P(i|q)}} \quad \rightarrow \text{召回的Ads}<br>$$</p>
+<p>$$<br>\text{Query} \rightarrow<br>\underbrace{ \boxed{Query \; Rewrite}<br>}_{\text{Matching过程}\; P(n_k | q)}<br>\rightarrow \text{Nodes} \rightarrow<br>\underbrace{<br>\overbrace{<br>\boxed{\text{Node-Ads}} }^{\color{red}{\text{Node挖掘}\; P(i|n_k)}}<br>\rightarrow \text{Ads Candidates} \rightarrow \boxed{粗排}<br>}_{\color{red}{\text{Recall Service}\; P(i|q)}} \quad \rightarrow \text{召回的Ads}<br>$$</p>
 <p>这里涉及到召回算法两个重要的工作方向：查询改写和索引构建。</p>
 <p><strong>查询改写（Query Rewrite）</strong></p>
 <p>SMT（统计翻译模型）的原理如下：</p>
