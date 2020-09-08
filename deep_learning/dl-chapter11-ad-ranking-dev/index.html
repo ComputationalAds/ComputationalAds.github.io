@@ -150,7 +150,7 @@ OCPC算法
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2020-09-08T14:03:05.000Z" itemprop="datePublished"> 发表于 2020-09-08</time>
+    <time datetime="2020-09-08T14:04:20.000Z" itemprop="datePublished"> 发表于 2020-09-08</time>
     
   </p>
 </header>
@@ -329,14 +329,14 @@ OCPC算法
 <p><strong>Bid优化上下界</strong></p>
 <p>假定$b_a^*$是某一次广告出价${bid}_{click}$，那么只需要满足以下公式就可以保证roi不降低。</p>
 <p>$$<br>\frac{b_a^*}{b_a} \le \frac{p(c|u,a)}{E_u[p(c|u,a)]}<br>$$</p>
-<p>但是，商业竞价环境中并不能保证每次的出价$b_a^{_}$都能保证roi不降低。于是，论文给出了经验公式，并划定了_可行域*。其中$r_a$是一个调节系数，用来衡量广告位偏差，流量质量低的情况下，对用户点击意愿的妥协程度系数。</p>
+<p>但是，商业竞价环境中并不能保证每次的出价$b_a^＊$都能保证roi不降低。于是，论文给出了经验公式，并划定了_可行域_。其中$r_a$是一个调节系数，用来衡量广告位偏差，流量质量低的情况下，对用户点击意愿的妥协程度系数。</p>
 <p>$$<br>\begin{align}<br>\text{LowerBound:} \quad l(b_a^*) &amp;=<br>\begin{cases}<br>\displaystyle<br>b_a \cdot (1 - r_a) , &amp;\quad \frac{p(c|u,a)}{E_u[p(c|u,a)]} &lt; 1; \\\<br>b_a , &amp;\quad \frac{p(c|u,a)}{E_u[p(c|u,a)]} \ge 1 \\<br>\end{cases}<br>\end{align}<br>$$</p>
 <p>$$<br>\begin{align}<br>\text{UpperBound:} \quad u(b_a^*) &amp;=<br>\begin{cases}<br>\displaystyle<br>b_a , &amp;\quad \frac{p(c|u,a)}{E_u[p(c|u,a)]} &lt; 1; \\\<br>b_a \cdot \min(1 + r_a, \frac{p(c|u,a)}{E_u[p(c|u,a)]}) , &amp;\quad \frac{p(c|u,a)}{E_u[p(c|u,a)]} \ge 1<br>\end{cases}<br>\end{align}<br>$$</p>
 <p>从上式可以看出，可行域如下图所示：</p>
 <p>// TODO给出可行域空间图</p>
 <p>可以看到bid优化的区间范围是$[(1-r_a) \cdot b_a, (1 + r_a) \cdot b_a]$。</p>
 <p><strong>排序公式</strong></p>
-<p>在可行域中选取不同的$b_a^{*}$，会导致目前以eCPM作为排序机制的排序结果的改变。假设我们想要在eCPM的机制下展示一条广告$k$，并且希望$k$能够最大化我们的排序目标公式$f(\cdot)$。</p>
+<p>在可行域中选取不同的$b_a^＊$，会导致目前以eCPM作为排序机制的排序结果的改变。假设我们想要在eCPM的机制下展示一条广告$k$，并且希望$k$能够最大化我们的排序目标公式$f(\cdot)$。</p>
 <p>$f(\cdot)$最原始形式是指考虑$pctr$，故</p>
 <p>$$<br>f(k, b_k^{＊}) = pctr_k \cdot b_k^＊<br>$$</p>
 <p>那么排序公式等价于带约束的优化问题：</p>
