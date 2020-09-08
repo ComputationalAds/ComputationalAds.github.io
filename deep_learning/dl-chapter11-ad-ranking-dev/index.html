@@ -57,6 +57,10 @@ OCPC算法
 
 准入门槛：满足业务需求（平台方红线、各BU差异化出ad条件），保证用户体验。主要从距离、Item质量（星级）和pctr三个条件设定（优先级依次降低）；
 机制排序：最大化三方收益。排序公式设计（考虑业务差异），超参数学习与优化，多目标优化，智能出">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter11_adrank_ocpc_ranking_algorithm.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter11_adrank_ocpc_ranking_algorithm_table1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter11_adrank_ocpc_ranking_algorithm_table2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter11_adrank_ocpc_ranking_algorithm_table3.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算广告与机器学习">
 <meta name="twitter:description" content="第11章：广告排序与机制设计
@@ -146,7 +150,7 @@ OCPC算法
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2020-09-08T13:28:34.000Z" itemprop="datePublished"> 发表于 2020-09-08</time>
+    <time datetime="2020-09-08T13:41:17.000Z" itemprop="datePublished"> 发表于 2020-09-08</time>
     
   </p>
 </header>
@@ -348,22 +352,22 @@ OCPC算法
 <p>由以上假设可以认为，我们只需要将所有的$f(k, u(b_k^*))$按照降序排列，并且按顺序找出来排在第一位的广告$k$，就是我们要找的广告（因为单调不减），并且满足以下条件：</p>
 <p>$$<br>u(s_k^_) \ge l(s_i^_) \qquad \forall i \neq k \\\<br>b_k^_ = u(b_k^_)<br>$$</p>
 <p>刚刚是在假设一次性只展示一条广告的情况，若一次需要展示$N$条广告的话，文中给出了一个贪心策略来实现广告排序。假设一次展示$n$条广告$k_1,k_2,\cdots,k_n$。如何保证$Position_i$的广告恰好对应$k_i$。</p>
-<p>// TODO ocpc raning伪代码</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter11_adrank_ocpc_ranking_algorithm.png" ;="" width="400" height="500" alt="ocpc-ranking-algo"></p>
 <p>结合论文中的事例，解读ocpc算法排序过程：</p>
 <ul>
 <li>算法第3-5步：按照排序公式对降序排序（$f_2$公式） ；选择lowerBound最大的广告（这里是a3）；从上到下选择第1个upperBound大于lowerBound的广告并输出（这里是a1）</li>
 </ul>
-<p>// TODO 插图ocpc table1</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter11_adrank_ocpc_ranking_algorithm_table1.png" ;="" width="400" height="200" alt="ocpc-ranking-algo-demo1"></p>
 <ul>
 <li>算法第6-11步：剔除广告ad1，重新计算剩余广告的bid*(公式9-10)，同时更新其它指标的上下边界。第二轮（3-5步）：选择在下边界最大的广告（这里是a3），自顶向下选择第一条upperBound大于lowerBound的广告屏输出（这里是a3）。</li>
 </ul>
-<p>// TODO table2</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter11_adrank_ocpc_ranking_algorithm_table2.png" ;="" width="400" height="200" alt="ocpc-ranking-algo-demo2"></p>
 <ul>
 <li>如果一次清楚广告返回数量为N。</li>
 </ul>
-<p>// TODO table3</p>
+<p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter11_adrank_ocpc_ranking_algorithm_table3.png" ;="" width="400" height="200" alt="ocpc-ranking-algo-demo3"></p>
 <p><strong>其它算法细节</strong></p>
-<p>_校正_</p>
+<p>_校准calibraction_</p>
 <p>从历史经验看，oCPC中的pCVR预估值存在偏低的现象，作者提出了一个经验校正公式：</p>
 <p>$$<br>p(c|u,a) =<br>\begin{align}<br>\begin{cases}<br>\displaystyle<br>p(c|u,a),  &amp;\quad p(c|u,a) &lt; tc; \\\<br>p(c|u,a) \cdot (1 + \log(\frac{p(c|u,a)}{tc})), &amp;\quad p(c|u,a) \ge tc<br>\end{cases}<br>\end{align}<br>\quad tc = 0.012 (与业务相关参数)<br>$$</p>
 <p>_oCPC算法复杂度_</p>
