@@ -146,7 +146,7 @@ OCPC算法
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2020-09-08T13:21:30.000Z" itemprop="datePublished"> 发表于 2020-09-08</time>
+    <time datetime="2020-09-08T13:28:34.000Z" itemprop="datePublished"> 发表于 2020-09-08</time>
     
   </p>
 </header>
@@ -312,10 +312,10 @@ OCPC算法
 <p><strong>优化范围－ROI约束</strong></p>
 <p>假设用户u点击率广告a，产生交易的概率为$p(c|u,a)$，并且定义交易额（pay-per-buy，简称PPB，也就是商家设定的商品价格price）为$v_a$。因为一次点击广告主需要付的费用为$b_a$（此处暂不考虑CSP计费），那么可知：</p>
 <p>$$<br>\text{GMV}_{click-and-buy} = p(c|u,a) \cdot v_a \\\<br>roi_{(u,a)} = \frac{\text{GMV}_{click-and-buy}}{b_a} = \frac{p(c|u,a) \cdot v_a}{b_a}<br>$$</p>
-<p>假设$n_u$是某个用户$u$在过去一段时间对广告$a$的总点击数，认为$E_u[p(c|u,a)]$是pCVR的预估均值，那么有：</p>
+<p>假设$n_u$是某个用户$u$在过去一段时间对广告$a$的总点击数，$E_u[p(c|u,a)]$表示期望转化率，那么有：</p>
 <p>$$<br>roi_a = \sum_u roi_{(u,a)} = \frac{v_a \cdot \left(\sum_u n_u \cdot p(c|u,a) \right)}{b_a \cdot \sum_u n_u} = v_a \cdot \frac{E_u[p(c|u,a)]}{b_a}<br>$$</p>
-<p>上式$roi_a$就是ocpc优化问题中的约束条件，即$roi_a$不降低活着有上涨。在阿里论文中，为了防止异常值和离群点，对pCVR进行了截断，即$E_u[p(c|u,a)] = Average(Trim(pCVR, [10\%,90\%]))$。</p>
-<p>（这里$p(c|u,a)$表示从曝光到交易的概率，pCVR表示从点击到交易的概率）</p>
+<p>上式$roi_a$就是ocpc优化问题中的约束条件，即$roi_a$不降低或者有上涨。在阿里论文中，为了防止异常值和离群点，对pCVR进行了截断，即$E_u[p(c|u,a)] = Average(Trim(pCVR, [10\%,90\%]))$。</p>
+<p>可以看到，广告主ROI主要受3个因素的影响：期望转化率、客单价和出价bid。</p>
 <blockquote>
 <ol>
 <li>ROI约束是广告系统 广告主诉求，ROI是与业务相关的指标。应用在其它场景，也可以是其他约束条件。</li>
@@ -334,7 +334,7 @@ OCPC算法
 <p><strong>排序公式</strong></p>
 <p>在可行域中选取不同的$b_a^{*}$，会导致目前以eCPM作为排序机制的排序结果的改变。假设我们想要在eCPM的机制下展示一条广告$k$，并且希望$k$能够最大化我们的排序目标公式$f(\cdot)$。</p>
 <p>$f(\cdot)$最原始形式是指考虑$pctr$，故</p>
-<p>$$<br>f(k, b_k^_) = pctr_k \cdot b_k^_<br>$$</p>
+<p>$$<br>f(k, b_k^{_}) = pctr_k \cdot b_k^{_}<br>$$</p>
 <p>那么排序公式等价于带约束的优化问题：</p>
 <p>$$<br>\max_{b_1^_, b_2^_, \cdots, b_n^_} f(k, b_k^_) \\\<br>s.t. \quad k = \arg \max_{i} pctr_i \cdot b_i^_ \\\<br>l(b_i^_) &lt; b_i^_ &lt; u(b_i^_), \forall{i} \in A<br>$$</p>
 <p>接下来，我们分别考虑两种排序公式：</p>
