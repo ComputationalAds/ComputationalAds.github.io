@@ -150,7 +150,7 @@ OCPC算法
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2020-09-08T13:46:18.000Z" itemprop="datePublished"> 发表于 2020-09-08</time>
+    <time datetime="2020-09-08T13:56:40.000Z" itemprop="datePublished"> 发表于 2020-09-08</time>
     
   </p>
 </header>
@@ -338,7 +338,7 @@ OCPC算法
 <p><strong>排序公式</strong></p>
 <p>在可行域中选取不同的$b_a^{*}$，会导致目前以eCPM作为排序机制的排序结果的改变。假设我们想要在eCPM的机制下展示一条广告$k$，并且希望$k$能够最大化我们的排序目标公式$f(\cdot)$。</p>
 <p>$f(\cdot)$最原始形式是指考虑$pctr$，故</p>
-<p>$$<br>f(k, b_k^{_}) = pctr_k \cdot b_k^{_}<br>$$</p>
+<p>$$<br>f(k, b_k^_) = pctr_k \cdot b_k^_<br>$$</p>
 <p>那么排序公式等价于带约束的优化问题：</p>
 <p>$$<br>\max_{b_1^_, b_2^_, \cdots, b_n^_} f(k, b_k^_) \\\<br>s.t. \quad k = \arg \max_{i} pctr_i \cdot b_i^_ \\\<br>l(b_i^_) &lt; b_i^_ &lt; u(b_i^_), \forall{i} \in A<br>$$</p>
 <p>接下来，我们分别考虑两种排序公式：</p>
@@ -377,8 +377,8 @@ OCPC算法
 <p>$$<br>GAUC = \frac{\sum_{(u,p)} w_{(u,p)} \times AUC_{(u,p)}} {\sum_{(u,p)} w_{(u,p)}}<br>$$</p>
 <p><strong>OCPC算法实现细节</strong></p>
 <ul>
-<li>客单价$v_a$：按照shopid粒度区分，计算过去一段时间（周or月）的消费均价来使用。若为空，使用门店均价来代替。实现方式：实现方式：类似ctr统计特征，加载resource，每日推送新数据。</li>
-<li>CVR期望$E[p(c|u,a)]$，按照slot＋广告launchid维度区分，计算过去一段时间（周or月）转化数据（如果转化数不超过100，则epcvr计为0，epcvr=0的shop不对其进行ocpc算法处理）。实现方式：统计点击转化率cvr，类似ctr统计特征，加载resource，每日推送；</li>
+<li>客单价$v_a$：按照shopid粒度区分，计算过去一段时间（周or月）的消费均价来使用。若为空，使用门店均价来代替。实现方式：类似ctr统计特征，加载resource，每日推送新数据。</li>
+<li>期望转化率$E[p(c|u,a)]$，按照slot＋广告launchid维度区分，计算过去一段时间（周or月）转化数据（如果转化数不超过100，则epcvr计为0，epcvr=0的shop不对其进行ocpc算法处理）。实现方式：统计点击转化率cvr，类似ctr统计特征，加载resource，每日推送。</li>
 <li>rank极端需要对所有的广告位进行一次处理。加入新的OcpcHandler：setup方法负责加载epcvr和客单价等数据以及docs；handle方法负责计算bound；cleanup方法负责rerank和回填数据。</li>
 <li>排序公式f函数暂定论文中f2；</li>
 <li>需要修改result，加入修改后的bid，透传给下游计费模块；</li>
