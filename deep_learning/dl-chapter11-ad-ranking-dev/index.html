@@ -150,7 +150,7 @@ OCPC算法
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2020-09-08T13:56:40.000Z" itemprop="datePublished"> 发表于 2020-09-08</time>
+    <time datetime="2020-09-08T13:58:18.000Z" itemprop="datePublished"> 发表于 2020-09-08</time>
     
   </p>
 </header>
@@ -340,6 +340,7 @@ OCPC算法
 <p>$f(\cdot)$最原始形式是指考虑$pctr$，故</p>
 <p>$$<br>f(k, b_k^_) = pctr_k \cdot b_k^_<br>$$</p>
 <p>那么排序公式等价于带约束的优化问题：</p>
+<p>$$<br>\max_{b_1^_, b_2^_, \cdots, b_n^_} f(k, b_k^_)<br>$$</p>
 <p>$$<br>\max_{b_1^_, b_2^_, \cdots, b_n^_} f(k, b_k^_) \\\<br>s.t. \quad k = \arg \max_{i} pctr_i \cdot b_i^_ \\\<br>l(b_i^_) &lt; b_i^_ &lt; u(b_i^_), \forall{i} \in A<br>$$</p>
 <p>接下来，我们分别考虑两种排序公式：</p>
 <p>$$<br>\begin{align}<br>\text{consider GMV:} \quad f_1(k, b_k^_) &amp;= pctr_k \cdot pcvr_k \cdot v_k \\\<br>\text{consider GMV + eCPM:} \quad f_2(k, b_k^_) &amp;= pctr_k \cdot pcvr_k \cdot v_k + \alpha \cdot pctr_k \cdot b_k^*<br>\end{align}<br>$$</p>
