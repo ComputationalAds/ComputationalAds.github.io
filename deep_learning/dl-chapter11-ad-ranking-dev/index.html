@@ -150,7 +150,7 @@ OCPC算法
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2020-09-08T13:58:18.000Z" itemprop="datePublished"> 发表于 2020-09-08</time>
+    <time datetime="2020-09-08T14:03:05.000Z" itemprop="datePublished"> 发表于 2020-09-08</time>
     
   </p>
 </header>
@@ -338,20 +338,19 @@ OCPC算法
 <p><strong>排序公式</strong></p>
 <p>在可行域中选取不同的$b_a^{*}$，会导致目前以eCPM作为排序机制的排序结果的改变。假设我们想要在eCPM的机制下展示一条广告$k$，并且希望$k$能够最大化我们的排序目标公式$f(\cdot)$。</p>
 <p>$f(\cdot)$最原始形式是指考虑$pctr$，故</p>
-<p>$$<br>f(k, b_k^_) = pctr_k \cdot b_k^_<br>$$</p>
+<p>$$<br>f(k, b_k^{＊}) = pctr_k \cdot b_k^＊<br>$$</p>
 <p>那么排序公式等价于带约束的优化问题：</p>
-<p>$$<br>\max_{b_1^_, b_2^_, \cdots, b_n^_} f(k, b_k^_)<br>$$</p>
-<p>$$<br>\max_{b_1^_, b_2^_, \cdots, b_n^_} f(k, b_k^_) \\\<br>s.t. \quad k = \arg \max_{i} pctr_i \cdot b_i^_ \\\<br>l(b_i^_) &lt; b_i^_ &lt; u(b_i^_), \forall{i} \in A<br>$$</p>
+<p>$$<br>\max_{b_1^＊, b_2^＊, \cdots, b_n^＊} f(k, b_k^＊) \\\<br>s.t. \quad k = \arg \max_{i} pctr_i \cdot b_i^＊ \\\<br>l(b_i^＊) &lt; b_i^＊ &lt; u(b_i^＊), \forall{i} \in A<br>$$</p>
 <p>接下来，我们分别考虑两种排序公式：</p>
-<p>$$<br>\begin{align}<br>\text{consider GMV:} \quad f_1(k, b_k^_) &amp;= pctr_k \cdot pcvr_k \cdot v_k \\\<br>\text{consider GMV + eCPM:} \quad f_2(k, b_k^_) &amp;= pctr_k \cdot pcvr_k \cdot v_k + \alpha \cdot pctr_k \cdot b_k^*<br>\end{align}<br>$$</p>
+<p>$$<br>\begin{align}<br>\text{consider GMV:} \quad f_1(k, b_k^＊) &amp;= pctr_k \cdot pcvr_k \cdot v_k \\\<br>\text{consider GMV + eCPM:} \quad f_2(k, b_k^＊) &amp;= pctr_k \cdot pcvr_k \cdot v_k + \alpha \cdot pctr_k \cdot b_k^＊<br>\end{align}<br>$$</p>
 <p>假设</p>
-<p>$$<br>s_a^_ = pctr_a \cdot b_a^_ \rightarrow<br>\begin{cases}<br>l(s_a^_) = pctr_a^_ \cdot l(b_a^_) \quad \text{LowerBound} \\\<br>u(s_a^_) = pctr_a^_ \cdot u(b_a^_) \quad \text{UpperBound} \\\<br>\end{cases}<br>$$</p>
-<p>由于pctr、pcvr等指标非负，并且一般意义下，$b_k^_$高将会持续导致与其相关的pctr等指标提升，会在一定程度上保证了$f(k, b_k^_)$函数对$b_k^*$单调不减。</p>
+<p>$$<br>s_a^＊ = pctr_a \cdot b_a^＊ \rightarrow<br>\begin{cases}<br>l(s_a^＊) = pctr_a^＊ \cdot l(b_a^＊) \quad \text{LowerBound} \\\<br>u(s_a^＊) = pctr_a^＊ \cdot u(b_a^＊) \quad \text{UpperBound} \\\<br>\end{cases}<br>$$</p>
+<p>由于pctr、pcvr等指标非负，并且一般意义下，$b_k^＊$高将会持续导致与其相关的pctr等指标提升，会在一定程度上保证了$f(k, b_k^＊)$函数对$b_k^＊$单调不减。</p>
 <blockquote>
 <p>这里有个比较弱的假设：可以认为广告系统近似等于一个增强学习环境，会导致样本出现受出价引导的bias现象。</p>
 </blockquote>
-<p>由以上假设可以认为，我们只需要将所有的$f(k, u(b_k^*))$按照降序排列，并且按顺序找出来排在第一位的广告$k$，就是我们要找的广告（因为单调不减），并且满足以下条件：</p>
-<p>$$<br>u(s_k^_) \ge l(s_i^_) \qquad \forall i \neq k \\\<br>b_k^_ = u(b_k^_)<br>$$</p>
+<p>由以上假设可以认为，我们只需要将所有的$f(k, u(b_k^＊))$按照降序排列，并且按顺序找出来排在第一位的广告$k$，就是我们要找的广告（因为单调不减），并且满足以下条件：</p>
+<p>$$<br>u(s_k^＊) \ge l(s_i^＊) \qquad \forall i \neq k \\\<br>b_k^＊ = u(b_k^＊)<br>$$</p>
 <p>刚刚是在假设一次性只展示一条广告的情况，若一次需要展示$N$条广告的话，文中给出了一个贪心策略来实现广告排序。假设一次展示$n$条广告$k_1,k_2,\cdots,k_n$。如何保证$Position_i$的广告恰好对应$k_i$。</p>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter11_adrank_ocpc_ranking_algorithm.png" ;="" width="400" height="500" alt="ocpc-ranking-algo"></p>
 <p>结合论文中的事例，解读ocpc算法排序过程：</p>
