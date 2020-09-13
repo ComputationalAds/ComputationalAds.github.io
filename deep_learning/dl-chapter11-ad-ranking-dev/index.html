@@ -21,6 +21,7 @@
 参数学习
 智能出价
 OCPC算法
+OCPM算法
 
 
 
@@ -31,7 +32,7 @@ OCPC算法
 
 
 准入门槛：满足业务需求（平台方红线、各BU差异化出ad条件），保证用户体验。主要从距离、Item质量（星级）和pctr三个条件设定（优先级依次降低）；
-机制排序：最大化三方收益。排序公式设计（考虑业务差异），超参数学习与优化，多目标优化，智能出">
+机制排序：最大化三方收益。排序公式设计（考虑业务差异），超参数学习与优化，多目">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算广告与机器学习">
 <meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter11-ad-ranking-dev/index.html">
@@ -46,6 +47,7 @@ OCPC算法
 参数学习
 智能出价
 OCPC算法
+OCPM算法
 
 
 
@@ -56,7 +58,7 @@ OCPC算法
 
 
 准入门槛：满足业务需求（平台方红线、各BU差异化出ad条件），保证用户体验。主要从距离、Item质量（星级）和pctr三个条件设定（优先级依次降低）；
-机制排序：最大化三方收益。排序公式设计（考虑业务差异），超参数学习与优化，多目标优化，智能出">
+机制排序：最大化三方收益。排序公式设计（考虑业务差异），超参数学习与优化，多目">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter11_adrank_ocpc_ranking_algorithm.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter11_adrank_ocpc_ranking_algorithm_table1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter11_adrank_ocpc_ranking_algorithm_table2.png">
@@ -73,6 +75,7 @@ OCPC算法
 参数学习
 智能出价
 OCPC算法
+OCPM算法
 
 
 
@@ -83,7 +86,7 @@ OCPC算法
 
 
 准入门槛：满足业务需求（平台方红线、各BU差异化出ad条件），保证用户体验。主要从距离、Item质量（星级）和pctr三个条件设定（优先级依次降低）；
-机制排序：最大化三方收益。排序公式设计（考虑业务差异），超参数学习与优化，多目标优化，智能出">
+机制排序：最大化三方收益。排序公式设计（考虑业务差异），超参数学习与优化，多目">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -150,7 +153,7 @@ OCPC算法
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2020-09-08T14:04:20.000Z" itemprop="datePublished"> 发表于 2020-09-08</time>
+    <time datetime="2020-09-13T04:18:42.000Z" itemprop="datePublished"> 发表于 2020-09-13</time>
     
   </p>
 </header>
@@ -159,7 +162,7 @@ OCPC算法
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0.广告排序"><span class="toc-number">1.</span> <span class="toc-text">广告排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.工作方向"><span class="toc-number">2.</span> <span class="toc-text">工作方向</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2.技术方向"><span class="toc-number">3.</span> <span class="toc-text">技术方向</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.准入门槛优化"><span class="toc-number">3.1.</span> <span class="toc-text">准入门槛优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.排序公式"><span class="toc-number">3.2.</span> <span class="toc-text">排序公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.3.参数学习"><span class="toc-number">3.3.</span> <span class="toc-text">参数学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.4.智能出价"><span class="toc-number">3.4.</span> <span class="toc-text">智能出价</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.5.OCPC算法"><span class="toc-number">3.5.</span> <span class="toc-text">OCPC算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3.1.OCPC算法分步推导"><span class="toc-number">3.5.1.</span> <span class="toc-text">OCPC算法分步推导</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3.2.OCPM算法"><span class="toc-number">3.6.</span> <span class="toc-text">OCPM算法</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0.广告排序"><span class="toc-number">1.</span> <span class="toc-text">广告排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.工作方向"><span class="toc-number">2.</span> <span class="toc-text">工作方向</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2.技术方向"><span class="toc-number">3.</span> <span class="toc-text">技术方向</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.准入门槛优化"><span class="toc-number">3.1.</span> <span class="toc-text">准入门槛优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.排序公式"><span class="toc-number">3.2.</span> <span class="toc-text">排序公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.3.参数学习"><span class="toc-number">3.3.</span> <span class="toc-text">参数学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.4.智能出价"><span class="toc-number">3.4.</span> <span class="toc-text">智能出价</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.5.OCPC算法"><span class="toc-number">3.5.</span> <span class="toc-text">OCPC算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.6.OCPM算法"><span class="toc-number">3.6.</span> <span class="toc-text">OCPM算法</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -173,6 +176,7 @@ OCPC算法
 <li><a href="#2.3.参数学习">参数学习</a></li>
 <li><a href="#2.4.智能出价">智能出价</a></li>
 <li><a href="#2.5.OCPC算法">OCPC算法</a></li>
+<li><a href="#2.6.OCPM算法">OCPM算法</a></li>
 </ul>
 </li>
 </ul>
@@ -263,7 +267,8 @@ OCPC算法
 
 
 <p><strong>背景－流量的差异化</strong></p>
-<p>传统的出价是针对特定人群或广告产品（关键词／推荐列表页）设定一个固定的出价，是一种粗粒度的方式。如果能有更细粒度的方式来匹配出价和流量质量，根据<strong>流量质量动态地调整出价</strong>，那么可以有效地提升广告主ROI（预算花费更高效或带来更高的GMV），因此就有了<strong>智能出价</strong>策略。</p>
+<p>传统的出价是针对特定人群或广告产品（关键词／推荐列表页）设定一个固定的出价，是一种<strong>粗粒度</strong>的方式。如果能有更细粒度的方式来匹配出价和流量质量，根据<strong>流量质量动态地调整出价</strong>，那么可以有效地提升广告主ROI（预算花费更高效或带来更高的GMV），因此就有了<strong>智能出价</strong>策略。</p>
+<p>不考虑广告主之间的博弈关系，可考虑如下方法：</p>
 <ul>
 <li>线性出价算法</li>
 <li>非线性出价算法</li>
@@ -273,7 +278,7 @@ OCPC算法
 <p>$\color{red}{线性出价算法与OCPX的关系是什么？}$</p>
 <p>线性出价会考虑广告主之间的博弈过程，OCPX没有。二者均是根据流量差异而进行出价。OCPC期望bid不大于真实bid；</p>
 </blockquote>
-<p>智能出价统称为ocpx，可以是ocpc, ocpm, ocpa, cpa等。</p>
+<p>智能出价统称为ocpx，可以是ocpc, ocpm, ocpa等。</p>
 <p>以cpc与ocpc举例，比如1,2,3,4,5 有5个访客：</p>
 <ul>
 <li>cpc不考虑访客因素，出同样的bid，无论哪个访客转化好；</li>
@@ -303,22 +308,26 @@ OCPC算法
 <ol>
 <li>排序公式的超参优化与智能出价的关系是什么？</li>
 <li>论文的目标是保ROI的情况下，优化GMV和RPS。那么，ocpc框架怎么迁移至其它业务优化上？</li>
+<li>如何选择最优bid？</li>
+<li>ocpc算法对平台收入增长的贡献点在哪里？</li>
 </ol>
-<p>如何选择最优bid？</p>
-<p>OCPC全称是Optimized Cost Per Click是一种优化站内广告投放效果的智能出价技术，它能自动动态调整广告对流量的竞价bid，控制ROI的同时提高GMV。在淘宝移动端列表页广告和banner广告场景中展开。</p>
-<blockquote>
-<p>优化目标与具体业务有关，不可照搬。</p>
-</blockquote>
+<p>OCPC是Optimized Cost Per Click的缩写，即优化点击付费，本质还是按照cpc付费。采用更科学的转化率预估机制的准确性，可帮助广告主在获取更多优质流量的同时提高转化完成率。系统会在广告主出价（固定bid）基础上，基于多维度、实时反馈及历史积累的海量数据，并根据预估的转化率以及竞争环境，智能化的动态调整出价，进而优化广告排序，帮助广告主竞得最适合的流量，并降低转化成本。</p>
+<p>因此ocpc是一种优化广告投放效果的智能出价技术，它能根据流量质量自动动态地调整广告的竞价bid，保证ROI的同时提高GMV。该算法出自阿里妈妈淘宝业务场景论文，并且在淘宝移动端猜你喜欢列表页和顶部banner两个广告场景落地。</p>
 <p>从第一节中举cpc与ocpc的栗子可以看出，OCPC算法的工作原理是：</p>
-<p><strong>对每次广告请求都动态的设置与该流量质量相匹配的bid</strong>，同时综合优化用户体验、广告主和平台的三方诉求，并保持使用eCPM排序机制不变。</p>
-<h3 id="3.1.OCPC算法分步推导">OCPC算法分步推导</h3>
-
+<p><strong>对每次广告请求都动态地设置与该流量质量相匹配的bid</strong>，同时综合优化用户体验、广告主和平台的三方诉求，并保持使用eCPM排序机制不变（因为优化目标的约束公式）。</p>
+<blockquote>
+<p>这里有两点需要注意：</p>
+<ol>
+<li>优化目标（即排序公式）与具体业务有关，不可照搬;</li>
+<li>论文中排序公式为ecpm＋gmv，其中约束条件中是ecpm排序机制，个人绝的可以尝试将ecpm约束条件替换为业务需要的约束排序机制（是否必要替换需要想清楚？大概率不需要，因为排序公式已经体现了业务目标）</li>
+</ol>
+</blockquote>
 <p><strong>优化范围－ROI约束</strong></p>
-<p>假设用户u点击率广告a，产生交易的概率为$p(c|u,a)$，并且定义交易额（pay-per-buy，简称PPB，也就是商家设定的商品价格price）为$v_a$。因为一次点击广告主需要付的费用为$b_a$（此处暂不考虑CSP计费），那么可知：</p>
+<p>假设用户u点击率广告a，产生交易的概率为$p(c|u,a)$，并且定义交易额（pay-per-buy，简称PPB，也就是商家设定的商品价格price）为$v_a$。因为一次点击广告主需要付的费用为$b_a$（此处暂不考虑GSP计费），那么可知：</p>
 <p>$$<br>\text{GMV}_{click-and-buy} = p(c|u,a) \cdot v_a \\\<br>roi_{(u,a)} = \frac{\text{GMV}_{click-and-buy}}{b_a} = \frac{p(c|u,a) \cdot v_a}{b_a}<br>$$</p>
 <p>假设$n_u$是某个用户$u$在过去一段时间对广告$a$的总点击数，$E_u[p(c|u,a)]$表示期望转化率，那么有：</p>
 <p>$$<br>roi_a = \sum_u roi_{(u,a)} = \frac{v_a \cdot \left(\sum_u n_u \cdot p(c|u,a) \right)}{b_a \cdot \sum_u n_u} = v_a \cdot \frac{E_u[p(c|u,a)]}{b_a}<br>$$</p>
-<p>上式$roi_a$就是ocpc优化问题中的约束条件，即$roi_a$不降低或者有上涨。在阿里论文中，为了防止异常值和离群点，对pCVR进行了截断，即$E_u[p(c|u,a)] = Average(Trim(pCVR, [10\%,90\%]))$。</p>
+<p><strong>上式$roi_a$就是ocpc优化问题中的约束条件（即$roi_a$不降低或者有上涨）</strong>。在阿里论文中，为了防止异常值和离群点，对pCVR进行了截断，即$E_u[p(c|u,a)] = Average(Trim(pCVR, [10\%,90\%]))$。</p>
 <p>可以看到，广告主ROI主要受3个因素的影响：期望转化率、客单价和出价bid。</p>
 <blockquote>
 <ol>
@@ -329,14 +338,17 @@ OCPC算法
 <p><strong>Bid优化上下界</strong></p>
 <p>假定$b_a^*$是某一次广告出价${bid}_{click}$，那么只需要满足以下公式就可以保证roi不降低。</p>
 <p>$$<br>\frac{b_a^*}{b_a} \le \frac{p(c|u,a)}{E_u[p(c|u,a)]}<br>$$</p>
-<p>但是，商业竞价环境中并不能保证每次的出价$b_a^＊$都能保证roi不降低。于是，论文给出了经验公式，并划定了_可行域_。其中$r_a$是一个调节系数，用来衡量广告位偏差，流量质量低的情况下，对用户点击意愿的妥协程度系数。</p>
+<p>但是，商业竞价环境中并不能保证每次的出价$b_a^＊$都能保证roi不降低。于是，论文给出了经验公式，并划定了<strong>可行域</strong>。其中$r_a$是一个调节系数，用来衡量广告位偏差，流量质量低的情况下，对用户点击意愿的妥协程度系数。</p>
 <p>$$<br>\begin{align}<br>\text{LowerBound:} \quad l(b_a^*) &amp;=<br>\begin{cases}<br>\displaystyle<br>b_a \cdot (1 - r_a) , &amp;\quad \frac{p(c|u,a)}{E_u[p(c|u,a)]} &lt; 1; \\\<br>b_a , &amp;\quad \frac{p(c|u,a)}{E_u[p(c|u,a)]} \ge 1 \\<br>\end{cases}<br>\end{align}<br>$$</p>
 <p>$$<br>\begin{align}<br>\text{UpperBound:} \quad u(b_a^*) &amp;=<br>\begin{cases}<br>\displaystyle<br>b_a , &amp;\quad \frac{p(c|u,a)}{E_u[p(c|u,a)]} &lt; 1; \\\<br>b_a \cdot \min(1 + r_a, \frac{p(c|u,a)}{E_u[p(c|u,a)]}) , &amp;\quad \frac{p(c|u,a)}{E_u[p(c|u,a)]} \ge 1<br>\end{cases}<br>\end{align}<br>$$</p>
 <p>从上式可以看出，可行域如下图所示：</p>
 <p>// TODO给出可行域空间图</p>
 <p>可以看到bid优化的区间范围是$[(1-r_a) \cdot b_a, (1 + r_a) \cdot b_a]$。</p>
-<p><strong>排序公式</strong></p>
-<p>在可行域中选取不同的$b_a^＊$，会导致目前以eCPM作为排序机制的排序结果的改变。假设我们想要在eCPM的机制下展示一条广告$k$，并且希望$k$能够最大化我们的排序目标公式$f(\cdot)$。</p>
+<blockquote>
+<p>问题：$r_a$通常取多少？</p>
+</blockquote>
+<p><strong>OCPC排序公式</strong></p>
+<p>在可行域中选取不同的$b_a^＊$，会导致目前以eCPM作为排序机制的排序结果的改变。<strong>假设我们想要在eCPM的机制下展示一条广告$k$</strong>，并且希望$k$能够最大化我们的排序目标公式$f(\cdot)$。</p>
 <p>$f(\cdot)$最原始形式是指考虑$pctr$，故</p>
 <p>$$<br>f(k, b_k^{＊}) = pctr_k \cdot b_k^＊<br>$$</p>
 <p>那么排序公式等价于带约束的优化问题：</p>
@@ -349,7 +361,7 @@ OCPC算法
 <blockquote>
 <p>这里有个比较弱的假设：可以认为广告系统近似等于一个增强学习环境，会导致样本出现受出价引导的bias现象。</p>
 </blockquote>
-<p>由以上假设可以认为，我们只需要将所有的$f(k, u(b_k^＊))$按照降序排列，并且按顺序找出来排在第一位的广告$k$，就是我们要找的广告（因为单调不减），并且满足以下条件：</p>
+<p>由以上假设可以认为，<strong>我们只需要将所有的$f(k, u(b_k^＊))$按照降序排列（那么如此是否可以说，使用ocpc优化后cpc一定会涨，从而带动了平台收入的增长？）</strong>，并且按顺序找出来排在第一位的广告$k$，就是我们要找的广告（因为单调不减），并且满足以下条件：</p>
 <p>$$<br>u(s_k^＊) \ge l(s_i^＊) \qquad \forall i \neq k \\\<br>b_k^＊ = u(b_k^＊)<br>$$</p>
 <p>刚刚是在假设一次性只展示一条广告的情况，若一次需要展示$N$条广告的话，文中给出了一个贪心策略来实现广告排序。假设一次展示$n$条广告$k_1,k_2,\cdots,k_n$。如何保证$Position_i$的广告恰好对应$k_i$。</p>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter11_adrank_ocpc_ranking_algorithm.png" ;="" width="400" height="500" alt="ocpc-ranking-algo"></p>
@@ -359,11 +371,11 @@ OCPC算法
 </ul>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter11_adrank_ocpc_ranking_algorithm_table1.png" ;="" width="400" height="200" alt="ocpc-ranking-algo-demo1"></p>
 <ul>
-<li>算法第6-11步：剔除广告ad1，重新计算剩余广告的bid*(公式9-10)，同时更新其它指标的上下边界。第二轮（3-5步）：选择在下边界最大的广告（这里是a3），自顶向下选择第一条upperBound大于lowerBound的广告屏输出（这里是a3）。</li>
+<li>算法第6-11步：剔除广告ad1，重新计算剩余广告的bid*(公式9-10)，同时更新其它指标的上下边界。第二轮（3-5步）：选择在lowerBound最大的广告（这里是a3），自顶向下选择第一条upperBound大于lowerBound的广告屏输出（这里是a3）。</li>
 </ul>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter11_adrank_ocpc_ranking_algorithm_table2.png" ;="" width="400" height="200" alt="ocpc-ranking-algo-demo2"></p>
 <ul>
-<li>如果一次清楚广告返回数量为N。</li>
+<li>直至完成所有排序或返回N个广告。</li>
 </ul>
 <p></p><p style="text-align:center"><img src="https://raw.githubusercontent.com/ComputationalAdvertising/note-materials/master/img/deep_learning/dl_chapter11_adrank_ocpc_ranking_algorithm_table3.png" ;="" width="400" height="200" alt="ocpc-ranking-algo-demo3"></p>
 <p><strong>其它算法细节</strong></p>
@@ -371,7 +383,7 @@ OCPC算法
 <p>从历史经验看，oCPC中的pCVR预估值存在偏低的现象，作者提出了一个经验校正公式：</p>
 <p>$$<br>p(c|u,a) =<br>\begin{align}<br>\begin{cases}<br>\displaystyle<br>p(c|u,a),  &amp;\quad p(c|u,a) &lt; tc; \\\<br>p(c|u,a) \cdot (1 + \log(\frac{p(c|u,a)}{tc})), &amp;\quad p(c|u,a) \ge tc<br>\end{cases}<br>\end{align}<br>\quad tc = 0.012 (与业务相关参数)<br>$$</p>
 <p>_oCPC算法复杂度_</p>
-<p>整个oCPC算法包含两部分：Ranking和Calibration，总起来算法复杂度为$O(N \times \Vert A \Vert \times \log \Vert A \Vert)$。与$N$成线性关系，通常A和N不是太大，可以提供online serving。</p>
+<p>整个oCPC算法包含两部分：Ranking和Calibration，总起来算法复杂度为$O(N \times \Vert A \Vert \times \log \Vert A \Vert)$。与$N$成线性关系，通常A和N不是太大，<strong>可以提供online serving</strong>。</p>
 <p>_模型评估指标－GAUC_</p>
 <p>文中对广告位置p和用户u进行组合后分组，并在计算auc时进行加权$w(u,p)$</p>
 <p>$$<br>GAUC = \frac{\sum_{(u,p)} w_{(u,p)} \times AUC_{(u,p)}} {\sum_{(u,p)} w_{(u,p)}}<br>$$</p>
@@ -384,10 +396,36 @@ OCPC算法
 <li>需要修改result，加入修改后的bid，透传给下游计费模块；</li>
 <li>cvr因为数据稀疏，可以考虑校准。</li>
 </ul>
-<h2 id="3.2.OCPM算法">OCPM算法</h2>
+<h2 id="2.6.OCPM算法">OCPM算法</h2>
 
-<p>Facebook提出的ocpm算法，算法逻辑是：<strong>广告主按点击出价而按展现量计费，适合SNS网络广告。</strong></p>
-<p>头条已经用oCPM替换了之前的ocpc，与ocpc在排序和转化出价上没有区别，区别在于opc中的初始化阶段以及按曝光计费。</p>
+<p>什么是ocpm？</p>
+<p>Optimized Cost per Mille的缩写，即优化千次展现出价，本质还是按照cpm付费。采用更精准的<strong>点击率和转化率预估</strong>机制，<strong>将广告展现给最容易产生转化的用户，在获取流量的同时，提高转化率、降低转化成本，跑量提速更快</strong>。</p>
+<p>ocpm算法的逻辑是：<strong>广告主按点击竞价而按展现量计费。</strong> </p>
+<p>今日头条的信息流广告在2018年已经用oCPM替换了之前的ocpc（目前仅在联盟穿山甲广告位上还保留ocpc），除了头条外，还有微信朋友圈广告、facebook使用ocpm出价算法。</p>
+<p>社交网络SNS广告用户行为类型比较分散，比如有喜欢、点击、转发、分享、评论等。而电商类广告相对更集中，主要是各种点击，以及下单。</p>
+<p>ocpm与ocpc在排序和转化出价上没有区别，区别在于opc中的初始化阶段以及按曝光计费。（为什么头条的信息流广告按照曝光计费而不是点击计费？）</p>
+<blockquote>
+<p>ocpm与ocpc的区别主要在于：</p>
+<p>ocpc只能以cpa（如下单、gmv等）作为优化目标；ocpm则多了一个空间，可以按照A（转化相关）作为优化目标，也可以按照C（点击）作为优化目标。对于那些只需要获取流量，不特别计较转化的广告主（如品牌类广告主），ocpm能够提供以点击或流量转化为目标的出价方式是非常有价值的。</p>
+<p>今日头条广告计费模式</p>
+<ul>
+<li>cpm：按展示扣费，只要你的广告被刷出来，不论客户是否会点击都会扣费；</li>
+<li>cpc：按点击扣费，你的广告展现出来不扣费，只有客户点击了才会扣费；</li>
+<li>cpa：按转化扣费，你的广告展示出来、被人点击都不扣费，只有当用户产生转化了才会扣费，比如填写了手机号，成为了一个转化，系统才会扣费；</li>
+<li>ocpm：按展示扣费，ocpm相对cpm的不同是，ocpm可以自动优化人群，以达到广告越跑越精准的效果；</li>
+</ul>
+<p>除了这四种常见，<strong>还有被头条取消，目前只存在穿山甲广告位的Ocpc</strong>：按点击扣费，ocpc相对cpc不同的是，ocpc可以自动优化人群，从而探索到更多优质用户。</p>
+</blockquote>
+<p>那么，$\color{red}{今日头条为什么要取消ocpc，替换为ocpm呢}$？</p>
+<p>原因如下（参考<a href="http://www.opp2.com/146726.html" target="_blank" rel="external">今日头条广告oCPM出价优势及广告资源！</a>）：</p>
+<ol>
+<li>ocpm可以满足广告主在媒体类平台上<strong>多样化的转化目标</strong>需求，更适合粉丝营销的趋势，如关注、分享、点赞等；</li>
+<li>oCPM计划可以支持不同的<strong>转化类型组合</strong>，提高广告主的转化效果，能够更好的帮助实现计费逻辑。比如今日头条，可以帮助广告主实现多项不同的转化目标，提升广告营销效果；</li>
+<li>oCPM计划会支持更多互动性更强的样式，能够有效适<strong>配广告创意复杂的点击行为</strong>；</li>
+<li>oCPM计划支持视频播放后自动跳转到广告主的落地页页面，可以有效的帮助减少用户流失</li>
+</ol>
+<p>参考：<a href="http://www.chinawebanalytics.cn/%E4%BB%8A%E6%97%A5%E5%A4%B4%E6%9
+&#39;;lkjD%A1%E7%9A%84%E4%BF%A1%E6%81%AF%E6%B5%81%E5%B9%BF%E5%91%8A%E4%B8%8D%E6%94%AF%E6%8C%81ocpc%EF%BC%8C%E8%83%8C%E5%90%8E%E6%9C%89%E4%BD%95%E5%8A%A8%E6%9C%BA%EF%BC%9F/" target="_blank" rel="external">今日头条为什么取消ocpc</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -432,7 +470,7 @@ OCPC算法
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0.广告排序"><span class="toc-number">1.</span> <span class="toc-text">广告排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.工作方向"><span class="toc-number">2.</span> <span class="toc-text">工作方向</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2.技术方向"><span class="toc-number">3.</span> <span class="toc-text">技术方向</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.准入门槛优化"><span class="toc-number">3.1.</span> <span class="toc-text">准入门槛优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.排序公式"><span class="toc-number">3.2.</span> <span class="toc-text">排序公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.3.参数学习"><span class="toc-number">3.3.</span> <span class="toc-text">参数学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.4.智能出价"><span class="toc-number">3.4.</span> <span class="toc-text">智能出价</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.5.OCPC算法"><span class="toc-number">3.5.</span> <span class="toc-text">OCPC算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3.1.OCPC算法分步推导"><span class="toc-number">3.5.1.</span> <span class="toc-text">OCPC算法分步推导</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3.2.OCPM算法"><span class="toc-number">3.6.</span> <span class="toc-text">OCPM算法</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0.广告排序"><span class="toc-number">1.</span> <span class="toc-text">广告排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.工作方向"><span class="toc-number">2.</span> <span class="toc-text">工作方向</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2.技术方向"><span class="toc-number">3.</span> <span class="toc-text">技术方向</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.准入门槛优化"><span class="toc-number">3.1.</span> <span class="toc-text">准入门槛优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.1.排序公式"><span class="toc-number">3.2.</span> <span class="toc-text">排序公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.3.参数学习"><span class="toc-number">3.3.</span> <span class="toc-text">参数学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.4.智能出价"><span class="toc-number">3.4.</span> <span class="toc-text">智能出价</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.5.OCPC算法"><span class="toc-number">3.5.</span> <span class="toc-text">OCPC算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2.6.OCPM算法"><span class="toc-number">3.6.</span> <span class="toc-text">OCPM算法</span></a></li></ol></li></ol>
  
   </div>
 
