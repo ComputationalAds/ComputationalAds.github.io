@@ -313,18 +313,17 @@ MCMC
 <h2 id="1.4.AdaDelta">AdaDelta</h2>
 
 
-
-<p>Adadelta是对Adagrad的扩展，由Matthew D. Zeiler在2012年的论文<a href="https://arxiv.org/abs/1212.5701" target="_blank" rel="external">ADADELTA: An Adaptive Learning Rate Method</a>中提出，最初方案依然是对学习率进行自适应约束，但是进行了计算上的简化。 </p>
-<p>Adagrad会累加之前所有的梯度平方，而Adadelta只累加固定大小的项，并且也不直接存储这些项，仅仅是近似计算对应的平均值。即：</p>
+<p>除了RMSProp算法外，Adadelta算法也是针对Adagrad算法在迭代后期比较难找到有用解的问题作了改进。该算法由Matthew D. Zeiler在2012年的论文<a href="https://arxiv.org/abs/1212.5701" target="_blank" rel="external">ADADELTA: An Adaptive Learning Rate Method</a>中提出。有意思的是<strong>Adadelta算法没有学习率这一超参数</strong>。</p>
+<p>AdaDelta算法也像RMSProp算法一样，使用了batch随机梯度信息$\nabla_{k, w_j}$按元素平方的指数加权移动平均变量$n_{k,w_j}$：</p>
 <p>$$<br>n_{k,w_j} = \rho \cdot n_{k-1,w_j} + (1 - \rho) \cdot \nabla_{k, w_j} \cdot \nabla_{k,w_j}<br>$$</p>
-<p>这里$\rho$是衰减系数，通过这个衰减系数，我们令每一个时刻的gt随之时间按照$\rho$指数衰减，这样就相当于我们仅使用离当前时刻比较近的梯度信息，从而使得还很长时间之后，参数仍然可以得到更新。参数更新如AdaGrad算法中的公式(???)。 </p>
-<p>针对AdaGrad算法的第4点总结，其实在GD方法中也存在单位不统一的问题：</p>
-<p>$$<br>\Delta{w} \propto \nabla_{w} \propto \frac{\partial J(w)}{\partial w} \propto \frac{1}{w}<br>$$</p>
-<blockquote>
-<p> 注意：这里$J(w)$无单位。</p>
-</blockquote>
-<p>类似的，AdaGrad算法用于更新$\Delta{w}$的单位也不是$w$的单位，而是1.</p>
-<p>续…</p>
+<p>这里$\rho$是衰减系数，通过这个衰减系数，我们令每一个时刻的$g_t$随之时间按照$\rho$指数衰减，这样就相当于我们仅使用离当前时刻比较近的梯度信息，从而使得还很长时间之后，参数仍然可以得到更新。</p>
+<p>与RMSProp不同的是，AdaDelta算法还维护一个额外的<strong>状态变量$\Delta w_k$</strong>，其元素同样在时间步0时被初始化为0。我们使用$\Delta w_{k-1}$来计算<strong>参数的变化量</strong>：</p>
+<p>$$<br>g_{k}^’ \leftarrow \sqrt{\frac{\Delta w + \epsilon}{n_{k,w_j} + \epsilon}} \cdot  g_k<br>$$</p>
+<p>接着更新参数：</p>
+<p>$$<br>w_j \leftarrow w_j - g’<br>$$</p>
+<p>最后，使用$\Delta w$来记录参数变化量$g’$按元素平方的指数加权移动平均：</p>
+<p>$$<br>\Delta w_k \leftarrow \rho \cdot \Delta w_{k-1} + (1-\rho) g’ \cdot g’<br>$$</p>
+<p>可以看到，如果不考虑$\epsilon$的影响，AdaDelta与RMSProp的不同之处在于使用$\sqrt{\Delta w_{k-1}}$来替代超参数$\eta$。</p>
 <h2 id="1.5.Adam">Adam</h2>
 
 <p>自适应矩估计算法（Adaptive Moment Estimation，简称Adam）是另外一种计算自适应学习率的随机优化算法，由Diederik P. Kingma发表在2015年ICLR会议的论文<a href="https://arxiv.org/abs/1412.6980" target="_blank" rel="external">《Adam: A Method for Stochastic Optimization》</a>中提出。除了像RMSProp和AdaDelta一样计算过去梯度平方的$v_k$指数衰减均值（二阶矩估计），也会计算过去梯度$m_k$的指数衰减均值（一阶矩估计）。算法更新过程如下：</p>
