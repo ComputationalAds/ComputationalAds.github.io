@@ -27,15 +27,16 @@ DeepFM
 DIN
 
 
-DNN+用户行为序列
+DNN+用户序列建模
 DIEN
 DSIN
+超长序列建模
 
 
 DNN+多任务学习
 A Multitask Ranking System
 ESMM 
-MMOE">
+MMO">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算广告与机器学习">
 <meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter10-ctrcvr-dev/index.html">
@@ -56,15 +57,16 @@ DeepFM
 DIN
 
 
-DNN+用户行为序列
+DNN+用户序列建模
 DIEN
 DSIN
+超长序列建模
 
 
 DNN+多任务学习
 A Multitask Ranking System
 ESMM 
-MMOE">
+MMO">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算广告与机器学习">
 <meta name="twitter:description" content="机器学习预估系统-算法模型与算法工程以CTR预估为例
@@ -83,15 +85,16 @@ DeepFM
 DIN
 
 
-DNN+用户行为序列
+DNN+用户序列建模
 DIEN
 DSIN
+超长序列建模
 
 
 DNN+多任务学习
 A Multitask Ranking System
 ESMM 
-MMOE">
+MMO">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -158,7 +161,7 @@ MMOE">
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2020-05-06T00:43:09.000Z" itemprop="datePublished"> 发表于 2020-05-06</time>
+    <time datetime="2020-09-28T01:02:15.000Z" itemprop="datePublished"> 发表于 2020-09-28</time>
     
   </p>
 </header>
@@ -167,7 +170,7 @@ MMOE">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#机器学习预估系统-算法模型与算法工程"><span class="toc-number">1.</span> <span class="toc-text">机器学习预估系统-算法模型与算法工程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0.预估算法系统综述"><span class="toc-number">2.</span> <span class="toc-text">预估算法系统综述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#点击率预估"><span class="toc-number">2.1.</span> <span class="toc-text">点击率预估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#转化率预估"><span class="toc-number">2.2.</span> <span class="toc-text">转化率预估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交易额预估"><span class="toc-number">2.3.</span> <span class="toc-text">交易额预估</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法模型"><span class="toc-number">3.</span> <span class="toc-text">预估算法模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.Embedding+NN模型"><span class="toc-number">3.1.</span> <span class="toc-text">Embedding+NN模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.1.WideAndDeep"><span class="toc-number">3.1.1.</span> <span class="toc-text">Wide&Deep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.2.DeepFM"><span class="toc-number">3.1.2.</span> <span class="toc-text">DeepFM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.3.DIN"><span class="toc-number">3.1.3.</span> <span class="toc-text">DIN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.DNN+用户行为序列"><span class="toc-number">3.2.</span> <span class="toc-text">DNN+用户行为序列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.1.DIEN"><span class="toc-number">3.2.1.</span> <span class="toc-text">DIEN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.2.DSIN"><span class="toc-number">3.2.2.</span> <span class="toc-text">DSIN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.5.DNN+多任务学习"><span class="toc-number">3.3.</span> <span class="toc-text">DNN+多任务学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.1.A-Multitask-Ranking-System"><span class="toc-number">3.3.1.</span> <span class="toc-text">A Multitask Ranking System</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.2.ESMM"><span class="toc-number">3.3.2.</span> <span class="toc-text">ESMM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.2.MMOE"><span class="toc-number">3.3.3.</span> <span class="toc-text">MMOE</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法工程"><span class="toc-number">4.</span> <span class="toc-text">预估算法工程</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#机器学习预估系统-算法模型与算法工程"><span class="toc-number">1.</span> <span class="toc-text">机器学习预估系统-算法模型与算法工程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0.预估算法系统综述"><span class="toc-number">2.</span> <span class="toc-text">预估算法系统综述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#点击率预估"><span class="toc-number">2.1.</span> <span class="toc-text">点击率预估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#转化率预估"><span class="toc-number">2.2.</span> <span class="toc-text">转化率预估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交易额预估"><span class="toc-number">2.3.</span> <span class="toc-text">交易额预估</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法模型"><span class="toc-number">3.</span> <span class="toc-text">预估算法模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.Embedding+NN模型"><span class="toc-number">3.1.</span> <span class="toc-text">Embedding+NN模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.1.WideAndDeep"><span class="toc-number">3.1.1.</span> <span class="toc-text">Wide&Deep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.2.DeepFM"><span class="toc-number">3.1.2.</span> <span class="toc-text">DeepFM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.3.DIN"><span class="toc-number">3.1.3.</span> <span class="toc-text">DIN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.DNN+行为序列建模"><span class="toc-number">3.2.</span> <span class="toc-text">DNN+行为序列建模</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.1.DIEN"><span class="toc-number">3.2.1.</span> <span class="toc-text">DIEN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.2.DSIN"><span class="toc-number">3.2.2.</span> <span class="toc-text">DSIN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.3.超长序列建模"><span class="toc-number">3.2.3.</span> <span class="toc-text">超长序列建模</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.5.DNN+多任务学习"><span class="toc-number">3.3.</span> <span class="toc-text">DNN+多任务学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.1.A-Multitask-Ranking-System"><span class="toc-number">3.3.1.</span> <span class="toc-text">A Multitask Ranking System</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.2.ESMM"><span class="toc-number">3.3.2.</span> <span class="toc-text">ESMM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.2.MMOE"><span class="toc-number">3.3.3.</span> <span class="toc-text">MMOE</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法工程"><span class="toc-number">4.</span> <span class="toc-text">预估算法工程</span></a></li></ol>
 		
 		</div>
 		
@@ -187,9 +190,10 @@ MMOE">
 <li><a href="#1.3.3.DIN">DIN</a></li>
 </ul>
 </li>
-<li><a href="#1.4.DNN+用户行为序列">DNN+用户行为序列</a><ul>
+<li><a href="#1.4.DNN+用户序列建模">DNN+用户序列建模</a><ul>
 <li><a href="#1.4.1.DIEN">DIEN</a></li>
 <li><a href="#1.4.2.DSIN">DSIN</a></li>
+<li><a href="#1.4.3.超长序列建模">超长序列建模</a></li>
 </ul>
 </li>
 <li><a href="#1.5.DNN+多任务学习">DNN+多任务学习</a><ul>
@@ -329,8 +333,9 @@ MMOE">
 <ol>
 <li>DIN激活单元是如何工作的？是self-attention的实现吗？ 答：不是self-attention，<code>&lt;item, ad&gt;</code>向量作为输入，计算外积之后与两个原向量concat后进入一层FC，使用dice作为激活函数，输出1维值作为激活权重；</li>
 <li>用户行为A,B,C分别点击了3次、1次、2次，那么广告D如何与用户行为作attention操作，是与ABC做attention，还是A,A,A,B,C,C做attention？文章没有提到，不过可以获取A、B、C次数作为权重，在item embedding后给予加权。</li>
-<li>dice激活函数在tf中的实现？对PRelu的改进，</li>
+<li>dice激活函数在tf中的实现？dice是对PRelu的改进。PRelu函数的校正点是固定的0，深度学习fc的每一层的输入分布发生变化时是不适用的。根据每层输入数据的分布自适应调整校正点的位置。（如何实现？）<br>dice函数的优势主要是校正点随输入分布变化而变化，引入mean和var两个变量来实现；</li>
 <li>自适应正则在tf中的实现？</li>
+<li>DIN模型新增的参数量是多少？ 严格意义，DIN增加的网络参数有：局部激活单元神经网络第一层单元数（N）和dice函数用于平滑校正点的均值和方差（2）。但是计算复杂度增加了 max_item_count * (item_feature_count个embedding + 乘积 + 一层dice激活函数的全连接计算attenion scorer + concat) 最后concat到主网络；</li>
 </ol>
 <p>DIN模型关键词：<strong>兴趣多样性（diversity interests），局部激活单元（local activation unit），mini-batch aware正则，自适应损失函数（Dice）</strong></p>
 <ul>
@@ -341,7 +346,7 @@ MMOE">
 <ol>
 <li>Out Product：$<e_j, v_a="">$计算外积，得到等长的向量$V_p$。外积操作有利于relevance modeling；</e_j,></li>
 <li>Concat：tf.concat([$e_j, V_A, V_P$], axis=1, keepdims=false)</li>
-<li>PRelu或Dice：激活函数，这里有一层FC参数（W,b）?</li>
+<li>PRelu或Dice：激活函数，这里有一层FC参数（W,b）；</li>
 <li>Linear：转化为1维作为activation weight；</li>
 </ol>
 <p>这里的局部激活单元计算方法有别于传统attention，它放宽了权重累加和等于1（$\sum w_j = 1$）的限制条件，$w_j$有利于表达用户兴趣的差异化强度。因此无需对$a(e_j, V_A)$使用softmax归一化。</p>
@@ -373,7 +378,7 @@ MMOE">
 <li>DIN attention对历史行为特征提升微弱（列表场景，行为稀疏？）</li>
 </ol>
 <p>// TODO 需要进一步实验，验证各个模块带来的效果；</p>
-<h2 id="1.4.DNN+用户行为序列">DNN+用户行为序列</h2>
+<h2 id="1.4.DNN+行为序列建模">DNN+行为序列建模</h2>
 
 <h3 id="1.4.1.DIEN">DIEN</h3>
 
@@ -438,6 +443,15 @@ MMOE">
 <h3 id="1.4.2.DSIN">DSIN</h3>
 
 <p>深度会话兴趣网络（Deep Session Interest Network）</p>
+<h3 id="1.4.3.超长序列建模">超长序列建模</h3>
+
+<p>关键词：MIMN（2019），SIM（2020）等</p>
+<p>超长序列建模存在计算与存储问题，通常有两种解决方案：用户兴趣向量表示（<a href="https://zhuanlan.zhihu.com/p/163511597" target="_blank" rel="external">UIC/MIMN</a>），抽取子序列（SIM）。</p>
+<p>在MIMN文章中，线上引入了UIC模块（User Interest Center）来将用户兴趣建模部分从整个模型中解耦出来。那么，用户兴趣建模存在存储与计算性能2个关键问题，提出了<strong>多通道的用户兴趣记忆网络</strong>，即MIMN（是对Neural Turing Machine的改进）。MIMN借助了memory network的思想，将用户的多样兴趣映射到一个固定大小的memory矩阵，这个矩阵会在有新的用户行为时更新，通过这种方式，用户兴趣的计算从CTR预估中进行了解耦。</p>
+<p>然而，建模任意长度的序列数据对于memory network仍有很大挑战。实际上，当用户行为长度进一步增加，比如增加10倍或者更多，MIMN就不能准确地得到给定特定候选商品的用户兴趣，这是因为将所有的用户历史行为编码到固定大小的memory matrix会给memory unit带来很多噪音。</p>
+<p>因此，阿里妈妈定向广告算法团队今年发出了一个文章《Search-based User Interest Modeling》（简称SIM）。它的做法比较好理解，根据不同的候选商品从用户超长序列中搜索与候选商品相关的序列，选择TopK，这样就得到了用户子序列，然后拿子序列与候选商品进行attention建模。文章中给了搜索方法：hard-search和soft-search。hardsearch就是对用户行为按照商品类目划分，候选商品的类目与用户行为做匹配；softsearch方法对行为item表示为一个向量，使用类似LSH方法选择topk。<br>最后实验发现，这两种搜索方法得到的子序列相似度很高，尽管soft-search model在离线实验中比hard-search model稍微好些，权衡收益和资源消耗，最终选择在我们系统中用hard-search model部署SIM。</p>
+<p>在到店搜索广告场景，SIM借鉴意义不大，首先我们一直与候选ad类目相同的用户子序列建模，对应到sim已经使用了hardsearch方式。在用户美食行为序列仍然会很长（超过1000），尤其是点评用户（两侧数据融合）。</p>
+<p>阿里在2020KDD发表了一篇文章讲述利用从用户点击序列中学习用户多兴趣，即使用多个兴趣向量表示一个用户，论文名称：《Controllable Multi-Interest Framework for Recommendation》。</p>
 <h2 id="1.5.DNN+多任务学习">DNN+多任务学习</h2>
 
 <h3 id="1.5.1.A-Multitask-Ranking-System">A Multitask Ranking System</h3>
@@ -548,19 +562,11 @@ MMOE">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/deep_learning/dl-chapter9-recall-algorithm-dev/" title="">
-  <strong>上一篇：</strong><br/>
-  <span>
-  (no title)</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/head_first_ml/ml-chapter1-regression-family/"  title="第01章：深入浅出ML之Regression家族">
+<a href="/deep_learning/dl-chapter9-recall-algorithm-dev/"  title="">
  <strong>下一篇：</strong><br/> 
- <span>第01章：深入浅出ML之Regression家族
+ <span>(no title)
 </span>
 </a>
 </div>
@@ -575,7 +581,7 @@ MMOE">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#机器学习预估系统-算法模型与算法工程"><span class="toc-number">1.</span> <span class="toc-text">机器学习预估系统-算法模型与算法工程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0.预估算法系统综述"><span class="toc-number">2.</span> <span class="toc-text">预估算法系统综述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#点击率预估"><span class="toc-number">2.1.</span> <span class="toc-text">点击率预估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#转化率预估"><span class="toc-number">2.2.</span> <span class="toc-text">转化率预估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交易额预估"><span class="toc-number">2.3.</span> <span class="toc-text">交易额预估</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法模型"><span class="toc-number">3.</span> <span class="toc-text">预估算法模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.Embedding+NN模型"><span class="toc-number">3.1.</span> <span class="toc-text">Embedding+NN模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.1.WideAndDeep"><span class="toc-number">3.1.1.</span> <span class="toc-text">Wide&Deep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.2.DeepFM"><span class="toc-number">3.1.2.</span> <span class="toc-text">DeepFM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.3.DIN"><span class="toc-number">3.1.3.</span> <span class="toc-text">DIN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.DNN+用户行为序列"><span class="toc-number">3.2.</span> <span class="toc-text">DNN+用户行为序列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.1.DIEN"><span class="toc-number">3.2.1.</span> <span class="toc-text">DIEN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.2.DSIN"><span class="toc-number">3.2.2.</span> <span class="toc-text">DSIN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.5.DNN+多任务学习"><span class="toc-number">3.3.</span> <span class="toc-text">DNN+多任务学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.1.A-Multitask-Ranking-System"><span class="toc-number">3.3.1.</span> <span class="toc-text">A Multitask Ranking System</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.2.ESMM"><span class="toc-number">3.3.2.</span> <span class="toc-text">ESMM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.2.MMOE"><span class="toc-number">3.3.3.</span> <span class="toc-text">MMOE</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法工程"><span class="toc-number">4.</span> <span class="toc-text">预估算法工程</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#机器学习预估系统-算法模型与算法工程"><span class="toc-number">1.</span> <span class="toc-text">机器学习预估系统-算法模型与算法工程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0.预估算法系统综述"><span class="toc-number">2.</span> <span class="toc-text">预估算法系统综述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#点击率预估"><span class="toc-number">2.1.</span> <span class="toc-text">点击率预估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#转化率预估"><span class="toc-number">2.2.</span> <span class="toc-text">转化率预估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交易额预估"><span class="toc-number">2.3.</span> <span class="toc-text">交易额预估</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法模型"><span class="toc-number">3.</span> <span class="toc-text">预估算法模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1.3.Embedding+NN模型"><span class="toc-number">3.1.</span> <span class="toc-text">Embedding+NN模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.1.WideAndDeep"><span class="toc-number">3.1.1.</span> <span class="toc-text">Wide&Deep</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.2.DeepFM"><span class="toc-number">3.1.2.</span> <span class="toc-text">DeepFM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3.3.DIN"><span class="toc-number">3.1.3.</span> <span class="toc-text">DIN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.4.DNN+行为序列建模"><span class="toc-number">3.2.</span> <span class="toc-text">DNN+行为序列建模</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.1.DIEN"><span class="toc-number">3.2.1.</span> <span class="toc-text">DIEN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.2.DSIN"><span class="toc-number">3.2.2.</span> <span class="toc-text">DSIN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4.3.超长序列建模"><span class="toc-number">3.2.3.</span> <span class="toc-text">超长序列建模</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1.5.DNN+多任务学习"><span class="toc-number">3.3.</span> <span class="toc-text">DNN+多任务学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.1.A-Multitask-Ranking-System"><span class="toc-number">3.3.1.</span> <span class="toc-text">A Multitask Ranking System</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.2.ESMM"><span class="toc-number">3.3.2.</span> <span class="toc-text">ESMM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5.2.MMOE"><span class="toc-number">3.3.3.</span> <span class="toc-text">MMOE</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1.预估算法工程"><span class="toc-number">4.</span> <span class="toc-text">预估算法工程</span></a></li></ol>
  
   </div>
 

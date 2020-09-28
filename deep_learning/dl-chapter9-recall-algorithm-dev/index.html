@@ -25,14 +25,12 @@
 
 查询理解
 理解用户查询意图，优化召回与排序结果的相关性
-1. Query分析：分词、词权重、纠错、成分分析；
+1. Query分析：分词、词权重、纠错、成分分析；2. Query理解：意图识别、类目识别、地址识别
+1. 离线指标：在测试集上的准召率、F12. 线上指标：CTR 3. 关注指标：覆盖率、密度、RPS等；
 
 
-
-
-Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在测试集上的准召率、F1
-线上指标：CTR 
-关注指标：覆盖率、密度、RPS等；|| 召回模型 | 在保证相关性的前提下，提升召回">
+召回模型
+在保证相关性的前提下，提升召回结果">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算广告与机器学习">
 <meta property="og:url" content="http://www.52caml.com/deep_learning/dl-chapter9-recall-algorithm-dev/index.html">
@@ -51,14 +49,12 @@ Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在
 
 查询理解
 理解用户查询意图，优化召回与排序结果的相关性
-1. Query分析：分词、词权重、纠错、成分分析；
+1. Query分析：分词、词权重、纠错、成分分析；2. Query理解：意图识别、类目识别、地址识别
+1. 离线指标：在测试集上的准召率、F12. 线上指标：CTR 3. 关注指标：覆盖率、密度、RPS等；
 
 
-
-
-Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在测试集上的准召率、F1
-线上指标：CTR 
-关注指标：覆盖率、密度、RPS等；|| 召回模型 | 在保证相关性的前提下，提升召回">
+召回模型
+在保证相关性的前提下，提升召回结果">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算广告与机器学习">
 <meta name="twitter:description" content="基于关键词的召回算法与系统重要技术方向
@@ -75,14 +71,12 @@ Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在
 
 查询理解
 理解用户查询意图，优化召回与排序结果的相关性
-1. Query分析：分词、词权重、纠错、成分分析；
+1. Query分析：分词、词权重、纠错、成分分析；2. Query理解：意图识别、类目识别、地址识别
+1. 离线指标：在测试集上的准召率、F12. 线上指标：CTR 3. 关注指标：覆盖率、密度、RPS等；
 
 
-
-
-Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在测试集上的准召率、F1
-线上指标：CTR 
-关注指标：覆盖率、密度、RPS等；|| 召回模型 | 在保证相关性的前提下，提升召回">
+召回模型
+在保证相关性的前提下，提升召回结果">
 
     
     <link rel="alternative" href="/atom.xml" title="计算广告与机器学习" type="application/atom+xml">
@@ -149,7 +143,7 @@ Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在
 		<a href="/about" title="ZhouYong" target="_blank" itemprop="author">ZhouYong</a>
 		
   <p class="article-time">
-    <time datetime="2020-08-28T14:43:24.000Z" itemprop="datePublished"> 发表于 2020-08-28</time>
+    <time datetime="2020-09-28T00:52:20.000Z" itemprop="datePublished"> 发表于 2020-09-28</time>
     
   </p>
 </header>
@@ -176,29 +170,28 @@ Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在
 <tr>
 <td>查询理解</td>
 <td>理解用户查询意图，优化召回与排序结果的相关性</td>
-<td>1. Query分析：分词、词权重、纠错、成分分析；</td>
+<td>1. Query分析：分词、词权重、纠错、成分分析；<br>2. Query理解：意图识别、类目识别、地址识别</td>
+<td>1. 离线指标：在测试集上的准召率、F1<br>2. 线上指标：CTR <br>3. 关注指标：覆盖率、密度、RPS等；</td>
+</tr>
+<tr>
+<td>召回模型</td>
+<td>在保证相关性的前提下，提升召回结果</td>
+<td>1. 查询改写：改写词召回；<br>2. 相关性校验：改写词排序；<br>3. 向量召回：双塔、Graph Embedding等；<br>4. 粗排：Q-P相关性</td>
+<td>1. 离线指标：AUC；<br>2. 线上指标：召回率、覆盖率、密度；<br>3. 关注指标：CTR、RPS、访购率；</td>
+</tr>
+<tr>
+<td>知识图谱</td>
+<td>1. 保证准确的前提下，扩充广告node数量；<br>2. 保证相关性的前提下，提升召回结果</td>
+<td>1. 实体词、标签词挖掘；<br>2. 同义、上下位关系挖掘</td>
+<td>1. 离线指标：在测试集上的准召率、F1；<br>2. 线上指标：召回率、覆盖率、密度；<br>3. 线上指标：CTR、RPS、访购率；</td>
+</tr>
+<tr>
+<td>创意优化</td>
+<td>1. 通过优化图像、文本的质量，提升CTR</td>
+<td>1. 图片召回：数据源、图片候选模型(pairwise、end2end)；<br>2. 图片排序：图片特征挖掘；<br>3. 按搜出图文：类目、标签体系与图文的关系挖掘；</td>
 </tr>
 </tbody>
 </table>
-<ol>
-<li>Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在测试集上的准召率、F1<ol>
-<li>线上指标：CTR </li>
-<li>关注指标：覆盖率、密度、RPS等；|<br>| 召回模型 | 在保证相关性的前提下，提升召回结果 | 1. 查询改写：改写词召回；</li>
-<li>相关性校验：改写词排序；</li>
-<li>向量召回：双塔、Graph Embedding等；</li>
-<li>粗排：Q-P相关性 | 1. 离线指标：AUC；</li>
-<li>线上指标：召回率、覆盖率、密度；</li>
-<li>关注指标：CTR、RPS、访购率；|<br>| 知识图谱 | 1. 保证准确的前提下，扩充广告node数量；</li>
-<li>保证相关性的前提下，提升召回结果 | 1. 实体词、标签词挖掘；</li>
-<li>同义、上下位关系挖掘 | 1. 离线指标：在测试集上的准召率、F1；</li>
-<li>线上指标：召回率、覆盖率、密度；</li>
-<li>线上指标：CTR、RPS、访购率；|<br>| 创意优化 | 1. 通过优化图像、文本的质量，提升CTR | 1. 图片召回：数据源、图片候选模型(pairwise、end2end)；</li>
-<li>图片排序：图片特征挖掘；</li>
-<li>按搜出图文：类目、标签体系与图文的关系挖掘；</li>
-<li>|</li>
-</ol>
-</li>
-</ol>
 <ul>
 <li><a href="#0.召回算法系统综述">召回算法系统综述</a><ul>
 <li><a href="#0.1.召回的数学模型">召回的数学模型</a></li>
@@ -641,7 +634,7 @@ Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在
 <li>表示层：pooling＋fc。 DSSM使用BOW方式（丢弃了字向量在句子中的位置信息，即语序信息和上下文信息）；</li>
 <li>匹配层：两个语义向量计算相似度（如cosine距离）；输出：softmax得到正样本的后验概率；损失函数：极大似然估计，即$\mathcal{L} = -\log \prod_{(Q,D^+)} P(D^+|Q)$</li>
 </ol>
-<p>_DSSM实现时重要的细节：损失函数仅考虑正例，softmax计算时会考虑反例（这也是反例的意义）。_</p>
+<p>_DSSM实现时比较重要细节时损失函数仅考虑正例，softmax计算时会考虑反例（这也是反例的意义）。_</p>
 <blockquote>
 <p>DSSM优点：</p>
 <ol>
@@ -654,6 +647,7 @@ Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在
 <li>DSSM采用弱监督、端到端的模型，预测结果不可控（？？？怎么理解）。</li>
 </ol>
 </blockquote>
+<p>_DSSM中负样本采样方式决定了模型的质量_。比如在电商场景我们没有采样效率很低的随机负采样，而是基于电商知识图谱，通过生成字面相似但不相关的 query 及相关文档的方法生成负样本。</p>
 <p><strong>CNN-DSSM模型</strong></p>
 <p>又称CLSM（Convolutional Latent Semantic Model），主要为了解决DSSM的缺点，区别主要体现在 输入层和表示层。</p>
 <blockquote>
@@ -675,14 +669,24 @@ Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在
 <tbody>
 <tr>
 <td>输入层</td>
-<td>1. 英文：letter-trigram</td>
+<td>1. 英文：letter-trigram<br>2. 中文：单字</td>
+<td>1. 英文：先word-trigram后letter-trigram<br>2. 中文：单字</td>
+<td>同CNN_DSSM</td>
+</tr>
+<tr>
+<td>表示层</td>
+<td>pooling + fc(tanh)</td>
+<td>卷积层＋Max pooling ＋ fc(tanh)</td>
+<td>LSTM-引入了peep hole$(f,i,o)$计算时添加细胞态$C_{t-1},C_t$信息</td>
+</tr>
+<tr>
+<td>匹配层</td>
+<td>cosine + sigmoid + 极大似然估计</td>
+<td>同DSSM</td>
+<td>同DSSM</td>
 </tr>
 </tbody>
 </table>
-<ol>
-<li>中文：单字 | 1. 英文：先word-trigram后letter-trigram</li>
-<li>中文：单字 | 同CNN_DSSM |<br>| 表示层 | pooling + fc(tanh) | 卷积层＋Max pooling ＋ fc(tanh) | LSTM-引入了peep hole(f,i,o)计算时添加细胞态$C_{t-1},C_t$信息 |<br>| 匹配层 | cosine + sigmoid + 极大似然估计 | 同DSSM | 同DSSM |</li>
-</ol>
 <blockquote>
 <p>DSSM模型应用场景：《基于层次化品类图谱的文本语义相关性模型（KG-DSSM）》</p>
 <p>分析Query抽取品类词 -&gt; 对抽取的候选node词找到品类图谱节点，正样本：基于品类树扩展所有上位词为正例，负样本根据同位词随机采样，得到<code>&lt;Query, Positive_Node, Negative_Node&gt;</code> 然后交给CLSM模型学习；</p>
@@ -749,7 +753,7 @@ Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/deep_learning/dl-chapter11-ad-ranking-dev/" title="">
+ <a href="/deep_learning/dl-chapter10-ctrcvr-dev/" title="">
   <strong>上一篇：</strong><br/>
   <span>
   (no title)</span>
@@ -758,7 +762,7 @@ Query理解：意图识别、类目识别、地址识别 | 1. 离线指标：在
 
 
 <div class="next">
-<a href="/deep_learning/dl-chapter10-ctrcvr-dev/"  title="">
+<a href="/deep_learning/dl-chapter11-ad-ranking-dev/"  title="">
  <strong>下一篇：</strong><br/> 
  <span>(no title)
 </span>
