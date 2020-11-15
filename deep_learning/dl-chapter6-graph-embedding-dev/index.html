@@ -236,31 +236,19 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 <tr>
 <td>同构图<br>（Homogeneous Network）</td>
 <td>节点和边均是一种类型</td>
-<td>$G=\{\mathcal{V}, \mathcal{E}\}$<br>$\</td>
-<td>\mathcal{O} \</td>
-<td>+ \</td>
-<td>\mathcal{R} \</td>
-<td>= 2$</td>
+<td>$G=\{\mathcal{V}, \mathcal{E}\}$<br>$ \Vert \mathcal{O} \Vert + \Vert \mathcal{R} \Vert = 2$</td>
 <td></td>
 </tr>
 <tr>
 <td>异构图<br>（Heterogeneous Network）</td>
 <td>节点或边的类型大于一种</td>
-<td>$G=\{\mathcal{V}, \mathcal{E}\}$<br>$\</td>
-<td>\mathcal{O} \</td>
-<td>+ \</td>
-<td>\mathcal{R} \</td>
-<td>&gt; 2$</td>
+<td>$G=\{\mathcal{V}, \mathcal{E}\}$<br>$\Vert \mathcal{O} \Vert + \Vert \mathcal{R} \Vert &gt; 2$</td>
 <td></td>
 </tr>
 <tr>
 <td>多路异构图<br>（Multiplex Heterogeneous Network）</td>
 <td>节点类型多于1类&amp;&amp;边的类型大于1类</td>
-<td>$G=\{\mathcal{V}, \mathcal{E}\}$<br>$\</td>
-<td>\mathcal{O} \</td>
-<td>\ge 2, \</td>
-<td>\mathcal{R} \</td>
-<td>\ge 2$</td>
+<td>$G=\{\mathcal{V}, \mathcal{E}\}$<br>$\Vert \mathcal{O} \Vert \ge 2, \Vert \mathcal{R} \Vert \ge 2$</td>
 <td></td>
 </tr>
 <tr>
@@ -271,11 +259,7 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 <tr>
 <td>节点带属性的多路异构图<br>（Attributed Multiplex Heterogeneous Network, AMHN）</td>
 <td>节点带属性&amp;&amp;节点类型多于1类&amp;&amp;边的类型大于1类</td>
-<td>$G=\{\mathcal{V}, \mathcal{E}, \mathcal{A}\}$<br>$\</td>
-<td>\mathcal{O} \</td>
-<td>\ge 2, \</td>
-<td>\mathcal{R} \</td>
-<td>\ge 2$<br>$A = \{x_i \vert v_i \in \mathcal{V} \}$</td>
+<td>$G=\{\mathcal{V}, \mathcal{E}, \mathcal{A}\}$<br>$\Vert \mathcal{O} \Vert \ge 2, \Vert \mathcal{R} \Vert \ge 2$<br>$A = \{x_i \vert v_i \in \mathcal{V} \}$</td>
 </tr>
 </tbody>
 </table>
@@ -298,12 +282,12 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 <p>本章我们主要讨论Graph Embedding。</p>
 <h2 id="6.0.4.Graph Embedding学习框架">Graph Embedding学习框架</h2>
 
-<p>Graph Embedding（图嵌入学习，简称GE） 是_为图中节点学习隐含关系的表示向量，在一个低维连续向量空间中对节点间的关联关系进行编码，并使向量在低维空间上的距离反映节点在图中“近似”程度_。 它遵循Encoder-Decoder学习框架。</p>
+<p>Graph Embedding（图嵌入学习，简称GE） 是<strong>为图中的节点学习隐含关系的表示向量，在一个低维连续向量空间中对节点间的关联关系进行编码，并使向量在低维空间上的距离能够反映节点在图中“近似”程度</strong>。 它遵循Encoder-Decoder学习框架。</p>
 <p><strong>Encoder-Decoder Framework</strong></p>
-<p>将图节点映射到低维嵌入向量空间，可以使用<strong>Encoder-Decoder Framework</strong>来建模。</p>
+<p>将图节点映射到低维嵌入向量空间的学习过程，可以使用<strong>Encoder-Decoder Framework</strong>来建模。</p>
 <ul>
-<li>Encoder阶段：把node编码到低维embedding向量，即$\text{ENC}: \mathcal{V} \rightarrow R^{d}$</li>
-<li>Decoder阶段：根据实际任务解码embedding到高维表示，即从向量化的信息中重建(reconstruction)图网络结构和节点属性，常用的是pairwise decoder. 即$\text{DEC}: R^d \times R^d \rightarrow R^{+}$</li>
+<li>Encoder阶段：把节点$v$编码到低维embedding向量，即$\text{ENC}: \mathcal{V} \rightarrow R^{d}$</li>
+<li>Decoder阶段：根据实际任务解码embedding到高维表示，即从向量化的信息中重建(reconstruction)图网络结构和节点属性，常用的是pairwise decoder。 即$\text{DEC}: R^d \times R^d \rightarrow R^{+}$</li>
 </ul>
 <p>pairwise decoder对于embeddings $(z_i, z_j)$可以计算相似度，如果和原节点$(v_i, v_j)$相似度一样，那么说明我们重建了原图（只不过是在embedding空间中实现了原图的表示），数学表示为：</p>
 <p>$$<br>\text{DEC} (\text{ENC}(v_i), \text{ENC}(v_i)) = \text{DEC}(z_i, z_j) \approx \mathcal{S}_{\mathcal{G}} (v_i, v_j)<br>$$</p>
@@ -311,7 +295,11 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 <p><strong>优化目标</strong></p>
 <p>最小化embeddings与原节点相似度差异，即</p>
 <p>$$<br>\mathcal{L} = \sum_{(v_i, v_j) \in \mathcal{D}} \mathcal{l} \left(\text{DEC}(z_i, z_j), \mathcal{S}_{\mathcal{G}}(v_i, v_j) \right)<br>$$</p>
-<p>Encoder-Decoder学习框架主要有以下4个组件构成，即：</p>
+<blockquote>
+<p>采样后的样本表示原图，DL模型的损失函数表示encoding前后的差异。</p>
+</blockquote>
+<p><strong>学习组件</strong></p>
+<p>Encoder-Decoder学习框架包含以下4个组件，即：</p>
 <ul>
 <li>pairwise similarity function: 节点间相似度度量函数$\mathcal{S}_{\mathcal{G}}$（即采样、样本生成的过程）；</li>
 <li>encoder function: 训练节点embedding，包含训练参数；</li>
@@ -332,7 +320,7 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 <p>shallow embedding方法有2个共同的特点：</p>
 <ol>
 <li>encoder非常简单，就是一层<code>embedding_lookup</code>；</li>
-<li>decoder都是基于pairwise的方法，区别于deep embedding的decoder实现；</li>
+<li>decoder都是基于pairwise的方法（区别于deep embedding的decoder实现）；</li>
 </ol>
 <p>shallow embedding算法之间的差异主要体现在decoder，similarity function以及相应的loss function。</p>
 <p>根据similarity function是确定性方法还是概率性方法，可以Shallow embedding进一步分为基于矩阵分解的算法（Factorization based）和基于随机游走的算法（Node2vec，metapath等）。</p>
@@ -383,31 +371,27 @@ SoftmaxOp和SoftmaxCrossEntropyWithLogitsOp
 <p>// TODO algorithm1算法为代码</p>
 <p>Encoder算法解读：求节点$v$第$k$层的表示$h_v^k$：</p>
 <ul>
-<li>先求节点$v$邻居的第k层表示$h_{\mathcal{N}(v)}^k$，即aggregate所有第k-1层邻居u的表示$h_{u}^{k-1}$；</li>
+<li>先求节点$v$邻居的第k层表示$h_{\mathcal{N}(v)}^k$，即aggregate所有第k-1层邻居$u$的表示$h_{u}^{k-1}$；</li>
 <li>再combine节点$v$邻居的第k层表示$h_{\mathcal{N}(v)}^k$和节点$v$第k-1层表示$h_v^{k-1}$。</li>
 </ul>
 <p>整体是一个K轮迭代，每轮迭代，节点从他们的局部邻居聚合信息，并且随着多轮迭代，节点会从越来越远的地方获得信息。</p>
-<p>因为aggregate函数和参数矩阵在生成所有节点的embedding中都是共享的，随意aggregation方法对节点的泛化性更好，可以解决shallow方法第3个缺点。</p>
+<p>因为aggregate函数和参数矩阵在生成所有节点的embedding中都是共享的，所以aggregation方法对节点的泛化性更好，可以解决shallow方法第3个缺点。</p>
 <p>不同方法的区别主要在于algorithm1中的aggregate和combine方法的改进。</p>
 <p><strong>GraphSage</strong></p>
 <p>// TODO </p>
 <h2 id="6.1.3.metapath2vec">metapath2vec</h2>
 
-<p>对异构图来说，常见的处理策略是：</p>
-<ul>
-<li>对不同类型的边使用不同的encoder；</li>
-<li>decoder对不同类型的边 学习各自的参数；</li>
-</ul>
-<p>$$<br>\text{DEC}_{\eta})(z_i, z_j) = z_i^T A_{\eta} z_j<br>$$</p>
+<p>对异构图来说，常见的处理策略是：<strong>对不同类型的边使用不同的encoder；decoder对不同类型的边 学习各自的参数；</strong></p>
+<p>$$<br>\text{DEC}_{\eta}(z_i, z_j) = z_i^T A_{\eta} z_j<br>$$</p>
 <p>其中，$\eta$表示不同的边类型，$A_{\eta}$表示根据不同的边类型学习不同的参数。</p>
 <p>另一种处理策略是metapath， 可以简单复用很多同构图的算法。</p>
 <blockquote>
 <p>metapath是数据挖掘韩家炜团队提出的一种<strong>异构图挖掘方法</strong>，metapath根据节点类型定义了一条采样路径，节点类型A到节点类型B的跳转概率由连接B的数量的倒数决定。见论文《》</p>
 </blockquote>
-<p>metapath2vec是Deepwalk的扩展，适用于异构网络。为了构建随机漫游，metapath2vec使用<strong>基于元数据的漫游</strong>来捕获不同类型节点之间的关系。对于来自随机游走序列的学习表示，他们提出异构skip－gram，其在模型优化期间考虑节点类型信息。</p>
+<p>metapath2vec是Deepwalk的扩展，适用于异构网络。为了构建随机漫游，metapath2vec使用<strong>基于元数据的漫游</strong>来捕获不同类型节点之间的关系。对于来自随机游走序列的学习表示，他们提出<strong>异构skip-gram</strong>，其在模型优化期间考虑节点类型信息。</p>
 <blockquote>
 <p>问题：metapath对比randomwalk的优势是什么？</p>
-<p>答：随机游走从局部上一定程度保持了节点与它邻居之间的连接性，即网络结构信息；然而对于异构信息网络来说，由于节点与连接的异质性的存在，所以异构network embedding最大的那么在于<strong>如何有效地在多种类型节点之间保存“节点上下文”的概念</strong>。</p>
+<p>答：随机游走从局部上一定程度保持了节点与它邻居之间的连接性，即网络结构信息；然而对于异构信息网络来说，由于节点与连接的异质性的存在，所以异构network embedding最大的难点在于<strong>如何有效地在多种类型节点之间保存“节点上下文”的概念</strong>。</p>
 <p>metapath<strong>基于预先指定的元路径进行随机游走</strong>，构造路径，从而能够保持“节点上下文”的概念。</p>
 <p>问题：metapath2vec和metapath2vec++的区别？</p>
 <p>在得到随机游走路径后，就可以进行skip-gram建模。metapath2vec与metapath2vec++唯一的不同是skip-gram不同。在metapath2vec中，softmax值是在所有节点无论什么类型上进行归一化；而metapath2vec++，softmax值是在相同类型节点上进行归一化。</p>
