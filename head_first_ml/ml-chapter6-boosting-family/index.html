@@ -573,11 +573,11 @@ Gr">
 <p>$$<br>\begin{align}<br>f_{k-1} (x) &amp;= f_{k-2}(x) + \alpha_{k-1} G_{k-1}(x) \\\<br>&amp;= \alpha_1 G_1(x) + \cdots + \alpha_{m-1} G_{m-1}(x)<br>\end{align}  \qquad(n.ml.1.6.12)<br>$$</p>
 <p>在第\(k\)轮迭代得到\(\alpha_k, G_k(x)\)和\(f_k(x)\)。</p>
 <p>$$<br>f_{k} (x) = f_{k-1}(x) + \alpha_{k} G_{k}(x) \qquad(n.ml.1.6.13)<br>$$</p>
-<p>目标是使前向分步算法得到的\(\alpha_k\)和\(G_k(x)\)使\(f_k(x)\)在训练数据集\(D\)上的指数损失最小，即</p>
+<p><strong>学习的目标是使前向分步算法得到的\(\alpha_k\)和\(G_k(x)\)使\(f_k(x)\)在训练数据集\(D\)上的指数损失最小</strong>，即</p>
 <p>$$<br>(\alpha_k, G_k(x)) = \arg \min_{\alpha, G} \underbrace{ \sum_{i=1}^{M} \exp [-y^{(i)} (f_{k-1}(x) + \alpha G(x^{(i)}))] }_{指数损失表达式} \quad(n.ml.1.6.14)<br>$$</p>
 <p>进一步可表示为：</p>
 <p>$$<br>(\alpha_k, G_k(x)) = \arg \min_{\alpha, G} \sum_{i=1}^{M} \overline{w}_{k,i}  \cdot \exp [-y^{(i)} \alpha G(x^{(i)})] \quad(n.ml.1.6.15)<br>$$</p>
-<p>其中，\(\overline{w}_{k,i} = \exp [-y^{(i)} f_{k-1} (x^{(i)})]\)表示第\(i\)样本在之前模型上的指数损失。因为\(\overline{w}_{k,i}\)既不依赖\(\alpha\)也不依赖\(G\)，所以与最小化无关。但\(\overline{w}_{k,i}\)依赖于\(f_{k-1}(x)\)，随着每一轮迭代而发生变化。</p>
+<p>其中，<strong>\(\overline{w}_{k,i} = \exp [-y^{(i)} f_{k-1} (x^{(i)})]\)表示第\(i\)样本在之前模型上的指数损失</strong>。因为\(\overline{w}_{k,i}\)既不依赖\(\alpha\)也不依赖\(G\)，所以与最小化无关。但\(\overline{w}_{k,i}\)依赖于\(f_{k-1}(x)\)，随着每一轮迭代而发生变化。</p>
 <p>现在使公式\((n.ml.1.6.15)\)达到最小的\(\alpha_k^{\ast}\)和\(G_k^{\ast}\)就是AdaBoost算法所得到的\(\alpha_k\)和\(G_k(x)\)。求解公式\((n.ml.1.6.15)\)可分为两步：</p>
 <p>第一步：求\(G_k^{\ast}\). 对于任意\(\alpha &gt; 0\)，使公式\((n.ml.1.6.15)\)最小的\(G(x)\)由下式得到：</p>
 <p>$$<br>G_k^{\ast}(x) = \arg \min_{G} \sum_{i=1}^{M} \overline{w}_{k,i} \cdot I(y^{(i)} \not= G(x^{(i)})) \qquad(n.ml.1.6.16)<br>$$</p>
