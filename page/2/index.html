@@ -2120,7 +2120,8 @@
 <p>  这样，前向分步算法将<strong>同时求解</strong>从\(k=1\)到\(K\)的所有参数\(\beta_k, \gamma_k\)的优化问题简化为<strong>逐次求解</strong>各个\(\beta_k, \gamma_k\)的优化问题。</p>
 </li>
 </ul>
-<p><strong>问题：为什么需要前向分布算法？</strong><br>_主要为了简化优化问题的复杂度，因为基于多个弱分类器的强分类器全局最优解不容易求，退而求其次，每次仅学习一个弱分类器和对应模型权重，来逼近模型最优解。_</p>
+<p><strong>问题：为什么需要前向分布算法？</strong></p>
+<p>_主要为了简化优化问题的复杂度，因为基于多个弱分类器的强分类器全局最优解不容易求，退而求其次，每次仅学习一个弱分类器和对应模型权重，来逼近模型最优解。_</p>
 <h2 id="1.3.Boosting四大家族">Boosting四大家族</h2>
 
 <p>Boosting并非是一个方法，而是一类方法。这里按照损失函数的不同，将其细分为若干类算法，下表给出了4种不同损失函数对应的Boosting方法：</p>
@@ -2181,11 +2182,16 @@
 <p>下面首先介绍Adaboost算法。</p>
 <h1 id="2.Adaboost">Adaboost</h1>
 
+<p>问题引导：</p>
+<ol>
+<li>为什么adaboost算法的损失函数是指数损失？问题有误导，如果不是指数损失，那么就不是adaboost算法了～ adaboost算法采用前向分步算法学习得到一个加法模型，学习目标是通过调整样本权重分布使得下一个分类器误差率越小越好；而误分类的样本权重相当于放大了\(e^{2*分类器权重}\)倍，并且证明得到训练误差率呈指数速率下降.</li>
+<li>adaboost模型特点？样本权重分布重新计算，模型线性累加得到，训练误差率呈指数下降，输出值不能表示概率；</li>
+</ol>
 <h2 id="2.1.算法学习过程">算法学习过程</h2>
 
 
 <p>Adaboost算法在分类问题中的主要特点：<strong>通过改变训练样本的权重，学习多个分类器，并将这些分类器进行线性组合，提高分类性能。</strong> AdaBoost－算法描述（伪代码）如下：</p>
-<p>\(<br>    \begin{align}<br>    &amp;\{ \\<br>    &amp;\quad 输入：训练数据集D=\{(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \cdots, (x^{(M)},y^{(M)})\}，x^{(i)} \in \mathcal{X} \subseteq R^N，\\<br>    &amp;\qquad\qquad y^{(i)} \in \mathcal{Y} = \{-1, +1\}, 弱分类器; \\<br>    &amp;\quad 输出：最终分类器G(x). \\<br>    &amp;\quad 过程：\\<br>    &amp;\qquad (1). 初始化训练数据的权值分布 \\<br>    &amp;\qquad\qquad\qquad D_1=(w_{11}, w_{12}, \cdots, w_{1M}), \quad w_{1i}=\frac{1}{M}, \; i=1,2,\cdots,M \\<br>    &amp;\qquad (2). 训练K个弱分类器 k=1,2,\cdots,K \\<br>    &amp;\qquad\qquad (a). 使用具有权值分布D_k的训练数据集学习，得到基本分类器 \\<br>    &amp;\qquad\qquad\qquad\qquad G_k(x): \mathcal{X} \rightarrow \{-1, +1\} \qquad\qquad(ml.1.6.3)\\<br>    &amp;\qquad\qquad (b). 计算G_k(x)在训练数据集上的分类误差率 \\<br>    &amp;\qquad\qquad\qquad\qquad e_k = P(G_k(x^{(i)}) \not= y^{(i)}) = \sum_{i=1}^{M} w_{ki} I(G_k(x^{(i)}) \not= y^{(i)}) \qquad(ml.1.6.4)\\<br>    &amp;\qquad\qquad (c). 计算G_k(x)的系数 \\<br>    &amp;\qquad\qquad\qquad\qquad \alpha_k = \frac{1}{2} \log \frac{1-e_k}{e_k} \quad(e是自然对数) \qquad(ml.1.6.5)\\<br>    &amp;\qquad\qquad (d). 更新训练数据集的权值分布 \\<br>    &amp;\qquad\qquad\qquad\qquad D_{k+1} = (w_{k+1,1}, w_{k+1,2}, \cdots, w_{k+1,M})\\<br>    &amp;\qquad\qquad\qquad\qquad w_{k+1,i} = \frac{w_{k,i}}{Z_k} \exp(-\alpha_k y^{(i)} G_k(x^{(i)})), \quad i=1,2,\cdots,M \quad(ml.1.6.6)\\<br>    &amp;\qquad\qquad\qquad Z_k是规范化因子 \\<br>    &amp;\qquad\qquad\qquad\qquad Z_k = \sum_{i=1}^{M} w_{k,i} \cdot \exp(-\alpha_k y^{(i)} G_k(x^{(i)})) \qquad(ml.1.6.7)\\<br>    &amp;\qquad\qquad\qquad 使D_{k+1}成为一个概率分布。\\<br>    &amp;\qquad (3). 构建基本分类器的线性组合 \\<br>    &amp;\qquad\qquad\qquad f(x) = \sum_{k=1}^{K} \alpha_k G_k(x) \qquad(ml.1.6.8)\\<br>    &amp;\qquad 得到最终的分类器 \\<br>    &amp;\qquad\qquad G(x) = sign (f(x)) = sign \left(\sum_{k=1}^{K} \alpha_k G_k(x) \right) \qquad(ml.1.6.9)\\<br>    &amp;\}<br>    \end{align}<br>    \)</p>
+<p>\(<br>    \begin{align}<br>    &amp;\{ \\\<br>    &amp;\quad 输入：训练数据集D=\{(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \cdots, (x^{(M)},y^{(M)})\}，x^{(i)} \in \mathcal{X} \subseteq R^N，\\\<br>    &amp;\qquad\qquad y^{(i)} \in \mathcal{Y} = \{-1, +1\}, 弱分类器; \\\<br>    &amp;\quad 输出：最终分类器G(x). \\\<br>    &amp;\quad 过程：\\\<br>    &amp;\qquad (1). 初始化训练数据的权值分布 \\\<br>    &amp;\qquad\qquad\qquad D_1=(w_{11}, w_{12}, \cdots, w_{1M}), \quad w_{1i}=\frac{1}{M}, \; i=1,2,\cdots,M \\\<br>    &amp;\qquad (2). 训练K个弱分类器 k=1,2,\cdots,K \\\<br>    &amp;\qquad\qquad (a). 使用具有权值分布D_k的训练数据集学习，得到基本分类器 \\\<br>    &amp;\qquad\qquad\qquad\qquad G_k(x): \mathcal{X} \rightarrow \{-1, +1\} \qquad\qquad(ml.1.6.3) \\\<br>    &amp;\qquad\qquad (b). 计算G_k(x)在训练数据集上的分类误差率 \\\<br>    &amp;\qquad\qquad\qquad\qquad e_k = P(G_k(x^{(i)}) \not= y^{(i)}) = \sum_{i=1}^{M} w_{ki} I(G_k(x^{(i)}) \not= y^{(i)}) \qquad(ml.1.6.4) \\\<br>    &amp;\qquad\qquad (c). 计算G_k(x)的系数 \\\<br>    &amp;\qquad\qquad\qquad\qquad \alpha_k = \frac{1}{2} \log \frac{1-e_k}{e_k} \quad(e是自然对数) \qquad(ml.1.6.5) \\\<br>    &amp;\qquad\qquad (d). 更新训练数据集的权值分布 \\\<br>    &amp;\qquad\qquad\qquad\qquad D_{k+1} = (w_{k+1,1}, w_{k+1,2}, \cdots, w_{k+1,M})\\\<br>    &amp;\qquad\qquad\qquad\qquad w_{k+1,i} = \frac{w_{k,i}}{Z_k} \exp(-\alpha_k y^{(i)} G_k(x^{(i)})), \quad i=1,2,\cdots,M \quad(ml.1.6.6) \\\<br>    &amp;\qquad\qquad\qquad Z_k是规范化因子 \\\<br>    &amp;\qquad\qquad\qquad\qquad Z_k = \sum_{i=1}^{M} w_{k,i} \cdot \exp(-\alpha_k y^{(i)} G_k(x^{(i)})) \qquad(ml.1.6.7) \\\<br>    &amp;\qquad\qquad\qquad 使D_{k+1}成为一个概率分布。\\\<br>    &amp;\qquad (3). 构建基本分类器的线性组合 \\\<br>    &amp;\qquad\qquad\qquad f(x) = \sum_{k=1}^{K} \alpha_k G_k(x) \qquad(ml.1.6.8)\\\<br>    &amp;\qquad 得到最终的分类器 \\\<br>    &amp;\qquad\qquad G(x) = sign (f(x)) = sign \left(\sum_{k=1}^{K} \alpha_k G_k(x) \right) \qquad(ml.1.6.9) \\\<br>    &amp;\}<br>    \end{align}<br>    \)</p>
 <ul>
 <li><p><strong>AdaBoost算法描述说明</strong></p>
 <ul>
@@ -2196,8 +2202,8 @@
 </li>
 <li><p>步骤（2）AdaBoost反复学习基本分类器，在每一轮\(k=1,2,\cdots,K\)顺序地执行下列操作：</p>
 <ul>
-<li>（a）学习基本分类器：使用当前分布\(D_k\)加权的训练数据集，学习基本分类器\(G_k(x)\)；</li>
-<li><p>（b）误差率：计算基本分类器\(G_k(x)\)在加权训练数据集上的分类误差率</p>
+<li>(a) 学习基本分类器：使用当前分布\(D_k\)加权的训练数据集，学习基本分类器\(G_k(x)\)；</li>
+<li><p>(b) 误差率：计算基本分类器\(G_k(x)\)在加权训练数据集上的分类误差率</p>
 <blockquote>
 <p>$$<br>  e_k = P(G_k(x^{(i)}) \not= y^{(i)}) = \sum_{G_k(x^{(i)}) \not= y^{(i)}} w_{ki} \qquad(n.ml.1.6.5)<br>  $$</p>
 </blockquote>
@@ -2206,15 +2212,15 @@
 <p>这表明，\(G_k(x)\)在加权的训练数据集上的分类误差率 是 被\(G_k(x)\)误分类样本的权值之和。由此可以看出数据权值分布\(D_k\)与基本分类器\(G_k(x)\)的分类误差率的关系。</p>
 </blockquote>
 </li>
-<li><p>（c）分类器权重：计算基本分类器\(G_k(x)\)的系数\(\alpha_k\)，\(\alpha_k\)表示\(G_k(x)\)在最终分类器中的重要性</p>
+<li><p>(c) 分类器权重：计算基本分类器\(G_k(x)\)的系数\(\alpha_k\)，\(\alpha_k\)表示\(G_k(x)\)在最终分类器中的重要性</p>
 <blockquote>
 <p>根据(ml.1.6.3)中公式可知，当\(e_k \le 0.5\)时，\(\alpha_k \ge 0\)，并且\(\alpha_k\)随着\(e_k\)的减小而增大，所以分类误差率越小的基本分类器在最终分类器中的作用越大。</p>
 </blockquote>
 </li>
-<li><p>（d）更新训练数据的权值分布，为下一轮做准备，公式\((ml.1.6.6)\)可以写成：</p>
+<li><p>(d) 更新训练数据的权值分布，为下一轮做准备，公式\((ml.1.6.6)\)可以写成：</p>
 <blockquote>
-<p>$$<br>  w_{k+1, i} =<br>  \begin{cases}<br>  \frac{w_{ki}} {Z_k} e^{-\alpha_k}, &amp;\quad G_k(x^{(i)}) = y^{(i)} \\<br>  \frac{w_{ki}} {Z_k} e^{\alpha_k}, &amp;\quad G_k(x^{(i)}) \not= y^{(i)}<br>  \end{cases} \qquad(n.ml.1.6.6)<br>  $$</p>
-<p>由此可知，被基本分类器\(G_k(x)\)误分类样本的权值得以扩大，而被正确分类样本的权值却得以缩小。相比较来说，误分类样本的权值被放大\(e^{2\alpha_k} = \frac{e_k}{1-e_k}\)倍。因此，误分类样本在下一轮学习中起更大的作用。</p>
+<p>$$<br>  w_{k+1, i} =<br>  \begin{cases}<br>  \frac{w_{ki}} {Z_k} e^{-\alpha_k}, &amp;\quad G_k(x^{(i)}) = y^{(i)} \\\<br>  \frac{w_{ki}} {Z_k} e^{\alpha_k}, &amp;\quad G_k(x^{(i)}) \not= y^{(i)}<br>  \end{cases} \qquad(n.ml.1.6.6)<br>  $$</p>
+<p>由此可知，被基本分类器\(G_k(x)\)误分类样本的权值得以扩大，而被正确分类样本的权值却得以缩小。相比较来说，<strong>误分类样本的权值被放大\(\mathbf{e^{2\alpha_k}} = \frac{e_k}{1-e_k}\)倍</strong>。因此，误分类样本在下一轮学习中起更大的作用。</p>
 </blockquote>
 <p><strong>不改变所给的训练数据，而不断改变训练数据权值的分布，使得训练数据在基本分类器中起不同的作用，这也是AdaBoost的一个特点。</strong></p>
 </li>
@@ -2229,6 +2235,8 @@
 </ul>
 </li>
 </ul>
+<p><strong>问题：Adaboost算法的特点有哪些？</strong></p>
+<p>_样本权重分布，弱分类器线性组合。_</p>
 <h2 id="2.2.示例：AdaBoost算法">示例：AdaBoost算法</h2>
 
 <p>此示例参考李航老师的《统计学习方法》.</p>
@@ -2284,23 +2292,23 @@
 <p>$$<br>D_1 = (w_{1,1}, w_{1,2}, \cdots, w_{1,10}), \quad w_{1,i}=0.1, \;  i=1,2,\cdots,10<br>$$</p>
 <p>对\(k=1\)，</p>
 <p>(a). 在权值分布为\(D_1\)的训练数据上，阈值\(v\)取2.5时，分类误差率最低，故基本分类器为：</p>
-<p>$$<br>G_1(x) =<br>\begin{cases}<br>1,&amp; \quad x &lt; 2.5 \\<br>-1, &amp; \quad x &gt; 2.5<br>\end{cases}<br>$$</p>
+<p>$$<br>G_1(x) =<br>\begin{cases}<br>1,&amp; \quad x &lt; 2.5 \\\<br>-1, &amp; \quad x &gt; 2.5<br>\end{cases}<br>$$</p>
 <p>(b). \(G_1(x)\)在训练数据集上的误差率\(e_1=P(G_1(x^{(i)}) \not= y^{(i)})=0.3\);</p>
 <p>(c). 计算\(G_1(x)\)的系数：\(\alpha_1 = \frac{1}{2} \log \frac{1-e_1}{e_1} = 0.4236\)；</p>
 <p>(d). 更新训练数据的权值分布:</p>
-<p>$$<br>    \begin{align}<br>    &amp; D_2 = (w_{2,1}, w_{2,2}, \cdots, w_{2,10}) \\<br>    &amp; w_{2,i} = \frac{w_{1,i}} {Z_1} \exp(-\alpha_1 y^{(i)} G_1(x^{(i)})), \quad i=1,2,\cdots,10 \\<br>    &amp; D_2 = (0.0715, 0.0715, 0.0715, 0.0715, 0.0715, 0.0715, \\<br>    &amp;\qquad\;\; 0.1666, 0.1666, 0.1666, 0.0715) \\<br>    &amp; f_1(x) = 0.4236 G_1(x)<br>    \end{align}<br>$$</p>
+<p>$$<br>    \begin{align}<br>    &amp; D_2 = (w_{2,1}, w_{2,2}, \cdots, w_{2,10}) \\\<br>    &amp; w_{2,i} = \frac{w_{1,i}} {Z_1} \exp(-\alpha_1 y^{(i)} G_1(x^{(i)})), \quad i=1,2,\cdots,10 \\\<br>    &amp; D_2 = (0.0715, 0.0715, 0.0715, 0.0715, 0.0715, 0.0715, \\\<br>    &amp;\qquad\;\; 0.1666, 0.1666, 0.1666, 0.0715) \\\<br>    &amp; f_1(x) = 0.4236 G_1(x)<br>    \end{align}<br>$$</p>
 <p>分类器\(sign[f_1(x)]\)在训练数据上有3个误分类点。</p>
 <p>对\(k=2\)，</p>
 <p>(a). 在权值分布为\(D_2\)的训练数据上，阈值\(v\)取8.5时，分类误差率最低，基本分类器为：</p>
-<p>$$<br>    G_2(x) =<br>    \begin{cases}<br>    1,&amp; \quad x &lt; 8.5 \\<br>    -1, &amp; \quad x &gt; 8.5<br>    \end{cases}<br>    $$</p>
+<p>$$<br>    G_2(x) =<br>    \begin{cases}<br>    1,&amp; \quad x &lt; 8.5 \\\<br>    -1, &amp; \quad x &gt; 8.5<br>    \end{cases}<br>    $$</p>
 <p>(b). \(G_2(x)\)在训练数据集上的误差率\(e_2=0.2143\);</p>
 <p>(c). 计算\(G_2(x)\)的系数：\(\alpha_2 = 0.6496\)；</p>
 <p>(d). 更新训练数据的权值分布:</p>
-<p>$$<br>    \begin{align}<br>    &amp; D_3=(0.0455, 0.0455, 0.0455, 0.1667, 0.1667, 0.1667, \\<br>    &amp;\qquad\;\; 0.1060, 0.1060, 0.1060, 0.0455) \\<br>    &amp; f_2(x) = 0.4236 \cdot G_1(x) + 0.6496 \cdot G_2(x)<br>    \end{align}<br>$$</p>
+<p>$$<br>    \begin{align}<br>    &amp; D_3=(0.0455, 0.0455, 0.0455, 0.1667, 0.1667, 0.1667, \\\<br>    &amp;\qquad\;\; 0.1060, 0.1060, 0.1060, 0.0455) \\\<br>    &amp; f_2(x) = 0.4236 \cdot G_1(x) + 0.6496 \cdot G_2(x)<br>    \end{align}<br>$$</p>
 <p>分类器\(sign[f_2(x)]\)在训练数据上有3个误分类点。</p>
 <p>对\(k=3\)，</p>
 <p>(a). 在权值分布为\(D_3\)的训练数据上，阈值\(v\)取5.5时，分类误差率最低，基本分类器为：</p>
-<p>$$<br>G_3(x) =<br>\begin{cases}<br>1,&amp; \quad x &lt; 5.5 \\<br>-1, &amp; \quad x &gt; 5.5<br>\end{cases}<br>$$</p>
+<p>$$<br>G_3(x) =<br>\begin{cases}<br>1,&amp; \quad x &lt; 5.5 \\\<br>-1, &amp; \quad x &gt; 5.5<br>\end{cases}<br>$$</p>
 <p>(b). \(G_3(x)\)在训练数据集上的误差率\(e_3=0.1820\);</p>
 <p>(c). 计算\(G_3(x)\)的系数：\(\alpha_2 = 0.7514\)；</p>
 <p>(d). 更新训练数据的权值分布:</p>
@@ -2339,7 +2347,7 @@
 <p>后半部分的推导要用到\(Z_k\)的定义式\((ml.1.6.7)\)和\((ml.1.6.6)\)的变形:</p>
 <p>$$<br>w_{k,i} \exp(-\alpha_k y^{(i)} G_k(x^{(i)})) = Z_k w_{k+1,i} \qquad(n.ml.1.6.7)<br>$$</p>
 <p>推导如下：</p>
-<p>$$<br>    \begin{align}<br>    \frac{1}{M} \sum_{i=1}^{M} \exp(-y^{(i)} f(x^{(i)})) &amp;= \underline{ \frac{1}{M} \sum_{i=1}^{M} } \exp \left(-\sum_{k=1}^{K} \alpha_k y^{(i)} G_k(x^{(i)}) \right) \\<br>    &amp;= \underline{ \sum_{i=1}^{M} w_{1,i} } \prod_{k=1}^{K} \exp(-\alpha_k y^{(i)} G_k(x^{(i)})) \\<br>    &amp;= \sum_{i=1}^{M} w_{1,i} \underline{ \exp(-\alpha_1 y^{(i)}) G_k(x^{(i)}) \prod_{k=2}^{K} \exp(-\alpha_k y^{(i)} G_k(x^{(i)})) } \\<br>    &amp;= Z_1 \sum_{i=1}^{M} w_{2,i} \prod_{k=2}^{K} \exp(-\alpha_k y^{(i)} G_k(x^{(i)})) \\<br>    &amp;= Z_1 Z_2 \sum_{i=1}^{M} w_{3,i} \prod_{k=3}^{K} \exp(-\alpha_k y^{(i)} G_k(x^{(i)})) \\<br>    &amp;= \cdots \cdots \\<br>    &amp;= Z_1 Z_2 \cdots Z_{K-1} \sum_{i=1}^{M} w_{K,i} \exp(-\alpha_K y^{(i)} G_K(x^{(i)})) \\<br>    &amp;= \prod_{k=1}^{K} Z_k<br>    \end{align} \quad(n.ml.1.6.8)<br>$$</p>
+<p>$$<br>    \begin{align}<br>    \frac{1}{M} \sum_{i=1}^{M} \exp(-y^{(i)} f(x^{(i)})) &amp;= \underline{ \frac{1}{M} \sum_{i=1}^{M} } \exp \left(-\sum_{k=1}^{K} \alpha_k y^{(i)} G_k(x^{(i)}) \right) \\\<br>    &amp;= \underline{ \sum_{i=1}^{M} w_{1,i} } \prod_{k=1}^{K} \exp(-\alpha_k y^{(i)} G_k(x^{(i)})) \\\<br>    &amp;= \sum_{i=1}^{M} w_{1,i} \underline{ \exp(-\alpha_1 y^{(i)}) G_k(x^{(i)}) \prod_{k=2}^{K} \exp(-\alpha_k y^{(i)} G_k(x^{(i)})) } \\\<br>    &amp;= Z_1 \sum_{i=1}^{M} w_{2,i} \prod_{k=2}^{K} \exp(-\alpha_k y^{(i)} G_k(x^{(i)})) \\\<br>    &amp;= Z_1 Z_2 \sum_{i=1}^{M} w_{3,i} \prod_{k=3}^{K} \exp(-\alpha_k y^{(i)} G_k(x^{(i)})) \\\<br>    &amp;= \cdots \cdots \\\<br>    &amp;= Z_1 Z_2 \cdots Z_{K-1} \sum_{i=1}^{M} w_{K,i} \exp(-\alpha_K y^{(i)} G_K(x^{(i)})) \\\<br>    &amp;= \prod_{k=1}^{K} Z_k<br>    \end{align} \quad(n.ml.1.6.8)<br>$$</p>
 <p>注意：\(w_{1,i} = \frac{1}{M}\)</p>
 </blockquote>
 <p>这一定理说明：<strong>可以在每一轮选取适当的\(G_k\)使得\(Z_k\)最小，从而使训练误差下降最快。</strong> 对于二类分类问题，有如下定理。</p>
@@ -2402,15 +2410,15 @@
 </tr>
 </tbody>
 </table>
-<p> 此时，模型是由基本分类器组成的加法模型，损失函数是指数函数。</p>
+<p>此时，模型是由基本分类器组成的加法模型，损失函数是指数函数。</p>
 <blockquote>
 <p>证明：<strong>前向分步算法学习的是加法模型，当基函数为基本分类器时，该加法模型等价于AdaBoost的最终分类器：</strong></p>
 <p>$$<br>f(x) = \sum_{k=1}^{K} \alpha_k G_k(x) \qquad (n.ml.1.6.11)<br>$$</p>
 <p>由基本分类器\(G_k(x)\)及其系数\(\alpha_k\)组成，\(k=1,2,\cdots,K\)。前向分步算法逐一学习基函数，这一过程与AdaBoost算法逐一学习基本分类器的过程一致。</p>
 <p>下面证明：</p>
-<p><strong>前向分步算法的损失函数是指数损失函数（Exponential）\(L(y, f(x)) = \exp [-y f(x)]\) 时，其学习的具体操作等价于AdaBoost算法学习的具体操作。</strong> </p>
+<p><strong>前向分步算法的损失函数是指数损失函数(\(L(y, f(x)) = \exp [-y f(x)]\)) 时，其学习的具体操作等价于AdaBoost算法学习的具体操作。</strong> </p>
 <p>假设经过\(k-1\)轮迭代，前向分步算法已经得到\(f_{k-1}(x)\):</p>
-<p>$$<br>\begin{align}<br>f_{k-1} (x) &amp;= f_{k-2}(x) + \alpha_{k-1} G_{k-1}(x) \\<br>&amp;= \alpha_1 G_1(x) + \cdots + \alpha_{m-1} G_{m-1}(x)<br>\end{align}  \qquad(n.ml.1.6.12)<br>$$</p>
+<p>$$<br>\begin{align}<br>f_{k-1} (x) &amp;= f_{k-2}(x) + \alpha_{k-1} G_{k-1}(x) \\\<br>&amp;= \alpha_1 G_1(x) + \cdots + \alpha_{m-1} G_{m-1}(x)<br>\end{align}  \qquad(n.ml.1.6.12)<br>$$</p>
 <p>在第\(k\)轮迭代得到\(\alpha_k, G_k(x)\)和\(f_k(x)\)。</p>
 <p>$$<br>f_{k} (x) = f_{k-1}(x) + \alpha_{k} G_{k}(x) \qquad(n.ml.1.6.13)<br>$$</p>
 <p>目标是使前向分步算法得到的\(\alpha_k\)和\(G_k(x)\)使\(f_k(x)\)在训练数据集\(D\)上的指数损失最小，即</p>
@@ -2436,10 +2444,10 @@
 <ul>
 <li><p>AdaBoost算法缺点</p>
 <ul>
-<li><p>对异常点敏感</p>
-<p>  指数损失存在的一个问题是不断增加误分类样本的权重（指数上升）。如果数据样本是异常点（outlier），会极大的干扰后面基本分类器学习效果；</p>
+<li><p><strong>对异常点敏感</strong></p>
+<p>  指数损失存在的一个问题是不断增加误分类样本的权重（指数上升，样本权重放大\( e^{(2*弱分类器权重)} \) ）。如果数据样本是异常点（outlier），会极大的干扰后面基本分类器学习效果；</p>
 </li>
-<li><p>模型无法用于概率估计</p>
+<li><p><strong>模型无法用于概率估计</strong></p>
 <blockquote>
 <p>MLAPP中的原话：”\(e^{-\tilde{y}f}\) is not the logarithm of any pmf for binary variables \(\tilde{y} \in \{-1, +1\}\); consequently we cannot recover probability estimate from \(f(x)\).” </p>
 <p>意思就是说对于取值为\(\tilde{y} \in \{-1, +1\}\)的随机变量来说，\(e^{-\tilde{y}f}\)不是任何概率密度函数的对数形式，模型\(f(x)\)的结果无法用概率解释。</p>
@@ -2456,7 +2464,7 @@
 </blockquote>
 <h2 id="3.1.提升树模型">提升树模型</h2>
 
-<p>提升树模型实际采用加法模型（即基函数的线性组合）与前向分步算法，以决策树为基函数的提升方法称为提升树（Boosting Tree）。</p>
+<p>提升树模型实际采用加法模型（即基函数的线性组合）与前向分步算法，以_决策树为基函数_的提升方法称为提升树（Boosting Tree）。</p>
 <blockquote>
 <p>对分类问题决策树是二叉分类树，对回归问题决策树是二叉回归树。在6.1.3节AdaBoost例子中，基本分类器是\(x<v\\)或\\(x>v\)，可以看作是由一个跟结点直接连接两个叶结点的简单决策树，即所谓的<a href="http://www.52caml.com/head_first_ml/ml-chapter3-tree-based-family/#写在前面" target="_blank" rel="external">决策树桩（Decision Stump）</a>。</v\\)或\\(x></p>
 </blockquote>
@@ -2473,13 +2481,13 @@
 <p>其中，\(f_{k-1}(x)\)为当前模型，通过<strong>经验风险极小化</strong>确定下一颗决策树的参数\(\Theta_k\)，</p>
 <p>$$<br>\hat{\Theta}_k = \arg \min_{\Theta_k} \sum_{i=1}^{M} L(y^{(i)}, \; f_{k-1}(x) + T(x^{(i)}; \Theta_k))  \qquad(ml.1.6.15)<br>$$</p>
 <blockquote>
-<p>由于树的线性组合可以很好的拟合训练数据，即使数据中的输入和输出之间的关系很复杂也是如此，所以提升树是一个高功能的学习算法。 </p>
+<p>由于树的线性组合可以很好的拟合训练数据，即使数据中的输入和输出之间的关系很复杂也是如此，所以提升树是一个高效的学习算法。 </p>
 </blockquote>
 <p><strong>提升树家族</strong></p>
 <p>不同问题的提升树学习算法，其主要区别在于<strong>损失函数</strong>不同。平方损失函数常用于回归问题，用指数损失函数用于分类问题，以及绝对损失函数用于决策问题。</p>
 <ul>
 <li><p><strong><a href="http://www.52caml.com/head_first_ml/ml-chapter3-tree-based-family/#二叉分类树" target="_blank" rel="external">二叉分类树</a></strong></p>
-<p>  对于二类分类问题，提升树算法只需要将AdaBoost算法例子中的基本分类器限制为<strong><a href="http://www.52caml.com/head_first_ml/ml-chapter3-tree-based-family/#二叉分类树" target="_blank" rel="external">二叉分类树</a></strong>即可，可以说此时的决策树算法时AdaBoost算法的特殊情况。</p>
+<p>  对于二分类问题，提升树算法只需要将AdaBoost算法例子中的基本分类器限制为<strong><a href="http://www.52caml.com/head_first_ml/ml-chapter3-tree-based-family/#二叉分类树" target="_blank" rel="external">二叉分类树</a></strong>即可，可以说此时的决策树算法时AdaBoost算法的特殊情况。</p>
 <blockquote>
 <p>损失函数仍为指数损失，提升树模型仍为前向加法模型。</p>
 </blockquote>
@@ -2492,14 +2500,14 @@
 <li><p>回归问题提升树－前向分步算法</p>
 <blockquote>
 <p>回归问题提升树使用以下前向分步算法：</p>
-<p>  $$<br>  \begin{align}<br>  f_0(x) &amp;= 0 \\<br>  f_k(x) &amp;= f_{k-1}(x) + T(x; \Theta_k) \quad k=1,2,\cdots,K \\<br>  f_K(x) &amp;= \sum_{k=1}^{K} T(x; \Theta_k)<br>  \end{align} \qquad(n.ml1.6.17)<br>  $$</p>
+<p>  $$<br>  \begin{align}<br>  f_0(x) &amp;= 0 \\\<br>  f_k(x) &amp;= f_{k-1}(x) + T(x; \Theta_k) \quad k=1,2,\cdots,K \\\<br>  f_K(x) &amp;= \sum_{k=1}^{K} T(x; \Theta_k)<br>  \end{align} \qquad(n.ml1.6.17)<br>  $$</p>
 <p>在前向分布算法的第\(k\)步，给定当前模型\(f_{k-1}(x)\)，需求解：</p>
 <p>  $$<br>  \hat{\Theta}_k = \arg \min_{\Theta_k} \sum_{i=1}^{M} \underbrace{ L(y^{(i)}, \; f_{k-1}(x) + T(x^{(i)}; \Theta_k)) }_{损失函数} \qquad(n.ml.1.6.18)<br>  $$</p>
 <p>得到\(\hat{\Theta}_k\)，即第\(k\)颗树的参数。</p>
 <p>当采用<strong>平方误差损失函数</strong>时，</p>
 <p>  $$<br>  L(y, f(x)) = (y - f(x))^2 \qquad (n.ml.1.6.19)<br>  $$</p>
 <p>将平方误差损失函数展开为：</p>
-<p>  $$<br>  \begin{align}<br>  &amp;L(y, f_{k-1}(x) + T(x; \Theta_k)) \\<br>  &amp;\qquad = [y - f_{k-1}(x) - T(x; \Theta_k)]^2 \\<br>  &amp;\qquad = [r - T(x; \Theta_k)]^2<br>  \end{align} \qquad(n.ml.1.6.20)<br>  $$</p>
+<p>  $$<br>  \begin{align}<br>  &amp;L(y, f_{k-1}(x) + T(x; \Theta_k)) \\\<br>  &amp;\qquad = [y - f_{k-1}(x) - T(x; \Theta_k)]^2 \\\<br>  &amp;\qquad = [r - T(x; \Theta_k)]^2<br>  \end{align} \qquad(n.ml.1.6.20)<br>  $$</p>
 <p>这里\( r = y - f_{k-1}(x) \)，表示当前模型的拟合数据的残差（residual）。所以，对回归问题的提升树算法来说，只需要简单地拟合当前模型的残差。</p>
 <blockquote>
 <p>由于损失函数是平方损失，因此该方法属于<strong>L2Boosting</strong>的一种实现。</p>
@@ -2507,7 +2515,7 @@
 </blockquote>
 </li>
 <li><p><strong>回归问题提升树－算法描述</strong></p>
-<p>  \(<br>  \{ \\<br>  \quad\, 输入：训练数据集D=\{(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \cdots, (x^{(M)}, y^{(M)})\}, x^{(i)} \in \mathcal{X} \subseteq R^n, y^{(i)} \in \mathcal{Y}; \\<br>  \quad 输出：提升树f_K(x). \\<br>  \quad 过程: \\<br>  \qquad (1). 初始化模型f_0(x) = 0； \\<br>  \qquad\; (2). 循环训练K个模型 k=1,2,\cdots,K \\<br>  \qquad\qquad (a). 计算残差：r_{ki} = y^{(i)} - f_{k-1}(x^{(i)}), \quad i=1,2,\cdots,M \\<br>  \qquad\qquad (b). 拟合残差r_{ki}学习一个回归树，得到T(x;\Theta_k) \\<br>  \qquad\qquad (c). 更新f_k(x) = f_{k-1}(x) + T(x; \Theta_k) \\<br>  \qquad\; (3). 得到回归提升树 \\<br>  \qquad\qquad f_K(x) = \sum_{k=1}^{K} T(x; \Theta_k) \\<br>   \}<br>  \)</p>
+<p>  \(<br>  \{ \\\<br>  \quad\, 输入：训练数据集D=\{(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \cdots, (x^{(M)}, y^{(M)})\}, x^{(i)} \in \mathcal{X} \subseteq R^n, y^{(i)} \in \mathcal{Y}; \\\<br>  \quad 输出：提升树f_K(x). \\\<br>  \quad 过程: \\\<br>  \qquad (1). 初始化模型f_0(x) = 0； \\\<br>  \qquad\; (2). 循环训练K个模型 k=1,2,\cdots,K \\\<br>  \qquad\qquad (a). 计算残差：r_{ki} = y^{(i)} - f_{k-1}(x^{(i)}), \quad i=1,2,\cdots,M \\\<br>  \qquad\qquad (b). 拟合残差r_{ki}学习一个回归树，得到T(x;\Theta_k) \\\<br>  \qquad\qquad (c). 更新f_k(x) = f_{k-1}(x) + T(x; \Theta_k) \\\<br>  \qquad\; (3). 得到回归提升树 \\\<br>  \qquad\qquad f_K(x) = \sum_{k=1}^{K} T(x; \Theta_k) \\\<br>   \}<br>  \)</p>
 </li>
 </ul>
 <h1 id="4.Gradient-Boosting">Gradient Boosting</h1>
@@ -2519,7 +2527,7 @@
 <p>$$<br>-\left[ \frac{\partial L(y^{(i)}, f(x^{(i)}))} {\partial f(x^{(i)})} \right]_{f(x) = f_{k-1}(x)} \approx r_{m,i}<br>$$</p>
 <ul>
 <li><p>Gradient Boosting－算法描述</p>
-<p>  \(<br>  \{ \\<br>  \quad\, 输入：训练数据集D=\{(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \cdots, (x^{(M)}, y^{(M)})\}, x^{(i)} \in \mathcal{X} \subseteq R^n, y^{(i)} \in \mathcal{Y}; \\<br>  \qquad\quad\; 损失函数L(y, f(x)); \\<br>  \quad 输出：提升树\hat{f}(x). \\<br>  \quad 过程: \\<br>  \qquad (1). 初始化模型 \\<br>  \qquad\qquad\qquad f_0(x) = \arg \min_c \sum_{i=1}^{M} L(y^{(i)}, c)； \\<br>  \qquad\; (2). 循环训练K个模型 k=1,2,\cdots,K \\<br>  \qquad\qquad (a). 计算残差：对于i=1,2,\cdots,M \\<br>  \qquad\qquad\qquad\qquad r_{ki} = -\left[ \frac{\partial L(y^{(i)}, \; f(x^{(i)}))} {\partial f(x^{(i)})} \right]_{f(x) = f_{k-1}(x)} \\<br>  \qquad\qquad (b). 拟合残差r_{ki}学习一个回归树，得到第k颗树的叶结点区域R_{kj}，\quad j=1,2,\cdots,J \\<br>  \qquad\qquad (c). 对j=1,2,\cdots,J, 计算：\\<br>  \qquad\qquad\qquad\qquad c_{kj} = \arg \min_c \sum_{x^{(i)} \in R_{kj}} L(y^{(i)}, \; f_{k-1}(x^{(i)}) + c)\\<br>  \qquad\qquad (d). 更新模型：\\<br>  \qquad\qquad\qquad\qquad    f_k(x) = f_{k-1}(x) + \sum_{j=1}^{J} c_{kj} I(x \in R_{kj}) \\<br>  \qquad\; (3). 得到回归提升树 \\<br>  \qquad\qquad\qquad \hat{f}(x) = f_K(x) = \sum_{k=1}^{K} \sum_{j=1}^{J} c_{kj} I(x \in R_{kj}) \\<br>   \}<br>  \)</p>
+<p>  \(<br>  \{ \\\<br>  \quad\, 输入：训练数据集D=\{(x^{(1)}, y^{(1)}), (x^{(2)}, y^{(2)}), \cdots, (x^{(M)}, y^{(M)})\}, x^{(i)} \in \mathcal{X} \subseteq R^n, y^{(i)} \in \mathcal{Y}; \\\<br>  \qquad\quad\; 损失函数L(y, f(x)); \\\<br>  \quad 输出：提升树\hat{f}(x). \\\<br>  \quad 过程: \\\<br>  \qquad (1). 初始化模型 \\\<br>  \qquad\qquad\qquad f_0(x) = \arg \min_c \sum_{i=1}^{M} L(y^{(i)}, c)； \\\<br>  \qquad\; (2). 循环训练K个模型 k=1,2,\cdots,K \\\<br>  \qquad\qquad (a). 计算残差：对于i=1,2,\cdots,M \\\<br>  \qquad\qquad\qquad\qquad r_{ki} = -\left[ \frac{\partial L(y^{(i)}, \; f(x^{(i)}))} {\partial f(x^{(i)})} \right]_{f(x) = f_{k-1}(x)} \\\<br>  \qquad\qquad (b). 拟合残差r_{ki}学习一个回归树，得到第k颗树的叶结点区域R_{kj}，\quad j=1,2,\cdots,J \\\<br>  \qquad\qquad (c). 对j=1,2,\cdots,J, 计算：\\\<br>  \qquad\qquad\qquad\qquad c_{kj} = \arg \min_c \sum_{x^{(i)} \in R_{kj}} L(y^{(i)}, \; f_{k-1}(x^{(i)}) + c)\\\<br>  \qquad\qquad (d). 更新模型：\\\<br>  \qquad\qquad\qquad\qquad    f_k(x) = f_{k-1}(x) + \sum_{j=1}^{J} c_{kj} I(x \in R_{kj}) \\\<br>  \qquad\; (3). 得到回归提升树 \\\<br>  \qquad\qquad\qquad \hat{f}(x) = f_K(x) = \sum_{k=1}^{K} \sum_{j=1}^{J} c_{kj} I(x \in R_{kj}) \\\<br>   \}<br>  \)</p>
 <blockquote>
 <p>算法解释：</p>
 <ol>
